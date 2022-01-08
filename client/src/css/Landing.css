@@ -519,7 +519,8 @@ a.collateral-link1:hover .collat-mobile-phones2 {
   width: 90%;
   margin: auto;
   cursor: pointer;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   /* padding: 0.5em; */
   box-shadow: 0px 0px 5px #e1e1e1;
@@ -553,7 +554,7 @@ a.collateral-link1:hover .collat-mobile-phones2 {
   font-size: 16px;
   color: #000000;
   white-space: nowrap;
-  width: 200px;
+  width: 100%;
   /* border: 1px solid #000000; */
   overflow: hidden;
   text-overflow: ellipsis;
@@ -603,7 +604,7 @@ a.collateral-link1:hover .collat-mobile-phones2 {
 }
 .heroSlider2 {
   /* margin-top: 50px; */
-  width: 200px;
+  width: 100%;
   margin: auto;
 }
 .cardPara {
@@ -611,12 +612,17 @@ a.collateral-link1:hover .collat-mobile-phones2 {
   font-size: 14px;
   color: #229e54;
 }
+.cardDetails {
+  text-align: left;
+  width: 90%;
+  margin: auto;
+}
 .collat-category {
   font-weight: 600;
   margin: auto;
   font-size: 14px;
   color: #229e54;
-  width: 200px;
+  width: 100%;
   margin-bottom: 20px;
 }
 /* projects Section end */
