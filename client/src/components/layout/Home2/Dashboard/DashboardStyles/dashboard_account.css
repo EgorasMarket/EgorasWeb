@@ -1,0 +1,131 @@
+.dashboard_account_page_area {
+  width: 100%;
+  height: 100vh;
+  background: #ffff;
+  box-shadow: 0px 0px 20px #d5ebde;
+  border-radius: 15px;
+  padding: 2em;
+}
+.account_toggle_heading {
+  display: flex;
+  align-items: center;
+  border-bottom: solid;
+  border-width: 1px;
+  border-color: #e2ede6;
+}
+.account_toggle {
+  color: #9abba7;
+  cursor: pointer;
+  margin-right: 50px;
+}
+.account_toggle_active::after {
+  content: "";
+  background: #41ba71;
+  height: 2px;
+  width: 100%;
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+.account_toggle_active {
+  color: #41ba71;
+  font-weight: 700;
+  font-size: 16px;
+  position: relative;
+  cursor: pointer;
+}
+.account_toggle_body_area {
+  height: 100%;
+  overflow: scroll;
+  padding: 1em 0em;
+}
+.account_toggle_body_area1_title {
+  font-size: 26px;
+  font-weight: 700;
+  color: #adc1ad;
+  border-bottom: solid 1px #e1ede6;
+  padding-bottom: 0.6em;
+}
+.toggle_body_area1_cont1 {
+  display: flex;
+  align-items: center;
+  padding: 2em 2em;
+}
+.toggle_body_area1_cont1_txts {
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  font-size: 20px;
+  font-weight: 700;
+  color: #1b5532;
+}
+span.toggle_body_area1_cont1_sub_txts {
+  font-size: 16px;
+  font-weight: 400;
+  color: #adc1ad;
+}
+.toggle_body_area1_cont1_input {
+  width: 100%;
+}
+.user_upload_img {
+  width: 90px;
+  height: 90px;
+  box-shadow: -1px 0px 10px #85ad95;
+  border-radius: 100%;
+  margin-left: 8px;
+  cursor: pointer;
+  object-fit: cover;
+  padding: 4px;
+  background: #42a66c;
+}
+.c-md-2 {
+  box-sizing: border-box;
+  flex-basis: 16.66667%;
+  max-width: 16.66667%;
+  padding: 1rem;
+}
+.name[data-v-547c1748] {
+  margin-bottom: 0;
+}
+
+.input-field__wrapper {
+  position: relative;
+  margin-bottom: 30px;
+}
+.input[type="text"] {
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  transition: border-color 0.3s ease-in, color 1s linear;
+  width: 100%;
+  display: block;
+  height: 56px;
+  background-color: transparent;
+  border-radius: 4px;
+  outline: none;
+  color: #0a2e65;
+  border: 1px solid rgba(10, 46, 101, 0.1);
+  font-family: "CW BR Firma", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+  font-size: 0.95rem;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  padding-left: 20px;
+}
+.input[type="text"].has-input + .input-field__helper {
+  opacity: 1;
+}
+
+.input-field__wrapper .input-field__helper {
+  font-size: 0.7rem;
+  position: absolute;
+  opacity: 0;
+  background-color: #fff;
+  padding-left: 8px;
+  padding-right: 8px;
+  top: -7px;
+  font-weight: 500;
+  color: rgba(10, 46, 101, 0.5);
+  transition: color 0.3s ease;
+  left: 12px;
+}

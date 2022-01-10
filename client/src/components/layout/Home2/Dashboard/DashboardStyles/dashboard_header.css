@@ -18,6 +18,15 @@
 .together {
   display: flex;
   align-items: center;
+  flex-direction: row;
+}
+.account_numb_div {
+  font-weight: 700;
+  font-size: 14px;
+  color: grey;
+}
+.copy_icon {
+  font-size: 14px !important;
 }
 .dashboard-area {
   display: flex;
@@ -27,14 +36,15 @@
 
 .user_profile_icon_cont {
   display: flex;
-  /* width: 6.5%; */
+  width: 82%;
   /* flex-direction: column; */
   justify-content: space-between;
   align-items: center;
-  border: solid;
+  flex-direction: row-reverse;
+  border: none;
   padding: 0.3em 1em;
   border-width: 1px;
-  border-color: #cdcdcd;
+  /* border-color: #cdcdcd; */
   border-radius: 10px;
   cursor: pointer;
 }
@@ -42,22 +52,46 @@
 .welcome_user {
   display: flex;
   margin: 0;
+  align-items: flex-start;
   font-size: 14px;
-  flex-direction: column;
-  align-items: flex-end;
+  flex-direction: column-reverse;
+}
+.cart_num {
+  background: #41ba71;
+  border-radius: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 10px;
+  width: 15px;
+  height: 15px;
+  line-height: 16px;
+  position: absolute;
+  top: -5px;
+  font-weight: 700;
+  right: 6px;
+}
+.save_numb_div {
+  border-right: solid 1px #c8c8c8;
+  margin-right: 9px;
+  padding-right: 8px;
+  position: relative;
 }
 
 .userName_name {
   color: #41ba71;
   font-weight: 800;
-  font-size: 18px;
+  font-size: 24px;
 }
 .user_profile {
   width: 40px;
+  height: 40px;
   box-shadow: -1px 0px 10px #85ad95;
   border-radius: 100%;
-  margin-right: 20px;
+  margin-left: 8px;
   cursor: pointer;
+  object-fit: cover;
+  padding: 3px;
+  background: #42a66c;
 }
 .user_profile2 {
   width: 40px;
