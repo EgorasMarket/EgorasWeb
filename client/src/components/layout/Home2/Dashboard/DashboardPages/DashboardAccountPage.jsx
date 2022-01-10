@@ -209,21 +209,7 @@ function DashboardAccountPage() {
                   <div className="toggle_body_area1_cont1">
                     <div className="toggle_body_area1_cont1_txts"></div>
                     <div className="toggle_body_area1_cont1_input">
-                      {/* <DesktopDatePicker
-                        label="Date desktop"
-                        inputFormat="MM/dd/yyyy"
-                        value={value}
-                        onChange={handleChange}
-                        renderInput={(params) => <TextField {...params} />}
-                      /> */}
                       <button className="save_changes_btn">Save Changes</button>
-                      {/* <TextField
-                        className="name_input1"
-                        id="outlined-basic"
-                        label="Username"
-                        variant="outlined"
-                        value="Cyntax247"
-                      /> */}
                     </div>
                   </div>
                   {/* ================= */}
