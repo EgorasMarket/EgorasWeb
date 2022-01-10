@@ -9,9 +9,18 @@ import "bootstrap/dist/css/bootstrap.css";
 import { Link } from "react-router-dom";
 import TelegramIcon from "@material-ui/icons/Telegram";
 import TwitterIcon from "@material-ui/icons/Twitter";
+import SearchIcon from "@mui/icons-material/Search";
+import LiveTvIcon from "@mui/icons-material/LiveTv";
+import PhoneAndroidIcon from "@mui/icons-material/PhoneAndroid";
+import TabletMacIcon from "@mui/icons-material/TabletMac";
+import LaptopMacIcon from "@mui/icons-material/LaptopMac";
+import DesktopMacIcon from "@mui/icons-material/DesktopMac";
+import PrintIcon from "@mui/icons-material/Print";
+import KitchenIcon from "@mui/icons-material/Kitchen";
 
 import "../../../css/getloan.css";
 import "../../../css/getloanmobile.css";
+import DisplayMoney from "../../DisplayMoney";
 
 const responsive = {
   superLargeDesktop: {
@@ -32,9 +41,47 @@ const responsive = {
     items: 1,
   },
 };
+const responsive1 = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 600 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 600, min: 0 },
+    items: 1,
+  },
+};
 
 const GetLoan = () => {
   const [page, setPage] = useState("change");
+  const [categoryBtn, setCategoryBtn] = useState("Popular");
+  // const [categoryList, setCategoryList] = useState("PopularCategories");
+
+  // change  category buttons
+  const triggerPopular = () => {
+    setCategoryBtn("Popular");
+    let popularCat = document.getElementById("popular-categories");
+    let allCat = document.getElementById("all-categories");
+    popularCat.style.display = "table-row-group";
+    allCat.style.display = "none";
+  };
+  // change  category buttons
+  const triggerAll = () => {
+    setCategoryBtn("All");
+    let popularCat = document.getElementById("popular-categories");
+    let allCat = document.getElementById("all-categories");
+    popularCat.style.display = "none";
+    allCat.style.display = "table-row-group";
+  };
 
   const clickMe1 = () => {
     if (page === "change") {
@@ -57,17 +104,15 @@ const GetLoan = () => {
       <section className="gtheroSection">
         <div className="container">
           <div className="gtheroArea">
-            <div className="gtheroTxts">
+            <div className="heroTxts">
               <h1 className="gtheroTitleloan">
                 {" "}
                 Instant
-                <br />
                 <span className="interestFree2"> Interest-Free Loans</span>
               </h1>
               <p className="gtheroCaption"> FOR EVERYONE.</p>
               <p className="gtheroPara">
                 We are here to help you get access to loans at zero interest.
-                <br />
                 Put your personal properties up as collateral for a loan.
               </p>
               <ul className="gtherobuttons">
@@ -104,30 +149,17 @@ const GetLoan = () => {
                 </div>
               </ul>
             </div>
-
             <div className="hero-images">
-              <img
-                src="/img/phone-hero2.svg"
-                alt=""
-                className="gtheroPhone"
-              />
-              <img
-                src="/img/egrdebitCard.png"
-                alt=""
-                className="gtdebitCard"
-              />
-              <img src="/img/shape-egg.svg" alt="" className="gteggShape" />
-              <img src="/img/dots.svg" alt="" className="gtdots" />
-              <img
-                src="/img/greencircle.svg"
-                alt=""
-                className="gtgreenCircle"
-              />
-              <img src="/img/x-shape.svg" alt="" className="gtx" />
-              <img src="/img/circle.svg" alt="" className="gtcircle" />
+              <img src="/img/Phonelast.png" alt="" className="heroPhone" />
             </div>
           </div>
         </div>
+        <img src="/img/blur-drop.png" alt="" className="blurDrop" />
+        <img
+          src="/img/icons/left-blur.png"
+          alt=""
+          className="blur-white-bga2abab"
+        />
       </section>
       {/* hero section end */}
 
@@ -185,6 +217,879 @@ const GetLoan = () => {
       </section>
       {/* collateralize secion end */}
 
+      {/* =================================================================================================================================================================================================================================================================== */}
+
+      <section className="collateral-assets-section">
+        <div className="container">
+          <div className="assets-container">
+            <div className="assets-cont-head-area">
+              <div className="assets-cont-header-arae-btns">
+                <button
+                  className={
+                    categoryBtn === "Popular"
+                      ? "assets-header1"
+                      : "assets-header2"
+                  }
+                  onClick={triggerPopular}
+                >
+                  Popular Collaterals
+                </button>
+                <button
+                  className={
+                    categoryBtn === "All" ? "assets-header1" : "assets-header2"
+                  }
+                  onClick={triggerAll}
+                >
+                  All Collaterals
+                </button>
+              </div>
+
+              <div className="search-input">
+                {" "}
+                <input
+                  type="search"
+                  name="search"
+                  id="searchCollaterals"
+                  className="assets-header3"
+                  placeholder="Search..."
+                ></input>{" "}
+                <SearchIcon className="search-icon" />
+              </div>
+            </div>
+            <table className="assets-table">
+              <thead className="assets-category-titles">
+                <tr className="assets">
+                  <th className="assets-category-titles-heading1">
+                    Collateral Type
+                  </th>
+                  <th className="assets-category-titles-heading1">Category</th>
+                  <th className="assets-category-titles-heading1">
+                    Inventory <span className="per-day">/ per-day</span>{" "}
+                  </th>
+                  <th className="assets-category-titles-heading1"></th>
+                </tr>
+              </thead>
+
+              {/* <div className="table-body-content">
+
+
+
+                
+              </div> */}
+              <tbody
+                className="assets-table-body popular-categories"
+                id="popular-categories"
+              >
+                {" "}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <PhoneAndroidIcon className="assets-list-icon" />
+                      <div className="assets-data-name">Phones</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data-name">Phones & Accessories</div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data-name">
+                      <DisplayMoney amount="150" />
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <LaptopMacIcon className="assets-list-icon" />
+
+                      <div className="assets-data-name">Laptops</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        Laptops & Computers
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <DesktopMacIcon className="assets-list-icon" />
+                      <div className="assets-data-name">Desktop Computers</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        Laptops & Computers
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <LiveTvIcon className="assets-list-icon" />
+
+                      <div className="assets-data-name">Television</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        TV & DVD Equipments
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/generator-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Generators</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name"> Generators</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <KitchenIcon className="assets-list-icon" />
+                      <div className="assets-data-name">Refrigerators</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Home Appliances</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+              {/* {{{{{{{{{{{{{{{{{{{{{}}}}}}}}}}}}}}}}}}}}} */}
+              <tbody
+                className="assets-table-body all-categories "
+                id="all-categories"
+              >
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <PhoneAndroidIcon className="assets-list-icon" />
+                      <div className="assets-data-name">Phones</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data-name">Phones & Accessories</div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data-name">
+                      <DisplayMoney amount="150" />
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <LaptopMacIcon className="assets-list-icon" />
+
+                      <div className="assets-data-name">Laptops</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        Laptops & Computers
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <DesktopMacIcon className="assets-list-icon" />
+                      <div className="assets-data-name">Desktop Computers</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        Laptops & Computers
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <LiveTvIcon className="assets-list-icon" />
+
+                      <div className="assets-data-name">Television</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        TV & DVD Equipments
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/generator-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Generators</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name"> Generators</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <KitchenIcon className="assets-list-icon" />
+                      <div className="assets-data-name">Refrigerators</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Home Appliances</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/washing-machine-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Washing Machines</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Home Appliances</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <PrintIcon className="assets-list-icon" />
+                      <div className="assets-data-name">Printers</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Office Equipments</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/home-theaters-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Home Theatres</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Home Audio</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/gas-cooker-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Gas Cookers</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Kitchen Equipments</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="300" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/camera-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Digital Camera</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Cameras & Photos</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="300" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/office-shelf-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Office Shelf</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Office Equipments</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/micro-wave-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Micro Wave</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Kitchen Equipments</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/air-conditioner-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Air Conditioner</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">Home Appliances</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/manual-sewing-machine-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">
+                        Manual Sewing Machine
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        Industrial Appliances
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="150" /> -{" "}
+                        <DisplayMoney amount="200" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/industrial-sewing-machine-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">
+                        Industrial Sewing Machine
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        Industrial Appliances
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="200" /> -{" "}
+                        <DisplayMoney amount="400" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+                {/* ======================================== */}
+                {/* ======================================== */}
+                {/* ======================================== */}
+                <tr className="assets-category-row">
+                  <td className="assets-category-data">
+                    <div className="assets-data">
+                      <img
+                        src="/img/icons/furniture-chair-icon.svg"
+                        className="assets-list-icon"
+                      />
+                      <div className="assets-data-name">Furnitures</div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        Home & Office Furniture
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data1b">
+                    <div className="assets-data">
+                      <div className="assets-data-name">
+                        <DisplayMoney amount="600" /> -{" "}
+                        <DisplayMoney amount="1500" />
+                      </div>
+                    </div>
+                  </td>
+                  <td className="assets-category-data-last">
+                    <div className="assets-data-name-last">
+                      <a
+                        href="https://egoras.ng/appointment"
+                        className="assets-collateralize-button"
+                      >
+                        Collateralize
+                      </a>
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
       {/* =================================================================================================================================================================================================================================================================== */}
       {/* How it Works Section Start */}
       <section className="gthowItWorks">
@@ -321,10 +1226,10 @@ const GetLoan = () => {
                   />
                 </div>
                 <div className="gthowCard2Texts">
-                  Approve Loans
+                  Approve Collaterals
                   <br />
                   <p className="howCard2TextsP">
-                    Fund loans without risking your
+                    Fund collaterals without risking your
                     <br />
                     EGR token.
                   </p>
@@ -346,7 +1251,7 @@ const GetLoan = () => {
                   <p className="howCard3TextsP">
                     Earn over 20% APR for
                     <br />
-                    approving/declining loans.
+                    approving/declining collaterals.
                   </p>
                 </div>
               </div>
@@ -370,7 +1275,7 @@ const GetLoan = () => {
       {/* =================================================================================================================================================================================================================================================================== */}
 
       {/* Benefits Section start */}
-      <section className="gtbenefitsSection"  id="benefits">
+      <section className="gtbenefitsSection" id="benefits">
         <div className="container">
           <div className="gttitleLine"></div>
           <div className="gthowItWorksTitle">
@@ -404,10 +1309,10 @@ const GetLoan = () => {
               <div className="gtbCardTexts">
                 <h1 className="gtbCardTitle">Best Value For Your Assets</h1>
                 <p className="gtbCardPara">
-                  Unlike other lenders that charge exorbitant interest rate
-                  (over 30% monthly). Egoras offers the Market leading zero
-                  interest rate which makes the repayment stressfree with zero
-                  hassle.
+                  For every collateral, our advanced AI tech will make the
+                  perfect value for the item based on its condition and
+                  determine amazing price value[s] for the items. Our process is
+                  very seamless and fast.
                 </p>
               </div>
             </div>
@@ -435,7 +1340,7 @@ const GetLoan = () => {
                 <p className="gtbCardPara">
                   Unlike other lenders that charge exorbitant interest rate
                   (over 30% monthly). Egoras offers the Market leading zero
-                  interest rates which makes the repayment stressfree with zero
+                  interest rates which makes the repayment stress-free with zero
                   hassle.
                 </p>
               </div>
@@ -543,7 +1448,7 @@ const GetLoan = () => {
       {/* =================================================================================================================================================================================================================================================================== */}
       {/* atm cards section start */}
 
-      <section className="atmCards">
+      {/* <section className="atmCards">
         <div className="container">
           <div className="atmCardsArea">
             <div
@@ -565,7 +1470,7 @@ const GetLoan = () => {
                 Learn more
                 <ArrowRightIcon />
               </a> */}
-            </div>
+      {/* </div>
             <div
               className="atmCardsImage"
               data-aos="fade-up"
@@ -579,7 +1484,7 @@ const GetLoan = () => {
             </div>
           </div>
         </div>
-      </section>
+      </section> */}
 
       {/* atm cards section end */}
       {/* =================================================================================================================================================================================================================================================================== */}
@@ -587,28 +1492,6 @@ const GetLoan = () => {
       <section className="savingsSection">
         <div className="container">
           <div className="savingsArea">
-            <div
-              className="savingsImages"
-              data-aos="fade-up"
-              data-aos-duration="3000"
-            >
-              <img
-                src="/img/savingsCircle.svg"
-                alt=""
-                className="savingsCircle"
-              />
-              <img
-                src="/img/savingsVector.svg"
-                alt=""
-                className="savingsVector"
-              />
-              <img
-                src="/img/savingsMoney.svg"
-                alt=""
-                className="savingsMoney"
-              />
-              {/* <img src="/img/savingsLens.svg" alt="" className="savingsLens" /> */}
-            </div>
             <div
               className="savingsText"
               data-aos="fade-up"
@@ -633,6 +1516,28 @@ const GetLoan = () => {
                 Learn more
                 <ArrowRightIcon />
               </a> */}
+            </div>
+            <div
+              className="savingsImages"
+              data-aos="fade-up"
+              data-aos-duration="3000"
+            >
+              <img
+                src="/img/savingsCircle.svg"
+                alt=""
+                className="savingsCircle"
+              />
+              <img
+                src="/img/savingsVector.svg"
+                alt=""
+                className="savingsVector"
+              />
+              <img
+                src="/img/savingsMoney.svg"
+                alt=""
+                className="savingsMoney"
+              />
+              {/* <img src="/img/savingsLens.svg" alt="" className="savingsLens" /> */}
             </div>
           </div>
         </div>
@@ -667,7 +1572,7 @@ const GetLoan = () => {
 ==============================================
 ============================= */}
             <Carousel
-              responsive={responsive}
+              responsive={responsive1}
               className="storiesCard"
               showDots={false}
               infinite={true}
@@ -687,9 +1592,8 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Meet Mrs Faith, She used Egoras
-                    <br /> micro-credit to restore her failing
-                    <br /> farm business.
+                    Meet Mrs Faith, She used Egoras micro-credit to restore her
+                    failing farm business.
                   </h5>
                   <h6 className="storiesCardDate">19 Apr 2021</h6>
                 </div>
@@ -708,10 +1612,8 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Meet Mrs Onyiyechi, She used Egoras
-                    <br /> microcredit to expand her
-                    <br />
-                    small business
+                    Meet Mrs Onyiyechi, She used Egoras microcredit to expand
+                    her small business
                   </h5>
                   <h6 className="storiesCardDate">19 Apr 2021</h6>
                 </div>
@@ -730,10 +1632,8 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Meet Mrs Elizabeth, She used Egoras
-                    <br /> microcredit to expand her
-                    <br />
-                    grocery business.
+                    Meet Mrs Elizabeth, She used Egoras microcredit to expand
+                    her grocery business.
                   </h5>
                   <h6 className="storiesCardDate">19 Apr 2021</h6>
                 </div>
@@ -752,10 +1652,8 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Mrs Chidinma Happiness used Egoras
-                    <br /> Micro-credit to expand her
-                    <br />
-                    grocery business
+                    Mrs Chidinma Happiness used Egoras Micro-credit to expand
+                    her grocery business
                   </h5>
                   <h6 className="storiesCardDate">1 Apr 2021</h6>
                 </div>
@@ -774,9 +1672,8 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Meet Mrs Justina Kelechi, a small <br />
-                    business owner that used Egoras <br />
-                    microcredit to grow her business
+                    Meet Mrs Justina Kelechi, a small business owner that used
+                    Egoras microcredit to grow her business
                   </h5>
                   <h6 className="storiesCardDate">1 Apr 2021</h6>
                 </div>
@@ -795,8 +1692,7 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Meet Mr Chinemerem, An Egoras <br />
-                    borrower
+                    Meet Mr Chinemerem, An Egoras borrower
                   </h5>
                   <h6 className="storiesCardDate">28 Mar 2021</h6>
                 </div>
@@ -815,8 +1711,7 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Meet Mrs Chidinma Ogu,
-                    <br /> an Egoras borrower
+                    Meet Mrs Chidinma Ogu, an Egoras borrower
                   </h5>
                   <h6 className="storiesCardDate">28 Mar 2021</h6>
                 </div>
@@ -835,8 +1730,7 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Meet Mrs Faith Akpan, An Egoras <br />
-                    borrower
+                    Meet Mrs Faith Akpan, An Egoras borrower
                   </h5>
                   <h6 className="storiesCardDate">28 Mar 2021</h6>
                 </div>
@@ -874,9 +1768,7 @@ const GetLoan = () => {
                 </div>
                 <div className="storiesCardTxts">
                   <h5 className="storiesCardTitle">
-                    Mrs Gloria Omoreke just doubled
-                    <br /> her profits with Egoras
-                    <br />
+                    Mrs Gloria Omoreke just doubled her profits with Egoras
                     Micro-credit
                   </h5>
                   <h6 className="storiesCardDate">23 Mar 2021</h6>
@@ -1132,7 +2024,7 @@ const GetLoan = () => {
       {/* Partners Section end  */}
       {/* =================================================================================================================================================================================================================================================================== */}
       {/* gtcompare Section Start */}
-      <section className="gtcompareSection">
+      {/* <section className="gtcompareSection">
         <div className="container">
           <div
             className="gttitleLine"
@@ -1160,11 +2052,7 @@ const GetLoan = () => {
                 <h4 className="cardContentTitles">Other Lenders</h4>
                 <div className="content-img">
                   {" "}
-                  <img
-                    src="/img/egoras-logo.svg"
-                    alt=""
-                    className="Content"
-                  />
+                  <img src="/img/egoras-logo.svg" alt="" className="Content" />
                 </div>
               </div>
               <hr />
@@ -1192,7 +2080,7 @@ const GetLoan = () => {
                 </h6>
               </div>
               {/* <hr /> */}
-              {/* <div className="compareCardContent2">
+      {/* <div className="compareCardContent2">
               <h6 className="cardContentTxt">Card Delivery</h6>
               <h6 className="cardContentTxt">
                 <RemoveCircleIcon className="removeCircle" />
@@ -1204,7 +2092,7 @@ const GetLoan = () => {
                 25 free transfers every month
               </h6>
             </div> */}
-              <hr />
+      {/* <hr />
               <div className="compareCardContent2">
                 <h6 className="cardContentTxt">Repayment</h6>
                 <h6 className="cardContentTxt">
@@ -1272,7 +2160,7 @@ const GetLoan = () => {
         </div>
 
         <img src="/img/token-dots.svg" alt="" className="gtcompareDots" />
-      </section>
+      </section> */}
       {/* gtcompare Section End */}
       {/* =================================================================================================================================================================================================================================================================== */}
       {/* explore section  start */}
@@ -1301,11 +2189,7 @@ const GetLoan = () => {
               </div>
             </div>
 
-            <img
-              src="/img/explore-dots.svg"
-              alt=""
-              className="gtexploreDots"
-            />
+            <img src="/img/explore-dots.svg" alt="" className="gtexploreDots" />
             <img
               src="/img/explore-shape.svg"
               alt=""
