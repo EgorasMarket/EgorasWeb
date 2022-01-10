@@ -33,7 +33,7 @@ export const loadUser = () => async (dispatch) => {
 
 // Get Social Media Handles
 export const getAuthentication =
-  (fullname, email, password, phoneNumber, ref) => async (dispatch) => {
+  (fullname, email, password, phoneNumber, InfoReason) => async (dispatch) => {
     const config = {
       headers: {
         Accept: "*",
@@ -47,7 +47,7 @@ export const getAuthentication =
       email,
       password,
       phoneNumber,
-      ref,
+      InfoReason,
     });
 
     console.log(body);
