@@ -5,7 +5,7 @@ import Home from "./components/layout/home/Home";
 import Opd from "./components/layout/home/Opd";
 import Aos from "aos";
 import "aos/dist/aos.css";
-
+import axios from "axios";
 // import Aos from "aos";
 // import "aos/dist/aos.css";
 
@@ -79,13 +79,22 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import Companies from "./components/layout/companies/Companies";
 import Details from "./components/layout/companies/Details";
 import Request from "./components/layout/requests/Request";
-import Login from "./components/auth/Login";
+// import Login from "./components/auth/Login";
 import Categories from "./components/layout/categories/Categories";
 import Status from "./components/layout/status/Status";
+import TermsAndConditions from "./components/layout/Home2/Terms&Condition/TermsAndConditions";
+import TokenEGR from "./components/layout/Home2/tokens/TokenEGR";
+import TokenEUSD from "./components/layout/Home2/tokens/TokenEUSD";
 import NewHome from "./components/layout/home/NewHome";
 // import About from './components/layout/home/About';
 import TokenMetrics from "./components/layout/home/TokenMetrics";
 import AddUploader from "./components/layout/uploads/addUploader";
+// import Login from "./components/auth/Login";
+import Login from "./components/layout/Home2/Login/Login";
+// import Signup from "./components/layout/Home2/Signup/Signup";
+
+import Signup from "./components/layout/Home2/Signup/Signup";
+import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
 import LoanDetails from "./components/layout/LoanDetails/LoanDetails";
@@ -110,18 +119,40 @@ import Documentation17 from "./components/layout/documentation/documentation17";
 import Documentation18 from "./components/layout/documentation/documentation18";
 import Documentation19 from "./components/layout/documentation/documentation19";
 import Documentation1 from "./components/layout/documentation/documentationSideTabs";
-
+import Dashboard from "./components/layout/Home2/Dashboard/Dashboard";
 import Explore_Loans from "./components/layout/Explore_Loan/explore_loans";
+import Savings from "./components/layout/Home2/Savings/Savings";
+import HomeUpdate from "./components/layout/HomeUpdate/HomeUpdate";
 import Explore_Loans_Page from "./components/layout/Explore_Loan/exploreLoanSection5";
 import Explore_Loans_Page1 from "./components/layout/Explore_Loan/exploreLoanSection7";
 import Explore_Loans_Page2 from "./components/layout/Explore_Loan/exploreLoanSection9";
 import Explore_Loans_Page3 from "./components/layout/Explore_Loan/exploreLoanSection10";
 import Explore_Loans_Page4 from "./components/layout/Explore_Loan/exploreLoanSection11";
 import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSection12";
+import EGC from "./components/layout/EGC/egc";
+// import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
+
+import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 
 const App = () => {
   useEffect(() => {
+    localStorage.setItem("xrate", 410);
     Aos.init({});
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+    try {
+      axios
+        .get("https://geolocation-db.com/json/", null, config)
+        .then((data) => {
+          console.log(data, "The Country");
+          localStorage.setItem("origin", data.data.country_name);
+        });
+    } catch (err) {
+      console.log(err, "Call from exchange rate");
+    }
   }, []);
 
   function getLibrary(provider) {
@@ -176,15 +207,19 @@ const App = () => {
           >
             <Fragment>
               <Header />
+
               {/* <Header onClick={handleChange} intitiated={intitiated} /> */}
               {/* {isTokenMetrics == false ? (
               ) : null} */}
               {/* <Route exact path='/' component={Home} /> */}
-              <Route exact path="/" component={Newhome2} />
-              <Route exact path="/validator" component={Landing} />
+
               {/* <section className=''> */}
               <section>
                 <Switch>
+                  <Route exact path="/" component={HomeUpdate} />
+                  <Route exact path="/savings" component={Savings} />
+                  <Route exact path="/loan" component={Newhome2} />
+                  <Route exact path="/validator" component={Landing} />
                   {/* <Route exact path='/loan/details/:id' component={Loan} /> */}
                   <Route
                     exact
@@ -196,14 +231,22 @@ const App = () => {
                     path="/companies/details/:id"
                     component={Details}
                   />
+                  <Route
+                    exact
+                    path="/products/details/:id/:name"
+                    component={ItemDetailsPage}
+                  />
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />
+                  <Route exact path="/signup" component={Signup} />
                   {/* <Route exact path='/new-home' component={NewHome} /> */}
 
                   <Route exact path="/confirmation" component={Opd} />
                   {/* <Route exact path='/about' component={About} /> */}
                   <Route exact path="/about" component={About} />
-                  {/* <Route exact path="/createloan" component={Createloan} /> */}
+                  {/* <Route exact path="/market" component={MarketHome} /> */}
+                  <Route exact path="/egc" component={EGC} />
+                  <Route exact path="/createloan2" component={Createloan} />
                   <Route exact path="/createloan" component={Createloan2} />
                   <Route
                     exact
@@ -211,14 +254,15 @@ const App = () => {
                     component={AddUploader}
                   />
                   <PrivateRoute exact path="/governance" component={Request} />
-                  <PrivateRoute
-                    exact
-                    path="/companyreg"
-                    component={Companyreg}
-                  />
+                  <Route exact path="/companyreg" component={Companyreg} />
 
                   <Route exact path="/companies" component={Companies} />
                   <Route exact path="/privacy" component={Privacy} />
+                  <Route
+                    exact
+                    path="/terms-conditions"
+                    component={TermsAndConditions}
+                  />
                   <Route exact path="/terms" component={Terms} />
 
                   <Route
@@ -248,7 +292,7 @@ const App = () => {
                   />
 
                   <Route
-                    path="/explore_loans"
+                    path="/explore_collaterals"
                     exact
                     component={Explore_Loans}
                   />
@@ -353,9 +397,14 @@ const App = () => {
                     path="/egoras-governance-token"
                     component={Documentation19}
                   />
+                  <Route exact path="/egr-token" component={TokenEGR} />
+                  <Route exact path="/eusd-token" component={TokenEUSD} />
+                  <Route exact path="/whitepaper" component={Whitepaper} />
 
                   <Route exact path="/login" component={Login} />
+                  {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
+                  <Dashboard />
                 </Switch>
               </section>
               {/* <Footer /> */}

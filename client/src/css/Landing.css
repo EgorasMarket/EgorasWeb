@@ -4,6 +4,7 @@
   padding: 13em 0em;
   padding-bottom: 3em;
   position: relative;
+  overflow: hidden;
 }
 .heroArea {
   display: flex;
@@ -12,8 +13,8 @@
   position: relative;
 }
 .heroTxts {
-  margin-bottom: 50px;
   position: relative;
+  width: 100%;
 }
 
 .heroTitle {
@@ -38,7 +39,7 @@
 }
 
 .heroButton {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 .heroBtn {
   padding: 1.15em 6em;
@@ -59,13 +60,13 @@
 }
 
 .hero-images {
+  margin-left: 10%;
   position: relative;
-  margin-right: 100px;
+  width: 100%;
 }
 
 .heroPhone {
-  width: 245px;
-  margin-right: 50px;
+  width: 105%;
   position: relative;
 }
 
@@ -108,6 +109,7 @@
   top: 150px;
   z-index: -2;
   width: 550px;
+  opacity: 0.5;
 }
 
 .card-amount {
@@ -118,7 +120,7 @@
   border-radius: 10px;
   align-items: center;
   position: absolute;
-  width: 50%;
+  width: 35%;
   bottom: 0;
   right: 50%;
   box-shadow: 0px 0px 15px #a2a2a2;
@@ -135,7 +137,7 @@
 .bottomCards {
   display: flex;
   justify-content: space-between;
-  width: 65%;
+  width: 45%;
   margin-top: 100px;
 }
 
@@ -189,17 +191,65 @@
   padding: 0.2em;
   border-radius: 50px;
 }
+
 /* hero section start */
 /* ============================================ */
 /* ============================================ */
 /* ============================================ */
-/* how it works section start */
 
+/* how it works section start */
+.collateral-links {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+}
+.collat-mobile-phones {
+  width: 85px;
+  transition: 0.3s linear;
+}
+.collat-mobile-phones1,
+.collat-mobile-phones2 {
+  width: 65px;
+  transition: 0.3s linear;
+}
+.collat-mobile-phones,
+.collat-mobile-phones1,
+.collat-mobile-phones2 {
+  filter: grayscale();
+}
 .howItWorks {
   padding: 2em 0em;
   position: relative;
 }
 
+p.collat-mobile-txt {
+  color: #000;
+  font-size: 14px;
+  margin-top: 20px;
+  margin-bottom: 0;
+}
+a.collateral-link1 {
+  padding: 1em 1em;
+  height: 2opx;
+  /* width: 20%; */
+  height: 177px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  transition: 0.3s linear;
+}
+a.collateral-link1:hover {
+  background: #ffffff;
+  box-shadow: 0px 0px 15px #d9d9d9;
+  transition: 0.3s linear;
+}
+a.collateral-link1:hover .collat-mobile-phones,
+a.collateral-link1:hover .collat-mobile-phones1,
+a.collateral-link1:hover .collat-mobile-phones2 {
+  filter: none;
+  transition: 0.3s linear;
+}
 .titleLine {
   width: 5%;
   height: 5px;
@@ -367,15 +417,18 @@
 .projectsSection {
   padding: 2em 0em;
   position: relative;
+  overflow: hidden;
 
   background: #fbfbfb;
 }
 
 .gtstoriesSection .container {
   max-width: 1274px;
+  overflow: hidden;
 }
 .projectsSection .container {
   max-width: 1274px;
+  overflow: hidden;
 }
 .caroCard .react-multiple-carousel__arrow--left,
 .caroCard .react-multiple-carousel__arrow--right {
@@ -466,7 +519,8 @@
   width: 90%;
   margin: auto;
   cursor: pointer;
-  display: grid;
+  display: flex;
+  flex-direction: column;
   background: #fff;
   /* padding: 0.5em; */
   box-shadow: 0px 0px 5px #e1e1e1;
@@ -500,7 +554,7 @@
   font-size: 16px;
   color: #000000;
   white-space: nowrap;
-  width: 200px;
+  width: 100%;
   /* border: 1px solid #000000; */
   overflow: hidden;
   text-overflow: ellipsis;
@@ -550,7 +604,7 @@
 }
 .heroSlider2 {
   /* margin-top: 50px; */
-  width: 200px;
+  width: 100%;
   margin: auto;
 }
 .cardPara {
@@ -558,12 +612,17 @@
   font-size: 14px;
   color: #229e54;
 }
+.cardDetails {
+  text-align: left;
+  width: 90%;
+  margin: auto;
+}
 .collat-category {
   font-weight: 600;
   margin: auto;
   font-size: 14px;
   color: #229e54;
-  width: 200px;
+  width: 100%;
   margin-bottom: 20px;
 }
 /* projects Section end */
@@ -576,6 +635,7 @@
   padding: 4em 0em;
   padding-bottom: 6em;
   position: relative;
+  overflow: hidden;
 }
 .benefitsSection .container {
   max-width: 1302px;
@@ -644,6 +704,7 @@
 .landingstoriesSection {
   position: relative;
   padding: 2em 0em;
+  overflow: hidden;
 }
 iframe {
   border: 0;
@@ -718,6 +779,7 @@ iframe {
 .partnersSection {
   padding: 4em 0em;
   position: relative;
+  overflow: hidden;
 }
 
 .PartnersArea {
@@ -775,64 +837,7 @@ iframe {
 /* ============================================ */
 /* ============================================ */
 /* ============================================ */
-/* tokens section  start */
 
-.tokenSection {
-  padding: 4em 0em;
-  position: relative;
-  background: #fff9f4;
-}
-
-.tokenArea {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-
-  position: relative;
-  z-index: 20;
-}
-
-.mainToken {
-  box-shadow: 0px 0px 15px #ecc6a6;
-  border-radius: 100px;
-  width: 100px;
-}
-
-.tokenLine {
-  width: 10%;
-  height: 5px;
-  border-radius: 10px;
-  background: #e4a788;
-  margin-top: 30px;
-}
-.tokenCard1 {
-  padding: 2em;
-  transition: 0.01s linear;
-}
-
-.tokenCard1texts {
-  margin-top: 20px;
-}
-
-.tokenCard1Heading {
-  font-weight: 600;
-}
-
-.tokenCard1Para {
-  line-height: 29px;
-  font-size: 14px;
-  margin-top: 30px;
-}
-
-.tokenDots {
-  position: absolute;
-  right: 0;
-  top: -100px;
-  border-top-left-radius: 100%;
-  border-bottom-left-radius: 100%;
-}
-
-/* tokens section  end */
 /* ============================================ */
 /* ============================================ */
 /* ============================================ */
@@ -841,6 +846,7 @@ iframe {
 
 .exploreSection {
   padding: 6em 0em;
+  overflow: hidden;
 }
 
 .exploreArea {

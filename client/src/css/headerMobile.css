@@ -42,7 +42,7 @@
   }
   .docs,
   .about {
-    margin-right: 15px;
+    margin-right: 35px;
   }
   .Line {
     width: 67px;
@@ -99,8 +99,11 @@
     padding: 0 !important;
   }
   .egrLogo2Cont {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
   }
+
   .egr-logo2 {
     display: block;
     width: 130px;
@@ -114,13 +117,23 @@
   }
 
   .headerSection {
-    padding: 0em 1em;
+    padding: 9px 0em;
+    padding-top: 0.5em;
+  }
+  .on-mobile-navigators {
+    display: flex;
+    margin-top: 20px;
+  }
+
+  .show-header-links {
+    display: flex;
   }
 }
 
 @media screen and (max-width: 645px) {
   .headerSection {
-    padding: 0em 0em;
+    padding: 9px 0em;
+    padding-top: 0.5em;
   }
 }
 

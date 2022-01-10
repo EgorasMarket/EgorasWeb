@@ -3,9 +3,11 @@ import { Link } from "react-router-dom";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 // import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CloseIcon from "@material-ui/icons/Close";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
+import AppsIcon from "@mui/icons-material/Apps";
 import Toolbar from "@material-ui/core/Toolbar";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -13,28 +15,18 @@ import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 
-import Button from "@material-ui/core/Button";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
-import Grow from "@material-ui/core/Grow";
-import Paper from "@material-ui/core/Paper";
-import Popper from "@material-ui/core/Popper";
-import MenuItem from "@material-ui/core/MenuItem";
-import MenuList from "@material-ui/core/MenuList";
-
 // =======================
 import List from "@material-ui/core/List";
 
 import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
-import ChevronLeftIcon from "@material-ui/icons/ChevronLeft";
-import ChevronRightIcon from "@material-ui/icons/ChevronRight";
 import ListItem from "@material-ui/core/ListItem";
 
 // styles
 import "../../../../css/header.css";
 import "../../../../css/headerMobile.css";
-
+import { Authenticate } from "../../../auth/Authenticate";
 
 const drawerWidth = 240;
 
@@ -144,17 +136,27 @@ const Header = () => {
         document.getElementById("Header").style.display = "none";
       });
     }
-    if (currentPage === "/dashboard/airtime") {
+    if (currentPage === "/login") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
       });
     }
-    if (currentPage === "/dashboard/transaction") {
+    if (currentPage === "/signup") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
       });
     }
-    if (currentPage === "/dashboard/egr-balance") {
+    if (currentPage === "/dashboard/savings") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
+    if (currentPage === "/dashboard/products") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
+    if (currentPage === "/dashboard/accounts") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
       });
@@ -164,6 +166,42 @@ const Header = () => {
         document.getElementById("Header").style.display = "none";
       });
     }
+    if (currentPage === "/whitepaper") {
+      setshowHeader(() => {
+        document.getElementById("headerSection").style.position = "relative";
+      });
+    }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("hide_menu").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("company1").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("product1").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("valid").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("app_icon").style.display = "block";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   document.getElementById("borrow").style.display = "none";
+    // }
+    // document.getElementById("hide_menu").style.display = "none";
+    // document.getElementById("show-header-links2").style.display = "none";
+    // document.getElementById("app_icon").style.display = "none";
   });
 
   // page hide element
@@ -171,26 +209,13 @@ const Header = () => {
   // class change on click functions
   const [page1, setPage1] = useState("/");
 
-  // const clickMe1 = () => {
-  //   if (page1 === "/") {
-  //     setPage1("/");
-  //   } else {
-  //     setPage1("/");
-  //   }
-  // };
-  // const clickMe2 = () => {
-  //   if (page1 === "/support") {
-  //     setPage1("/support");
-  //   } else {
-  //     setPage1("/support");
-  //   }
-  // };
-
   useEffect(() => {
-    if (currentPage === "/") {
-      setPage1("/");
+    if (currentPage === "/loan") {
+      setPage1("/loan");
     } else if (currentPage === "/validator") {
       setPage1("/validator");
+    } else if (currentPage === "/savings") {
+      setPage1("/savings");
     }
   });
   // {
@@ -291,46 +316,61 @@ const Header = () => {
     prevOpen13.current = open13;
   }, [open13]);
 
+  // open dropdown menu
+  const dropDownOpen1 = () => {
+    // const dropUpIcon = document.getElementById("ArrowUpIcon");
+    const dropDownIcon = document.getElementById("ArrowDownIcon");
+    const dropMenu = document.getElementById("products-menu");
+
+    dropDownIcon.classList.add("rotate");
+    // dropUpIcon.style.display = "inline-block";
+
+    dropMenu.style.display = "block";
+  };
+  const dropDownClose1 = () => {
+    // const dropUpIcon = document.getElementById("ArrowUpIcon");
+    const dropDownIcon = document.getElementById("ArrowDownIcon");
+    const dropMenu = document.getElementById("products-menu");
+
+    dropDownIcon.classList.remove("rotate");
+    // dropUpIcon.style.display = "none";
+
+    dropMenu.style.display = "none";
+  };
+  // open dropdown menu
+  const dropDownOpen2 = () => {
+    // const dropUpIcon = document.getElementById("ArrowUpIcon2");
+    const dropDownIcon = document.getElementById("ArrowDownIcon2");
+    const dropMenu = document.getElementById("products-menu2");
+
+    dropDownIcon.classList.add("rotate");
+    // dropUpIcon.style.display = "inline-block";
+
+    dropMenu.style.display = "block";
+  };
+  const dropDownClose2 = () => {
+    // const dropUpIcon = document.getElementById("ArrowUpIcon2");
+    const dropDownIcon = document.getElementById("ArrowDownIcon2");
+    const dropMenu = document.getElementById("products-menu2");
+
+    dropDownIcon.classList.remove("rotate");
+    // dropUpIcon.style.display = "none";
+
+    dropMenu.style.display = "none";
+  };
+
   return (
     <div id="Header">
-      <section className="headerSection">
+      <section className="headerSection" id="headerSection">
         <div className="container-fluid header">
           <div className="header-area">
-            <a href="/" className="egrLogo2Cont">
-              <img
-                src="/img/egoras-logo.svg"
-                alt="..."
-                className="egr-logo2"
-              />
+            <a href="/">
+              {" "}
+              <img src="/img/egoras-logo.svg" alt="..." className="egr-logo" />
             </a>
-
-            <ul className="headerLinks">
-              <a href="/">
-                {" "}
-                <img
-                  src="/img/egoras-logo.svg"
-                  alt="..."
-                  className="egr-logo"
-                />
-              </a>
-              <a
-                href="/"
-                className={page1 === "/" ? "docs activeLink" : "about"}
-                // onClick={clickMe1}
-              >
-                Borrower
-                {page1 === "/" ? <span className="Line"></span> : null}
-              </a>
-
-              <a
-                href="/validator"
-                className={page1 === "/validator" ? "docs activeLink" : "about"}
-                // onClick={clickMe2}
-              >
-                Validator
-                {page1 === "/validator" ? <span className="Line"></span> : null}
-              </a>
-            </ul>
+            <a href="#" className="egrLogo2Cont">
+              <img src="/img/egoras-logo.svg" alt="..." className="egr-logo2" />
+            </a>
 
             {/* <ul className="headerLinks2">
             <a href="/documents" className="docs">
@@ -344,126 +384,182 @@ const Header = () => {
           </ul> */}
 
             <ul className="headerButtons">
-              {/* <div className="product">
+              {/* <AppsIcon className="app_icon" id="app_icon" /> */}
+
+              {/* <div className="hide_menu" id="hide_menu"> */}
+              {/* <a
+                  href="/validator"
+                  className={
+                    page1 === "/validator" ? "docs activeLink" : "about"
+                  }
+                  // onClick={clickMe2}
+                >
+                  Validator
+                  {page1 === "/validator" ? (
+                    <span className="Line"></span>
+                  ) : null}
+                </a>
+                <div
+                  style={{ cursor: "pointer" }}
+                  onMouseOver={dropDownOpen1}
+                  onMouseOut={dropDownClose1}
+                  className="product"
+                  id="product"
+                >
                   Products
-                  <ArrowDropDownIcon />
+                  <img
+                    src="/img/arrow-down-icon.svg"
+                    alt="..."
+                    id="ArrowDownIcon"
+                    className="ArrowDownIcon"
+                  />
+                  <div className="products-menu " id="products-menu">
+                    <h6 className="drop-borrow">Borrower</h6>
+                    <a
+                      href="https://egoras.ng/appointment"
+                      className="drop-borrow-link"
+                    >
+                      Get loan
+                    </a>
+                    <hr />
+                    <h6 className="drop-borrow">Validator</h6>
+                    <a href="/explore_collaterals" className="drop-borrow-link">
+                      Explore Collaterals
+                    </a>
+                  </div>
                 </div> */}
 
-              <Button
-                ref={anchorRef12}
-                aria-controls={open12 ? "menu-list-grow" : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle12}
+              {/* <div
+                  style={{ cursor: "pointer" }}
+                  className="company"
+                  id="company"
+                  onMouseOver={dropDownOpen2}
+                  onMouseOut={dropDownClose2}
+                >
+                  Company
+                  <img
+                    src="/img/arrow-down-icon.svg"
+                    alt="..."
+                    id="ArrowDownIcon2"
+                    className="ArrowDownIcon2"
+                  />
+                  {/* <ArrowDropUpIcon id="ArrowUpIcon2" className="ArrowUpIcon2" /> */}
+              {/* <div className="products-menu menu2" id="products-menu2">
+                    <a href="/about" className="drop-borrow-link">
+                      About Us
+                    </a>
+                    <hr />
+                    <a
+                      href="https://egoras.medium.com/"
+                      className="drop-borrow-link"
+                    >
+                      Blog
+                    </a>
+                    <hr />
+                    <a href="/whitepaper" className="drop-borrow-link">
+                      White Paper
+                    </a>
+                  </div>
+                </div> */}
+              {/* </div> */}
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              <ul className="headerLinks">
+                <div className="boroowww" id="borrow">
+                  <a
+                    href="/loan"
+                    id="borrow"
+                    className={page1 === "/loan" ? "docs activeLink" : "about"}
+                    // onClick={clickMe1}
+                  >
+                    Loan
+                    {page1 === "/loan" ? <span className="Line"></span> : null}
+                  </a>
+                </div>
+
+                <a
+                  href="/savings"
+                  className={page1 === "/market" ? "docs activeLink" : "about"}
+                  // onClick={clickMe2}
+                >
+                  Savings
+                  {page1 === "/savings" ? <span className="Line"></span> : null}
+                </a>
+              </ul>
+              <a
+                href="/validator"
+                className={page1 === "/validator" ? "docs activeLink" : "about"}
+                // onClick={clickMe2}
+                id="valid"
+              >
+                Validator
+                {page1 === "/validator" ? <span className="Line"></span> : null}
+              </a>
+              {/* <div
+                style={{ cursor: "pointer" }}
+                onMouseOver={dropDownOpen1}
+                onMouseOut={dropDownClose1}
+                className="product"
+                id="product1"
               >
                 Products
-                <ArrowDropDownIcon />
-              </Button>
-              <Popper
-                style={{ width: "40%" }}
-                open={open12}
-                anchorEl={anchorRef12.current}
-                role={undefined}
-                transition
-                disablePortal
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
-                    }}
+                <img
+                  src="/img/arrow-down-icon.svg"
+                  alt="..."
+                  id="ArrowDownIcon"
+                  className="ArrowDownIcon"
+                />
+                <div className="products-menu " id="products-menu">
+                  <h6 className="drop-borrow">Borrower</h6>
+                  <a
+                    href="https://egoras.ng/appointment"
+                    className="drop-borrow-link"
                   >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleClose12}>
-                        <MenuList
-                          autoFocusItem={open12}
-                          id="menu-list-grow"
-                          onKeyDown={handleListKeyDown}
-                        >
-                          <MenuItem className="BorrowClass">Borrower</MenuItem>
-                          <hr class="my-1" />
-                          <MenuItem onClick={handleClose12}>
-                            <a
-                              href="https://egoras.ng/appointment"
-                              className="borrower"
-                            >
-                              Get Loan
-                            </a>
-                          </MenuItem>
-                          <MenuItem className="validatorClass">
-                            Validator
-                          </MenuItem>
-                          <hr class="my-1" />
-                          <MenuItem onClick={handleClose12}>
-                            <a href="/explore_loans" className="borrower">
-                              Explore loans
-                            </a>
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
+                    Get loan
+                  </a>
+                  <hr />
+                  <h6 className="drop-borrow">Validator</h6>
+                  <a href="/explore_collaterals" className="drop-borrow-link">
+                    Explore Collaterals
+                  </a>
+                </div>
+              </div> */}
 
-              {/* <div className="product">
-                                                                                                                        Company
-                                                                                                                        <ArrowDropDownIcon />
-                                                                                                                      </div> */}
-
-              <Button
-                ref={anchorRef13}
-                aria-controls={open13 ? "menu-list-grow" : undefined}
-                aria-haspopup="true"
-                onClick={handleToggle13}
+              <div
+                style={{ cursor: "pointer" }}
+                className="company"
+                id="company1"
+                onMouseOver={dropDownOpen2}
+                onMouseOut={dropDownClose2}
               >
                 Company
-                <ArrowDropDownIcon />
-              </Button>
-              <Popper
-                style={{ width: "40%" }}
-                open={open13}
-                anchorEl={anchorRef13.current}
-                role={undefined}
-                transition
-                disablePortal
-              >
-                {({ TransitionProps, placement }) => (
-                  <Grow
-                    {...TransitionProps}
-                    style={{
-                      transformOrigin:
-                        placement === "bottom" ? "center top" : "center bottom",
-                    }}
+                <img
+                  src="/img/arrow-down-icon.svg"
+                  alt="..."
+                  id="ArrowDownIcon2"
+                  className="ArrowDownIcon2"
+                />
+                {/* <ArrowDropUpIcon id="ArrowUpIcon2" className="ArrowUpIcon2" /> */}
+                <div className="products-menu menu2" id="products-menu2">
+                  <a href="/about" className="drop-borrow-link">
+                    About Us
+                  </a>
+                  <hr />
+                  <a
+                    href="https://egoras.medium.com/"
+                    className="drop-borrow-link"
                   >
-                    <Paper>
-                      <ClickAwayListener onClickAway={handleClose13}>
-                        <MenuList
-                          autoFocusItem={open13}
-                          id="menu-list-grow"
-                          onKeyDown={handleListKeyDown}
-                        >
-                          <MenuItem onClick={handleClose13}>
-                            <a href="/about" className="borrower">
-                              About Us
-                            </a>
-                          </MenuItem>
-                          <hr className="my-1" />
-                          <MenuItem onClick={handleClose13}>
-                            <a
-                              href="https://t.me/egorasmarket"
-                              className="borrower"
-                            >
-                              Blog
-                            </a>
-                          </MenuItem>
-                        </MenuList>
-                      </ClickAwayListener>
-                    </Paper>
-                  </Grow>
-                )}
-              </Popper>
+                    Blog
+                  </a>
+                  <hr />
+                  <a href="/whitepaper" className="drop-borrow-link">
+                    White Paper
+                  </a>
+                </div>
+              </div>
+
               {/* ===================================================
               ===========================
               ========================================== */}
@@ -481,8 +577,12 @@ const Header = () => {
                 Get the loan
               </a>
 
-              <a href="/signup" className="connect">
-                Connect wallet
+              {/* ====================== */}
+              {/* ====================== */}
+              {/* ====================== */}
+
+              <a href="#" className="connect">
+                <Authenticate />
                 <div className="connectHover"></div>
               </a>
             </ul>
@@ -521,36 +621,6 @@ const Header = () => {
                 <Divider />
                 <List>
                   <ListItem>
-                    <a
-                      href="/"
-                      className={page1 === "/" ? "docs activeLink" : "about"}
-                      // onClick={clickMe1}
-                    >
-                      Borrower
-                      {page1 === "/" ? <span className="Line"></span> : null}
-                    </a>
-                  </ListItem>
-                </List>
-                <Divider />
-                <List>
-                  <ListItem>
-                    <a
-                      href="/validator"
-                      className={
-                        page1 === "/validator" ? "docs activeLink" : "about"
-                      }
-                      // onClick={clickMe2}
-                    >
-                      Validator
-                      {page1 === "/validator" ? (
-                        <span className="Line"></span>
-                      ) : null}
-                    </a>
-                  </ListItem>
-                </List>
-                <Divider />
-                <List>
-                  <ListItem>
                     <Accordion>
                       <AccordionSummary
                         expandIcon={<ExpandMoreIcon />}
@@ -570,11 +640,11 @@ const Header = () => {
                             Get loan
                           </a>
                           <a
-                            href="/explore"
+                            href="/explore_collaterals"
                             className="c1link1"
                             target="_blank"
                           >
-                            Explore loans
+                            Explore Collaterals
                           </a>
                         </div>
                       </AccordionDetails>
@@ -609,6 +679,13 @@ const Header = () => {
                           >
                             Blog
                           </a>
+                          <a
+                            href="/whitepaper"
+                            className="c1link1"
+                            target="_blank"
+                          >
+                            White Paper
+                          </a>
                         </div>
                       </AccordionDetails>
                     </Accordion>
@@ -637,8 +714,8 @@ const Header = () => {
                 <Divider />
                 <List>
                   <ListItem>
-                    <a href="/signup" className="connect">
-                      Connect wallet
+                    <a href="#" className="connect">
+                      <Authenticate />
                       <div className="connectHover"></div>
                     </a>
                   </ListItem>

@@ -37,13 +37,16 @@ const Footer = () => {
     if (FooterHide === "/dashboard/") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/dashboard/airtime") {
+    if (FooterHide === "/dashboard/savings") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/dashboard/transaction") {
+    if (FooterHide === "/dashboard/products") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/dashboard/egr-balance") {
+    if (FooterHide === "/dashboard/accounts") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/whitepaper") {
       document.getElementById("FooterId").style.display = "none";
     }
   });
@@ -100,14 +103,18 @@ const Footer = () => {
             <div className="footerCard2">
               <div className="footerCardTitle">General</div>
               <div className="footerLinks">
-                <a href="/" className="c1link1 a">
+                {/* <a href="/" className="c1link1 a">
                   Home
+                </a> */}
+                <a
+                  href="/explore_collaterals"
+                  className="c1link1"
+                  target="_blank"
+                >
+                  Explore Collaterals
                 </a>
-                <a href="/explore_loans" className="c1link1" target="_blank">
-                  Explore loans
-                </a>
-                <a href="/documentation" className="c1link1" target="_blank">
-                  Documentation
+                <a href="/whitepaper" className="c1link1" target="_blank">
+                  White Paper
                 </a>
               </div>
             </div>
@@ -118,9 +125,9 @@ const Footer = () => {
                 <a href="#howitworks" className="c1link1 a">
                   How it works
                 </a>
-                <a href="#token" className="c1link1">
+                {/* <a href="#token" className="c1link1">
                   Tokens
-                </a>
+                </a> */}
                 <a
                   href="https://www.youtube.com/channel/UCHfi5EwXig46xp5Dx8hVBHQ/videos"
                   className="c1link1"
@@ -137,11 +144,26 @@ const Footer = () => {
                 <a href="/privacy" className="c1link1 a" target="_blank">
                   Privacy policy
                 </a>
-                <a href="/privacy" className="c1link1" target="_blank">
+                <a href="/terms-conditions" className="c1link1" target="_blank">
                   Terms & conditions
                 </a>
-                <a href="#partners" className="c1link1" target="_blank">
+                {/* <a href="#partners" className="c1link1" target="_blank">
                   Partners
+                </a> */}
+              </div>
+            </div>
+
+            <div className="footerCard2">
+              <div className="footerCardTitle">Tokens</div>
+              <div className="footerLinks">
+                {/* <a href="/egr-token" className="c1link1" target="_blank">
+                  EGR
+                </a> */}
+                <a href="/eusd-token" className="c1link1" target="_blank">
+                  EUSD
+                </a>
+                <a href="/egc" className="c1link1" target="_blank">
+                  EGC
                 </a>
               </div>
             </div>
@@ -152,9 +174,7 @@ const Footer = () => {
                 <a href="https://t.me/egorasmarket" className="c1link1 a">
                   Get in Touch Today
                 </a>
-                <a href="" className="c1link1">
-                  +234 8130 7325 65
-                </a>
+                <a href="" className="c1link1"></a>
                 <a href="/" className="c1linklast">
                   cs@egoras.com
                 </a>
@@ -174,18 +194,18 @@ const Footer = () => {
                 </AccordionSummary>
                 <AccordionDetails>
                   <div className="footerLinks">
-                    <a href="/" className="c1link1 a">
+                    {/* <a href="/" className="c1link1 a">
                       Home
-                    </a>
-                    <a href="/explore_loans" className="c1link1" target="_blank">
-                      Explore loans
-                    </a>
+                    </a> */}
                     <a
-                      href="/documentation"
+                      href="/explore_collaterals"
                       className="c1link1"
                       target="_blank"
                     >
-                      Documentation
+                      Explore Collaterals
+                    </a>
+                    <a href="/whitepaper" className="c1link1" target="_blank">
+                      White Paper
                     </a>
                   </div>
                 </AccordionDetails>
@@ -202,9 +222,6 @@ const Footer = () => {
                   <div className="footerLinks">
                     <a href="#howitworks" className="c1link1 a">
                       How it works
-                    </a>
-                    <a href="#token" className="c1link1">
-                      Tokens
                     </a>
                     <a
                       href="https://www.youtube.com/channel/UCHfi5EwXig46xp5Dx8hVBHQ/videos"
@@ -229,11 +246,37 @@ const Footer = () => {
                     <a href="/privacy" className="c1link1 a" target="_blank">
                       Privacy policy
                     </a>
-                    <a href="/privacy" className="c1link1" target="_blank">
+                    <a
+                      href="/terms-conditions"
+                      className="c1link1"
+                      target="_blank"
+                    >
                       Terms & conditions
                     </a>
-                    <a href="#partners" className="c1link1" target="_blank">
+                    {/* <a href="#partners" className="c1link1" target="_blank">
                       Partners
+                    </a> */}
+                  </div>
+                </AccordionDetails>
+              </Accordion>
+              <Accordion>
+                <AccordionSummary
+                  expandIcon={<ExpandMoreIcon />}
+                  aria-controls="panel2a-content"
+                  id="panel2a-header"
+                >
+                  <Typography className={classes.heading}>Tokens</Typography>
+                </AccordionSummary>
+                <AccordionDetails>
+                  <div className="footerLinks">
+                    {/* <a href="/egr-token" className="c1link1 a" target="_blank">
+                      EGR
+                    </a> */}
+                    <a href="/eusd-token" className="c1link1" target="_blank">
+                      EUSD
+                    </a>
+                    <a href="/egc" className="c1link1" target="_blank">
+                      EGC
                     </a>
                   </div>
                 </AccordionDetails>
@@ -253,9 +296,7 @@ const Footer = () => {
                     <a href="https://t.me/egorasmarket" className="c1link1 a">
                       Get in Touch Today
                     </a>
-                    <a href="" className="c1link1">
-                      +234 8130 7325 65
-                    </a>
+                    <a href="" className="c1link1"></a>
                     <a href="/" className="c1linklast">
                       cs@egoras.com
                     </a>
@@ -267,9 +308,6 @@ const Footer = () => {
           <hr></hr>
           <h5 className="footerBottomPara">
             ©️ 2021 Egoras Technologies LTD(RC - 1832671). All rights reserved .
-            Egoras Technologies ltd is a licensed pawnbroker and moneylender.
-            “Egoras” and “Egorasbank” are trademarks of Egoras Technologies Ltd.
-            282 Aba Road by Rumukrushi junction, port Harcourt, Rivers state.
           </h5>
         </div>
       </section>

@@ -17,16 +17,14 @@
   .heroBtn {
     font-size: 12px;
   }
-  .heroPhone {
-    width: 200px;
-  }
+
   .eggShape {
     width: 450px;
   }
-  .card-amount {
+  /* .card-amount {
     width: 60%;
     left: 0;
-  }
+  } */
   .dots {
     width: 200px;
   }
@@ -151,11 +149,22 @@
   /* token section end */
 }
 
+@media screen and (max-width: 1220px) {
+  .img-sub {
+    height: 250px !important;
+    background-size: cover !important;
+  }
+  .img {
+    position: relative;
+    height: 100%;
+  }
+}
 @media screen and (max-width: 1024px) {
   /* hero section start */
   .bottomCards {
     width: 70%;
   }
+
   /* hero section end */
 
   .benefitsSection .container-md,
@@ -169,6 +178,14 @@
     width: 40%;
   }
   /* how it works section end */
+  .img-sub {
+    height: 250px !important;
+    background-size: cover !important;
+  }
+  .img {
+    position: relative;
+    height: 100%;
+  }
 
   /* benefit section start */
   .benefitCard2,
@@ -185,16 +202,14 @@
   .heroSection {
     padding: 4em 0em;
   }
-  .heroPhone {
-    width: 180px;
-  }
+
   .eggShape {
     width: 400px;
   }
-  .card-amount {
+  /* .card-amount {
     width: 60%;
     left: 0;
-  }
+  } */
   .dots {
     width: 200px;
   }
@@ -220,9 +235,8 @@
   }
   /* benefits section start */
   /* token section start */
-  .tokenSection {
-    padding: 3em 0em;
-  }
+  /* .tokenSection {
+  } */
 
   .tokenDots {
     width: 120px;
@@ -241,13 +255,10 @@
     margin-bottom: 100px;
     grid-row-gap: 100px;
   }
-
   .bottomCards {
     width: 85%;
   }
-  /* hero section end */
-
-  /* how it works section start */
+  /*  */
   .howItWorksArea {
     display: grid;
     grid-row-gap: 50px;
@@ -298,6 +309,16 @@
   /* explore section end */
 }
 
+@media screen and (max-width: 800px) {
+  .img-sub {
+    height: 330px !important;
+    background-size: cover !important;
+  }
+  .img {
+    position: relative;
+    height: 100%;
+  }
+}
 @media screen and (max-width: 767px) {
   /* hero section start */
 
@@ -307,13 +328,9 @@
   .loanDetailsSection {
     text-align: center;
   }
-  .heroPhone {
-    width: 200px;
-    margin-right: 0;
-  }
 
   .hero-images {
-    margin-right: 0;
+    margin-left: 0;
   }
 
   .eggShape {
@@ -338,7 +355,14 @@
     font-size: 10px;
   }
   /* how it works section end */
-
+  .img-sub {
+    height: 300px !important;
+    background-size: cover !important;
+  }
+  .img {
+    position: relative;
+    height: 100%;
+  }
   /* projects section start */
 
   .caroImg {
@@ -407,7 +431,14 @@
   .projectsLink {
     font-size: 12px;
   }
-
+  .img-sub {
+    height: 250px !important;
+    background-size: cover !important;
+  }
+  .img {
+    position: relative;
+    height: 100%;
+  }
   /* stories section */
 
   .seemoreStoriesbtn {
@@ -470,14 +501,21 @@
   .egg {
     right: -80px;
   }
+
+  .img-sub {
+    height: 220px !important;
+    background-size: cover !important;
+  }
+}
+@media screen and (max-width: 500px) {
+  .img-sub {
+    height: 385px !important;
+    background-size: cover !important;
+  }
 }
 
 /* 2nd break point ========================================= */
 @media screen and (max-width: 463px) {
-  .heroPhone {
-    width: 150px;
-    margin-right: 0;
-  }
   .eggShape {
     width: 375px;
     bottom: -1px;
@@ -498,23 +536,26 @@
   }
 }
 
+@media screen and (max-width: 440px) {
+  .img-sub {
+    height: 350px !important;
+    background-size: cover !important;
+  }
+}
 @media screen and (max-width: 432px) {
   .heroTitle {
     font-size: 32px;
   }
-  .heroPhone {
-    width: 150px;
-    margin-right: 0;
-  }
+
   .eggShape {
     width: 314px;
     bottom: -1px;
     right: -93px;
   }
-  .card-amount {
+  /* .card-amount {
     width: 80%;
     left: 0;
-  }
+  } */
   .howItWorksTitle {
     margin-bottom: 50px;
   }
@@ -607,13 +648,23 @@
   .projectsLink {
     font-size: 8px;
   }
-
+  .img-sub {
+    height: 309px !important;
+    background-size: cover !important;
+  }
   /* stories section */
 
   .seemoreStoriesbtn {
     font-size: 8px;
   }
   /* stories section */
+}
+
+@media screen and (max-width: 350px) {
+  .img-sub {
+    height: 270px !important;
+    background-size: cover !important;
+  }
 }
 
 @media screen and (max-width: 320px) {
