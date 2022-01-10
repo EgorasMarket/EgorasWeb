@@ -16,6 +16,9 @@
     "@chakra-ui/react": "^1.7.3",
     "@emotion/react": "^11.7.1",
     "@emotion/styled": "^11.6.0",
+    "@mui/icons-material": "^5.2.5",
+    "@mui/material": "^5.2.7",
+    "@mui/styled-engine-sc": "^5.1.0",
     "@rumess/react-flip-countdown": "^1.2.3",
     "aos": "^2.3.4",
     "bcryptjs": "^2.4.3",
@@ -40,7 +43,7 @@
     "request": "^2.88.2",
     "sequelize": "^6.3.3",
     "slick-carousel": "^1.8.1",
-    "styled-components": "^5.3.1",
+    "styled-components": "^5.3.3",
     "web3": "^1.2.11"
   },
   "devDependencies": {
