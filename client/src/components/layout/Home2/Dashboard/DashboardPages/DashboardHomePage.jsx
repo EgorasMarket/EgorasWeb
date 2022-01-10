@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "../DashboardStyles/dashboard_home.css";
@@ -120,6 +120,35 @@ const itemDetails = [
     percentage: "100%",
   },
 ];
+const itemDetails2 = [
+  {
+    // id: 1,
+    img: "/img/BAG.jpeg",
+    name: "Samsung smart tv series",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    amount: "200,000",
+    percentage: "100%",
+    // ratio: "175%",
+  },
+  {
+    // id: 2,
+    img: "/img/samsung_tv_555.jpeg",
+    name: "Lg smart tv series",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    amount: "200,000",
+    percentage: "100%",
+  },
+  {
+    // id: 3,
+    img: "/img/BAG.jpeg",
+    name: "Iphone 12pro max",
+    items_remainings: "16 items left.",
+    amount: "200,000",
+    percentage: "100%",
+  },
+];
 const responsive7 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -140,6 +169,7 @@ const responsive7 = {
   },
 };
 const DashboardHomePage = () => {
+  const [savedNum, setSavedNum] = useState(5);
   return (
     <div className="other2">
       <section className="no-bg">
@@ -155,9 +185,9 @@ const DashboardHomePage = () => {
                 className="partnerCards LEFTARROW gtr"
                 showDots={false}
                 //   infinite={false}
-                autoPlay={true}
+                autoPlay={false}
                 autoPlaySpeed={9000}
-                infinite={true}
+                infinite={false}
                 draggable={true}
                 swipeable={true}
                 // transitionDuration={1000}
@@ -191,24 +221,59 @@ const DashboardHomePage = () => {
 ==============================================
 ============================= */}
             </div>
+            {/* [===================] */}
+            {/* [===================] */}
+            {/* [===================] */}
             <div className="savings_overview">
               <div className="savings_overview_title">Savings Overview</div>
-              <div className="savings_overview_body"></div>
+              <div className="savings_overview_body">
+                <div className="savings_overview_body_cont1">
+                  Total Number of Locked Items{" "}
+                  <span className="saved_figure">{savedNum}</span>
+                </div>
+                <div className="savings_overview_body_cont2">
+                  {itemDetails2.map((item) => (
+                    <div className="savings_overview_body_cont2_1a">
+                      <div className="save_overview_cont_img">
+                        <img
+                          src={item.img}
+                          alt=""
+                          className="save_overview_cont_img_imgg"
+                        />
+                      </div>
+                      <div className="save_item_details">
+                        <div className="save_item_details_titles">
+                          <div className="save_overview_cont_title">
+                            {item.name}
+                          </div>
+                          <div className="save_overview_cont_amount">
+                            ₦{item.amount}
+                          </div>
+                        </div>
+                        <div className="save_item_details_btn">
+                          <div className="save_overview_cont_items_left">
+                            {item.items_remainings}
+                          </div>
+                          <button className="save_overview_cont_items_top_up">
+                            Top up
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             </div>
           </div>
           {/* =================================================================================================================================================================================================================================================================== */}
           {/*  Projects Section start*/}
           <section className="projectsSection savvvvv" id="projects">
             <div className="container">
-              <div
-                className="projectsArea"
-                data-aos="fade-up"
-                data-aos-duration="3000"
-              >
+              <div className="projectsArea">
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Top Deals</h1>
+                    <h1 className="gttitle TITE">Recent Products</h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -236,61 +301,6 @@ const DashboardHomePage = () => {
                   style={{ height: "25em" }}
                 >
                   {itemDetails.map((asset) => (
-                    // <div className="cardA">
-                    //   <div className="img">
-                    //     <div
-                    //       className="img-sub"
-                    //       style={{
-                    //         backgroundImage: `url(${asset.img})`,
-                    //         height: "200px",
-                    //         width: "100%",
-                    //         backgroundRepeat: "no-repeat",
-                    //         backgroundSize: "cover",
-                    //         borderRadius: "8px",
-                    //         borderBottomLeftRadius: "0px",
-                    //         borderBottomRightRadius: "0px",
-                    //         backgroundPositionY: "center",
-                    //       }}
-                    //     >
-                    //       {/* <div className="img-amount">
-                    //       <NumberFormat
-                    //         value={1000}
-                    //         displayitems_remainings={"text"}
-                    //         thousandSeparator={true}
-                    //         prefix={"$"}
-                    //       />
-                    //     </div> */}
-                    //     </div>
-                    //   </div>
-
-                    //   <div className="cardDetails" style={{ textAlign: "left" }}>
-                    //     <h1 className="cardHeader">{asset.name}</h1>
-                    //     <h1 className="collat-category">{asset.items_remainings}</h1>
-                    //     <div className="heroSlider2">
-                    //       <div className="slider-txts1">
-                    //         <div className="h-texts">
-                    //           <h3 className="htxt1a">{asset.days_left}</h3>
-                    //           <h3 className="htxt2a">{asset.percentage}</h3>
-                    //         </div>
-                    //       </div>
-                    //       {/* <div className="slider-a"></div> */}
-                    //       <div className="slider" style={{ height: "7px" }}>
-                    //         <div
-                    //           className="sliderafter"
-                    //           style={{
-                    //             width: `5%`,
-                    //             height: "7px",
-                    //           }}
-                    //         ></div>
-                    //       </div>
-                    //       <div className="slider-txts2">
-                    //         <div className="p-texts2a">
-                    //           <p className="ptxt2a">Remaining Items: 100</p>
-                    //         </div>
-                    //       </div>
-                    //     </div>
-                    //   </div>
-                    //   </div>
                     <a href={`/products/details/${asset.id}/${asset.name}`}>
                       <li className="carous_list">
                         <div

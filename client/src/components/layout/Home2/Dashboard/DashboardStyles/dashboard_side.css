@@ -88,12 +88,19 @@
   justify-content: end;
   /* margin-bottom: 89%; */
 }
-a.link {
+.link {
   width: 80%;
   color: #a3a3a3;
+  cursor: pointer;
 }
-
-a.link:hover {
+.link_color {
+  position: relative;
+  color: #239e54;
+  margin-left: 41px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.link:hover {
   color: #41ba71;
 }
 

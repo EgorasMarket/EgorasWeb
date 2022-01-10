@@ -6,9 +6,11 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import MenuIcon from "@mui/icons-material/Menu";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TelegramIcon from "@mui/icons-material/Telegram";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
 import TwitterIcon from "@mui/icons-material/Twitter";
@@ -23,6 +25,7 @@ import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 const DashboardSidebar = () => {
   const [activeBg, setActiveBg] = useState("Home");
+  const [cartNum, setCartNum] = useState(5);
 
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
@@ -73,7 +76,15 @@ const DashboardSidebar = () => {
               //   onMouseOut={closeLogoutDiv}
             >
               <div className="together">
-                <div
+                <div className="save_numb_div">
+                  <ShoppingCartIcon className="cart_icon" />
+                  <div className="cart_num">{cartNum}</div>
+                </div>
+                <div className="account_numb_div">
+                  <FileCopyIcon className="copy_icon" /> 29887728631612
+                </div>
+
+                {/* <div
                   className="logout_div"
                   // className={
                   //   logoutDiv == "not_logout_div"
@@ -87,10 +98,10 @@ const DashboardSidebar = () => {
                   >
                     Logout
                   </button>
-                </div>
+                </div> */}
                 <div className="immmgg">
                   <img
-                    src="/img/profile_icon.svg"
+                    src="/img/profile_img.jpeg"
                     alt=""
                     className="user_profile"
                   />
@@ -243,14 +254,15 @@ const DashboardSidebar = () => {
                 // onClick={}
               >
                 <span
-                  className={
-                    activeBg == "logout"
-                      ? "sidebarListItem list-item-active"
-                      : "sidebarListItem"
-                  }
-                                //   onClick={trigger}
+                  className="link_color"
+                  //   className={
+                  //     activeBg == "logout"
+                  //       ? "sidebarListItem list-item-active"
+                  //       : "sidebarListItem"
+                  //   }
+                  //   onClick={trigger}
                 >
-                  <BarChartIcon className="sidebarIcon" />
+                  <PowerSettingsNewIcon className="sidebarIcon" />
                   Logout
                 </span>
               </div>
