@@ -97,6 +97,7 @@ import Signup from "./components/layout/Home2/Signup/Signup";
 import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
+import Activation from "./components/layout/Home2/Activation/Activation";
 import LoanDetails from "./components/layout/LoanDetails/LoanDetails";
 import About from "./components/layout/Home2/About/About";
 import Documentation from "./components/layout/documentation/documentation";
@@ -217,6 +218,7 @@ const App = () => {
               <section>
                 <Switch>
                   <Route exact path="/" component={HomeUpdate} />
+                  <Route exact path="/activation" component={Activation} />
                   <Route exact path="/savings" component={Savings} />
                   <Route exact path="/loan" component={Newhome2} />
                   <Route exact path="/validator" component={Landing} />
