@@ -10,10 +10,10 @@ const Signup = ({ getAuthentication, setAlert }) => {
     password: "",
     phoneNumber: "",
     // confirmpassword: "",
-    ref: "",
+    InfoReason: "htrdyfdh",
   });
 
-  const { fullname, email, password, phoneNumber } = userAuth;
+  const { fullname, email, password, phoneNumber, InfoReason } = userAuth;
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -76,7 +76,8 @@ const Signup = ({ getAuthentication, setAlert }) => {
       fullname,
       email,
       password,
-      phoneNumber
+      phoneNumber,
+      InfoReason
       //   localStorage.referrer
     );
     console.log(res);

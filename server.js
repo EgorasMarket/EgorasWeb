@@ -1,6 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
-var cors = require("cors");
+var cors = require('cors');
 const app = express();
 var allowedOrigins = [
     "http://localhost:3000",
@@ -36,6 +36,37 @@ app.use(
     limit: "50mb",
   })
 );
+
+// // login 
+// app.use('/login', (req, res) => {
+//   res.send({
+//     token: 'test123'
+//   });
+// });
+
+
+app.post('/login', (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  
+  db.execute(
+      "SELECT * FROM users WHERE username = ? AND password = ?",
+      [username, password],
+      (err, result)=> {
+          if (err) {
+              res.send({err: err});
+          }
+  
+          if (result.length > 0) {
+              res.send( result);
+              }else({message: "Wrong username/password comination!"});
+          }
+      
+  );
+ });
+
+
+
 app.use(
   express.urlencoded({ limit: "50mb", extended: false, parameterLimit: 50000 })
 );
