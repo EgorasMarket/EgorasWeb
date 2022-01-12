@@ -231,7 +231,55 @@ function DashboardInvestPage() {
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
           <div className="brands_area">
-            <div className="brand_cont1">Samsung</div>
+            <div className="brand_cont1">
+              <img
+                src="/img/brand_images/brand_img1.svg"
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
+            <div className="brand_cont1">
+              <img
+                src="/img/brand_images/brand_img2.svg"
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
+            <div className="brand_cont1">
+              <img
+                src="/img/brand_images/brand_img3.svg"
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
+            <div className="brand_cont1">
+              <img
+                src="/img/brand_images/brand_img4.svg"
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
+            <div className="brand_cont1">
+              <img
+                src="/img/brand_images/brand_img5.svg"
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
+            <div className="brand_cont1">
+              <img
+                src="/img/brand_images/brand_img6.svg"
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
+            <div className="brand_cont1">
+              <img
+                src="/img/brand_images/brand_img7.svg"
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
           </div>
 
           {/* =========[[[[[[[[[]]]]]]]]] */}

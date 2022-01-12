@@ -102,6 +102,28 @@
   opacity: 1;
   color: #fff;
 }
+
+.brands_area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2em;
+  gap: 10px;
+}
+.brand_cont1 {
+  width: 20%;
+  /* height: 29px; */
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px #d3e7db;
+  padding: 1em 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand_imgs {
+  width: 80%;
+}
 /* .product_categories_div_head:hover.product_categories_div_body {
   gap: 20px;
   border-bottom-right-radius: 20px;
@@ -113,7 +135,7 @@
   height: 100vh;
   border-radius: 10px;
   box-shadow: 0px 0px 25px #c5e3d1;
-  margin-top: 6em;
+  margin-top: 2em;
   padding: 2em;
   padding-top: 6em;
 }
