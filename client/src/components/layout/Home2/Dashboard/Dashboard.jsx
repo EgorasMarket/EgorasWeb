@@ -23,7 +23,7 @@ const Dashboard = () => {
             />
             <Route
               exact
-              path="/dashboard/invest"
+              path="/dashboard/products"
               component={DashboardInvestPage}
             />
             <Route

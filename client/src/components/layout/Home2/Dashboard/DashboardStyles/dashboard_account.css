@@ -12,6 +12,7 @@
   border-bottom: solid;
   border-width: 1px;
   border-color: #e2ede6;
+  padding-bottom: 1em;
 }
 .account_toggle {
   color: #9abba7;
@@ -24,7 +25,7 @@
   height: 2px;
   width: 100%;
   position: absolute;
-  bottom: 0;
+  bottom: -17px;
   left: 0;
 }
 .account_toggle_active {
@@ -55,12 +56,12 @@
   width: 50%;
   display: flex;
   flex-direction: column;
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #1b5532;
 }
 span.toggle_body_area1_cont1_sub_txts {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   color: #adc1ad;
 }
@@ -84,9 +85,14 @@ span.toggle_body_area1_cont1_sub_txts {
   width: 25% !important;
   margin-right: 40px !important;
 }
+.name_input1a {
+  width: 45% !important;
+  margin-right: 40px !important;
+}
 .toggle_body_area1_cont1_input
   .css-1kty9di-MuiFormLabel-root-MuiInputLabel-root {
   color: rgb(180 221 196);
+  background: white;
 }
 
 /* .toggle_body_area1_cont1_input
@@ -104,6 +110,15 @@ span.toggle_body_area1_cont1_sub_txts {
 .toggle_body_area1_cont1_input
   .css-9ddj71-MuiInputBase-root-MuiOutlinedInput-root:hover {
   border-color: #42a66c;
+}
+.css-kk1bwy-MuiButtonBase-root-MuiMenuItem-root {
+  font-size: 16px !important;
+  font-family: "Mulish" !important;
+}
+.toggle_body_area1_cont1_input
+  .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root {
+  color: rgb(123 161 138);
+  font-family: "Mulish", "Helvetica", "Arial", sans-serif;
 }
 .date_input {
   padding: 0.8em 1em;
@@ -169,4 +184,21 @@ label.radio::before {
   font-size: 16px;
   font-weight: 600;
   box-shadow: 0px 4px 10px #8abf9f;
+}
+.select_input_area_fieeld {
+  width: 45%;
+}
+.edit_icon {
+  color: #41ba71;
+  background: #e0f7e9;
+  border-radius: 5px;
+  padding: 2px;
+  box-shadow: 0px 0px 10px #b7cfc0;
+  cursor: pointer;
+  margin-left: -15px;
+}
+.bvn_btn {
+  cursor: pointer;
+  color: #41ba71;
+  font-weight: 700;
 }
