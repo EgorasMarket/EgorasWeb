@@ -35,6 +35,8 @@
   cursor: pointer;
   font-size: 34px !important;
   color: #000;
+  border: solid 2px #badbc7;
+  border-radius: 8px;
   /* width: 45px; */
 }
 .sidebarWrapper {
