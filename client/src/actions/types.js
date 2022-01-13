@@ -17,6 +17,6 @@ export const FETCH_STATISTICS_FAILED = "FETCH_STATISTICS_FAILED";
 export const USER_LOADED = "USER_LOADED";
 
 export const API_URL = "https://tea.egoras.com";
-// export const API_URL2 = "https://d935252b161985.lhr.life";
+// export const API_URL2 = "https://330188b756ae73.lhr.life";
 //export const API_URL = "http://localhost:7801";
-export const API_URL2 = "https://706dfb86aba883.lhr.life";
+export const API_URL2 = "https://5011605475c137.lhr.life";

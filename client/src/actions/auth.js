@@ -114,3 +114,45 @@ export const getAuthentication =
     }
 
   }
+
+
+  export const send1 = (gender,dateOfBirth)=> async(dispatch)=>{
+
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      gender,
+      dateOfBirth,
+     
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.put(
+        api_url2 + "/v1/user/update/customer/info",
+        body,
+        config
+      );
+      console.log(res);
+
+      return {
+        success: true,
+        data: res.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
+
+  }
