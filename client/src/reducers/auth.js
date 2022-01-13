@@ -1,6 +1,8 @@
 import {
   AUTH_ERROR,
   LOGIN_SUCCESS,
+  USER_LOADED,
+  // AUTH_ERROR,
   LOGIN_FAIL,
   LOGOUT
 } from '../actions/types';
@@ -16,6 +18,15 @@ export default function (state = initialState, action) {
   const { type, payload } = action;
 
   switch (type) {
+        case USER_LOADED:
+          // //console.log(payload);
+          
+          return {
+            ...state,
+            isAuthenticated: true,
+            loading: false,
+            user: payload
+          };
         case LOGIN_SUCCESS:
           localStorage.setItem('token', payload.token);
           return {
