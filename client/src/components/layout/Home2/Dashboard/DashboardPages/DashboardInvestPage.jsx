@@ -206,23 +206,6 @@ function DashboardInvestPage() {
   };
   return (
     <div className="other2">
-      <div className="cat_div">
-        <div className="cat_body_toggle">
-          <div className="cat_body_toggle1">
-            All Categories
-            <ListIcon className="cat_icon" />
-          </div>
-          <div className="cat_body_toggle1">Computers and Accessories</div>
-          <div className="cat_body_toggle1">Phones and Tablets</div>
-          <div className="cat_body_toggle1">Electronics</div>
-          <div className="cat_body_toggle1">Konga Fashion</div>
-          <div className="cat_body_toggle1">Home and Kitchen</div>
-          <div className="cat_body_toggle1">Other Categories</div>
-        </div>
-      </div>
-      {/* ========== */}
-      {/* ========== */}
-      {/* ========== */}
       <section className="no-bg">
         <div className="container">
           <div className="products_hero_area">
@@ -347,10 +330,13 @@ function DashboardInvestPage() {
           <div className="products_display_body">
             <div className="products_display_body_heading">
               Top Categories{" "}
-              <div className="se_all_btnn">
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn"
+              >
                 SEE ALL
                 <ChevronRightIcon />
-              </div>
+              </a>
             </div>
             <div className="products_display_body_conts">
               {itemDetails.map((asset) => (
@@ -409,10 +395,13 @@ function DashboardInvestPage() {
           <div className="products_display_body no_pad">
             <div className="products_display_body_heading heading_color_2">
               Phones & Tablets
-              <div className="se_all_btnn se_all_color2">
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn se_all_color2"
+              >
                 SEE ALL
                 <ChevronRightIcon />
-              </div>
+              </a>
             </div>
             <div className="products_display_body_conts_banner">
               <div className="products_display_body_conts_banner_cont">
@@ -471,10 +460,13 @@ function DashboardInvestPage() {
           <div className="products_display_body">
             <div className="products_display_body_heading">
               Grocery Store
-              <div className="se_all_btnn">
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn"
+              >
                 SEE ALL
                 <ChevronRightIcon />
-              </div>
+              </a>
             </div>
             <div className="products_display_body_conts">
               {itemDetails.map((asset) => (
@@ -531,10 +523,13 @@ function DashboardInvestPage() {
           <div className="products_display_body">
             <div className="products_display_body_heading">
               Home & Kitchen
-              <div className="se_all_btnn">
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn"
+              >
                 SEE ALL
                 <ChevronRightIcon />
-              </div>
+              </a>
             </div>
             <div className="products_display_body_conts">
               {itemDetails.map((asset) => (
@@ -593,10 +588,13 @@ function DashboardInvestPage() {
           <div className="products_display_body no_pad">
             <div className="products_display_body_heading heading_color_2">
               Electronics
-              <div className="se_all_btnn se_all_color2">
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn se_all_color2"
+              >
                 SEE ALL
                 <ChevronRightIcon />
-              </div>
+              </a>
             </div>
             <div className="products_display_body_conts_banner">
               <div className="products_display_body_conts_banner_cont">
@@ -655,10 +653,13 @@ function DashboardInvestPage() {
           <div className="products_display_body">
             <div className="products_display_body_heading">
               Computers & Accessories
-              <div className="se_all_btnn">
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn"
+              >
                 SEE ALL
                 <ChevronRightIcon />
-              </div>
+              </a>
             </div>
             <div className="products_display_body_conts">
               {itemDetails.map((asset) => (

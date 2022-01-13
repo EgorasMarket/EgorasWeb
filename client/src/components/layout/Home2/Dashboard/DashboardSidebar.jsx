@@ -4,6 +4,7 @@ import HomeIcon from "@mui/icons-material/Home";
 // import SecurityIcon from "@mui/icons-material/Security";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import MenuIcon from "@mui/icons-material/Menu";
+import ListIcon from "@mui/icons-material/List";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -24,30 +25,49 @@ import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 const DashboardSidebar = () => {
+  const dddd = localStorage.getItem("smallSidetoken");
   const [activeBg, setActiveBg] = useState("Home");
-  const [smallSide, setSmallSide] = useState("not_small");
+  const [catDiv, setCatDiv] = useState("not_home");
+  const [smallSide, setSmallSide] = useState(dddd);
   const [cartNum, setCartNum] = useState(5);
-
+  const linksActive = window.location.pathname;
+  console.log(dddd);
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
+    if (linksActive === "/dashboard/products") {
+      setCatDiv("home");
+    }
+    if (linksActive === "/dashboard/products/categories/id-phone") {
+      setActiveBg("products");
+      setCatDiv("home");
+    }
   };
-  const linksActive = window.location.pathname;
+
   useEffect(() => {
     if (linksActive === "/dashboard") {
       setActiveBg("Home");
+      setCatDiv("not_home");
     }
     if (linksActive === "/dashboard/") {
       setActiveBg("Home");
+      setCatDiv("not_home");
     }
     if (linksActive === "/dashboard/savings") {
       setActiveBg("savings");
+      setCatDiv("not_home");
     }
     if (linksActive === "/dashboard/products") {
       setActiveBg("products");
+      setCatDiv("home");
+    }
+    if (linksActive === "/dashboard/products/categories/id-phone") {
+      setActiveBg("products");
+      setCatDiv("home");
     }
     if (linksActive === "/dashboard/accounts") {
       setActiveBg("accounts");
+      setCatDiv("not_home");
     }
     // if (linksActive === "/dashboard/referrals") {
     //   setActiveBg("swap");
@@ -58,12 +78,23 @@ const DashboardSidebar = () => {
     // if (linksActive === "/dashboard/whitepaper") {
     //   setActiveBg("whitepaper");
     // }
+    //  setCatDiv("not_home");
   }, []);
-  const shrinkSide = () => {
-    setSmallSide("smallSide");
-  };
-  const UnShrinkSide = () => {
-    setSmallSide("not_small");
+  // const shrinkSide = () => {
+  //   setSmallSide("smallSide");
+  // };
+  // const UnShrinkSide = () => {
+  //   setSmallSide("not_small");
+  // };
+
+  const shrinkAction = () => {
+    if (smallSide == "smallSide") {
+      setSmallSide("not_small");
+      localStorage.setItem("smallSidetoken", "not_small");
+    } else {
+      setSmallSide("smallSide");
+      localStorage.setItem("smallSidetoken", "smallSide");
+    }
   };
 
   return (
@@ -78,7 +109,11 @@ const DashboardSidebar = () => {
             {/* <Authenticate isHome="false" /> */}
 
             <div
-              className="user_profile_icon_cont"
+              className={
+                smallSide == "not_small"
+                  ? "user_profile_icon_cont"
+                  : "small_user_profile_icon_cont"
+              }
               //   onMouseOver={openLogoutDiv}
               //   onMouseOut={closeLogoutDiv}
             >
@@ -128,6 +163,31 @@ const DashboardSidebar = () => {
           </div>
         </div>
       </section>
+      {/* =============''''''''' */}
+      {/* =============''''''''' */}
+      {/* =============''''''''' */}
+      {catDiv == "home" ? (
+        <div className="cat_div" id="cat_div">
+          <div className="cat_body_toggle">
+            <div className="cat_body_toggle1">
+              All Categories
+              <ListIcon className="cat_icon" />
+            </div>
+            <div className="cat_body_toggle1">Computers and Accessories</div>
+            <div className="cat_body_toggle1">Phones and Tablets</div>
+            <div className="cat_body_toggle1">Electronics</div>
+            <div className="cat_body_toggle1">Konga Fashion</div>
+            <div className="cat_body_toggle1">Home and Kitchen</div>
+            <div className="cat_body_toggle1">Other Categories</div>
+          </div>
+        </div>
+      ) : (
+        <div></div>
+      )}
+
+      {/* ========== */}
+      {/* ========== */}
+      {/* ========== */}
 
       <div
         className="sidebar"
@@ -151,11 +211,12 @@ const DashboardSidebar = () => {
                   : "small_side_bar_head"
               }
             >
-              {smallSide == "not_small" ? (
+              {/* {smallSide == "not_small" ? (
                 <MenuIcon className="menu_icon_toggle" onClick={shrinkSide} />
               ) : (
                 <MenuIcon className="menu_icon_toggle" onClick={UnShrinkSide} />
-              )}{" "}
+              )}{" "} */}
+              <MenuIcon className="menu_icon_toggle" onClick={shrinkAction} />
               <a href="/" alt="">
                 <img
                   src="/img/egoras-logo.svg"
@@ -173,8 +234,8 @@ const DashboardSidebar = () => {
                 {/* =================== */}
                 {/* =================== */}
                 {/* =================== */}
-                <Link
-                  to="/dashboard"
+                <a
+                  href="/dashboard"
                   id="Home"
                   className="link"
                   onClick={changeBg}
@@ -189,14 +250,14 @@ const DashboardSidebar = () => {
                     <HomeIcon className="sidebarIcon" />
                     Home
                   </li>
-                </Link>
+                </a>
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <Link
-                  to="/dashboard/products"
+                <a
+                  href="/dashboard/products"
                   className="link"
                   id="products"
                   onClick={changeBg}
@@ -211,15 +272,15 @@ const DashboardSidebar = () => {
                     <GroupIcon className="sidebarIcon" />
                     Inventory
                   </li>
-                </Link>
+                </a>
 
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <Link
-                  to="/dashboard/savings"
+                <a
+                  href="/dashboard/savings"
                   className="link"
                   id="savings"
                   onClick={changeBg}
@@ -234,14 +295,14 @@ const DashboardSidebar = () => {
                     <PlaylistAddRoundedIcon className="sidebarIcon" />
                     Savings
                   </li>
-                </Link>
+                </a>
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <Link
-                  to="/dashboard/accounts"
+                <a
+                  href="/dashboard/accounts"
                   className="link"
                   id="accounts"
                   onClick={changeBg}
@@ -256,7 +317,7 @@ const DashboardSidebar = () => {
                     <BarChartIcon className="sidebarIcon" />
                     Accounts
                   </li>
-                </Link>
+                </a>
 
                 {/* ===================== */}
                 {/* ===================== */}
@@ -270,8 +331,8 @@ const DashboardSidebar = () => {
                 {/* =================== */}
                 {/* =================== */}
                 {/* =================== */}
-                <Link
-                  to="/dashboard"
+                <a
+                  href="/dashboard"
                   id="Home"
                   className="link"
                   onClick={changeBg}
@@ -286,14 +347,14 @@ const DashboardSidebar = () => {
                     <HomeIcon className="sidebarIcon" />
                     Home
                   </li>
-                </Link>
+                </a>
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <Link
-                  to="/dashboard/products"
+                <a
+                  href="/dashboard/products"
                   className="link"
                   id="products"
                   onClick={changeBg}
@@ -308,15 +369,15 @@ const DashboardSidebar = () => {
                     <GroupIcon className="sidebarIcon" />
                     Inventory
                   </li>
-                </Link>
+                </a>
 
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <Link
-                  to="/dashboard/savings"
+                <a
+                  href="/dashboard/savings"
                   className="link"
                   id="savings"
                   onClick={changeBg}
@@ -331,14 +392,14 @@ const DashboardSidebar = () => {
                     <PlaylistAddRoundedIcon className="sidebarIcon" />
                     Savings
                   </li>
-                </Link>
+                </a>
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <Link
-                  to="/dashboard/accounts"
+                <a
+                  href="/dashboard/accounts"
                   className="link"
                   id="accounts"
                   onClick={changeBg}
@@ -353,7 +414,7 @@ const DashboardSidebar = () => {
                     <BarChartIcon className="sidebarIcon" />
                     Accounts
                   </li>
-                </Link>
+                </a>
 
                 {/* ===================== */}
                 {/* ===================== */}
