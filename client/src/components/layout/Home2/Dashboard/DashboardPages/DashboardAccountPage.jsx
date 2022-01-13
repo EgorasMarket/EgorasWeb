@@ -17,7 +17,7 @@ import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
-import {send1} from "../../../../../actions/auth";
+import {send1,getLogin2} from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
 
 
@@ -29,6 +29,9 @@ function DashboardAccountPage({send1,setAlert}) {
 
   const [tokens,setTokens]=useState({gender:"",dateOfBirth:""});
 
+  const [nextKin,setNextKin]=useState({firstname:"",lastname:"",email:"",phoneNumber:"",gender1:"",relationship:""});
+
+  const {firstname,lastname,email,gender1,relationship,phoneNumber}=nextKin;
 
   const {gender,dateOfBirth} = tokens;
 
@@ -39,11 +42,17 @@ function DashboardAccountPage({send1,setAlert}) {
    
   };
 
+  const onChangeFor2 = (e) => {
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
+  
+   
+  };
+
 
   
 
-  const [value, setValue] = useState("1997-02-09");
-  const [email, setEmail] = useState("samuelify225@gmail.com");
+  // const [value, setValue] = useState("1997-02-09");
+  // const [email, setEmail] = useState("samuelify225@gmail.com");
   const [bvnNum, setBvnNum] = useState("23745672845");
   const [phoneNo, setPhoneNo] = useState("+2348164020234");
   //   const [value, setValue] = useState(new Date("2014-02-09"));
@@ -80,6 +89,25 @@ function DashboardAccountPage({send1,setAlert}) {
     
   }
 
+
+
+
+  const Apple = async (e)=>{
+
+    let  res = await getLogin2(
+      firstname,lastname,email,gender,relationship,phoneNumber
+    );
+
+    console.log(res);
+
+
+    if (res.data.data.success === true) {
+      console.log("okay Good Server");
+    } else {
+      setAlert(res.data.data.errors[0].msg, "danger");
+    }
+    
+  }
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
@@ -310,12 +338,18 @@ function DashboardAccountPage({send1,setAlert}) {
                           id="outlined-basic"
                           label="First Name"
                           variant="outlined"
+                          name={firstname}
+                          // value={firstname}
+                          // onChange={onChangeFor2}
                         />
                         <TextField
                           className="name_input1"
                           id="outlined-basic"
                           label="Last Name"
                           variant="outlined"
+                          name={lastname}
+                          value={lastname}
+                          onChange={onChangeFor2}
                         />
                       </div>
                     </div>
@@ -334,6 +368,9 @@ function DashboardAccountPage({send1,setAlert}) {
                           id="outlined-basic"
                           label="Email Address"
                           variant="outlined"
+                          name={email}
+                          value={email}
+                          onChange={onChangeFor2}
                         />
                       </div>
                     </div>
@@ -352,20 +389,23 @@ function DashboardAccountPage({send1,setAlert}) {
                           id="outlined-basic"
                           label="Phone number"
                           variant="outlined"
+                          name={phoneNumber}
+                          value={phoneNumber}
+                          onChange={onChangeFor2}
                         />
                       </div>
                     </div>
                     {/* '''''''''''''''''''''∂∂ */}
                     {/* '''''''''''''''''''''∂∂ */}
                     {/* '''''''''''''''''''''∂∂ */}
-                    <div className="account_toggle_body_area1_title">
+                    {/* <div className="account_toggle_body_area1_title">
                       Bank Details
-                    </div>
+                    </div> */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
+                    {/* <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts">
                         Bank
                         <span className="toggle_body_area1_cont1_sub_txts">
@@ -392,13 +432,13 @@ function DashboardAccountPage({send1,setAlert}) {
                           </FormControl>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
 
-                    <div className="toggle_body_area1_cont1">
+                    {/* <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts">
                         Account Number
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
@@ -411,12 +451,12 @@ function DashboardAccountPage({send1,setAlert}) {
                           variant="outlined"
                         />
                       </div>
-                    </div>
+                    </div> */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
+                    {/* <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts">
                         Account Name
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
@@ -429,7 +469,7 @@ function DashboardAccountPage({send1,setAlert}) {
                           variant="outlined"
                         />
                       </div>
-                    </div>
+                    </div> */}
                     {/* '''''''''''''''''''''∂∂ */}
                     {/* '''''''''''''''''''''∂∂ */}
                     {/* '''''''''''''''''''''∂∂ */}
@@ -444,7 +484,7 @@ function DashboardAccountPage({send1,setAlert}) {
                       <div className="toggle_body_area1_cont1_txts">
                         Relationship{" "}
                         <span className="toggle_body_area1_cont1_sub_txts">
-                          Father, Mother, Sister
+                          Father, Mother, Sister ...
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
@@ -456,13 +496,19 @@ function DashboardAccountPage({send1,setAlert}) {
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
+                              name={relationship}
                               value={age}
                               label="Age"
                               onChange={handleChange}
+                              // onSelect={onChangeFor2}
                             >
-                              <MenuItem value={10}>Ten</MenuItem>
-                              <MenuItem value={20}>Twenty</MenuItem>
-                              <MenuItem value={30}>Thirty</MenuItem>
+                              <MenuItem   value={10}>Mother</MenuItem>
+                              <MenuItem  value={20}>Father</MenuItem>
+                              <MenuItem  value={30}>Sister</MenuItem>
+                              <MenuItem  value={40}>Uncle</MenuItem>
+                              <MenuItem  value={50}>Aunt</MenuItem>
+                              <MenuItem   value={60}>Brother</MenuItem>
+                              <MenuItem  value={70}>Inlaw</MenuItem>
                             </Select>
                           </FormControl>
                         </div>
@@ -485,22 +531,27 @@ function DashboardAccountPage({send1,setAlert}) {
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name="gender"
+                            name={gender}
                             id="male"
                             value="Male"
+                  
+                            onClick={onChangeFor2}
                           />
-                          <label for="male" class="radio">
+                          <label for="male" class="radio" value={gender}>
                             Male
                           </label>
                         </div>
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name="gender"
+                            name={gender}
                             id="female"
                             value="female"
+                            onClick={onChangeFor2}
+
                           />
-                          <label for="female" class="radio">
+                          <label for="female" class="radio"
+                          value={gender}>
                             Female
                           </label>
                         </div>
@@ -514,7 +565,8 @@ function DashboardAccountPage({send1,setAlert}) {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn">
+                        <button className="save_changes_btn"
+                        onClick={Apple }>
                           Save Changes
                         </button>
                       </div>
@@ -630,4 +682,5 @@ function DashboardAccountPage({send1,setAlert}) {
   );
 }
 
-export default connect(null,{send1,setAlert})(DashboardAccountPage);
+    // let  res = await getLogin2(
+      export default connect(null,{send1,setAlert,getLogin2})(DashboardAccountPage);
