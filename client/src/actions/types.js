@@ -1,7 +1,7 @@
-export const SET_ALERT = 'SET_ALERT';
-export const REMOVE_ALERT = 'REMOVE_ALERT';
-export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
-export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const SET_ALERT = "SET_ALERT";
+export const REMOVE_ALERT = "REMOVE_ALERT";
+export const REGISTER_SUCCESS = "REGISTER_SUCCESS";
+export const REGISTER_FAIL = "REGISTER_FAIL";
 export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
@@ -14,6 +14,9 @@ export const FETCH_REQUESTS_SUCCESS = "FETCH_REQUESTS_SUCCESS";
 export const FETCH_REQUESTS_FAILED = "FETCH_REQUESTS_FAILED";
 export const FETCH_STATISTICS_SUCCESS = "FETCH_STATISTICS_SUCCESS";
 export const FETCH_STATISTICS_FAILED = "FETCH_STATISTICS_FAILED";
+export const USER_LOADED = "USER_LOADED";
 
- export const API_URL = "https://tea.egoras.com";
- //export const API_URL = "http://localhost:7801";
+export const API_URL = "https://tea.egoras.com";
+// export const API_URL2 = "https://330188b756ae73.lhr.life";
+//export const API_URL = "http://localhost:7801";
+export const API_URL2 = "http://localhost:4000";

@@ -37,13 +37,16 @@ const Footer = () => {
     if (FooterHide === "/dashboard/") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/dashboard/airtime") {
+    if (FooterHide === "/dashboard/savings") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/dashboard/transaction") {
+    if (FooterHide === "/dashboard/products/categories/id-phone") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/dashboard/egr-balance") {
+    if (FooterHide === "/dashboard/products") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/dashboard/accounts") {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/whitepaper") {
@@ -204,12 +207,8 @@ const Footer = () => {
                     >
                       Explore Collaterals
                     </a>
-                    <a
-                      href="/whitepaper"
-                      className="c1link1"
-                      target="_blank"
-                    >
-                   White Paper
+                    <a href="/whitepaper" className="c1link1" target="_blank">
+                      White Paper
                     </a>
                   </div>
                 </AccordionDetails>

@@ -63,6 +63,8 @@ import "./css/App.css";
 import "./css/Dark.css";
 import "./css/apexcharts.css";
 
+import setAuthToken from "./utils/setAuthToken";
+import { loadUser } from "./actions/auth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
 import Footer from "./components/layout/Home2/Footer/Footer";
 // import { Header } from './components/layout/parts/Header';
@@ -79,7 +81,7 @@ import PrivateRoute from "./components/routing/PrivateRoute";
 import Companies from "./components/layout/companies/Companies";
 import Details from "./components/layout/companies/Details";
 import Request from "./components/layout/requests/Request";
-import Login from "./components/auth/Login";
+// import Login from "./components/auth/Login";
 import Categories from "./components/layout/categories/Categories";
 import Status from "./components/layout/status/Status";
 import TermsAndConditions from "./components/layout/Home2/Terms&Condition/TermsAndConditions";
@@ -89,8 +91,15 @@ import NewHome from "./components/layout/home/NewHome";
 // import About from './components/layout/home/About';
 import TokenMetrics from "./components/layout/home/TokenMetrics";
 import AddUploader from "./components/layout/uploads/addUploader";
+// import Login from "./components/auth/Login";
+import Login from "./components/layout/Home2/Login/Login";
+// import Signup from "./components/layout/Home2/Signup/Signup";
+
+import Signup from "./components/layout/Home2/Signup/Signup";
+import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
+import Activation from "./components/layout/Home2/Activation/Activation";
 import LoanDetails from "./components/layout/LoanDetails/LoanDetails";
 import About from "./components/layout/Home2/About/About";
 import Documentation from "./components/layout/documentation/documentation";
@@ -113,8 +122,10 @@ import Documentation17 from "./components/layout/documentation/documentation17";
 import Documentation18 from "./components/layout/documentation/documentation18";
 import Documentation19 from "./components/layout/documentation/documentation19";
 import Documentation1 from "./components/layout/documentation/documentationSideTabs";
-
+import Dashboard from "./components/layout/Home2/Dashboard/Dashboard";
 import Explore_Loans from "./components/layout/Explore_Loan/explore_loans";
+import Savings from "./components/layout/Home2/Savings/Savings";
+import HomeUpdate from "./components/layout/HomeUpdate/HomeUpdate";
 import Explore_Loans_Page from "./components/layout/Explore_Loan/exploreLoanSection5";
 import Explore_Loans_Page1 from "./components/layout/Explore_Loan/exploreLoanSection7";
 import Explore_Loans_Page2 from "./components/layout/Explore_Loan/exploreLoanSection9";
@@ -122,10 +133,21 @@ import Explore_Loans_Page3 from "./components/layout/Explore_Loan/exploreLoanSec
 import Explore_Loans_Page4 from "./components/layout/Explore_Loan/exploreLoanSection11";
 import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSection12";
 import EGC from "./components/layout/EGC/egc";
+// import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
+import PrivateRoute2 from "./components/routing/PrivateRoute2";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+  //console.log("setAuthToken");
+}
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("xrate", 410);
     Aos.init({});
@@ -198,15 +220,20 @@ const App = () => {
           >
             <Fragment>
               <Header />
+
               {/* <Header onClick={handleChange} intitiated={intitiated} /> */}
               {/* {isTokenMetrics == false ? (
               ) : null} */}
               {/* <Route exact path='/' component={Home} /> */}
-              <Route exact path="/" component={Newhome2} />
-              <Route exact path="/validator" component={Landing} />
+
               {/* <section className=''> */}
               <section>
                 <Switch>
+                  <Route exact path="/" component={HomeUpdate} />
+                  <Route exact path="/activation" component={Activation} />
+                  <Route exact path="/savings" component={Savings} />
+                  <Route exact path="/loan" component={Newhome2} />
+                  <Route exact path="/validator" component={Landing} />
                   {/* <Route exact path='/loan/details/:id' component={Loan} /> */}
                   <Route
                     exact
@@ -218,13 +245,20 @@ const App = () => {
                     path="/companies/details/:id"
                     component={Details}
                   />
+                  <Route
+                    exact
+                    path="/products/details/:id/:name"
+                    component={ItemDetailsPage}
+                  />
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />
+                  <Route exact path="/signup" component={Signup} />
                   {/* <Route exact path='/new-home' component={NewHome} /> */}
 
                   <Route exact path="/confirmation" component={Opd} />
                   {/* <Route exact path='/about' component={About} /> */}
                   <Route exact path="/about" component={About} />
+                  {/* <Route exact path="/market" component={MarketHome} /> */}
                   <Route exact path="/egc" component={EGC} />
                   <Route exact path="/createloan2" component={Createloan} />
                   <Route exact path="/createloan" component={Createloan2} />
@@ -382,7 +416,11 @@ const App = () => {
                   <Route exact path="/whitepaper" component={Whitepaper} />
 
                   <Route exact path="/login" component={Login} />
+                  {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
+                  <PrivateRoute2>
+                    <Dashboard />
+                  </PrivateRoute2>
                 </Switch>
               </section>
               {/* <Footer /> */}

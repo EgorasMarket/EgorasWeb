@@ -7,6 +7,7 @@ import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CloseIcon from "@material-ui/icons/Close";
 import clsx from "clsx";
 import Drawer from "@material-ui/core/Drawer";
+import AppsIcon from "@mui/icons-material/Apps";
 import Toolbar from "@material-ui/core/Toolbar";
 import Accordion from "@material-ui/core/Accordion";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
@@ -135,17 +136,32 @@ const Header = () => {
         document.getElementById("Header").style.display = "none";
       });
     }
-    if (currentPage === "/dashboard/airtime") {
+    if (currentPage === "/login") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
       });
     }
-    if (currentPage === "/dashboard/transaction") {
+    if (currentPage === "/signup") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
       });
     }
-    if (currentPage === "/dashboard/egr-balance") {
+    if (currentPage === "/dashboard/savings") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
+    if (currentPage === "/dashboard/products/categories/id-phone") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
+    if (currentPage === "/dashboard/products") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
+    if (currentPage === "/dashboard/accounts") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
       });
@@ -160,6 +176,37 @@ const Header = () => {
         document.getElementById("headerSection").style.position = "relative";
       });
     }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("hide_menu").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("company1").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("product1").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("valid").style.display = "none";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   setshowHeader(() => {
+    //     document.getElementById("app_icon").style.display = "block";
+    //   });
+    // }
+    // if (currentPage === "/market") {
+    //   document.getElementById("borrow").style.display = "none";
+    // }
+    // document.getElementById("hide_menu").style.display = "none";
+    // document.getElementById("show-header-links2").style.display = "none";
+    // document.getElementById("app_icon").style.display = "none";
   });
 
   // page hide element
@@ -168,10 +215,12 @@ const Header = () => {
   const [page1, setPage1] = useState("/");
 
   useEffect(() => {
-    if (currentPage === "/") {
-      setPage1("/");
+    if (currentPage === "/loan") {
+      setPage1("/loan");
     } else if (currentPage === "/validator") {
       setPage1("/validator");
+    } else if (currentPage === "/savings") {
+      setPage1("/savings");
     }
   });
   // {
@@ -320,62 +369,13 @@ const Header = () => {
       <section className="headerSection" id="headerSection">
         <div className="container-fluid header">
           <div className="header-area">
-            <a href="/" className="egrLogo2Cont">
-              <img src="/img/egoras-logo.svg" alt="..." className="egr-logo2" />
-              <div className="on-mobile-navigators">
-                <ul className="headerLinks show-header-links">
-                  <a
-                    href="/"
-                    className={page1 === "/" ? "docs activeLink" : "about"}
-                    // onClick={clickMe1}
-                  >
-                    Borrower
-                    {page1 === "/" ? <span className="Line"></span> : null}
-                  </a>
-
-                  <a
-                    href="/validator"
-                    className={
-                      page1 === "/validator" ? "docs activeLink" : "about"
-                    }
-                    // onClick={clickMe2}
-                  >
-                    Validator
-                    {page1 === "/validator" ? (
-                      <span className="Line"></span>
-                    ) : null}
-                  </a>
-                </ul>
-              </div>
+            <a href="/">
+              {" "}
+              <img src="/img/egoras-logo.svg" alt="..." className="egr-logo" />
             </a>
-
-            <ul className="headerLinks">
-              <a href="/">
-                {" "}
-                <img
-                  src="/img/egoras-logo.svg"
-                  alt="..."
-                  className="egr-logo"
-                />
-              </a>
-              <a
-                href="/"
-                className={page1 === "/" ? "docs activeLink" : "about"}
-                // onClick={clickMe1}
-              >
-                Borrower
-                {page1 === "/" ? <span className="Line"></span> : null}
-              </a>
-
-              <a
-                href="/validator"
-                className={page1 === "/validator" ? "docs activeLink" : "about"}
-                // onClick={clickMe2}
-              >
-                Validator
-                {page1 === "/validator" ? <span className="Line"></span> : null}
-              </a>
-            </ul>
+            <a href="#" className="egrLogo2Cont">
+              <img src="/img/egoras-logo.svg" alt="..." className="egr-logo2" />
+            </a>
 
             {/* <ul className="headerLinks2">
             <a href="/documents" className="docs">
@@ -389,12 +389,125 @@ const Header = () => {
           </ul> */}
 
             <ul className="headerButtons">
-              <div
+              {/* <AppsIcon className="app_icon" id="app_icon" /> */}
+
+              {/* <div className="hide_menu" id="hide_menu"> */}
+              {/* <a
+                  href="/validator"
+                  className={
+                    page1 === "/validator" ? "docs activeLink" : "about"
+                  }
+                  // onClick={clickMe2}
+                >
+                  Validator
+                  {page1 === "/validator" ? (
+                    <span className="Line"></span>
+                  ) : null}
+                </a>
+                <div
+                  style={{ cursor: "pointer" }}
+                  onMouseOver={dropDownOpen1}
+                  onMouseOut={dropDownClose1}
+                  className="product"
+                  id="product"
+                >
+                  Products
+                  <img
+                    src="/img/arrow-down-icon.svg"
+                    alt="..."
+                    id="ArrowDownIcon"
+                    className="ArrowDownIcon"
+                  />
+                  <div className="products-menu " id="products-menu">
+                    <h6 className="drop-borrow">Borrower</h6>
+                    <a
+                      href="https://egoras.ng/appointment"
+                      className="drop-borrow-link"
+                    >
+                      Get loan
+                    </a>
+                    <hr />
+                    <h6 className="drop-borrow">Validator</h6>
+                    <a href="/explore_collaterals" className="drop-borrow-link">
+                      Explore Collaterals
+                    </a>
+                  </div>
+                </div> */}
+
+              {/* <div
+                  style={{ cursor: "pointer" }}
+                  className="company"
+                  id="company"
+                  onMouseOver={dropDownOpen2}
+                  onMouseOut={dropDownClose2}
+                >
+                  Company
+                  <img
+                    src="/img/arrow-down-icon.svg"
+                    alt="..."
+                    id="ArrowDownIcon2"
+                    className="ArrowDownIcon2"
+                  />
+                  {/* <ArrowDropUpIcon id="ArrowUpIcon2" className="ArrowUpIcon2" /> */}
+              {/* <div className="products-menu menu2" id="products-menu2">
+                    <a href="/about" className="drop-borrow-link">
+                      About Us
+                    </a>
+                    <hr />
+                    <a
+                      href="https://egoras.medium.com/"
+                      className="drop-borrow-link"
+                    >
+                      Blog
+                    </a>
+                    <hr />
+                    <a href="/whitepaper" className="drop-borrow-link">
+                      White Paper
+                    </a>
+                  </div>
+                </div> */}
+              {/* </div> */}
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              <ul className="headerLinks">
+                <div className="boroowww" id="borrow">
+                  <a
+                    href="/loan"
+                    id="borrow"
+                    className={page1 === "/loan" ? "docs activeLink" : "about"}
+                    // onClick={clickMe1}
+                  >
+                    Loan
+                    {page1 === "/loan" ? <span className="Line"></span> : null}
+                  </a>
+                </div>
+
+                <a
+                  href="/savings"
+                  className={page1 === "/market" ? "docs activeLink" : "about"}
+                  // onClick={clickMe2}
+                >
+                  Savings
+                  {page1 === "/savings" ? <span className="Line"></span> : null}
+                </a>
+              </ul>
+              <a
+                href="/validator"
+                className={page1 === "/validator" ? "docs activeLink" : "about"}
+                // onClick={clickMe2}
+                id="valid"
+              >
+                Validator
+                {page1 === "/validator" ? <span className="Line"></span> : null}
+              </a>
+              {/* <div
                 style={{ cursor: "pointer" }}
                 onMouseOver={dropDownOpen1}
                 onMouseOut={dropDownClose1}
                 className="product"
-                id="product"
+                id="product1"
               >
                 Products
                 <img
@@ -417,12 +530,12 @@ const Header = () => {
                     Explore Collaterals
                   </a>
                 </div>
-              </div>
+              </div> */}
 
               <div
                 style={{ cursor: "pointer" }}
                 className="company"
-                id="company"
+                id="company1"
                 onMouseOver={dropDownOpen2}
                 onMouseOut={dropDownClose2}
               >
