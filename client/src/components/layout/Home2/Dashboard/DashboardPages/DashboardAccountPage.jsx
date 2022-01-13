@@ -19,6 +19,7 @@ import "../DashboardStyles/dashboard_account.css";
 function DashboardAccountPage() {
   const [value, setValue] = useState("1997-02-09");
   const [email, setEmail] = useState("samuelify225@gmail.com");
+  const [bvnNum, setBvnNum] = useState("23745672845");
   const [phoneNo, setPhoneNo] = useState("+2348164020234");
   //   const [value, setValue] = useState(new Date("2014-02-09"));
   const [age, setAge] = React.useState("");
@@ -137,24 +138,7 @@ function DashboardAccountPage() {
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Username
-                        <span className="toggle_body_area1_cont1_sub_txts">
-                          {" "}
-                          Receive money from friends using your username
-                        </span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <TextField
-                          className="name_input1"
-                          id="outlined-basic"
-                          label="Username"
-                          variant="outlined"
-                          value="Cyntax247"
-                        />
-                      </div>
-                    </div>
+
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
@@ -536,7 +520,7 @@ function DashboardAccountPage() {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">Add BVN</div>
+                        <div className="bvn_btn">{bvnNum}</div>
                       </div>
                     </div>
                     {/* ================= */}

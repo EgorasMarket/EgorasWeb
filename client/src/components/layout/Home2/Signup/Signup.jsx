@@ -8,13 +8,14 @@ const Signup = ({ getAuthentication, setAlert }) => {
     fullname: "",
     email: "",
     password: "",
+    BVN: "",
     phoneNumber: "",
     // confirmpassword: "",
     InfoReason: "",
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
-  const { fullname, email, password, phoneNumber, InfoReason } = userAuth;
+  const { fullname, email, password, BVN, phoneNumber, InfoReason } = userAuth;
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -80,6 +81,7 @@ const Signup = ({ getAuthentication, setAlert }) => {
       fullname,
       email,
       password,
+      BVN,
       phoneNumber,
       InfoReason
       //   localStorage.referrer
@@ -149,8 +151,8 @@ const Signup = ({ getAuthentication, setAlert }) => {
                     <input
                       type="number"
                       className="signup_input_field"
-                      value={phoneNumber}
-                      name="phoneNumber"
+                      value={BVN}
+                      name="BVN"
                       onChange={onChange}
                     />
                   </div>

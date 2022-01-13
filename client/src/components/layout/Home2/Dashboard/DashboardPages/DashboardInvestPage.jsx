@@ -1,10 +1,13 @@
 import React, { useState, useEffect } from "react";
 import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
 import CategoryIcon from "@mui/icons-material/Category";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import ListIcon from "@mui/icons-material/List";
 import Slider from "react-slick";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Carousel from "react-multi-carousel";
 import DvrIcon from "@mui/icons-material/Dvr";
+import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_products.css";
 
 const Category = [
@@ -37,6 +40,59 @@ const Category = [
   },
 ];
 const itemDetails = [
+  {
+    id: 1,
+    img: "/img/BAG.jpeg",
+    name: "Samsung smart tv series",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+
+    percentage: "100%",
+    // ratio: "175%",
+  },
+  {
+    id: 2,
+    img: "/img/samsung_tv_555.jpeg",
+    name: "Lg smart tv series",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 3,
+    img: "/img/BAG.jpeg",
+    name: "Iphone 12pro max",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 4,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 5,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+
+    percentage: "100%",
+  },
+  {
+    id: 6,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+];
+const itemDetails5 = [
   {
     id: 1,
     img: "/img/BAG.jpeg",
@@ -154,7 +210,7 @@ function DashboardInvestPage() {
         <div className="cat_body_toggle">
           <div className="cat_body_toggle1">
             All Categories
-            <CategoryIcon className="cat_icon" />
+            <ListIcon className="cat_icon" />
           </div>
           <div className="cat_body_toggle1">Computers and Accessories</div>
           <div className="cat_body_toggle1">Phones and Tablets</div>
@@ -289,6 +345,13 @@ function DashboardInvestPage() {
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
           <div className="products_display_body">
+            <div className="products_display_body_heading">
+              Top Categories{" "}
+              <div className="se_all_btnn">
+                SEE ALL
+                <ChevronRightIcon />
+              </div>
+            </div>
             <div className="products_display_body_conts">
               {itemDetails.map((asset) => (
                 <a href={`/products/details/${asset.id}/${asset.name}`}>
@@ -328,6 +391,322 @@ function DashboardInvestPage() {
               ))}
             </div>
           </div>
+
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="prod_banner_advert_div">
+            <img
+              src="/img/fake_assets/prod_banner_ad.jpeg"
+              alt=""
+              className="prod_banner_ad"
+            />
+          </div>
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body no_pad">
+            <div className="products_display_body_heading heading_color_2">
+              Phones & Tablets
+              <div className="se_all_btnn se_all_color2">
+                SEE ALL
+                <ChevronRightIcon />
+              </div>
+            </div>
+            <div className="products_display_body_conts_banner">
+              <div className="products_display_body_conts_banner_cont">
+                <img
+                  src="/img/fake_assets/unlimited.gif"
+                  alt=""
+                  className="asset_cat_image_display"
+                />
+              </div>
+              <div className="products_display_body_conts2">
+                {itemDetails5.map((asset) => (
+                  <a href={`/products/details/${asset.id}/${asset.name}`}>
+                    <li className="carous_list no_marg">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${asset.img})`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            {asset.Save_button}
+                          </button>
+                          <button className="items_remaining_btn2">
+                            {asset.percentage} off
+                          </button>
+                        </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.name}</div>
+                          <div className="asset_title">
+                            {asset.items_remainings}
+                          </div>
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    </li>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body">
+            <div className="products_display_body_heading">
+              Grocery Store
+              <div className="se_all_btnn">
+                SEE ALL
+                <ChevronRightIcon />
+              </div>
+            </div>
+            <div className="products_display_body_conts">
+              {itemDetails.map((asset) => (
+                <a href={`/products/details/${asset.id}/${asset.name}`}>
+                  <li className="carous_list no_marg">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${asset.img})`,
+                        //           height: "200px",
+                        //           width: "100%",
+                        //           backgroundRepeat: "no-repeat",
+                        //           backgroundSize: "cover",
+                        //           borderRadius: "8px",
+                        //           borderBottomLeftRadius: "0px",
+                        //           borderBottomRightRadius: "0px",
+                        //   backgroundPositionY: "center",
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          {asset.Save_button}
+                        </button>
+                        <button className="items_remaining_btn2">
+                          {asset.percentage} off
+                        </button>
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_title">
+                          {asset.items_remainings}
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body">
+            <div className="products_display_body_heading">
+              Home & Kitchen
+              <div className="se_all_btnn">
+                SEE ALL
+                <ChevronRightIcon />
+              </div>
+            </div>
+            <div className="products_display_body_conts">
+              {itemDetails.map((asset) => (
+                <a href={`/products/details/${asset.id}/${asset.name}`}>
+                  <li className="carous_list no_marg">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${asset.img})`,
+                        //           height: "200px",
+                        //           width: "100%",
+                        //           backgroundRepeat: "no-repeat",
+                        //           backgroundSize: "cover",
+                        //           borderRadius: "8px",
+                        //           borderBottomLeftRadius: "0px",
+                        //           borderBottomRightRadius: "0px",
+                        //   backgroundPositionY: "center",
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          {asset.Save_button}
+                        </button>
+                        <button className="items_remaining_btn2">
+                          {asset.percentage} off
+                        </button>
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_title">
+                          {asset.items_remainings}
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+              ))}
+            </div>
+          </div>
+
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="prod_banner_advert_div">
+            <img
+              src="/img/fake_assets/prod_banner_ad.jpeg"
+              alt=""
+              className="prod_banner_ad"
+            />
+          </div>
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body no_pad">
+            <div className="products_display_body_heading heading_color_2">
+              Electronics
+              <div className="se_all_btnn se_all_color2">
+                SEE ALL
+                <ChevronRightIcon />
+              </div>
+            </div>
+            <div className="products_display_body_conts_banner">
+              <div className="products_display_body_conts_banner_cont">
+                <img
+                  src="/img/fake_assets/unlimited.gif"
+                  alt=""
+                  className="asset_cat_image_display"
+                />
+              </div>
+              <div className="products_display_body_conts2">
+                {itemDetails5.map((asset) => (
+                  <a href={`/products/details/${asset.id}/${asset.name}`}>
+                    <li className="carous_list no_marg">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${asset.img})`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            {asset.Save_button}
+                          </button>
+                          <button className="items_remaining_btn2">
+                            {asset.percentage} off
+                          </button>
+                        </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.name}</div>
+                          <div className="asset_title">
+                            {asset.items_remainings}
+                          </div>
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    </li>
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body">
+            <div className="products_display_body_heading">
+              Computers & Accessories
+              <div className="se_all_btnn">
+                SEE ALL
+                <ChevronRightIcon />
+              </div>
+            </div>
+            <div className="products_display_body_conts">
+              {itemDetails.map((asset) => (
+                <a href={`/products/details/${asset.id}/${asset.name}`}>
+                  <li className="carous_list no_marg">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${asset.img})`,
+                        //           height: "200px",
+                        //           width: "100%",
+                        //           backgroundRepeat: "no-repeat",
+                        //           backgroundSize: "cover",
+                        //           borderRadius: "8px",
+                        //           borderBottomLeftRadius: "0px",
+                        //           borderBottomRightRadius: "0px",
+                        //   backgroundPositionY: "center",
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          {asset.Save_button}
+                        </button>
+                        <button className="items_remaining_btn2">
+                          {asset.percentage} off
+                        </button>
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_title">
+                          {asset.items_remainings}
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <div className="fixed_pop">
+          <img
+            src="/img/fake_assets/pop_pic.gif"
+            alt=""
+            className="fixed_pop_img"
+          />
         </div>
       </section>
     </div>
