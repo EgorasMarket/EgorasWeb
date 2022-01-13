@@ -1,0 +1,222 @@
+.product_categories_div {
+  background: #2e935696;
+  backdrop-filter: blur(7px);
+  color: #ffffff;
+  position: fixed;
+  z-index: 100000;
+  font-weight: 700;
+  width: 17%;
+  font-size: 14px;
+  top: 12%;
+  padding: 2em 1em;
+  left: 14%;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 20px;
+  gap: 20px;
+  box-shadow: 0px 4px 10px #82978a;
+  border-bottom-right-radius: 25px;
+  border-top-right-radius: 25px;
+  padding-right: 2em;
+}
+.cat_div {
+  background: #0c512782;
+  -webkit-backdrop-filter: blur(7px);
+  backdrop-filter: blur(12px);
+  color: #ffffff;
+  position: fixed;
+  z-index: 100000;
+  font-weight: 700;
+  width: 86%;
+  font-size: 14px;
+  top: 99px;
+  left: 14%;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 20px;
+  grid-gap: 20px;
+  grid-gap: 20px;
+  grid-gap: 20px;
+  gap: 20px;
+  border-bottom: solid 3px #78b79182;
+}
+
+.cat_body_toggle {
+  width: 75%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+}
+.cat_body_toggle1 {
+  font-size: 13px;
+  padding: 0.9em 2em;
+  cursor: pointer;
+  transition: 0.3s linear;
+}
+.cat_body_toggle1:hover {
+  background: #318954a1;
+  transition: 0.3s linear;
+}
+.cat_icon {
+  font-size: 24px !important;
+  /* background: #f2fff7; */
+  padding: 1px;
+  color: #ffffff;
+  border-radius: 4px;
+  margin-left: 0px;
+}
+
+.products_hero_area {
+  margin-top: 4em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 25px;
+}
+.products_hero_img {
+  width: 100%;
+  border-radius: 10px;
+  box-shadow: 0px 0px 15px #bfdccb;
+}
+.products_area1 {
+  width: 70%;
+  border-radius: 15px;
+  box-shadow: 0px 0px 15px #bfdccb;
+}
+.products_area2 {
+  width: 40%;
+  display: grid;
+  grid-template-columns: auto auto;
+  gap: 15px;
+}
+.products_area1 .slick-dots {
+  bottom: 0px !important;
+}
+.products_area1 .slick-dots li.slick-active button:before {
+  opacity: 1;
+  color: #000000;
+}
+.products_area1 .slick-dots li button:before {
+  font-size: 10px;
+  opacity: 1;
+  color: #fff;
+}
+
+.brands_area {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 2em;
+  gap: 10px;
+}
+.brand_cont1 {
+  width: 20%;
+  /* height: 29px; */
+  background: #fff;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px #d3e7db;
+  padding: 1em 1em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.brand_imgs {
+  width: 80%;
+}
+/* .product_categories_div_head:hover.product_categories_div_body {
+  gap: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 20px;
+} */
+
+.products_display_body {
+  background: #fff;
+  padding: 0em 0em; /* height: 100vh; */
+  border-radius: 10px;
+  box-shadow: 0px 0px 25px #c5e3d1;
+  margin-top: 2em;
+  overflow: hidden;
+  padding-bottom: 2em;
+}
+.no_pad {
+  padding: 0;
+}
+
+.products_display_body_heading {
+  padding: 0.5em 1em;
+  background: #b3e3c6;
+  margin-bottom: 29px;
+  color: #2c8b51;
+  font-size: 20px;
+  font-weight: 700;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.heading_color_2 {
+  background: #41ba71b5;
+  color: #ffffff;
+}
+
+.se_all_btnn {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  color: #2a7b49;
+  font-size: 14px;
+}
+.se_all_color2 {
+  color: #fff;
+}
+.products_display_body_conts {
+  padding: 0em 2em;
+  display: grid;
+  grid-template-columns: auto auto auto auto auto auto;
+  gap: 15px;
+}
+.products_display_body_conts2 {
+  padding: 0em 2em;
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 15px;
+  width: 100%;
+}
+
+.products_display_body_conts_banner {
+  display: flex;
+  align-items: center;
+  grid-gap: 10px;
+  gap: 10px;
+}
+
+.products_display_body_conts_banner_cont {
+  width: 65%;
+}
+
+.no_marg {
+  margin: 0 !important;
+  width: 100% !important;
+}
+.prod_banner_advert_div {
+  margin-top: 2em;
+  /* margin-bottom: 2em; */
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0px 0px 15px #c6dfcf;
+}
+.prod_banner_ad {
+  width: 100%;
+}
+.asset_cat_image_display {
+  width: 100%;
+}
+.fixed_pop {
+  width: 81px;
+  position: fixed;
+  bottom: 0;
+  left: 15%;
+}
+.fixed_pop_img {
+  width: 100%;
+}
