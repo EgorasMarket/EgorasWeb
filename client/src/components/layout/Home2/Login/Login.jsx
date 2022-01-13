@@ -3,13 +3,14 @@ import React,{useState} from "react";
 import { connect } from "react-redux";
 import "../../../../css/login.css";
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
 
 import {getLogin} from "../../../../actions/auth";
 // import { getAuthentication } from "../../../../actions/auth";
 import { setAlert } from "../../../../actions/alert";
 
 
-const Login = ({ getLogin, setAlert }) => {
+const Login = ({ getLogin, setAlert, isAuthenticated }) => {
 
   // const [token,setToken]=useState();
 
@@ -63,6 +64,12 @@ const Login = ({ getLogin, setAlert }) => {
 
      }
 
+
+     // Redirect if logged in
+    if (isAuthenticated) {
+      // return <Redirect to="/dashboard" />;
+      return window.location.replace("/dashboard");
+    }
 
 
 
@@ -125,4 +132,14 @@ const Login = ({ getLogin, setAlert }) => {
   );
 };
 
-export default connect(null,{getLogin,setAlert})(Login);
+Login.propTypes = {
+  // getLoginAuthentication: PropTypes.func.isRequired,
+  // setAlert: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
+
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps,{getLogin,setAlert})(Login);

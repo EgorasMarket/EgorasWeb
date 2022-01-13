@@ -63,6 +63,8 @@ import "./css/App.css";
 import "./css/Dark.css";
 import "./css/apexcharts.css";
 
+import setAuthToken from "./utils/setAuthToken";
+import { loadUser } from "./actions/auth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
 import Footer from "./components/layout/Home2/Footer/Footer";
 // import { Header } from './components/layout/parts/Header';
@@ -134,8 +136,18 @@ import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
+import PrivateRoute2 from "./components/routing/PrivateRoute2";
+
+if (localStorage.token) {
+  setAuthToken(localStorage.token);
+  //console.log("setAuthToken");
+}
 
 const App = () => {
+  useEffect(() => {
+    store.dispatch(loadUser());
+  }, []);
+
   useEffect(() => {
     localStorage.setItem("xrate", 410);
     Aos.init({});
@@ -406,7 +418,9 @@ const App = () => {
                   <Route exact path="/login" component={Login} />
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  <Dashboard />
+                  <PrivateRoute2>
+                    <Dashboard />
+                  </PrivateRoute2>
                 </Switch>
               </section>
               {/* <Footer /> */}
