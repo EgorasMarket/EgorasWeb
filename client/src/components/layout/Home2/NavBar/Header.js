@@ -151,6 +151,11 @@ const Header = () => {
         document.getElementById("Header").style.display = "none";
       });
     }
+    if (currentPage === "/dashboard/products/categories/id-phone") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
     if (currentPage === "/dashboard/products") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
