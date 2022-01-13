@@ -16,7 +16,32 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
-function DashboardAccountPage() {
+import { connect } from "react-redux";
+import {send1} from "../../../../../actions/auth";
+import { setAlert } from "../../../../../actions/alert";
+
+
+
+
+
+function DashboardAccountPage({send1,setAlert}) {
+
+
+  const [tokens,setTokens]=useState({gender:"",dateOfBirth:""});
+
+
+  const {gender,dateOfBirth} = tokens;
+
+
+  const onChangeFor = (e) => {
+    setTokens({ ...tokens, [e.target.name]: e.target.value });
+  
+   
+  };
+
+
+  
+
   const [value, setValue] = useState("1997-02-09");
   const [email, setEmail] = useState("samuelify225@gmail.com");
   const [bvnNum, setBvnNum] = useState("23745672845");
@@ -36,6 +61,26 @@ function DashboardAccountPage() {
   // const handleChange = (newValue) => {
   //   setValue(newValue);
   // };
+
+
+  const sends = async (e)=>{
+
+    let  res = await send1(
+      gender,dateOfBirth
+    );
+
+    console.log(res);
+
+
+    if (res.data.data.success === true) {
+      console.log("okay Good Server");
+    } else {
+      setAlert(res.data.data.errors[0].msg, "danger");
+    }
+    
+  }
+
+
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
       <section className="no-bg" style={{ paddingBottom: "0em" }}>
@@ -155,22 +200,28 @@ function DashboardAccountPage() {
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name="gender"
+                            name={gender}
                             id="male"
-                            value="Male"
+                            // value={gender.value}
+                            onClick={onChangeFor}
                           />
-                          <label for="male" class="radio">
+                          <label for="male"
+                           value={gender}
+                          class="radio">
                             Male
                           </label>
                         </div>
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name="gender"
+                            name={gender}
                             id="female"
-                            value="female"
+                            // value={gender}
+                            onClick={onChangeFor}
                           />
-                          <label for="female" class="radio">
+                          <label for="female" 
+                            value={gender}
+                          class="radio">
                             Female
                           </label>
                         </div>
@@ -198,10 +249,11 @@ function DashboardAccountPage() {
                       /> */}
                         <input
                           type="date"
-                          name=""
+                          name={dateOfBirth}
                           id=""
-                          value={value}
+                          //  value={dateOfBirth}
                           className="name_input1 date_input"
+                           onClick={onChangeFor}
                         />
                         {/* <TextField
                         className="name_input1"
@@ -219,7 +271,9 @@ function DashboardAccountPage() {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn">
+                        <button 
+                          onClick={sends}
+                        className="save_changes_btn">
                           Save Changes
                         </button>
                       </div>
@@ -576,4 +630,4 @@ function DashboardAccountPage() {
   );
 }
 
-export default DashboardAccountPage;
+export default connect(null,{send1,setAlert})(DashboardAccountPage);

@@ -75,3 +75,86 @@ export const getAuthentication =
       };
     }
   };
+
+  export const getLogin = (email,password)=> async(dispatch)=>{
+
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      email,
+      password,
+     
+    });
+
+    console.log(body);
+
+    try {
+      const res2 = await axios.post(
+        api_url2 + "/v1/user/login",
+        body,
+        config
+      );
+      console.log(res2);
+
+      return {
+        success: true,
+        data: res2.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
+
+  }
+
+
+  export const send1 = (gender,dateOfBirth)=> async(dispatch)=>{
+
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      gender,
+      dateOfBirth,
+     
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.put(
+        api_url2 + "/v1/user/update/customer/info",
+        body,
+        config
+      );
+      console.log(res);
+
+      return {
+        success: true,
+        data: res.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
+
+  }
