@@ -10,23 +10,31 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+  
   API_URL2 as api_url2,
 } from "./types";
+import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
+  // console.log('okkkkkkk');
+
   if (localStorage.token) {
-    const res = localStorage.token;
-    console.log("Load User is called");
+    setAuthToken(localStorage.token);
+  }
+
+  try {
+    const res = await axios.get(api_url2 + "/v1/user/info");
+    console.log(res);
+    // console.log("Yes I call You because i can", res.data);
     dispatch({
       type: USER_LOADED,
-      payload: res,
+      payload: res.data,
     });
-  } else {
-    console.log("Load User is empty");
+  } catch (error) {
+    console.log('not registered');
     dispatch({
       type: AUTH_ERROR,
-      payload: "",
     });
   }
 };
@@ -95,16 +103,80 @@ export const getAuthentication =
     console.log(body);
 
     try {
-      const res2 = await axios.post(
+      const res = await axios.post(
         api_url2 + "/v1/user/login",
         body,
         config
       );
-      console.log(res2);
+      console.log(res);
+
+      if (res.data.success === false) {
+        //console.log(res.data);
+        const errors = res.data.errors;
+        //console.log(errors);
+        // if (errors) {
+        //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+        // }
+        dispatch({
+          type: LOGIN_FAIL,
+          payload: errors[0].msg,
+        });
+
+        return {
+          status: false,
+          data: errors[0].msg,
+        };
+      } else {
+        dispatch({
+          type: LOGIN_SUCCESS,
+          payload: res.data,
+        });
+        return {
+          status: true,
+          data: res.data,
+        };
+      }
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
+
+  }
+
+
+
+  export const nextOfKING = (firstname,lastname,email,phoneNumber,gender,relationship)=> async(dispatch)=>{
+
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      firstname,lastname,email,phoneNumber,gender,relationship
+     
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.post(
+        api_url2 + "/v1/user/add/customer/next-of-kin",
+        body,
+        config
+      );
+      console.log(res);
 
       return {
         success: true,
-        data: res2.data,
+        data: res.data,
       };
     } catch (err) {
       console.log(err.response);
@@ -118,7 +190,9 @@ export const getAuthentication =
   }
 
 
-  export const send1 = (gender,dateOfBirth)=> async(dispatch)=>{
+
+
+  export const sumitGenderAndDate = (gender,dateOfBirth)=> async(dispatch)=>{
 
     const config = {
       headers: {
