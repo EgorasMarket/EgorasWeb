@@ -149,7 +149,7 @@ export const getAuthentication =
 
 
 
-  export const getLogin2 = (firstname,lastname,email,phoneNumber,gender,relationship)=> async(dispatch)=>{
+  export const nextOfKING = (firstname,lastname,email,phoneNumber,gender,relationship)=> async(dispatch)=>{
 
     const config = {
       headers: {
@@ -192,7 +192,7 @@ export const getAuthentication =
 
 
 
-  export const send1 = (gender,dateOfBirth)=> async(dispatch)=>{
+  export const sumitGenderAndDate = (gender,dateOfBirth)=> async(dispatch)=>{
 
     const config = {
       headers: {
