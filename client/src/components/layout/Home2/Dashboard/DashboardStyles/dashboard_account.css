@@ -202,3 +202,16 @@ label.radio::before {
   color: #41ba71;
   font-weight: 700;
 }
+.toggle_body_area1_cont1_input {
+  position: relative;
+}
+.add_icon {
+  position: absolute;
+  bottom: 0px;
+  left: 70px;
+  color: white;
+  background: #42a66c;
+  border-radius: 100%;
+  box-shadow: 0px 3px 6px #a8c9b5;
+  cursor: pointer;
+}
