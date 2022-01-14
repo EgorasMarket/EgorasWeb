@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import SearchIcon from "@mui/icons-material/Search";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import "../../DashboardStyles/category.css";
@@ -72,6 +75,381 @@ const itemDetails = [
     percentage: "100%",
   },
 ];
+const assetBrand = [
+  {
+    id: "apple",
+    name: "Apple",
+  },
+  {
+    id: "samsung",
+    name: "Samsung",
+  },
+  {
+    id: "oppo",
+    name: "Oppo",
+  },
+  {
+    id: "huawei",
+    name: "HUAWEI",
+  },
+  {
+    id: "tecno",
+    name: "TECNO",
+  },
+  {
+    id: "infinix",
+    name: "Infinix",
+  },
+  {
+    id: "nokia",
+    name: "Nokia",
+  },
+  {
+    id: "gionee",
+    name: "Gionee",
+  },
+  {
+    id: "itel",
+    name: "Itel",
+  },
+  {
+    id: "lenovo",
+    name: "Lenovo",
+  },
+  {
+    id: "vivo",
+    name: "Vivo",
+  },
+  {
+    id: "xiaomi",
+    name: "Xiaomi",
+  },
+];
+const itemDetails2 = [
+  {
+    id: 1,
+    img: "/img/BAG.jpeg",
+    name: "Samsung smart tv series",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+
+    percentage: "100%",
+    // ratio: "175%",
+  },
+  {
+    id: 2,
+    img: "/img/samsung_tv_555.jpeg",
+    name: "Lg smart tv series",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 3,
+    img: "/img/BAG.jpeg",
+    name: "Iphone 12pro max",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 4,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 5,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+
+    percentage: "100%",
+  },
+  {
+    id: 6,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 7,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+  {
+    id: 8,
+    img: "/img/BAG.jpeg",
+    name: "Samsung galaxy s9+",
+    items_remainings: "16 items left.",
+    Save_button: "Save now",
+    percentage: "100%",
+  },
+];
 const responsive6 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -93,6 +471,19 @@ const responsive6 = {
 };
 
 const PhonesCatPage = () => {
+  const [totalProducts, setTotalProducts] = useState("200 ");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchResults, setSearchResults] = useState([]);
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  useEffect(() => {
+    const results = assetBrand.filter((BrandName) =>
+      BrandName.name.toString().toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchTerm]);
   return (
     <div className="other2">
       <section className="no-bg">
@@ -260,6 +651,106 @@ const PhonesCatPage = () => {
                   alt=""
                   className="img_gr1"
                 />
+              </div>
+            </div>
+            {/* =================+++++++++++++++ */}
+            {/* =================+++++++++++++++ */}
+            {/* =================+++++++++++++++ */}
+            {/* =================+++++++++++++++ */}
+            {/* =================+++++++++++++++ */}
+            {/* =================+++++++++++++++ */}
+            {/* =================+++++++++++++++ */}
+            {/* =================+++++++++++++++ */}
+            <div className="items_all_list">
+              <div className="items_all_list_cat_select">
+                <div className="cat_select_div1">
+                  <div className="cat_select_div1_head">Categories</div>
+                  <div className="cat_select_div1_sub_head">
+                    Phones & Laptops
+                  </div>
+                </div>
+                <div className="cat_select_div2">
+                  <div className="cat_select_div2_head">
+                    Brand{" "}
+                    <div className="brand_search_area">
+                      <input
+                        type="search"
+                        name="search"
+                        id="searchBrand"
+                        placeholder="Search..."
+                        value={searchTerm}
+                        onChange={handleSearchChange}
+                        className="search_brand"
+                      />
+                      <SearchIcon className="search_icon" />
+                    </div>
+                  </div>
+                  <div className="cat_select_div2_body">
+                    {searchResults.map((brand) => (
+                      <div className="select_brand_check_box">
+                        <label class="label_cont">
+                          {brand.name}
+                          <input
+                            type="checkbox"
+                            name="apple"
+                            //   id="apple"
+                            className="brand_check_input"
+                            key={brand.id}
+                          />
+                          <span class="checkmark"></span>
+                        </label>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+              <div className="items_all_list_body_cont">
+                <div className="items_all_list_body_cont_head1">
+                  Connect Your World{" "}
+                  <span className="sort_cont">
+                    Sort by:{" "}
+                    <span className="sort_btn">
+                      Popularity
+                      <ArrowDropDownIcon />
+                    </span>
+                  </span>
+                </div>
+                <div className="items_all_list_body_cont_head2">
+                  {totalProducts} Products Found
+                  <span className="sort_cont">
+                    <WidgetsIcon className="widgi_widgi" />
+                  </span>
+                </div>
+                <div className="items_all_list_body">
+                  {itemDetails2.map((asset) => (
+                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                      <li className="carous_list caro_lisss_2">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${asset.img})`,
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.Save_button}
+                            </button>
+                            <button className="items_remaining_btn2">
+                              {asset.percentage} off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_title">
+                              {asset.items_remainings}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                  ))}
+                </div>
               </div>
             </div>
           </div>

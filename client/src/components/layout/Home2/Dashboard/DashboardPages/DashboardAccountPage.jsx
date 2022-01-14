@@ -1,6 +1,11 @@
 import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
+import AvatarSelector from "react-avatar-selector";
+// import poodle from "../../img/profile_img.jpeg";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+// import  {useLocal}
+import { useLocalStorage } from "../../Activation/useLocalStorage";
 // import TextField from "@mui/material/TextField";
 // import AdapterDateFns from "@mui/lab/AdapterDateFns";
 // import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -16,33 +21,9 @@ import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
-import { connect } from "react-redux";
-import {send1} from "../../../../../actions/auth";
-import { setAlert } from "../../../../../actions/alert";
-
-
-
-
-
-function DashboardAccountPage({send1,setAlert}) {
-
-
-  const [tokens,setTokens]=useState({gender:"",dateOfBirth:""});
-
-
-  const {gender,dateOfBirth} = tokens;
-
-
-  const onChangeFor = (e) => {
-    setTokens({ ...tokens, [e.target.name]: e.target.value });
-  
-   
-  };
-
-
-  
-
+function DashboardAccountPage() {
   const [value, setValue] = useState("1997-02-09");
+  // const [picture, setPicture] = useLocalStorage("/img/profile_img.jpeg");
   const [email, setEmail] = useState("samuelify225@gmail.com");
   const [bvnNum, setBvnNum] = useState("23745672845");
   const [phoneNo, setPhoneNo] = useState("+2348164020234");
@@ -58,29 +39,13 @@ function DashboardAccountPage({send1,setAlert}) {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
+
+  // const onChangePicture = (e) => {
+  //   setPicture(URL.createObjectURL(e.target.files[0]));
+  // };
   // const handleChange = (newValue) => {
   //   setValue(newValue);
   // };
-
-
-  const sends = async (e)=>{
-
-    let  res = await send1(
-      gender,dateOfBirth
-    );
-
-    console.log(res);
-
-
-    if (res.data.data.success === true) {
-      console.log("okay Good Server");
-    } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
-    }
-    
-  }
-
-
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
       <section className="no-bg" style={{ paddingBottom: "0em" }}>
@@ -144,10 +109,19 @@ function DashboardAccountPage({send1,setAlert}) {
                       <div className="toggle_body_area1_cont1_input">
                         {" "}
                         <img
+                          // src={value}
+                          // src={picture}
                           src="/img/profile_img.jpeg"
                           alt=""
                           className="user_upload_img"
                         />
+                        <AddCircleIcon
+                          className="add_icon"
+                          // onClick={onChangePicture}
+                        />
+            
+                        {/* <input type="file" name="" id="" /> */}
+                        {/* <AvatarSelector onChange={(value) => setPic(value)} value={pic} /> */}
                       </div>
                     </div>
                     {/* ================= */}
@@ -200,28 +174,22 @@ function DashboardAccountPage({send1,setAlert}) {
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name={gender}
+                            name="gender"
                             id="male"
-                            // value={gender.value}
-                            onClick={onChangeFor}
+                            value="Male"
                           />
-                          <label for="male"
-                           value={gender}
-                          class="radio">
+                          <label for="male" class="radio">
                             Male
                           </label>
                         </div>
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name={gender}
+                            name="gender"
                             id="female"
-                            // value={gender}
-                            onClick={onChangeFor}
+                            value="female"
                           />
-                          <label for="female" 
-                            value={gender}
-                          class="radio">
+                          <label for="female" class="radio">
                             Female
                           </label>
                         </div>
@@ -249,11 +217,10 @@ function DashboardAccountPage({send1,setAlert}) {
                       /> */}
                         <input
                           type="date"
-                          name={dateOfBirth}
+                          name=""
                           id=""
-                          //  value={dateOfBirth}
+                          value={value}
                           className="name_input1 date_input"
-                           onClick={onChangeFor}
                         />
                         {/* <TextField
                         className="name_input1"
@@ -271,9 +238,7 @@ function DashboardAccountPage({send1,setAlert}) {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button 
-                          onClick={sends}
-                        className="save_changes_btn">
+                        <button className="save_changes_btn">
                           Save Changes
                         </button>
                       </div>
@@ -574,7 +539,7 @@ function DashboardAccountPage({send1,setAlert}) {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">{bvnNum}</div>
+                        <div className="bvn_btn">{}</div>
                       </div>
                     </div>
                     {/* ================= */}
@@ -630,4 +595,4 @@ function DashboardAccountPage({send1,setAlert}) {
   );
 }
 
-export default connect(null,{send1,setAlert})(DashboardAccountPage);
+export default DashboardAccountPage;

@@ -272,61 +272,6 @@ function ItemDetailsPage({ match }) {
                 >
                   Description
                 </div>
-                <div
-                  id="ship"
-                  onClick={changeBg}
-                  className={
-                    activeBg == "ship"
-                      ? "description_click1 description_click1_active"
-                      : "description_click1"
-                  }
-                >
-                  Shipping
-                </div>
-                <div
-                  id="warrant"
-                  onClick={changeBg}
-                  className={
-                    activeBg == "warrant"
-                      ? "description_click1 description_click1_active"
-                      : "description_click1"
-                  }
-                >
-                  Warranty
-                </div>
-                <div
-                  id="return"
-                  onClick={changeBg}
-                  className={
-                    activeBg == "return"
-                      ? "description_click1 description_click1_active"
-                      : "description_click1"
-                  }
-                >
-                  Return
-                </div>
-                <div
-                  id="policy"
-                  onClick={changeBg}
-                  className={
-                    activeBg == "policy"
-                      ? "description_click1 description_click1_active"
-                      : "description_click1"
-                  }
-                >
-                  Policy
-                </div>
-                <div
-                  id="review"
-                  onClick={changeBg}
-                  className={
-                    activeBg == "review"
-                      ? "description_click1 description_click1_active"
-                      : "description_click1"
-                  }
-                >
-                  Reviews
-                </div>
               </div>
 
               <div className="description_body">

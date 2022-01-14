@@ -19,4 +19,4 @@ export const USER_LOADED = "USER_LOADED";
 export const API_URL = "https://tea.egoras.com";
 // export const API_URL2 = "https://330188b756ae73.lhr.life";
 //export const API_URL = "http://localhost:7801";
-export const API_URL2 = "https://5011605475c137.lhr.life";
+export const API_URL2 = "https://e69075d0fd1574.lhr.life";

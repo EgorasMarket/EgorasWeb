@@ -5,6 +5,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -26,12 +27,13 @@ import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 const DashboardSidebar = () => {
   const dddd = localStorage.getItem("smallSidetoken");
+
   const [activeBg, setActiveBg] = useState("Home");
   const [catDiv, setCatDiv] = useState("not_home");
   const [smallSide, setSmallSide] = useState(dddd);
   const [cartNum, setCartNum] = useState(5);
   const linksActive = window.location.pathname;
-  console.log(dddd);
+  // console.log(dddd);
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
@@ -43,6 +45,8 @@ const DashboardSidebar = () => {
       setCatDiv("home");
     }
   };
+
+
 
   useEffect(() => {
     if (linksActive === "/dashboard") {
@@ -79,6 +83,11 @@ const DashboardSidebar = () => {
     //   setActiveBg("whitepaper");
     // }
     //  setCatDiv("not_home");
+    if (smallSide == "not_small") {
+      localStorage.setItem("smallSidetoken", "not_small");
+    } else {
+      localStorage.setItem("smallSidetoken", "smallSide");
+    }
   }, []);
   // const shrinkSide = () => {
   //   setSmallSide("smallSide");
@@ -87,13 +96,22 @@ const DashboardSidebar = () => {
   //   setSmallSide("not_small");
   // };
 
+  // const shrinkAction = () => {
+  //   if (smallSide == "smallSide") {
+  //     setSmallSide("not_small");
+  //     localStorage.setItem("smallSidetoken", "not_small");
+  //   } else {
+  //     setSmallSide("smallSide");
+  //     localStorage.setItem("smallSidetoken", "smallSide");
+  //   }
+  // };
   const shrinkAction = () => {
-    if (smallSide == "smallSide") {
-      setSmallSide("not_small");
-      localStorage.setItem("smallSidetoken", "not_small");
-    } else {
+    if (smallSide == "not_small") {
       setSmallSide("smallSide");
       localStorage.setItem("smallSidetoken", "smallSide");
+    } else {
+      setSmallSide("not_small");
+      localStorage.setItem("smallSidetoken", "not_small");
     }
   };
 
