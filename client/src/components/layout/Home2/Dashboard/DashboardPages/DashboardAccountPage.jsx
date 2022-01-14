@@ -17,14 +17,14 @@ import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
-import {send1,getLogin2} from "../../../../../actions/auth";
+import {sumitGenderAndDate,nextOfKING} from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
 
 
 
 
 
-function DashboardAccountPage({send1,setAlert}) {
+function DashboardAccountPage({sumitGenderAndDate,setAlert,nextOfKING}) {
 
 
   const [tokens,setTokens]=useState({gender:"",dateOfBirth:""});
@@ -56,7 +56,7 @@ function DashboardAccountPage({send1,setAlert}) {
   const [bvnNum, setBvnNum] = useState("23745672845");
   const [phoneNo, setPhoneNo] = useState("+2348164020234");
   //   const [value, setValue] = useState(new Date("2014-02-09"));
-  const [age, setAge] = React.useState("");
+  const [age, setAge] = React.useState({relationship});
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -74,7 +74,7 @@ function DashboardAccountPage({send1,setAlert}) {
 
   const sends = async (e)=>{
 
-    let  res = await send1(
+    let  res = await sumitGenderAndDate(
       gender,dateOfBirth
     );
 
@@ -94,7 +94,7 @@ function DashboardAccountPage({send1,setAlert}) {
 
   const Apple = async (e)=>{
 
-    let  res = await getLogin2(
+    let  res = await nextOfKING(
       firstname,lastname,email,gender,relationship,phoneNumber
     );
 
@@ -196,14 +196,14 @@ function DashboardAccountPage({send1,setAlert}) {
                           id="outlined-basic"
                           label="First Name"
                           variant="outlined"
-                          value="Ifeanyi"
+                          value={firstname}
                         />
                         <TextField
                           className="name_input1"
                           id="outlined-basic"
                           label="Last Name"
                           variant="outlined"
-                          value="Okwara"
+                          value={lastname}
                         />
                       </div>
                     </div>
@@ -228,13 +228,13 @@ function DashboardAccountPage({send1,setAlert}) {
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name={gender}
+                            name='gender'
                             id="male"
-                            // value={gender.value}
-                            onClick={onChangeFor}
+                            value="Male"
+                            onChange={onChangeFor}
                           />
                           <label for="male"
-                           value={gender}
+                          
                           class="radio">
                             Male
                           </label>
@@ -242,13 +242,13 @@ function DashboardAccountPage({send1,setAlert}) {
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name={gender}
+                            name='gender'
                             id="female"
-                            // value={gender}
-                            onClick={onChangeFor}
+                            value="Female"
+                            onChange={onChangeFor}
                           />
                           <label for="female" 
-                            value={gender}
+                            
                           class="radio">
                             Female
                           </label>
@@ -277,11 +277,11 @@ function DashboardAccountPage({send1,setAlert}) {
                       /> */}
                         <input
                           type="date"
-                          name={dateOfBirth}
+                          name='dateOfBirth'
                           id=""
-                          //  value={dateOfBirth}
+                            value={dateOfBirth}
                           className="name_input1 date_input"
-                           onClick={onChangeFor}
+                           onChange={onChangeFor}
                         />
                         {/* <TextField
                         className="name_input1"
@@ -338,16 +338,16 @@ function DashboardAccountPage({send1,setAlert}) {
                           id="outlined-basic"
                           label="First Name"
                           variant="outlined"
-                          name={firstname}
-                          // value={firstname}
-                          // onChange={onChangeFor2}
+                          name="firstname"
+                           value={firstname}
+                           onChange={onChangeFor2}
                         />
                         <TextField
                           className="name_input1"
                           id="outlined-basic"
                           label="Last Name"
                           variant="outlined"
-                          name={lastname}
+                          name="lastname"
                           value={lastname}
                           onChange={onChangeFor2}
                         />
@@ -368,7 +368,7 @@ function DashboardAccountPage({send1,setAlert}) {
                           id="outlined-basic"
                           label="Email Address"
                           variant="outlined"
-                          name={email}
+                          name="email"
                           value={email}
                           onChange={onChangeFor2}
                         />
@@ -389,7 +389,7 @@ function DashboardAccountPage({send1,setAlert}) {
                           id="outlined-basic"
                           label="Phone number"
                           variant="outlined"
-                          name={phoneNumber}
+                          name='phoneNumber'
                           value={phoneNumber}
                           onChange={onChangeFor2}
                         />
@@ -496,7 +496,7 @@ function DashboardAccountPage({send1,setAlert}) {
                             <Select
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
-                              name={relationship}
+                              name="relationship"
                               value={age}
                               label="Age"
                               onChange={handleChange}
@@ -531,9 +531,9 @@ function DashboardAccountPage({send1,setAlert}) {
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name={gender}
+                            name="gender"
                             id="male"
-                            value="Male"
+                            // value={Male}
                   
                             onClick={onChangeFor2}
                           />
@@ -544,9 +544,9 @@ function DashboardAccountPage({send1,setAlert}) {
                         <div className="radio_group">
                           <input
                             type="radio"
-                            name={gender}
+                            name="gender"
                             id="female"
-                            value="female"
+                            // value="female"
                             onClick={onChangeFor2}
 
                           />
@@ -683,4 +683,4 @@ function DashboardAccountPage({send1,setAlert}) {
 }
 
     // let  res = await getLogin2(
-      export default connect(null,{send1,setAlert,getLogin2})(DashboardAccountPage);
+      export default connect(null,{sumitGenderAndDate,setAlert,nextOfKING})(DashboardAccountPage);
