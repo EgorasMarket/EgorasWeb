@@ -60,9 +60,11 @@ const HomeUpdate = () => {
                 fees apply.
               </div>{" "}
               <div className="h_update_hero_area1_para_btns">
-                <button className="h_update_hero_area1_para_btn1">
-                  Start Now <ArrowRightIcon />
-                </button>
+                <a href="/signup">
+                  <button className="h_update_hero_area1_para_btn1">
+                    Start Now <ArrowRightIcon />
+                  </button>
+                </a>
                 <button className="h_update_hero_area1_para_btn2">
                   <ArrowRightIcon /> Play Video
                 </button>
@@ -255,7 +257,7 @@ const HomeUpdate = () => {
                   hands.
                 </p>
               </div>
-              <a href="#" className="new_home_attributes_area1_link">
+              <a href="/loan" className="new_home_attributes_area1_link">
                 Get A loan In Minutes{" "}
                 <ArrowForwardIosIcon className="link_arrow" />
               </a>
@@ -285,7 +287,9 @@ const HomeUpdate = () => {
               <div className="compliment_number_para">
                 Earn 5%-15% when you save with Egoras.
               </div>
-              <button className="compliment_btn">Start Saving</button>
+              <a href="/savings">
+                <button className="compliment_btn">Start Saving</button>
+              </a>
             </div>
             <div className="build_savings_area2">
               <div className="build_savings_area2_conts1">
@@ -457,7 +461,7 @@ const HomeUpdate = () => {
                   item(s).
                 </p>
               </div>
-              <a href="#" className="new_home_attributes_area1_link">
+              <a href="/validator" className="new_home_attributes_area1_link">
                 Back A loan Now <ArrowForwardIosIcon className="link_arrow" />
               </a>
             </div>{" "}
@@ -560,7 +564,11 @@ const HomeUpdate = () => {
                 PiggyVest to manage their money better, avoid over-spending and
                 be more accountable.
               </div>
-              <button className="compliment_btn">Create a free account</button>
+              <a href="/signup">
+                <button className="compliment_btn">
+                  Create a free account
+                </button>
+              </a>
             </div>
           </div>
         </div>
