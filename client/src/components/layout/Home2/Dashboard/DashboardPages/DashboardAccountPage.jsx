@@ -4,8 +4,12 @@ import EditIcon from "@mui/icons-material/Edit";
 // import AvatarSelector from "react-avatar-selector";
 // import poodle from "../../img/profile_img.jpeg";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import LockIcon from "@mui/icons-material/Lock";
 // import  {useLocal}
 import { useLocalStorage } from "../../Activation/useLocalStorage";
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 // import TextField from "@mui/material/TextField";
 // import AdapterDateFns from "@mui/lab/AdapterDateFns";
 // import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -13,11 +17,6 @@ import { useLocalStorage } from "../../Activation/useLocalStorage";
 // import DateTimePicker from "@mui/lab/DateTimePicker";
 // import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
 // import MobileDatePicker from "@mui/lab/MobileDatePicker";
-
-import axios from "axios";
-import {
-    API_URL2 as api_url
-} from "../../../../../actions/types.js";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -32,8 +31,7 @@ import { setAlert } from "../../../../../actions/alert";
 
 function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
-  const [customerAddress, setAddress] = useState("");
-  const [passport, setPassport] = React.useState('');
+  const [address, setAddress] = useState("");
 
   const [nextKin, setNextKin] = useState({
     firstname: "",
@@ -69,51 +67,26 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   // const [email, setEmail] = useState("samuelify225@gmail.com");
   const [bvnNum, setBvnNum] = useState("23745672845");
   const [phoneNo, setPhoneNo] = useState("+2348164020234");
+  const [phone_no2, setPhone_no2] = useState("");
   //   const [value, setValue] = useState(new Date("2014-02-09"));
   const [age, setAge] = React.useState({ relationship });
   const [activeBg, setActiveBg] = useState("accounts");
   const [activeBody, setActiveBody] = useState("");
   // const immmg = localStorage.getItem("imageDef");
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
   const [image, setImage] = useState("../../img/profile_img.jpeg");
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
     }
-
-    const types = ['jpg', 'png', 'jpeg']
-
-        if (event.currentTarget.id === "customer_image") {
-
-            if (event.currentTarget.files.length === 0) {
-                // setUserInfo({ ...userInfo, applicantImg: "" });
-                // document.getElementById("output1").src = "";
-
-            } else {
-                let passportFile = document.getElementById("customer_image").files[0];
-
-                let fileExtension = passportFile.name.split(".").pop();
-                console.log(passportFile);
-
-                if (!types.includes(fileExtension)) {
-
-                } else {
-                    if (passportFile.size > 1000000) {
-
-                        console.log('file too large.');
-
-                    } else {
-                        setPassport(passportFile);
-                    }
-                }
-
-            }
-        }
   };
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    setPhone_no2(event.target.value);
   };
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
@@ -125,9 +98,17 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   const closeModal = () => {
     setModal(false);
   };
-  const onAddressChange = (event) => {
-    // setAddress(address);
-    setAddress(event.target.value || '');
+  const openModal2 = () => {
+    setModal2(true);
+  };
+  const closeModal2 = () => {
+    setModal2(false);
+  };
+  const openModal3 = () => {
+    setModal3(true);
+  };
+  const closeModal3 = () => {
+    setModal3(false);
   };
   // const onChangePicture = (e) => {
   //   setPicture(URL.createObjectURL(e.target.files[0]));
@@ -166,70 +147,6 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
-
-
-  // To Add User Image
-  const SubmitPassport = async e => {
-    e.preventDefault();
-
-
-    const formData = new FormData()
-
-    if (passport === '') {
-        console.log('empty passport');
-
-        // setAlert('Please provide a passport photo', 'danger');
-
-    } else {
-
-        const element = document.getElementById('customer_image')
-        const file = element.files[0]
-        formData.append('customer_image', file, file.name)
-
-        console.log(file, 'hhhh');
-
-        try {
-            const res = await axios.put(api_url + '/v1/user/add/customer/image', formData);
-            console.log(res.data, 'undefined');
-
-            if (res.data.statusCode === 200) {
-                // setPassportUpload(true)
-            } else {
-                // setAlert('Something went wrong, please try again later', 'danger');
-            }
-
-        } catch (err) {
-            console.log(err);
-            // setAlert('Check your internet connection', 'danger');
-        }
-
-    }
-
-  }
-
-  const SubmitAddress = async e => {
-    console.log(customerAddress);
-    if (customerAddress === '') {
-
-    } else {
-      const body = JSON.stringify({ customerAddress });
-      try {
-        const res = await axios.post(api_url + '/v1/user/add/address', body, config);
-        console.log(res.data, 'undefined');
-
-        if (res.data.statusCode === 200) {
-            // setPassportUpload(true)
-        } else {
-            // setAlert('Something went wrong, please try again later', 'danger');
-        }
-
-      } catch (err) {
-          console.log(err.response);
-          // setAlert('Check your internet connection', 'danger');
-      }
-
-    }
-  }
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
@@ -683,7 +600,11 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {phoneNo} <EditIcon className="edit_icon" />
+                        {phoneNo} {phone_no2}
+                        <AddCircleIcon
+                          className="edit_icon"
+                          onClick={openModal2}
+                        />
                       </div>
                     </div>
                     {/* ================= */}
@@ -720,7 +641,9 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">Change Password</div>
+                        <div className="bvn_btn" onClick={openModal3}>
+                          Change Password
+                        </div>
                       </div>
                     </div>
                     {/* ================= */}
@@ -738,7 +661,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                       <div className="toggle_body_area1_cont1_txts">
                         Add Address
                         <span className="toggle_body_area1_cont1_sub_txts">
-                          input your address for easy shipping 
+                          input your address for easy shipping
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
@@ -748,15 +671,13 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                             id="outlined-basic"
                             label="Address"
                             variant="outlined"
-                            name="customerAddress"
-                            value={customerAddress}
-                            onClick={SubmitAddress}
-                            onChange={onAddressChange}
+                            name="address"
+                            value={address}
+                            // onChange={onChangeFor2}
                           />
                           <button
                             className="add_photo"
                             style={{ width: "25%" }}
-                            onClick={SubmitAddress}
                           >
                             Submit Address
                           </button>
@@ -806,48 +727,106 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                     style={{ width: "250px", height: "250px" }}
                   />
                   <label
-                    for="customer_image"
+                    for="file-upload"
                     className="custom-file-upload33"
                     onChange={onImageChange}
                   >
                     <AddCircleIcon
                       className="add_icon33"
-                      // onChange={onImageChange}
+                      onChange={onImageChange}
                     />{" "}
                   </label>
                   <input
                     type="file"
-                    id="customer_image"
+                    id="file-upload"
                     onChange={onImageChange}
-                    type='file' name='customer_image' 
-                    // onChange={onFileChange}
                     className="filetype"
                   />
-                  {/* <input
+                  <input
                     type="file"
                     onChange={onImageChange}
                     className="filetype"
-                  /> */}
+                  />
                 </div>{" "}
               </div>
               <div className="profile_modal_area2">
-                {/* <label
-                for="file-upload"
-                className="custom-file-upload"
-                onChange={onImageChange}
-              >
-                <button className="add_photo" onChange={onImageChange}>
-                  Add photo
+                <button className="add_photo">
+                  <AddAPhotoIcon className="photo_icon" /> Add Photo
                 </button>
-              </label>
-              <input
-                type="file"
-                id="file-upload"
-                onChange={onImageChange}
-                className="filetype"
-              /> */}
-                <button className="add_photo" onClick={SubmitPassport}>Add Photo</button>
                 <button className="cancel_photo" onClick={closeModal}>
+                  <DoDisturbIcon className="cancel_icon" /> Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {modal2 == true ? (
+        <div className="profile_modal_div">
+          <div className="container">
+            <div className="profile_modal_area_phone_no">
+              <div className="profile_modal_area1">
+                <TextField
+                  className="name_input1ab"
+                  id="outlined-basic"
+                  label="Phone No:"
+                  variant="outlined"
+                  name="phone no"
+                  value={phone_no2}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="profile_modal_area2">
+                <button className="add_photo">
+                  {" "}
+                  <LocalPhoneIcon className="cancel_icon" />
+                  Add Number
+                </button>
+                <button className="cancel_photo" onClick={closeModal2}>
+                  {" "}
+                  <DoDisturbIcon className="cancel_icon" />
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {modal3 == true ? (
+        <div className="profile_modal_div">
+          <div className="container">
+            <div className="profile_modal_area_phone_no">
+              <div className="profile_modal_area1">
+                <div className="password_divs">
+                  <TextField
+                    className="name_input1ab"
+                    id="outlined-basic"
+                    label="Change Password"
+                    variant="outlined"
+                    name="changePassword"
+                    type="password"
+                    // value={address}
+                    // onChange={onChangeFor2}
+                  />
+                  <TextField
+                    className="name_input1ab"
+                    id="outlined-basic"
+                    label="Re-Enter Password"
+                    variant="outlined"
+                    name="changePassword"
+                    type="password"
+                    // value={address}
+                    // onChange={onChangeFor2}
+                  />
+                </div>
+              </div>
+              <div className="profile_modal_area2">
+                <button className="add_photo">
+                  <LockIcon className="cancel_icon" />
+                  Change Password
+                </button>
+                <button className="cancel_photo" onClick={closeModal3}>
+                  <DoDisturbIcon className="cancel_icon" />
                   Cancel
                 </button>
               </div>
