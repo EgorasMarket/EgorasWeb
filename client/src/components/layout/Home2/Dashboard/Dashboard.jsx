@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 // import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import DashboardSidebar from "./DashboardSidebar";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
@@ -10,12 +10,12 @@ import PhonesCatPage from "./DashboardPages/CategoryPages/PhonesCatPage";
 import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 
 import "./DashboardStyles/dashboard.css";
-const Dashboard = ({isAuthenticated, loading}) => {
+const Dashboard = ({ isAuthenticated, loading }) => {
   console.log(isAuthenticated, loading);
-  if (isAuthenticated == false) {
-    // return <Redirect to="/" />;
-    return window.location.replace("/");
-  }
+  // if (isAuthenticated == false) {
+  //   // return <Redirect to="/" />;
+  //   return window.location.replace("/");
+  // }
   return (
     <div>
       <Route>
@@ -52,10 +52,10 @@ const Dashboard = ({isAuthenticated, loading}) => {
 
 Dashboard.propTypes = {};
 
-const mapStateToProps = state => ({
+const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
-  loading: state.auth.loading
+  loading: state.auth.loading,
 });
 
 export default connect(mapStateToProps, {})(Dashboard);

@@ -46,8 +46,6 @@ const DashboardSidebar = () => {
     }
   };
 
-
-
   useEffect(() => {
     if (linksActive === "/dashboard") {
       setActiveBg("Home");
@@ -99,12 +97,6 @@ const DashboardSidebar = () => {
   // const shrinkAction = () => {
   //   if (smallSide == "smallSide") {
   //     setSmallSide("not_small");
-  //     localStorage.setItem("smallSidetoken", "not_small");
-  //   } else {
-  //     setSmallSide("smallSide");
-  //     localStorage.setItem("smallSidetoken", "smallSide");
-  //   }
-  // };
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -114,6 +106,12 @@ const DashboardSidebar = () => {
       localStorage.setItem("smallSidetoken", "not_small");
     }
   };
+  //     localStorage.setItem("smallSidetoken", "not_small");
+  //   } else {
+  //     setSmallSide("smallSide");
+  //     localStorage.setItem("smallSidetoken", "smallSide");
+  //   }
+  // };
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>

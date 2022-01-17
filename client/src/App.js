@@ -418,9 +418,10 @@ const App = () => {
                   <Route exact path="/login" component={Login} />
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  <PrivateRoute2>
+                  <Dashboard />
+                  {/* <PrivateRoute2>
                     <Dashboard />
-                  </PrivateRoute2>
+                  </PrivateRoute2> */}
                 </Switch>
               </section>
               {/* <Footer /> */}
