@@ -3,9 +3,9 @@ import HomeIcon from "@mui/icons-material/Home";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -45,8 +45,6 @@ const DashboardSidebar = () => {
       setCatDiv("home");
     }
   };
-
-
 
   useEffect(() => {
     if (linksActive === "/dashboard") {
@@ -99,12 +97,6 @@ const DashboardSidebar = () => {
   // const shrinkAction = () => {
   //   if (smallSide == "smallSide") {
   //     setSmallSide("not_small");
-  //     localStorage.setItem("smallSidetoken", "not_small");
-  //   } else {
-  //     setSmallSide("smallSide");
-  //     localStorage.setItem("smallSidetoken", "smallSide");
-  //   }
-  // };
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -114,6 +106,12 @@ const DashboardSidebar = () => {
       localStorage.setItem("smallSidetoken", "not_small");
     }
   };
+  //     localStorage.setItem("smallSidetoken", "not_small");
+  //   } else {
+  //     setSmallSide("smallSide");
+  //     localStorage.setItem("smallSidetoken", "smallSide");
+  //   }
+  // };
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
@@ -287,7 +285,7 @@ const DashboardSidebar = () => {
                         : "sidebarListItem"
                     }
                   >
-                    <GroupIcon className="sidebarIcon" />
+                    <ShoppingCartIcon className="sidebarIcon" />
                     Inventory
                   </li>
                 </a>
@@ -332,7 +330,7 @@ const DashboardSidebar = () => {
                         : "sidebarListItem"
                     }
                   >
-                    <BarChartIcon className="sidebarIcon" />
+                    <AccountCircleIcon className="sidebarIcon" />
                     Accounts
                   </li>
                 </a>
@@ -384,7 +382,8 @@ const DashboardSidebar = () => {
                         : "sidebarListItem"
                     }
                   >
-                    <GroupIcon className="sidebarIcon" />
+                    <ShoppingCartIcon className="sidebarIcon" />
+                    {/* <GroupIcon className="sidebarIcon" /> */}
                     Inventory
                   </li>
                 </a>
@@ -429,7 +428,7 @@ const DashboardSidebar = () => {
                         : "sidebarListItem"
                     }
                   >
-                    <BarChartIcon className="sidebarIcon" />
+                    <AccountCircleIcon className="sidebarIcon" />
                     Accounts
                   </li>
                 </a>

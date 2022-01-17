@@ -37,6 +37,7 @@ export default function (state = initialState, action) {
           }
   
       case LOGIN_FAIL:
+        return []
       case AUTH_ERROR:
       case LOGOUT:
           localStorage.removeItem('token');
