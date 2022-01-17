@@ -664,7 +664,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                             label="Address"
                             variant="outlined"
                             name="address"
-                            // value={address}
+                            value={address}
                             // onChange={onChangeFor2}
                           />
                           <button
