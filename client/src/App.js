@@ -63,6 +63,7 @@ import "./css/App.css";
 import "./css/Dark.css";
 import "./css/apexcharts.css";
 
+// import setAuthToken from "./utils/setAuthToken";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
