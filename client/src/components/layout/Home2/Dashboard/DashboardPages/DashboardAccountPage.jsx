@@ -736,7 +736,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                       <div className="toggle_body_area1_cont1_txts">
                         Add Address
                         <span className="toggle_body_area1_cont1_sub_txts">
-                          input your address for easy shipping
+                          input your address for easy shipping 
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
