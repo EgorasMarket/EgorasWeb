@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
-import AvatarSelector from "react-avatar-selector";
+// import AvatarSelector from "react-avatar-selector";
 // import poodle from "../../img/profile_img.jpeg";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
@@ -42,11 +42,11 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
     relationship: "",
   });
 
-  console.log("okkkk");
+  console.log('okkkk');
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
+        'Content-Type': 'application/json'
     },
   };
 
