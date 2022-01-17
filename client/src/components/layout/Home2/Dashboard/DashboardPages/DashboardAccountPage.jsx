@@ -44,6 +44,8 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
     relationship: "",
   });
 
+  console.log('okkkk');
+
   const config = {
     headers: {
         'Content-Type': 'application/json'
