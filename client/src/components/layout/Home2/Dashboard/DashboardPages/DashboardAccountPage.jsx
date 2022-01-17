@@ -57,6 +57,20 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}
    
   });
 
+  const [userInfo, setUserInfo] = useState({
+    Userfirstname: "",
+    Userlastname: "",
+    Useremail: "",
+    UserphoneNumber: "",
+    Userrelationship: "",
+    Usergender: "",
+    Userbvn:""
+   
+  });
+
+  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UserphoneNumber,Userbvn } =
+  userInfo;
+
   //    useEffect(()=>{
 
   
@@ -118,27 +132,31 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}
 
 useEffect(() => {
   // fetchDepositLinks();
-  console.log(auth);
+  console.log(auth.user);
   if (auth.user !== null) {
     console.log(auth);
     var todecoded = auth.user;
-    var decoded = jwt.decode(todecoded, {
-      complete: true,
-    });
-    // setUserName(decoded.payload.user.username);
-    // setIsLoggedIn(true);
 
-    console.log(decoded.payload);
-    // var eee = decoded.payload.exp * 1000;
-    // var exp = new Date(eee).getTime();
+    // console.log('====================================');
+    console.log(todecoded.user.fullname);
+    // console.log('====================================');
+    const getName = todecoded.user.fullname
+    const splitName = getName.split(' ');
 
-    // if (currentTimestamp >= exp) {
-    //   // //console.log('ex');
-    //   localStorage.removeItem("token");
-    //   window.location.href = "/login";
-    // }
+    setUserInfo({
+      Userfirstname: splitName[0],
+      Userlastname: splitName[1],
+      Useremail: todecoded.user.email,
+      UserphoneNumber: todecoded.user.phoneNumber,
+      Userrelationship: todecoded.user.relationship,
+      Usergender: todecoded.user.gender,
+      Userbvn:todecoded.user.BVN
+    })
+    
   }
 }, [auth]);
+
+
 
 
 
@@ -396,14 +414,14 @@ useEffect(() => {
                           id="outlined-basic"
                           label="First Name"
                           variant="outlined"
-                          value={firstname}
+                          value={Userfirstname}
                         />
                         <TextField
                           className="name_input1"
                           id="outlined-basic"
                           label="Last Name"
                           variant="outlined"
-                          value={lastname}
+                          value={Userlastname}
                         />
                       </div>
                     </div>
@@ -730,7 +748,7 @@ useEffect(() => {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {email}
+                        { Useremail}
                       </div>
                     </div>
                     {/* ================= */}
@@ -743,7 +761,7 @@ useEffect(() => {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {phoneNo} {phone_no2}
+                        {  UserphoneNumber} {phone_no2}
                         <AddCircleIcon
                           className="edit_icon"
                           onClick={openModal2}
@@ -762,7 +780,7 @@ useEffect(() => {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">{bvnNum}</div>
+                        <div className="bvn_btn">{Userbvn}</div>
                       </div>
                     </div>
                     {/* ================= */}

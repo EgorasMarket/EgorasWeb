@@ -13,7 +13,7 @@ import {
   
   API_URL2 as api_url2,
 } from "./types";
-// import setAuthToken from "..//utils/setAuthToken";
+// import setAuthToken from "../utils/setAuthToken";
 import setAuthToken from "../utils/setAuthToken";
 
 // Load User
@@ -24,20 +24,28 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
 
-  try {
-    const res = await axios.get(api_url2 + "/v1/user/info");
-    console.log(res);
-    // console.log("Yes I call You because i can", res.data);
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data,
-    });
-  } catch (error) {
-    console.log('not registered');
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
+  const res = await axios.get(api_url2 + "/v1/user/info");
+  console.log(res);
+  // console.log("Yes I call You because i can", res.data);
+  dispatch({
+    type: USER_LOADED,
+    payload: res.data,
+  });
+
+  // try {
+  //   const res = await axios.get(api_url2 + "/v1/user/info");
+  //   console.log(res);
+  //   // console.log("Yes I call You because i can", res.data);
+  //   dispatch({
+  //     type: USER_LOADED,
+  //     payload: res.data,
+  //   });
+  // } catch (error) {
+  //   console.log('not registered');
+  //   dispatch({
+  //     type: AUTH_ERROR,
+  //   });
+  // }
 };
 
 // Get Social Media Handles
