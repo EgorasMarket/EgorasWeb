@@ -592,7 +592,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {phoneNo}  {phone_no2}
+                        {phoneNo} {phone_no2}
                         <AddCircleIcon
                           className="edit_icon"
                           onClick={openModal2}
