@@ -245,11 +245,7 @@ const App = () => {
                     path="/companies/details/:id"
                     component={Details}
                   />
-                  <Route
-                    exact
-                    path="/products/details/:id/:name"
-                    component={ItemDetailsPage}
-                  />
+
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />
                   <Route exact path="/signup" component={Signup} />
