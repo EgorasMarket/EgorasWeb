@@ -119,6 +119,7 @@ const useStyles2 = makeStyles((theme) => ({
 
 const Header = () => {
   const [showHeader, setshowHeader] = useState("/");
+  // const [showHeader, setshowHeader] = useState("/");
 
   const currentPage = window.location.pathname;
 
@@ -577,19 +578,40 @@ const Header = () => {
                 {" "}
                 Apply for loan
               </a> */}
-              <a href="https://egoras.ng/appointment" className="getLoan">
-                {" "}
-                Get the loan
-              </a>
 
-              {/* ====================== */}
-              {/* ====================== */}
-              {/* ====================== */}
-
-              <a href="#" className="connect">
-                <Authenticate />
-                <div className="connectHover"></div>
-              </a>
+              {currentPage == "/" ? (
+                <div style={{ display: "flex" }}>
+                  <a href="/login" className="getLoan">
+                    {" "}
+                    Login
+                  </a>
+                  <a href="/signup" className="connectb">
+                    Signup
+                  </a>
+                </div>
+              ) : null}
+              {currentPage == "/loan" ? (
+                <div style={{ display: "flex" }}>
+                  <a href="https://egoras.ng/appointment" className="connectb">
+                    {" "}
+                    Get the loan
+                  </a>
+                </div>
+              ) : null}
+              {currentPage == "/validator" ? (
+                <div style={{ display: "flex" }}>
+                  <a href="#" className="connect">
+                    <Authenticate />
+                  </a>
+                </div>
+              ) : null}
+              {currentPage == "/savings" ? (
+                <div style={{ display: "flex" }}>
+                  <a href="/dashboard" className="connectb">
+                    Dashboard
+                  </a>
+                </div>
+              ) : null}
             </ul>
             {/* <img
               src="/img/hamburger-open.svg"

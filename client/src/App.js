@@ -245,11 +245,7 @@ const App = () => {
                     path="/companies/details/:id"
                     component={Details}
                   />
-                  <Route
-                    exact
-                    path="/products/details/:id/:name"
-                    component={ItemDetailsPage}
-                  />
+
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />
                   <Route exact path="/signup" component={Signup} />
@@ -418,10 +414,10 @@ const App = () => {
                   <Route exact path="/login" component={Login} />
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  <Dashboard />
-                  {/* <PrivateRoute2>
+                  {/* <Dashboard /> */}
+                  <PrivateRoute2>
                     <Dashboard />
-                  </PrivateRoute2> */}
+                  </PrivateRoute2>
                 </Switch>
               </section>
               {/* <Footer /> */}

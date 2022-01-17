@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 // import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import DashboardSidebar from "./DashboardSidebar";
+import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
 import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
 import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
@@ -12,10 +13,10 @@ import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import "./DashboardStyles/dashboard.css";
 const Dashboard = ({ isAuthenticated, loading }) => {
   console.log(isAuthenticated, loading);
-  // if (isAuthenticated == false) {
-  //   // return <Redirect to="/" />;
-  //   return window.location.replace("/");
-  // }
+  if (isAuthenticated == false) {
+    // return <Redirect to="/" />;
+    return window.location.replace("/");
+  }
   return (
     <div>
       <Route>
@@ -42,6 +43,11 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               exact
               path="/dashboard/accounts"
               component={DashboardAccountPage}
+            />
+            <Route
+              exact
+              path="/products/details/:id/:name"
+              component={ItemDetailsPage}
             />
           </Switch>
         </div>

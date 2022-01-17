@@ -164,8 +164,8 @@ function ItemDetailsPage({ match }) {
   }, []);
 
   return (
-    <div>
-      <section className="product_details_section">
+    <div className="other2">
+      <section className="no-bg">
         <div className="container">
           <div className="products_area">
             <div className="product_details_area1">
@@ -242,7 +242,8 @@ function ItemDetailsPage({ match }) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button className="buy_now_button">Save Now</button>
+                  <button className="buy_now_button">Add to Cart</button>
+
                   <div className="save_later">
                     <button className="save_later_btn">
                       <FavoriteIcon className="favorite_icon" />
@@ -717,20 +718,15 @@ function ItemDetailsPage({ match }) {
             {/* ================ */}
             {/* ================ */}
             {/* =================================================================================================================================================================================================================================================================== */}
+            {/* =================================================================================================================================================================================================================================================================== */}
             {/*  Projects Section start*/}
             <section className="projectsSection" id="projects">
               <div className="container">
-                <div
-                  className="projectsArea"
-                  data-aos="fade-up"
-                  data-aos-duration="3000"
-                >
+                <div className="projectsArea">
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">
-                        Similar Items You May Like
-                      </h1>
+                      <h1 className="gttitle TITE">Recent Products</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
