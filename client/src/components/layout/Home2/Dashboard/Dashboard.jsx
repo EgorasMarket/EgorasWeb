@@ -13,10 +13,10 @@ import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import "./DashboardStyles/dashboard.css";
 const Dashboard = ({ isAuthenticated, loading }) => {
   console.log(isAuthenticated, loading);
-  // if (isAuthenticated == false) {
-  //   // return <Redirect to="/" />;
-  //   return window.location.replace("/");
-  // }
+  if (isAuthenticated == false) {
+    // return <Redirect to="/" />;
+    return window.location.replace("/login");
+  }
   return (
     <div>
       <Route>
