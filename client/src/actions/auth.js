@@ -10,10 +10,11 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
-  
   API_URL2 as api_url2,
 } from "./types";
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "/utils/setAuthToken";
+// import setAuthToken from "../../utils/setAuthToken";
+// import setAuthToken from "../../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -32,7 +33,7 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.log('not registered');
+    console.log("not registered");
     dispatch({
       type: AUTH_ERROR,
     });
@@ -84,73 +85,65 @@ export const getAuthentication =
     }
   };
 
-  export const getLogin = (email,password)=> async(dispatch)=>{
+export const getLogin = (email, password) => async (dispatch) => {
+  const config = {
+    headers: {
+      Accept: "*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
 
-    const config = {
-      headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
+  const body = JSON.stringify({
+    email,
+    password,
+  });
 
-    const body = JSON.stringify({
-      email,
-      password,
-     
-    });
+  console.log(body);
 
-    console.log(body);
+  try {
+    const res = await axios.post(api_url2 + "/v1/user/login", body, config);
+    console.log(res);
 
-    try {
-      const res = await axios.post(
-        api_url2 + "/v1/user/login",
-        body,
-        config
-      );
-      console.log(res);
-
-      if (res.data.success === false) {
-        //console.log(res.data);
-        const errors = res.data.errors;
-        //console.log(errors);
-        // if (errors) {
-        //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-        // }
-        dispatch({
-          type: LOGIN_FAIL,
-          payload: errors[0].msg,
-        });
-
-        return {
-          status: false,
-          data: errors[0].msg,
-        };
-      } else {
-        dispatch({
-          type: LOGIN_SUCCESS,
-          payload: res.data,
-        });
-        return {
-          status: true,
-          data: res.data,
-        };
-      }
-    } catch (err) {
-      console.log(err.response);
+    if (res.data.success === false) {
+      //console.log(res.data);
+      const errors = res.data.errors;
+      //console.log(errors);
+      // if (errors) {
+      //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      // }
+      dispatch({
+        type: LOGIN_FAIL,
+        payload: errors[0].msg,
+      });
 
       return {
-        success: false,
-        data: err.response,
+        status: false,
+        data: errors[0].msg,
+      };
+    } else {
+      dispatch({
+        type: LOGIN_SUCCESS,
+        payload: res.data,
+      });
+      return {
+        status: true,
+        data: res.data,
       };
     }
+  } catch (err) {
+    console.log(err.response);
 
+    return {
+      success: false,
+      data: err.response,
+    };
   }
+};
 
-
-
-  export const nextOfKING = (firstname,lastname,email,phoneNumber,gender,relationship)=> async(dispatch)=>{
-
+export const nextOfKING =
+  (firstname, lastname, email, phoneNumber, gender, relationship) =>
+  async (dispatch) => {
     const config = {
       headers: {
         Accept: "*",
@@ -160,8 +153,12 @@ export const getAuthentication =
     };
 
     const body = JSON.stringify({
-      firstname,lastname,email,phoneNumber,gender,relationship
-     
+      firstname,
+      lastname,
+      email,
+      phoneNumber,
+      gender,
+      relationship,
     });
 
     console.log(body);
@@ -186,49 +183,42 @@ export const getAuthentication =
         data: err.response,
       };
     }
+  };
 
-  }
+export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
+  const config = {
+    headers: {
+      Accept: "*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
+    },
+  };
 
+  const body = JSON.stringify({
+    gender,
+    dateOfBirth,
+  });
 
+  console.log(body);
 
+  try {
+    const res = await axios.put(
+      api_url2 + "/v1/user/update/customer/info",
+      body,
+      config
+    );
+    console.log(res);
 
-  export const sumitGenderAndDate = (gender,dateOfBirth)=> async(dispatch)=>{
-
-    const config = {
-      headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
+    return {
+      success: true,
+      data: res.data,
     };
+  } catch (err) {
+    console.log(err.response);
 
-    const body = JSON.stringify({
-      gender,
-      dateOfBirth,
-     
-    });
-
-    console.log(body);
-
-    try {
-      const res = await axios.put(
-        api_url2 + "/v1/user/update/customer/info",
-        body,
-        config
-      );
-      console.log(res);
-
-      return {
-        success: true,
-        data: res.data,
-      };
-    } catch (err) {
-      console.log(err.response);
-
-      return {
-        success: false,
-        data: err.response,
-      };
-    }
-
+    return {
+      success: false,
+      data: err.response,
+    };
   }
+};

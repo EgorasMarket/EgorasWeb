@@ -42,6 +42,14 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
     relationship: "",
   });
 
+  console.log("okkkk");
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const { firstname, lastname, email, gender1, relationship, phoneNumber } =
     nextKin;
 
