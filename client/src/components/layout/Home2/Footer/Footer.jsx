@@ -23,6 +23,7 @@ const useStyles = makeStyles((theme) => ({
 
 const Footer = () => {
   const FooterHide = window.location.pathname;
+  const myArr = FooterHide.split("/");
   useEffect(() => {
     if (FooterHide === "/login") {
       document.getElementById("FooterId").style.display = "none";
@@ -31,9 +32,14 @@ const Footer = () => {
     if (FooterHide === "/signup") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if ((FooterHide === "/products/details/" + myArr[3], myArr[4])) {
+      document.getElementById("FooterId").style.display = "none";
+    }
     if (FooterHide === "/dashboard") {
       document.getElementById("FooterId").style.display = "none";
     }
+
+    console.log(myArr[3], myArr[4]);
     if (FooterHide === "/dashboard/") {
       document.getElementById("FooterId").style.display = "none";
     }

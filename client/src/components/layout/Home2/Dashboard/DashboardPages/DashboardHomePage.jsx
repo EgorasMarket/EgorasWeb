@@ -345,6 +345,85 @@ const DashboardHomePage = () => {
           </section>
           {/*  Projects Section end*/}
           {/* =================================================================================================================================================================================================================================================================== */}
+          {/*  Projects Section start*/}
+          <section className="projectsSection savvvvv" id="projects">
+            <div className="container">
+              <div className="projectsArea">
+                <div className="projectsLinea"></div>
+                <div className="projectsTitleContentsa">
+                  <div className="projectTitle">
+                    <h1 className="gttitle TITE">Top Products</h1>
+                  </div>
+                  {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+                </div>
+
+                {/* Carousel start==============================
+==============================================
+============================= */}
+
+                <Carousel
+                  responsive={responsive7}
+                  className="partnerCards LEFTARROW"
+                  showDots={false}
+                  //   infinite={false}
+                  autoPlay={true}
+                  autoPlaySpeed={6000}
+                  transitionDelay={"2s"}
+                  infinite={true}
+                  draggable={true}
+                  // transitionDuration={500}
+                  swipeable={true}
+                  style={{ height: "25em" }}
+                >
+                  {itemDetails.map((asset) => (
+                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${asset.img})`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.Save_button}
+                            </button>
+                            <button className="items_remaining_btn2">
+                              {asset.percentage} off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_title">
+                              {asset.items_remainings}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                  ))}
+                </Carousel>
+                {/* Carousel end==============================
+==============================================
+============================= */}
+              </div>
+            </div>
+          </section>
+          {/*  Projects Section end*/}
+          {/* =================================================================================================================================================================================================================================================================== */}
         </div>
       </section>
     </div>
