@@ -4,8 +4,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import AvatarSelector from "react-avatar-selector";
 // import poodle from "../../img/profile_img.jpeg";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import LockIcon from "@mui/icons-material/Lock";
 // import  {useLocal}
 import { useLocalStorage } from "../../Activation/useLocalStorage";
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 // import TextField from "@mui/material/TextField";
 // import AdapterDateFns from "@mui/lab/AdapterDateFns";
 // import LocalizationProvider from "@mui/lab/LocalizationProvider";
@@ -55,12 +59,15 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   // const [email, setEmail] = useState("samuelify225@gmail.com");
   const [bvnNum, setBvnNum] = useState("23745672845");
   const [phoneNo, setPhoneNo] = useState("+2348164020234");
+  const [phone_no2, setPhone_no2] = useState("");
   //   const [value, setValue] = useState(new Date("2014-02-09"));
   const [age, setAge] = React.useState({ relationship });
   const [activeBg, setActiveBg] = useState("accounts");
   const [activeBody, setActiveBody] = useState("");
   // const immmg = localStorage.getItem("imageDef");
   const [modal, setModal] = useState(false);
+  const [modal2, setModal2] = useState(false);
+  const [modal3, setModal3] = useState(false);
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
   const [image, setImage] = useState("../../img/profile_img.jpeg");
   const onImageChange = (event) => {
@@ -71,6 +78,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
 
   const handleChange = (event) => {
     setAge(event.target.value);
+    setPhone_no2(event.target.value);
   };
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
@@ -81,6 +89,18 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   };
   const closeModal = () => {
     setModal(false);
+  };
+  const openModal2 = () => {
+    setModal2(true);
+  };
+  const closeModal2 = () => {
+    setModal2(false);
+  };
+  const openModal3 = () => {
+    setModal3(true);
+  };
+  const closeModal3 = () => {
+    setModal3(false);
   };
   // const onChangePicture = (e) => {
   //   setPicture(URL.createObjectURL(e.target.files[0]));
@@ -572,7 +592,11 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {phoneNo} <EditIcon className="edit_icon" />
+                        {phoneNo} {phone_no2}
+                        <AddCircleIcon
+                          className="edit_icon"
+                          onClick={openModal2}
+                        />
                       </div>
                     </div>
                     {/* ================= */}
@@ -609,7 +633,9 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">Change Password</div>
+                        <div className="bvn_btn" onClick={openModal3}>
+                          Change Password
+                        </div>
                       </div>
                     </div>
                     {/* ================= */}
@@ -638,7 +664,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                             label="Address"
                             variant="outlined"
                             name="address"
-                            value={address}
+                            // value={address}
                             // onChange={onChangeFor2}
                           />
                           <button
@@ -716,23 +742,83 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                 </div>{" "}
               </div>
               <div className="profile_modal_area2">
-                {/* <label
-                for="file-upload"
-                className="custom-file-upload"
-                onChange={onImageChange}
-              >
-                <button className="add_photo" onChange={onImageChange}>
-                  Add photo
+                <button className="add_photo">
+                  <AddAPhotoIcon className="photo_icon" /> Add Photo
                 </button>
-              </label>
-              <input
-                type="file"
-                id="file-upload"
-                onChange={onImageChange}
-                className="filetype"
-              /> */}
-                <button className="add_photo">Add Photo</button>
                 <button className="cancel_photo" onClick={closeModal}>
+                  <DoDisturbIcon className="cancel_icon" /> Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {modal2 == true ? (
+        <div className="profile_modal_div">
+          <div className="container">
+            <div className="profile_modal_area_phone_no">
+              <div className="profile_modal_area1">
+                <TextField
+                  className="name_input1ab"
+                  id="outlined-basic"
+                  label="Phone No:"
+                  variant="outlined"
+                  name="phone no"
+                  value={phone_no2}
+                  onChange={handleChange}
+                />
+              </div>
+              <div className="profile_modal_area2">
+                <button className="add_photo">
+                  {" "}
+                  <LocalPhoneIcon className="cancel_icon" />
+                  Add Number
+                </button>
+                <button className="cancel_photo" onClick={closeModal2}>
+                  {" "}
+                  <DoDisturbIcon className="cancel_icon" />
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+      {modal3 == true ? (
+        <div className="profile_modal_div">
+          <div className="container">
+            <div className="profile_modal_area_phone_no">
+              <div className="profile_modal_area1">
+                <div className="password_divs">
+                  <TextField
+                    className="name_input1ab"
+                    id="outlined-basic"
+                    label="Change Password"
+                    variant="outlined"
+                    name="changePassword"
+                    type="password"
+                    // value={address}
+                    // onChange={onChangeFor2}
+                  />
+                  <TextField
+                    className="name_input1ab"
+                    id="outlined-basic"
+                    label="Re-Enter Password"
+                    variant="outlined"
+                    name="changePassword"
+                    type="password"
+                    // value={address}
+                    // onChange={onChangeFor2}
+                  />
+                </div>
+              </div>
+              <div className="profile_modal_area2">
+                <button className="add_photo">
+                  <LockIcon className="cancel_icon" />
+                  Change Password
+                </button>
+                <button className="cancel_photo" onClick={closeModal3}>
+                  <DoDisturbIcon className="cancel_icon" />
                   Cancel
                 </button>
               </div>

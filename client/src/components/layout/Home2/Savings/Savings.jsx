@@ -129,7 +129,9 @@ const Savings = () => {
                 Reach all your unique savings goals, individually or as a group.
                 Earn up to 13% p.a.
               </div>
-              <button className="savings_area_btn">Start saving</button>
+              <a href="/login">
+                <button className="savings_area_btn">Start saving</button>
+              </a>
             </div>
             <div className="savings_area2">
               <img
@@ -725,7 +727,11 @@ const Savings = () => {
                 PiggyVest to manage their money better, avoid over-spending and
                 be more accountable.
               </div>
-              <button className="compliment_btn">Create a free account</button>
+              <a href="/signup">
+                <button className="compliment_btn">
+                  Create a free account
+                </button>
+              </a>
             </div>
           </div>
         </div>
