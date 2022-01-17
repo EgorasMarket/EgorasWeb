@@ -27,6 +27,7 @@ import { setAlert } from "../../../../../actions/alert";
 
 function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
+  const [address, setAddress] = useState("");
 
   const [nextKin, setNextKin] = useState({
     firstname: "",
@@ -56,17 +57,31 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   const [phoneNo, setPhoneNo] = useState("+2348164020234");
   //   const [value, setValue] = useState(new Date("2014-02-09"));
   const [age, setAge] = React.useState({ relationship });
+  const [activeBg, setActiveBg] = useState("accounts");
+  const [activeBody, setActiveBody] = useState("");
+  // const immmg = localStorage.getItem("imageDef");
+  const [modal, setModal] = useState(false);
+  // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
+  const [image, setImage] = useState("../../img/profile_img.jpeg");
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
+    }
+  };
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-  const [activeBg, setActiveBg] = useState("accounts");
-  const [activeBody, setActiveBody] = useState("");
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
-
+  const openModal = () => {
+    setModal(true);
+  };
+  const closeModal = () => {
+    setModal(false);
+  };
   // const onChangePicture = (e) => {
   //   setPicture(URL.createObjectURL(e.target.files[0]));
   // };
@@ -169,17 +184,32 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         {" "}
                         <img
                           // src={value}
-                          // src={picture}
-                          src="/img/profile_img.jpeg"
+                          src={image}
+                          // src="/img/profile_img.jpeg"
                           alt=""
                           className="user_upload_img"
                         />
                         <AddCircleIcon
                           className="add_icon"
-                          // onClick={onChangePicture}
-                        />
+                          onClick={openModal}
+                        />{" "}
+                        {/* <label
+                          for="file-upload"
+                          className="custom-file-upload"
+                          onChange={onImageChange}
+                        >
+                          <AddCircleIcon
+                            className="add_icon"
+                            onChange={onImageChange}
+                          />{" "}
+                        </label>
+                        <input
+                          type="file"
+                          id="file-upload"
+                          onChange={onImageChange}
+                          className="filetype"
+                        /> */}
                         {/* <input type="file" name="" id="" /> */}
-                        {/* <AvatarSelector onChange={(value) => setPic(value)} value={pic} /> */}
                       </div>
                     </div>
                     {/* ================= */}
@@ -403,71 +433,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    {/* <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Bank
-                        <span className="toggle_body_area1_cont1_sub_txts">
-                          {" "}
-                        </span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <div className="name_input1a">
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              Select Bank
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              value={age}
-                              label="Age"
-                              onChange={handleChange}
-                            >
-                              <MenuItem value={10}>Ten</MenuItem>
-                              <MenuItem value={20}>Twenty</MenuItem>
-                              <MenuItem value={30}>Thirty</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </div>
-                      </div>
-                    </div> */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
 
-                    {/* <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Account Number
-                        <span className="toggle_body_area1_cont1_sub_txts"></span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <TextField
-                          className="name_input1a"
-                          id="outlined-basic"
-                          label="Account number"
-                          variant="outlined"
-                        />
-                      </div>
-                    </div> */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Account Name
-                        <span className="toggle_body_area1_cont1_sub_txts"></span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <TextField
-                          className="name_input1a"
-                          id="outlined-basic"
-                          label="Account name"
-                          variant="outlined"
-                        />
-                      </div>
-                    </div> */}
                     {/* '''''''''''''''''''''∂∂ */}
                     {/* '''''''''''''''''''''∂∂ */}
                     {/* '''''''''''''''''''''∂∂ */}
@@ -621,7 +587,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">{}</div>
+                        <div className="bvn_btn">{bvnNum}</div>
                       </div>
                     </div>
                     {/* ================= */}
@@ -644,6 +610,44 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                       </div>
                       <div className="toggle_body_area1_cont1_input">
                         <div className="bvn_btn">Change Password</div>
+                      </div>
+                    </div>
+                    {/* ================= */}
+                    {/* ================= */}
+                    {/* ================= */}
+                    {/* ================= */}
+                    <div className="account_toggle_body_area1_title">
+                      Address
+                    </div>
+                    {/* ================= */}
+                    {/* ================= */}
+                    {/* ================= */}
+                    {/* ================= */}
+                    <div className="toggle_body_area1_cont1">
+                      <div className="toggle_body_area1_cont1_txts">
+                        Add Address
+                        <span className="toggle_body_area1_cont1_sub_txts">
+                          input your address for easy shipping
+                        </span>
+                      </div>
+                      <div className="toggle_body_area1_cont1_input">
+                        <div className="input_btn_grouped_div">
+                          <TextField
+                            className="name_input1a"
+                            id="outlined-basic"
+                            label="Address"
+                            variant="outlined"
+                            name="address"
+                            value={address}
+                            // onChange={onChangeFor2}
+                          />
+                          <button
+                            className="add_photo"
+                            style={{ width: "25%" }}
+                          >
+                            Submit Address
+                          </button>
+                        </div>
                       </div>
                     </div>
                     {/* ================= */}
@@ -673,6 +677,69 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
           </div>
         </div>
       </section>
+
+      {modal == true ? (
+        <div className="profile_modal_div">
+          <div className="container">
+            <div className="profile_modal_area">
+              <div className="profile_modal_area1">
+                <div className="profile_modal_area1_img">
+                  <img
+                    // src={value}
+                    src={image}
+                    // src="/img/profile_img.jpeg"
+                    alt=""
+                    className="user_upload_img"
+                    style={{ width: "250px", height: "250px" }}
+                  />
+                  <label
+                    for="file-upload"
+                    className="custom-file-upload33"
+                    onChange={onImageChange}
+                  >
+                    <AddCircleIcon
+                      className="add_icon33"
+                      onChange={onImageChange}
+                    />{" "}
+                  </label>
+                  <input
+                    type="file"
+                    id="file-upload"
+                    onChange={onImageChange}
+                    className="filetype"
+                  />
+                  <input
+                    type="file"
+                    onChange={onImageChange}
+                    className="filetype"
+                  />
+                </div>{" "}
+              </div>
+              <div className="profile_modal_area2">
+                {/* <label
+                for="file-upload"
+                className="custom-file-upload"
+                onChange={onImageChange}
+              >
+                <button className="add_photo" onChange={onImageChange}>
+                  Add photo
+                </button>
+              </label>
+              <input
+                type="file"
+                id="file-upload"
+                onChange={onImageChange}
+                className="filetype"
+              /> */}
+                <button className="add_photo">Add Photo</button>
+                <button className="cancel_photo" onClick={closeModal}>
+                  Cancel
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 }
