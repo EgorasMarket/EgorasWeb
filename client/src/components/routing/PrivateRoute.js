@@ -15,6 +15,12 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
         setConnected(active);
     }, [])
      return(<Route {...rest} render={props => !connected ? (<Redirect to="/" />) : (<Component {...props} />)} />)
+
+    // return(
+    //     <div>
+    //         Welcome
+    //     </div>
+    // )
 }
 
 

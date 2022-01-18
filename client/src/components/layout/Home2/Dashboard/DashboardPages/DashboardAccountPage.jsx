@@ -1,4 +1,7 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import {API_URL2 as api_url2} 
+ from "../../../../../actions/types";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
 // import AvatarSelector from "react-avatar-selector";
@@ -8,6 +11,8 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import LockIcon from "@mui/icons-material/Lock";
 // import  {useLocal}
 import { useLocalStorage } from "../../Activation/useLocalStorage";
+import jwt from "jsonwebtoken";
+
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 // import TextField from "@mui/material/TextField";
@@ -28,27 +33,156 @@ import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
 import { sumitGenderAndDate, nextOfKING } from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
+// import {getNaame} from "../../../Signup/signup"
 
-function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
+function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}) {
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
   const [address, setAddress] = useState("");
+  const [customer_image, setcustomer_image] = useState("");
 
   const [nextKin, setNextKin] = useState({
     firstname: "",
     lastname: "",
     email: "",
     phoneNumber: "",
-    gender1: "",
     relationship: "",
+    gender: "",
+   
   });
+
+  const [userInfo, setUserInfo] = useState({
+    Userfirstname: "",
+    Userlastname: "",
+    Useremail: "",
+    UserphoneNumber: "",
+    Userrelationship: "",
+    Usergender: "",
+    Userbvn:"",
+    UserdateOfBirth:""
+   
+  });
+
+  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UserphoneNumber, Userbvn, UserdateOfBirth } =
+  userInfo;
+
+  //    useEffect(()=>{
+
+  
+  //      const userInfo =
+  //     () =>
+  //     async (dispatch) => {
+  //       const config = {
+  //         headers: {
+  //           Accept: "*",
+  //           "Access-Control-Allow-Origin": "*",
+  //         },
+  //       };
+    
+     
+    
+  //       try {
+  //         const res = await axios.get(
+  //           api_url2 + "/v1/user/info",
+            
+  //           config
+  //         );
+  //         console.log(res);
+    
+  //         return {
+  //           success: true,
+  //           data: res.data,
+  //         };
+  //       } catch (err) {
+  //         console.log(err.response);
+    
+  //         return {
+  //           success: false,
+  //           data: err.response,
+  //         };
+  //       }
+  //     };
+
+  // },[])
+
+//   useEffect(() => {
+  
+//     axios
+//       .get(
+//         api_url2+
+//           "/v1/user/info",
+//         null,
+//         config
+//       )
+//       .then((data) => {
+//         console.log(data);
+        
+//       });
+  
+
+//   // }
+// }, []);
+
+
+
+useEffect(() => {
+  // fetchDepositLinks();
+  console.log(auth.user);
+  if (auth.user !== null) {
+    console.log(auth);
+    var todecoded = auth.user;
+
+    // console.log('====================================');
+    console.log(todecoded.user.fullname);
+    // console.log('====================================');
+    const getName = todecoded.user.fullname
+    const splitName = getName.split(' ');
+
+    setUserInfo({
+      Userfirstname: splitName[0],
+      Userlastname: splitName[1],
+      Useremail: todecoded.user.email,
+      UserphoneNumber: todecoded.user.phoneNumber,
+      Userrelationship: todecoded.user.relationship,
+      Usergender: todecoded.user.gender,
+      Userbvn:todecoded.user.BVN,
+      UserdateOfBirth:todecoded.user.dateOfBirth,
+    })
+    
+  }
+}, [auth]);
+
+
+
+
+
+
+  // const [userInfoUpdate,setUserInfoUpdate]=useState({
+  //   firstname:"",lastname:"",phoneNumber:"",email:"",BVN:"",
+  // })
+
+
+  // const {firstname1,lastname1,phoneNumber1,email1,BVN1} = userInfoUpdate;
+
+  const [userName,setUserName]=useState({user:""});
+  const [nameUpdate, setNameUpdate]= useState("");
+
+  const {user}=userName;
 
   console.log('okkkk');
 
-  const config = {
-    headers: {
-        'Content-Type': 'application/json'
-    },
-  };
+  // const config = {
+  //   headers: {
+  //       'Content-Type': 'application/json'
+  //   },
+  // };
 
   const { firstname, lastname, email, gender1, relationship, phoneNumber } =
     nextKin;
@@ -61,7 +195,16 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
 
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
+    console.log(nextKin)
   };
+
+  // const onChangeFor4 =(e)=>{
+  //   setUserInfoUpdate({...userInfoUpdate,[e.target.name]:e.target.value})
+  // }
+
+  // const updateUser =()=>{
+  //   setUserName()
+  // }
 
   // const [value, setValue] = useState("1997-02-09");
   // const [email, setEmail] = useState("samuelify225@gmail.com");
@@ -81,6 +224,35 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
+
+      const types = ['jpg', 'png', 'jpeg']
+
+      if (event.currentTarget.id === "customer_image") {
+  
+          if (event.currentTarget.files.length === 0) {
+              // setUserInfo({ ...userInfo, applicantImg: "" });
+              // document.getElementById("output1").src = "";
+  
+          } else {
+              let passportFile = document.getElementById("customer_image").files[0];
+  
+              let fileExtension = passportFile.name.split(".").pop();
+              console.log(passportFile);
+  
+              if (!types.includes(fileExtension)) {
+  
+              } else {
+                  if (passportFile.size > 1000000) {
+  
+                      console.log('file too large.');
+  
+                  } else {
+                    setcustomer_image(passportFile);
+                  }
+              }
+  
+          }
+      }
     }
   };
 
@@ -122,21 +294,36 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
 
     console.log(res);
 
-    if (res.data.data.success === true) {
+    if (res.success === true) {
       console.log("okay Good Server");
     } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
+      console.log('Something went wrong!');
+      // setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
 
-  const Apple = async (e) => {
+
+  // const updateInfo = async (e) => {
+  //   let res = await userInfo(firstname1,lastname1,phoneNumber1,email1,BVN1);
+
+  //   console.log(res);
+
+  //   if (res.data.data.success === true) {
+  //     console.log("okay Good Server");
+  //   } else {
+  //     setAlert(res.data.data.errors[0].msg, "danger");
+  //   }
+  // };
+
+  const nextOfKINGS = async (e) => {
     let res = await nextOfKING(
       firstname,
       lastname,
       email,
-      gender,
+      phoneNumber,
       relationship,
-      phoneNumber
+      gender,
+     
     );
 
     console.log(res);
@@ -147,6 +334,49 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
+
+
+
+
+  const AddUserPhoto = async e => {
+    e.preventDefault();
+
+
+    const formData = new FormData()
+
+    if (customer_image === '') {
+        console.log('empty passport');
+
+        // setAlert('Please provide a passport photo', 'danger');
+
+    } else {
+
+        const element = document.getElementById('customer_image')
+        const file = element.files[0]
+        formData.append('customer_image', file, file.name)
+
+        console.log(formData, 'hhhh');
+
+        try {
+            const res = await axios.put(api_url2 + '/v1/user/add/customer/image', formData);
+            console.log(res.data, 'undefined');
+
+            if (res.data.statusCode === 200) {
+                // setPassportUpload(true)
+            } else {
+                // setAlert('Something went wrong, please try again later', 'danger');
+            }
+
+        } catch (err) {
+            console.log(err.response);
+            // setAlert('Check your internet connection', 'danger');
+        }
+
+    }
+
+}
+
+
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
@@ -258,14 +488,14 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                           id="outlined-basic"
                           label="First Name"
                           variant="outlined"
-                          value={firstname}
+                          value={Userfirstname}
                         />
                         <TextField
                           className="name_input1"
                           id="outlined-basic"
                           label="Last Name"
                           variant="outlined"
-                          value={lastname}
+                          value={Userlastname}
                         />
                       </div>
                     </div>
@@ -287,30 +517,36 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="radio_group">
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="male"
-                            value="Male"
-                            onChange={onChangeFor}
-                          />
-                          <label for="male" class="radio">
-                            Male
-                          </label>
-                        </div>
-                        <div className="radio_group">
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="female"
-                            value="Female"
-                            onChange={onChangeFor}
-                          />
-                          <label for="female" class="radio">
-                            Female
-                          </label>
-                        </div>
+                        {
+                          Usergender === null ? (
+                            <div className='d-flex'>
+                              <div className="radio_group pr-4">
+                                <input
+                                  type="radio"
+                                  name="gender"
+                                  id="male"
+                                  value="Male"
+                                  onChange={onChangeFor}
+                                />
+                                <label for="male" class="radio">
+                                  Male
+                                </label>
+                              </div>
+                              <div className="radio_group">
+                                <input
+                                  type="radio"
+                                  name="gender"
+                                  id="female"
+                                  value="Female"
+                                  onChange={onChangeFor}
+                                />
+                                <label for="female" class="radio">
+                                  Female
+                                </label>
+                              </div>
+                            </div>
+                          ) : Usergender
+                        }
                       </div>
                     </div>
                     {/* ================= */}
@@ -326,28 +562,20 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {/* <DesktopDatePicker
-                        label="Date desktop"
-                        inputFormat="MM/dd/yyyy"
-                        value={value}
-                        onChange={handleChange}
-                        renderInput={(params) => <TextField {...params} />}
-                      /> */}
-                        <input
-                          type="date"
-                          name="dateOfBirth"
-                          id=""
-                          value={dateOfBirth}
-                          className="name_input1 date_input"
-                          onChange={onChangeFor}
-                        />
-                        {/* <TextField
-                        className="name_input1"
-                        id="outlined-basic"
-                        label="Username"
-                        variant="outlined"
-                        value="Cyntax247"
-                      /> */}
+                        
+                        {
+                          UserdateOfBirth === null ? (
+                            <input
+                              type="date"
+                              name="dateOfBirth"
+                              id=""
+                              value={dateOfBirth}
+                              className="name_input1 date_input"
+                              onChange={onChangeFor}
+                            />
+                          ) : UserdateOfBirth
+                        }
+                        
                       </div>
                     </div>
                     {/* ================= */}
@@ -357,7 +585,9 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn">
+                        <button className="save_changes_btn"
+                        onClick={sends}
+                        >
                           Save Changes
                         </button>
                       </div>
@@ -489,18 +719,20 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                               labelId="demo-simple-select-label"
                               id="demo-simple-select"
                               name="relationship"
-                              value={age}
+                              value={relationship}
                               label="Age"
-                              onChange={handleChange}
+                              // onChange={handleChange}
+                              onChange={onChangeFor2}
                               // onSelect={onChangeFor2}
                             >
-                              <MenuItem value={10}>Mother</MenuItem>
-                              <MenuItem value={20}>Father</MenuItem>
-                              <MenuItem value={30}>Sister</MenuItem>
-                              <MenuItem value={40}>Uncle</MenuItem>
-                              <MenuItem value={50}>Aunt</MenuItem>
-                              <MenuItem value={60}>Brother</MenuItem>
-                              <MenuItem value={70}>Inlaw</MenuItem>
+                              <MenuItem 
+                              name="relationship"value="Mother" >Mother</MenuItem>
+                              <MenuItem value="Father">Father</MenuItem>
+                              <MenuItem value="Sister">Sister</MenuItem>
+                              <MenuItem value="Uncle">Uncle</MenuItem>
+                              <MenuItem value="Aunt">Aunt</MenuItem>
+                              <MenuItem value="Brother">Brother</MenuItem>
+                              <MenuItem value="Inlaw">Inlaw</MenuItem>
                             </Select>
                           </FormControl>
                         </div>
@@ -526,8 +758,8 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                             name="gender"
                             id="male"
                             // value={Male}
-
-                            onClick={onChangeFor2}
+                             value="Male"
+                            onChange={onChangeFor2}
                           />
                           <label for="male" class="radio" value={gender}>
                             Male
@@ -539,7 +771,8 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                             name="gender"
                             id="female"
                             // value="female"
-                            onClick={onChangeFor2}
+                            value="Female"
+                            onChange={onChangeFor2}
                           />
                           <label for="female" class="radio" value={gender}>
                             Female
@@ -555,7 +788,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn" onClick={Apple}>
+                        <button className="save_changes_btn" onClick={nextOfKINGS}>
                           Save Changes
                         </button>
                       </div>
@@ -587,7 +820,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {email}
+                        { Useremail}
                       </div>
                     </div>
                     {/* ================= */}
@@ -600,7 +833,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {phoneNo} {phone_no2}
+                        {  UserphoneNumber} {phone_no2}
                         <AddCircleIcon
                           className="edit_icon"
                           onClick={openModal2}
@@ -619,7 +852,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">{bvnNum}</div>
+                        <div className="bvn_btn">{Userbvn}</div>
                       </div>
                     </div>
                     {/* ================= */}
@@ -727,7 +960,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                     style={{ width: "250px", height: "250px" }}
                   />
                   <label
-                    for="file-upload"
+                    for="customer_image"
                     className="custom-file-upload33"
                     onChange={onImageChange}
                   >
@@ -738,19 +971,16 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
                   </label>
                   <input
                     type="file"
-                    id="file-upload"
+                    id="customer_image"
+                    name='customer_image'
                     onChange={onImageChange}
                     className="filetype"
                   />
-                  <input
-                    type="file"
-                    onChange={onImageChange}
-                    className="filetype"
-                  />
+                  
                 </div>{" "}
               </div>
               <div className="profile_modal_area2">
-                <button className="add_photo">
+                <button className="add_photo" onClick={AddUserPhoto}>
                   <AddAPhotoIcon className="photo_icon" /> Add Photo
                 </button>
                 <button className="cancel_photo" onClick={closeModal}>
@@ -838,7 +1068,14 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING }) {
   );
 }
 
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+
 // let  res = await getLogin2(
-export default connect(null, { sumitGenderAndDate, setAlert, nextOfKING })(
+export default connect(mapStateToProps, { sumitGenderAndDate, setAlert, nextOfKING})(
   DashboardAccountPage
 );
