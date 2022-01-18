@@ -34,6 +34,7 @@
     "draftjs-to-html": "^0.9.1",
     "ethers": "^5.0.7",
     "font-awesome": "^4.7.0",
+    "jsonwebtoken": "^8.5.1",
     "jsx-runtime": "^1.2.0",
     "moment": "^2.27.0",
     "moment-timezone": "^0.5.33",

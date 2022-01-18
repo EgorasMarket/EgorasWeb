@@ -11,11 +11,11 @@ const Signup = ({ getAuthentication, setAlert }) => {
     BVN: "",
     phoneNumber: "",
     // confirmpassword: "",
-    InfoReason: "",
+    InfoReason: ""
   });
   const [isLoading, setIsLoading] = useState(false);
   const [isSuccessful, setIsSuccessful] = useState(false);
-  const { fullname, email, password, BVN, phoneNumber, InfoReason } = userAuth;
+  const { fullname, email, password, BVN, phoneNumber,InfoReason} = userAuth;
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -25,6 +25,8 @@ const Signup = ({ getAuthentication, setAlert }) => {
     //   console.log("something is here");
     // }
   };
+
+ 
 
   // useEffect(() => {
   //   setIsSuccessful(false);
@@ -275,4 +277,7 @@ const Signup = ({ getAuthentication, setAlert }) => {
     </div>
   );
 };
+
 export default connect(null, { getAuthentication, setAlert })(Signup);
+
+// export const getName =props.fullname; 

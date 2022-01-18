@@ -12,8 +12,8 @@ import {
   LOGOUT,
   API_URL2 as api_url2,
 } from "./types";
-import setAuthToken from "../utils/setAuthToken.js";
-// import setAuthToken from "../../utils/setAuthToken";
+// import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -23,20 +23,28 @@ export const loadUser = () => async (dispatch) => {
     setAuthToken(localStorage.token);
   }
 
-  try {
-    const res = await axios.get(api_url2 + "/v1/user/info");
-    console.log(res);
-    // console.log("Yes I call You because i can", res.data);
-    dispatch({
-      type: USER_LOADED,
-      payload: res.data,
-    });
-  } catch (error) {
-    console.log("not registered");
-    dispatch({
-      type: AUTH_ERROR,
-    });
-  }
+  const res = await axios.get(api_url2 + "/v1/user/info");
+  console.log(res);
+  // console.log("Yes I call You because i can", res.data);
+  dispatch({
+    type: USER_LOADED,
+    payload: res.data,
+  });
+
+  // try {
+  //   const res = await axios.get(api_url2 + "/v1/user/info");
+  //   console.log(res);
+  //   // console.log("Yes I call You because i can", res.data);
+  //   dispatch({
+  //     type: USER_LOADED,
+  //     payload: res.data,
+  //   });
+  // } catch (error) {
+  //   console.log('not registered');
+  //   dispatch({
+  //     type: AUTH_ERROR,
+  //   });
+  // }
 };
 
 // Get Social Media Handles
@@ -215,9 +223,32 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
   } catch (err) {
     console.log(err.response);
 
-    return {
-      success: false,
-      data: err.response,
-    };
+    const body = JSON.stringify({
+      gender,
+      dateOfBirth,
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.put(
+        api_url2 + "/v1/user/update/customer/info",
+        body,
+        config
+      );
+      console.log(res);
+
+      return {
+        success: true,
+        data: res.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
   }
 };
