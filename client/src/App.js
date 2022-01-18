@@ -63,7 +63,7 @@ import "./css/App.css";
 import "./css/Dark.css";
 import "./css/apexcharts.css";
 
-// import setAuthToken from "./utils/setAuthToken.js";
+// import setAuthToken from "./utils/setAuthToken";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
@@ -97,11 +97,13 @@ import Login from "./components/layout/Home2/Login/Login";
 // import Signup from "./components/layout/Home2/Signup/Signup";
 
 import Signup from "./components/layout/Home2/Signup/Signup";
+
 import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
 import Activation from "./components/layout/Home2/Activation/Activation";
 import LoanDetails from "./components/layout/LoanDetails/LoanDetails";
+import Admin from "./components/layout/Admin/Admin";
 import About from "./components/layout/Home2/About/About";
 import Documentation from "./components/layout/documentation/documentation";
 import Documentation2 from "./components/layout/documentation/documentation2";
@@ -138,6 +140,7 @@ import EGC from "./components/layout/EGC/egc";
 
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
+import PrivateRoute3 from "./components/routing/PrivateRoute3";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -413,12 +416,13 @@ const App = () => {
                   <Route exact path="/whitepaper" component={Whitepaper} />
 
                   <Route exact path="/login" component={Login} />
+                  <Route exact path="/super_admin" component={Admin} />
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  {/* <Dashboard /> */}
-                  <PrivateRoute2>
-                    <Dashboard />
-                  </PrivateRoute2>
+                  {/* <PrivateRoute2> */}
+                  <Dashboard />
+
+                  {/* </PrivateRoute2> */}
                 </Switch>
               </section>
               {/* <Footer /> */}
