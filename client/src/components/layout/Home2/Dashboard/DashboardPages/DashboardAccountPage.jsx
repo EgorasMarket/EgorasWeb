@@ -43,7 +43,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}
     },
   };
 
-
+  const [previewImg, setPreviewImg] = useState(null) 
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
   const [address, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
@@ -134,14 +134,25 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}
 
 useEffect(() => {
   // fetchDepositLinks();
-  console.log(auth.user);
+  console.log(auth);
   if (auth.user !== null) {
-    console.log(auth);
+    // let dataa = 'stackabuse.com';
+    // console.log( new Buffer(dataa));
     var todecoded = auth.user;
+    var todecodedn = todecoded.user.userImage;
 
     // console.log('====================================');
-    console.log(todecoded.user.fullname);
+    console.log(todecodedn);
     // console.log('====================================');
+
+  //   if(todecodedn){
+  //     setPreviewImg("data:image/jpeg;base64," + todecodedn.data)
+  // }
+
+    // const base64String = btoa(String.fromCharCode(...new Uint8Array(todecodedn)));
+
+    // console.log(base64String);
+
     const getName = todecoded.user.fullname
     const splitName = getName.split(' ');
 
@@ -246,9 +257,10 @@ useEffect(() => {
   
                       console.log('file too large.');
   
-                  } else {
-                    setcustomer_image(passportFile);
-                  }
+                  } 
+                  // else {
+                  //   setcustomer_image(passportFile);
+                  // }
               }
   
           }
@@ -374,12 +386,13 @@ useEffect(() => {
 
     }
 
-}
+  }
 
 
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
+      <img src={previewImg} className="align-self-center mr-3" alt="..."/>
       <section className="no-bg" style={{ paddingBottom: "0em" }}>
         <div className="container">
           <div className="dashboard_account_page_area">
