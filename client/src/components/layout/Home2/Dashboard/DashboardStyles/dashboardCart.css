@@ -1,0 +1,36 @@
+.cart_area {
+  padding: 2em;
+  background: #fff;
+  box-shadow: 0px 0px 15px #c1dfcc;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+.cart_item_num {
+  font-size: 26px;
+  font-weight: 700;
+}
+.cart_num_num {
+  color: #41ba71;
+}
+.small_height {
+  width: 10%;
+}
+.height_data1 {
+  height: 70px;
+}
+.small_height {
+  height: 100px;
+}
+.small_tetxt {
+  font-weight: 700;
+  font-size: 18px;
+  white-space: nowrap;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.smallll_txxt {
+  font-size: 14px;
+}

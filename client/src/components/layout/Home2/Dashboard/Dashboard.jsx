@@ -5,6 +5,7 @@ import { connect } from "react-redux";
 import DashboardSidebar from "./DashboardSidebar";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
+import DashboardCart from "./DashboardPages/DashboardCart";
 import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
 import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
 import PhonesCatPage from "./DashboardPages/CategoryPages/PhonesCatPage";
@@ -13,10 +14,10 @@ import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import "./DashboardStyles/dashboard.css";
 const Dashboard = ({ isAuthenticated, loading }) => {
   console.log(isAuthenticated, loading);
-  // if (isAuthenticated == false) {
-  //   // return <Redirect to="/" />;
-  //   return window.location.replace("/");
-  // }
+  if (isAuthenticated == false) {
+    // return <Redirect to="/" />;
+    return window.location.replace("/");
+  }
   return (
     <div>
       <Route>
@@ -29,6 +30,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               path="/dashboard/savings"
               component={DashboardSavingsPage}
             />
+            <Route exact path="/dashboard/cart" component={DashboardCart} />
             <Route
               exact
               path="/dashboard/products"
