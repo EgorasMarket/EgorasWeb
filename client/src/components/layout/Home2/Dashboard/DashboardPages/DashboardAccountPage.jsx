@@ -83,7 +83,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
 
 
 
-  
+
 useEffect(() => {
   // fetchDepositLinks();
   console.log(auth);
@@ -1055,7 +1055,7 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
 });
-
+console.log("myName");
 
 // let  res = await getLogin2(
 export default connect(mapStateToProps, { sumitGenderAndDate, setAlert, nextOfKING,changePassword})(
