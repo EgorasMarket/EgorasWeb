@@ -23,10 +23,10 @@ export const loadUser = () => async (dispatch) => {
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
-  }
+  } 
 
   const res = await axios.get(api_url2 + "/v1/user/info");
-  console.log(res);
+  // console.log(res, 'lllll');
   // console.log("Yes I call You because i can", res.data);
   dispatch({
     type: USER_LOADED,

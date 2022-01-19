@@ -30,7 +30,7 @@ import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
-import { sumitGenderAndDate, nextOfKING,changePassword } from "../../../../../actions/auth";
+import { sumitGenderAndDate, nextOfKING, changePassword } from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
 // import {getNaame} from "../../../Signup/signup"
 
@@ -41,10 +41,10 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
       "Content-Type": "application/json",
     },
   };
-
+  const [image, setImage] = useState("");
   const [previewImg, setPreviewImg] = useState(null) 
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
-  const [address, setAddress] = useState("");
+  const [customerAddress, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
 
   const [nextKin, setNextKin] = useState({
@@ -68,6 +68,7 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
     Userlastname: "",
     Useremail: "",
     UserphoneNumber: "",
+    UseruserImage: "",
     Userrelationship: "",
     Usergender: "",
     Userbvn:"",
@@ -75,15 +76,14 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
    
   });
 
-  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UserphoneNumber, Userbvn, UserdateOfBirth } =
+  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
   userInfo;
 
   const { oldpassword, newpassword } =
   changePassword1;
 
 
-
-
+  
 useEffect(() => {
   // fetchDepositLinks();
   console.log(auth);
@@ -97,13 +97,6 @@ useEffect(() => {
     console.log(todecodedn);
     // console.log('====================================');
 
-  //   if(todecodedn){
-  //     setPreviewImg("data:image/jpeg;base64," + todecodedn.data)
-  // }
-
-    // const base64String = btoa(String.fromCharCode(...new Uint8Array(todecodedn)));
-
-    // console.log(base64String);
 
     const getName = todecoded.user.fullname
     const splitName = getName.split(' ');
@@ -112,18 +105,22 @@ useEffect(() => {
       Userfirstname: splitName[0],
       Userlastname: splitName[1],
       Useremail: todecoded.user.email,
+      UseruserImage: todecoded.user.userImage,
       UserphoneNumber: todecoded.user.phoneNumber,
       Userrelationship: todecoded.user.relationship,
       Usergender: todecoded.user.gender,
       Userbvn:todecoded.user.BVN,
       UserdateOfBirth:todecoded.user.dateOfBirth,
     })
+
+    if (todecoded.user.userImage !== null) {
+      setImage(api_url2+'/'+todecoded.user.userImage)
+    } else {
+      setImage('../../img/profile_img.jpeg')
+    }
     
   }
 }, [auth]);
-
-
-
 
 
 
@@ -139,7 +136,7 @@ useEffect(() => {
 
   const {user}=userName;
 
-  console.log('okkkk');
+  // console.log('okkkk');
 
   // const config = {
   //   headers: {
@@ -183,7 +180,7 @@ useEffect(() => {
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
-  const [image, setImage] = useState("../../img/profile_img.jpeg");
+
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
@@ -218,6 +215,10 @@ useEffect(() => {
           }
       }
     }
+  };
+
+  const onChangeaddress = (event) => {
+    setAddress(event.target.value);
   };
 
   const handleChange = (event) => {
@@ -357,11 +358,44 @@ useEffect(() => {
 
   }
 
+  const submitAddress = async e => {
+    e.preventDefault();
+
+    // console.log('vbvbvb');
+
+    if (customerAddress === '') {
+        console.log('empty address');
+
+        // setAlert('Please provide a passport photo', 'danger');
+
+    } else {
+
+      const body = JSON.stringify({ customerAddress });
+      console.log(body);
+
+        try {
+            const res = await axios.post(api_url2 + '/v1/user/add/address', body, config);
+            console.log(res.data, 'undefined');
+
+            if (res.data.statusCode === 200) {
+                // setPassportUpload(true)
+            } else {
+                // setAlert('Something went wrong, please try again later', 'danger');
+            }
+
+        } catch (err) {
+            console.log(err.response);
+            // setAlert('Check your internet connection', 'danger');
+        }
+
+    }
+
+  }
+
 
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
-      <img src={previewImg} className="align-self-center mr-3" alt="..."/>
       <section className="no-bg" style={{ paddingBottom: "0em" }}>
         <div className="container">
           <div className="dashboard_account_page_area">
@@ -413,43 +447,46 @@ useEffect(() => {
                     {/* ================= */}
                     {/* ================= */}
                     <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Change Profile Picture{" "}
-                        <span className="toggle_body_area1_cont1_sub_txts">
-                          {" "}
-                          Choose a new avatar to be used across Egoras
-                        </span>
-                      </div>
+                      
+                      {
+                          UseruserImage === null ? (
+                            <div className="toggle_body_area1_cont1_txts">
+                              Change Profile Picture{" "}
+                              <span className="toggle_body_area1_cont1_sub_txts">
+                                {" "}
+                                Choose a new avatar to be used across Egoras
+                              </span>
+                            </div>
+
+                          ) : (
+                            <div className="toggle_body_area1_cont1_txts">
+                              My Profile Picture{" "}
+                              <span className="toggle_body_area1_cont1_sub_txts">
+                                {" "}
+                                {/* Choose a new avatar to be used across Egoras */}
+                              </span>
+                            </div>
+                          )
+                        }
                       <div className="toggle_body_area1_cont1_input">
                         {" "}
                         <img
-                          // src={value}
-                          src={image}
-                          // src="/img/profile_img.jpeg"
+
+                            src={image} 
+                            
+
                           alt=""
                           className="user_upload_img"
                         />
-                        <AddCircleIcon
-                          className="add_icon"
-                          onClick={openModal}
-                        />{" "}
-                        {/* <label
-                          for="file-upload"
-                          className="custom-file-upload"
-                          onChange={onImageChange}
-                        >
-                          <AddCircleIcon
-                            className="add_icon"
-                            onChange={onImageChange}
-                          />{" "}
-                        </label>
-                        <input
-                          type="file"
-                          id="file-upload"
-                          onChange={onImageChange}
-                          className="filetype"
-                        /> */}
-                        {/* <input type="file" name="" id="" /> */}
+                        {
+                          UseruserImage === null ? (
+                            <AddCircleIcon
+                              className="add_icon"
+                              onClick={openModal}
+                            />
+                          ) : null
+                        }
+                       
                       </div>
                     </div>
                     {/* ================= */}
@@ -564,16 +601,20 @@ useEffect(() => {
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts"></div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn"
-                        onClick={sends}
-                        >
-                          Save Changes
-                        </button>
-                      </div>
-                    </div>
+                    {
+                      UserdateOfBirth === null ? (
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts"></div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <button className="save_changes_btn"
+                            onClick={sends}
+                            >
+                              Save Changes
+                            </button>
+                          </div>
+                        </div>
+                      ) : null
+                    }
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
@@ -886,15 +927,16 @@ useEffect(() => {
                             id="outlined-basic"
                             label="Address"
                             variant="outlined"
-                            name="address"
-                            value={address}
-                            // onChange={onChangeFor2}
+                            name="customerAddress"
+                            value={customerAddress}
+                            onChange={onChangeaddress}
                           />
                           <button
                             className="add_photo"
                             style={{ width: "25%" }}
+                            onClick={submitAddress}
                           >
-                            Submit Address
+                            Submit Addresxs
                           </button>
                         </div>
                       </div>
@@ -1055,7 +1097,6 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
 });
-console.log("myName");
 
 
 // let  res = await getLogin2(

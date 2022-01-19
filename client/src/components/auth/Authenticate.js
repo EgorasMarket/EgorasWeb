@@ -82,7 +82,7 @@ export const Authenticate = (props) => {
   // handle logic to recognize the connector currently being activated
   const [activatingConnector, setActivatingConnector] = React.useState();
   React.useEffect(() => {
-    console.log('running')
+    // console.log('running')
     if (activatingConnector && activatingConnector === connector) {
       setActivatingConnector(undefined);
     }
@@ -100,7 +100,7 @@ export const Authenticate = (props) => {
   // set up block listener
   const [blockNumber, setBlockNumber] = React.useState();
   React.useEffect(() => {
-    console.log('running')
+    // console.log('running')
     if (library) {
       let stale = false;
 
@@ -134,7 +134,7 @@ export const Authenticate = (props) => {
   // fetch eth balance of the connected account
   const [ethBalance, setEthBalance] = React.useState();
   React.useEffect(() => {
-    console.log('running')
+    // console.log('running')
     if (library && account) {
       let stale = false;
       if (clickedmodal) {
@@ -165,7 +165,7 @@ export const Authenticate = (props) => {
 
   // log the walletconnect URI
   React.useEffect(() => {
-    console.log('running')
+    // console.log('running')
     const logURI = uri => {
       console.log("WalletConnect URI", uri);
     };
