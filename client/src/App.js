@@ -149,7 +149,7 @@ if (localStorage.token) {
 
 const App = () => {
   // const currentPage = window.location.pathname;
-  const [adminLocate, setAdminLocate] = useState('');
+  const [adminLocate, setAdminLocate] = useState("");
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
@@ -222,14 +222,13 @@ const App = () => {
     const myArr = currentPage.split("/");
     console.log(myArr[1]);
     // console.logconst [adminLocate, setAdminLocate] = useState(false);(myArr);
-    
-    if (myArr[1] === 'super_admin') {
-        setAdminLocate('super_admin');
-    } else {
-        setAdminLocate('dashboard');
-    }
 
-});
+    if (myArr[1] === "super_admin") {
+      setAdminLocate("super_admin");
+    } else {
+      setAdminLocate("dashboard");
+    }
+  });
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -436,17 +435,13 @@ const App = () => {
                   {/* <Route exact path="/super_admin" component={Admin} /> */}
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  {
-                    adminLocate === 'super_admin' ? (
-                      
-                      <Admin />
-                      ) : (
-                        
-                        <PrivateRoute2> 
-                          <Dashboard />
-                        </PrivateRoute2> 
-                    )
-                  }
+                  {adminLocate === "super_admin" ? (
+                    <Admin />
+                  ) : (
+                    <PrivateRoute2>
+                      <Dashboard />
+                    </PrivateRoute2>
+                  )}
                 </Switch>
               </section>
               {/* <Footer /> */}

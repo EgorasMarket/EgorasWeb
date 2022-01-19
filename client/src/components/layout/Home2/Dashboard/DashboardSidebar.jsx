@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
 import BarChartIcon from "@mui/icons-material/BarChart";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
@@ -57,6 +58,10 @@ const DashboardSidebar = () => {
     }
     if (linksActive === "/dashboard/savings") {
       setActiveBg("savings");
+      setCatDiv("not_home");
+    }
+    if (linksActive === "/dashboard/cart") {
+      setActiveBg("cart");
       setCatDiv("not_home");
     }
     if (linksActive === "/dashboard/products") {
@@ -285,7 +290,7 @@ const DashboardSidebar = () => {
                         : "sidebarListItem"
                     }
                   >
-                    <ShoppingCartIcon className="sidebarIcon" />
+                    <Inventory2Icon className="sidebarIcon" />
                     Inventory
                   </li>
                 </a>
@@ -295,6 +300,27 @@ const DashboardSidebar = () => {
                 {/* ===================== */}
                 {/* ===================== */}
 
+                <a
+                  href="/dashboard/cart"
+                  className="link"
+                  id="cart"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "cart"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <ShoppingCartIcon className="sidebarIcon" />
+                    My Cart
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
                 <a
                   href="/dashboard/savings"
                   className="link"
@@ -382,12 +408,34 @@ const DashboardSidebar = () => {
                         : "sidebarListItem"
                     }
                   >
-                    <ShoppingCartIcon className="sidebarIcon" />
+                    <Inventory2Icon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
                     Inventory
                   </li>
                 </a>
 
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/dashboard/cart"
+                  className="link"
+                  id="cart"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "cart"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <ShoppingCartIcon className="sidebarIcon" />
+                    My Cart
+                  </li>
+                </a>
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}

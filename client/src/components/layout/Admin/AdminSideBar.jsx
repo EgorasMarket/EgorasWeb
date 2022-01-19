@@ -9,6 +9,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
+import ViewListIcon from "@mui/icons-material/ViewList";
 import "./AdminStyles/adminUploadProducts.css";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
@@ -26,7 +27,7 @@ import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
 import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import GroupIcon from "@mui/icons-material/Group";
-
+import { Link } from "react-router-dom";
 const AdminSideBar = () => {
   const dddd = localStorage.getItem("smallSidetoken");
 
@@ -39,40 +40,19 @@ const AdminSideBar = () => {
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
-    if (linksActive === "/dashboard/products") {
-      setCatDiv("home");
-    }
-    if (linksActive === "/dashboard/products/categories/id-phone") {
-      setActiveBg("products");
-      setCatDiv("home");
-    }
   };
 
   useEffect(() => {
-    if (linksActive === "/dashboard") {
+    if (linksActive === "/super_admin") {
       setActiveBg("Home");
-      setCatDiv("not_home");
     }
-    if (linksActive === "/dashboard/") {
+    if (linksActive === "/super_admin/") {
       setActiveBg("Home");
-      setCatDiv("not_home");
     }
-    if (linksActive === "/dashboard/savings") {
-      setActiveBg("savings");
-      setCatDiv("not_home");
+    if (linksActive === "/super_admin/all_products") {
+      setActiveBg("allProd");
     }
-    if (linksActive === "/dashboard/products") {
-      setActiveBg("products");
-      setCatDiv("home");
-    }
-    if (linksActive === "/dashboard/products/categories/id-phone") {
-      setActiveBg("products");
-      setCatDiv("home");
-    }
-    if (linksActive === "/dashboard/accounts") {
-      setActiveBg("accounts");
-      setCatDiv("not_home");
-    }
+
     // if (linksActive === "/dashboard/referrals") {
     //   setActiveBg("swap");
     // }
@@ -257,7 +237,29 @@ const AdminSideBar = () => {
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <a href="/super_admin/admin" className="link" id="products" onClick={changeBg}>
+                <a
+                  href="/super_admin/all_products"
+                  className="link"
+                  id="allProd"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "allProd"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <ViewListIcon className="sidebarIcon" />
+                    All Prod
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a href="#" className="link" id="products" onClick={changeBg}>
                   <li
                     className={
                       activeBg == "products"
@@ -274,12 +276,7 @@ const AdminSideBar = () => {
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <a
-                  href="#"
-                  className="link"
-                  id="accounts"
-                  onClick={changeBg}
-                >
+                <a href="#" className="link" id="accounts" onClick={changeBg}>
                   <li
                     className={
                       activeBg == "accounts"
@@ -319,6 +316,29 @@ const AdminSideBar = () => {
                   >
                     <Inventory2Icon className="sidebarIcon" />
                     Products
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/super_admin/all_products"
+                  className="link"
+                  id="allProd"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "allProd"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <ViewListIcon className="sidebarIcon" />
+                    {/* <GroupIcon className="sidebarIcon" /> */}
+                    All Prod
                   </li>
                 </a>
                 {/* ===================== */}
