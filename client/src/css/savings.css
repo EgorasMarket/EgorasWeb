@@ -123,7 +123,7 @@ button.savings_area_btn {
 .storeTiles_storeTileContainer__HoGEa {
   background-position: 50%;
   background-repeat: no-repeat;
-  background-size: contain;
+  background-size: cover;
   border-radius: 0.75rem;
   cursor: pointer;
   display: flex;

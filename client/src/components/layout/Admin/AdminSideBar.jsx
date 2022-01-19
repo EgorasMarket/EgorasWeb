@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
+
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 import GroupsIcon from "@mui/icons-material/Groups";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
@@ -52,6 +54,9 @@ const AdminSideBar = () => {
     if (linksActive === "/super_admin/all_products") {
       setActiveBg("allProd");
     }
+    if (linksActive === "/super_admin/register_user") {
+      setActiveBg("register");
+    }
 
     // if (linksActive === "/dashboard/referrals") {
     //   setActiveBg("swap");
@@ -98,45 +103,7 @@ const AdminSideBar = () => {
               //   onMouseOver={openLogoutDiv}
               //   onMouseOut={closeLogoutDiv}
             >
-              <div className="together">
-                <div className="save_numb_div">
-                  <ShoppingCartIcon className="cart_icon" />
-                  <div className="cart_num">{cartNum}</div>
-                </div>
-                <div className="account_numb_div">
-                  <FileCopyIcon className="copy_icon" /> 29887728631612
-                </div>
-
-                {/* <div
-                  className="logout_div"
-                  // className={
-                  //   logoutDiv == "not_logout_div"
-                  //     ? "not_logout_div"
-                  //     : "logout_div"
-                  // }
-                >
-                  <button
-                    className="logout_sec_btn"
-                    //   onClick={triggerLogout}
-                  >
-                    Logout
-                  </button>
-                </div> */}
-                <div className="immmgg">
-                  <img
-                    src="/img/profile_img.jpeg"
-                    alt=""
-                    className="user_profile"
-                  />
-                  <img
-                    src="/img/profile_icon2.svg"
-                    alt=""
-                    className="user_profile2"
-                  />
-                </div>
-              </div>
-
-              <div className="welcome_user">
+              <div className="welcome_user" style={{ alignItems: "flex-end" }}>
                 Welcome
                 <span className="userName_name">Admin</span>
               </div>
@@ -276,6 +243,28 @@ const AdminSideBar = () => {
                 {/* ===================== */}
                 {/* ===================== */}
 
+                <a
+                  href="/super_admin/register_user"
+                  className="link"
+                  id="register"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "register"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <GroupAddIcon className="sidebarIcon" />
+                    Register
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
                 <a href="#" className="link" id="accounts" onClick={changeBg}>
                   <li
                     className={
@@ -357,6 +346,29 @@ const AdminSideBar = () => {
                     <GroupsIcon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
                     Customer
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/super_admin/register_user"
+                  className="link"
+                  id="register"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "register"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <GroupAddIcon className="sidebarIcon" />
+                    {/* <GroupIcon className="sidebarIcon" /> */}
+                    Register
                   </li>
                 </a>
 
