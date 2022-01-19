@@ -55,6 +55,9 @@ const Footer = () => {
     if (FooterHide === "/super_admin/all_products") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if (FooterHide === "/super_admin/register_user") {
+      document.getElementById("FooterId").style.display = "none";
+    }
     if (FooterHide === "/dashboard/products/categories/id-phone") {
       document.getElementById("FooterId").style.display = "none";
     }

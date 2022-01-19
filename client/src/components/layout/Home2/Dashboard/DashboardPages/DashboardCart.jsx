@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import DeleteIcon from "@mui/icons-material/Delete";
 import "../DashboardStyles/dashboardCart.css";
 
 const lockedItems = [
@@ -11,7 +12,7 @@ const lockedItems = [
     days_left_percent: "82%",
     total_locked_amount: " 150,000",
     quantity: "1",
-    unit_price: "350,000",
+    unit_price: 350000,
 
     // ratio: "175%",
   },
@@ -24,7 +25,7 @@ const lockedItems = [
     days_left: "13",
     days_left_percent: "27%",
     quantity: "2",
-    unit_price: "150,000",
+    unit_price: 150000,
   },
   {
     id: 3,
@@ -35,9 +36,13 @@ const lockedItems = [
     days_left: "23",
     days_left_percent: "77%",
     quantity: "2",
-    unit_price: "550,000",
+    unit_price: 550000,
   },
 ];
+const result = lockedItems.reduce(
+  (total, currentValue) => (total = total + currentValue.unit_price),
+  0
+);
 const DashboardCart = () => {
   const [savedNum, setSavedNum] = useState(5);
   return (
@@ -100,6 +105,10 @@ const DashboardCart = () => {
                               </span>
                               {asset.total_items} items
                             </div>
+                            <div className="remove_from_cart_div">
+                              <DeleteIcon className="delete_icon" />
+                              Remove
+                            </div>
                           </div>
                         </td>
                         <td className="save_item_data1b">
@@ -109,12 +118,12 @@ const DashboardCart = () => {
                         </td>
                         <td className="save_item_data1b">
                           <div className="assets-data-name center_name">
-                            #{asset.unit_price}
+                            ₦{asset.unit_price}
                           </div>
                         </td>
                         <td className="save_item_data1b">
                           <div className="assets-data-name_last">
-                            #{asset.total_locked_amount}
+                            ₦{asset.total_locked_amount}
                           </div>
                         </td>
                       </tr>
@@ -122,6 +131,12 @@ const DashboardCart = () => {
                   ))}
                 </table>
               </div>
+              <div className="total_div">
+                Total: <span className="sum_resu"> ₦{result}</span>
+              </div>
+            </div>
+            <div className="checkout_btns">
+              <button className="checkout_btn1">Proceed to Checkout </button>
             </div>
           </div>
         </div>
