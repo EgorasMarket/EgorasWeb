@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import AdminTest from "./AdminPages/AdminTest";
 import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
 import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import AdminSideBar from "./AdminSideBar";
@@ -15,6 +16,7 @@ const Admin = () => {
           <AdminSideBar />
           <Switch>
             <Route exact path="/super_admin" component={AdminUploadProducts} />
+            <Route exact path="/super_admin/admin" component={AdminTest} />
             <Route
               exact
               path="/super_admin/all_products"
