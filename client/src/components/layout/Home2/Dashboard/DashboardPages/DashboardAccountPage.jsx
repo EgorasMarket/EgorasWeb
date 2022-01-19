@@ -82,6 +82,8 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
   changePassword1;
 
 
+
+  
 useEffect(() => {
   // fetchDepositLinks();
   console.log(auth);
