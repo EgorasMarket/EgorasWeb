@@ -10,6 +10,8 @@ import DvrIcon from "@mui/icons-material/Dvr";
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom';
+
 import axios from "axios";
 import setAuthToken from "../../../../../utils/setAuthToken";
 import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../../actions/types"
@@ -200,26 +202,7 @@ const config = {
   },
 };
 
-  // useEffect(() => {
-  //   console.log("Success unegbu");
-   
-  //   // async function getUser() {
-  //   //   try {
-  //   //     const response = await axios.get(api_url2 + "/v1/product/retrieve/products");
-  //   //     console.log(response);
-  //   //   } catch (error) {
-  //   //     console.error(error);
-  //   //   }
-  //   // }
-  //   // getUser()
-
-  //   axios.get(api_url2+ "/v1/product/retrieve/products", null, config).then((data) => {
-  //     console.log(data);
-  //   }).catch((err) => {
-  //     console.log(err.response);
-  //   })
-
-  // }, []);
+  
 
 const [item,setItem]=useState([]);
 
@@ -229,81 +212,28 @@ const [img,setImg]=useState();
 const { productId,productAmount,productBrand,ProductDetail,productDuration,ProductImg,productName,PrductSpec,unitCount}=item;
 
   useEffect(() => {
-    // setIsLoading(true);
-
+  
     axios.get(
         api_url2 + "/v1/product/retrieve/products",
         null,
         config
     ).then((data) => {
-        // setIsLoading(false);
-        // setFormData({
-        //     id: data.data.data.id
-        // })
-
+       
         console.log(data.data.data, "king");
      
-        // setCategories(data.data.data)
-        // setItem(data.data.data);
-        // console.log(item);
+       
     setItem(data.data.data)
 
      const resR = item.product_image;
 
-    //  const imageBlob =  resR.blob();
-    //  const imageObjectURL = URL.createObjectURL(imageBlob);
-     
-    //  setImg(imageObjectURL);
-
      console.log(resR)
-
-        // data.data.data.map((seed)=>setItem(seed)
-
-        // )
-
-        
-        // setItem({
-        //   productId:data.data.data[0].id,
-        //   productAmount:data.data.data[0].amount,
-        //   productBrand:data.data.data[0].product_brand,
-        //   ProductImg:data.data.data[2].product_image
-          
-        // })
 
     }).catch((err) => {
         console.log(err); // "oh, no!"
     })
-
-    // setItem({
-    //   productId:data.data.data[0].id,
-    //   productAmount:data.data.data[0].amount,
-    //   productBrand:data.data.data[0].product_brand,
-    //   ProductImg:data.data.data[0].product_image
-      
-    // })
-
 }, []);
 
 
-//   const loadUser2 = () => async (dispatch) => {
-//     // console.log('okkkkkkk');
-  
-//     // if (localStorage.token) {
-//     //   setAuthToken(localStorage.token);
-//     // }
-  
-//     const res = await axios.get(api_url2 + "/v1/product/retrieve/products");
-//     console.log(res);
-//     setItem(res);
-//     console.log(item)
-// console.log(res.data)
-//     dispatch({
-//       type: PRODUCT_LOADED,
-//       payload: res.data,
-//     });
-  
-    
-//   };
 
   
 
@@ -311,38 +241,9 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
 
 
 
-  // async function getUser() {
-  //   try {
-  //     const response = await axios.get(api_url2 + "/v1/product/retrieve/products");
-  //     console.log(response.data);
-    
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-  
 
 
 
-
-// // Load User
-//  const loadProducts = () => async (dispatch) => {
-//   // console.log('okkkkkkk');
-
-//   // if (localStorage.token) {
-//   //   setAuthToken(localStorage.token);
-//   // }
-
-//   const res = await axios.get(api_url2 + "/v1/product/retrieve/products");
-//   console.log(res);
-  
-//   dispatch({
-//     type: PRODUCT_LOADED,
-//     payload: res.data,
-//   });
-
- 
-// };
 
  console.log(item)
 
@@ -703,25 +604,18 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.product_name}`}  Brand={asset.product_brand}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`} >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
                         backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
+                     
                       }}
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          {asset.Save_button}
+                          save now
                         </button>
                         <button className="items_remaining_btn2">
                           {asset.percentage} off
