@@ -3,11 +3,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 
-function ItemDetailsPage({ match }) {
+function ItemDetailsPage({ match ,props}) {
   const [asset, setAsset] = useState("");
   const [itemsLeft, setItemsLeft] = useState(5);
   const [maxDuration, setmaxDuration] = useState(25);
   const [base, setBase] = useState("");
+  const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
   const [disable2, setDisable2] = useState(false);
   const [productCode, setProductCode] = useState(475758);
@@ -154,8 +155,10 @@ function ItemDetailsPage({ match }) {
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
+     let baseVale2 = match.params.product_brand
     setAsset(assetVal);
     setBase(baseVal);
+     setBase1(baseVale2);
     let ticker = assetVal + "-" + baseVal;
     window.scrollTo(0, 0);
     // setImeeg(itemsId.map((log) => log.img));
@@ -190,6 +193,7 @@ function ItemDetailsPage({ match }) {
                 >
                   <span className="product_code_title">Brand: </span>
                   {BrandCode}
+                  {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
                 {/* <hr className="horizontal_rule" /> */}

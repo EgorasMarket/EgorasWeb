@@ -31,11 +31,11 @@ import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
-import { sumitGenderAndDate, nextOfKING } from "../../../../../actions/auth";
+import { sumitGenderAndDate, nextOfKING,changePassword } from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
 // import {getNaame} from "../../../Signup/signup"
 
-function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}) {
+function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,changePassword}) {
 
   const config = {
     headers: {
@@ -57,6 +57,9 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}
    
   });
 
+
+  const [changePassword1,setChangePassword]=useState({oldpassword:"",newpassword:""})
+
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
     Userlastname: "",
@@ -67,6 +70,9 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth}
     Userbvn:""
    
   });
+
+
+  const { oldpassword,newpassword }= changePassword1;
 
   const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UserphoneNumber,Userbvn } =
   userInfo;
@@ -195,9 +201,9 @@ useEffect(() => {
     console.log(nextKin)
   };
 
-  // const onChangeFor4 =(e)=>{
-  //   setUserInfoUpdate({...userInfoUpdate,[e.target.name]:e.target.value})
-  // }
+  const onChangeFor4 =(e)=>{
+    setChangePassword({...changePassword1,[e.target.name]:e.target.value})
+  }
 
   // const updateUser =()=>{
   //   setUserName()
@@ -302,6 +308,23 @@ useEffect(() => {
     }
   };
 
+
+  const sumitChangePassword = async (e) => {
+    let res = await changePassword(
+      oldpassword,
+      newpassword,
+    
+     
+    );
+
+    console.log(res);
+
+    if (res.data.data.success === true) {
+      console.log("okay Good Server");
+    } else {
+      setAlert(res.data.data.errors[0].msg, "danger");
+    }
+  };
 
 
   return (
@@ -966,8 +989,8 @@ useEffect(() => {
                     variant="outlined"
                     name="changePassword"
                     type="password"
-                    // value={address}
-                    // onChange={onChangeFor2}
+                     value={oldpassword}
+                    onChange={onChangeFor4}
                   />
                   <TextField
                     className="name_input1ab"
@@ -976,13 +999,13 @@ useEffect(() => {
                     variant="outlined"
                     name="changePassword"
                     type="password"
-                    // value={address}
-                    // onChange={onChangeFor2}
+                    value={newpassword}
+                    onChange={onChangeFor4}
                   />
                 </div>
               </div>
               <div className="profile_modal_area2">
-                <button className="add_photo">
+                <button className="add_photo" onClick={sumitChangePassword}>
                   <LockIcon className="cancel_icon" />
                   Change Password
                 </button>
@@ -1007,6 +1030,6 @@ const mapStateToProps = (state) => ({
 
 
 // let  res = await getLogin2(
-export default connect(mapStateToProps, { sumitGenderAndDate, setAlert, nextOfKING})(
+export default connect(mapStateToProps, { sumitGenderAndDate, setAlert, nextOfKING,changePassword})(
   DashboardAccountPage
 );
