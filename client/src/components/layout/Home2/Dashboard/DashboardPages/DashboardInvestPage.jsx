@@ -10,6 +10,8 @@ import DvrIcon from "@mui/icons-material/Dvr";
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
+import {Link} from 'react-router-dom';
+
 import axios from "axios";
 import setAuthToken from "../../../../../utils/setAuthToken";
 import {
@@ -198,26 +200,7 @@ function DashboardInvestPage({ auth }) {
     },
   };
 
-  // useEffect(() => {
-  //   console.log("Success unegbu");
-
-  //   // async function getUser() {
-  //   //   try {
-  //   //     const response = await axios.get(api_url2 + "/v1/product/retrieve/products");
-  //   //     console.log(response);
-  //   //   } catch (error) {
-  //   //     console.error(error);
-  //   //   }
-  //   // }
-  //   // getUser()
-
-  //   axios.get(api_url2+ "/v1/product/retrieve/products", null, config).then((data) => {
-  //     console.log(data);
-  //   }).catch((err) => {
-  //     console.log(err.response);
-  //   })
-
-  // }, []);
+  
 
   const [item, setItem] = useState([]);
 
@@ -236,31 +219,24 @@ function DashboardInvestPage({ auth }) {
   } = item;
 
   useEffect(() => {
-    // setIsLoading(true);
-
-    axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
-      .then((data) => {
-        // setIsLoading(false);
-        // setFormData({
-        //     id: data.data.data.id
-        // })
-
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/products",
+        null,
+        config
+    ).then((data) => {
+       
         console.log(data.data.data, "king");
-
-        // setCategories(data.data.data)
-        // setItem(data.data.data);
-        // console.log(item);
-        setItem(data.data.data);
-
-        const resR = item.product_image;
+     
+       
+    setItem(data.data.data)
 
         //  const imageBlob =  resR.blob();
         //  const imageObjectURL = URL.createObjectURL(imageBlob);
 
         //  setImg(imageObjectURL);
 
-        console.log(resR);
+        // console.log(resR);
 
         // data.data.data.map((seed)=>setItem(seed)
 
@@ -306,33 +282,6 @@ function DashboardInvestPage({ auth }) {
 
   //   };
 
-  // async function getUser() {
-  //   try {
-  //     const response = await axios.get(api_url2 + "/v1/product/retrieve/products");
-  //     console.log(response.data);
-
-  //   } catch (error) {
-  //     console.error(error);
-  //   }
-  // }
-
-  // // Load User
-  //  const loadProducts = () => async (dispatch) => {
-  //   // console.log('okkkkkkk');
-
-  //   // if (localStorage.token) {
-  //   //   setAuthToken(localStorage.token);
-  //   // }
-
-  //   const res = await axios.get(api_url2 + "/v1/product/retrieve/products");
-  //   console.log(res);
-
-  //   dispatch({
-  //     type: PRODUCT_LOADED,
-  //     payload: res.data,
-  //   });
-
-  // };
 
   console.log(item);
 
@@ -688,25 +637,13 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a
-                  href={`/products/details/${asset.id}/${asset.product_name}`}
-                  Brand={asset.product_brand}
-                >
+                <a href={`/products/details/${asset.id}/${asset.product_name}`} >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
+                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                     
                       }}
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
