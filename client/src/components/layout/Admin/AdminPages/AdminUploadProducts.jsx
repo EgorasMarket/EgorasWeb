@@ -15,13 +15,16 @@ const AdminUploadProducts = () => {
   
   const config = {
     headers: {
-        'Content-Type': 'application/json'
+      Accept: "*",
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
   };
   const [product_image, setproduct_image] = useState("../../img/profile_img.jpeg");
   const [getrandom, setRandom] = useState('');
   const [productId, setProductId] = useState('');
   const [product_category_code1, setProduct_category_code1] = useState('');
+  const [product_type, setProduct_type] = useState('');
   const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [allCategories, setCategories] = useState([]);
   const [categoryInsert, setCategoryInsert] = React.useState({
@@ -151,8 +154,6 @@ const AdminUploadProducts = () => {
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      
-      
 
       const types = ['jpg', 'png', 'jpeg']
 
@@ -234,34 +235,48 @@ const AdminUploadProducts = () => {
 
 };
 
+const handleproductType = (event) => {
+  setProduct_type(event.target.value || '');
+  // // console.log('handleMOI');
+
+};
+
   const UpdateProductInfo = async e => {
     if (product_name === '' || 
     product_category_code1 === '' || 
     unitCount === null || 
     product_duration === null || 
     product_brand === '' || 
+    product_type === '' || 
     product_specifications === '' || 
     amount === null || 
     product_details === '') {
       console.log('Please supply all information.');
     } else {
-      console.log( productId, product_name, product_category_code1, unitCount, product_duration, product_brand, product_specifications, amount, product_details); 
-      const body = JSON.stringify({ productId, product_name, product_category_code1, unitCount, product_duration, product_brand, product_specifications, amount, product_details });
-      console.log(body);
-      // try {
-      //   const res = await axios.post(api_url2 + '/v1/product/add/product', body. config);
-      //   console.log(res, 'undefined');
 
-      //   if (res.data.statusCode === 200) {
-      //       // setMOIUpload(true)
-      //   } else {
-      //       // setAlert('Something went wrong, please try again later', 'danger');
-      //   }
+      if (!localStorage.productId) {
+        console.log('Please provide a product id by adding a new product image.');
+      } else {
+        console.log( product_type, productId, product_name, product_category_code1, unitCount, product_duration, product_brand, product_specifications, amount, product_details); 
+        let product_category_code = product_category_code1;
+        const body = JSON.stringify({ product_type, productId, product_name, product_category_code, unitCount, product_duration, product_brand, product_specifications, amount, product_details });
+        console.log(body, 'yyyyyy');
+        try {
+          const res = await axios.put(api_url2 + '/v1/product/add/product', body, config);
+          console.log(res, 'undefined');
 
-      // } catch (err) {
-      //     console.log(err);
-      //     // setAlert('Check your internet connection', 'danger');
-      // }
+          if (res.data.statusCode === 200) {
+              // setMOIUpload(true)
+              localStorage.removeItem("productId");
+          } else {
+              // setAlert('Something went wrong, please try again later', 'danger');
+          }
+
+        } catch (err) {
+            console.log(err.response);
+            // setAlert('Check your internet connection', 'danger');
+        }
+      }
       
     }
   }
@@ -345,11 +360,40 @@ const AdminUploadProducts = () => {
               {/* ============== */}
               {/* ============== */}
               {/* ============== */}
+              {/* =========== */}
             </div>
             <div className="upload_products_details_area2">
               {/* === */}
               <div className="toggle_body_area1_cont1_input products_des_upload">
                 {" "}
+                <div className="add_cat_input_title">
+                  <span className="input_brand">Product Type</span>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Select Type
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="relationship"
+                      className='w-100'
+                      value={product_type}
+                      label="Product Type"
+                      onChange={handleproductType}
+                      
+                    >
+        
+                        <MenuItem key="MICRO" value="MICRO">
+                          MICRO
+                        </MenuItem>
+                        <MenuItem key="GROCERIES" value="GROCERIES">
+                          GROCERIES
+                        </MenuItem>
+                   
+                    </Select>
+                  </FormControl>
+                </div>
                 <div className="add_cat_input_title">
                   {/* <span className="input_brand">Product category code</span> */}
                     <span className="input_brand">Product Name</span>
