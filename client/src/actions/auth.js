@@ -10,6 +10,8 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
+ 
+  
   API_URL2 as api_url2,
 } from "./types";
 // import setAuthToken from "../utils/setAuthToken";
@@ -46,6 +48,32 @@ export const loadUser = () => async (dispatch) => {
   //   });
   // }
 };
+
+
+
+// // Load User
+// export const loadProducts = () => async (dispatch) => {
+//   // console.log('okkkkkkk');
+
+//   if (localStorage.token) {
+//     setAuthToken(localStorage.token);
+//   }
+
+//   const res = await axios.get(api_url2 + "/v1/product/retrieve/products");
+//   console.log(res);
+//   // console.log("Yes I call You because i can", res.data);
+//   dispatch({
+//     type: PRODUCT_LOADED,
+//     payload: res.data,
+//   });
+
+ 
+// };
+
+
+
+
+
 
 // Get Social Media Handles
 export const getAuthentication =
@@ -252,3 +280,50 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
     }
   }
 };
+
+
+
+  
+  export const changePassword = (oldpassword,newpassword)=> async(dispatch)=>{
+
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      oldpassword,
+      newpassword,
+     
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.put(
+        api_url2 + "/v1/user/update/customer/info",
+        body,
+        config
+      );
+      console.log(res);
+
+      return {
+        success: true,
+        data: res.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
+
+  }
+
+
+  
