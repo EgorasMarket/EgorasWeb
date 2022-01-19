@@ -81,64 +81,6 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
   const { oldpassword, newpassword } =
   changePassword1;
 
-  //    useEffect(()=>{
-
-  
-  //      const userInfo =
-  //     () =>
-  //     async (dispatch) => {
-  //       const config = {
-  //         headers: {
-  //           Accept: "*",
-  //           "Access-Control-Allow-Origin": "*",
-  //         },
-  //       };
-    
-     
-    
-  //       try {
-  //         const res = await axios.get(
-  //           api_url2 + "/v1/user/info",
-            
-  //           config
-  //         );
-  //         console.log(res);
-    
-  //         return {
-  //           success: true,
-  //           data: res.data,
-  //         };
-  //       } catch (err) {
-  //         console.log(err.response);
-    
-  //         return {
-  //           success: false,
-  //           data: err.response,
-  //         };
-  //       }
-  //     };
-
-  // },[])
-
-//   useEffect(() => {
-  
-//     axios
-//       .get(
-//         api_url2+
-//           "/v1/user/info",
-//         null,
-//         config
-//       )
-//       .then((data) => {
-//         console.log(data);
-        
-//       });
-  
-
-//   // }
-// }, []);
-
-
 
 useEffect(() => {
   // fetchDepositLinks();
