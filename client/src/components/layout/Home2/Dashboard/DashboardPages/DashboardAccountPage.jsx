@@ -1057,6 +1057,7 @@ const mapStateToProps = (state) => ({
 });
 console.log("myName");
 console.log("myName");
+console.log("myName");
 
 // let  res = await getLogin2(
 export default connect(mapStateToProps, { sumitGenderAndDate, setAlert, nextOfKING,changePassword})(
