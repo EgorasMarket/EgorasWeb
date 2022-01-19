@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {API_URL2 as api_url2} 
- from "../../../../../actions/types";
+import { API_URL2 as api_url2 } from "../../../../../actions/types";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
 // import AvatarSelector from "react-avatar-selector";
@@ -30,19 +29,28 @@ import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
-import { sumitGenderAndDate, nextOfKING,changePassword } from "../../../../../actions/auth";
+import {
+  sumitGenderAndDate,
+  nextOfKING,
+  changePassword,
+} from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
 // import {getNaame} from "../../../Signup/signup"
 
-function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,changePassword}) {
-
+function DashboardAccountPage({
+  sumitGenderAndDate,
+  setAlert,
+  nextOfKING,
+  auth,
+  changePassword,
+}) {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const [previewImg, setPreviewImg] = useState(null) 
+  const [previewImg, setPreviewImg] = useState(null);
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
   const [address, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
@@ -54,14 +62,12 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
     phoneNumber: "",
     relationship: "",
     gender: "",
-   
   });
 
-
-  const [changePassword1,setChangePassword]=useState({
-    oldpassword:"",
-    newpassword:""
-  })
+  const [changePassword1, setChangePassword] = useState({
+    oldpassword: "",
+    newpassword: "",
+  });
 
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
@@ -70,76 +76,72 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
     UserphoneNumber: "",
     Userrelationship: "",
     Usergender: "",
-    Userbvn:"",
-    UserdateOfBirth:""
-   
+    Userbvn: "",
+    UserdateOfBirth: "",
   });
 
-  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UserphoneNumber, Userbvn, UserdateOfBirth } =
-  userInfo;
+  const {
+    Userfirstname,
+    Userlastname,
+    Useremail,
+    Usergender,
+    Userrelationship,
+    UserphoneNumber,
+    Userbvn,
+    UserdateOfBirth,
+  } = userInfo;
 
-  const { oldpassword, newpassword } =
-  changePassword1;
+  const { oldpassword, newpassword } = changePassword1;
 
+  useEffect(() => {
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
 
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
 
+      //   if(todecodedn){
+      //     setPreviewImg("data:image/jpeg;base64," + todecodedn.data)
+      // }
 
-useEffect(() => {
-  // fetchDepositLinks();
-  console.log(auth);
-  if (auth.user !== null) {
-    // let dataa = 'stackabuse.com';
-    // console.log( new Buffer(dataa));
-    var todecoded = auth.user;
-    var todecodedn = todecoded.user.userImage;
+      // const base64String = btoa(String.fromCharCode(...new Uint8Array(todecodedn)));
 
-    // console.log('====================================');
-    console.log(todecodedn);
-    // console.log('====================================');
+      // console.log(base64String);
 
-  //   if(todecodedn){
-  //     setPreviewImg("data:image/jpeg;base64," + todecodedn.data)
-  // }
+      const getName = todecoded.user.fullname;
+      const splitName = getName.split(" ");
 
-    // const base64String = btoa(String.fromCharCode(...new Uint8Array(todecodedn)));
-
-    // console.log(base64String);
-
-    const getName = todecoded.user.fullname
-    const splitName = getName.split(' ');
-
-    setUserInfo({
-      Userfirstname: splitName[0],
-      Userlastname: splitName[1],
-      Useremail: todecoded.user.email,
-      UserphoneNumber: todecoded.user.phoneNumber,
-      Userrelationship: todecoded.user.relationship,
-      Usergender: todecoded.user.gender,
-      Userbvn:todecoded.user.BVN,
-      UserdateOfBirth:todecoded.user.dateOfBirth,
-    })
-    
-  }
-}, [auth]);
-
-
-
-
-
+      setUserInfo({
+        Userfirstname: splitName[0],
+        Userlastname: splitName[1],
+        Useremail: todecoded.user.email,
+        UserphoneNumber: todecoded.user.phoneNumber,
+        Userrelationship: todecoded.user.relationship,
+        Usergender: todecoded.user.gender,
+        Userbvn: todecoded.user.BVN,
+        UserdateOfBirth: todecoded.user.dateOfBirth,
+      });
+    }
+  }, [auth]);
 
   // const [userInfoUpdate,setUserInfoUpdate]=useState({
   //   firstname:"",lastname:"",phoneNumber:"",email:"",BVN:"",
   // })
 
-
   // const {firstname1,lastname1,phoneNumber1,email1,BVN1} = userInfoUpdate;
 
-  const [userName,setUserName]=useState({user:""});
-  const [nameUpdate, setNameUpdate]= useState("");
+  const [userName, setUserName] = useState({ user: "" });
+  const [nameUpdate, setNameUpdate] = useState("");
 
-  const {user}=userName;
+  const { user } = userName;
 
-  console.log('okkkk');
+  console.log("okkkk");
 
   // const config = {
   //   headers: {
@@ -158,12 +160,12 @@ useEffect(() => {
 
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-    console.log(nextKin)
+    console.log(nextKin);
   };
 
-  const onChangeFor4 =(e)=>{
-    setChangePassword({...changePassword1,[e.target.name]:e.target.value})
-  }
+  const onChangeFor4 = (e) => {
+    setChangePassword({ ...changePassword1, [e.target.name]: e.target.value });
+  };
 
   // const updateUser =()=>{
   //   setUserName()
@@ -188,34 +190,28 @@ useEffect(() => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
 
-      const types = ['jpg', 'png', 'jpeg']
+      const types = ["jpg", "png", "jpeg"];
 
       if (event.currentTarget.id === "customer_image") {
-  
-          if (event.currentTarget.files.length === 0) {
-              // setUserInfo({ ...userInfo, applicantImg: "" });
-              // document.getElementById("output1").src = "";
-  
+        if (event.currentTarget.files.length === 0) {
+          // setUserInfo({ ...userInfo, applicantImg: "" });
+          // document.getElementById("output1").src = "";
+        } else {
+          let passportFile = document.getElementById("customer_image").files[0];
+
+          let fileExtension = passportFile.name.split(".").pop();
+          console.log(passportFile);
+
+          if (!types.includes(fileExtension)) {
           } else {
-              let passportFile = document.getElementById("customer_image").files[0];
-  
-              let fileExtension = passportFile.name.split(".").pop();
-              console.log(passportFile);
-  
-              if (!types.includes(fileExtension)) {
-  
-              } else {
-                  if (passportFile.size > 1000000) {
-  
-                      console.log('file too large.');
-  
-                  } 
-                  // else {
-                  //   setcustomer_image(passportFile);
-                  // }
-              }
-  
+            if (passportFile.size > 1000000) {
+              console.log("file too large.");
+            }
+            // else {
+            //   setcustomer_image(passportFile);
+            // }
           }
+        }
       }
     }
   };
@@ -261,11 +257,10 @@ useEffect(() => {
     if (res.success === true) {
       console.log("okay Good Server");
     } else {
-      console.log('Something went wrong!');
+      console.log("Something went wrong!");
       // setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
-
 
   // const updateInfo = async (e) => {
   //   let res = await userInfo(firstname1,lastname1,phoneNumber1,email1,BVN1);
@@ -286,8 +281,7 @@ useEffect(() => {
       email,
       phoneNumber,
       relationship,
-      gender,
-     
+      gender
     );
 
     console.log(res);
@@ -298,15 +292,9 @@ useEffect(() => {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
-
 
   const sumitChangePassword = async (e) => {
-    let res = await changePassword(
-      oldpassword,
-      newpassword,
-    
-     
-    );
+    let res = await changePassword(oldpassword, newpassword);
 
     console.log(res);
 
@@ -317,51 +305,44 @@ useEffect(() => {
     }
   };
 
-
-
-  const AddUserPhoto = async e => {
+  const AddUserPhoto = async (e) => {
     e.preventDefault();
 
+    const formData = new FormData();
 
-    const formData = new FormData()
+    if (customer_image === "") {
+      console.log("empty passport");
 
-    if (customer_image === '') {
-        console.log('empty passport');
-
-        // setAlert('Please provide a passport photo', 'danger');
-
+      // setAlert('Please provide a passport photo', 'danger');
     } else {
+      const element = document.getElementById("customer_image");
+      const file = element.files[0];
+      formData.append("customer_image", file, file.name);
 
-        const element = document.getElementById('customer_image')
-        const file = element.files[0]
-        formData.append('customer_image', file, file.name)
+      console.log(formData, "hhhh");
 
-        console.log(formData, 'hhhh');
+      try {
+        const res = await axios.put(
+          api_url2 + "/v1/user/add/customer/image",
+          formData
+        );
+        console.log(res.data, "undefined");
 
-        try {
-            const res = await axios.put(api_url2 + '/v1/user/add/customer/image', formData);
-            console.log(res.data, 'undefined');
-
-            if (res.data.statusCode === 200) {
-                // setPassportUpload(true)
-            } else {
-                // setAlert('Something went wrong, please try again later', 'danger');
-            }
-
-        } catch (err) {
-            console.log(err.response);
-            // setAlert('Check your internet connection', 'danger');
+        if (res.data.statusCode === 200) {
+          // setPassportUpload(true)
+        } else {
+          // setAlert('Something went wrong, please try again later', 'danger');
         }
-
+      } catch (err) {
+        console.log(err.response);
+        // setAlert('Check your internet connection', 'danger');
+      }
     }
-
-  }
-
-
+  };
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
-      <img src={previewImg} className="align-self-center mr-3" alt="..."/>
+      <img src={previewImg} className="align-self-center mr-3" alt="..." />
       <section className="no-bg" style={{ paddingBottom: "0em" }}>
         <div className="container">
           <div className="dashboard_account_page_area">
@@ -499,36 +480,36 @@ useEffect(() => {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {
-                          Usergender === null ? (
-                            <div className='d-flex'>
-                              <div className="radio_group pr-4">
-                                <input
-                                  type="radio"
-                                  name="gender"
-                                  id="male"
-                                  value="Male"
-                                  onChange={onChangeFor}
-                                />
-                                <label for="male" class="radio">
-                                  Male
-                                </label>
-                              </div>
-                              <div className="radio_group">
-                                <input
-                                  type="radio"
-                                  name="gender"
-                                  id="female"
-                                  value="Female"
-                                  onChange={onChangeFor}
-                                />
-                                <label for="female" class="radio">
-                                  Female
-                                </label>
-                              </div>
+                        {Usergender === null ? (
+                          <div className="d-flex">
+                            <div className="radio_group pr-4">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="male"
+                                value="Male"
+                                onChange={onChangeFor}
+                              />
+                              <label for="male" class="radio">
+                                Male
+                              </label>
                             </div>
-                          ) : Usergender
-                        }
+                            <div className="radio_group">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="female"
+                                value="Female"
+                                onChange={onChangeFor}
+                              />
+                              <label for="female" class="radio">
+                                Female
+                              </label>
+                            </div>
+                          </div>
+                        ) : (
+                          Usergender
+                        )}
                       </div>
                     </div>
                     {/* ================= */}
@@ -544,20 +525,18 @@ useEffect(() => {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        
-                        {
-                          UserdateOfBirth === null ? (
-                            <input
-                              type="date"
-                              name="dateOfBirth"
-                              id=""
-                              value={dateOfBirth}
-                              className="name_input1 date_input"
-                              onChange={onChangeFor}
-                            />
-                          ) : UserdateOfBirth
-                        }
-                        
+                        {UserdateOfBirth === null ? (
+                          <input
+                            type="date"
+                            name="dateOfBirth"
+                            id=""
+                            value={dateOfBirth}
+                            className="name_input1 date_input"
+                            onChange={onChangeFor}
+                          />
+                        ) : (
+                          UserdateOfBirth
+                        )}
                       </div>
                     </div>
                     {/* ================= */}
@@ -567,9 +546,7 @@ useEffect(() => {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn"
-                        onClick={sends}
-                        >
+                        <button className="save_changes_btn" onClick={sends}>
                           Save Changes
                         </button>
                       </div>
@@ -707,8 +684,9 @@ useEffect(() => {
                               onChange={onChangeFor2}
                               // onSelect={onChangeFor2}
                             >
-                              <MenuItem 
-                              name="relationship"value="Mother" >Mother</MenuItem>
+                              <MenuItem name="relationship" value="Mother">
+                                Mother
+                              </MenuItem>
                               <MenuItem value="Father">Father</MenuItem>
                               <MenuItem value="Sister">Sister</MenuItem>
                               <MenuItem value="Uncle">Uncle</MenuItem>
@@ -740,7 +718,7 @@ useEffect(() => {
                             name="gender"
                             id="male"
                             // value={Male}
-                             value="Male"
+                            value="Male"
                             onChange={onChangeFor2}
                           />
                           <label for="male" class="radio" value={gender}>
@@ -770,7 +748,10 @@ useEffect(() => {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn" onClick={nextOfKINGS}>
+                        <button
+                          className="save_changes_btn"
+                          onClick={nextOfKINGS}
+                        >
                           Save Changes
                         </button>
                       </div>
@@ -802,7 +783,7 @@ useEffect(() => {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        { Useremail}
+                        {Useremail}
                       </div>
                     </div>
                     {/* ================= */}
@@ -815,7 +796,7 @@ useEffect(() => {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {  UserphoneNumber} {phone_no2}
+                        {UserphoneNumber} {phone_no2}
                         <AddCircleIcon
                           className="edit_icon"
                           onClick={openModal2}
@@ -954,11 +935,10 @@ useEffect(() => {
                   <input
                     type="file"
                     id="customer_image"
-                    name='customer_image'
+                    name="customer_image"
                     onChange={onImageChange}
                     className="filetype"
                   />
-                  
                 </div>{" "}
               </div>
               <div className="profile_modal_area2">
@@ -1017,7 +997,7 @@ useEffect(() => {
                     variant="outlined"
                     name="changePassword"
                     type="password"
-                     value={oldpassword}
+                    value={oldpassword}
                     onChange={onChangeFor4}
                   />
                   <TextField
@@ -1050,15 +1030,15 @@ useEffect(() => {
   );
 }
 
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
 });
-console.log("myName");
-
 
 // let  res = await getLogin2(
-export default connect(mapStateToProps, { sumitGenderAndDate, setAlert, nextOfKING,changePassword})(
-  DashboardAccountPage
-);
+export default connect(mapStateToProps, {
+  sumitGenderAndDate,
+  setAlert,
+  nextOfKING,
+  changePassword,
+})(DashboardAccountPage);
