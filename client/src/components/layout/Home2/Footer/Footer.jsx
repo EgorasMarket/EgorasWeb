@@ -46,7 +46,13 @@ const Footer = () => {
     if (FooterHide === "/dashboard/savings") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if (FooterHide === "/dashboard/cart") {
+      document.getElementById("FooterId").style.display = "none";
+    }
     if (FooterHide === "/super_admin") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/super_admin/all_products") {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/dashboard/products/categories/id-phone") {
