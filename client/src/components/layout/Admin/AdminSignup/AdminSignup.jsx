@@ -176,13 +176,30 @@ const AdminSignup = ({ getAuthentication, setAlert }) => {
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Role</span>
-                    <input
-                      type="text"
-                      className="signup_input_field"
-                      value={role}
-                      name="role"
-                      onChange={onChange}
-                    />
+                    <div className="toggle_body_area1_cont1_input">
+                      <div className="name_input1a lar_widthh">
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Select Role
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name="role"
+                            value={role}
+                            label="role"
+                            onChange={onChange}
+                            // onSelect={onChange}
+                          >
+                            <MenuItem value={1}>MANAGER</MenuItem>
+                            <MenuItem value={2}>BUSINESS_ADMIN</MenuItem>
+                            <MenuItem value={3}>MEDIA</MenuItem>
+                            <MenuItem value={4}>CASHIER</MenuItem>
+                            <MenuItem value={5}>CUSTOMER_SERVICE</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </div>
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Branch</span>
@@ -195,22 +212,16 @@ const AdminSignup = ({ getAuthentication, setAlert }) => {
                           <Select
                             labelId="demo-simple-select-label"
                             id="demo-simple-select"
-                            name="relationship"
-                            // value={relationship}
-                            label="Age"
-                            // onChange={handleChange}
-                            // onChange={onChangeFor2}
-                            // onSelect={onChangeFor2}
+                            name="branch"
+                            value={branch}
+                            label="branch"
+                            onChange={onChange}
                           >
-                            <MenuItem name="relationship" value="Mother">
-                              Mother
+                            <MenuItem value="RUMUKWRUSHI">
+                              Rumukwrushi branch
                             </MenuItem>
-                            <MenuItem value="Father">Father</MenuItem>
-                            <MenuItem value="Sister">Sister</MenuItem>
-                            <MenuItem value="Uncle">Uncle</MenuItem>
-                            <MenuItem value="Aunt">Aunt</MenuItem>
-                            <MenuItem value="Brother">Brother</MenuItem>
-                            <MenuItem value="Inlaw">Inlaw</MenuItem>
+                            <MenuItem value="AGIP">Agip branch</MenuItem>
+                            <MenuItem value="OYIGBO">Oyigbo branch</MenuItem>
                           </Select>
                         </FormControl>
                       </div>
@@ -222,7 +233,7 @@ const AdminSignup = ({ getAuthentication, setAlert }) => {
                       type="text"
                       className="signup_input_field"
                       value={gender}
-                      name="role"
+                      name="gender"
                       onChange={onChange}
                     />
                   </div>
