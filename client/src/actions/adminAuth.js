@@ -16,6 +16,8 @@ import {
 // import setAuthToken from "../utils/setAuthToken";
 import setAuthToken from "../utils/setAuthToken";
 
+
+
 // Load User
 export const loadUser = () => async (dispatch) => {
   // console.log('okkkkkkk');
@@ -50,7 +52,7 @@ export const loadUser = () => async (dispatch) => {
 
 // Get Social Media Handles
 export const getAuthentication =
-  (fullname, mobile, email, staffId, password, role, gender ) =>
+  (fullname, mobile, email, staffId, password, role, gender,branch ) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -61,7 +63,7 @@ export const getAuthentication =
     };
 
     const body = JSON.stringify({
-        fullname, mobile, email, staffId, password, role, gender
+        fullname, mobile, email, staffId, password, role, gender,branch
     });
 
     console.log(body);
