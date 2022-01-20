@@ -38,6 +38,12 @@ const Footer = () => {
     if (FooterHide === "/dashboard") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if (FooterHide === "/super_admin/signup") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/super_admin/login") {
+      document.getElementById("FooterId").style.display = "none";
+    }
 
     console.log(myArr[3], myArr[4]);
     if (FooterHide === "/dashboard/") {

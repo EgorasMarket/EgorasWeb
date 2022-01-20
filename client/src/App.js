@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/layout/home/Home";
 import Opd from "./components/layout/home/Opd";
 import Aos from "aos";
+import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
 // import Aos from "aos";
@@ -138,6 +139,7 @@ import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSec
 import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
+import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
@@ -264,6 +266,16 @@ const App = () => {
                     exact
                     path="/companies/details/:id"
                     component={Details}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/signup"
+                    component={AdminSignup}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/login"
+                    component={AdminLogin}
                   />
 
                   <Route exact path="/category/:name" component={Categories} />

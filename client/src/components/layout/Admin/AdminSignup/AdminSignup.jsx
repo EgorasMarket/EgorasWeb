@@ -1,117 +1,63 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 import { setAlert } from "../../../../actions/alert";
-import "../../../../css/signup.css";
-import { getAuthentication } from "../../../../actions/auth";
-const Signup = ({ getAuthentication, setAlert }) => {
-  const [userAuth, setUserAuth] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-    BVN: "",
-    phoneNumber: "",
-    confirmPassword: "",
-    InfoReason: "",
-  });
-  const [isLoading, setIsLoading] = useState(false);
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  const [isSuccessful, setIsSuccessful] = useState(false);
+import { getAuthentication } from "../../../../actions/adminAuth";
+const AdminSignup = ({ getAuthentication, setAlert }) => {
   const [visibility, setVisibility] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
+  const [adminAuth, setAdminAuth] = useState({
+    fullname: "",
+    mobile: "",
+    email: "",
+    staffId: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+    gender: "",
+    branch: "",
+  });
   const {
     fullname,
+    mobile,
     email,
+    staffId,
     password,
-    BVN,
-    phoneNumber,
     confirmPassword,
-    InfoReason,
-  } = userAuth;
+    role,
+    gender,
+    branch,
+  } = adminAuth;
   const onChange = (e) => {
-    setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
-
-    // if (e.target.value === "") {
-    //   console.log("input something here");
-    // } else {
-    //   console.log("something is here");
-    // }
+    setAdminAuth({ ...adminAuth, [e.target.name]: e.target.value });
   };
   const setPasswordVisibilty = () => {
     setVisibility(true);
-    // setPassImg("hide_pass");
   };
   const closetPasswordVisibilty = () => {
     setVisibility(false);
-    // setPassImg("show_pass");
   };
   const setPasswordVisibilty2 = () => {
     setVisibility2(true);
-    // setPassImg2("hide_pass2");
   };
   const closetPasswordVisibilty2 = () => {
     setVisibility2(false);
-
-    // setPassImg2("show_pass2");
   };
-
-  // useEffect(() => {
-  //   setIsSuccessful(false);
-  // });
   const submitData = async (e) => {
-    // if (
-    //   fullname === "" ||
-    //   email === "" ||
-    //   password === "" ||
-    //   //   confirmpassword === "" ||
-    //   phoneNumber === ""
-    // ) {
-    //   setAlert("All fields are required", "danger");
-    //   // setIsLoading(false);
-    // } else {
-    //   if (password !== confirmpassword) {
-    //     setAlert("Passwords do not match", "danger");
-    //   } else {
-    //     if (typeof localStorage.referrer !== "undefined") {
-    //       // console.log(localStorage.referrer);
-    //       // setUserAuth()
-    //       let res = await getAuthentication(
-    //         fullname,
-    //         email,
-    //         password,
-    //         phoneNumber,
-    //         // walletAddress,
-    //         localStorage.referrer
-    //       );
-    //       console.log(res);
-    //       if (res.data.success === true) {
-    //         console.log("okay Good Server");
-    //       } else {
-    //         setAlert(res.data.data.errors[0].msg, "danger");
-    //       }
-    //     } else {
-    //       let res = await getAuthentication(
-    //         fullname,
-    //         email,
-    //         password,
-    //         phoneNumber,
-    //         ""
-    //       );
-    //       console.log(res.data);
-    //       if (res.data.success === true) {
-    //         console.log("okay Good Server");
-    //       } else {
-    //         setAlert(res.data.data.errors[0].msg, "danger");
-    //       }
-    //     }
-    //   }
-    // }
     let res = await getAuthentication(
       fullname,
+      mobile,
       email,
+      staffId,
       password,
-      BVN,
-      phoneNumber,
-      InfoReason
+      role,
+      gender,
+      branch
       //   localStorage.referrer
     );
     console.log(res);
@@ -122,20 +68,12 @@ const Signup = ({ getAuthentication, setAlert }) => {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
-
   return (
     <div>
       {isSuccessful == false ? (
         <section className="signup_section">
           <div className="container">
             <div className="signup_area">
-              <div className="signup_cont_head">
-                <img
-                  src="/img/egoras-logo.svg"
-                  alt=""
-                  className="signup_title_img"
-                />
-              </div>
               <div className="signup_cont">
                 <div className="signup_title">Create an Account</div>
                 <span className="signup_para">
@@ -167,20 +105,18 @@ const Signup = ({ getAuthentication, setAlert }) => {
                     <input
                       type="number"
                       className="signup_input_field"
-                      value={phoneNumber}
-                      name="phoneNumber"
+                      value={mobile}
+                      name="mobile"
                       onChange={onChange}
                     />
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">
-                      Bank Verification Number (BVN)
-                    </span>
+                    <span className="input_title">Staff Id</span>
                     <input
-                      type="number"
+                      type="text"
                       className="signup_input_field"
-                      value={BVN}
-                      name="BVN"
+                      value={staffId}
+                      name="staffId"
                       onChange={onChange}
                     />
                   </div>
@@ -212,14 +148,7 @@ const Signup = ({ getAuthentication, setAlert }) => {
                     </div>
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span
-                      className="input_title"
-                      value={confirmPassword}
-                      name="confirmPassword"
-                      onChange={onChange}
-                    >
-                      Repeat Password
-                    </span>
+                    <span className="input_title">Repeat Password</span>
                     <div className="passwrd_input_div">
                       <input
                         type={visibility2 ? "text" : "password"}
@@ -246,30 +175,56 @@ const Signup = ({ getAuthentication, setAlert }) => {
                     </div>
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">
-                      How did you hear about us?
-                    </span>
-
-                    <select
-                      className="cust_select"
-                      name="InfoReason"
+                    <span className="input_title">Role</span>
+                    <input
+                      type="text"
+                      className="signup_input_field"
+                      value={role}
+                      name="role"
                       onChange={onChange}
-                      value={InfoReason}
-                    >
-                      <option value="0" className="opt">
-                        Click to select:
-                      </option>
-                      <option value="Facebook">Facebook</option>
-                      <option value="Twitter">Twitter</option>
-                      <option value="Instagram">Instagram</option>
-                      <option value="Referred">Referred</option>
-                      <option value="Online Blog">Online Blog</option>
-                      <option value="Google search">Google search</option>
-                      <option value="Others">Others</option>
-                    </select>
-                    {/* ==[[[[[]]]]] */}
-
-                    {/* <input type="" className="signup_input_field" /> */}
+                    />
+                  </div>
+                  <div className="signup_input_field1_cont">
+                    <span className="input_title">Branch</span>
+                    <div className="toggle_body_area1_cont1_input">
+                      <div className="name_input1a lar_widthh">
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Select Branch
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name="relationship"
+                            // value={relationship}
+                            label="Age"
+                            // onChange={handleChange}
+                            // onChange={onChangeFor2}
+                            // onSelect={onChangeFor2}
+                          >
+                            <MenuItem name="relationship" value="Mother">
+                              Mother
+                            </MenuItem>
+                            <MenuItem value="Father">Father</MenuItem>
+                            <MenuItem value="Sister">Sister</MenuItem>
+                            <MenuItem value="Uncle">Uncle</MenuItem>
+                            <MenuItem value="Aunt">Aunt</MenuItem>
+                            <MenuItem value="Brother">Brother</MenuItem>
+                            <MenuItem value="Inlaw">Inlaw</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="signup_input_field1_cont">
+                    <span className="input_title">Gender</span>
+                    <input
+                      type="text"
+                      className="signup_input_field"
+                      value={gender}
+                      name="role"
+                      onChange={onChange}
+                    />
                   </div>
                   <button
                     type="submit"
@@ -306,7 +261,7 @@ const Signup = ({ getAuthentication, setAlert }) => {
 
                       <p>
                         An activation email has been sent to{" "}
-                        <span className="email_name">{email}</span> with
+                        <span className="email_name">{/* {email} */}</span> with
                         instructions to activate your account.
                       </p>
                       <p className="note">
@@ -343,7 +298,4 @@ const Signup = ({ getAuthentication, setAlert }) => {
     </div>
   );
 };
-
-export default connect(null, { getAuthentication, setAlert })(Signup);
-
-// export const getName =props.fullname;
+export default connect(null, { getAuthentication, setAlert })(AdminSignup);
