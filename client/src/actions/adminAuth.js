@@ -362,4 +362,55 @@ export const ForgetPassword = (email) => async (dispatch) => {
   }
 };
 
+
+
+
+
+
+// Admin Register Customer
+
+export const adminAddCustomer =
+  (fullname, email, password, BVN, phoneNumber, InfoReason) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      fullname,
+      email,
+      password,
+      BVN,
+      phoneNumber,
+      InfoReason,
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.post(
+        api_url2 + "/v1/user/register",
+        body,
+        config
+      );
+      console.log(res);
+
+      return {
+        success: true,
+        data: res.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
+  };
+
   
