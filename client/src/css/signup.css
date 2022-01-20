@@ -221,3 +221,23 @@ option {
   color: #54bc7e;
   width: 65%;
 }
+.passwrd_input_div {
+  width: 100%;
+  position: relative;
+}
+.close_pass_img {
+  position: absolute;
+  width: 20px;
+  right: 2%;
+  top: 35%;
+  bottom: 35%;
+  cursor: pointer;
+}
+.open_pass_img {
+  position: absolute;
+  width: 20px;
+  right: 2%;
+  top: 35%;
+  bottom: 35%;
+  cursor: pointer;
+}
