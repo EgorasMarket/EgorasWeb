@@ -229,13 +229,34 @@ const AdminSignup = ({ getAuthentication, setAlert }) => {
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Gender</span>
-                    <input
-                      type="text"
-                      className="signup_input_field"
-                      value={gender}
-                      name="gender"
-                      onChange={onChange}
-                    />
+                    <div className="toggle_body_area1_cont1_input">
+                      <div className="radio_group">
+                        <input
+                          type="radio"
+                          name="gender"
+                          id="male"
+                          // value={Male}
+                          value="Male"
+                          onChange={onChange}
+                        />
+                        <label for="male" class="radio" value={gender}>
+                          Male
+                        </label>
+                      </div>
+                      <div className="radio_group">
+                        <input
+                          type="radio"
+                          name="gender"
+                          id="female"
+                          // value="female"
+                          value="Female"
+                          onChange={onChange}
+                        />
+                        <label for="female" class="radio" value={gender}>
+                          Female
+                        </label>
+                      </div>
+                    </div>
                   </div>
                   <button
                     type="submit"
