@@ -2,13 +2,22 @@ import React, { useState, useEffect, useCallback } from "react";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
+import axios from "axios";
+import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../actions/types"
+import { connect } from "react-redux";
 
-function ItemDetailsPage({ match ,props}) {
+function ItemDetailsPage({ match}) {
+  const config = {
+    headers: {
+        'Content-Type': 'application/json'
+    },
+  };
+  const [product_id, setProductId] = useState(match.params.id)
   const [asset, setAsset] = useState("");
   const [itemsLeft, setItemsLeft] = useState(5);
   const [maxDuration, setmaxDuration] = useState(25);
   const [base, setBase] = useState("");
-  const [base1, setBase1] = useState("");
+  // const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
   const [disable2, setDisable2] = useState(false);
   const [productCode, setProductCode] = useState(475758);
@@ -18,6 +27,47 @@ function ItemDetailsPage({ match ,props}) {
   const [imeeg, setImeeg] = useState("");
 
   const [activeBg, setActiveBg] = useState("descript");
+
+  const [dataFlow,setDataFlow]=useState([]);
+
+  const [productDetails, setProductDetails] = useState({
+    
+    product_image: "",
+    product_name: ""
+    
+  })
+
+  const { product_image,product_name }= productDetails;
+
+  useEffect(() => {
+
+    const body = JSON.stringify({
+      product_id
+    });
+
+    console.log(body);
+  
+    axios.post(
+        api_url2 + "/v1/product/retrieve/specific",
+        body,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "king");
+
+        setProductDetails({
+          product_image: data.data.data.product_image,
+          product_name: data.data.data.product_name      
+        })
+
+        // setDataFlow(data.data.data)
+       
+   
+
+    }).catch((err) => {
+        console.log(err.response); // "oh, no!"
+    })
+}, []);
 
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
@@ -155,10 +205,10 @@ function ItemDetailsPage({ match ,props}) {
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
-     let baseVale2 = match.params.product_brand
+     
     setAsset(assetVal);
     setBase(baseVal);
-     setBase1(baseVale2);
+     
     let ticker = assetVal + "-" + baseVal;
     window.scrollTo(0, 0);
     // setImeeg(itemsId.map((log) => log.img));
@@ -166,15 +216,24 @@ function ItemDetailsPage({ match ,props}) {
     console.log(itemsId.firstItem.img);
   }, []);
 
+
+  const ID = match.params.id;
+
+  if(ID=== "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b"){
+    console.log('Hello Mr King')
+  }
+
+
   return (
     <div className="other2">
+      {/* {dataFlow.map((item)=>{return( */}
       <section className="no-bg">
         <div className="container">
           <div className="products_area">
             <div className="product_details_area1">
               <div className="details_area1_cont1">
                 {" "}
-                <img src={imeeg} alt="" className="product_details_img" />
+                <img src={api_url2+'/'+product_image} alt="" className="product_details_img" />
               </div>
               {/* ================ */}
               {/* ================ */}
@@ -182,7 +241,7 @@ function ItemDetailsPage({ match ,props}) {
               {/* ================ */}
               <div className="details_area1_cont2">
                 {" "}
-                <div className="product_details_Title">{base}</div>
+                <div className="product_details_Title">{product_name}</div>
                 <div className="product_details_code">
                   <span className="product_code_title">Product Code: </span>
                   {productCode}
@@ -194,6 +253,7 @@ function ItemDetailsPage({ match ,props}) {
                   <span className="product_code_title">Brand: </span>
                   {BrandCode}
                   {/* {props.Brand} */}
+                  
                 </div>
                 {/* ----------------- */}
                 {/* <hr className="horizontal_rule" /> */}
@@ -477,8 +537,14 @@ function ItemDetailsPage({ match ,props}) {
           </div>
         </div>
       </section>
+      {/* )})} */}
     </div>
   );
 }
 
-export default ItemDetailsPage;
+// const mapStateToProps1 = (state) => ({
+//   auth: state.auth,
+//   isAuthenticated: state.auth.isAuthenticated,
+// })
+
+export default  ItemDetailsPage;
