@@ -17,6 +17,8 @@ const Signup = ({ getAuthentication, setAlert }) => {
   // const [confirmPassword, setConfirmPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [visibility, setVisibility] = useState(false);
+  const [strongPass, setStrongPass] = useState(false);
+  const [mismatchPass, setMismatchPass] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
   const {
     fullname,
@@ -27,8 +29,55 @@ const Signup = ({ getAuthentication, setAlert }) => {
     confirmPassword,
     InfoReason,
   } = userAuth;
+
+  // const weakPass = () => {
+  //   setStrongPas(true);
+  // };
+  // useEffect(() => {
+  //   if (password.length <= 0) {
+  //     setStrongPass(null);
+  //   }
+  // }, []);
+  const onChangeMisMatch = () => {
+    // setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
+    // if (password.length <=  8) {
+    //   setStrongPass(true);
+    //   console.log("password is not 8");
+    // } else if (password.length >= 8) {
+    //   setStrongPass(false);
+    //   console.log("password is 8");
+    // }
+  };
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
+
+    const { name, value } = e.target;
+
+    switch (name) {
+      case "password":
+        if (e.target.value.length <= 7) {
+          setStrongPass(true);
+          console.log("password is not 8");
+        } else if (password.length >= 7) {
+          setStrongPass(false);
+          console.log("password is 8");
+        }
+        break;
+      default:
+      case "confirmPassword":
+        if (e.target.value !== password) {
+          setMismatchPass(true);
+          console.log("password not match");
+        } else if (e.target.value === password) {
+          setMismatchPass(false);
+          console.log("password match");
+        }
+        break;
+    }
+
+    // else {
+
+    // }
 
     // if (e.target.value === "") {
     //   console.log("input something here");
@@ -193,6 +242,7 @@ const Signup = ({ getAuthentication, setAlert }) => {
                         value={password}
                         name="password"
                         onChange={onChange}
+                        // onInput={onChangeMisMatch}
                       />
                       {visibility == false ? (
                         <img
@@ -210,16 +260,12 @@ const Signup = ({ getAuthentication, setAlert }) => {
                         />
                       )}
                     </div>
+                    {strongPass == false ? null : (
+                      <div className="weak_pass_div">Password is weak</div>
+                    )}
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span
-                      className="input_title"
-                      value={confirmPassword}
-                      name="confirmPassword"
-                      onChange={onChange}
-                    >
-                      Repeat Password
-                    </span>
+                    <span className="input_title">Repeat Password</span>
                     <div className="passwrd_input_div">
                       <input
                         type={visibility2 ? "text" : "password"}
@@ -244,6 +290,9 @@ const Signup = ({ getAuthentication, setAlert }) => {
                         />
                       )}
                     </div>
+                    {mismatchPass == false ? null : (
+                      <div className="weak_pass_div">Password did not match</div>
+                    )}
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">

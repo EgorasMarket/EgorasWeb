@@ -490,7 +490,7 @@ function ItemDetailsPage({ match}) {
                       //     </div>
                       //   </div>
                       //   </div>
-                      <a href={`/products/details/${asset.id}/${asset.name}`}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
