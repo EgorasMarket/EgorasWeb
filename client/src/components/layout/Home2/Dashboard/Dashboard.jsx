@@ -20,7 +20,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setSplashScreen(false);
-    }, 1000);
+    }, 2000);
 
     // setSplashScreen(true);
   }, []);
