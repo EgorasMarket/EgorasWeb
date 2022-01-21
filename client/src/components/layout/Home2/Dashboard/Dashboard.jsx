@@ -15,20 +15,26 @@ import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import { SplashScreen } from "../../SplashScreen/SplashScreen.js";
 
 import "./DashboardStyles/dashboard.css";
+import PrivateRoute2 from "../../../routing/PrivateRoute2";
 const Dashboard = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
+  console.log(isAuthenticated, loading);
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setSplashScreen(false);
-    }, 1000);
+    // console.log(isAuthenticated,'77777');
+    if (isAuthenticated == false) {
+      // return <Redirect to="/" />;
+      return window.location.replace("/login");
+    } else if (isAuthenticated == true) {
+      // console.log('trueee');
+      const timer = setTimeout(() => {
+        setSplashScreen(false);
+      }, 1000);
+    }
+    
 
     // setSplashScreen(true);
-  }, []);
-  console.log(isAuthenticated, loading);
-  if (isAuthenticated == false) {
-    // return <Redirect to="/" />;
-    return window.location.replace("/");
-  }
+  }, [isAuthenticated]);
+  
   return (
     <div>
       <Route>
@@ -38,7 +44,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
           <div className="dashboard">
             <DashboardSidebar />
             <Switch>
-              <Route exact path="/dashboard" component={DashboardHomePage} />
+              <PrivateRoute2 exact path="/dashboard" component={DashboardHomePage} />
               <Route
                 exact
                 path="/dashboard/savings"

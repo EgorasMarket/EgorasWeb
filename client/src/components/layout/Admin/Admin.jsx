@@ -6,42 +6,52 @@ import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
 import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminSideBar from "./AdminSideBar";
+import { SplashScreen } from "../SplashScreen/SplashScreen";
 
 import "./AdminStyles/admin.css";
 const Admin = ({ isAuthenticated, loading }) => {
-  // const currentPage = window.location.pathname;
-  // const [pathName, setPathName] = useState("/");
-  // const linksActive = window.location.pathname;
-
+  const [splashScreen, setSplashScreen] = useState(true);
   console.log(isAuthenticated, loading);
-  console.log('adminnnnnn');
+ 
   useEffect(() => {
-    // Run! Like go get some data from an API.
-    // if (isAuthenticated == false || isAuthenticated == null) {
-    //   // return <Redirect to="/" />;
-    //   return window.location.replace("/");
-    // }
-  }, []);
+    // console.log(isAuthenticated,'77777');
+    if (isAuthenticated == false) {
+      // return <Redirect to="/" />;
+      return window.location.replace("/login/super_admin");
+    } else if (isAuthenticated == true) {
+      // console.log('trueee');
+      const timer = setTimeout(() => {
+        setSplashScreen(false);
+      }, 1000);
+    }
+    
+
+    // setSplashScreen(true);
+  }, [isAuthenticated]);
   return (
     <div>
       <Route>
-        <div className="admin">
-          <AdminSideBar />
-          <Switch>
-            <Route exact path="/super_admin" component={AdminUploadProducts} />
-            <Route exact path="/super_admin/admin" component={AdminTest} />
-            <Route
-              exact
-              path="/super_admin/register_user"
-              component={RegisterCustomer}
-            />
-            <Route
-              exact
-              path="/super_admin/all_products"
-              component={AdminAllProducts}
-            />
-          </Switch>
-        </div>
+        {splashScreen == true ? (
+            <SplashScreen />
+          ) : (
+          <div className="admin">
+            <AdminSideBar />
+            <Switch>
+              <Route exact path="/super_admin" component={AdminUploadProducts} />
+              <Route exact path="/super_admin/admin" component={AdminTest} />
+              <Route
+                exact
+                path="/super_admin/register_user"
+                component={RegisterCustomer}
+              />
+              <Route
+                exact
+                path="/super_admin/all_products"
+                component={AdminAllProducts}
+              />
+            </Switch>
+          </div>
+        )}
       </Route>
     </div>
   );

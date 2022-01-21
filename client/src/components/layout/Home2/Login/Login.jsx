@@ -24,6 +24,7 @@ const Login = ({ getLogin, setAlert, isAuthenticated }) => {
 
 
      const submitLogin = async (e)=>{
+      setAlert('res3.data', "danger");
 
       let res3 = await getLogin(
         email,
@@ -32,14 +33,14 @@ const Login = ({ getLogin, setAlert, isAuthenticated }) => {
 
       //  setToken(res)
 
-      console.log(res3);
+      console.log(res3.data);
 
       // if (res.data.email !== e.target.value)
 
       if (res3.data.success === true) {
         console.log("okay Good Server");
       } else {
-        setAlert(res3.data.errors[0].msg, "danger");
+        setAlert(res3.data, "danger");
       }
 
      }
@@ -113,8 +114,8 @@ const Login = ({ getLogin, setAlert, isAuthenticated }) => {
 };
 
 Login.propTypes = {
-  // getLoginAuthentication: PropTypes.func.isRequired,
-  // setAlert: PropTypes.func.isRequired,
+  getLogin: PropTypes.func.isRequired,
+  setAlert: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
