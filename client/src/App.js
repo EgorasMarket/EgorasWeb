@@ -7,6 +7,7 @@ import Aos from "aos";
 import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
+import { connect } from "react-redux";
 // import Aos from "aos";
 // import "aos/dist/aos.css";
 
