@@ -10,8 +10,6 @@ import {
   LOGIN_SUCCESS,
   LOGIN_FAIL,
   LOGOUT,
- 
-  
   API_URL2 as api_url2,
 } from "./types";
 // import setAuthToken from "../utils/setAuthToken";
@@ -19,11 +17,11 @@ import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
-  console.log('okkkkkkk');
+  console.log("okkkkkkk");
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
-  } 
+  }
 
   // const res = await axios.get(api_url2 + "/v1/user/info");
   // // console.log(res, 'lllll');
@@ -42,14 +40,12 @@ export const loadUser = () => async (dispatch) => {
       payload: res.data,
     });
   } catch (error) {
-    console.log('not registered');
+    console.log("not registered");
     dispatch({
       type: AUTH_ERROR,
     });
   }
 };
-
-
 
 // // Load User
 // export const loadProducts = () => async (dispatch) => {
@@ -67,13 +63,7 @@ export const loadUser = () => async (dispatch) => {
 //     payload: res.data,
 //   });
 
- 
 // };
-
-
-
-
-
 
 // Get Social Media Handles
 export const getAuthentication =
@@ -281,11 +271,8 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
   }
 };
 
-
-
-  
-  export const changePassword = (oldpassword,newpassword)=> async(dispatch)=>{
-
+export const changePassword =
+  (oldpassword, newpassword) => async (dispatch) => {
     const config = {
       headers: {
         Accept: "*",
@@ -297,7 +284,6 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
     const body = JSON.stringify({
       oldpassword,
       newpassword,
-     
     });
 
     console.log(body);
@@ -322,8 +308,4 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
         data: err.response,
       };
     }
-
-  }
-
-
-  
+  };
