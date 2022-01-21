@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { connect } from "react-redux";
-import AdminTest from "./AdminPages/AdminTest";
 import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
 import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
+import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
 
@@ -44,6 +43,11 @@ const Admin = ({ isAuthenticated, loading }) => {
                 path="/super_admin/register_user"
                 component={RegisterCustomer}
               />
+              <Route
+              exact
+              path="/super_admin/all_user"
+              component={AdminCustomer}
+            />
               <Route
                 exact
                 path="/super_admin/all_products"

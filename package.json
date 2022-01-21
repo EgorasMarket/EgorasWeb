@@ -22,6 +22,7 @@
     "@mui/x-data-grid": "^5.2.2",
     "@mui/x-data-grid-generator": "^5.2.2",
     "@rumess/react-flip-countdown": "^1.2.3",
+    "@semiorbit/react-ui-tools": "^1.3.15",
     "aos": "^2.3.4",
     "bcryptjs": "^2.4.3",
     "classnames": "^2.3.1",
