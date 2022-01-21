@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../DashboardStyles/dashboardCart.css";
+import {connect} from 'react-redux'
+import {retrieveCart} from '../../../../../actions/shop'
 
 const lockedItems = [
   {
@@ -43,15 +45,22 @@ const result = lockedItems.reduce(
   (total, currentValue) => (total = total + currentValue.unit_price),
   0
 );
-const DashboardCart = () => {
+const DashboardCart = ({cart, retrieveCart}) => {
   const [savedNum, setSavedNum] = useState(5);
+
+  useEffect(() => {
+    retrieveCart(
+      '12345'
+    )
+  }, [cart]);
+  
   return (
     <div className="other2">
       <section className="no-bg">
         <div className="container">
           <div className="cart_area">
             <div className="cart_item_num">
-              Cart <span className="cart_num_num">({savedNum} items)</span>
+              Cart <span className="cart_num_num">({cart.length} items)</span>
             </div>
             <div className="locked_items">
               <div class="save_prod_deta">
@@ -74,7 +83,7 @@ const DashboardCart = () => {
                     </tr>
                   </thead>
 
-                  {lockedItems.map((asset) => (
+                  {cart.map((asset) => (
                     <tbody
                       className="save_items_cat  small_height popular-categories"
                       id="popular-categories"
@@ -145,4 +154,11 @@ const DashboardCart = () => {
   );
 };
 
-export default DashboardCart;
+const mapStateToProps1 = (state) => ({
+ cart: state.shop.cart,
+})
+
+// const mapDispatchToProps = 
+
+
+export default connect(mapStateToProps1,{retrieveCart})(DashboardCart);

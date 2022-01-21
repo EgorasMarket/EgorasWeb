@@ -28,13 +28,13 @@ import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
-const DashboardSidebar = ({auth}) => {
+const DashboardSidebar = ({auth, cart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
   const [catDiv, setCatDiv] = useState("not_home");
   const [smallSide, setSmallSide] = useState(dddd);
-  const [cartNum, setCartNum] = useState(5);
+  const [cartNum, setCartNum] = useState('');
   const [image, setImage] = useState("");
   const linksActive = window.location.pathname;
 
@@ -57,6 +57,8 @@ const DashboardSidebar = ({auth}) => {
 
     
 useEffect(() => {
+
+  setCartNum(cart.length)
   // fetchDepositLinks();
   console.log(auth);
   if (auth.user !== null) {
@@ -92,7 +94,7 @@ useEffect(() => {
     }
     
   }
-}, [auth]);
+}, [auth, cart]);
 
   // console.log(dddd);
   const changeBg = (e) => {
@@ -558,6 +560,7 @@ useEffect(() => {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart
 });
 
 // export default DashboardSidebar;
