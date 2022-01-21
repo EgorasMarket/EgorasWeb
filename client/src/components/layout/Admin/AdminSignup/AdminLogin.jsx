@@ -19,7 +19,7 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
 
 
      const submitLogin = async (e)=>{
-
+      console.log(email,password);
       let res3 = await getLogin(
         email,
         password 
@@ -53,7 +53,7 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
         <div className="container">
           <div className="signup_area">
             <div className="signup_cont">
-              <div className="signup_title">Login to your account</div>
+              <div className="signup_title">Login to your admin account</div>
               <span className="signup_para">
                 Securely login to your Egoras Savings account.
               </span>
@@ -64,8 +64,8 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
                     type="email"
                     className="signup_input_field"
                     name="email"
-                    // onChange={onChange2}
-                    // value={email}
+                    onChange={onChange2}
+                    value={email}
                   />
                 </div>
                 {/* <div className="signup_input_field1_cont">
@@ -78,8 +78,8 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
                     type="password"
                     className="signup_input_field"
                     name="password"
-                    // onChange={onChange2}
-                    // value={password}
+                    onChange={onChange2}
+                    value={password}
                   />
                 </div>
                 {/* <div className="signup_input_field1_cont">
@@ -89,7 +89,7 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
                 <button
                   type="submit"
                   className="sign_up_btn"
-                  //   onClick={sumit}
+                    onClick={submitLogin}
                 >
                   login
                 </button>

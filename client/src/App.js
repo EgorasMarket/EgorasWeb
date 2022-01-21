@@ -67,6 +67,7 @@ import "./css/apexcharts.css";
 // import setAuthToken from "./utils/setAuthToken";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
+import { loadAdminUser } from "./actions/adminAuth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
 import Footer from "./components/layout/Home2/Footer/Footer";
 // import { Header } from './components/layout/parts/Header';
@@ -152,9 +153,7 @@ if (localStorage.token) {
 const App = () => {
   // const currentPage = window.location.pathname;
   const [adminLocate, setAdminLocate] = useState("");
-  useEffect(() => {
-    store.dispatch(loadUser());
-  }, []);
+  
 
   useEffect(() => {
     localStorage.setItem("xrate", 410);
@@ -219,18 +218,19 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // setFormData({ ...formData, ['id']: match.params.id });
-    // console.log(currentPage);
     const myArr = currentPage.split("/");
-    console.log(myArr[1]);
-    // console.logconst [adminLocate, setAdminLocate] = useState(false);(myArr);
 
-    if (myArr[1] === "super_admin") {
+    if (myArr[1] === "super_admin" && localStorage.token) {
       setAdminLocate("super_admin");
-    } else {
+      console.log('super_admin');
+      store.dispatch(loadAdminUser());
+    } else if (myArr[1] === "dashboard" && localStorage.token) {
       setAdminLocate("dashboard");
+      console.log('dashboard');
+      store.dispatch(loadUser());
     }
   });
+
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -269,12 +269,12 @@ const App = () => {
                   />
                   <Route
                     exact
-                    path="/super_admin/signup"
+                    path="/signup/super_admin"
                     component={AdminSignup}
                   />
                   <Route
                     exact
-                    path="/super_admin/login"
+                    path="/login/super_admin"
                     component={AdminLogin}
                   />
 
@@ -447,13 +447,34 @@ const App = () => {
                   {/* <Route exact path="/super_admin" component={Admin} /> */}
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  {adminLocate === "super_admin" ? (
-                    <Admin />
-                  ) : (
+                  {/* {adminLocate === "super_admin" ? (
+                    <PrivateRoute3>
+                      <Admin />
+                    </PrivateRoute3>
+                  ) :  (
                     <PrivateRoute2>
                       <Dashboard />
                     </PrivateRoute2>
-                  )}
+                  )} */}
+                  {(() => {
+                    if (adminLocate === "super_admin"){
+                        return (
+                          <PrivateRoute3>
+                          <Admin />
+                        </PrivateRoute3>
+                        )
+                    } else if (adminLocate === "dashboard") {
+                      return (
+                        <PrivateRoute2>
+                          <Dashboard />
+                        </PrivateRoute2>
+                    )
+                    }
+
+                    console.log('hhhhhh');
+                    
+                    return null;
+                  })()}
                 </Switch>
               </section>
               {/* <Footer /> */}

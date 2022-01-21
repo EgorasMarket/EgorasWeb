@@ -5,7 +5,7 @@ import { setAlert } from "./alert";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  USER_LOADED,
+  USER_LOADED, 
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -19,15 +19,16 @@ import setAuthToken from "../utils/setAuthToken";
 
 
 // Load User
-export const loadUser = () => async (dispatch) => {
-  // console.log('okkkkkkk');
+export const loadAdminUser = () => async (dispatch) => {
+  console.log('okkkkkkk');
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
-  }
+    // console.log('ffff');
+  } 
 
   const res = await axios.get(api_url2 + "/v1/admin/info");
-  console.log(res);
+  // console.log(res);
   // console.log("Yes I call You because i can", res.data);
   dispatch({
     type: USER_LOADED,
