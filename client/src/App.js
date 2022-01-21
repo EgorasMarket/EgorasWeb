@@ -220,16 +220,16 @@ const App = () => {
 
   useEffect(() => {
     const myArr = currentPage.split("/");
-
-    if (myArr[1] === "super_admin" && localStorage.token) {
+    console.log(myArr[1]);
+    if (myArr[1] === "super_admin") {
       setAdminLocate("super_admin");
       console.log('super_admin');
       store.dispatch(loadAdminUser());
-    } else if (myArr[1] === "dashboard" && localStorage.token) {
+    } else if (myArr[1] === "dashboard") {
       setAdminLocate("dashboard");
       console.log('dashboard');
       store.dispatch(loadUser());
-    }
+    } 
   });
 
 
@@ -448,23 +448,25 @@ const App = () => {
                   {/* <Route exact path="/super_admin" component={Admin} /> */}
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  {/* {adminLocate === "super_admin" ? (
+                  {adminLocate === "super_admin" ? (
                     <PrivateRoute3>
                       <Admin />
                     </PrivateRoute3>
-                  ) :  (
+                  ) : (adminLocate === "dashboard" ? (
                     <PrivateRoute2>
                       <Dashboard />
                     </PrivateRoute2>
-                  )} */}
-                  {(() => {
+                  ) : null)}
+                  {/* {(() => {
                     if (adminLocate === "super_admin"){
+                      console.log('super_admin');
                         return (
                           <PrivateRoute3>
                           <Admin />
                         </PrivateRoute3>
                         )
                     } else if (adminLocate === "dashboard") {
+                      console.log('dashboard');
                       return (
                         <PrivateRoute2>
                           <Dashboard />
@@ -475,7 +477,7 @@ const App = () => {
                     console.log('hhhhhh');
                     
                     return null;
-                  })()}
+                  })()} */}
                 </Switch>
               </section>
               {/* <Footer /> */}

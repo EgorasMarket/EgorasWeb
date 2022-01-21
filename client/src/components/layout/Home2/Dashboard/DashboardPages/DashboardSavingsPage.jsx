@@ -278,7 +278,7 @@ function DashboardSavingsPage() {
                   >
                     {itemDetails.map((product) => (
                       <a
-                        href={`/products/details/${product.id}/${product.name}`}
+                        href={`/dashboard/products/details/${product.id}/${product.name}`}
                       >
                         <li className="carous_list">
                           <div

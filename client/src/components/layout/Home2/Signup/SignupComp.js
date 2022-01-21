@@ -2,9 +2,9 @@ import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import { setAlert } from "../../../../actions/alert";
 import "../../../../css/signup.css";
-import { getAuthentication } from "../../../../actions/auth";
+import { adminAddCustomer } from "../../../../actions/adminAuth";
 
-const SignupComp = ({ getAuthentication, setAlert }) => {
+const SignupComp = ({ adminAddCustomer, setAlert }) => {
   const [userAuth, setUserAuth] = useState({
     fullname: "",
     email: "",
@@ -27,7 +27,7 @@ const SignupComp = ({ getAuthentication, setAlert }) => {
   };
 
   const submitData = async (e) => {
-    let res = await getAuthentication(
+    let res = await adminAddCustomer(
       fullname,
       email,
       password,
@@ -151,4 +151,4 @@ const SignupComp = ({ getAuthentication, setAlert }) => {
   );
 };
 
-export default connect(null, { getAuthentication, setAlert })(SignupComp);
+export default connect(null, { adminAddCustomer, setAlert })(SignupComp);

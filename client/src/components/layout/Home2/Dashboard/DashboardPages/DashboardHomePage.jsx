@@ -301,7 +301,7 @@ const DashboardHomePage = () => {
                   style={{ height: "25em" }}
                 >
                   {itemDetails.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -380,7 +380,7 @@ const DashboardHomePage = () => {
                   style={{ height: "25em" }}
                 >
                   {itemDetails.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
