@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
 import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
@@ -37,7 +38,7 @@ const Admin = ({ isAuthenticated, loading }) => {
             <AdminSideBar />
             <Switch>
               <Route exact path="/super_admin" component={AdminUploadProducts} />
-              <Route exact path="/super_admin/admin" component={AdminTest} />
+              {/* <Route exact path="/super_admin/admin" component={AdminTest} /> */}
               <Route
                 exact
                 path="/super_admin/register_user"
