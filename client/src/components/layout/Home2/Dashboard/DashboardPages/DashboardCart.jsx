@@ -2,7 +2,10 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../DashboardStyles/dashboardCart.css";
 import {connect} from 'react-redux'
-import {retrieveCart} from '../../../../../actions/shop'
+import {retrieveCart, allCart} from '../../../../../actions/shop'
+import axios from "axios";
+import {API_URL2 as api} from '../../../../../actions/types'
+import {useDispatch} from 'react-redux'
 
 const lockedItems = [
   {
@@ -41,18 +44,41 @@ const lockedItems = [
     unit_price: 550000,
   },
 ];
+
+
 const result = lockedItems.reduce(
   (total, currentValue) => (total = total + currentValue.unit_price),
   0
 );
-const DashboardCart = ({cart, retrieveCart}) => {
+const DashboardCart = ({cart, retrieveCart, auth}) => {
+  const dispatch = useDispatch(); 
   const [savedNum, setSavedNum] = useState(5);
+  const [cartData , setCartData] = useState([])
+  const fetchFromCart = async (customer_id) => {
+    console.log('fetchfromCart', customer_id);
+    let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+      console.log("error from dashboardcart", err.message);
+    });
+    setCartData(call.data.data)
+
+    console.log(call.data.data, 'async call ');
+    dispatch(allCart(call.data.data))
+    // dispatch(allCart(call)) // use this to send to the redux store 
+  }
 
   useEffect(() => {
-    retrieveCart(
-      '12345'
-    )
-  }, [cart]);
+
+    if (auth.user !== null){
+      let decodedUser = auth.user; 
+      let customer_id = decodedUser.user.id ;
+      console.log('run all the async funtion from here ', customer_id)
+
+      console.log(cart)
+
+      fetchFromCart(customer_id);
+    }
+    
+  }, [cart , auth]);
   
   return (
     <div className="other2">
@@ -93,7 +119,7 @@ const DashboardCart = ({cart, retrieveCart}) => {
                         <td className="save_item_data small_height">
                           <div className="assets-data height_data height_data1">
                             <img
-                              src={asset.img}
+                              src={`${api}/${asset.image}` }
                               alt=""
                               className="save_item_img_img"
                             />
@@ -106,7 +132,7 @@ const DashboardCart = ({cart, retrieveCart}) => {
                         <td className="save_item_data1">
                           <div className="save_items_details">
                             <div className="save_items_details1 small_tetxt">
-                              {asset.name}
+                              {asset.product_name}
                             </div>
                             <div className="save_total_locked_amount smallll_txxt">
                               <span className="items_left_amount">
@@ -127,12 +153,12 @@ const DashboardCart = ({cart, retrieveCart}) => {
                         </td>
                         <td className="save_item_data1b">
                           <div className="assets-data-name center_name">
-                            ₦{asset.unit_price}
+                            ₦{asset.item_amount}
                           </div>
                         </td>
                         <td className="save_item_data1b">
                           <div className="assets-data-name_last">
-                            ₦{asset.total_locked_amount}
+                            ₦{asset.sub_total}
                           </div>
                         </td>
                       </tr>
@@ -155,6 +181,7 @@ const DashboardCart = ({cart, retrieveCart}) => {
 };
 
 const mapStateToProps1 = (state) => ({
+  auth: state.auth,
  cart: state.shop.cart,
 })
 

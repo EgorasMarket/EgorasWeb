@@ -35,7 +35,17 @@ export const retrieveCart = (customer_id) => async (dispatch) => {
     // });
   }
 };
-export const addToCart = () => async (dispatch) => {
-  try {
-  } catch (error) {}
+
+export const allCart = (items) => {
+  return {
+    type: FETCH_CART,
+    payload: items,
+  };
+};
+
+export const removeCart = (item) => {
+  return {
+    type: REMOVE_CART,
+    payload: item,
+  };
 };
