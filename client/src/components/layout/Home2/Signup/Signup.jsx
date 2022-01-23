@@ -7,6 +7,8 @@ import { CustomAlert } from "../../../../CustomAlert";
 // import Alert from "../../Alert";
 import "../../../../css/signup.css";
 import { getAuthentication } from "../../../../actions/auth";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Signup = ({ getAuthentication }) => {
   const [userAuth, setUserAuth] = useState({
     fullname: "",
@@ -17,6 +19,7 @@ const Signup = ({ getAuthentication }) => {
     confirmPassword: "",
     InfoReason: "",
   });
+  const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
@@ -43,7 +46,29 @@ const Signup = ({ getAuthentication }) => {
   //     setStrongPass(null);
   //   }
   // }, []);
-
+  useEffect(() => {
+    if (fullname === "") {
+      setDisable(true);
+    } else if (email === "") {
+      setDisable(true);
+    } else if (password === "") {
+      setDisable(true);
+    } else if (BVN === "") {
+      setDisable(true);
+    } else if (phoneNumber === "") {
+      setDisable(true);
+    } else if (confirmPassword === "") {
+      setDisable(true);
+    } else if (InfoReason === "") {
+      setDisable(true);
+    } else if (isLoading == true) {
+      setDisable(true);
+    } else if (isLoading == false) {
+      setDisable(false);
+    } else {
+      setDisable(false);
+    }
+  });
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -124,6 +149,13 @@ const Signup = ({ getAuthentication }) => {
   //   setIsSuccessful(false);
   // });
   const submitData = async (e) => {
+    if (isLoading == true) {
+      setDisable(true);
+    } else if (isLoading == false) {
+      setDisable(false);
+    }
+    setIsLoading(true);
+    setDisable(true);
     let res = await getAuthentication(
       fullname,
       email,
@@ -137,15 +169,18 @@ const Signup = ({ getAuthentication }) => {
     if (res.data.success === true) {
       setIsSuccessful(true);
       console.log("okay Good Server");
+      setIsLoading(false);
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
+      setIsLoading(false);
+      setDisable(false);
     }
 
     console.log(res.data.data.errors[0].msg);
   };
   const timer = setTimeout(() => {
     setAlert("");
-  }, 3000);
+  }, 5000);
 
   // const alert = useAlert();
 
@@ -305,8 +340,20 @@ const Signup = ({ getAuthentication }) => {
                     type="submit"
                     className="sign_up_btn"
                     onClick={submitData}
+                    disabled={disable}
                   >
-                    Create account
+                    {isLoading ? (
+                      <span>
+                        Creating account{" "}
+                        <FontAwesomeIcon
+                          className="ml-2"
+                          icon={faSpinner}
+                          spin
+                        />
+                      </span>
+                    ) : (
+                      <span>Create account</span>
+                    )}
                   </button>
                 </div>
               </div>
