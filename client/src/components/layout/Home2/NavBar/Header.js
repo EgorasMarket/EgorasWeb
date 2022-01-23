@@ -142,6 +142,11 @@ const Header = () => {
         document.getElementById("Header").style.display = "none";
       });
     }
+    if (currentPage === "/signup/super_admin") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
     if (currentPage === "/login/super_admin") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
