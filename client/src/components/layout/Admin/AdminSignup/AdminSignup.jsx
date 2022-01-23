@@ -5,10 +5,14 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
+import { CustomAlert } from "../../../../CustomAlert";
 import { setAlert } from "../../../../actions/alert";
 import { getAuthentication } from "../../../../actions/adminAuth";
-const AdminSignup = ({ getAuthentication, setAlert }) => {
+const AdminSignup = ({ getAuthentication }) => {
   const [visibility, setVisibility] = useState(false);
+  const [disable, setDisable] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
   const [adminAuth, setAdminAuth] = useState({
@@ -68,6 +72,9 @@ const AdminSignup = ({ getAuthentication, setAlert }) => {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
+  const timer = setTimeout(() => {
+    setAlert("");
+  }, 5000);
   return (
     <div>
       {isSuccessful == false ? (
@@ -323,11 +330,11 @@ const AdminSignup = ({ getAuthentication, setAlert }) => {
           </div>
         </section>
       )}
-
+      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
       {/* ========== */}
       {/* ========== */}
       {/* ========== */}
     </div>
   );
 };
-export default connect(null, { getAuthentication, setAlert })(AdminSignup);
+export default connect(null, { getAuthentication })(AdminSignup);
