@@ -44,6 +44,9 @@ const Footer = () => {
     if (FooterHide === "/super_admin/login") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if (FooterHide === "/login/super_admin") {
+      document.getElementById("FooterId").style.display = "none";
+    }
     if (FooterHide === "/super_admin/all_user") {
       document.getElementById("FooterId").style.display = "none";
     }

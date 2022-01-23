@@ -1,63 +1,104 @@
 import React, { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import "../AdminStyles/allCustomer.css";
-const userData = [
-  {
-    id: "2",
-    name: "Samuel",
-    phoneNo: "08164020234",
-    Gender: "male",
-    emailAddress: "samuelify225@gmail.com",
-  },
-  {
-    id: "2",
-    name: "Patrick",
-    phoneNo: "08164020234",
-    Gender: "male",
-    emailAddress: "samuelify225@gmail.com",
-  },
-  {
-    id: "2",
-    name: "John",
-    phoneNo: "08164020234",
-    Gender: "male",
-    emailAddress: "samuelify225@gmail.com",
-  },
-  {
-    id: "2",
-    name: "Goodness",
-    phoneNo: "08164020234",
-    Gender: "male",
-    emailAddress: "samuelify225@gmail.com",
-  },
-  {
-    id: "2",
-    name: "Kingsley",
-    phoneNo: "08164020234",
-    Gender: "male",
-    emailAddress: "samuelify225@gmail.com",
-  },
-  {
-    id: "2",
-    name: "Simon",
-    phoneNo: "08164020234",
-    Gender: "male",
-    emailAddress: "samuelify225@gmail.com",
-  },
-];
+import axios from "axios";
+import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../actions/types"
+
 
 const AdminCustomer = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [allCustomers, setAllCustomers] = useState([]);
+  const config = {
+    headers: {
+        'Content-Type': 'application/json'
+    },
+  };
+  // const allCustomers = [
+  //   {
+  //     id: "2",
+  //     name: "Samuel",
+  //     phoneNumber: "08164020234",
+  //     gender: "male",
+  //     email: "samuelify225@gmail.com",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Patrick",
+  //     phoneNumber: "08164020234",
+  //     gender: "male",
+  //     email: "samuelify225@gmail.com",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "John",
+  //     phoneNumber: "08164020234",
+  //     gender: "male",
+  //     email: "samuelify225@gmail.com",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Goodness",
+  //     phoneNumber: "08164020234",
+  //     gender: "male",
+  //     email: "samuelify225@gmail.com",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Kingsley",
+  //     phoneNumber: "08164020234",
+  //     gender: "male",
+  //     email: "samuelify225@gmail.com",
+  //   },
+  //   {
+  //     id: "2",
+  //     name: "Simon",
+  //     phoneNumber: "08164020234",
+  //     gender: "male",
+  //     email: "samuelify225@gmail.com",
+  //   },
+  // ];
+  
+  useEffect(() => {
+
+    axios.get(
+        api_url2 + "/v1/admin/retrieve/customers/byBranch",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "king");
+
+        setAllCustomers(data.data.data)
+       
+   
+
+    }).catch((err) => {
+        console.log(err.response); // "oh, no!"
+    })
+  }, []);
+
+  
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
+    console.log(event.target.value);
   };
   useEffect(() => {
-    const results = userData.filter((userInfo) =>
-      userInfo.name.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setSearchResults(results);
+
+    if (searchTerm === "") {
+      setSearchResults(allCustomers);
+      console.log('tttt');
+    } else {
+      const results = allCustomers.filter((userInfo) =>
+        userInfo.fullname.toString().toLowerCase().includes(searchTerm.toLowerCase())
+      );
+      setSearchResults(results);
+    }
+    
   }, [searchTerm]);
+  
+  console.log(searchResults);
+  
   // =========
   // =========
   // =========
@@ -90,9 +131,12 @@ const AdminCustomer = () => {
                     <th className="assets-category-titles-heading1">
                       Phone No
                     </th>
-                    <th className="assets-category-titles-heading1">Gender</th>
+                    <th className="assets-category-titles-heading1">gender</th>
                     <th className="assets-category-titles-heading1 right_align">
                       Email Address
+                    </th>
+                    <th className="assets-category-titles-heading1 right_align">
+                      Action
                     </th>
                   </tr>
                 </thead>
@@ -106,18 +150,23 @@ const AdminCustomer = () => {
                       <td className="assets-category-data">
                         <div className="assets-data">
                           {/* <PhoneAndroidIcon className="assets-list-icon" /> */}
-                          <div className="assets-data-name">{user.name}</div>
+                          <div className="assets-data-name">{user.fullname}</div>
                         </div>
                       </td>
                       <td className="assets-category-data1">
-                        <div className="assets-data-name">{user.phoneNo}</div>
+                        <div className="assets-data-name">{user.phoneNumber}</div>
                       </td>
                       <td className="assets-category-data1b">
-                        <div className="assets-data-name">{user.Gender}</div>
+                        <div className="assets-data-name">{user.gender}</div>
+                      </td>
+                      <td className="assets-category-data1b">
+                        <div className="assets-data-name">
+                          {user.email}
+                        </div>
                       </td>
                       <td className="assets-category-data-last">
                         <div className="assets-data-name-last">
-                          {user.emailAddress}
+                          <button id={user.id} className='btn btn-primary'>View</button>
                         </div>
                       </td>
                     </tr>

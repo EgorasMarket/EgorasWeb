@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+// import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
@@ -12,7 +13,7 @@ import "./AdminStyles/admin.css";
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
   console.log(isAuthenticated, loading);
- 
+
   useEffect(() => {
     // console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
@@ -24,7 +25,6 @@ const Admin = ({ isAuthenticated, loading }) => {
         setSplashScreen(false);
       }, 1000);
     }
-    
 
     // setSplashScreen(true);
   }, [isAuthenticated]);
@@ -32,8 +32,8 @@ const Admin = ({ isAuthenticated, loading }) => {
     <div>
       <Route>
         {splashScreen == true ? (
-            <SplashScreen />
-          ) : (
+          <SplashScreen />
+        ) : (
           <div className="admin">
             <AdminSideBar />
             <Switch>
@@ -45,10 +45,10 @@ const Admin = ({ isAuthenticated, loading }) => {
                 component={RegisterCustomer}
               />
               <Route
-              exact
-              path="/super_admin/all_user"
-              component={AdminCustomer}
-            />
+                exact
+                path="/super_admin/all_user"
+                component={AdminCustomer}
+              />
               <Route
                 exact
                 path="/super_admin/all_products"
