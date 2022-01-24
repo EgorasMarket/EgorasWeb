@@ -29,7 +29,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
-const DashboardSidebar = ({auth, cart }) => {
+import { retrieveCart } from "../../../../actions/shop";
+const DashboardSidebar = ({auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -57,7 +58,7 @@ const DashboardSidebar = ({auth, cart }) => {
     
 useEffect(() => {
 
-  setCartNum(cart.length)
+  // setCartNum(cart.length)
   // fetchDepositLinks();
   console.log(auth);
   if (auth.user !== null) {
@@ -65,15 +66,16 @@ useEffect(() => {
     // console.log( new Buffer(dataa));
     var todecoded = auth.user;
     var todecodedn = todecoded.user.userImage;
-
+    
     // console.log('====================================');
     console.log(todecodedn);
     // console.log('====================================');
-
-
+    
+    
     const getName = todecoded.user.fullname
     const splitName = getName.split(' ');
-
+    
+    retrieveCart(todecoded.user.id)
     setUserInfo({
       Userfirstname: splitName[0],
       Userlastname: splitName[1],
@@ -93,7 +95,13 @@ useEffect(() => {
     }
     
   }
-}, [auth, cart]);
+}, [auth]);
+
+useEffect(() => {
+
+  setCartNum(cart.length)
+  
+}, [cart]);
 
   // console.log(dddd);
   const changeBg = (e) => {
@@ -611,4 +619,4 @@ const mapStateToProps = (state) => ({
 
 // export default DashboardSidebar;
 
-export default connect(mapStateToProps, {})(DashboardSidebar);
+export default connect(mapStateToProps, {retrieveCart})(DashboardSidebar);
