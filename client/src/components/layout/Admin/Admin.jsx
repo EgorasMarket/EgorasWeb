@@ -8,6 +8,7 @@ import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
+import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
 
 import "./AdminStyles/admin.css";
 const Admin = ({ isAuthenticated, loading }) => {
@@ -37,12 +38,21 @@ const Admin = ({ isAuthenticated, loading }) => {
           <div className="admin">
             <AdminSideBar />
             <Switch>
-              <Route exact path="/super_admin" component={AdminUploadProducts} />
+              <Route
+                exact
+                path="/super_admin"
+                component={AdminUploadProducts}
+              />
               {/* <Route exact path="/super_admin/admin" component={AdminTest} /> */}
               <Route
                 exact
                 path="/super_admin/register_user"
                 component={RegisterCustomer}
+              />
+              <Route
+                exact
+                path="/super_admin/user_overview"
+                component={AdminSavingsOverview}
               />
               <Route
                 exact
