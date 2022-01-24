@@ -32,6 +32,9 @@ const Footer = () => {
     if (FooterHide === "/signup") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if (FooterHide === "/super_admin/user_overview") {
+      document.getElementById("FooterId").style.display = "none";
+    }
     if ((FooterHide === "/products/details/" + myArr[3], myArr[4])) {
       document.getElementById("FooterId").style.display = "none";
     }

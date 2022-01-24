@@ -48,6 +48,9 @@ const AdminSideBar = () => {
     if (linksActive === "/super_admin") {
       setActiveBg("Home");
     }
+    if (linksActive === "/super_admin/user_overview") {
+      setActiveBg("cusAcct");
+    }
     if (linksActive === "/super_admin/") {
       setActiveBg("Home");
     }
@@ -266,6 +269,28 @@ const AdminSideBar = () => {
                   >
                     <GroupAddIcon className="sidebarIcon" />
                     Register
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/super_admin/user_overview"
+                  className="link"
+                  id="cusAcct"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "cusAcct"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <AccountCircleIcon className="sidebarIcon" />
+                    Cust Acct
                   </li>
                 </a>
                 {/* ===================== */}

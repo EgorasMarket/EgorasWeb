@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { connect } from "react-redux";
+// import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
 import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
 import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
+import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
 
 import "./AdminStyles/admin.css";
 const Admin = ({ isAuthenticated, loading }) => {
@@ -41,10 +43,16 @@ const Admin = ({ isAuthenticated, loading }) => {
                 path="/super_admin"
                 component={AdminUploadProducts}
               />
+              {/* <Route exact path="/super_admin/admin" component={AdminTest} /> */}
               <Route
                 exact
                 path="/super_admin/register_user"
                 component={RegisterCustomer}
+              />
+              <Route
+                exact
+                path="/super_admin/user_overview"
+                component={AdminSavingsOverview}
               />
               <Route
                 exact
