@@ -29,11 +29,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
-<<<<<<< HEAD
 const DashboardSidebar = ({auth, cart }) => {
-=======
-const DashboardSidebar = ({ auth }) => {
->>>>>>> 24646a0d8d32842a4d44bd52c7c6455ab4fdd4ba
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -55,7 +51,6 @@ const DashboardSidebar = ({ auth }) => {
     UserdateOfBirth: "",
   });
 
-<<<<<<< HEAD
   const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
   userInfo;
 
@@ -99,55 +94,6 @@ useEffect(() => {
     
   }
 }, [auth, cart]);
-=======
-  const {
-    Userfirstname,
-    Userlastname,
-    Useremail,
-    Usergender,
-    Userrelationship,
-    UseruserImage,
-    UserphoneNumber,
-    Userbvn,
-    UserdateOfBirth,
-  } = userInfo;
-
-  useEffect(() => {
-    // fetchDepositLinks();
-    console.log(auth);
-    if (auth.user !== null) {
-      // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
-      var todecoded = auth.user;
-      var todecodedn = todecoded.user.userImage;
-
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
-
-      const getName = todecoded.user.fullname;
-      const splitName = getName.split(" ");
-
-      setUserInfo({
-        Userfirstname: splitName[0],
-        Userlastname: splitName[1],
-        Useremail: todecoded.user.email,
-        UseruserImage: todecoded.user.userImage,
-        UserphoneNumber: todecoded.user.phoneNumber,
-        Userrelationship: todecoded.user.relationship,
-        Usergender: todecoded.user.gender,
-        Userbvn: todecoded.user.BVN,
-        UserdateOfBirth: todecoded.user.dateOfBirth,
-      });
-
-      if (todecoded.user.userImage !== null) {
-        setImage(api_url2 + "/" + todecoded.user.userImage);
-      } else {
-        setImage("../../img/profile_img.jpeg");
-      }
-    }
-  }, [auth]);
->>>>>>> 24646a0d8d32842a4d44bd52c7c6455ab4fdd4ba
 
   // console.log(dddd);
   const changeBg = (e) => {
