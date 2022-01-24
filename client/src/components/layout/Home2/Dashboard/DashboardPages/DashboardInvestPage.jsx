@@ -619,7 +619,7 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.product_name}`} >
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"

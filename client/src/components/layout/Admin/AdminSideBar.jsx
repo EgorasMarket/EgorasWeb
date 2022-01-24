@@ -48,11 +48,17 @@ const AdminSideBar = () => {
     if (linksActive === "/super_admin") {
       setActiveBg("Home");
     }
+    if (linksActive === "/super_admin/user_overview") {
+      setActiveBg("cusAcct");
+    }
     if (linksActive === "/super_admin/") {
       setActiveBg("Home");
     }
     if (linksActive === "/super_admin/all_products") {
       setActiveBg("allProd");
+    }
+    if (linksActive === "/super_admin/all_user") {
+      setActiveBg("products");
     }
     if (linksActive === "/super_admin/register_user") {
       setActiveBg("register");
@@ -226,7 +232,12 @@ const AdminSideBar = () => {
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <a href="#" className="link" id="products" onClick={changeBg}>
+                <a
+                  href="/super_admin/all_user"
+                  className="link"
+                  id="products"
+                  onClick={changeBg}
+                >
                   <li
                     className={
                       activeBg == "products"
@@ -258,6 +269,28 @@ const AdminSideBar = () => {
                   >
                     <GroupAddIcon className="sidebarIcon" />
                     Register
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/super_admin/user_overview"
+                  className="link"
+                  id="cusAcct"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "cusAcct"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <AccountCircleIcon className="sidebarIcon" />
+                    Cust Acct
                   </li>
                 </a>
                 {/* ===================== */}

@@ -111,7 +111,7 @@ function ItemDetailsPage({ match}) {
     }).catch((err) => {
         console.log(err.response); // "oh, no!"
     })
-}, []);
+  }, []);
 
 
 // const food = spec[0].split('');

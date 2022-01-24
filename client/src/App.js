@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/layout/home/Home";
 import Opd from "./components/layout/home/Opd";
 import Aos from "aos";
+import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
+import { connect } from "react-redux";
 // import Aos from "aos";
 // import "aos/dist/aos.css";
 
@@ -66,6 +68,7 @@ import "./css/apexcharts.css";
 // import setAuthToken from "./utils/setAuthToken";
 import setAuthToken from "./utils/setAuthToken";
 import { loadUser } from "./actions/auth";
+import { loadAdminUser } from "./actions/adminAuth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
 import Footer from "./components/layout/Home2/Footer/Footer";
 // import { Header } from './components/layout/parts/Header';
@@ -97,7 +100,8 @@ import Login from "./components/layout/Home2/Login/Login";
 // import Signup from "./components/layout/Home2/Signup/Signup";
 
 import Signup from "./components/layout/Home2/Signup/Signup";
-
+// import Wallet
+// import Walle
 import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
@@ -138,6 +142,7 @@ import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSec
 import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
+import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
@@ -150,9 +155,6 @@ if (localStorage.token) {
 const App = () => {
   // const currentPage = window.location.pathname;
   const [adminLocate, setAdminLocate] = useState("");
-  useEffect(() => {
-    store.dispatch(loadUser());
-  }, []);
 
   useEffect(() => {
     localStorage.setItem("xrate", 410);
@@ -217,16 +219,16 @@ const App = () => {
   }, []);
 
   useEffect(() => {
-    // setFormData({ ...formData, ['id']: match.params.id });
-    // console.log(currentPage);
     const myArr = currentPage.split("/");
     console.log(myArr[1]);
-    // console.logconst [adminLocate, setAdminLocate] = useState(false);(myArr);
-
     if (myArr[1] === "super_admin") {
       setAdminLocate("super_admin");
-    } else {
+      console.log("super_admin");
+      store.dispatch(loadAdminUser());
+    } else if (myArr[1] === "dashboard") {
       setAdminLocate("dashboard");
+      console.log("dashboard");
+      store.dispatch(loadUser());
     }
   });
 
@@ -264,6 +266,16 @@ const App = () => {
                     exact
                     path="/companies/details/:id"
                     component={Details}
+                  />
+                  <Route
+                    exact
+                    path="/signup/super_admin"
+                    component={AdminSignup}
+                  />
+                  <Route
+                    exact
+                    path="/login/super_admin"
+                    component={AdminLogin}
                   />
 
                   <Route exact path="/category/:name" component={Categories} />
@@ -436,12 +448,35 @@ const App = () => {
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
                   {adminLocate === "super_admin" ? (
-                    <Admin />
-                  ) : (
+                    <PrivateRoute3>
+                      <Admin />
+                    </PrivateRoute3>
+                  ) : adminLocate === "dashboard" ? (
                     <PrivateRoute2>
                       <Dashboard />
                     </PrivateRoute2>
-                  )}
+                  ) : null}
+                  {/* {(() => {
+                    if (adminLocate === "super_admin"){
+                      console.log('super_admin');
+                        return (
+                          <PrivateRoute3>
+                          <Admin />
+                        </PrivateRoute3>
+                        )
+                    } else if (adminLocate === "dashboard") {
+                      console.log('dashboard');
+                      return (
+                        <PrivateRoute2>
+                          <Dashboard />
+                        </PrivateRoute2>
+                    )
+                    }
+
+                    console.log('hhhhhh');
+                    
+                    return null;
+                  })()} */}
                 </Switch>
               </section>
               {/* <Footer /> */}

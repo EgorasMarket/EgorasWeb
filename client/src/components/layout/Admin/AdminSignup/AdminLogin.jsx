@@ -1,29 +1,27 @@
 import React, { useState, useEffect, Fragment } from "react";
-// import "../../../../css/signup.css";
 import { connect } from "react-redux";
 import "../../../../css/login.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
 import { CustomAlert } from "../../../../CustomAlert";
+import { getLogin } from "../../../../actions/adminAuth";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
-import { getLogin } from "../../../../actions/auth";
-// import { getAuthentication } from "../../../../actions/auth";
 // import { setAlert } from "../../../../actions/alert";
 
-const Login = ({ getLogin, isAuthenticated }) => {
-  // const [token,setToken]=useState();
+const AdminLogin = ({ getLogin, isAuthenticated }) => {
+  const [toke, setToke] = useState({ email: "", password: "" });
   const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [visibility, setVisibility] = useState(false);
-  const [toke, setToke] = useState({ email: "", password: "" });
+  const { email, password } = toke;
   const [strongPass, setStrongPass] = useState(false);
   const [alert, setAlert] = useState("");
-  const { email, password } = toke;
   const [isSuccessful, setIsSuccessful] = useState(false);
+
   const onChange2 = (e) => {
     setToke({ ...toke, [e.target.name]: e.target.value });
+
     const { name, value } = e.target;
 
     switch (name) {
@@ -39,32 +37,22 @@ const Login = ({ getLogin, isAuthenticated }) => {
       default:
         break;
     }
-    // if (isLoading == true) {
-    //   setDisable(true);
-    // } else if (isLoading == false) {
-    //   setDisable(true);
-    // }
   };
-
   useEffect(() => {
     if (email === "") {
       setDisable(true);
     } else if (password === "") {
       setDisable(true);
-    }
-    
-    else if (isLoading == true) {
+    } else if (isLoading == true) {
       setDisable(true);
     } else if (isLoading == false) {
       setDisable(false);
-    }
-    
-    
-    else {
+    } else {
       setDisable(false);
     }
   });
   const submitLogin = async (e) => {
+    console.log(email, password);
     if (isLoading == true) {
       setDisable(true);
     } else if (isLoading == false) {
@@ -73,31 +61,23 @@ const Login = ({ getLogin, isAuthenticated }) => {
     setIsLoading(true);
     setDisable(true);
     let res3 = await getLogin(email, password);
-    // console.log(res3.data.data.errors[0].msg);
+
     //  setToken(res)
 
-    console.log(res3.data);
+    console.log(res3);
 
     // if (res.data.email !== e.target.value)
 
     if (res3.data.success === true) {
       setIsSuccessful(true);
       setIsLoading(false);
-      // setDisable(false);
       console.log("okay Good Server");
     } else {
       setAlert(res3.data, "danger");
       setIsLoading(false);
       setDisable(false);
+      // setAlert(res3.data.errors[0].msg, "danger");
     }
-
-    // if (email === "") {
-    //   setDisable(true);
-    // } else if (password === "") {
-    //   setDisable(true);
-    // } else {
-    //   setDisable(false);
-    // }
   };
   const setPasswordVisibilty = () => {
     setVisibility(true);
@@ -107,11 +87,10 @@ const Login = ({ getLogin, isAuthenticated }) => {
     setVisibility(false);
     // setPassImg("show_pass");
   };
-
   // Redirect if logged in
   if (isAuthenticated) {
     // return <Redirect to="/dashboard" />;
-    return window.location.replace("/dashboard");
+    return window.location.replace("/super_admin");
   }
   const timer = setTimeout(() => {
     setAlert("");
@@ -121,15 +100,8 @@ const Login = ({ getLogin, isAuthenticated }) => {
       <section className="signup_section">
         <div className="container">
           <div className="signup_area">
-            <div className="signup_cont_head">
-              <img
-                src="/img/egoras-logo.svg"
-                alt=""
-                className="signup_title_img"
-              />
-            </div>
             <div className="signup_cont">
-              <div className="signup_title">Login to your account</div>
+              <div className="signup_title">Login to your admin account</div>
               <span className="signup_para">
                 Securely login to your Egoras Savings account.
               </span>
@@ -179,7 +151,6 @@ const Login = ({ getLogin, isAuthenticated }) => {
                     <div className="weak_pass_div">Password is weak</div>
                   )}
                 </div>
-
                 {/* <div className="signup_input_field1_cont">
                   <span className="input_title">Repeat Password</span>
                   <input type="password" className="signup_input_field" />
@@ -210,16 +181,16 @@ const Login = ({ getLogin, isAuthenticated }) => {
         </div>
         <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
       </section>
-
       {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
     </div>
-    // :null}
   );
 };
 
-Login.propTypes = {
-  getLogin: PropTypes.func.isRequired,
-  setAlert: PropTypes.func.isRequired,
+// export default AdminLogin;
+
+AdminLogin.propTypes = {
+  // getLoginAuthentication: PropTypes.func.isRequired,
+  // setAlert: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -227,4 +198,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { getLogin })(Login);
+export default connect(mapStateToProps, { getLogin })(AdminLogin);

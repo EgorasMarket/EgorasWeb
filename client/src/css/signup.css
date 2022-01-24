@@ -54,6 +54,7 @@ span.signup_para {
   border-width: 1px;
   background: #f0fff6;
   border-color: #ace3c2;
+  padding-right: 10%;
 }
 span.input_title {
   font-size: 12px;
@@ -220,4 +221,33 @@ option {
   box-shadow: 0px 5px 10px #86bf9d;
   color: #54bc7e;
   width: 65%;
+}
+.passwrd_input_div {
+  width: 100%;
+  position: relative;
+}
+.close_pass_img {
+  position: absolute;
+  width: 20px;
+  right: 2%;
+  top: 35%;
+  bottom: 35%;
+  cursor: pointer;
+}
+.open_pass_img {
+  position: absolute;
+  width: 20px;
+  right: 2%;
+  top: 35%;
+  bottom: 35%;
+  cursor: pointer;
+}
+.weak_pass_div {
+  color: rgb(221, 51, 51);
+  font-size: 12px;
+}
+.sign_up_btn:disabled {
+  background: #d6d6d6;
+  color: #797979;
+  cursor: not-allowed;
 }

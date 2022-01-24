@@ -1,204 +1,86 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextField from "@mui/material/TextField";
 import { CustomAlert } from "../../../../CustomAlert";
-// import useAlert from "@semiorbit/react-ui-tools/Containers/useAlert";
-
-// import { setAlert } from ".";
-// import Alert from "../../Alert";
-import "../../../../css/signup.css";
-import { getAuthentication } from "../../../../actions/auth";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const Signup = ({ getAuthentication }) => {
-  const [userAuth, setUserAuth] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-    BVN: "",
-    phoneNumber: "",
-    confirmPassword: "",
-    InfoReason: "",
-  });
+import { setAlert } from "../../../../actions/alert";
+import { getAuthentication } from "../../../../actions/adminAuth";
+const AdminSignup = ({ getAuthentication }) => {
+  const [visibility, setVisibility] = useState(false);
   const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
-  const [visibility, setVisibility] = useState(false);
-  const [strongPass, setStrongPass] = useState(false);
-  const [mismatchPass, setMismatchPass] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
+  const [adminAuth, setAdminAuth] = useState({
+    fullname: "",
+    mobile: "",
+    email: "",
+    staffId: "",
+    password: "",
+    confirmPassword: "",
+    role: "",
+    gender: "",
+    branch: "",
+  });
   const {
     fullname,
+    mobile,
     email,
+    staffId,
     password,
-    BVN,
-    phoneNumber,
     confirmPassword,
-    InfoReason,
-  } = userAuth;
-
-  // const weakPass = () => {
-  //   setStrongPas(true);
-  // };
-  // useEffect(() => {
-  //   if (password.length <= 0) {
-  //     setStrongPass(null);
-  //   }
-  // }, []);
-  useEffect(() => {
-    if (fullname === "") {
-      setDisable(true);
-    } else if (email === "") {
-      setDisable(true);
-    } else if (password === "") {
-      setDisable(true);
-    } else if (BVN === "") {
-      setDisable(true);
-    } else if (phoneNumber === "") {
-      setDisable(true);
-    } else if (confirmPassword === "") {
-      setDisable(true);
-    } else if (InfoReason === "") {
-      setDisable(true);
-    } else if (isLoading == true) {
-      setDisable(true);
-    } else if (isLoading == false) {
-      setDisable(false);
-    } else {
-      setDisable(false);
-    }
-  });
+    role,
+    gender,
+    branch,
+  } = adminAuth;
   const onChange = (e) => {
-    setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
-
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "password":
-        if (e.target.value.length <= 7) {
-          setStrongPass(true);
-          console.log("password is not 8");
-        } else if (password.length >= 7) {
-          setStrongPass(false);
-          console.log("password is 8");
-        }
-        break;
-      default:
-        break;
-    }
-
-    // else {
-
-    // }
-
-    // if (e.target.value === "") {
-    //   console.log("input something here");
-    // } else {
-    //   console.log("something is here");
-    // }
-  };
-  const onChange2 = (e) => {
-    setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
-
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "confirmPassword":
-        if (e.target.value !== password) {
-          setMismatchPass(true);
-          console.log("password not match");
-        } else if (e.target.value === password) {
-          setMismatchPass(false);
-          console.log("password match");
-        }
-        break;
-      default:
-        break;
-    }
-
-    // else {
-
-    // }
-
-    // if (e.target.value === "") {
-    //   console.log("input something here");
-    // } else {
-    //   console.log("something is here");
-    // }
+    setAdminAuth({ ...adminAuth, [e.target.name]: e.target.value });
   };
   const setPasswordVisibilty = () => {
     setVisibility(true);
-    // setPassImg("hide_pass");
   };
   const closetPasswordVisibilty = () => {
     setVisibility(false);
-    // setPassImg("show_pass");
   };
   const setPasswordVisibilty2 = () => {
     setVisibility2(true);
-    // setPassImg2("hide_pass2");
   };
   const closetPasswordVisibilty2 = () => {
     setVisibility2(false);
-
-    // setPassImg2("show_pass2");
   };
-
-  // useEffect(() => {
-  //   setIsSuccessful(false);
-  // });
   const submitData = async (e) => {
-    if (isLoading == true) {
-      setDisable(true);
-    } else if (isLoading == false) {
-      setDisable(false);
-    }
-    setIsLoading(true);
-    setDisable(true);
     let res = await getAuthentication(
       fullname,
+      mobile,
       email,
+      staffId,
       password,
-      BVN,
-      phoneNumber,
-      InfoReason
+      role,
+      gender,
+      branch
       //   localStorage.referrer
     );
     console.log(res);
     if (res.data.success === true) {
       setIsSuccessful(true);
       console.log("okay Good Server");
-      setIsLoading(false);
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
-      setIsLoading(false);
-      setDisable(false);
     }
-
-    console.log(res.data.data.errors[0].msg);
   };
   const timer = setTimeout(() => {
     setAlert("");
   }, 5000);
-
-  // const alert = useAlert();
-
-  // alert.error("Connection Failed");
-
   return (
     <div>
       {isSuccessful == false ? (
         <section className="signup_section">
           <div className="container">
             <div className="signup_area">
-              <div className="signup_cont_head">
-                <img
-                  src="/img/egoras-logo.svg"
-                  alt=""
-                  className="signup_title_img"
-                />
-              </div>
               <div className="signup_cont">
                 <div className="signup_title">Create an Account</div>
                 <span className="signup_para">
@@ -230,20 +112,18 @@ const Signup = ({ getAuthentication }) => {
                     <input
                       type="number"
                       className="signup_input_field"
-                      value={phoneNumber}
-                      name="phoneNumber"
+                      value={mobile}
+                      name="mobile"
                       onChange={onChange}
                     />
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">
-                      Bank Verification Number (BVN)
-                    </span>
+                    <span className="input_title">Staff Id</span>
                     <input
-                      type="number"
+                      type="text"
                       className="signup_input_field"
-                      value={BVN}
-                      name="BVN"
+                      value={staffId}
+                      name="staffId"
                       onChange={onChange}
                     />
                   </div>
@@ -256,7 +136,6 @@ const Signup = ({ getAuthentication }) => {
                         value={password}
                         name="password"
                         onChange={onChange}
-                        // onInput={onChangeMisMatch}
                       />
                       {visibility == false ? (
                         <img
@@ -274,9 +153,6 @@ const Signup = ({ getAuthentication }) => {
                         />
                       )}
                     </div>
-                    {strongPass == false ? null : (
-                      <div className="weak_pass_div">Password is weak</div>
-                    )}
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Repeat Password</span>
@@ -286,7 +162,7 @@ const Signup = ({ getAuthentication }) => {
                         className="signup_input_field"
                         value={confirmPassword}
                         name="confirmPassword"
-                        onChange={onChange2}
+                        onChange={onChange}
                       />
                       {visibility2 == false ? (
                         <img
@@ -304,56 +180,97 @@ const Signup = ({ getAuthentication }) => {
                         />
                       )}
                     </div>
-                    {mismatchPass == false ? null : (
-                      <div className="weak_pass_div">
-                        Password did not match
-                      </div>
-                    )}
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">
-                      How did you hear about us?
-                    </span>
-
-                    <select
-                      className="cust_select"
-                      name="InfoReason"
-                      onChange={onChange}
-                      value={InfoReason}
-                    >
-                      <option value="0" className="opt">
-                        Click to select:
-                      </option>
-                      <option value="Facebook">Facebook</option>
-                      <option value="Twitter">Twitter</option>
-                      <option value="Instagram">Instagram</option>
-                      <option value="Referred">Referred</option>
-                      <option value="Online Blog">Online Blog</option>
-                      <option value="Google search">Google search</option>
-                      <option value="Others">Others</option>
-                    </select>
-                    {/* ==[[[[[]]]]] */}
-
-                    {/* <input type="" className="signup_input_field" /> */}
+                    <span className="input_title">Role</span>
+                    <div className="toggle_body_area1_cont1_input">
+                      <div className="name_input1a lar_widthh">
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Select Role
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name="role"
+                            value={role}
+                            label="role"
+                            onChange={onChange}
+                            // onSelect={onChange}
+                          >
+                            <MenuItem value={1}>MANAGER</MenuItem>
+                            <MenuItem value={2}>BUSINESS_ADMIN</MenuItem>
+                            <MenuItem value={3}>MEDIA</MenuItem>
+                            <MenuItem value={4}>CASHIER</MenuItem>
+                            <MenuItem value={5}>CUSTOMER_SERVICE</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="signup_input_field1_cont">
+                    <span className="input_title">Branch</span>
+                    <div className="toggle_body_area1_cont1_input">
+                      <div className="name_input1a lar_widthh">
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Select Branch
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name="branch"
+                            value={branch}
+                            label="branch"
+                            onChange={onChange}
+                          >
+                            <MenuItem value="RUMUKWRUSHI">
+                              Rumukwrushi branch
+                            </MenuItem>
+                            <MenuItem value="AGIP">Agip branch</MenuItem>
+                            <MenuItem value="OYIGBO">Oyigbo branch</MenuItem>
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="signup_input_field1_cont">
+                    <span className="input_title">Gender</span>
+                    <div className="toggle_body_area1_cont1_input">
+                      <div className="radio_group">
+                        <input
+                          type="radio"
+                          name="gender"
+                          id="male"
+                          // value={Male}
+                          value="Male"
+                          onChange={onChange}
+                        />
+                        <label for="male" class="radio" value={gender}>
+                          Male
+                        </label>
+                      </div>
+                      <div className="radio_group">
+                        <input
+                          type="radio"
+                          name="gender"
+                          id="female"
+                          // value="female"
+                          value="Female"
+                          onChange={onChange}
+                        />
+                        <label for="female" class="radio" value={gender}>
+                          Female
+                        </label>
+                      </div>
+                    </div>
                   </div>
                   <button
                     type="submit"
                     className="sign_up_btn"
                     onClick={submitData}
-                    disabled={disable}
                   >
-                    {isLoading ? (
-                      <span>
-                        Creating account{" "}
-                        <FontAwesomeIcon
-                          className="ml-2"
-                          icon={faSpinner}
-                          spin
-                        />
-                      </span>
-                    ) : (
-                      <span>Create account</span>
-                    )}
+                    Create account
                   </button>
                 </div>
               </div>
@@ -383,7 +300,7 @@ const Signup = ({ getAuthentication }) => {
 
                       <p>
                         An activation email has been sent to{" "}
-                        <span className="email_name">{email}</span> with
+                        <span className="email_name">{/* {email} */}</span> with
                         instructions to activate your account.
                       </p>
                       <p className="note">
@@ -413,7 +330,6 @@ const Signup = ({ getAuthentication }) => {
           </div>
         </section>
       )}
-
       {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
       {/* ========== */}
       {/* ========== */}
@@ -421,7 +337,4 @@ const Signup = ({ getAuthentication }) => {
     </div>
   );
 };
-
-export default connect(null, { getAuthentication })(Signup);
-
-// export const getName =props.fullname;
+export default connect(null, { getAuthentication })(AdminSignup);
