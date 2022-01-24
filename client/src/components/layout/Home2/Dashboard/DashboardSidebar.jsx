@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HomeIcon from "@mui/icons-material/Home";
-import {API_URL2 as api_url2} from "../../../../actions/types";
+import { API_URL2 as api_url2 } from "../../../../actions/types";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -13,6 +13,7 @@ import { connect } from "react-redux";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
@@ -28,7 +29,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
-const DashboardSidebar = ({auth}) => {
+const DashboardSidebar = ({ auth }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -38,7 +39,6 @@ const DashboardSidebar = ({auth}) => {
   const [image, setImage] = useState("");
   const linksActive = window.location.pathname;
 
-
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
     Userlastname: "",
@@ -47,52 +47,57 @@ const DashboardSidebar = ({auth}) => {
     UseruserImage: "",
     Userrelationship: "",
     Usergender: "",
-    Userbvn:"",
-    UserdateOfBirth:""
-   
+    Userbvn: "",
+    UserdateOfBirth: "",
   });
 
-  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
-  userInfo;
+  const {
+    Userfirstname,
+    Userlastname,
+    Useremail,
+    Usergender,
+    Userrelationship,
+    UseruserImage,
+    UserphoneNumber,
+    Userbvn,
+    UserdateOfBirth,
+  } = userInfo;
 
-    
-useEffect(() => {
-  // fetchDepositLinks();
-  console.log(auth);
-  if (auth.user !== null) {
-    // let dataa = 'stackabuse.com';
-    // console.log( new Buffer(dataa));
-    var todecoded = auth.user;
-    var todecodedn = todecoded.user.userImage;
+  useEffect(() => {
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
 
-    // console.log('====================================');
-    console.log(todecodedn);
-    // console.log('====================================');
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
 
+      const getName = todecoded.user.fullname;
+      const splitName = getName.split(" ");
 
-    const getName = todecoded.user.fullname
-    const splitName = getName.split(' ');
+      setUserInfo({
+        Userfirstname: splitName[0],
+        Userlastname: splitName[1],
+        Useremail: todecoded.user.email,
+        UseruserImage: todecoded.user.userImage,
+        UserphoneNumber: todecoded.user.phoneNumber,
+        Userrelationship: todecoded.user.relationship,
+        Usergender: todecoded.user.gender,
+        Userbvn: todecoded.user.BVN,
+        UserdateOfBirth: todecoded.user.dateOfBirth,
+      });
 
-    setUserInfo({
-      Userfirstname: splitName[0],
-      Userlastname: splitName[1],
-      Useremail: todecoded.user.email,
-      UseruserImage: todecoded.user.userImage,
-      UserphoneNumber: todecoded.user.phoneNumber,
-      Userrelationship: todecoded.user.relationship,
-      Usergender: todecoded.user.gender,
-      Userbvn:todecoded.user.BVN,
-      UserdateOfBirth:todecoded.user.dateOfBirth,
-    })
-
-    if (todecoded.user.userImage !== null) {
-      setImage(api_url2+'/'+todecoded.user.userImage)
-    } else {
-      setImage('../../img/profile_img.jpeg')
+      if (todecoded.user.userImage !== null) {
+        setImage(api_url2 + "/" + todecoded.user.userImage);
+      } else {
+        setImage("../../img/profile_img.jpeg");
+      }
     }
-    
-  }
-}, [auth]);
+  }, [auth]);
 
   // console.log(dddd);
   const changeBg = (e) => {
@@ -136,6 +141,14 @@ useEffect(() => {
       setActiveBg("accounts");
       setCatDiv("not_home");
     }
+    if (linksActive === "/dashboard/wallet") {
+      setActiveBg("wallet");
+      setCatDiv("not_home");
+    }
+    if (linksActive === "/dashboard/wallet/withdrawal") {
+      setActiveBg("wallet");
+      setCatDiv("not_home");
+    }
 
     if (smallSide == "not_small") {
       localStorage.setItem("smallSidetoken", "not_small");
@@ -143,7 +156,7 @@ useEffect(() => {
       localStorage.setItem("smallSidetoken", "smallSide");
     }
   }, []);
- 
+
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -153,7 +166,6 @@ useEffect(() => {
       localStorage.setItem("smallSidetoken", "not_small");
     }
   };
- 
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
@@ -200,11 +212,7 @@ useEffect(() => {
                   </button>
                 </div> */}
                 <div className="immmgg">
-                  <img
-                    src={image}
-                    alt=""
-                    className="user_profile"
-                  />
+                  <img src={image} alt="" className="user_profile" />
                   {/* <img
                     src="/img/profile_icon2.svg"
                     alt=""
@@ -381,6 +389,28 @@ useEffect(() => {
                 {/* ===================== */}
 
                 <a
+                  href="/dashboard/wallet"
+                  className="link"
+                  id="wallet"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "wallet"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <AccountBalanceWalletIcon className="sidebarIcon" />
+                    Wallet
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
                   href="/dashboard/accounts"
                   className="link"
                   id="accounts"
@@ -501,6 +531,28 @@ useEffect(() => {
                 {/* ===================== */}
 
                 <a
+                  href="/dashboard/wallet"
+                  className="link"
+                  id="wallet"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "wallet"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <AccountBalanceWalletIcon className="sidebarIcon" />
+                    Wallet
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
                   href="/dashboard/accounts"
                   className="link"
                   id="accounts"
@@ -562,7 +614,4 @@ const mapStateToProps = (state) => ({
 
 // export default DashboardSidebar;
 
-
-export default connect(mapStateToProps, { })(
-  DashboardSidebar
-);
+export default connect(mapStateToProps, {})(DashboardSidebar);

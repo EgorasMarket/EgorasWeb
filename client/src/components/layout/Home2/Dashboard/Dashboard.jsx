@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
 // import DashboardHomePage from "./DashboardPages/DashboardHomePage";
+import Wallet from "../../Wallet/Wallet";
 import DashboardSidebar from "./DashboardSidebar";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
@@ -10,6 +11,7 @@ import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
 import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
 import PhonesCatPage from "./DashboardPages/CategoryPages/PhonesCatPage";
 import DashboardHomePage from "./DashboardPages/DashboardHomePage";
+import Withdrawal from "../../Wallet/withdrawal";
 // import { SplashScreen } from "../../SplashScreen/SplashScreen.js";
 // import { SplashScreen } from "../../SplashScreen/SplashScreen";
 import { SplashScreen } from "../../SplashScreen/SplashScreen.js";
@@ -30,11 +32,10 @@ const Dashboard = ({ isAuthenticated, loading }) => {
         setSplashScreen(false);
       }, 1000);
     }
-    
 
     // setSplashScreen(true);
   }, [isAuthenticated]);
-  
+
   return (
     <div>
       <Route>
@@ -44,13 +45,23 @@ const Dashboard = ({ isAuthenticated, loading }) => {
           <div className="dashboard">
             <DashboardSidebar />
             <Switch>
-              <PrivateRoute2 exact path="/dashboard" component={DashboardHomePage} />
+              <PrivateRoute2
+                exact
+                path="/dashboard"
+                component={DashboardHomePage}
+              />
               <Route
                 exact
                 path="/dashboard/savings"
                 component={DashboardSavingsPage}
               />
+              <Route
+                exact
+                path="/dashboard/wallet/withdrawal"
+                component={Withdrawal}
+              />
               <Route exact path="/dashboard/cart" component={DashboardCart} />
+              <Route exact path="/dashboard/wallet" component={Wallet} />
               <Route
                 exact
                 path="/dashboard/products"
