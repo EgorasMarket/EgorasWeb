@@ -93,6 +93,11 @@ span.toggle_body_area1_cont1_sub_txts {
   width: 100% !important;
   /* margin-right: 40px !important; */
 }
+.lar_widthh {
+  width: 100% !important;
+  margin: 0 !important;
+  text-align: left;
+}
 .toggle_body_area1_cont1_input
   .css-1kty9di-MuiFormLabel-root-MuiInputLabel-root {
   color: rgb(180 221 196);

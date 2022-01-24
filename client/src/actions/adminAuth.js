@@ -5,7 +5,7 @@ import { setAlert } from "./alert";
 import {
   REGISTER_SUCCESS,
   REGISTER_FAIL,
-  USER_LOADED,
+  USER_LOADED, 
   AUTH_ERROR,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
@@ -16,41 +16,44 @@ import {
 // import setAuthToken from "../utils/setAuthToken";
 import setAuthToken from "../utils/setAuthToken";
 
+
+
 // Load User
-export const loadUser = () => async (dispatch) => {
-  // console.log('okkkkkkk');
+export const loadAdminUser = () => async (dispatch) => {
+  console.log('okkkkkkk');
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
+    // console.log('ffff');
+  } 
+
+  // const res = await axios.get(api_url2 + "/v1/admin/info");
+  // // console.log(res);
+  // // console.log("Yes I call You because i can", res.data);
+  // dispatch({
+  //   type: USER_LOADED,
+  //   payload: res.data,
+  // });
+
+  try {
+    const res = await axios.get(api_url2 + "/v1/admin/info");
+    console.log(res);
+    // console.log("Yes I call You because i can", res.data);
+    dispatch({
+      type: USER_LOADED,
+      payload: res.data,
+    });
+  } catch (error) {
+    console.log('not registered');
+    dispatch({
+      type: AUTH_ERROR,
+    });
   }
-
-  const res = await axios.get(api_url2 + "/v1/admin/info");
-  console.log(res);
-  // console.log("Yes I call You because i can", res.data);
-  dispatch({
-    type: USER_LOADED,
-    payload: res.data,
-  });
-
-  // try {
-  //   const res = await axios.get(api_url2 + "/v1/user/info");
-  //   console.log(res);
-  //   // console.log("Yes I call You because i can", res.data);
-  //   dispatch({
-  //     type: USER_LOADED,
-  //     payload: res.data,
-  //   });
-  // } catch (error) {
-  //   console.log('not registered');
-  //   dispatch({
-  //     type: AUTH_ERROR,
-  //   });
-  // }
 };
 
 // Get Social Media Handles
 export const getAuthentication =
-  (fullname, mobile, email, staffId, password, role, gender ) =>
+  (fullname, mobile, email, staffId, password, role, gender,branch ) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -61,7 +64,7 @@ export const getAuthentication =
     };
 
     const body = JSON.stringify({
-        fullname, mobile, email, staffId, password, role, gender
+        fullname, mobile, email, staffId, password, role, gender,branch
     });
 
     console.log(body);
@@ -361,5 +364,56 @@ export const ForgetPassword = (email) => async (dispatch) => {
 
   }
 };
+
+
+
+
+
+
+// Admin Register Customer
+
+export const adminAddCustomer =
+  (fullname, email, password, BVN, phoneNumber, InfoReason) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      fullname,
+      email,
+      password,
+      BVN,
+      phoneNumber,
+      InfoReason,
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.post(
+        api_url2 + "/v1/admin/register/customer",
+        body,
+        config
+      );
+      console.log(res);
+
+      return {
+        success: true,
+        data: res.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      return {
+        success: false,
+        data: err.response,
+      };
+    }
+  };
 
   

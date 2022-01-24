@@ -29,7 +29,11 @@ import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
-import { sumitGenderAndDate, nextOfKING, changePassword } from "../../../../../actions/auth";
+import {
+  sumitGenderAndDate,
+  nextOfKING,
+  changePassword,
+} from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
 // import {getNaame} from "../../../Signup/signup"
 
@@ -46,7 +50,7 @@ function DashboardAccountPage({
     },
   };
   const [image, setImage] = useState("");
-  const [previewImg, setPreviewImg] = useState(null) 
+  const [previewImg, setPreviewImg] = useState(null);
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
   const [customerAddress, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
@@ -77,53 +81,55 @@ function DashboardAccountPage({
     UserdateOfBirth: "",
   });
 
-  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
-  userInfo;
+  const {
+    Userfirstname,
+    Userlastname,
+    Useremail,
+    Usergender,
+    Userrelationship,
+    UseruserImage,
+    UserphoneNumber,
+    Userbvn,
+    UserdateOfBirth,
+  } = userInfo;
 
-  const { oldpassword, newpassword } =
-  changePassword1;
+  const { oldpassword, newpassword } = changePassword1;
 
+  useEffect(() => {
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
 
-  
-useEffect(() => {
-  // fetchDepositLinks();
-  console.log(auth);
-  if (auth.user !== null) {
-    // let dataa = 'stackabuse.com';
-    // console.log( new Buffer(dataa));
-    var todecoded = auth.user;
-    var todecodedn = todecoded.user.userImage;
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
 
-    // console.log('====================================');
-    console.log(todecodedn);
-    // console.log('====================================');
+      const getName = todecoded.user.fullname;
+      const splitName = getName.split(" ");
 
+      setUserInfo({
+        Userfirstname: splitName[0],
+        Userlastname: splitName[1],
+        Useremail: todecoded.user.email,
+        UseruserImage: todecoded.user.userImage,
+        UserphoneNumber: todecoded.user.phoneNumber,
+        Userrelationship: todecoded.user.relationship,
+        Usergender: todecoded.user.gender,
+        Userbvn: todecoded.user.BVN,
+        UserdateOfBirth: todecoded.user.dateOfBirth,
+      });
 
-    const getName = todecoded.user.fullname
-    const splitName = getName.split(' ');
-
-    setUserInfo({
-      Userfirstname: splitName[0],
-      Userlastname: splitName[1],
-      Useremail: todecoded.user.email,
-      UseruserImage: todecoded.user.userImage,
-      UserphoneNumber: todecoded.user.phoneNumber,
-      Userrelationship: todecoded.user.relationship,
-      Usergender: todecoded.user.gender,
-      Userbvn:todecoded.user.BVN,
-      UserdateOfBirth:todecoded.user.dateOfBirth,
-    })
-
-    if (todecoded.user.userImage !== null) {
-      setImage(api_url2+'/'+todecoded.user.userImage)
-    } else {
-      setImage('../../img/profile_img.jpeg')
+      if (todecoded.user.userImage !== null) {
+        setImage(api_url2 + "/" + todecoded.user.userImage);
+      } else {
+        setImage("../../img/profile_img.jpeg");
+      }
     }
-    
-  }
-}, [auth]);
-
-
+  }, [auth]);
 
   // const [userInfoUpdate,setUserInfoUpdate]=useState({
   //   firstname:"",lastname:"",phoneNumber:"",email:"",BVN:"",
@@ -337,44 +343,40 @@ useEffect(() => {
         // setAlert('Check your internet connection', 'danger');
       }
     }
+  };
 
-  }
-
-  const submitAddress = async e => {
+  const submitAddress = async (e) => {
     e.preventDefault();
 
     // console.log('vbvbvb');
 
-    if (customerAddress === '') {
-        console.log('empty address');
+    if (customerAddress === "") {
+      console.log("empty address");
 
-        // setAlert('Please provide a passport photo', 'danger');
-
+      // setAlert('Please provide a passport photo', 'danger');
     } else {
-
       const body = JSON.stringify({ customerAddress });
       console.log(body);
 
-        try {
-            const res = await axios.post(api_url2 + '/v1/user/add/address', body, config);
-            console.log(res.data, 'undefined');
+      try {
+        const res = await axios.post(
+          api_url2 + "/v1/user/add/address",
+          body,
+          config
+        );
+        console.log(res.data, "undefined");
 
-            if (res.data.statusCode === 200) {
-                // setPassportUpload(true)
-            } else {
-                // setAlert('Something went wrong, please try again later', 'danger');
-            }
-
-        } catch (err) {
-            console.log(err.response);
-            // setAlert('Check your internet connection', 'danger');
+        if (res.data.statusCode === 200) {
+          // setPassportUpload(true)
+        } else {
+          // setAlert('Something went wrong, please try again later', 'danger');
         }
-
+      } catch (err) {
+        console.log(err.response);
+        // setAlert('Check your internet connection', 'danger');
+      }
     }
-
-  }
-
-
+  };
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
@@ -429,46 +431,32 @@ useEffect(() => {
                     {/* ================= */}
                     {/* ================= */}
                     <div className="toggle_body_area1_cont1">
-                      
-                      {
-                          UseruserImage === null ? (
-                            <div className="toggle_body_area1_cont1_txts">
-                              Change Profile Picture{" "}
-                              <span className="toggle_body_area1_cont1_sub_txts">
-                                {" "}
-                                Choose a new avatar to be used across Egoras
-                              </span>
-                            </div>
-
-                          ) : (
-                            <div className="toggle_body_area1_cont1_txts">
-                              My Profile Picture{" "}
-                              <span className="toggle_body_area1_cont1_sub_txts">
-                                {" "}
-                                {/* Choose a new avatar to be used across Egoras */}
-                              </span>
-                            </div>
-                          )
-                        }
+                      {UseruserImage === null ? (
+                        <div className="toggle_body_area1_cont1_txts">
+                          Change Profile Picture{" "}
+                          <span className="toggle_body_area1_cont1_sub_txts">
+                            {" "}
+                            Choose a new avatar to be used across Egoras
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="toggle_body_area1_cont1_txts">
+                          My Profile Picture{" "}
+                          <span className="toggle_body_area1_cont1_sub_txts">
+                            {" "}
+                            {/* Choose a new avatar to be used across Egoras */}
+                          </span>
+                        </div>
+                      )}
                       <div className="toggle_body_area1_cont1_input">
                         {" "}
-                        <img
-
-                            src={image} 
-                            
-
-                          alt=""
-                          className="user_upload_img"
-                        />
-                        {
-                          UseruserImage === null ? (
-                            <AddCircleIcon
-                              className="add_icon"
-                              onClick={openModal}
-                            />
-                          ) : null
-                        }
-                       
+                        <img src={image} alt="" className="user_upload_img" />
+                        {UseruserImage === null ? (
+                          <AddCircleIcon
+                            className="add_icon"
+                            onClick={openModal}
+                          />
+                        ) : null}
                       </div>
                     </div>
                     {/* ================= */}
@@ -581,20 +569,16 @@ useEffect(() => {
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    {
-                      UserdateOfBirth === null ? (
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts"></div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <button className="save_changes_btn"
-                            onClick={sends}
-                            >
-                              Save Changes
-                            </button>
-                          </div>
+                    {UserdateOfBirth === null ? (
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts"></div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <button className="save_changes_btn" onClick={sends}>
+                            Save Changes
+                          </button>
                         </div>
-                      ) : null
-                    }
+                      </div>
+                    ) : null}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
