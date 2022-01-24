@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+// import { connect } from "react-redux";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { connect } from "react-redux";
-import AdminTest from "./AdminPages/AdminTest";
 import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
 import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
+import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
 
@@ -12,7 +13,7 @@ import "./AdminStyles/admin.css";
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
   console.log(isAuthenticated, loading);
- 
+
   useEffect(() => {
     // console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
@@ -24,7 +25,6 @@ const Admin = ({ isAuthenticated, loading }) => {
         setSplashScreen(false);
       }, 1000);
     }
-    
 
     // setSplashScreen(true);
   }, [isAuthenticated]);
@@ -32,17 +32,22 @@ const Admin = ({ isAuthenticated, loading }) => {
     <div>
       <Route>
         {splashScreen == true ? (
-            <SplashScreen />
-          ) : (
+          <SplashScreen />
+        ) : (
           <div className="admin">
             <AdminSideBar />
             <Switch>
               <Route exact path="/super_admin" component={AdminUploadProducts} />
-              <Route exact path="/super_admin/admin" component={AdminTest} />
+              {/* <Route exact path="/super_admin/admin" component={AdminTest} /> */}
               <Route
                 exact
                 path="/super_admin/register_user"
                 component={RegisterCustomer}
+              />
+              <Route
+                exact
+                path="/super_admin/all_user"
+                component={AdminCustomer}
               />
               <Route
                 exact

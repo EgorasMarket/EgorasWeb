@@ -1,52 +1,100 @@
-import React,{useState} from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 import "../../../../css/login.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
-
-import {getLogin} from "../../../../actions/adminAuth";
+import { CustomAlert } from "../../../../CustomAlert";
+import { getLogin } from "../../../../actions/adminAuth";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 // import { setAlert } from "../../../../actions/alert";
 
 const AdminLogin = ({ getLogin, isAuthenticated }) => {
-
-  const [toke,setToke]=useState({email:"",password:""});
-
-  const {email,password} = toke;
+  const [toke, setToke] = useState({ email: "", password: "" });
+  const [disable, setDisable] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [visibility, setVisibility] = useState(false);
+  const { email, password } = toke;
+  const [strongPass, setStrongPass] = useState(false);
+  const [alert, setAlert] = useState("");
+  const [isSuccessful, setIsSuccessful] = useState(false);
 
   const onChange2 = (e) => {
     setToke({ ...toke, [e.target.name]: e.target.value });
-  };
 
+    const { name, value } = e.target;
 
-     const submitLogin = async (e)=>{
-      console.log(email,password);
-      let res3 = await getLogin(
-        email,
-        password 
-      );
-
-      //  setToken(res)
-
-      console.log(res3);
-
-      // if (res.data.email !== e.target.value)
-
-      if (res3.data.success === true) {
-        console.log("okay Good Server");
-      } else {
-        // setAlert(res3.data.errors[0].msg, "danger");
-      }
-
-     }
-
-
-     // Redirect if logged in
-    if (isAuthenticated) {
-      // return <Redirect to="/dashboard" />;
-      return window.location.replace("/super_admin");
+    switch (name) {
+      case "password":
+        if (e.target.value.length <= 7) {
+          setStrongPass(true);
+          console.log("password is not 8");
+        } else if (password.length >= 7) {
+          setStrongPass(false);
+          console.log("password is 8");
+        }
+        break;
+      default:
+        break;
     }
+  };
+  useEffect(() => {
+    if (email === "") {
+      setDisable(true);
+    } else if (password === "") {
+      setDisable(true);
+    } else if (isLoading == true) {
+      setDisable(true);
+    } else if (isLoading == false) {
+      setDisable(false);
+    } else {
+      setDisable(false);
+    }
+  });
+  const submitLogin = async (e) => {
+    console.log(email, password);
+    if (isLoading == true) {
+      setDisable(true);
+    } else if (isLoading == false) {
+      setDisable(false);
+    }
+    setIsLoading(true);
+    setDisable(true);
+    let res3 = await getLogin(email, password);
 
+    //  setToken(res)
 
+    console.log(res3);
+
+    // if (res.data.email !== e.target.value)
+
+    if (res3.data.success === true) {
+      setIsSuccessful(true);
+      setIsLoading(false);
+      console.log("okay Good Server");
+    } else {
+      setAlert(res3.data, "danger");
+      setIsLoading(false);
+      setDisable(false);
+      // setAlert(res3.data.errors[0].msg, "danger");
+    }
+  };
+  const setPasswordVisibilty = () => {
+    setVisibility(true);
+    // setPassImg("hide_pass");
+  };
+  const closetPasswordVisibilty = () => {
+    setVisibility(false);
+    // setPassImg("show_pass");
+  };
+  // Redirect if logged in
+  if (isAuthenticated) {
+    // return <Redirect to="/dashboard" />;
+    return window.location.replace("/super_admin");
+  }
+  const timer = setTimeout(() => {
+    setAlert("");
+  }, 5000);
   return (
     <div>
       <section className="signup_section">
@@ -74,13 +122,34 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
                 </div> */}
                 <div className="signup_input_field1_cont">
                   <span className="input_title">Password</span>
-                  <input
-                    type="password"
-                    className="signup_input_field"
-                    name="password"
-                    onChange={onChange2}
-                    value={password}
-                  />
+                  <div className="passwrd_input_div">
+                    <input
+                      type={visibility ? "text" : "password"}
+                      className="signup_input_field"
+                      value={password}
+                      name="password"
+                      onChange={onChange2}
+                      // onInput={onChangeMisMatch}
+                    />
+                    {visibility == false ? (
+                      <img
+                        src="/img/close-pass.svg"
+                        alt=""
+                        className="close_pass_img"
+                        onClick={setPasswordVisibilty}
+                      />
+                    ) : (
+                      <img
+                        src="/img/show-icon.svg"
+                        alt=""
+                        className="open_pass_img"
+                        onClick={closetPasswordVisibilty}
+                      />
+                    )}
+                  </div>
+                  {strongPass == false ? null : (
+                    <div className="weak_pass_div">Password is weak</div>
+                  )}
                 </div>
                 {/* <div className="signup_input_field1_cont">
                   <span className="input_title">Repeat Password</span>
@@ -89,9 +158,17 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
                 <button
                   type="submit"
                   className="sign_up_btn"
-                    onClick={submitLogin}
+                  onClick={submitLogin}
+                  disabled={disable}
                 >
-                  login
+                  {isLoading ? (
+                    <span>
+                      Logging in{" "}
+                      <FontAwesomeIcon className="ml-2" icon={faSpinner} spin />
+                    </span>
+                  ) : (
+                    <span>Login</span>
+                  )}
                 </button>
               </div>
             </div>
@@ -104,13 +181,12 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
         </div>
         <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
       </section>
+      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
     </div>
   );
 };
 
 // export default AdminLogin;
-
-
 
 AdminLogin.propTypes = {
   // getLoginAuthentication: PropTypes.func.isRequired,
@@ -122,4 +198,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps,{getLogin})(AdminLogin);
+export default connect(mapStateToProps, { getLogin })(AdminLogin);

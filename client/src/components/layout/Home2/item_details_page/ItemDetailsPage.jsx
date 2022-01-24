@@ -4,9 +4,10 @@ import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
 import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../actions/types"
-import { connect } from "react-redux";
+import { connect , useDispatch} from "react-redux";
 
-function ItemDetailsPage({ match}) {
+
+function ItemDetailsPage({auth,  match}) {
   const config = {
     headers: {
         'Content-Type': 'application/json'
@@ -33,7 +34,7 @@ function ItemDetailsPage({ match}) {
   const [productDetails, setProductDetails] = useState({
     
     product_image: "",
-    product_name: ""
+    product_name: "", 
     
   })
 
@@ -54,10 +55,11 @@ function ItemDetailsPage({ match}) {
     ).then((data) => {
        
         console.log(data.data.data, "king");
+        
 
         setProductDetails({
           product_image: data.data.data.product_image,
-          product_name: data.data.data.product_name      
+          product_name: data.data.data.product_name 
         })
 
         // setDataFlow(data.data.data)
@@ -67,7 +69,26 @@ function ItemDetailsPage({ match}) {
     }).catch((err) => {
         console.log(err.response); // "oh, no!"
     })
-}, []);
+  }, []);
+
+
+  const addToCart =  async (customer_id, product_id, quantity) => {
+    const payload ={
+      customer_id, 
+      product_id, 
+      quantity
+    }
+     let call =await axios.post(api_url2 + "/v1/cart/add", payload, config ).then(response => {
+     alert("Item successfully added to cart ")
+
+     }).catch(err=> {
+       alert(err.response.data.message)
+       console.log("error reported", err.response)
+     })
+
+
+     console.log(call)
+  }
 
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
@@ -169,6 +190,7 @@ function ItemDetailsPage({ match}) {
       percentage: "100%",
     },
   ];
+  
   const itemsId = {
     firstItem: {
       // the naming can be any, depends on you.
@@ -245,6 +267,7 @@ function ItemDetailsPage({ match}) {
                 <div className="product_details_code">
                   <span className="product_code_title">Product Code: </span>
                   {productCode}
+                
                 </div>
                 <div
                   className="product_details_code"
@@ -306,7 +329,9 @@ function ItemDetailsPage({ match}) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button className="buy_now_button">Add to Cart</button>
+                  <button  onClick ={()=> {
+                      addToCart(auth.user.user.id,product_id, count )
+                  }} className="buy_now_button">Add to Cart</button>
 
                   <div className="save_later">
                     <button className="save_later_btn">
@@ -542,9 +567,12 @@ function ItemDetailsPage({ match}) {
   );
 }
 
-// const mapStateToProps1 = (state) => ({
-//   auth: state.auth,
-//   isAuthenticated: state.auth.isAuthenticated,
-// })
+const mapStateToProps1 = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart
+})
 
-export default  ItemDetailsPage;
+export default connect(mapStateToProps1)( ItemDetailsPage);
+
+
