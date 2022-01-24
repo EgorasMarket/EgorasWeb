@@ -14,19 +14,19 @@ import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const retrieveCart = (customer_id) => async (dispatch) => {
-  console.log("okkkkkkk");
+  console.log(customer_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
   try {
-    const res = await axios.get(api_url2 + "/v1/cart/get/", null, config);
-    console.log(res);
-    // console.log("Yes I call You because i can", res.data);
+    const res = await axios.get(api_url2 + "/v1/cart/get/"+customer_id, null, config);
+    console.log(res.data.data);
+    // console.log("Yes I call You because i can", res.data.data);
     dispatch({
       type: FETCH_CART,
-      payload: res.data,
+      payload: res.data.data,
     });
   } catch (error) {
     console.log("not registered");

@@ -5,7 +5,8 @@ import "../DashboardStyles/dashboard_home.css";
 import {API_URL2 as api} from '../../../../../actions/types'
 import {connect, useDispatch } from 'react-redux';
 import axios from 'axios'
-import { allCart} from '../../../../../actions/shop'
+import { allCart} from '../../../../../actions/shop';
+import { retrieveCart } from "../../../../../actions/shop";
 const cards = [
   {
     id: 1,
@@ -174,34 +175,30 @@ const responsive7 = {
 };
 
 
-const DashboardHomePage = ({cart, auth, allCart}) => {
-
+const DashboardHomePage = ({ cart, auth, allCart}) => {
+  const [cus_id, setCusId] = useState('');
   const dispatch = useDispatch();
 
 
-  const fetchFromCart = async (customer_id) => {
-    console.log('fetchfromCart', customer_id);
-    let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
-      console.log("error from dashboardcart", err.message);
-    });
-    // setCartData(call.data.data)
+  // const fetchFromCart = async (customer_id) => {
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   // setCartData(call.data.data)
 
-    console.log(call.data.data, 'async call');
-    dispatch(allCart(call.data.data))
-    // dispatch(allCart(call)) // use this to send to the redux store 
-  }
+  //   console.log(call.data.data, 'async call');
+  //   dispatch(allCart(call.data.data))
+  //   // dispatch(allCart(call)) // use this to send to the redux store 
+  // }
 
-  useEffect(() => {
 
-    if (auth){
-      console.log(auth.user.user.id)
-
-      let customer_id = auth.user.user.id
-      fetchFromCart(customer_id);
-    }
-    console.log("inside use effect")
+  // useEffect(() => {
+  //   console.log(cus_id);
+  //   retrieveCart(cus_id)
+  //   console.log("inside use effect")
     
-  },[cart])
+  // },[])
 
 
 
