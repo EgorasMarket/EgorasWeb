@@ -67,7 +67,7 @@ function ItemDetailsPage({ match}) {
     }).catch((err) => {
         console.log(err.response); // "oh, no!"
     })
-}, []);
+  }, []);
 
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
