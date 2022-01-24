@@ -1,9 +1,15 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
-import { setAlert } from "../../../../actions/alert";
+import { CustomAlert } from "../../../../CustomAlert";
+// import useAlert from "@semiorbit/react-ui-tools/Containers/useAlert";
+
+// import { setAlert } from ".";
+// import Alert from "../../Alert";
 import "../../../../css/signup.css";
 import { getAuthentication } from "../../../../actions/auth";
-const Signup = ({ getAuthentication, setAlert }) => {
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+const Signup = ({ getAuthentication }) => {
   const [userAuth, setUserAuth] = useState({
     fullname: "",
     email: "",
@@ -13,7 +19,9 @@ const Signup = ({ getAuthentication, setAlert }) => {
     confirmPassword: "",
     InfoReason: "",
   });
+  const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [alert, setAlert] = useState("");
   // const [confirmPassword, setConfirmPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [visibility, setVisibility] = useState(false);
@@ -38,16 +46,29 @@ const Signup = ({ getAuthentication, setAlert }) => {
   //     setStrongPass(null);
   //   }
   // }, []);
-  const onChangeMisMatch = () => {
-    // setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
-    // if (password.length <=  8) {
-    //   setStrongPass(true);
-    //   console.log("password is not 8");
-    // } else if (password.length >= 8) {
-    //   setStrongPass(false);
-    //   console.log("password is 8");
-    // }
-  };
+  useEffect(() => {
+    if (fullname === "") {
+      setDisable(true);
+    } else if (email === "") {
+      setDisable(true);
+    } else if (password === "") {
+      setDisable(true);
+    } else if (BVN === "") {
+      setDisable(true);
+    } else if (phoneNumber === "") {
+      setDisable(true);
+    } else if (confirmPassword === "") {
+      setDisable(true);
+    } else if (InfoReason === "") {
+      setDisable(true);
+    } else if (isLoading == true) {
+      setDisable(true);
+    } else if (isLoading == false) {
+      setDisable(false);
+    } else {
+      setDisable(false);
+    }
+  });
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -64,6 +85,25 @@ const Signup = ({ getAuthentication, setAlert }) => {
         }
         break;
       default:
+        break;
+    }
+
+    // else {
+
+    // }
+
+    // if (e.target.value === "") {
+    //   console.log("input something here");
+    // } else {
+    //   console.log("something is here");
+    // }
+  };
+  const onChange2 = (e) => {
+    setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
+
+    const { name, value } = e.target;
+
+    switch (name) {
       case "confirmPassword":
         if (e.target.value !== password) {
           setMismatchPass(true);
@@ -72,6 +112,8 @@ const Signup = ({ getAuthentication, setAlert }) => {
           setMismatchPass(false);
           console.log("password match");
         }
+        break;
+      default:
         break;
     }
 
@@ -107,53 +149,13 @@ const Signup = ({ getAuthentication, setAlert }) => {
   //   setIsSuccessful(false);
   // });
   const submitData = async (e) => {
-    // if (
-    //   fullname === "" ||
-    //   email === "" ||
-    //   password === "" ||
-    //   //   confirmpassword === "" ||
-    //   phoneNumber === ""
-    // ) {
-    //   setAlert("All fields are required", "danger");
-    //   // setIsLoading(false);
-    // } else {
-    //   if (password !== confirmpassword) {
-    //     setAlert("Passwords do not match", "danger");
-    //   } else {
-    //     if (typeof localStorage.referrer !== "undefined") {
-    //       // console.log(localStorage.referrer);
-    //       // setUserAuth()
-    //       let res = await getAuthentication(
-    //         fullname,
-    //         email,
-    //         password,
-    //         phoneNumber,
-    //         // walletAddress,
-    //         localStorage.referrer
-    //       );
-    //       console.log(res);
-    //       if (res.data.success === true) {
-    //         console.log("okay Good Server");
-    //       } else {
-    //         setAlert(res.data.data.errors[0].msg, "danger");
-    //       }
-    //     } else {
-    //       let res = await getAuthentication(
-    //         fullname,
-    //         email,
-    //         password,
-    //         phoneNumber,
-    //         ""
-    //       );
-    //       console.log(res.data);
-    //       if (res.data.success === true) {
-    //         console.log("okay Good Server");
-    //       } else {
-    //         setAlert(res.data.data.errors[0].msg, "danger");
-    //       }
-    //     }
-    //   }
-    // }
+    if (isLoading == true) {
+      setDisable(true);
+    } else if (isLoading == false) {
+      setDisable(false);
+    }
+    setIsLoading(true);
+    setDisable(true);
     let res = await getAuthentication(
       fullname,
       email,
@@ -167,10 +169,22 @@ const Signup = ({ getAuthentication, setAlert }) => {
     if (res.data.success === true) {
       setIsSuccessful(true);
       console.log("okay Good Server");
+      setIsLoading(false);
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
+      setIsLoading(false);
+      setDisable(false);
     }
+
+    console.log(res.data.data.errors[0].msg);
   };
+  const timer = setTimeout(() => {
+    setAlert("");
+  }, 5000);
+
+  // const alert = useAlert();
+
+  // alert.error("Connection Failed");
 
   return (
     <div>
@@ -272,7 +286,7 @@ const Signup = ({ getAuthentication, setAlert }) => {
                         className="signup_input_field"
                         value={confirmPassword}
                         name="confirmPassword"
-                        onChange={onChange}
+                        onChange={onChange2}
                       />
                       {visibility2 == false ? (
                         <img
@@ -291,7 +305,9 @@ const Signup = ({ getAuthentication, setAlert }) => {
                       )}
                     </div>
                     {mismatchPass == false ? null : (
-                      <div className="weak_pass_div">Password did not match</div>
+                      <div className="weak_pass_div">
+                        Password did not match
+                      </div>
                     )}
                   </div>
                   <div className="signup_input_field1_cont">
@@ -324,8 +340,20 @@ const Signup = ({ getAuthentication, setAlert }) => {
                     type="submit"
                     className="sign_up_btn"
                     onClick={submitData}
+                    disabled={disable}
                   >
-                    Create account
+                    {isLoading ? (
+                      <span>
+                        Creating account{" "}
+                        <FontAwesomeIcon
+                          className="ml-2"
+                          icon={faSpinner}
+                          spin
+                        />
+                      </span>
+                    ) : (
+                      <span>Create account</span>
+                    )}
                   </button>
                 </div>
               </div>
@@ -386,6 +414,7 @@ const Signup = ({ getAuthentication, setAlert }) => {
         </section>
       )}
 
+      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
       {/* ========== */}
       {/* ========== */}
       {/* ========== */}
@@ -393,6 +422,6 @@ const Signup = ({ getAuthentication, setAlert }) => {
   );
 };
 
-export default connect(null, { getAuthentication, setAlert })(Signup);
+export default connect(null, { getAuthentication })(Signup);
 
 // export const getName =props.fullname;

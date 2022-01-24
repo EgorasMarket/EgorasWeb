@@ -2,6 +2,10 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "../DashboardStyles/dashboard_home.css";
+import {API_URL2 as api} from '../../../../../actions/types'
+import {connect, useDispatch } from 'react-redux';
+import axios from 'axios'
+import { allCart} from '../../../../../actions/shop'
 const cards = [
   {
     id: 1,
@@ -168,7 +172,39 @@ const responsive7 = {
     items: 2,
   },
 };
-const DashboardHomePage = () => {
+
+
+const DashboardHomePage = ({cart, auth, allCart}) => {
+
+  const dispatch = useDispatch();
+
+
+  const fetchFromCart = async (customer_id) => {
+    console.log('fetchfromCart', customer_id);
+    let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+      console.log("error from dashboardcart", err.message);
+    });
+    // setCartData(call.data.data)
+
+    console.log(call.data.data, 'async call');
+    dispatch(allCart(call.data.data))
+    // dispatch(allCart(call)) // use this to send to the redux store 
+  }
+
+  useEffect(() => {
+
+    if (auth){
+      console.log(auth.user.user.id)
+
+      let customer_id = auth.user.user.id
+      fetchFromCart(customer_id);
+    }
+    console.log("inside use effect")
+    
+  },[cart])
+
+
+
   const [savedNum, setSavedNum] = useState(5);
   return (
     <div className="other2">
@@ -430,4 +466,10 @@ const DashboardHomePage = () => {
   );
 };
 
-export default DashboardHomePage;
+
+const mapStateToProps = (state) =>({
+  auth: state.auth,
+  cart: state.shop.cart
+})
+
+export default connect(mapStateToProps,{allCart}) (DashboardHomePage);
