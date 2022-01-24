@@ -32,6 +32,15 @@ const Footer = () => {
     if (FooterHide === "/signup") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if (FooterHide === "/super_admin/user_overview") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/dashboard/wallet") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/dashboard/wallet/withdrawal") {
+      document.getElementById("FooterId").style.display = "none";
+    }
     if ((FooterHide === "/products/details/" + myArr[3], myArr[4])) {
       document.getElementById("FooterId").style.display = "none";
     }
@@ -45,6 +54,9 @@ const Footer = () => {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/login/super_admin") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/signup/super_admin") {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/super_admin/all_user") {
