@@ -26,17 +26,17 @@ const DashboardCart = ({cart,  auth}) => {
     },
   };
 
-  const fetchFromCart = async (customer_id) => {
-    console.log('fetchfromCart', customer_id);
-    let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
-      console.log("error from dashboardcart", err.message);
-    });
-    setCartData(call.data.data)
+  // const fetchFromCart = async (customer_id) => {
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   setCartData(call.data.data)
 
-    console.log(call.data.data, 'async call ');
-    dispatch(allCart(call.data.data))
-    // dispatch(allCart(call)) // use this to send to the redux store 
-  }
+  //   console.log(call.data.data, 'async call ');
+  //   dispatch(allCart(call.data.data))
+  //   // dispatch(allCart(call)) // use this to send to the redux store 
+  // }
 
   const deleteFromCart = async (product_id)=> {
     console.log('deleteFromcart', product_id);
@@ -51,19 +51,19 @@ const DashboardCart = ({cart,  auth}) => {
     
   }
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    if (auth.user !== null){
-      let decodedUser = auth.user; 
-      let customer_id = decodedUser.user.id ;
-      console.log('run all the async funtion from here ', customer_id)
+  //   if (auth.user !== null){
+  //     let decodedUser = auth.user; 
+  //     let customer_id = decodedUser.user.id ;
+  //     console.log('run all the async funtion from here ', customer_id)
 
-      console.log(cart)
+  //     console.log(cart)
 
-      fetchFromCart(customer_id);
-    }
+  //     fetchFromCart(customer_id);
+  //   }
     
-  }, [cart , auth]);
+  // }, [cart , auth]);
   
   return (
     <div className="other2">
