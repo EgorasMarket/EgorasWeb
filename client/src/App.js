@@ -97,11 +97,13 @@ import Login from "./components/layout/Home2/Login/Login";
 // import Signup from "./components/layout/Home2/Signup/Signup";
 
 import Signup from "./components/layout/Home2/Signup/Signup";
+
 import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
 import Activation from "./components/layout/Home2/Activation/Activation";
 import LoanDetails from "./components/layout/LoanDetails/LoanDetails";
+import Admin from "./components/layout/Admin/Admin";
 import About from "./components/layout/Home2/About/About";
 import Documentation from "./components/layout/documentation/documentation";
 import Documentation2 from "./components/layout/documentation/documentation2";
@@ -138,6 +140,7 @@ import EGC from "./components/layout/EGC/egc";
 
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
+import PrivateRoute3 from "./components/routing/PrivateRoute3";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -145,6 +148,8 @@ if (localStorage.token) {
 }
 
 const App = () => {
+  // const currentPage = window.location.pathname;
+  const [adminLocate, setAdminLocate] = useState("");
   useEffect(() => {
     store.dispatch(loadUser());
   }, []);
@@ -210,6 +215,20 @@ const App = () => {
       console.log("/token-metrics");
     }
   }, []);
+
+  useEffect(() => {
+    // setFormData({ ...formData, ['id']: match.params.id });
+    // console.log(currentPage);
+    const myArr = currentPage.split("/");
+    console.log(myArr[1]);
+    // console.logconst [adminLocate, setAdminLocate] = useState(false);(myArr);
+
+    if (myArr[1] === "super_admin") {
+      setAdminLocate("super_admin");
+    } else {
+      setAdminLocate("dashboard");
+    }
+  });
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -413,12 +432,16 @@ const App = () => {
                   <Route exact path="/whitepaper" component={Whitepaper} />
 
                   <Route exact path="/login" component={Login} />
+                  {/* <Route exact path="/super_admin" component={Admin} /> */}
                   {/* <Route exact path="/dashboard" component={Dashboard} /> */}
                   {/* <Route exact path='/token-metrics' component={TokenMetrics} /> */}
-                  {/* <Dashboard /> */}
-                  <PrivateRoute2>
-                    <Dashboard />
-                  </PrivateRoute2>
+                  {adminLocate === "super_admin" ? (
+                    <Admin />
+                  ) : (
+                    <PrivateRoute2>
+                      <Dashboard />
+                    </PrivateRoute2>
+                  )}
                 </Switch>
               </section>
               {/* <Footer /> */}

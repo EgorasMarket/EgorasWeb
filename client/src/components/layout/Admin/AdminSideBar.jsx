@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
-import HomeIcon from "@mui/icons-material/Home";
-import {API_URL2 as api_url2} from "../../../../actions/types";
+
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
+import GroupsIcon from "@mui/icons-material/Groups";
+import GroupAddIcon from "@mui/icons-material/GroupAdd";
+import Inventory2Icon from "@mui/icons-material/Inventory2";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
 import BarChartIcon from "@mui/icons-material/BarChart";
-import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
-import { connect } from "react-redux";
+import ViewListIcon from "@mui/icons-material/ViewList";
+import "./AdminStyles/adminUploadProducts.css";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -26,124 +30,50 @@ import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
-import "./DashboardStyles/dashboard_side.css";
-import "./DashboardStyles/dashboard_header.css";
-const DashboardSidebar = ({auth}) => {
+const AdminSideBar = () => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
   const [catDiv, setCatDiv] = useState("not_home");
   const [smallSide, setSmallSide] = useState(dddd);
   const [cartNum, setCartNum] = useState(5);
-  const [image, setImage] = useState("");
   const linksActive = window.location.pathname;
 
-
-  const [userInfo, setUserInfo] = useState({
-    Userfirstname: "",
-    Userlastname: "",
-    Useremail: "",
-    UserphoneNumber: "",
-    UseruserImage: "",
-    Userrelationship: "",
-    Usergender: "",
-    Userbvn:"",
-    UserdateOfBirth:""
-   
-  });
-
-  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
-  userInfo;
-
-    
-useEffect(() => {
-  // fetchDepositLinks();
-  console.log(auth);
-  if (auth.user !== null) {
-    // let dataa = 'stackabuse.com';
-    // console.log( new Buffer(dataa));
-    var todecoded = auth.user;
-    var todecodedn = todecoded.user.userImage;
-
-    // console.log('====================================');
-    console.log(todecodedn);
-    // console.log('====================================');
-
-
-    const getName = todecoded.user.fullname
-    const splitName = getName.split(' ');
-
-    setUserInfo({
-      Userfirstname: splitName[0],
-      Userlastname: splitName[1],
-      Useremail: todecoded.user.email,
-      UseruserImage: todecoded.user.userImage,
-      UserphoneNumber: todecoded.user.phoneNumber,
-      Userrelationship: todecoded.user.relationship,
-      Usergender: todecoded.user.gender,
-      Userbvn:todecoded.user.BVN,
-      UserdateOfBirth:todecoded.user.dateOfBirth,
-    })
-
-    if (todecoded.user.userImage !== null) {
-      setImage(api_url2+'/'+todecoded.user.userImage)
-    } else {
-      setImage('../../img/profile_img.jpeg')
-    }
-    
-  }
-}, [auth]);
-
-  // console.log(dddd);
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
-    if (linksActive === "/dashboard/products") {
-      setCatDiv("home");
-    }
-    if (linksActive === "/dashboard/products/categories/id-phone") {
-      setActiveBg("products");
-      setCatDiv("home");
-    }
   };
 
   useEffect(() => {
-    if (linksActive === "/dashboard") {
+    if (linksActive === "/super_admin") {
       setActiveBg("Home");
-      setCatDiv("not_home");
     }
-    if (linksActive === "/dashboard/") {
+    if (linksActive === "/super_admin/") {
       setActiveBg("Home");
-      setCatDiv("not_home");
     }
-    if (linksActive === "/dashboard/savings") {
-      setActiveBg("savings");
-      setCatDiv("not_home");
+    if (linksActive === "/super_admin/all_products") {
+      setActiveBg("allProd");
     }
-    if (linksActive === "/dashboard/cart") {
-      setActiveBg("cart");
-      setCatDiv("not_home");
-    }
-    if (linksActive === "/dashboard/products") {
-      setActiveBg("products");
-      setCatDiv("home");
-    }
-    if (linksActive === "/dashboard/products/categories/id-phone") {
-      setActiveBg("products");
-      setCatDiv("home");
-    }
-    if (linksActive === "/dashboard/accounts") {
-      setActiveBg("accounts");
-      setCatDiv("not_home");
+    if (linksActive === "/super_admin/register_user") {
+      setActiveBg("register");
     }
 
+    // if (linksActive === "/dashboard/referrals") {
+    //   setActiveBg("swap");
+    // }
+    // if (linksActive === "/dashboard/tasks") {
+    //   setActiveBg("tasks");
+    // }
+    // if (linksActive === "/dashboard/whitepaper") {
+    //   setActiveBg("whitepaper");
+    // }
+    //  setCatDiv("not_home");
     if (smallSide == "not_small") {
       localStorage.setItem("smallSidetoken", "not_small");
     } else {
       localStorage.setItem("smallSidetoken", "smallSide");
     }
   }, []);
- 
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -153,8 +83,6 @@ useEffect(() => {
       localStorage.setItem("smallSidetoken", "not_small");
     }
   };
- 
-
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
       <section className="DashBoardHeaderSection">
@@ -175,47 +103,9 @@ useEffect(() => {
               //   onMouseOver={openLogoutDiv}
               //   onMouseOut={closeLogoutDiv}
             >
-              <div className="together">
-                <div className="save_numb_div">
-                  <ShoppingCartIcon className="cart_icon" />
-                  <div className="cart_num">{cartNum}</div>
-                </div>
-                <div className="account_numb_div">
-                  <FileCopyIcon className="copy_icon" /> 29887728631612
-                </div>
-
-                {/* <div
-                  className="logout_div"
-                  // className={
-                  //   logoutDiv == "not_logout_div"
-                  //     ? "not_logout_div"
-                  //     : "logout_div"
-                  // }
-                >
-                  <button
-                    className="logout_sec_btn"
-                    //   onClick={triggerLogout}
-                  >
-                    Logout
-                  </button>
-                </div> */}
-                <div className="immmgg">
-                  <img
-                    src={image}
-                    alt=""
-                    className="user_profile"
-                  />
-                  {/* <img
-                    src="/img/profile_icon2.svg"
-                    alt=""
-                    className="user_profile2"
-                  /> */}
-                </div>
-              </div>
-
-              <div className="welcome_user">
+              <div className="welcome_user" style={{ alignItems: "flex-end" }}>
                 Welcome
-                <span className="userName_name">{Userlastname}</span>
+                <span className="userName_name">Admin</span>
               </div>
             </div>
           </div>
@@ -275,7 +165,7 @@ useEffect(() => {
                 <MenuIcon className="menu_icon_toggle" onClick={UnShrinkSide} />
               )}{" "} */}
               <MenuIcon className="menu_icon_toggle" onClick={shrinkAction} />
-              <a href="/" alt="">
+              <a href="#" alt="">
                 <img
                   src="/img/egoras-logo.svg"
                   alt="..."
@@ -293,7 +183,7 @@ useEffect(() => {
                 {/* =================== */}
                 {/* =================== */}
                 <a
-                  href="/dashboard"
+                  href="/super_admin"
                   id="Home"
                   className="link"
                   onClick={changeBg}
@@ -305,8 +195,8 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <HomeIcon className="sidebarIcon" />
-                    Home
+                    <Inventory2Icon className="sidebarIcon" />
+                    Products
                   </li>
                 </a>
                 {/* ===================== */}
@@ -315,11 +205,28 @@ useEffect(() => {
                 {/* ===================== */}
 
                 <a
-                  href="/dashboard/products"
+                  href="/super_admin/all_products"
                   className="link"
-                  id="products"
+                  id="allProd"
                   onClick={changeBg}
                 >
+                  <li
+                    className={
+                      activeBg == "allProd"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <ViewListIcon className="sidebarIcon" />
+                    All Prod
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a href="#" className="link" id="products" onClick={changeBg}>
                   <li
                     className={
                       activeBg == "products"
@@ -327,52 +234,30 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <Inventory2Icon className="sidebarIcon" />
-                    Inventory
+                    <GroupsIcon className="sidebarIcon" />
+                    Customer
                   </li>
                 </a>
-
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
                 <a
-                  href="/dashboard/cart"
+                  href="/super_admin/register_user"
                   className="link"
-                  id="cart"
+                  id="register"
                   onClick={changeBg}
                 >
                   <li
                     className={
-                      activeBg == "cart"
+                      activeBg == "register"
                         ? "sidebarListItem list-item-active"
                         : "sidebarListItem"
                     }
                   >
-                    <ShoppingCartIcon className="sidebarIcon" />
-                    My Cart
-                  </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                <a
-                  href="/dashboard/savings"
-                  className="link"
-                  id="savings"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "savings"
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
-                  >
-                    <PlaylistAddRoundedIcon className="sidebarIcon" />
-                    Savings
+                    <GroupAddIcon className="sidebarIcon" />
+                    Register
                   </li>
                 </a>
                 {/* ===================== */}
@@ -380,12 +265,7 @@ useEffect(() => {
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <a
-                  href="/dashboard/accounts"
-                  className="link"
-                  id="accounts"
-                  onClick={changeBg}
-                >
+                <a href="#" className="link" id="accounts" onClick={changeBg}>
                   <li
                     className={
                       activeBg == "accounts"
@@ -411,7 +291,7 @@ useEffect(() => {
                 {/* =================== */}
                 {/* =================== */}
                 <a
-                  href="/dashboard"
+                  href="/super_admin"
                   id="Home"
                   className="link"
                   onClick={changeBg}
@@ -423,8 +303,8 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <HomeIcon className="sidebarIcon" />
-                    Home
+                    <Inventory2Icon className="sidebarIcon" />
+                    Products
                   </li>
                 </a>
                 {/* ===================== */}
@@ -433,11 +313,29 @@ useEffect(() => {
                 {/* ===================== */}
 
                 <a
-                  href="/dashboard/products"
+                  href="/super_admin/all_products"
                   className="link"
-                  id="products"
+                  id="allProd"
                   onClick={changeBg}
                 >
+                  <li
+                    className={
+                      activeBg == "allProd"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <ViewListIcon className="sidebarIcon" />
+                    {/* <GroupIcon className="sidebarIcon" /> */}
+                    All Prod
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a href="#" className="link" id="products" onClick={changeBg}>
                   <li
                     className={
                       activeBg == "products"
@@ -445,67 +343,41 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <Inventory2Icon className="sidebarIcon" />
+                    <GroupsIcon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
-                    Inventory
+                    Customer
                   </li>
                 </a>
-
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
                 <a
-                  href="/dashboard/cart"
+                  href="/super_admin/register_user"
                   className="link"
-                  id="cart"
+                  id="register"
                   onClick={changeBg}
                 >
                   <li
                     className={
-                      activeBg == "cart"
+                      activeBg == "register"
                         ? "sidebarListItem small_list-item-active"
                         : "sidebarListItem"
                     }
                   >
-                    <ShoppingCartIcon className="sidebarIcon" />
-                    My Cart
+                    <GroupAddIcon className="sidebarIcon" />
+                    {/* <GroupIcon className="sidebarIcon" /> */}
+                    Register
                   </li>
                 </a>
+
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <a
-                  href="/dashboard/savings"
-                  className="link"
-                  id="savings"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "savings"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
-                  >
-                    <PlaylistAddRoundedIcon className="sidebarIcon" />
-                    Savings
-                  </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-
-                <a
-                  href="/dashboard/accounts"
-                  className="link"
-                  id="accounts"
-                  onClick={changeBg}
-                >
+                <a href="#" className="link" id="accounts" onClick={changeBg}>
                   <li
                     className={
                       activeBg == "accounts"
@@ -555,14 +427,4 @@ useEffect(() => {
   );
 };
 
-const mapStateToProps = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-});
-
-// export default DashboardSidebar;
-
-
-export default connect(mapStateToProps, { })(
-  DashboardSidebar
-);
+export default AdminSideBar;

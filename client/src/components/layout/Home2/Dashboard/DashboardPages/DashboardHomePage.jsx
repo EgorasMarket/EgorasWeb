@@ -2,6 +2,8 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "../DashboardStyles/dashboard_home.css";
+import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../../actions/types";
+import axios from "axios";
 const cards = [
   {
     id: 1,
@@ -170,6 +172,37 @@ const responsive7 = {
 };
 const DashboardHomePage = () => {
   const [savedNum, setSavedNum] = useState(5);
+
+
+  const config = {
+    headers: {
+      'Content-Type': 'application/json'
+    },
+  };
+
+const [itemGalleryShow,setItemGalleryShow]= useState([]);
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "phlip");
+     
+       
+        setItemGalleryShow(data.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
   return (
     <div className="other2">
       <section className="no-bg">
@@ -300,13 +333,13 @@ const DashboardHomePage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {itemDetails.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                  {itemGalleryShow.map((asset) => (
+                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${asset.img})`,
+                            backgroundImage: `url(${api_url2+'/'+ asset.product_image})`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -319,16 +352,16 @@ const DashboardHomePage = () => {
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
                             <button className="items_remaining_btn">
-                              {asset.Save_button}
+                              save now
                             </button>
                             <button className="items_remaining_btn2">
-                              {asset.percentage} off
+                              40 off
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_name">{asset.product_name}</div>
                             <div className="asset_title">
-                              {asset.items_remainings}
+                              {asset.unitCount}{ asset.unitCount === 1 ? "item" : (asset.unitCount < 1) ? " ":"items"}
                             </div>
                           </div>
                           {/* </a> */}
@@ -379,13 +412,14 @@ const DashboardHomePage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {itemDetails.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+
+{itemGalleryShow.map((asset) => (
+                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${asset.img})`,
+                            backgroundImage: `url(${api_url2+'/'+ asset.product_image})`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -398,16 +432,16 @@ const DashboardHomePage = () => {
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
                             <button className="items_remaining_btn">
-                              {asset.Save_button}
+                              save now
                             </button>
                             <button className="items_remaining_btn2">
-                              {asset.percentage} off
+                              40 off
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_name">{asset.product_name}</div>
                             <div className="asset_title">
-                              {asset.items_remainings}
+                              {asset.unitCount}{ asset.unitCount === 1 ? "item" : (asset.unitCount < 1) ? " ":"items"}
                             </div>
                           </div>
                           {/* </a> */}
@@ -415,6 +449,8 @@ const DashboardHomePage = () => {
                       </li>
                     </a>
                   ))}
+                
+                       
                 </Carousel>
                 {/* Carousel end==============================
 ==============================================
