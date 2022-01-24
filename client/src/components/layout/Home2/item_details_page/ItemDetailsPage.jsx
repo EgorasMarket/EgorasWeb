@@ -9,12 +9,13 @@ import { connect } from "react-redux";
 function ItemDetailsPage({ match}) {
   const config = {
     headers: {
-        'Content-Type': 'application/json'
+      'Content-Type': 'application/json'
     },
   };
+  const [spec,setSpec]=useState([]);
   const [product_id, setProductId] = useState(match.params.id)
   const [asset, setAsset] = useState("");
-  const [itemsLeft, setItemsLeft] = useState(5);
+ 
   const [maxDuration, setmaxDuration] = useState(25);
   const [base, setBase] = useState("");
   // const [base1, setBase1] = useState("");
@@ -29,15 +30,35 @@ function ItemDetailsPage({ match}) {
   const [activeBg, setActiveBg] = useState("descript");
 
   const [dataFlow,setDataFlow]=useState([]);
+  const [term,setTerm]=useState([]);
 
   const [productDetails, setProductDetails] = useState({
     
     product_image: "",
-    product_name: ""
+    product_name: "",
+    product_brand:"",
+    Product_type:"",
+    unitCount:"",
+    amount:"",
+    product_duration:"",
+    product_category_code:"",
+    product_details:"",
+    productSpecification:""
     
   })
 
-  const { product_image,product_name }= productDetails;
+
+  const { product_image,product_name ,
+  
+  product_brand,
+  product_type,
+  unitCount,
+  amount,
+  product_duration,
+  product_category_code,
+  productSpecification,
+  product_details
+}= productDetails;
 
   useEffect(() => {
 
@@ -55,20 +76,55 @@ function ItemDetailsPage({ match}) {
        
         console.log(data.data.data, "king");
 
+      
+       
+     const getSlid = data.data.data.product_specifications;
+    //  const slipVar = getSlid.split(',');
+    console.log('====================================');
+    console.log(getSlid);
+    console.log('====================================');
+    setSpec(getSlid)
+    // const slipVar = spec.split(',');
+
         setProductDetails({
           product_image: data.data.data.product_image,
-          product_name: data.data.data.product_name      
+          product_name: data.data.data.product_name ,
+          product_brand:data.data.data.product_brand,
+          product_type:data.data.data.product_type,
+          unitCount:data.data.data.unitCount,
+          amount:data.data.data.amount,
+          product_duration:data.data.data.product_duration,
+          product_category_code:data.data.data.product_category_code,
+          product_details:data.data.data.product_detail,
+          // productSpecification:slipVar[0]
         })
+
+        // console.log(amount,"rent");
+
+        // setSpec(data.data.data.Product_specification);
+        // console.log(product_specification)
 
         // setDataFlow(data.data.data)
        
-   
+        // console.log(product_name,"samuel Une")
 
     }).catch((err) => {
         console.log(err.response); // "oh, no!"
     })
 }, []);
 
+
+// const food = spec[0].split('');
+// console.log(food[0])
+
+const [itemsLeft, setItemsLeft] = useState(2);
+
+// const iteming = unitCount;
+
+console.log('====================================');
+console.log(spec);
+console.log(productDetails)
+console.log('====================================');
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
@@ -76,6 +132,7 @@ function ItemDetailsPage({ match}) {
 
   const increaseCount = () => {
     setCount(count + 1);
+    
     setItemsLeft(itemsLeft - 1);
     if (count >= 4) {
       setDisable(true);
@@ -84,6 +141,12 @@ function ItemDetailsPage({ match}) {
     } else {
       setDisable(false);
       setDisable2(false);
+    }
+
+    if ((unitCount <= 1) || (count >= unitCount) ||(count === unitCount)){
+      setDisable(true);
+    }else{
+      setDisable(false);
     }
   };
   // -=========--
@@ -97,6 +160,12 @@ function ItemDetailsPage({ match}) {
       setDisable2(true);
       setDisable(false);
       console.log("stop count2");
+    }
+
+    if ((unitCount <= 1) || (count < 1)){
+      setDisable2(true);
+    }else{
+      setDisable2(false);
     }
   };
 
@@ -217,12 +286,38 @@ function ItemDetailsPage({ match}) {
   }, []);
 
 
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "phlip");
+     
+       
+        // setTerm(data.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
+
   const ID = match.params.id;
 
   if(ID=== "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b"){
     console.log('Hello Mr King')
   }
 
+
+ 
 
   return (
     <div className="other2">
@@ -241,24 +336,24 @@ function ItemDetailsPage({ match}) {
               {/* ================ */}
               <div className="details_area1_cont2">
                 {" "}
-                <div className="product_details_Title">{product_name}</div>
+                <div className="product_details_Title">{base}</div>
                 <div className="product_details_code">
                   <span className="product_code_title">Product Code: </span>
-                  {productCode}
+                  {product_category_code}
                 </div>
                 <div
                   className="product_details_code"
                   style={{ color: "#239e54" }}
                 >
                   <span className="product_code_title">Brand: </span>
-                  {BrandCode}
+                  {product_brand}
                   {/* {props.Brand} */}
                   
                 </div>
                 {/* ----------------- */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
-                <div className="product_details_price">₦{productPrice}</div>
+                <div className="product_details_price">₦{amount}</div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="quantity_div">
@@ -296,11 +391,11 @@ function ItemDetailsPage({ match}) {
 
                   <div className="items_left_div">
                     Items Left:{" "}
-                    <span className="items_left_numb">{itemsLeft} items</span>
+                    <span className="items_left_numb">{unitCount} { unitCount === 1 ? "item" : (unitCount < 1) ? " ":"items"}</span>
                   </div>
                   <div className="items_left_div">
                     Savings max-duration:{" "}
-                    <span className="days_left_numb">{maxDuration} days</span>
+                    <span className="days_left_numb">{product_duration} {product_duration === 1 ? "month":product_duration <= 0 ? "" : "months"}</span>
                   </div>
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
@@ -324,6 +419,9 @@ function ItemDetailsPage({ match}) {
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
+
+
+
             <div className="description_area">
               <div className="description_header">
                 <div
@@ -338,20 +436,102 @@ function ItemDetailsPage({ match}) {
                   Description
                 </div>
               </div>
+                {/* {spec.map((tree)=>( */}
+
+                {/* <div className='my-4'>
+                  {spec.map((tree)=>(
+                    <span style={{display:'flex',flexDirection:'column'}}>{tree}</span>
+                  ))}
+                </div> */}
+
 
               <div className="description_body">
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
                       <tr>
+                        {/* <td>Colour</td> */}
+                        <td>{spec[0]}</td>
+                      </tr>
+                      <tr>
+                        {/* <td>Warranty Period</td> */}
+                        <td>{spec[1]}</td>
+                      </tr>
+                      {/* <tr>
+                       <td>
+                       {tree[0]}
+                       </td>
+                      </tr> */}
+                      <tr>
+                        {/* <td>Brand</td> */}
+                        <td>
+                          {spec[2]}
+                        </td>
+                      </tr>
+                      <tr>
+                        {/* <td>Display Features</td> */}
+                        <td>{spec[3]}</td>
+                      </tr>
+                      <tr>
+                        {/* <td>Display Technology</td> */}
+                        <td>{spec[4]}</td>
+                      </tr>
+                      <tr>
+                        {/* <td>TV Screen Size</td> */}
+                        <td>{spec[5]}</td>
+                      </tr>
+                      {/* <tr> */}
+                        {/* <td>Television 3D Technology</td> */}
+                        {/* <td>{spec[6]}</td> */}
+                      {/* </tr> */}
+
+                      {/* <tr> */}
+                        {/* <td>Resolution</td> */}
+                        {/* <td>{spec[7]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
+                        {/* <td>Intended Display Use</td> */}
+                        {/* <td>{spec[8]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
+                        {/* <td>Television Screen Type</td> */}
+                        {/* <td>{spec[9]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
+                        {/* <td>Television Refresh Rate</td> */}
+                        {/* <td>{spec[10]}</td> */}
+                      {/* </tr> */}
+                    </tbody>
+                  </table>
+                </div>
+                {/* ====== */}
+                {/* ====== */}
+              </div>
+
+
+              {/* <div className='my-4'>
+                  {spec.map((tree)=>(
+                    <span style={{display:'flex',flexDirection:'column'}}>{tree}</span>
+                  ))}
+                </div> */}
+              {/* <div className="description_body">
+                <div className="description_table">
+                  <table class="_3a09a_1e-gU">
+                    <tbody>
+                      <tr>
                         <td>Colour</td>
-                        <td>Black</td>
+                        <td>{spec[0]}</td>
                       </tr>
                       <tr>
                         <td>Warranty Period</td>
                         <td>6 Months</td>
-                      </tr>
-                      <tr>
+                      </tr> */}
+                      {/* <tr>
+                       <td>
+                       {tree[0]}
+                       </td>
+                      </tr> */}
+                      {/* <tr>
                         <td>Brand</td>
                         <td>
                           <a href="/brand/samsung">Samsung</a>
@@ -391,393 +571,14 @@ function ItemDetailsPage({ match}) {
                       </tr>
                     </tbody>
                   </table>
-                </div>
+                </div> */}
                 {/* ====== */}
                 {/* ====== */}
-                <div className="desc_details">
-                  <p>
-                    <br />
-                    Specifications Detail
-                    <br />
-                    Product Type
-                    <br />
-                    LED
-                    <br />
-                    Series
-                    <br />8<br />
-                    Display
-                    <br />
-                    Screen Size50"
-                    <br />
-                    &nbsp;
-                    <br />
-                    Resolution3,840 x 2,160
-                    <br />
-                    Video
-                    <br />
-                    Picture EngineCrystal Processor 4K
-                    <br />
-                    &nbsp;
-                    <br />
-                    One Billion ColorYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    PQI (Picture Quality Index)2200
-                    <br />
-                    &nbsp;
-                    <br />
-                    HDR (High Dynamic Range)HDR
-                    <br />
-                    &nbsp;
-                    <br />
-                    HDR 10+Support
-                    <br />
-                    &nbsp;
-                    <br />
-                    HLG (Hybrid Log Gamma)Yes
-                    <br />
-                    &nbsp;
-                    <br />
-                    ContrastMega Contrast
-                    <br />
-                    &nbsp;
-                    <br />
-                    ColorDynamic Crystal Color
-                    <br />
-                    &nbsp;
-                    <br />
-                    Micro DimmingUHD Dimming
-                    <br />
-                    &nbsp;
-                    <br />
-                    Contrast EnhancerYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Auto Motion PlusYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Film ModeYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Natural Mode SupportYes
-                    <br />
-                    Audio
-                    <br />
-                    Dolby Digital PlusYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Q-SymphonyQ-Symphony
-                    <br />
-                    &nbsp;
-                    <br />
-                    Sound Output (RMS)20 W<br />
-                    &nbsp;
-                    <br />
-                    Speaker Type2 CH
-                    <br />
-                    &nbsp;
-                    <br />
-                    Blutooth AudioYes
-                    <br />
-                    Smart Service
-                    <br />
-                    Samsung SMART TVSmart
-                    <br />
-                    &nbsp;
-                    <br />
-                    Operating SystemTizen™
-                    <br />
-                    &nbsp;
-                    <br />
-                    BixbyUS English, UK English, India English, Korean, French,
-                    German, Italian, Spanish, Portuguese (features vary by
-                    language)
-                    <br />
-                    &nbsp;
-                    <br />
-                    Web BrowserYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    SmartThings App SupportYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    GalleryYes
-                    <br />
-                    Convergence
-                    <br />
-                    Mobile to TV - Mirroring, DLNAYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Tap ViewYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Sound WallYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Easy SetupYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    App CastingYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Bluetooth Low EnergyYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    WiFi DirectYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    TV Sound to MobileYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Sound MirroringYes
-                    <br />
-                    Differentiation
-                    <br />
-                    Analog Clean ViewYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Triple ProtectionYes
-                    <br />
-                    Game Feature
-                    <br />
-                    Auto Game Mode (ALLM)Yes
-                    <br />
-                    Tuner/Broadcasting
-                    <br />
-                    Digital BroadcastingDVB-T2S2
-                    <br />
-                    &nbsp;
-                    <br />
-                    Analog TunerYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    TV Key SupportYes
-                    <br />
-                    Connectivity
-                    <br />
-                    HDMI3
-                    <br />
-                    &nbsp;
-                    <br />
-                    USB2
-                    <br />
-                    &nbsp;
-                    <br />
-                    Composite In (AV)1
-                    <br />
-                    &nbsp;
-                    <br />
-                    Ethernet (LAN)Yes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Digital Audio Out (Optical)1
-                    <br />
-                    &nbsp;
-                    <br />
-                    RF In (Terrestrial / Cable input)1/1(Common Use for
-                    Terrestrial)/1
-                    <br />
-                    &nbsp;
-                    <br />
-                    HDMI A / Return Ch. SupportYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    eARCYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    HDMI Quick SwitchYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Wireless LAN Built-inYes (WiFi5)
-                    <br />
-                    &nbsp;
-                    <br />
-                    BluetoothYes (BT5.2)
-                    <br />
-                    &nbsp;
-                    <br />
-                    Anynet+ (HDMI-CEC)Yes
-                    <br />
-                    Design
-                    <br />
-                    DesignAirSlim
-                    <br />
-                    &nbsp;
-                    <br />
-                    Bezel Type3 Bezel-less
-                    <br />
-                    &nbsp;
-                    <br />
-                    Slim TypeSlim look
-                    <br />
-                    &nbsp;
-                    <br />
-                    Front ColorBLACK
-                    <br />
-                    &nbsp;
-                    <br />
-                    Stand TypeFLAT LIFT
-                    <br />
-                    &nbsp;
-                    <br />
-                    Stand ColorBLACK
-                    <br />
-                    Additional Feature
-                    <br />
-                    Adaptive SoundAdaptive Sound
-                    <br />
-                    &nbsp;
-                    <br />
-                    AmbienceAmbient Mode
-                    <br />
-                    &nbsp;
-                    <br />
-                    Brightness/Color DetectionBrightness Detection
-                    <br />
-                    &nbsp;
-                    <br />
-                    Accessibillity - Voice GuideUAE: UK English, French / AFR:
-                    UK English, French, Portuguese / Egypt,Libya: UK English,
-                    French, German, Spanish
-                    <br />
-                    &nbsp;
-                    <br />
-                    Accessibility - Learn TV Remote / Learn Menu ScreenUAE: UK
-                    English, French / AFR: UK English, French, Portuguese /
-                    Egypt,Libya: UK English, French, Spanish
-                    <br />
-                    &nbsp;
-                    <br />
-                    Accessibility - OthersEnlgarge / High Contrast /
-                    Multi-output Audio / Color Inversion / Grayscale / Sign
-                    Language Zoom / Slow Button Repeat
-                    <br />
-                    &nbsp;
-                    <br />
-                    Digital Clean ViewYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Auto Channel SearchYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Auto Power OffYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Caption (Subtitle)Yes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Connect Share™ (HDD)Yes
-                    <br />
-                    &nbsp;
-                    <br />
-                    ConnectShare™ (USB 2.0)Yes
-                    <br />
-                    &nbsp;
-                    <br />
-                    EPGYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Wireless DexYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Web ServiceMicrosoft 365
-                    <br />
-                    &nbsp;
-                    <br />
-                    Filmmaker Mode (FMM)Yes
-                    <br />
-                    &nbsp;
-                    <br />
-                    OSD LanguageLocal Languages
-                    <br />
-                    &nbsp;
-                    <br />
-                    BT HID Built-inYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    USB HID SupportYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    Teletext (TTX)Yes
-                    <br />
-                    &nbsp;
-                    <br />
-                    IPv6 SupportYes
-                    <br />
-                    &nbsp;
-                    <br />
-                    MBR SupportYes
-                    <br />
-                    Power
-                    <br />
-                    Power SupplyAC220-240V 50/60Hz
-                    <br />
-                    &nbsp;
-                    <br />
-                    Power Consumption (Max)140 W<br />
-                    Dimension
-                    <br />
-                    Package Size (WxHxD)1246 x 771 x 137 mm
-                    <br />
-                    &nbsp;
-                    <br />
-                    Set Size with Stand (WxHxD)1118.3 x 684.6 x 226.6 mm
-                    <br />
-                    &nbsp;
-                    <br />
-                    Set Size without Stand (WxHxD)1118.3 x 644.5 x 25.7 mm
-                    <br />
-                    &nbsp;
-                    <br />
-                    Stand (Basic) (WxD)763.6 x 226.6 mm
-                    <br />
-                    &nbsp;
-                    <br />
-                    VESA Spec200 x 200 mm
-                    <br />
-                    Weight
-                    <br />
-                    Package Weight15.40 kg
-                    <br />
-                    &nbsp;
-                    <br />
-                    Set Weight with Stand12.20 kg
-                    <br />
-                    &nbsp;
-                    <br />
-                    Set Weight without Stand11.5 kg
-                  </p>
-                </div>
-              </div>
+              {/* </div> */}
+               
+
+
+              {/* ))} */}
             </div>
             {/* ================ */}
             {/* ================ */}
@@ -817,7 +618,7 @@ function ItemDetailsPage({ match}) {
                     swipeable={true}
                     style={{ height: "25em" }}
                   >
-                    {itemDetails.map((asset) => (
+                    {term.map((asset) => (
                       // <div className="cardA">
                       //   <div className="img">
                       //     <div
@@ -873,12 +674,12 @@ function ItemDetailsPage({ match}) {
                       //     </div>
                       //   </div>
                       //   </div>
-                      <a href={`/products/details/${asset.id}/${asset.name}`}>
+                      <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${asset.img})`,
+                              backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -891,16 +692,16 @@ function ItemDetailsPage({ match}) {
                           >
                             <div className="storeTiles_storeTileOffersContainer__3v8lC">
                               <button className="items_remaining_btn">
-                                {asset.Save_button}
+                                save now
                               </button>
                               <button className="items_remaining_btn2">
-                                {asset.percentage} off
+                                20% off
                               </button>
                             </div>
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">{asset.name}</div>
+                              <div className="asset_name">{asset.product_name}</div>
                               <div className="asset_title">
-                                {asset.items_remainings}
+                                {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
                               </div>
                             </div>
                             {/* </a> */}

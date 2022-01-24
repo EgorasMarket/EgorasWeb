@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {API_URL2 as api_url2} 
- from "../../../../../actions/types";
+import { API_URL2 as api_url2 } from "../../../../../actions/types";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
 // import AvatarSelector from "react-avatar-selector";
@@ -15,9 +14,8 @@ import jwt from "jsonwebtoken";
 
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-// import TextField from "@mui/material/TextField";
-// import AdapterDateFns from "@mui/lab/AdapterDateFns";
-// import LocalizationProvider from "@mui/lab/LocalizationProvider";
+
+// import TimePicker from "@mui/lab/TimePicker";
 // import TimePicker from "@mui/lab/TimePicker";
 // import DateTimePicker from "@mui/lab/DateTimePicker";
 // import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
@@ -31,21 +29,27 @@ import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
-import { sumitGenderAndDate, nextOfKING,changePassword } from "../../../../../actions/auth";
+import { sumitGenderAndDate, nextOfKING, changePassword } from "../../../../../actions/auth";
 import { setAlert } from "../../../../../actions/alert";
 // import {getNaame} from "../../../Signup/signup"
 
-function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,changePassword}) {
-
+function DashboardAccountPage({
+  sumitGenderAndDate,
+  setAlert,
+  nextOfKING,
+  auth,
+  changePassword,
+}) {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-
-
+  const [image, setImage] = useState("");
+  const [previewImg, setPreviewImg] = useState(null) 
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
-  const [address, setAddress] = useState("");
+  const [customerAddress, setAddress] = useState("");
+  const [customer_image, setcustomer_image] = useState("");
 
   const [nextKin, setNextKin] = useState({
     firstname: "",
@@ -54,98 +58,47 @@ function DashboardAccountPage({ sumitGenderAndDate, setAlert, nextOfKING , auth,
     phoneNumber: "",
     relationship: "",
     gender: "",
-   
   });
 
-
-  const [changePassword1,setChangePassword]=useState({oldpassword:"",newpassword:""})
+  const [changePassword1, setChangePassword] = useState({
+    oldpassword: "",
+    newpassword: "",
+  });
 
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
     Userlastname: "",
     Useremail: "",
     UserphoneNumber: "",
+    UseruserImage: "",
     Userrelationship: "",
     Usergender: "",
-    Userbvn:""
-   
+    Userbvn: "",
+    UserdateOfBirth: "",
   });
 
-
-  const { oldpassword,newpassword }= changePassword1;
-
-  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UserphoneNumber,Userbvn } =
+  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
   userInfo;
 
-  //    useEffect(()=>{
+  const { oldpassword, newpassword } =
+  changePassword1;
+
 
   
-  //      const userInfo =
-  //     () =>
-  //     async (dispatch) => {
-  //       const config = {
-  //         headers: {
-  //           Accept: "*",
-  //           "Access-Control-Allow-Origin": "*",
-  //         },
-  //       };
-    
-     
-    
-  //       try {
-  //         const res = await axios.get(
-  //           api_url2 + "/v1/user/info",
-            
-  //           config
-  //         );
-  //         console.log(res);
-    
-  //         return {
-  //           success: true,
-  //           data: res.data,
-  //         };
-  //       } catch (err) {
-  //         console.log(err.response);
-    
-  //         return {
-  //           success: false,
-  //           data: err.response,
-  //         };
-  //       }
-  //     };
-
-  // },[])
-
-//   useEffect(() => {
-  
-//     axios
-//       .get(
-//         api_url2+
-//           "/v1/user/info",
-//         null,
-//         config
-//       )
-//       .then((data) => {
-//         console.log(data);
-        
-//       });
-  
-
-//   // }
-// }, []);
-
-
-
 useEffect(() => {
   // fetchDepositLinks();
-  console.log(auth.user);
+  console.log(auth);
   if (auth.user !== null) {
-    console.log(auth);
+    // let dataa = 'stackabuse.com';
+    // console.log( new Buffer(dataa));
     var todecoded = auth.user;
+    var todecodedn = todecoded.user.userImage;
 
     // console.log('====================================');
-    console.log(todecoded.user.fullname);
+    console.log(todecodedn);
     // console.log('====================================');
+
+
     const getName = todecoded.user.fullname
     const splitName = getName.split(' ');
 
@@ -153,17 +106,22 @@ useEffect(() => {
       Userfirstname: splitName[0],
       Userlastname: splitName[1],
       Useremail: todecoded.user.email,
+      UseruserImage: todecoded.user.userImage,
       UserphoneNumber: todecoded.user.phoneNumber,
       Userrelationship: todecoded.user.relationship,
       Usergender: todecoded.user.gender,
-      Userbvn:todecoded.user.BVN
+      Userbvn:todecoded.user.BVN,
+      UserdateOfBirth:todecoded.user.dateOfBirth,
     })
+
+    if (todecoded.user.userImage !== null) {
+      setImage(api_url2+'/'+todecoded.user.userImage)
+    } else {
+      setImage('../../img/profile_img.jpeg')
+    }
     
   }
 }, [auth]);
-
-
-
 
 
 
@@ -171,15 +129,14 @@ useEffect(() => {
   //   firstname:"",lastname:"",phoneNumber:"",email:"",BVN:"",
   // })
 
-
   // const {firstname1,lastname1,phoneNumber1,email1,BVN1} = userInfoUpdate;
 
-  const [userName,setUserName]=useState({user:""});
-  const [nameUpdate,setNameUpdate]= useState("");
+  const [userName, setUserName] = useState({ user: "" });
+  const [nameUpdate, setNameUpdate] = useState("");
 
-  const {user}=userName;
+  const { user } = userName;
 
-  console.log('okkkk');
+  // console.log('okkkk');
 
   // const config = {
   //   headers: {
@@ -198,12 +155,12 @@ useEffect(() => {
 
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-    console.log(nextKin)
+    console.log(nextKin);
   };
 
-  const onChangeFor4 =(e)=>{
-    setChangePassword({...changePassword1,[e.target.name]:e.target.value})
-  }
+  const onChangeFor4 = (e) => {
+    setChangePassword({ ...changePassword1, [e.target.name]: e.target.value });
+  };
 
   // const updateUser =()=>{
   //   setUserName()
@@ -223,11 +180,39 @@ useEffect(() => {
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
-  const [image, setImage] = useState("../../img/profile_img.jpeg");
+
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
+
+      const types = ["jpg", "png", "jpeg"];
+
+      if (event.currentTarget.id === "customer_image") {
+        if (event.currentTarget.files.length === 0) {
+          // setUserInfo({ ...userInfo, applicantImg: "" });
+          // document.getElementById("output1").src = "";
+        } else {
+          let passportFile = document.getElementById("customer_image").files[0];
+
+          let fileExtension = passportFile.name.split(".").pop();
+          console.log(passportFile);
+
+          if (!types.includes(fileExtension)) {
+          } else {
+            if (passportFile.size > 1000000) {
+              console.log("file too large.");
+            }
+            // else {
+            //   setcustomer_image(passportFile);
+            // }
+          }
+        }
+      }
     }
+  };
+
+  const onChangeaddress = (event) => {
+    setAddress(event.target.value);
   };
 
   const handleChange = (event) => {
@@ -268,13 +253,13 @@ useEffect(() => {
 
     console.log(res);
 
-    if (res.data.data.success === true) {
+    if (res.success === true) {
       console.log("okay Good Server");
     } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
+      console.log("Something went wrong!");
+      // setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
-
 
   // const updateInfo = async (e) => {
   //   let res = await userInfo(firstname1,lastname1,phoneNumber1,email1,BVN1);
@@ -295,8 +280,7 @@ useEffect(() => {
       email,
       phoneNumber,
       relationship,
-      gender,
-     
+      gender
     );
 
     console.log(res);
@@ -307,15 +291,9 @@ useEffect(() => {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
-
 
   const sumitChangePassword = async (e) => {
-    let res = await changePassword(
-      oldpassword,
-      newpassword,
-    
-     
-    );
+    let res = await changePassword(oldpassword, newpassword);
 
     console.log(res);
 
@@ -325,6 +303,77 @@ useEffect(() => {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
+
+  const AddUserPhoto = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    if (customer_image === "") {
+      console.log("empty passport");
+
+      // setAlert('Please provide a passport photo', 'danger');
+    } else {
+      const element = document.getElementById("customer_image");
+      const file = element.files[0];
+      formData.append("customer_image", file, file.name);
+
+      console.log(formData, "hhhh");
+
+      try {
+        const res = await axios.put(
+          api_url2 + "/v1/user/add/customer/image",
+          formData
+        );
+        console.log(res.data, "undefined");
+
+        if (res.data.statusCode === 200) {
+          // setPassportUpload(true)
+        } else {
+          // setAlert('Something went wrong, please try again later', 'danger');
+        }
+      } catch (err) {
+        console.log(err.response);
+        // setAlert('Check your internet connection', 'danger');
+      }
+    }
+
+  }
+
+  const submitAddress = async e => {
+    e.preventDefault();
+
+    // console.log('vbvbvb');
+
+    if (customerAddress === '') {
+        console.log('empty address');
+
+        // setAlert('Please provide a passport photo', 'danger');
+
+    } else {
+
+      const body = JSON.stringify({ customerAddress });
+      console.log(body);
+
+        try {
+            const res = await axios.post(api_url2 + '/v1/user/add/address', body, config);
+            console.log(res.data, 'undefined');
+
+            if (res.data.statusCode === 200) {
+                // setPassportUpload(true)
+            } else {
+                // setAlert('Something went wrong, please try again later', 'danger');
+            }
+
+        } catch (err) {
+            console.log(err.response);
+            // setAlert('Check your internet connection', 'danger');
+        }
+
+    }
+
+  }
+
 
 
   return (
@@ -380,43 +429,46 @@ useEffect(() => {
                     {/* ================= */}
                     {/* ================= */}
                     <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Change Profile Picture{" "}
-                        <span className="toggle_body_area1_cont1_sub_txts">
-                          {" "}
-                          Choose a new avatar to be used across Egoras
-                        </span>
-                      </div>
+                      
+                      {
+                          UseruserImage === null ? (
+                            <div className="toggle_body_area1_cont1_txts">
+                              Change Profile Picture{" "}
+                              <span className="toggle_body_area1_cont1_sub_txts">
+                                {" "}
+                                Choose a new avatar to be used across Egoras
+                              </span>
+                            </div>
+
+                          ) : (
+                            <div className="toggle_body_area1_cont1_txts">
+                              My Profile Picture{" "}
+                              <span className="toggle_body_area1_cont1_sub_txts">
+                                {" "}
+                                {/* Choose a new avatar to be used across Egoras */}
+                              </span>
+                            </div>
+                          )
+                        }
                       <div className="toggle_body_area1_cont1_input">
                         {" "}
                         <img
-                          // src={value}
-                          src={image}
-                          // src="/img/profile_img.jpeg"
+
+                            src={image} 
+                            
+
                           alt=""
                           className="user_upload_img"
                         />
-                        <AddCircleIcon
-                          className="add_icon"
-                          onClick={openModal}
-                        />{" "}
-                        {/* <label
-                          for="file-upload"
-                          className="custom-file-upload"
-                          onChange={onImageChange}
-                        >
-                          <AddCircleIcon
-                            className="add_icon"
-                            onChange={onImageChange}
-                          />{" "}
-                        </label>
-                        <input
-                          type="file"
-                          id="file-upload"
-                          onChange={onImageChange}
-                          className="filetype"
-                        /> */}
-                        {/* <input type="file" name="" id="" /> */}
+                        {
+                          UseruserImage === null ? (
+                            <AddCircleIcon
+                              className="add_icon"
+                              onClick={openModal}
+                            />
+                          ) : null
+                        }
+                       
                       </div>
                     </div>
                     {/* ================= */}
@@ -466,30 +518,36 @@ useEffect(() => {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="radio_group">
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="male"
-                            value="Male"
-                            onChange={onChangeFor}
-                          />
-                          <label for="male" class="radio">
-                            Male
-                          </label>
-                        </div>
-                        <div className="radio_group">
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="female"
-                            value="Female"
-                            onChange={onChangeFor}
-                          />
-                          <label for="female" class="radio">
-                            Female
-                          </label>
-                        </div>
+                        {Usergender === null ? (
+                          <div className="d-flex">
+                            <div className="radio_group pr-4">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="male"
+                                value="Male"
+                                onChange={onChangeFor}
+                              />
+                              <label for="male" class="radio">
+                                Male
+                              </label>
+                            </div>
+                            <div className="radio_group">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="female"
+                                value="Female"
+                                onChange={onChangeFor}
+                              />
+                              <label for="female" class="radio">
+                                Female
+                              </label>
+                            </div>
+                          </div>
+                        ) : (
+                          Usergender
+                        )}
                       </div>
                     </div>
                     {/* ================= */}
@@ -505,44 +563,38 @@ useEffect(() => {
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {/* <DesktopDatePicker
-                        label="Date desktop"
-                        inputFormat="MM/dd/yyyy"
-                        value={value}
-                        onChange={handleChange}
-                        renderInput={(params) => <TextField {...params} />}
-                      /> */}
-                        <input
-                          type="date"
-                          name="dateOfBirth"
-                          id=""
-                          value={dateOfBirth}
-                          className="name_input1 date_input"
-                          onChange={onChangeFor}
-                        />
-                        {/* <TextField
-                        className="name_input1"
-                        id="outlined-basic"
-                        label="Username"
-                        variant="outlined"
-                        value="Cyntax247"
-                      /> */}
+                        {UserdateOfBirth === null ? (
+                          <input
+                            type="date"
+                            name="dateOfBirth"
+                            id=""
+                            value={dateOfBirth}
+                            className="name_input1 date_input"
+                            onChange={onChangeFor}
+                          />
+                        ) : (
+                          UserdateOfBirth
+                        )}
                       </div>
                     </div>
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts"></div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn"
-                        onClick={sends}
-                        >
-                          Save Changes
-                        </button>
-                      </div>
-                    </div>
+                    {
+                      UserdateOfBirth === null ? (
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts"></div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <button className="save_changes_btn"
+                            onClick={sends}
+                            >
+                              Save Changes
+                            </button>
+                          </div>
+                        </div>
+                      ) : null
+                    }
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
@@ -676,8 +728,9 @@ useEffect(() => {
                               onChange={onChangeFor2}
                               // onSelect={onChangeFor2}
                             >
-                              <MenuItem 
-                              name="relationship"value="Mother" >Mother</MenuItem>
+                              <MenuItem name="relationship" value="Mother">
+                                Mother
+                              </MenuItem>
                               <MenuItem value="Father">Father</MenuItem>
                               <MenuItem value="Sister">Sister</MenuItem>
                               <MenuItem value="Uncle">Uncle</MenuItem>
@@ -709,7 +762,7 @@ useEffect(() => {
                             name="gender"
                             id="male"
                             // value={Male}
-                             value="Male"
+                            value="Male"
                             onChange={onChangeFor2}
                           />
                           <label for="male" class="radio" value={gender}>
@@ -739,7 +792,10 @@ useEffect(() => {
                     <div className="toggle_body_area1_cont1">
                       <div className="toggle_body_area1_cont1_txts"></div>
                       <div className="toggle_body_area1_cont1_input">
-                        <button className="save_changes_btn" onClick={nextOfKINGS}>
+                        <button
+                          className="save_changes_btn"
+                          onClick={nextOfKINGS}
+                        >
                           Save Changes
                         </button>
                       </div>
@@ -771,7 +827,7 @@ useEffect(() => {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        { Useremail}
+                        {Useremail}
                       </div>
                     </div>
                     {/* ================= */}
@@ -784,7 +840,7 @@ useEffect(() => {
                         <span className="toggle_body_area1_cont1_sub_txts"></span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {  UserphoneNumber} {phone_no2}
+                        {UserphoneNumber} {phone_no2}
                         <AddCircleIcon
                           className="edit_icon"
                           onClick={openModal2}
@@ -855,15 +911,16 @@ useEffect(() => {
                             id="outlined-basic"
                             label="Address"
                             variant="outlined"
-                            name="address"
-                            value={address}
-                            // onChange={onChangeFor2}
+                            name="customerAddress"
+                            value={customerAddress}
+                            onChange={onChangeaddress}
                           />
                           <button
                             className="add_photo"
                             style={{ width: "25%" }}
+                            onClick={submitAddress}
                           >
-                            Submit Address
+                            Submit Addresxs
                           </button>
                         </div>
                       </div>
@@ -911,7 +968,7 @@ useEffect(() => {
                     style={{ width: "250px", height: "250px" }}
                   />
                   <label
-                    for="file-upload"
+                    for="customer_image"
                     className="custom-file-upload33"
                     onChange={onImageChange}
                   >
@@ -922,19 +979,15 @@ useEffect(() => {
                   </label>
                   <input
                     type="file"
-                    id="file-upload"
-                    onChange={onImageChange}
-                    className="filetype"
-                  />
-                  <input
-                    type="file"
+                    id="customer_image"
+                    name="customer_image"
                     onChange={onImageChange}
                     className="filetype"
                   />
                 </div>{" "}
               </div>
               <div className="profile_modal_area2">
-                <button className="add_photo">
+                <button className="add_photo" onClick={AddUserPhoto}>
                   <AddAPhotoIcon className="photo_icon" /> Add Photo
                 </button>
                 <button className="cancel_photo" onClick={closeModal}>
@@ -989,7 +1042,7 @@ useEffect(() => {
                     variant="outlined"
                     name="changePassword"
                     type="password"
-                     value={oldpassword}
+                    value={oldpassword}
                     onChange={onChangeFor4}
                   />
                   <TextField
@@ -1022,14 +1075,15 @@ useEffect(() => {
   );
 }
 
-
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-
 // let  res = await getLogin2(
-export default connect(mapStateToProps, { sumitGenderAndDate, setAlert, nextOfKING,changePassword})(
-  DashboardAccountPage
-);
+export default connect(mapStateToProps, {
+  sumitGenderAndDate,
+  setAlert,
+  nextOfKING,
+  changePassword,
+})(DashboardAccountPage);

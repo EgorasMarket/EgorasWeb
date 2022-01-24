@@ -19,7 +19,7 @@ export default function (state = initialState, action) {
 
   switch (type) {
         case USER_LOADED:
-          // //console.log(payload);
+          // console.log(payload);
           
           return {
             ...state,

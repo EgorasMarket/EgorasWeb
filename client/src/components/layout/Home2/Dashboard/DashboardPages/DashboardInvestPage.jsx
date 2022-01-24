@@ -14,9 +14,10 @@ import {Link} from 'react-router-dom';
 
 import axios from "axios";
 import setAuthToken from "../../../../../utils/setAuthToken";
-import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../../actions/types"
-
-
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../../../actions/types";
 
 const Category = [
   {
@@ -190,26 +191,37 @@ const responsive7 = {
   },
 };
 
+function DashboardInvestPage({ auth }) {
+  // const [item,setItem]=useState({})
 
-
-function DashboardInvestPage({auth}) {
-
-// const [item,setItem]=useState({})
-
-const config = {
-  headers: {
-      'Content-Type': 'application/json'
-  },
-};
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
   
-
-const [item,setItem]=useState([]);
-
-const [img,setImg]=useState();
+  //  const names =["phones $ Tablet","grocery","Home & Kitchen","electronics","computer & electronics"]
 
 
-const { productId,productAmount,productBrand,ProductDetail,productDuration,ProductImg,productName,PrductSpec,unitCount}=item;
+
+  const [item, setItem] = useState([]);
+
+  // const [cItem,setCItem] =useState([])
+
+  const [img, setImg] = useState();
+
+  const {
+    productId,
+    productAmount,
+    productBrand,
+    ProductDetail,
+    productDuration,
+    ProductImg,
+    productName,
+    PrductSpec,
+    unitCount,
+  } = item;
 
   useEffect(() => {
   
@@ -224,28 +236,36 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
        
     setItem(data.data.data)
 
-     const resR = item.product_image;
+        //  const imageBlob =  resR.blob();
+        //  const imageObjectURL = URL.createObjectURL(imageBlob);
 
-     console.log(resR)
+        //  setImg(imageObjectURL);
 
-    }).catch((err) => {
+        // console.log(resR);
+
+        // data.data.data.map((seed)=>setItem(seed)
+
+        // )
+
+        // setItem({
+        //   productId:data.data.data[0].id,
+        //   productAmount:data.data.data[0].amount,
+        //   productBrand:data.data.data[0].product_brand,
+        //   ProductImg:data.data.data[2].product_image
+
+        // })
+      })
+      .catch((err) => {
         console.log(err); // "oh, no!"
-    })
-}, []);
+      });
 
-
+    
+  }, []);
 
   
 
 
-
-
-
-
-
-
-
- console.log(item)
+  console.log(item);
 
   const [prodBody, setProdBody] = useState("not_product_body");
   const [dropBtn, setDropBtn] = useState("dropHead");
@@ -345,7 +365,6 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
             <div className="brand_cont1">
               <img
                 src="/img/brand_images/brand_img2.svg"
-                
                 alt=""
                 className="brand_imgs"
               />
@@ -379,17 +398,13 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
               />
             </div>
 
-        
-              
-                <div className="brand_cont1">
-                <img
+            <div className="brand_cont1">
+              <img
                 src="/img/brand_images/brand_img7.svg"
-               
-                  alt=""
-                  className="brand_imgs"
-                />
-              </div>
-            
+                alt=""
+                className="brand_imgs"
+              />
+            </div>
           </div>
 
           {/* =========[[[[[[[[[]]]]]]]]] */}
@@ -410,13 +425,13 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
               </a>
             </div>
             <div className="products_display_body_conts">
-              {itemDetails.map((asset) => (
+              {item.map((asset) => (
                 <a href={`/products/details/${asset.id}/${asset.name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${asset.img})`,
+                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -429,16 +444,16 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          {asset.Save_button}
+                          save now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.items_remainings}
+                          {asset.unitCount + "items left"}
                         </div>
                       </div>
                       {/* </a> */}
@@ -483,13 +498,13 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                 />
               </div>
               <div className="products_display_body_conts2">
-                {itemDetails5.map((asset) => (
-                  <a href={`/products/details/${asset.id}/${asset.name}`}>
+                {item.map((asset) => (
+                  <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
                         style={{
-                          backgroundImage: `url(${asset.img})`,
+                          backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
                           //           height: "200px",
                           //           width: "100%",
                           //           backgroundRepeat: "no-repeat",
@@ -502,16 +517,16 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                       >
                         <div className="storeTiles_storeTileOffersContainer__3v8lC">
                           <button className="items_remaining_btn">
-                            {asset.Save_button}
+                            save now
                           </button>
                           <button className="items_remaining_btn2">
-                            {asset.percentage} off
+                            100% off
                           </button>
                         </div>
                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.name}</div>
+                          <div className="asset_name">{asset.product_name}</div>
                           <div className="asset_title">
-                            {asset.items_remainings}
+                            {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
                           </div>
                         </div>
                         {/* </a> */}
@@ -540,13 +555,13 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
               </a>
             </div>
             <div className="products_display_body_conts">
-              {itemDetails.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.name}`}>
+              {item.map((asset) => (
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${asset.img})`,
+                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -559,16 +574,16 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          {asset.Save_button}
+                          save now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.items_remainings}
+                          {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
                         </div>
                       </div>
                       {/* </a> */}
@@ -615,16 +630,16 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          save now
+                          Save Now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.unitCount + "items left"}
+                          {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
                         </div>
                       </div>
                       {/* </a> */}
@@ -669,13 +684,13 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                 />
               </div>
               <div className="products_display_body_conts2">
-                {itemDetails5.map((asset) => (
-                  <a href={`/products/details/${asset.id}/${asset.name}`}>
+                {item.map((asset) => (
+                  <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
                         style={{
-                          backgroundImage: `url(${asset.img})`,
+                          backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
                           //           height: "200px",
                           //           width: "100%",
                           //           backgroundRepeat: "no-repeat",
@@ -688,16 +703,16 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                       >
                         <div className="storeTiles_storeTileOffersContainer__3v8lC">
                           <button className="items_remaining_btn">
-                            {asset.Save_button}
+                            save now
                           </button>
                           <button className="items_remaining_btn2">
-                            {asset.percentage} off
+                            100% off
                           </button>
                         </div>
                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.name}</div>
+                          <div className="asset_name">{asset.product_name}</div>
                           <div className="asset_title">
-                            {asset.items_remainings}
+                            {asset.unitCount }{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
                           </div>
                         </div>
                         {/* </a> */}
@@ -726,13 +741,13 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
               </a>
             </div>
             <div className="products_display_body_conts">
-              {itemDetails.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.name}`}>
+              {item.map((asset) => (
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${asset.img})`,
+                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -745,16 +760,16 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          {asset.Save_button}
+                          save now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                        100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.items_remainings}
+                          {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
                         </div>
                       </div>
                       {/* </a> */}
@@ -765,6 +780,18 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
             </div>
           </div>
         </div>
+
+
+{/* 
+        <div>
+          {names.filter(name => name.includes('p')).map(filteredName => (
+           <li>
+            {filteredName}
+          </li>
+          ))}
+         </div> */}
+
+
 
         <div className="fixed_pop">
           <img
@@ -778,11 +805,9 @@ const { productId,productAmount,productBrand,ProductDetail,productDuration,Produ
   );
 }
 
-
 const mapStateToProps1 = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
 });
-
 
 export default connect(mapStateToProps1)(DashboardInvestPage);
