@@ -26,8 +26,5 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const API_URL = "https://tea.egoras.com";
 // export const API_URL2 = "https://330188b756ae73.lhr.life";
 //<<<<<<< HEAD
-export const API_URL2 = "https://44d50fb96b5074.lhr.life";
+export const API_URL2 = "https://db871771d33694.lhr.life";
 // =======
-// export const API_URL2 = "http://localhost:4000";
-// export const API_URL2 = "https://f1807a50ebcb1c.lhr.life";
-//>>>>>>> 08ccbfd48ea7ede4035960009dcbf504c055f186
