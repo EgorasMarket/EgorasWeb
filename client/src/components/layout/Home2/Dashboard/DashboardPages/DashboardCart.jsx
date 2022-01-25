@@ -36,47 +36,45 @@ const DashboardCart = ({ cart, auth }) => {
     },
   };
 
-  const fetchFromCart = async (customer_id) => {
-    console.log("fetchfromCart", customer_id);
-    let call = await axios
-      .get(`${api}/v1/cart/get/${customer_id}`)
-      .catch((err) => {
-        console.log("error from dashboardcart", err.message);
-      });
-    setCartData(call.data.data);
+  // const fetchFromCart = async (customer_id) => {
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   setCartData(call.data.data)
 
-    console.log(call.data.data, "async call ");
-    dispatch(allCart(call.data.data));
-    // dispatch(allCart(call)) // use this to send to the redux store
-  };
+  //   console.log(call.data.data, 'async call ');
+  //   dispatch(allCart(call.data.data))
+  //   // dispatch(allCart(call)) // use this to send to the redux store 
+  // }
 
-  const deleteFromCart = async (product_id) => {
-    console.log("deleteFromcart", product_id);
+  const deleteFromCart = async (product_id)=> {
+    console.log('deleteFromcart', product_id);
 
-    let call = await axios
-      .delete(`${api}/v1/cart/delete`, config, product_id)
-      .then((response) => {
-        console.log("item deleted successfully");
-        alert("item deleted successfully");
-      })
-      .catch((err) => {
-        console.log("error from dashboardcart", err.message);
-        alert("item already deleted or not found");
-      });
-  };
+    let call = await axios.delete(`${api}/v1/cart/delete`,  config, product_id).then(response=> {
+      console.log("item deleted successfully")
+      alert("item deleted successfully")
+    }).catch((err) => {
+      console.log("error from dashboardcart", err.message);
+      alert("item already deleted or not found")
+    });
+    
+  }
 
-  useEffect(() => {
-    if (auth.user !== null) {
-      let decodedUser = auth.user;
-      let customer_id = decodedUser.user.id;
-      console.log("run all the async funtion from here ", customer_id);
+  // useEffect(() => {
 
-      console.log(cart);
+  //   if (auth.user !== null){
+  //     let decodedUser = auth.user; 
+  //     let customer_id = decodedUser.user.id ;
+  //     console.log('run all the async funtion from here ', customer_id)
 
-      fetchFromCart(customer_id);
-    }
-  }, [cart, auth]);
+  //     console.log(cart)
 
+  //     fetchFromCart(customer_id);
+  //   }
+    
+  // }, [cart , auth]);
+  
   return (
     <div className="other2">
       {modal == false ? null : (
