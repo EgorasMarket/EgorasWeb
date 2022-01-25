@@ -19,33 +19,33 @@ import { SplashScreen } from "../../SplashScreen/SplashScreen.js";
 import "./DashboardStyles/dashboard.css";
 import PrivateRoute2 from "../../../routing/PrivateRoute2";
 const Dashboard = ({ isAuthenticated, loading }) => {
-  const [splashScreen, setSplashScreen] = useState(true);
-  console.log(isAuthenticated, loading);
-  useEffect(() => {
-    // console.log(isAuthenticated,'77777');
-    if (isAuthenticated == false) {
-      // return <Redirect to="/" />;
-      return window.location.replace("/login");
-    } else if (isAuthenticated == true) {
-      // console.log('trueee');
-      const timer = setTimeout(() => {
-        setSplashScreen(false);
-      }, 1000);
-    }
+  // const [splashScreen, setSplashScreen] = useState(true);
+  // console.log(isAuthenticated, loading);
+  // useEffect(() => {
+  //   // console.log(isAuthenticated,'77777');
+  //   if (isAuthenticated == false) {
+  //     // return <Redirect to="/" />;
+  //     return window.location.replace("/login");
+  //   } else if (isAuthenticated == true) {
+  //     // console.log('trueee');
+  //     const timer = setTimeout(() => {
+  //       setSplashScreen(false);
+  //     }, 1000);
+  //   }
 
-    // setSplashScreen(true);
-  }, [isAuthenticated]);
+  //   // setSplashScreen(true);
+  // }, [isAuthenticated]);
 
   return (
     <div>
       <Route>
-        {splashScreen == true ? (
+        {/* {splashScreen == true ? (
           <SplashScreen />
-        ) : (
+        ) : ( */}
           <div className="dashboard">
             <DashboardSidebar />
             <Switch>
-              <PrivateRoute2
+              <Route
                 exact
                 path="/dashboard"
                 component={DashboardHomePage}
@@ -84,7 +84,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               />
             </Switch>
           </div>
-        )}
+        {/* )} */}
       </Route>
     </div>
   );

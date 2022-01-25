@@ -207,9 +207,12 @@ function DashboardInvestPage({ auth }) {
 
   const [item, setItem] = useState([]);
 
+  const phoneTablets = "NmCPfPsS25";
+
   // const [cItem,setCItem] =useState([])
 
   const [img, setImg] = useState();
+  const [category,setCategory]=useState([])
 
   const {
     productId,
@@ -231,29 +234,12 @@ function DashboardInvestPage({ auth }) {
         config
     ).then((data) => {
        
-        console.log(data.data.data, "king");
+        console.log(data.data.data, "powerful");
      
        
-    setItem(data.data.data)
+        setItem(data.data.data)
 
-        //  const imageBlob =  resR.blob();
-        //  const imageObjectURL = URL.createObjectURL(imageBlob);
 
-        //  setImg(imageObjectURL);
-
-        // console.log(resR);
-
-        // data.data.data.map((seed)=>setItem(seed)
-
-        // )
-
-        // setItem({
-        //   productId:data.data.data[0].id,
-        //   productAmount:data.data.data[0].amount,
-        //   productBrand:data.data.data[0].product_brand,
-        //   ProductImg:data.data.data[2].product_image
-
-        // })
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
@@ -262,7 +248,33 @@ function DashboardInvestPage({ auth }) {
     
   }, []);
 
-  
+
+  const phone =["2324tfgfd","2344w232ws","33822bj23","3473672gbn","NmCPfPsS25", "v6whRB7ii5","v6wwwd1ii5"]
+
+  // const industrialsEquipment,MusicalEquipment,phoneTablet,Electronics,Furniture,ComputerAccessories,HomeApplinces;
+
+
+  useEffect(()=>{
+    phoneTab()
+  },[])
+
+
+  function phoneTab (){
+
+    axios.get(
+      api_url2 + "/v1/product/retrieve/category",
+      null,
+      config
+  ).then((data) => {
+     
+      console.log(data.data.data, "king");
+      setCategory(data.data.data)
+    })
+    .catch((err) => {
+      console.log(err); // "oh, no!"
+    });
+
+  }
 
 
   console.log(item);
@@ -498,7 +510,7 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset) => (
+                {item.map((asset) => { if ( phoneTablets === asset.product_category_code) return(
                   <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
@@ -533,7 +545,7 @@ function DashboardInvestPage({ auth }) {
                       </div>
                     </li>
                   </a>
-                ))}
+                )})}
               </div>
             </div>
           </div>
