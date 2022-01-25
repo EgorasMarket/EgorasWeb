@@ -83,7 +83,7 @@ const DashboardCart = ({ cart, auth }) => {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page click={CloseModal} />
+          <Dashboard_Checkout_Page cAmount={result} click={CloseModal} />
         </div>
       )}
 
