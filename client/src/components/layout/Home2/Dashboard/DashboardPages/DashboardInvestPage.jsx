@@ -438,7 +438,7 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.name}`}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -511,7 +511,7 @@ function DashboardInvestPage({ auth }) {
               </div>
               <div className="products_display_body_conts2">
                 {item.map((asset) => { if ( phoneTablets === asset.product_category_code) return(
-                  <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -568,7 +568,7 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -697,7 +697,7 @@ function DashboardInvestPage({ auth }) {
               </div>
               <div className="products_display_body_conts2">
                 {item.map((asset) => (
-                  <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -754,7 +754,7 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
