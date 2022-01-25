@@ -587,8 +587,8 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {phones.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                  {phones.map((asset,index15) => (
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index15.toString()}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -657,8 +657,8 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {phones.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                  {phones.map((asset,index12) => (
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index12.toString()}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -748,8 +748,8 @@ const PhonesCatPage = () => {
                     </div>
                   </div>
                   <div className="cat_select_div2_body">
-                    {searchResults.map((brand) => (
-                      <div className="select_brand_check_box">
+                    {searchResults.map((brand,index10) => (
+                      <div className="select_brand_check_box" key={index10.toString()}>
                         <label class="label_cont">
                           {brand.name}
                           <input
@@ -784,8 +784,8 @@ const PhonesCatPage = () => {
                   </span>
                 </div>
                 <div className="items_all_list_body">
-                  {phones.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                  {phones.map((asset,index11) => (
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index11.toString()}>
                       <li className="carous_list caro_lisss_2">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"

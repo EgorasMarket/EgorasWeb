@@ -10,7 +10,11 @@ import DvrIcon from "@mui/icons-material/Dvr";
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
+import "../DashboardStyles/dashboard_side.css";
+import "../DashboardStyles/dashboard_header.css";
+import { Link, animateScroll as scroll } from "react-scroll";
+
 
 import axios from "axios";
 import setAuthToken from "../../../../../utils/setAuthToken";
@@ -211,13 +215,18 @@ function DashboardInvestPage({ auth }) {
   const HomeApplinces = "33822bj23";
   const Electronics = "3473672gbn";
   const ComputerAccessories = "2344w232ws";
+  const Furnitures = "2324tfgfd";
+  const MusicalEquipment = "V6whRB7ii5";
+  const IndustrialEquipment = "V6wwwd1iii5";
    
 
 
   // const [cItem,setCItem] =useState([])
 
   const [img, setImg] = useState();
-  const [category,setCategory]=useState([])
+  const [category,setCategory]=useState([]);
+
+  
 
   const {
     productId,
@@ -306,8 +315,33 @@ function DashboardInvestPage({ auth }) {
     setProdBody("not_product_body");
     setDropBtn("dropHead");
   };
+
+  //  const moveto =()=>{
+  
+  //    scroll.scrollToTop(100);
+  //  }
+
   return (
     <div className="other2">
+
+
+<div className="cat_div" id="cat_div">
+          <div className="cat_body_toggle">
+         <a href="#pencil"><div className="cat_body_toggle1">
+              All Categories
+              <ListIcon className="cat_icon" />
+               </div></a>
+           <div 
+           className="cat_body_toggle1">Computers and Accessories</div>
+           <a href="#phonesTab"><div className="cat_body_toggle1">Phones and Tablets</div></a>
+           <a href="#Electronics"><div className="cat_body_toggle1">Electronics</div></a>
+            <div className="cat_body_toggle1">Konga Fashion</div>
+           <a href="#HomeKitchen"><div className="cat_body_toggle1">Home and Kitchen</div></a>
+            <div className="cat_body_toggle1">Other Categories</div>
+          </div>
+        </div>
+
+
       <section className="no-bg">
         <div className="container">
           <div className="products_hero_area">
@@ -442,8 +476,8 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+              {item.map((asset,index) => (
+                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`} key={index.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -495,8 +529,8 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body no_pad">
-            <div className="products_display_body_heading heading_color_2">
+          <div className="products_display_body no_pad" id="phonesTab">
+            <div className="products_display_body_heading heading_color_2" >
               Phones & Tablets
               <a
                 href="/dashboard/products/categories/id-phone"
@@ -515,8 +549,8 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset) => { if ( phoneTablets === asset.product_category_code) return(
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+                {item.map((asset,index1) => { if ( phoneTablets === asset.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index1.toString()}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -572,8 +606,8 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+              {item.map((asset,index2) => (
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index2.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -623,7 +657,7 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body">
+          <div className="products_display_body" id="HomeKitchen">
             <div className="products_display_body_heading">
               Home & Kitchen
               <a
@@ -635,8 +669,8 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset) => { if ( HomeApplinces === asset.product_category_code) return(
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} >
+              {item.map((asset,index3) => { if ( HomeApplinces === asset.product_category_code) return(
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index3.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -681,7 +715,7 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body no_pad">
+          <div className="products_display_body no_pad" id="Electronics">
             <div className="products_display_body_heading heading_color_2">
               Electronics
               <a
@@ -701,8 +735,8 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset) => { if ( Electronics  === asset.product_category_code) return(
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+                {item.map((asset,index4) => { if ( Electronics  === asset.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index4.toString()}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -746,7 +780,7 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body">
+          <div className="products_display_body" id="computersAccessories">
             <div className="products_display_body_heading">
               Computers & Accessories
               <a
@@ -758,8 +792,8 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset) => { if ( ComputerAccessories  === asset.product_category_code) return(
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+              {item.map((asset,index5) => { if ( ComputerAccessories  === asset.product_category_code) return(
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index5.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"

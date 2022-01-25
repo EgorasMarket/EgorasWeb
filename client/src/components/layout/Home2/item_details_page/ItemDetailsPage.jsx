@@ -298,7 +298,7 @@ console.log('====================================');
         console.log(data.data.data, "phlip");
      
        
-        // setTerm(data.data.data)
+        setTerm(data.data.data)
 
        
       })
@@ -674,7 +674,7 @@ console.log('====================================');
                       //     </div>
                       //   </div>
                       //   </div>
-                      <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
