@@ -657,7 +657,7 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {phones.map((asset,index12) => (
+                  {phones.slice(0,100).map((asset,index12) => (
                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index12.toString()}>
                       <li className="carous_list">
                         <div
