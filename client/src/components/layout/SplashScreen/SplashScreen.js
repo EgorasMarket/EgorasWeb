@@ -5,7 +5,7 @@ export const SplashScreen = () => {
   return (
     <div>
       <div className="splash_screen_comp">
-        <img src="/img/egoras-favicon.svg" alt="" className="favicon" />
+        <img src="/img/egr_custom_logo.gif" alt="" className="favicon" />
       </div>
     </div>
   );

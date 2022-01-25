@@ -29,13 +29,14 @@ import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
-const DashboardSidebar = ({ auth }) => {
+import { retrieveCart } from "../../../../actions/shop";
+const DashboardSidebar = ({auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
   const [catDiv, setCatDiv] = useState("not_home");
   const [smallSide, setSmallSide] = useState(dddd);
-  const [cartNum, setCartNum] = useState(5);
+  const [cartNum, setCartNum] = useState('');
   const [image, setImage] = useState("");
   const linksActive = window.location.pathname;
 
@@ -51,53 +52,56 @@ const DashboardSidebar = ({ auth }) => {
     UserdateOfBirth: "",
   });
 
-  const {
-    Userfirstname,
-    Userlastname,
-    Useremail,
-    Usergender,
-    Userrelationship,
-    UseruserImage,
-    UserphoneNumber,
-    Userbvn,
-    UserdateOfBirth,
-  } = userInfo;
+  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
+  userInfo;
 
-  useEffect(() => {
-    // fetchDepositLinks();
-    console.log(auth);
-    if (auth.user !== null) {
-      // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
-      var todecoded = auth.user;
-      var todecodedn = todecoded.user.userImage;
+    
+useEffect(() => {
 
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
+  // setCartNum(cart.length)
+  // fetchDepositLinks();
+  console.log(auth);
+  if (auth.user !== null) {
+    // let dataa = 'stackabuse.com';
+    // console.log( new Buffer(dataa));
+    var todecoded = auth.user;
+    var todecodedn = todecoded.user.userImage;
+    
+    // console.log('====================================');
+    console.log(todecodedn);
+    // console.log('====================================');
+    
+    
+    const getName = todecoded.user.fullname
+    const splitName = getName.split(' ');
+    
+    retrieveCart(todecoded.user.id)
+    setUserInfo({
+      Userfirstname: splitName[0],
+      Userlastname: splitName[1],
+      Useremail: todecoded.user.email,
+      UseruserImage: todecoded.user.userImage,
+      UserphoneNumber: todecoded.user.phoneNumber,
+      Userrelationship: todecoded.user.relationship,
+      Usergender: todecoded.user.gender,
+      Userbvn:todecoded.user.BVN,
+      UserdateOfBirth:todecoded.user.dateOfBirth,
+    })
 
-      const getName = todecoded.user.fullname;
-      const splitName = getName.split(" ");
-
-      setUserInfo({
-        Userfirstname: splitName[0],
-        Userlastname: splitName[1],
-        Useremail: todecoded.user.email,
-        UseruserImage: todecoded.user.userImage,
-        UserphoneNumber: todecoded.user.phoneNumber,
-        Userrelationship: todecoded.user.relationship,
-        Usergender: todecoded.user.gender,
-        Userbvn: todecoded.user.BVN,
-        UserdateOfBirth: todecoded.user.dateOfBirth,
-      });
-
-      if (todecoded.user.userImage !== null) {
-        setImage(api_url2 + "/" + todecoded.user.userImage);
-      } else {
-        setImage("../../img/profile_img.jpeg");
-      }
+    if (todecoded.user.userImage !== null) {
+      setImage(api_url2+'/'+todecoded.user.userImage)
+    } else {
+      setImage('../../img/profile_img.jpeg')
     }
-  }, [auth]);
+    
+  }
+}, [auth]);
+
+useEffect(() => {
+
+  setCartNum(cart.length)
+  
+}, [cart]);
 
   // console.log(dddd);
   const changeBg = (e) => {
@@ -611,8 +615,9 @@ const DashboardSidebar = ({ auth }) => {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart
 });
 
 // export default DashboardSidebar;
 
-export default connect(mapStateToProps, {})(DashboardSidebar);
+export default connect(mapStateToProps, {retrieveCart})(DashboardSidebar);
