@@ -929,7 +929,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.smap((asset,index8) => { if ( IndustrialEquipment  === asset.product_category_code) return(
+              {item.slice(0,8).map((asset,index8) => { if ( IndustrialEquipment  === asset.product_category_code) return(
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index8.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -1009,7 +1009,7 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset,index9) => { if (  MusicalEquipment  === asset.product_category_code) return(
+                {item.slice(0,12).map((asset,index9) => { if (  MusicalEquipment  === asset.product_category_code) return(
                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index9.toString()}>
                     <li className="carous_list no_marg">
                       <div
