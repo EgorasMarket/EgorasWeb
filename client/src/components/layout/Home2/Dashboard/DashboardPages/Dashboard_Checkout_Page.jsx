@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 
 import NumberFormat from "react-number-format";
 import "../DashboardStyles/dashboardCheckout.css";
-const Dashboard_Checkout_Page = () => {
+const Dashboard_Checkout_Page = (props) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [modal, setModal] = useState(false);
   function limit(val, max) {
@@ -50,6 +50,12 @@ const Dashboard_Checkout_Page = () => {
                 src="/img/egoras-logo.svg"
                 alt=""
                 className="egoras_logo_checkout"
+              />
+            </div>
+            <div className="checkout_header_btn">
+              <CloseIcon
+                onClick={props.click}
+                className="close_checkout_icon"
               />
             </div>
           </div>

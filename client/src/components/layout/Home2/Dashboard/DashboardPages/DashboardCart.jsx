@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../DashboardStyles/dashboardCart.css";
 import { connect } from "react-redux";
+import UserCardPin from "./UserCardPin";
 // import {retrieveCart, allCart} from '../../../../../actions/shop'
 import { allCart } from "../../../../../actions/shop";
 import axios from "axios";
@@ -45,26 +46,28 @@ const DashboardCart = ({ cart, auth }) => {
 
   //   console.log(call.data.data, 'async call ');
   //   dispatch(allCart(call.data.data))
-  //   // dispatch(allCart(call)) // use this to send to the redux store 
+  //   // dispatch(allCart(call)) // use this to send to the redux store
   // }
 
-  const deleteFromCart = async (product_id)=> {
-    console.log('deleteFromcart', product_id);
+  const deleteFromCart = async (product_id) => {
+    console.log("deleteFromcart", product_id);
 
-    let call = await axios.delete(`${api}/v1/cart/delete`,  config, product_id).then(response=> {
-      console.log("item deleted successfully")
-      alert("item deleted successfully")
-    }).catch((err) => {
-      console.log("error from dashboardcart", err.message);
-      alert("item already deleted or not found")
-    });
-    
-  }
+    let call = await axios
+      .delete(`${api}/v1/cart/delete`, config, product_id)
+      .then((response) => {
+        console.log("item deleted successfully");
+        alert("item deleted successfully");
+      })
+      .catch((err) => {
+        console.log("error from dashboardcart", err.message);
+        alert("item already deleted or not found");
+      });
+  };
 
   // useEffect(() => {
 
   //   if (auth.user !== null){
-  //     let decodedUser = auth.user; 
+  //     let decodedUser = auth.user;
   //     let customer_id = decodedUser.user.id ;
   //     console.log('run all the async funtion from here ', customer_id)
 
@@ -72,15 +75,15 @@ const DashboardCart = ({ cart, auth }) => {
 
   //     fetchFromCart(customer_id);
   //   }
-    
+
   // }, [cart , auth]);
-  
+
   return (
     <div className="other2">
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page />
+          <Dashboard_Checkout_Page click={CloseModal} />
         </div>
       )}
 
