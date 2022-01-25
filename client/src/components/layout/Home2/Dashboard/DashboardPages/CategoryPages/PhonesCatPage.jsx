@@ -784,7 +784,7 @@ const PhonesCatPage = () => {
                   </span>
                 </div>
                 <div className="items_all_list_body">
-                  {phones.map((asset,index11) => (
+                  {phones.slice(0,100).map((asset,index11) => (
                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index11.toString()}>
                       <li className="carous_list caro_lisss_2">
                         <div

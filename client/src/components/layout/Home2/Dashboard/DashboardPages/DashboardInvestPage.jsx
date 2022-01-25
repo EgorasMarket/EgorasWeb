@@ -476,7 +476,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset,index) => (
+              {item.slice(0,12).map((asset,index) => (
                 <a href={`/dashboard/products/details/${asset.id}/${asset.name}`} key={index.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -549,7 +549,7 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset,index1) => { if ( phoneTablets === asset.product_category_code) return(
+                {item.slice(0,8).map((asset,index1) => { if ( phoneTablets === asset.product_category_code) return(
                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index1.toString()}>
                     <li className="carous_list no_marg">
                       <div
@@ -606,7 +606,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset,index2) => (
+              {item.slice(0,12).map((asset,index2) => (
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index2.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -669,7 +669,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset,index3) => { if ( HomeApplinces === asset.product_category_code) return(
+              {item.slice(0,8).map((asset,index3) => { if ( HomeApplinces === asset.product_category_code) return(
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index3.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -735,7 +735,7 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset,index4) => { if ( Electronics  === asset.product_category_code) return(
+                {item.slice(0,12).map((asset,index4) => { if ( Electronics  === asset.product_category_code) return(
                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index4.toString()}>
                     <li className="carous_list no_marg">
                       <div
@@ -792,7 +792,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset,index5) => { if ( ComputerAccessories  === asset.product_category_code) return(
+              {item.slice(0,8).map((asset,index5) => { if ( ComputerAccessories  === asset.product_category_code) return(
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index5.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -868,8 +868,8 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset,index4) => { if (  MusicalEquipment  === asset.product_category_code) return(
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index4.toString()}>
+                {item.slice(0,12).map((asset,index7) => { if (  MusicalEquipment  === asset.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index7.toString()}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -929,8 +929,8 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset,index5) => { if ( IndustrialEquipment  === asset.product_category_code) return(
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index5.toString()}>
+              {item.slice(0,8).map((asset,index8) => { if ( IndustrialEquipment  === asset.product_category_code) return(
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index8.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -1009,8 +1009,8 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset,index4) => { if (  MusicalEquipment  === asset.product_category_code) return(
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index4.toString()}>
+                {item.slice(0,12).map((asset,index9) => { if (  MusicalEquipment  === asset.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index9.toString()}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"

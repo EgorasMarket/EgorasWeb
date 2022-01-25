@@ -256,7 +256,7 @@ function DashboardSavingsPage({match}) {
                       </tr>
                     </thead>
 
-                    {itemdisplay.map((asset) => (
+                    {itemdisplay.slice(0,5).map((asset) => (
                       <tbody
                         className="save_items_cat popular-categories"
                         id="popular-categories"
@@ -366,7 +366,7 @@ function DashboardSavingsPage({match}) {
                   >
                     {itemdisplay.map((product) => (
                       <a
-                        href={`/products/details/${product.id}/${product.product_name}`}
+                        href={`/dashboard/products/details/${product.id}/${product.product_name}`}
                       >
                         <li className="carous_list">
                           <div

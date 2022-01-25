@@ -345,7 +345,7 @@ function ItemDetailsPage({ auth, match }) {
               {/* ================ */}
               <div className="details_area1_cont2">
                 {" "}
-                <div className="product_details_Title">{base}</div>
+                <div className="product_details_Title">{product_name}</div>
                 <div className="product_details_code">
                   <span className="product_code_title">Product Code: </span>
                   {product_category_code}
