@@ -355,7 +355,7 @@ const DashboardHomePage = ({ cart, auth, allCart }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                     >
                       <li className="carous_list">
                         <div
@@ -445,7 +445,7 @@ const DashboardHomePage = ({ cart, auth, allCart }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                     >
                       <li className="carous_list">
                         <div
