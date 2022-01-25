@@ -143,7 +143,7 @@ console.log('====================================');
       setDisable2(false);
     }
 
-    if ((unitCount <= 1) || (count >= unitCount) ||(count === unitCount)){
+    if ((unitCount < 1) ||(count === unitCount) ||(count === 0)){
       setDisable(true);
     }else{
       setDisable(false);

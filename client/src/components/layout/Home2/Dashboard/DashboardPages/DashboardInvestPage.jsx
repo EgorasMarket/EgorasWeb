@@ -208,6 +208,11 @@ function DashboardInvestPage({ auth }) {
   const [item, setItem] = useState([]);
 
   const phoneTablets = "NmCPfPsS25";
+  const HomeApplinces = "33822bj23";
+  const Electronics = "3473672gbn";
+  const ComputerAccessories = "2344w232ws";
+   
+
 
   // const [cItem,setCItem] =useState([])
 
@@ -438,7 +443,7 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.name}`}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -511,7 +516,7 @@ function DashboardInvestPage({ auth }) {
               </div>
               <div className="products_display_body_conts2">
                 {item.map((asset) => { if ( phoneTablets === asset.product_category_code) return(
-                  <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -568,7 +573,7 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -630,7 +635,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset) => (
+              {item.map((asset) => { if ( HomeApplinces === asset.product_category_code) return(
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} >
                   <li className="carous_list no_marg">
                     <div
@@ -658,7 +663,7 @@ function DashboardInvestPage({ auth }) {
                     </div>
                   </li>
                 </a>
-              ))}
+              )})}
             </div>
           </div>
 
@@ -696,8 +701,8 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset) => (
-                  <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                {item.map((asset) => { if ( Electronics  === asset.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -731,7 +736,7 @@ function DashboardInvestPage({ auth }) {
                       </div>
                     </li>
                   </a>
-                ))}
+                )})}
               </div>
             </div>
           </div>
@@ -753,8 +758,8 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.map((asset) => (
-                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+              {item.map((asset) => { if ( ComputerAccessories  === asset.product_category_code) return(
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -788,7 +793,7 @@ function DashboardInvestPage({ auth }) {
                     </div>
                   </li>
                 </a>
-              ))}
+              )})}
             </div>
           </div>
         </div>
