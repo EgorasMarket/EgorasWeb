@@ -6,6 +6,7 @@ import { API_URL2 as api } from "../../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 import { allCart } from "../../../../../actions/shop";
+import { retrieveCart } from "../../../../../actions/shop";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -14,28 +15,28 @@ const cards = [
   {
     id: 1,
     img: "/img/save_card1.svg",
-    title: "Total Savings",
+    title: "Total Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card2.svg",
-    title: "Item Savings",
+    title: "Savings Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card3.svg",
-    title: "Flex Savings",
+    title: "Ledger Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card4.svg",
-    title: "Dollar Savings",
+    title: "Accumulated Bal",
     Balance: "50,000",
     Save_button: "Save",
   },
@@ -178,31 +179,27 @@ const responsive7 = {
 };
 
 const DashboardHomePage = ({ cart, auth, allCart }) => {
+  const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
 
-  const fetchFromCart = async (customer_id) => {
-    console.log("fetchfromCart", customer_id);
-    let call = await axios
-      .get(`${api}/v1/cart/get/${customer_id}`)
-      .catch((err) => {
-        console.log("error from dashboardcart", err.message);
-      });
-    // setCartData(call.data.data)
+  // const fetchFromCart = async (customer_id) => {
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   // setCartData(call.data.data)
 
-    console.log(call.data.data, "async call");
-    dispatch(allCart(call.data.data));
-    // dispatch(allCart(call)) // use this to send to the redux store
-  };
+  //   console.log(call.data.data, 'async call');
+  //   dispatch(allCart(call.data.data))
+  //   // dispatch(allCart(call)) // use this to send to the redux store
+  // }
 
-  useEffect(() => {
-    if (auth) {
-      console.log(auth.user.user.id);
+  // useEffect(() => {
+  //   console.log(cus_id);
+  //   retrieveCart(cus_id)
+  //   console.log("inside use effect")
 
-      let customer_id = auth.user.user.id;
-      fetchFromCart(customer_id);
-    }
-    console.log("inside use effect");
-  }, [cart]);
+  // },[])
 
   const [savedNum, setSavedNum] = useState(5);
 

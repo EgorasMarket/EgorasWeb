@@ -78,7 +78,11 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 path="/dashboard/products/categories/id-phone"
                 component={PhonesCatPage}
               />
-
+              <Route
+                exact
+                path="/dashboard/accounts"
+                component={DashboardAccountPage}
+              />
               <Route
                 exact
                 path="/dashboard/products/details/:id/:name"
