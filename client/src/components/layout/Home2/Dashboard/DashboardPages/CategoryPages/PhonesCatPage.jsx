@@ -588,7 +588,7 @@ const PhonesCatPage = () => {
                   style={{ height: "25em" }}
                 >
                   {phones.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -658,7 +658,7 @@ const PhonesCatPage = () => {
                   style={{ height: "25em" }}
                 >
                   {phones.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -785,7 +785,7 @@ const PhonesCatPage = () => {
                 </div>
                 <div className="items_all_list_body">
                   {phones.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list caro_lisss_2">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
