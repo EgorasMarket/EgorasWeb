@@ -52,9 +52,6 @@ const Dashboard_Checkout_Page = () => {
                 className="egoras_logo_checkout"
               />
             </div>
-            <div className="checkout_header_btn">
-              <CloseIcon className="close_checkout_icon" />
-            </div>
           </div>
           <div className="checkout_total_balance">
             Total Balance: <span className="balance_checkout">#{checkBal}</span>
