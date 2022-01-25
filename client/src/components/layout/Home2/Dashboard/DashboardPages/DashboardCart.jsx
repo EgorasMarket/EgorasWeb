@@ -1,72 +1,91 @@
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../DashboardStyles/dashboardCart.css";
-import {connect} from 'react-redux'
+import { connect } from "react-redux";
 // import {retrieveCart, allCart} from '../../../../../actions/shop'
-import {allCart} from '../../../../../actions/shop'
+import { allCart } from "../../../../../actions/shop";
 import axios from "axios";
-import {API_URL2 as api} from '../../../../../actions/types'
-import {useDispatch} from 'react-redux'
+import { API_URL2 as api } from "../../../../../actions/types";
+import { useDispatch } from "react-redux";
+// import dashboardCheckout from "./dashboardCheckout";
+// import dashboardCheckout from "./dashboardCheckout";
+import Dashboard_Checkout_Page from "./Dashboard_Checkout_Page";
 
-
-
-const DashboardCart = ({cart,  auth}) => {
-  const dispatch = useDispatch(); 
+const DashboardCart = ({ cart, auth }) => {
+  const dispatch = useDispatch();
   const [savedNum, setSavedNum] = useState(5);
-  const [cartData , setCartData] = useState([])
+  const [modal, setModal] = useState(false);
+  const [cartData, setCartData] = useState([]);
 
   const result = cart.reduce(
-    (total, currentValue) => (total = parseInt(total) + parseInt(currentValue.sub_total)),
+    (total, currentValue) =>
+      (total = parseInt(total) + parseInt(currentValue.sub_total)),
     0
   );
+  const OpenModal = () => {
+    setModal(true);
+  };
+
+  const CloseModal = () => {
+    setModal(false);
+  };
 
   const config = {
     headers: {
-        'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
   };
 
   // const fetchFromCart = async (customer_id) => {
-  //   console.log('fetchfromCart', customer_id);
-  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
-  //     console.log("error from dashboardcart", err.message);
-  //   });
-  //   setCartData(call.data.data)
+  //   console.log("fetchfromCart", customer_id);
+  //   let call = await axios
+  //     .get(`${api}/v1/cart/get/${customer_id}`)
+  //     .catch((err) => {
+  //       console.log("error from dashboardcart", err.message);
+  //     });
+  //   setCartData(call.data.data);
 
-  //   console.log(call.data.data, 'async call ');
-  //   dispatch(allCart(call.data.data))
-  //   // dispatch(allCart(call)) // use this to send to the redux store 
-  // }
+  //   console.log(call.data.data, "async call ");
+  //   dispatch(allCart(call.data.data));
+  //   // dispatch(allCart(call)) // use this to send to the redux store
+  // };
 
-  const deleteFromCart = async (product_id)=> {
-    console.log('deleteFromcart', product_id);
+  const deleteFromCart = async (product_id) => {
+    console.log("deleteFromcart", product_id);
 
-    let call = await axios.delete(`${api}/v1/cart/delete`,  config, product_id).then(response=> {
-      console.log("item deleted successfully")
-      alert("item deleted successfully")
-    }).catch((err) => {
-      console.log("error from dashboardcart", err.message);
-      alert("item already deleted or not found")
-    });
-    
-  }
+    let call = await axios
+      .delete(`${api}/v1/cart/delete`, config, product_id)
+      .then((response) => {
+        console.log("item deleted successfully");
+        alert("item deleted successfully");
+      })
+      .catch((err) => {
+        console.log("error from dashboardcart", err.message);
+        alert("item already deleted or not found");
+      });
+  };
 
   // useEffect(() => {
+  //   if (auth.user !== null) {
+  //     let decodedUser = auth.user;
+  //     let customer_id = decodedUser.user.id;
+  //     console.log("run all the async funtion from here ", customer_id);
 
-  //   if (auth.user !== null){
-  //     let decodedUser = auth.user; 
-  //     let customer_id = decodedUser.user.id ;
-  //     console.log('run all the async funtion from here ', customer_id)
+  //     console.log(cart);
 
-  //     console.log(cart)
-
-  //     fetchFromCart(customer_id);
+  //     // fetchFromCart(customer_id);
   //   }
-    
-  // }, [cart , auth]);
-  
+  // }, [cart, auth]);
+
   return (
     <div className="other2">
+      {modal == false ? null : (
+        <div className="checkout_main">
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <Dashboard_Checkout_Page />
+        </div>
+      )}
+
       <section className="no-bg">
         <div className="container">
           <div className="cart_area">
@@ -104,7 +123,7 @@ const DashboardCart = ({cart,  auth}) => {
                         <td className="save_item_data small_height">
                           <div className="assets-data height_data height_data1">
                             <img
-                              src={`${api}/${asset.image}` }
+                              src={`${api}/${asset.image}`}
                               alt=""
                               className="save_item_img_img"
                             />
@@ -125,10 +144,13 @@ const DashboardCart = ({cart,  auth}) => {
                               </span>
                               {asset.total_items} items
                             </div>
-                            <div  onClick={()=> {
-                               deleteFromCart(asset.product_id)
-                               alert(asset.product_id)
-                              }} className="remove_from_cart_div">
+                            <div
+                              onClick={() => {
+                                deleteFromCart(asset.product_id);
+                                alert(asset.product_id);
+                              }}
+                              className="remove_from_cart_div"
+                            >
                               <DeleteIcon className="delete_icon" />
                               Remove
                             </div>
@@ -159,7 +181,9 @@ const DashboardCart = ({cart,  auth}) => {
               </div>
             </div>
             <div className="checkout_btns">
-              <button className="checkout_btn1">Proceed to Checkout </button>
+              <button className="checkout_btn1" onClick={OpenModal}>
+                Proceed to Checkout{" "}
+              </button>
             </div>
           </div>
         </div>
@@ -170,10 +194,9 @@ const DashboardCart = ({cart,  auth}) => {
 
 const mapStateToProps1 = (state) => ({
   auth: state.auth,
- cart: state.shop.cart,
-})
+  cart: state.shop.cart,
+});
 
-// const mapDispatchToProps = 
+// const mapDispatchToProps =
 
-
-export default connect(mapStateToProps1,{})(DashboardCart);
+export default connect(mapStateToProps1, {})(DashboardCart);

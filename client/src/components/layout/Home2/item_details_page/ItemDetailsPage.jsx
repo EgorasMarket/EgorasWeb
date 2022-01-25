@@ -3,19 +3,22 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../actions/types"
-import { connect , useDispatch} from "react-redux";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../../actions/types";
+import { connect, useDispatch } from "react-redux";
 
-
-function ItemDetailsPage({auth,  match}) {
+function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
-        'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
   };
-  const [product_id, setProductId] = useState(match.params.id)
+  const [spec, setSpec] = useState([]);
+  const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
-  const [itemsLeft, setItemsLeft] = useState(5);
+
   const [maxDuration, setmaxDuration] = useState(25);
   const [base, setBase] = useState("");
   // const [base1, setBase1] = useState("");
@@ -29,67 +32,113 @@ function ItemDetailsPage({auth,  match}) {
 
   const [activeBg, setActiveBg] = useState("descript");
 
-  const [dataFlow,setDataFlow]=useState([]);
+  const [dataFlow, setDataFlow] = useState([]);
+  const [term, setTerm] = useState([]);
 
   const [productDetails, setProductDetails] = useState({
-    
     product_image: "",
-    product_name: "", 
-    
-  })
+    product_name: "",
+    product_brand: "",
+    Product_type: "",
+    unitCount: "",
+    amount: "",
+    product_duration: "",
+    product_category_code: "",
+    product_details: "",
+    productSpecification: "",
+  });
 
-  const { product_image,product_name }= productDetails;
+  const {
+    product_image,
+    product_name,
+
+    product_brand,
+    product_type,
+    unitCount,
+    amount,
+    product_duration,
+    product_category_code,
+    productSpecification,
+    product_details,
+  } = productDetails;
 
   useEffect(() => {
-
     const body = JSON.stringify({
-      product_id
+      product_id,
     });
 
     console.log(body);
-  
-    axios.post(
-        api_url2 + "/v1/product/retrieve/specific",
-        body,
-        config
-    ).then((data) => {
-       
+
+    axios
+      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+      .then((data) => {
         console.log(data.data.data, "king");
-        
+
+        const getSlid = data.data.data.product_specifications;
+        //  const slipVar = getSlid.split(',');
+        console.log("====================================");
+        console.log(getSlid);
+        console.log("====================================");
+        setSpec(getSlid);
+        // const slipVar = spec.split(',');
 
         setProductDetails({
           product_image: data.data.data.product_image,
-          product_name: data.data.data.product_name 
-        })
+          product_name: data.data.data.product_name,
+          product_brand: data.data.data.product_brand,
+          product_type: data.data.data.product_type,
+          unitCount: data.data.data.unitCount,
+          amount: data.data.data.amount,
+          product_duration: data.data.data.product_duration,
+          product_category_code: data.data.data.product_category_code,
+          product_details: data.data.data.product_detail,
+          // productSpecification:slipVar[0]
+        });
+
+        // console.log(amount,"rent");
+
+        // setSpec(data.data.data.Product_specification);
+        // console.log(product_specification)
 
         // setDataFlow(data.data.data)
-       
-   
 
-    }).catch((err) => {
+        // console.log(product_name,"samuel Une")
+      })
+      .catch((err) => {
         console.log(err.response); // "oh, no!"
-    })
+      });
   }, []);
 
+  const addToCart = async (customer_id, product_id, quantity) => {
+    const payload = {
+      customer_id,
+      product_id,
+      quantity,
+    };
+    let call = await axios
+      .post(api_url2 + "/v1/cart/add", payload, config)
+      .then((response) => {
+        alert("Item successfully added to cart ");
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+        console.log("error reported", err.response);
+      });
 
-  const addToCart =  async (customer_id, product_id, quantity) => {
-    const payload ={
-      customer_id, 
-      product_id, 
-      quantity
-    }
-     let call =await axios.post(api_url2 + "/v1/cart/add", payload, config ).then(response => {
-     alert("Item successfully added to cart ")
+    console.log(call);
+  };
 
-     }).catch(err=> {
-       alert(err.response.data.message)
-       console.log("error reported", err.response)
-     })
+  // const food = spec[0].split('');
+  // console.log(food[0])
 
+  const [itemsLeft, setItemsLeft] = useState(2);
 
-     console.log(call)
-  }
+  // const iteming = unitCount;
 
+  console.log("====================================");
+  console.log(spec);
+  console.log(productDetails);
+  console.log("====================================");
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
@@ -97,6 +146,7 @@ function ItemDetailsPage({auth,  match}) {
 
   const increaseCount = () => {
     setCount(count + 1);
+
     setItemsLeft(itemsLeft - 1);
     if (count >= 4) {
       setDisable(true);
@@ -105,6 +155,12 @@ function ItemDetailsPage({auth,  match}) {
     } else {
       setDisable(false);
       setDisable2(false);
+    }
+
+    if (unitCount <= 1 || count >= unitCount || count === unitCount) {
+      setDisable(true);
+    } else {
+      setDisable(false);
     }
   };
   // -=========--
@@ -118,6 +174,12 @@ function ItemDetailsPage({auth,  match}) {
       setDisable2(true);
       setDisable(false);
       console.log("stop count2");
+    }
+
+    if (unitCount <= 1 || count < 1) {
+      setDisable2(true);
+    } else {
+      setDisable2(false);
     }
   };
 
@@ -190,7 +252,7 @@ function ItemDetailsPage({auth,  match}) {
       percentage: "100%",
     },
   ];
-  
+
   const itemsId = {
     firstItem: {
       // the naming can be any, depends on you.
@@ -227,10 +289,10 @@ function ItemDetailsPage({auth,  match}) {
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
-     
+
     setAsset(assetVal);
     setBase(baseVal);
-     
+
     let ticker = assetVal + "-" + baseVal;
     window.scrollTo(0, 0);
     // setImeeg(itemsId.map((log) => log.img));
@@ -238,13 +300,24 @@ function ItemDetailsPage({auth,  match}) {
     console.log(itemsId.firstItem.img);
   }, []);
 
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip");
+
+        // setTerm(data.data.data)
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
 
   const ID = match.params.id;
 
-  if(ID=== "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b"){
-    console.log('Hello Mr King')
+  if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
+    console.log("Hello Mr King");
   }
-
 
   return (
     <div className="other2">
@@ -255,7 +328,11 @@ function ItemDetailsPage({auth,  match}) {
             <div className="product_details_area1">
               <div className="details_area1_cont1">
                 {" "}
-                <img src={api_url2+'/'+product_image} alt="" className="product_details_img" />
+                <img
+                  src={api_url2 + "/" + product_image}
+                  alt=""
+                  className="product_details_img"
+                />
               </div>
               {/* ================ */}
               {/* ================ */}
@@ -263,25 +340,23 @@ function ItemDetailsPage({auth,  match}) {
               {/* ================ */}
               <div className="details_area1_cont2">
                 {" "}
-                <div className="product_details_Title">{product_name}</div>
+                <div className="product_details_Title">{base}</div>
                 <div className="product_details_code">
                   <span className="product_code_title">Product Code: </span>
-                  {productCode}
-                
+                  {product_category_code}
                 </div>
                 <div
                   className="product_details_code"
                   style={{ color: "#239e54" }}
                 >
                   <span className="product_code_title">Brand: </span>
-                  {BrandCode}
+                  {product_brand}
                   {/* {props.Brand} */}
-                  
                 </div>
                 {/* ----------------- */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
-                <div className="product_details_price">₦{productPrice}</div>
+                <div className="product_details_price">₦{amount}</div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="quantity_div">
@@ -319,19 +394,34 @@ function ItemDetailsPage({auth,  match}) {
 
                   <div className="items_left_div">
                     Items Left:{" "}
-                    <span className="items_left_numb">{itemsLeft} items</span>
+                    <span className="items_left_numb">
+                      {unitCount}{" "}
+                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
+                    </span>
                   </div>
                   <div className="items_left_div">
                     Savings max-duration:{" "}
-                    <span className="days_left_numb">{maxDuration} days</span>
+                    <span className="days_left_numb">
+                      {product_duration}{" "}
+                      {product_duration === 1
+                        ? "month"
+                        : product_duration <= 0
+                        ? ""
+                        : "months"}
+                    </span>
                   </div>
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button  onClick ={()=> {
-                      addToCart(auth.user.user.id,product_id, count )
-                  }} className="buy_now_button">Add to Cart</button>
+                  <button
+                    onClick={() => {
+                      addToCart(auth.user.user.id, product_id, count);
+                    }}
+                    className="buy_now_button"
+                  >
+                    Add to Cart
+                  </button>
 
                   <div className="save_later">
                     <button className="save_later_btn">
@@ -349,6 +439,7 @@ function ItemDetailsPage({auth,  match}) {
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
+
             <div className="description_area">
               <div className="description_header">
                 <div
@@ -363,20 +454,98 @@ function ItemDetailsPage({auth,  match}) {
                   Description
                 </div>
               </div>
+              {/* {spec.map((tree)=>( */}
+
+              {/* <div className='my-4'>
+                  {spec.map((tree)=>(
+                    <span style={{display:'flex',flexDirection:'column'}}>{tree}</span>
+                  ))}
+                </div> */}
 
               <div className="description_body">
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
                       <tr>
+                        {/* <td>Colour</td> */}
+                        <td>{spec[0]}</td>
+                      </tr>
+                      <tr>
+                        {/* <td>Warranty Period</td> */}
+                        <td>{spec[1]}</td>
+                      </tr>
+                      {/* <tr>
+                       <td>
+                       {tree[0]}
+                       </td>
+                      </tr> */}
+                      <tr>
+                        {/* <td>Brand</td> */}
+                        <td>{spec[2]}</td>
+                      </tr>
+                      <tr>
+                        {/* <td>Display Features</td> */}
+                        <td>{spec[3]}</td>
+                      </tr>
+                      <tr>
+                        {/* <td>Display Technology</td> */}
+                        <td>{spec[4]}</td>
+                      </tr>
+                      <tr>
+                        {/* <td>TV Screen Size</td> */}
+                        <td>{spec[5]}</td>
+                      </tr>
+                      {/* <tr> */}
+                      {/* <td>Television 3D Technology</td> */}
+                      {/* <td>{spec[6]}</td> */}
+                      {/* </tr> */}
+
+                      {/* <tr> */}
+                      {/* <td>Resolution</td> */}
+                      {/* <td>{spec[7]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
+                      {/* <td>Intended Display Use</td> */}
+                      {/* <td>{spec[8]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
+                      {/* <td>Television Screen Type</td> */}
+                      {/* <td>{spec[9]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
+                      {/* <td>Television Refresh Rate</td> */}
+                      {/* <td>{spec[10]}</td> */}
+                      {/* </tr> */}
+                    </tbody>
+                  </table>
+                </div>
+                {/* ====== */}
+                {/* ====== */}
+              </div>
+
+              {/* <div className='my-4'>
+                  {spec.map((tree)=>(
+                    <span style={{display:'flex',flexDirection:'column'}}>{tree}</span>
+                  ))}
+                </div> */}
+              {/* <div className="description_body">
+                <div className="description_table">
+                  <table class="_3a09a_1e-gU">
+                    <tbody>
+                      <tr>
                         <td>Colour</td>
-                        <td>Black</td>
+                        <td>{spec[0]}</td>
                       </tr>
                       <tr>
                         <td>Warranty Period</td>
                         <td>6 Months</td>
-                      </tr>
-                      <tr>
+                      </tr> */}
+              {/* <tr>
+                       <td>
+                       {tree[0]}
+                       </td>
+                      </tr> */}
+              {/* <tr>
                         <td>Brand</td>
                         <td>
                           <a href="/brand/samsung">Samsung</a>
@@ -416,10 +585,12 @@ function ItemDetailsPage({auth,  match}) {
                       </tr>
                     </tbody>
                   </table>
-                </div>
-                {/* ====== */}
-                {/* ====== */}
-              </div>
+                </div> */}
+              {/* ====== */}
+              {/* ====== */}
+              {/* </div> */}
+
+              {/* ))} */}
             </div>
             {/* ================ */}
             {/* ================ */}
@@ -459,7 +630,7 @@ function ItemDetailsPage({auth,  match}) {
                     swipeable={true}
                     style={{ height: "25em" }}
                   >
-                    {itemDetails.map((asset) => (
+                    {term.map((asset) => (
                       // <div className="cardA">
                       //   <div className="img">
                       //     <div
@@ -515,12 +686,16 @@ function ItemDetailsPage({auth,  match}) {
                       //     </div>
                       //   </div>
                       //   </div>
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+                      <a
+                        href={`/products/details/${asset.id}/${asset.product_name}`}
+                      >
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${asset.img})`,
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -533,16 +708,25 @@ function ItemDetailsPage({auth,  match}) {
                           >
                             <div className="storeTiles_storeTileOffersContainer__3v8lC">
                               <button className="items_remaining_btn">
-                                {asset.Save_button}
+                                save now
                               </button>
                               <button className="items_remaining_btn2">
-                                {asset.percentage} off
+                                20% off
                               </button>
                             </div>
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">{asset.name}</div>
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
                               <div className="asset_title">
-                                {asset.items_remainings}
+                                {asset.unitCount}
+                                {asset.unitCount === 1
+                                  ? "item left"
+                                  : asset.unitCount <= 1
+                                  ? "no item left"
+                                  : asset.unitCount > 1
+                                  ? "items left"
+                                  : null}
                               </div>
                             </div>
                             {/* </a> */}
@@ -570,9 +754,7 @@ function ItemDetailsPage({auth,  match}) {
 const mapStateToProps1 = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
-  cart: state.shop.cart
-})
+  cart: state.shop.cart,
+});
 
-export default connect(mapStateToProps1)( ItemDetailsPage);
-
-
+export default connect(mapStateToProps1)(ItemDetailsPage);

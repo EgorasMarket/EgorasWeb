@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
 import Carousel from "react-multi-carousel";
+import {
+  API_URL2 as api_url2,
+} from "../../../../../actions/types";
 import "../DashboardStyles/dashboard_savings.css";
 
 const lockedItems = [
@@ -126,8 +130,92 @@ const responsive7 = {
     items: 2,
   },
 };
-function DashboardSavingsPage() {
+function DashboardSavingsPage({match}) {
   const [savedNum, setSavedNum] = useState(5);
+  const [itemdisplay,setItemDisplay] = useState([]);
+  const [product_id, setProductId] = useState(match.params.id);
+  const [productDetail,setProductDetail] = useState({
+    product_image: "",
+    product_name: "",
+    amount:"",
+    product_duration:"",
+  });
+
+  const {product_image,product_name,amount,product_duration}=productDetail;
+
+
+
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "chukwubuike");
+     
+       
+        setItemDisplay(data.data.data);
+
+        console.log("=============");
+        console.log(itemdisplay);
+        console.log("=============");
+
+      
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
+
+
+  useEffect(() => {
+
+    const body = JSON.stringify({
+      product_id
+    });
+
+    console.log(body);
+  
+    axios.post(
+        api_url2 + "/v1/product/retrieve/specific",
+        body,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "king");
+
+      
+       
+  
+        setProductDetail({
+          product_image:data.data.data.product_image,
+          product_name:data.data.data.product_name,
+          amount:data.data.data.amount,
+          product_duration:data.data.data.product_duration,
+        })
+
+
+        
+
+        
+    }).catch((err) => {
+        console.log(err.response); // "oh, no!"
+    })
+}, []);
+
   return (
     <div className="other2">
       <section className="no-bg">
@@ -168,7 +256,7 @@ function DashboardSavingsPage() {
                       </tr>
                     </thead>
 
-                    {lockedItems.map((asset) => (
+                    {itemdisplay.map((asset) => (
                       <tbody
                         className="save_items_cat popular-categories"
                         id="popular-categories"
@@ -178,7 +266,7 @@ function DashboardSavingsPage() {
                           <td className="save_item_data">
                             <div className="assets-data height_data">
                               <img
-                                src={asset.img}
+                                src={api_url2+'/'+ asset.product_image}
                                 alt=""
                                 className="save_item_img_img"
                               />
@@ -191,15 +279,15 @@ function DashboardSavingsPage() {
                           <td className="save_item_data1">
                             <div className="save_items_details">
                               <div className="save_items_details1">
-                                {asset.name}
+                                {asset.product_name}
                               </div>
                               <div className="save_item_days_left">
-                                {asset.days_left} days left
+                                {asset.unitCount} days left
                                 <div className="days_left_percentage_cont">
                                   <span
                                     className="days_left_percentage"
                                     style={{
-                                      width: asset.days_left_percent,
+                                      width: 100% -((asset.amount * 100)/asset.unitCount)
                                     }}
                                   ></span>
                                 </div>
@@ -214,17 +302,17 @@ function DashboardSavingsPage() {
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
-                              {asset.quantity}
+                              {asset.unitCount}
                             </div>
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
-                              #{asset.unit_price}
+                              #{asset.amount}
                             </div>
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name_last">
-                              #{asset.total_locked_amount}
+                              #{asset.amount * asset.unitCount}
                             </div>
                           </td>
                         </tr>
@@ -276,15 +364,15 @@ function DashboardSavingsPage() {
                     swipeable={true}
                     style={{ height: "25em" }}
                   >
-                    {itemDetails.map((product) => (
+                    {itemdisplay.map((product) => (
                       <a
-                        href={`/dashboard/products/details/${product.id}/${product.name}`}
+                        href={`/products/details/${product.id}/${product.product_name}`}
                       >
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${product.img})`,
+                              backgroundImage: `url(${api_url2+'/'+product.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -297,16 +385,16 @@ function DashboardSavingsPage() {
                           >
                             <div className="storeTiles_storeTileOffersContainer__3v8lC">
                               <button className="items_remaining_btn">
-                                {product.Save_button}
+                                save now
                               </button>
                               <button className="items_remaining_btn2">
-                                {product.percentage} off
+                                20% off
                               </button>
                             </div>
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">{product.name}</div>
+                              <div className="asset_name">{product.product_name}</div>
                               <div className="asset_title">
-                                {product.items_remainings}
+                                {product.unitCount}{product.unitCount ===1? "item left": product.unitCount <= 1? "no item left":product.unitCount > 1? "items left": null }
                               </div>
                             </div>
                             {/* </a> */}
