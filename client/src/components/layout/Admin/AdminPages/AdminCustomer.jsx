@@ -10,6 +10,8 @@ import {
 const AdminCustomer = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+
+
   const [allCustomers, setAllCustomers] = useState([]);
   const config = {
     headers: {
@@ -63,7 +65,7 @@ const AdminCustomer = () => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/admin/retrieve/customers/byBranch", null, config)
+      .get(api_url2 + "/v1/admin/retrieve/customers/byBranch/", null, config)
       .then((data) => {
         console.log(data.data.data, "king");
 
@@ -72,7 +74,20 @@ const AdminCustomer = () => {
       .catch((err) => {
         console.log(err.response); // "oh, no!"
       });
+    // ============
   }, []);
+  // useEffect(() => {
+  //   axios
+  //     .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
+  //     .then((data) => {
+  //       console.log(data.data.data);
+
+  //       // setCustomerId(data.data.data.id);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err); // "oh, no!"
+  //     });
+  // }, []);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -164,10 +179,14 @@ const AdminCustomer = () => {
                       </td>
                       <td className="assets-category-data-last">
                         <div className="assets-data-name-last">
-                          <a href="/super_admin/user_overview"></a>
-                          <button id={user.id} className="btn btn-primary">
-                            View
-                          </button>
+                          <a href={`/super_admin/user_overview/${user.id}`}>
+                            <button
+                              // id={user.id}
+                              className="btn btn-primary"
+                            >
+                              View
+                            </button>
+                          </a>
                         </div>
                       </td>
                     </tr>
