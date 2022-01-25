@@ -1,12 +1,22 @@
 import React, { useState, useRef, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { connect } from "react-redux";
+import axios from "axios";
 
+import { proceedToCheckout } from "../../../../../actions/transactions";
 import NumberFormat from "react-number-format";
 import "../DashboardStyles/dashboardCheckout.css";
-const Dashboard_Checkout_Page = (props) => {
+const Dashboard_Checkout_Page = ({proceedToCheckout}) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
+  const [cardInfoOne, setCardInfoOne] = useState({
+    card_number: '',
+    cardExDate: '',
+    cvv: '',
+  });
+
+  const { card_number, cardExDate, cvv } = cardInfoOne;
   const [modal, setModal] = useState(false);
   function limit(val, max) {
     if (val.length === 1 && val[0] > max[0]) {
@@ -40,12 +50,24 @@ const Dashboard_Checkout_Page = (props) => {
   const CloseModal = () => {
     setModal(false);
   };
-  const show_pin_modal = () => {
-    setIsSuccessful(true);
+  const show_pin_modal = async () => {
+    // setIsSuccessful(true);
+    const getExDate = cardExDate.split('/');
+    let expiry_month = getExDate[0];
+    let expiry_year = getExDate[1];
+    console.log(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv);
+
+    let res3 = await proceedToCheckout(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv);
+    console.log(res3);
   };
   const show_otp_modal = () => {
     setIsOtp(true);
     setIsSuccessful(!isSuccessful);
+  };
+
+  const onChange1 = (e) => {
+    setCardInfoOne({ ...cardInfoOne, [e.target.name]: e.target.value });
+
   };
   return (
     // <div className="checkout_main">
@@ -63,10 +85,10 @@ const Dashboard_Checkout_Page = (props) => {
                   />
                 </div>
                 <div className="checkout_header_btn">
-                  <CloseIcon
+                  {/* <CloseIcon
                     onClick={props.click}
                     className="close_checkout_icon"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="checkout_total_balance">
@@ -82,6 +104,9 @@ const Dashboard_Checkout_Page = (props) => {
                     format="#### #### #### ####"
                     className="card_details_input1"
                     placeholder="0000 0000 0000 0000"
+                    name="card_number"
+                    value={card_number}
+                    onChange={(e) => onChange1(e)}
                   />
                 </div>
                 {/* ============ */}
@@ -95,6 +120,9 @@ const Dashboard_Checkout_Page = (props) => {
                       format={cardExpiry}
                       className="card_details_input1"
                       placeholder="MM/YY"
+                      name="cardExDate"
+                      value={cardExDate}
+                      onChange={(e) => onChange1(e)}
                     />
                   </div>
                   <div className="card_input_cont">
@@ -103,6 +131,9 @@ const Dashboard_Checkout_Page = (props) => {
                       format="###"
                       className="card_details_input1"
                       placeholder="000"
+                      name="cvv"
+                      value={cvv}
+                      onChange={(e) => onChange1(e)}
                     />
                   </div>
                 </div>
@@ -134,10 +165,10 @@ const Dashboard_Checkout_Page = (props) => {
                   />
                 </div>
                 <div className="checkout_header_btn">
-                  <CloseIcon
+                  {/* <CloseIcon
                     onClick={props.click}
                     className="close_checkout_icon"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="card_details_title">
@@ -189,10 +220,10 @@ const Dashboard_Checkout_Page = (props) => {
                 />
               </div>
               <div className="checkout_header_btn">
-                <CloseIcon
+                {/* <CloseIcon
                   onClick={props.click}
                   className="close_checkout_icon"
-                />
+                /> */}
               </div>
             </div>
             <div className="card_details_title">ENTER OTP SENT TO YOU</div>
@@ -239,4 +270,8 @@ const Dashboard_Checkout_Page = (props) => {
   );
 };
 
-export default Dashboard_Checkout_Page;
+// export default Dashboard_Checkout_Page;
+
+
+
+export default connect(null, { proceedToCheckout })(Dashboard_Checkout_Page);
