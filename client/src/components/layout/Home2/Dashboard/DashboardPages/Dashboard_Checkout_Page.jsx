@@ -6,7 +6,7 @@ import axios from "axios";
 import { proceedToCheckout } from "../../../../../actions/transactions";
 import NumberFormat from "react-number-format";
 import "../DashboardStyles/dashboardCheckout.css";
-const Dashboard_Checkout_Page = ({proceedToCheckout}) => {
+const Dashboard_Checkout_Page = ({proceedToCheckout, auth, cAmount}) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
@@ -15,6 +15,8 @@ const Dashboard_Checkout_Page = ({proceedToCheckout}) => {
     cardExDate: '',
     cvv: '',
   });
+
+  console.log(cAmount);
 
   const { card_number, cardExDate, cvv } = cardInfoOne;
   const [modal, setModal] = useState(false);
@@ -50,14 +52,74 @@ const Dashboard_Checkout_Page = ({proceedToCheckout}) => {
   const CloseModal = () => {
     setModal(false);
   };
+
+
+  const [userInfo, setUserInfo] = useState({
+    Userfullname: "",
+    Userfirstname: "",
+    Userlastname: "",
+    Useremail: "",
+    UserphoneNumber: "",
+    UseruserImage: "",
+    Userrelationship: "",
+    Usergender: "",
+    Userbvn: "",
+    UserdateOfBirth: "",
+  });
+
+  const { Userfullname, Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
+  userInfo;
+
+
+  useEffect(() => {
+
+    // setCartNum(cart.length)
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
+      
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
+      
+      
+      const getName = todecoded.user.fullname
+      const splitName = getName.split(' ');
+      
+      setUserInfo({
+        Userfullname: todecoded.user.fullname,
+        Userfirstname: splitName[0],
+        Userlastname: splitName[1],
+        Useremail: todecoded.user.email,
+        UseruserImage: todecoded.user.userImage,
+        UserphoneNumber: todecoded.user.phoneNumber,
+        Userrelationship: todecoded.user.relationship,
+        Usergender: todecoded.user.gender,
+        Userbvn:todecoded.user.BVN,
+        UserdateOfBirth:todecoded.user.dateOfBirth,
+      })
+  
+      // if (todecoded.user.userImage !== null) {
+      //   setImage(api_url2+'/'+todecoded.user.userImage)
+      // } else {
+      //   setImage('../../img/profile_img.jpeg')
+      // }
+      
+    }
+  }, [auth]);
+
   const show_pin_modal = async () => {
     // setIsSuccessful(true);
     const getExDate = cardExDate.split('/');
     let expiry_month = getExDate[0];
     let expiry_year = getExDate[1];
-    console.log(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv);
+    console.log(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
 
-    let res3 = await proceedToCheckout(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv);
+    let res3 = await proceedToCheckout(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
     console.log(res3);
   };
   const show_otp_modal = () => {
@@ -93,7 +155,7 @@ const Dashboard_Checkout_Page = ({proceedToCheckout}) => {
               </div>
               <div className="checkout_total_balance">
                 Total Balance:{" "}
-                <span className="balance_checkout">#{checkBal}</span>
+                <span className="balance_checkout">#{cAmount}</span>
               </div>
               <div className="card_details_title">ENTER CARD DETAILS</div>
               <div className="card_details_inputs">
@@ -272,6 +334,10 @@ const Dashboard_Checkout_Page = ({proceedToCheckout}) => {
 
 // export default Dashboard_Checkout_Page;
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  // isAuthenticated: state.auth.isAuthenticated,
+  // cart: state.shop.cart
+});
 
-
-export default connect(null, { proceedToCheckout })(Dashboard_Checkout_Page);
+export default connect(mapStateToProps, { proceedToCheckout })(Dashboard_Checkout_Page);

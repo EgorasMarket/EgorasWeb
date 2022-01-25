@@ -13,8 +13,8 @@ import {
 import setAuthToken from "../utils/setAuthToken";
 
 // Load User
-export const proceedToCheckout = ({card_number, expiry_month, expiry_year, cvv}) => async (dispatch) => {
-  console.log(card_number, expiry_month, expiry_year, cvv);
+export const proceedToCheckout = (card_number, expiry_month, expiry_year, cvv, fullname, email, phone_number, amount) => async (dispatch) => {
+  console.log(card_number, expiry_month, expiry_year, cvv, fullname, email, phone_number, amount);
   const config = {
     headers: {
       "Content-Type": "application/json",
