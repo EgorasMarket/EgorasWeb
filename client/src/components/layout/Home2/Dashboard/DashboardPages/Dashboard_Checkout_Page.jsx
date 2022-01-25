@@ -195,23 +195,19 @@ const Dashboard_Checkout_Page = (props) => {
                 />
               </div>
             </div>
-            <div className="card_details_title">ENTER OTP</div>
+            <div className="card_details_title">ENTER OTP SENT TO YOU</div>
             <div className="card_details_inputs">
               {/* -------------==== */}
               <div className="card_input_cont">
-                <div className="card_input_heading">OTP</div>
-                <NumberFormat
+                <div className="card_input_heading">OTP Code</div>
+                <input
                   type="password"
+                  maxLength={4}
+                  minLength={1}
                   //   format="####"
                   className="card_details_input1"
                   placeholder="0000"
                 />
-                {/* <input
-                  type="password"
-                //   format="####"
-                  className="card_details_input1"
-                  placeholder="0000"
-                /> */}
               </div>
               {/* ============ */}
               {/* ============ */}
