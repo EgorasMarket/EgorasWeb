@@ -2,34 +2,41 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "../DashboardStyles/dashboard_home.css";
-import {PRODUCT_LOADED,API_URL2 as api_url2} from "../../../../../actions/types";
+import { API_URL2 as api } from "../../../../../actions/types";
+import { connect, useDispatch } from "react-redux";
 import axios from "axios";
+import { allCart } from "../../../../../actions/shop";
+import { retrieveCart } from "../../../../../actions/shop";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../../../actions/types";
 const cards = [
   {
     id: 1,
     img: "/img/save_card1.svg",
-    title: "Total Savings",
+    title: "Total Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card2.svg",
-    title: "Item Savings",
+    title: "Savings Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card3.svg",
-    title: "Flex Savings",
+    title: "Ledger Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card4.svg",
-    title: "Dollar Savings",
+    title: "Accumulated Bal",
     Balance: "50,000",
     Save_button: "Save",
   },
@@ -170,38 +177,51 @@ const responsive7 = {
     items: 2,
   },
 };
-const DashboardHomePage = () => {
-  const [savedNum, setSavedNum] = useState(5);
 
+const DashboardHomePage = ({ cart, auth, allCart }) => {
+  const [cus_id, setCusId] = useState("");
+  const dispatch = useDispatch();
+
+  // const fetchFromCart = async (customer_id) => {
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   // setCartData(call.data.data)
+
+  //   console.log(call.data.data, 'async call');
+  //   dispatch(allCart(call.data.data))
+  //   // dispatch(allCart(call)) // use this to send to the redux store
+  // }
+
+  // useEffect(() => {
+  //   console.log(cus_id);
+  //   retrieveCart(cus_id)
+  //   console.log("inside use effect")
+
+  // },[])
+
+  const [savedNum, setSavedNum] = useState(5);
 
   const config = {
     headers: {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json",
     },
   };
 
-const [itemGalleryShow,setItemGalleryShow]= useState([]);
+  const [itemGalleryShow, setItemGalleryShow] = useState([]);
 
   useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/products",
-        null,
-        config
-    ).then((data) => {
-       
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
         console.log(data.data.data, "phlip");
-     
-       
-        setItemGalleryShow(data.data.data)
 
-       
+        setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
-
-    
   }, []);
   return (
     <div className="other2">
@@ -334,12 +354,16 @@ const [itemGalleryShow,setItemGalleryShow]= useState([]);
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${api_url2+'/'+ asset.product_image})`,
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -359,9 +383,16 @@ const [itemGalleryShow,setItemGalleryShow]= useState([]);
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
                             <div className="asset_title">
-                              {asset.unitCount}{ asset.unitCount === 1 ? "item" : (asset.unitCount < 1) ? " ":"items"}
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
                             </div>
                           </div>
                           {/* </a> */}
@@ -412,14 +443,17 @@ const [itemGalleryShow,setItemGalleryShow]= useState([]);
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-
-{itemGalleryShow.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                  {itemGalleryShow.map((asset) => (
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${api_url2+'/'+ asset.product_image})`,
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -439,9 +473,16 @@ const [itemGalleryShow,setItemGalleryShow]= useState([]);
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
                             <div className="asset_title">
-                              {asset.unitCount}{ asset.unitCount === 1 ? "item" : (asset.unitCount < 1) ? " ":"items"}
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
                             </div>
                           </div>
                           {/* </a> */}
@@ -449,8 +490,6 @@ const [itemGalleryShow,setItemGalleryShow]= useState([]);
                       </li>
                     </a>
                   ))}
-                
-                       
                 </Carousel>
                 {/* Carousel end==============================
 ==============================================
@@ -466,4 +505,9 @@ const [itemGalleryShow,setItemGalleryShow]= useState([]);
   );
 };
 
-export default DashboardHomePage;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  cart: state.shop.cart,
+});
+
+export default connect(mapStateToProps, { allCart })(DashboardHomePage);

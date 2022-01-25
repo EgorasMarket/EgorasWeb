@@ -1,67 +1,34 @@
 import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../DashboardStyles/dashboardCart.css";
+import { connect } from "react-redux";
+// import {retrieveCart, allCart} from '../../../../../actions/shop'
+import { allCart } from "../../../../../actions/shop";
 import axios from "axios";
-import {
-  API_URL2 as api_url2,
-} from "../../../../../actions/types";
+import { API_URL2 as api } from "../../../../../actions/types";
+import { useDispatch } from "react-redux";
+// import dashboardCheckout from "./dashboardCheckout";
+// import dashboardCheckout from "./dashboardCheckout";
+import Dashboard_Checkout_Page from "./Dashboard_Checkout_Page";
 
-const lockedItems = [
-  {
-    id: 1,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Samsung smart tv series",
-    total_items: " 19",
-    days_left: "28",
-    days_left_percent: "82%",
-    total_locked_amount: " 150,000",
-    quantity: "1",
-    unit_price: 350000,
-
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    total_locked_amount: " 80,000",
-    total_items: " 200",
-    days_left: "13",
-    days_left_percent: "27%",
-    quantity: "2",
-    unit_price: 150000,
-  },
-  {
-    id: 3,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Iphone 12pro max",
-    total_items: " 170",
-    total_locked_amount: " 250,000",
-    days_left: "23",
-    days_left_percent: "77%",
-    quantity: "2",
-    unit_price: 550000,
-  },
-];
-const result = lockedItems.reduce(
-  (total, currentValue) => (total = total + currentValue.unit_price),
-  0
-);
-const DashboardCart = ({match}) => {
+const DashboardCart = ({ cart, auth }) => {
+  const dispatch = useDispatch();
   const [savedNum, setSavedNum] = useState(5);
-  const [product_id, setProductId] = useState(match.params.id);
-  const [cart,setCart]=useState();
-   
+  const [modal, setModal] = useState(false);
+  const [cartData, setCartData] = useState([]);
 
-  //  const [cardT,setCardT]=useState({
-  //    productImg:"",productName:"",price:"",totalItem:""
-  //  });
+  const result = cart.reduce(
+    (total, currentValue) =>
+      (total = parseInt(total) + parseInt(currentValue.sub_total)),
+    0
+  );
+  const OpenModal = () => {
+    setModal(true);
+  };
 
-  //  const {productImg,productName,price,totalItem}= cardT
-     
-
-
-   const [cardT,setCardT]=useState([]);
+  const CloseModal = () => {
+    setModal(false);
+  };
 
   const config = {
     headers: {
@@ -69,39 +36,59 @@ const DashboardCart = ({match}) => {
     },
   };
 
+  // const fetchFromCart = async (customer_id) => {
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   setCartData(call.data.data)
 
-  useEffect(() => {
+  //   console.log(call.data.data, 'async call ');
+  //   dispatch(allCart(call.data.data))
+  //   // dispatch(allCart(call)) // use this to send to the redux store 
+  // }
 
-    const body = JSON.stringify({
-      product_id
-    });
+  const deleteFromCart = async (product_id)=> {
+    console.log('deleteFromcart', product_id);
 
-    console.log(body);
-  
-    axios.post(
-        api_url2 + "/v1/card/add",
-        body,
-        config
-    ).then((data) => {
-       
-        console.log(data.data.data, "king");
-
-      
-       
-  
-        setCardT(data.data.data)
-        
+    let call = await axios.delete(`${api}/v1/cart/delete`,  config, product_id).then(response=> {
+      console.log("item deleted successfully")
+      alert("item deleted successfully")
     }).catch((err) => {
-        console.log(err.response); // "oh, no!"
-    })
-}, []);
+      console.log("error from dashboardcart", err.message);
+      alert("item already deleted or not found")
+    });
+    
+  }
+
+  // useEffect(() => {
+
+  //   if (auth.user !== null){
+  //     let decodedUser = auth.user; 
+  //     let customer_id = decodedUser.user.id ;
+  //     console.log('run all the async funtion from here ', customer_id)
+
+  //     console.log(cart)
+
+  //     fetchFromCart(customer_id);
+  //   }
+    
+  // }, [cart , auth]);
+  
   return (
     <div className="other2">
+      {modal == false ? null : (
+        <div className="checkout_main">
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <Dashboard_Checkout_Page />
+        </div>
+      )}
+
       <section className="no-bg">
         <div className="container">
           <div className="cart_area">
             <div className="cart_item_num">
-              Cart <span className="cart_num_num">({savedNum} items)</span>
+              Cart <span className="cart_num_num">({cart.length} items)</span>
             </div>
             <div className="locked_items">
               <div class="save_prod_deta">
@@ -124,7 +111,7 @@ const DashboardCart = ({match}) => {
                     </tr>
                   </thead>
 
-                  {lockedItems.map((asset) => (
+                  {cart.map((asset) => (
                     <tbody
                       className="save_items_cat  small_height popular-categories"
                       id="popular-categories"
@@ -134,7 +121,7 @@ const DashboardCart = ({match}) => {
                         <td className="save_item_data small_height">
                           <div className="assets-data height_data height_data1">
                             <img
-                              src={asset.img}
+                              src={`${api}/${asset.image}`}
                               alt=""
                               className="save_item_img_img"
                             />
@@ -147,7 +134,7 @@ const DashboardCart = ({match}) => {
                         <td className="save_item_data1">
                           <div className="save_items_details">
                             <div className="save_items_details1 small_tetxt">
-                              {asset.name}
+                              {asset.product_name}
                             </div>
                             <div className="save_total_locked_amount smallll_txxt">
                               <span className="items_left_amount">
@@ -155,7 +142,13 @@ const DashboardCart = ({match}) => {
                               </span>
                               {asset.total_items} items
                             </div>
-                            <div className="remove_from_cart_div">
+                            <div
+                              onClick={() => {
+                                deleteFromCart(asset.product_id);
+                                alert(asset.product_id);
+                              }}
+                              className="remove_from_cart_div"
+                            >
                               <DeleteIcon className="delete_icon" />
                               Remove
                             </div>
@@ -168,12 +161,12 @@ const DashboardCart = ({match}) => {
                         </td>
                         <td className="save_item_data1b">
                           <div className="assets-data-name center_name">
-                            ₦{asset.unit_price}
+                            ₦{asset.item_amount}
                           </div>
                         </td>
                         <td className="save_item_data1b">
                           <div className="assets-data-name_last">
-                            ₦{asset.total_locked_amount}
+                            ₦{asset.sub_total}
                           </div>
                         </td>
                       </tr>
@@ -186,7 +179,9 @@ const DashboardCart = ({match}) => {
               </div>
             </div>
             <div className="checkout_btns">
-              <button className="checkout_btn1">Proceed to Checkout </button>
+              <button className="checkout_btn1" onClick={OpenModal}>
+                Proceed to Checkout{" "}
+              </button>
             </div>
           </div>
         </div>
@@ -195,4 +190,11 @@ const DashboardCart = ({match}) => {
   );
 };
 
-export default DashboardCart;
+const mapStateToProps1 = (state) => ({
+  auth: state.auth,
+  cart: state.shop.cart,
+});
+
+// const mapDispatchToProps =
+
+export default connect(mapStateToProps1, {})(DashboardCart);

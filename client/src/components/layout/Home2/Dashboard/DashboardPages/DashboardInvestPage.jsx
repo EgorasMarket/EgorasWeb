@@ -830,8 +830,241 @@ function DashboardInvestPage({ auth }) {
               )})}
             </div>
           </div>
+
+
+
+
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="prod_banner_advert_div">
+            <img
+              src="/img/fake_assets/prod_banner_ad.jpeg"
+              alt=""
+              className="prod_banner_ad"
+            />
+          </div>
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body no_pad" id="Electronics">
+            <div className="products_display_body_heading heading_color_2">
+              Musical Equipments
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn se_all_color2"
+              >
+                SEE ALL
+                <ChevronRightIcon />
+              </a>
+            </div>
+            <div className="products_display_body_conts_banner">
+              <div className="products_display_body_conts_banner_cont">
+                <img
+                  src="/img/fake_assets/unlimited.gif"
+                  alt=""
+                  className="asset_cat_image_display"
+                />
+              </div>
+              <div className="products_display_body_conts2">
+                {item.map((asset,index4) => { if (  MusicalEquipment  === asset.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index4.toString()}>
+                    <li className="carous_list no_marg">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            save now
+                          </button>
+                          <button className="items_remaining_btn2">
+                            100% off
+                          </button>
+                        </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.product_name}</div>
+                          <div className="asset_title">
+                            {asset.unitCount }{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                          </div>
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    </li>
+                  </a>
+                )})}
+              </div>
+            </div>
+          </div>
+
+
+
+
+
+
+           {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body" id="computersAccessories">
+            <div className="products_display_body_heading">
+              Industrial Equipments
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn"
+              >
+                SEE ALL
+                <ChevronRightIcon />
+              </a>
+            </div>
+            <div className="products_display_body_conts">
+              {item.map((asset,index5) => { if ( IndustrialEquipment  === asset.product_category_code) return(
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index5.toString()}>
+                  <li className="carous_list no_marg">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                        //           height: "200px",
+                        //           width: "100%",
+                        //           backgroundRepeat: "no-repeat",
+                        //           backgroundSize: "cover",
+                        //           borderRadius: "8px",
+                        //           borderBottomLeftRadius: "0px",
+                        //           borderBottomRightRadius: "0px",
+                        //   backgroundPositionY: "center",
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          save now
+                        </button>
+                        <button className="items_remaining_btn2">
+                        100% off
+                        </button>
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.product_name}</div>
+                        <div className="asset_title">
+                          {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+              )})}
+            </div>
+          </div>
+
+
+
+
+
+
+     
+
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="prod_banner_advert_div">
+            <img
+              src="/img/fake_assets/prod_banner_ad.jpeg"
+              alt=""
+              className="prod_banner_ad"
+            />
+          </div>
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+          {/* =========[[[[[[[[[]]]]]]]]] */}
+
+          <div className="products_display_body no_pad" id="Electronics">
+            <div className="products_display_body_heading heading_color_2">
+              Musical Equipments
+              <a
+                href="/dashboard/products/categories/id-phone"
+                className="se_all_btnn se_all_color2"
+              >
+                SEE ALL
+                <ChevronRightIcon />
+              </a>
+            </div>
+            <div className="products_display_body_conts_banner">
+              <div className="products_display_body_conts_banner_cont">
+                <img
+                  src="/img/fake_assets/unlimited.gif"
+                  alt=""
+                  className="asset_cat_image_display"
+                />
+              </div>
+              <div className="products_display_body_conts2">
+                {item.map((asset,index4) => { if (  MusicalEquipment  === asset.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index4.toString()}>
+                    <li className="carous_list no_marg">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            save now
+                          </button>
+                          <button className="items_remaining_btn2">
+                            100% off
+                          </button>
+                        </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.product_name}</div>
+                          <div className="asset_title">
+                            {asset.unitCount }{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                          </div>
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    </li>
+                  </a>
+                )})}
+              </div>
+            </div>
+          </div>
+      
+
+
+
+
+
         </div>
 
+
+
+
+          
+
+
+
+
+          
 
 {/* 
         <div>

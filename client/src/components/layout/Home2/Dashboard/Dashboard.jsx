@@ -10,6 +10,7 @@ import DashboardCart from "./DashboardPages/DashboardCart";
 import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
 import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
 import PhonesCatPage from "./DashboardPages/CategoryPages/PhonesCatPage";
+// import dashboardCheckout from "./DashboardPages/dashboardCheckout";
 import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import Withdrawal from "../../Wallet/withdrawal";
 // import { SplashScreen } from "../../SplashScreen/SplashScreen.js";
@@ -67,6 +68,11 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 path="/dashboard/products"
                 component={DashboardInvestPage}
               />
+              {/* <Route
+                exact
+                path="/dashboard/checkout"
+                component={dashboardCheckout}
+              /> */}
               <Route
                 exact
                 path="/dashboard/products/categories/id-phone"

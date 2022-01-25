@@ -128,7 +128,7 @@ const AdminCustomer = () => {
                       Phone No
                     </th>
                     <th className="assets-category-titles-heading1">gender</th>
-                    <th className="assets-category-titles-heading1 right_align">
+                    <th className="assets-category-titles-heading1 right_align email_align">
                       Email Address
                     </th>
                     <th className="assets-category-titles-heading1 right_align">
@@ -164,6 +164,7 @@ const AdminCustomer = () => {
                       </td>
                       <td className="assets-category-data-last">
                         <div className="assets-data-name-last">
+                          <a href="/super_admin/user_overview"></a>
                           <button id={user.id} className="btn btn-primary">
                             View
                           </button>

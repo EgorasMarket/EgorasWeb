@@ -41,6 +41,7 @@
     "react-chakra-slide-show": "^1.0.11",
     "react-in-viewport": "^1.0.0-alpha.19",
     "react-loading-icons": "^1.0.8",
+    "react-number-format": "^4.9.1",
     "react-slick": "^0.28.1",
     "react-swipeable-views": "^0.14.0",
     "react-visibility-sensor": "^5.1.1",
