@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import "../DashboardStyles/dashboardCart.css";
 import { connect } from "react-redux";
+import UserCardPin from "./UserCardPin";
 // import {retrieveCart, allCart} from '../../../../../actions/shop'
 import { allCart } from "../../../../../actions/shop";
 import axios from "axios";
@@ -37,18 +38,16 @@ const DashboardCart = ({ cart, auth }) => {
   };
 
   // const fetchFromCart = async (customer_id) => {
-  //   console.log("fetchfromCart", customer_id);
-  //   let call = await axios
-  //     .get(`${api}/v1/cart/get/${customer_id}`)
-  //     .catch((err) => {
-  //       console.log("error from dashboardcart", err.message);
-  //     });
-  //   setCartData(call.data.data);
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   setCartData(call.data.data)
 
-  //   console.log(call.data.data, "async call ");
-  //   dispatch(allCart(call.data.data));
+  //   console.log(call.data.data, 'async call ');
+  //   dispatch(allCart(call.data.data))
   //   // dispatch(allCart(call)) // use this to send to the redux store
-  // };
+  // }
 
   const deleteFromCart = async (product_id) => {
     console.log("deleteFromcart", product_id);
@@ -66,23 +65,25 @@ const DashboardCart = ({ cart, auth }) => {
   };
 
   // useEffect(() => {
-  //   if (auth.user !== null) {
+
+  //   if (auth.user !== null){
   //     let decodedUser = auth.user;
-  //     let customer_id = decodedUser.user.id;
-  //     console.log("run all the async funtion from here ", customer_id);
+  //     let customer_id = decodedUser.user.id ;
+  //     console.log('run all the async funtion from here ', customer_id)
 
-  //     console.log(cart);
+  //     console.log(cart)
 
-  //     // fetchFromCart(customer_id);
+  //     fetchFromCart(customer_id);
   //   }
-  // }, [cart, auth]);
+
+  // }, [cart , auth]);
 
   return (
     <div className="other2">
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page />
+          <Dashboard_Checkout_Page cAmount={result} click={CloseModal} />
         </div>
       )}
 
