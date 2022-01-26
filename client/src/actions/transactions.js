@@ -20,20 +20,25 @@ export const proceedToCheckout = (card_number, expiry_month, expiry_year, cvv, f
       "Content-Type": "application/json",
     },
   };
-//   try {
-//     const res = await axios.get(api_url2 + "/v1/cart/get/"+customer_id, null, config);
-//     console.log(res.data.data);
-//     // console.log("Yes I call You because i can", res.data.data);
-//     dispatch({
-//       type: FETCH_CART,
-//       payload: res.data.data,
-//     });
-//   } catch (error) {
-//     console.log("not registered");
-//     // dispatch({
-//     //   type: AUTH_ERROR,
-//     // });
-//   }
+
+  const body = JSON.stringify({card_number, expiry_month, expiry_year, cvv, fullname, email, phone_number, amount});
+
+  console.log(body);
+  try {
+      
+    const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
+    console.log(res.data.data);
+    // console.log("Yes I call You because i can", res.data.data);
+    // dispatch({
+    //   type: FETCH_CART,
+    //   payload: res.data.data,
+    // });
+  } catch (error) {
+    console.log(error);
+    // dispatch({
+    //   type: AUTH_ERROR,
+    // });
+  }
 };
 
 
