@@ -11,8 +11,12 @@ import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import LockIcon from "@mui/icons-material/Lock";
-
+import axios from "axios";
 import "../AdminStyles/custArea.css";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../../actions/types";
 
 const cards = [
   {
@@ -63,7 +67,8 @@ const responsive6 = {
     items: 1,
   },
 };
-const AdminSavingsOverview = () => {
+const AdminSavingsOverview = ({ match }) => {
+  const [customerId, setCustomerId] = useState(match.params.id);
   const [image, setImage] = useState("/img/BAG.jpeg");
   const [newpassword, setnewpassword] = useState("");
   const [UseruserImage, setUseruserImage] = useState("/img/BAG.jpeg");
@@ -89,10 +94,30 @@ const AdminSavingsOverview = () => {
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
+
+  useEffect(() => {
+    console.log(match.params.id);
+
+    axios
+      .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
+      .then((data) => {
+        console.log(data.data.data);
+
+        setCustomerId(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
   const openModal2 = () => {
     setModal2(true);
   };
@@ -114,6 +139,7 @@ const AdminSavingsOverview = () => {
   const closeModal3 = () => {
     setModal3(false);
   };
+
   return (
     <div className="other2">
       <section className="no-bg">

@@ -51,7 +51,7 @@ const Admin = ({ isAuthenticated, loading }) => {
               />
               <Route
                 exact
-                path="/super_admin/user_overview"
+                path="/super_admin/user_overview/:id"
                 component={AdminSavingsOverview}
               />
               <Route
