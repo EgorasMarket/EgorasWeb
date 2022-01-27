@@ -11,14 +11,14 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, auth, cAmount}) => {
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
   const [cardInfoOne, setCardInfoOne] = useState({
-    card_number: '',
+    card_numberVar: '',
     cardExDate: '',
     cvv: '',
   });
 
   console.log(cAmount);
 
-  const { card_number, cardExDate, cvv } = cardInfoOne;
+  const { card_numberVar, cardExDate, cvv } = cardInfoOne;
   const [modal, setModal] = useState(false);
   function limit(val, max) {
     if (val.length === 1 && val[0] > max[0]) {
@@ -115,9 +115,10 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, auth, cAmount}) => {
     const getExDate = cardExDate.split('/');
     let expiry_month = getExDate[0];
     let expiry_year = getExDate[1];
-    console.log(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
+    // console.log(card_numberVar.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
+    let card_number = card_numberVar.replace(/ /g, '')
 
-    let res3 = await proceedToCheckout(card_number.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
+    let res3 = await proceedToCheckout(card_number, expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, 2000);
     console.log(res3);
   };
   const show_otp_modal = () => {
@@ -164,8 +165,8 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, auth, cAmount}) => {
                     format="#### #### #### ####"
                     className="card_details_input1"
                     placeholder="0000 0000 0000 0000"
-                    name="card_number"
-                    value={card_number}
+                    name="card_numberVar"
+                    value={card_numberVar}
                     onChange={(e) => onChange1(e)}
                   />
                 </div>
