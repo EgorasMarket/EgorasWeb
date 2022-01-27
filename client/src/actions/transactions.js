@@ -13,25 +13,85 @@ import {
 import setAuthToken from "../utils/setAuthToken";
 
 // Load User
-export const proceedToCheckout = (card_number, expiry_month, expiry_year, cvv, fullname, email, phone_number, amount) => async (dispatch) => {
-  console.log(card_number, expiry_month, expiry_year, cvv, fullname, email, phone_number, amount);
+export const proceedToCheckout =
+  (
+    card_number,
+    expiry_month,
+    expiry_year,
+    cvv,
+    fullname,
+    email,
+    phone_number,
+    amount
+  ) =>
+  async (dispatch) => {
+    console.log(
+      card_number,
+      expiry_month,
+      expiry_year,
+      cvv,
+      fullname,
+      email,
+      phone_number,
+      amount
+    );
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({
+      card_number,
+      expiry_month,
+      expiry_year,
+      cvv,
+      fullname,
+      email,
+      phone_number,
+      amount,
+    });
+
+    console.log(body);
+    try {
+      const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
+      console.log(res.data.data);
+
+      return {
+        success: true, 
+        data: res
+      }
+ 
+    } catch (error) {
+      console.log(error);
+      // dispatch({
+      //   type: AUTH_ERROR,
+      // });
+    }
+  };
+
+//   };
+// Check pin
+export const checkPin = (payload, pin) => async (dispatch) => {
+  console.log(payload, pin);
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  const body = JSON.stringify({card_number, expiry_month, expiry_year, cvv, fullname, email, phone_number, amount});
+  const body = JSON.stringify({
+  
+  });
 
   console.log(body);
   try {
-      
     const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
-    console.log(res.data);
+    // console.log(res.data);
 
     return {
-        success: true,
-    data: res.data,
+    success: true,
+    data: res,
     };
     // console.log("Yes I call You because i can", res.data.data);
     // dispatch({
@@ -40,9 +100,7 @@ export const proceedToCheckout = (card_number, expiry_month, expiry_year, cvv, f
     // });
   } catch (error) {
     console.log(error);
-    // dispatch({
-    //   type: AUTH_ERROR,
-    // });
+
   }
 };
 

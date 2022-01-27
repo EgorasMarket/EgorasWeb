@@ -33,6 +33,7 @@
     "draft-js": "^0.11.6",
     "draftjs-to-html": "^0.9.1",
     "ethers": "^5.0.7",
+    "flutterwave-node-v3": "^1.0.9",
     "flutterwave-react-v3": "^1.2.0",
     "font-awesome": "^4.7.0",
     "immutable": "^4.0.0",
