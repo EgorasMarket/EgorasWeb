@@ -58,7 +58,7 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
 
   function cardExpiry(val) {
     let month = limit(val.substring(0, 2), "12");
-    let date = limit(val.substring(2, 4), "31");
+    let date = limit(val.substring(2, 4), "50");
 
     return month + (date.length ? "/" + date : "");
   }
@@ -74,8 +74,6 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
 
   const [userInfo, setUserInfo] = useState({
     Userfullname: "",
-    Userfirstname: "",
-    Userlastname: "",
     Useremail: "",
     UserphoneNumber: "",
     UseruserImage: "",
@@ -85,7 +83,7 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
     UserdateOfBirth: "",
   });
 
-  const { Userfullname, Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
+  const { Userfullname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
   userInfo;
 
 
@@ -138,7 +136,7 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
     let card_number = card_numberVar.replace(/ /g, '')
     
     let res3 = await proceedToCheckout(card_number, expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, 2000);
-    console.log(res3);
+    console.log(res3.data.stringify, 'response from dashboard checkout ');
     
     if (res3.success === true) {
       setIsSuccessful(true);
@@ -152,9 +150,9 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
     // setIsOtp(true);
     // setIsSuccessful(!isSuccessful);
 
-    console.log(payload1, pin);
-    let sendP1 = await sendPin(payload1, pin);
-    console.log(sendP1);
+    // console.log(payload1, pin);
+    // let sendP1 = await sendPin(payload1, pin);
+    // console.log(sendP1);
 
   };
 
