@@ -87,7 +87,7 @@ export const checkPin = (payload, pin) => async (dispatch) => {
   console.log(body);
   try {
     const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
-    // console.log(res.data);
+    console.log(res);
 
     return {
     success: true,
@@ -105,15 +105,15 @@ export const checkPin = (payload, pin) => async (dispatch) => {
 };
 
 
-export const sendPin = (payload, pin) => async (dispatch) => {
-    console.log(payload, pin);
+export const sendPin = (payload1, pin) => async (dispatch) => {
+    console.log(payload1, pin);
     const config = {
       headers: {
         "Content-Type": "application/json",
       },
     };
   
-    // const body = JSON.stringify({payload, pin});
+    const payload = JSON.stringify(payload1);
     const body = {payload, pin};
   
     console.log(body);
@@ -132,11 +132,46 @@ export const sendPin = (payload, pin) => async (dispatch) => {
       //   payload: res.data.data,
       // });
     } catch (error) {
-      console.log(error);
+      console.log(error.response);
       // dispatch({
       //   type: AUTH_ERROR,
       // });
     }
-  };
+};
+
+
+export const sendOtp = (payload1, otp) => async (dispatch) => {
+    console.log(payload1, otp);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+  
+    const payload = JSON.stringify(payload1);
+    const body = {payload, otp};
+  
+    console.log(body);
+    try {
+        
+      const res = await axios.post(api_url2 + "/v1/payment/card/otp", body, config);
+      console.log(res.data);
+  
+      return {
+          success: true,
+      data: res.data,
+      };
+      // console.log("Yes I call You because i can", res.data.data);
+      // dispatch({
+      //   type: FETCH_CART,
+      //   payload: res.data.data,
+      // });
+    } catch (error) {
+      console.log(error.response);
+      // dispatch({
+      //   type: AUTH_ERROR,
+      // });
+    }
+};
 
 
