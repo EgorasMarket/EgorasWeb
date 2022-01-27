@@ -3,31 +3,34 @@ import CloseIcon from "@mui/icons-material/Close";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { proceedToCheckout , sendPin } from "../../../../../actions/transactions";
+import { proceedToCheckout , sendPin, sendOtp } from "../../../../../actions/transactions";
 import NumberFormat from "react-number-format";
 import "../DashboardStyles/dashboardCheckout.css";
-const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) => {
+const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, sendOtp, auth, cAmount}) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
-  const [isSuccessful, setIsSuccessful] = useState(true);
+  const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
   const [pin, setPin] = useState('');
-  const [payload1, setPayload1] = useState(
-    {
-      "card_number":"5399838383838381",
-      "cvv":"470",
-      "expiry_month":"10",
-      "expiry_year":"31",
-      "currency":"NGN",
-      "amount":2000,
-      "redirect_url":"https://www.google.com",
-      "fullname":"Ebri Goodness",
-      "email":"7huyhbhb@gmail.com",
-      "phone_number":"89888888888",
-      "enckey":"FLWSECK_TEST68fe8fdbc2e1",
-      "tx_ref":"IJPHM6ZQIKCH5X7NUSLF"
-    }
-  );
+  const [otp, setOtp] = useState('');
+  // const [payload1, setPayload1] = useState(
+  //   {
+  //     "card_number":"5399838383838381",
+  //     "cvv":"470",
+  //     "expiry_month":"10",
+  //     "expiry_year":"31",
+  //     "currency":"NGN",
+  //     "amount":2000,
+  //     "redirect_url":"https://www.google.com",
+  //     "fullname":"Ebri Goodness",
+  //     "email":"7huyhbhb@gmail.com",
+  //     "phone_number":"89888888888",
+  //     "enckey":"FLWSECK_TEST68fe8fdbc2e1",
+  //     "tx_ref":"IJPHM6ZQIKCH5X7NUSLF"
+  //   }
+  // );
+  const [payload1, setPayload1] = useState([]);
   const [payload2, setPayload2] = useState([]);
+  const [payload3, setPayload3] = useState([]);
   const [cardInfoOne, setCardInfoOne] = useState({
     card_numberVar: '',
     cardExDate: '',
@@ -136,25 +139,52 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
     let card_number = card_numberVar.replace(/ /g, '')
     
     let res3 = await proceedToCheckout(card_number, expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, 2000);
-    console.log(res3.data.stringify, 'response from dashboard checkout ');
+    console.log(res3.data.data.stringify, 'response from dashboard checkout ');
     
     if (res3.success === true) {
-      setIsSuccessful(true);
-      console.log(res3.data.stringify);
-      setPayload1(res3.data.stringify)
+      if (res3.data.data.mode === "pin") {
+        setIsSuccessful(true);
+        console.log(res3.data.data.stringify);
+        setPayload1(res3.data.data.stringify)
+        
+      } else {
+        setIsOtp(true);
+      }
       
     }
   };
 
   const show_otp_modal = async () => {
-    // setIsOtp(true);
-    // setIsSuccessful(!isSuccessful);
-
-    // console.log(payload1, pin);
-    // let sendP1 = await sendPin(payload1, pin);
-    // console.log(sendP1);
+    
+    console.log(payload1, pin);
+    let sendP1 = await sendPin(payload1, pin);
+    console.log(sendP1);
+    
+    if (sendP1.success === true) {
+      setIsOtp(true);
+      setIsSuccessful(!isSuccessful);
+      
+      console.log(sendP1.data.res_stringified);
+      setPayload2(sendP1.data.res_stringified)
+      
+    }
 
   };
+
+  const submitOtp = async () => {
+    console.log(payload2, otp);
+    let sendO1 = await sendOtp(payload2, otp);
+    console.log(sendO1);
+    
+    if (sendO1.success === true) {
+      // setIsOtp(true);
+      setIsSuccessful(!isSuccessful);
+      
+      // console.log(sendO1.data.data.res_stringified);
+      // setPayload3(sendO1.data.data.res_stringified)
+      
+    }
+  }
 
   const onChange1 = (e) => {
     setCardInfoOne({ ...cardInfoOne, [e.target.name]: e.target.value });
@@ -163,6 +193,10 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
 
   const onChangePin = (e) => {
     setPin(e.target.value)
+  }
+
+  const onChangeOtp = (e) => {
+    setOtp(e.target.value)
   }
   return (
     // <div className="checkout_main">
@@ -330,12 +364,15 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
               <div className="card_input_cont">
                 <div className="card_input_heading">OTP Code</div>
                 <input
-                  type="password"
-                  maxLength={4}
+                  type="text"
+                  maxLength={5}
                   minLength={1}
                   //   format="####"
                   className="card_details_input1"
-                  placeholder="0000"
+                  placeholder="00000"
+                  name="otp"
+                  value={otp}
+                  onChange={onChangeOtp}
                 />
               </div>
               {/* ============ */}
@@ -350,7 +387,7 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) =>
               {/* ====== */}
               {/* ====== */}
               {/* ====== */}
-              <button className="pay_now_btn">Submit</button>
+              <button className="pay_now_btn" onClick={submitOtp}>Submit</button>
             </div>
           </div>
         )}
@@ -376,4 +413,4 @@ const mapStateToProps = (state) => ({
   // cart: state.shop.cart
 });
 
-export default connect(mapStateToProps, { proceedToCheckout, sendPin })(Dashboard_Checkout_Page);
+export default connect(mapStateToProps, { proceedToCheckout, sendPin, sendOtp })(Dashboard_Checkout_Page);
