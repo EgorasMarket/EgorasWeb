@@ -3,13 +3,31 @@ import CloseIcon from "@mui/icons-material/Close";
 import { connect } from "react-redux";
 import axios from "axios";
 
-import { proceedToCheckout } from "../../../../../actions/transactions";
+import { proceedToCheckout , sendPin } from "../../../../../actions/transactions";
 import NumberFormat from "react-number-format";
 import "../DashboardStyles/dashboardCheckout.css";
-const Dashboard_Checkout_Page = ({proceedToCheckout, auth, cAmount}) => {
+const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
+  const [pin, setPin] = useState('');
+  const [payload1, setPayload1] = useState(
+    {
+      "card_number":"5399838383838381",
+      "cvv":"470",
+      "expiry_month":"10",
+      "expiry_year":"31",
+      "currency":"NGN",
+      "amount":2000,
+      "redirect_url":"https://www.google.com",
+      "fullname":"Ebri Goodness",
+      "email":"7huyhbhb@gmail.com",
+      "phone_number":"89888888888",
+      "enckey":"FLWSECK_TEST68fe8fdbc2e1",
+      "tx_ref":"IJPHM6ZQIKCH5X7NUSLF"
+    }
+  );
+  const [payload2, setPayload2] = useState([]);
   const [cardInfoOne, setCardInfoOne] = useState({
     card_numberVar: '',
     cardExDate: '',
@@ -111,25 +129,41 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, auth, cAmount}) => {
   }, [auth]);
 
   const show_pin_modal = async () => {
-    // setIsSuccessful(true);
     const getExDate = cardExDate.split('/');
     let expiry_month = getExDate[0];
     let expiry_year = getExDate[1];
     // console.log(card_numberVar.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
     let card_number = card_numberVar.replace(/ /g, '')
-
+    
     let res3 = await proceedToCheckout(card_number, expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, 2000);
-    console.log(res3);
+    console.log(res3.data.stringify, 'response from dashboard checkout ');
+    
+    if (res3.success === true) {
+      setIsSuccessful(true);
+      console.log(res3.data.stringify);
+      setPayload1(res3.data.stringify)
+      
+    }
   };
-  const show_otp_modal = () => {
-    setIsOtp(true);
-    setIsSuccessful(!isSuccessful);
+
+  const show_otp_modal = async () => {
+    // setIsOtp(true);
+    // setIsSuccessful(!isSuccessful);
+
+    // console.log(payload1, pin);
+    // let sendP1 = await sendPin(payload1, pin);
+    // console.log(sendP1);
+
   };
 
   const onChange1 = (e) => {
     setCardInfoOne({ ...cardInfoOne, [e.target.name]: e.target.value });
 
   };
+
+  const onChangePin = (e) => {
+    setPin(e.target.value)
+  }
   return (
     // <div className="checkout_main">
     <section className="checkout_page_section">
@@ -244,6 +278,9 @@ const Dashboard_Checkout_Page = ({proceedToCheckout, auth, cAmount}) => {
                     //   format="####"
                     className="card_details_input1"
                     placeholder="0000"
+                    name="pin"
+                    value={pin}
+                    onChange={onChangePin}
                   />
                   {/* <input
                   type="password"
@@ -339,4 +376,4 @@ const mapStateToProps = (state) => ({
   // cart: state.shop.cart
 });
 
-export default connect(mapStateToProps, { proceedToCheckout })(Dashboard_Checkout_Page);
+export default connect(mapStateToProps, { proceedToCheckout, sendPin })(Dashboard_Checkout_Page);
