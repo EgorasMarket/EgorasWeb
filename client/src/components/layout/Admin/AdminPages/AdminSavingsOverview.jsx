@@ -12,11 +12,15 @@ import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import LockIcon from "@mui/icons-material/Lock";
 import axios from "axios";
+import { connect } from "react-redux";
 import "../AdminStyles/custArea.css";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+// import { nextOfKING } from "../../../../actions/adminAuth.js";
+
+// import
 
 const cards = [
   {
@@ -69,60 +73,181 @@ const responsive6 = {
 };
 const AdminSavingsOverview = ({ match }) => {
   const [customerId, setCustomerId] = useState(match.params.id);
+  // const [customer_id, setCustomer_id] = useState([]);
   const [image, setImage] = useState("/img/BAG.jpeg");
-  const [newpassword, setnewpassword] = useState("");
-  const [UseruserImage, setUseruserImage] = useState("/img/BAG.jpeg");
+  // const [newpassword, setnewpassword] = useState("");
+  // const [UseruserImage, setUseruserImage] = useState("/img/BAG.jpeg");
   const [Userbvn, setUserBvn] = useState("242647651511");
   const [UserdateOfBirth, setUserdateOfBirth] = useState("22-10-2022");
   const [dateOfBirth, setdateOfBirth] = useState("22-10-2022");
   const [activeBg, setActiveBg] = useState("accounts");
-  const [relationship, setRelationship] = useState("Brother");
+  // const [urelationship, setuRelationship] = useState("Brother");
   const [phone_no2, setPhone_no2] = useState("09182568727");
-  const [phoneNumber, setphoneNumber] = useState("09182568727");
-  const [gender, setGender] = useState("Male");
+  // const [uphoneNumber, setuphoneNumber] = useState("09182568727");
+  // const [ugender, setuGender] = useState("Male");
   const [Usergender, setUsergender] = useState("Male");
-  const [nextOfKINGS, setnextOfKINGS] = useState("MHyufd");
+  // const [nextOfKINGS, setnextOfKINGS] = useState("MHyufd");
   const [UserphoneNumber, setUserphoneNumber] = useState("09182568727");
-  const [customerAddress, setcustomerAddress] = useState("");
-  const [Address, setAddress] = useState("");
+
   const [Useremail, setUseremail] = useState("samuelify225@gmail.com");
-  const [lastname, setlastname] = useState("Samuel");
+  // const [ulastname, setulastname] = useState("Samuel");
   const [Userlastname, setUserlastname] = useState("Samuel");
-  const [firstname, setfirstname] = useState("Ifeanyi");
+  // const [ufirstname, setufirstname] = useState("Ifeanyi");
   const [Userfirstname, setUserfirstname] = useState("Ifeanyi");
-  const [email, setemail] = useState("samuelify225@gmail.com");
+  // const [uemail, setuemail] = useState("samuelify225@gmail.com");
+  // const [userGender, setUserGender] = useState({ gender: "", dateOfBirth: "" });
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
+  // const [allCustomers, setAllCustomers] = useState([]);
+  const [customerAddress, setAddress] = useState("");
+  const [nextKin, setNextKin] = useState({
+    firstname: "",
+    lastname: "",
+    email: "",
+    phoneNumber: "",
+    relationship: "",
+    gender: "",
+  });
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+  const { firstname, lastname, email, gender, relationship, phoneNumber } =
+    nextKin;
+
+  // const onSumitNofk = async (e) => {
+  //   let res = await nextKin(
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     phoneNumber,
+  //     relationship,
+  //     gender
+  //   );
+
+  //   console.log(res);
+
+  //   if (res.data.data.success === true) {
+  //     console.log("okay Good Server");
+  //   } else {
+  //     // setAlert(res.data.data.errors[0].msg, "danger");
+  //   }
+  // };
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
-
   useEffect(() => {
     console.log(match.params.id);
 
     axios
       .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
       .then((data) => {
-        console.log(data.data.data);
+        console.log(data.data.data.fullname);
+        // setAllCustomers(data.data.data);
+        // console.log(allCustomers[0].id);
 
-        setCustomerId(data.data.data);
+        // setUserInfo(data.data.data);
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
+    // console.log(customer_id);
   }, []);
-  const openModal2 = () => {
-    setModal2(true);
-  };
   const onChangeaddress = (event) => {
     setAddress(event.target.value);
+  };
+
+  const submitAddress = async (e) => {
+    e.preventDefault();
+
+    // console.log('vbvbvb');
+
+    if (customerAddress === "") {
+      console.log("empty address");
+
+      // setAlert('Please provide a passport photo', 'danger');
+    } else {
+      const body = JSON.stringify({ customerAddress });
+      console.log(body);
+
+      try {
+        const res = await axios.post(
+          api_url2 + "/v1/admin/add/address/" + customerId,
+          body,
+          config
+        );
+        console.log(res.data, "undefined");
+
+        if (res.data.statusCode === 200) {
+          // setPassportUpload(true)
+        } else {
+          // setAlert('Something went wrong, please try again later', 'danger');
+        }
+      } catch (err) {
+        console.log(err.response);
+        // setAlert('Check your internet connection', 'danger');
+      }
+    }
+  };
+  const submitNextOfKin = async (e) => {
+    e.preventDefault();
+
+    // console.log('vbvbvb');
+
+    const body = JSON.stringify({ nextKin });
+    console.log(body);
+
+    try {
+      const res = await axios.post(
+        api_url2 + "/v1/admin/add/customer/next-of-kin/" + customerId,
+        body,
+        config
+      );
+      console.log(res.data, "undefined");
+
+      if (res.data.statusCode === 200) {
+        // setPassportUpload(true)
+      } else {
+        // setAlert('Something went wrong, please try again later', 'danger');
+      }
+    } catch (err) {
+      console.log(err.response);
+      // setAlert('Check your internet connection', 'danger');
+    }
+  };
+  // const sumbitkin = async (e) => {
+  //   let res = await nextOfKING(
+  //     firstname,
+  //     lastname,
+  //     email,
+  //     phoneNumber,
+  //     relationship,
+  //     gender
+  //   );
+
+  //   console.log(res);
+
+  //   if (res.data.data.success === true) {
+  //     console.log("okay Good Server");
+  //   } else {
+  //     // setAlert(res.data.data.errors[0].msg, "danger");
+  //   }
+  // };
+  const onChangeFor2 = (e) => {
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
+    console.log(nextKin);
+  };
+
+  // const firstName = allCustomers.fullName.slice(0);
+
+  // const lastName = allCustomers.fullName.slice(1);
+  // console.log(firstName);
+  // console.log(allCustomers.fullName.slice(0));
+  const openModal2 = () => {
+    setModal2(true);
   };
   const openModal = () => {
     setModal(true);
@@ -246,23 +371,22 @@ const AdminSavingsOverview = ({ match }) => {
                         {/* ================= */}
                         {/* ================= */}
                         <div className="toggle_body_area1_cont1">
-                          {UseruserImage === null ? (
-                            <div className="toggle_body_area1_cont1_txts">
-                              Change Profile Picture{" "}
-                              <span className="toggle_body_area1_cont1_sub_txts">
-                                {" "}
-                                Choose a new avatar to be used across Egoras
-                              </span>
-                            </div>
-                          ) : (
-                            <div className="toggle_body_area1_cont1_txts">
-                              My Profile Picture{" "}
-                              <span className="toggle_body_area1_cont1_sub_txts">
-                                {" "}
-                                {/* Choose a new avatar to be used across Egoras */}
-                              </span>
-                            </div>
-                          )}
+                          <div className="toggle_body_area1_cont1_txts">
+                            Change Profile Picture{" "}
+                            <span className="toggle_body_area1_cont1_sub_txts">
+                              {" "}
+                              Choose a new avatar to be used across Egoras
+                            </span>
+                          </div>
+                          {/* // ) : (
+                          //   <div className="toggle_body_area1_cont1_txts">
+                          //     My Profile Picture{" "}
+                          //     <span className="toggle_body_area1_cont1_sub_txts">
+                          //       {" "}
+                          //       Choose a new avatar to be used across Egoras */}
+                          {/* //     </span>
+                          //   </div>
+                          // )} */}
                           <div className="toggle_body_area1_cont1_input">
                             {" "}
                             <img
@@ -270,12 +394,10 @@ const AdminSavingsOverview = ({ match }) => {
                               alt=""
                               className="user_upload_img"
                             />
-                            {UseruserImage === null ? (
-                              <AddCircleIcon
-                                className="add_icon"
-                                onClick={openModal}
-                              />
-                            ) : null}
+                            <AddCircleIcon
+                              className="add_icon"
+                              onClick={openModal}
+                            />
                           </div>
                         </div>
                         {/* ================= */}
@@ -288,6 +410,7 @@ const AdminSavingsOverview = ({ match }) => {
                             <span className="toggle_body_area1_cont1_sub_txts">
                               {" "}
                               Customize your account name
+                              {/* {allCustomers.fullName.split[0]} */}
                             </span>
                           </div>
                           <div className="toggle_body_area1_cont1_input">
@@ -435,7 +558,7 @@ const AdminSavingsOverview = ({ match }) => {
                               variant="outlined"
                               name="firstname"
                               value={firstname}
-                              // onChange={onChangeFor2}
+                              onChange={onChangeFor2}
                             />
                             <TextField
                               className="name_input1"
@@ -444,7 +567,7 @@ const AdminSavingsOverview = ({ match }) => {
                               variant="outlined"
                               name="lastname"
                               value={lastname}
-                              // onChange={onChangeFor2}
+                              onChange={onChangeFor2}
                             />
                           </div>
                         </div>
@@ -465,7 +588,7 @@ const AdminSavingsOverview = ({ match }) => {
                               variant="outlined"
                               name="email"
                               value={email}
-                              // onChange={onChangeFor2}
+                              onChange={onChangeFor2}
                             />
                           </div>
                         </div>
@@ -486,7 +609,7 @@ const AdminSavingsOverview = ({ match }) => {
                               variant="outlined"
                               name="phoneNumber"
                               value={phoneNumber}
-                              // onChange={onChangeFor2}
+                              onChange={onChangeFor2}
                             />
                           </div>
                         </div>
@@ -531,7 +654,7 @@ const AdminSavingsOverview = ({ match }) => {
                                   value={relationship}
                                   label="Age"
                                   // onChange={handleChange}
-                                  // onChange={onChangeFor2}
+                                  onChange={onChangeFor2}
                                   // onSelect={onChangeFor2}
                                 >
                                   <MenuItem name="relationship" value="Mother">
@@ -569,7 +692,7 @@ const AdminSavingsOverview = ({ match }) => {
                                 id="male"
                                 // value={Male}
                                 value="Male"
-                                // onChange={onChangeFor2}
+                                onChange={onChangeFor2}
                               />
                               <label for="male" class="radio" value={gender}>
                                 Male
@@ -582,7 +705,7 @@ const AdminSavingsOverview = ({ match }) => {
                                 id="female"
                                 // value="female"
                                 value="Female"
-                                // onChange={onChangeFor2}
+                                onChange={onChangeFor2}
                               />
                               <label for="female" class="radio" value={gender}>
                                 Female
@@ -600,7 +723,7 @@ const AdminSavingsOverview = ({ match }) => {
                           <div className="toggle_body_area1_cont1_input">
                             <button
                               className="save_changes_btn"
-                              onClick={nextOfKINGS}
+                              onClick={submitNextOfKin}
                             >
                               Save Changes
                             </button>
@@ -724,7 +847,7 @@ const AdminSavingsOverview = ({ match }) => {
                               <button
                                 className="add_photo"
                                 style={{ width: "25%" }}
-                                // onClick={submitAddress}
+                                onClick={submitAddress}
                               >
                                 Submit Addresxs
                               </button>
@@ -892,5 +1015,8 @@ const AdminSavingsOverview = ({ match }) => {
     </div>
   );
 };
-
+// const mapStateToProps = (state) => ({
+//   id: state.customerId,
+// });
 export default AdminSavingsOverview;
+// export default connect(mapStateToProps, { nextOfKING })(AdminSavingsOverview);

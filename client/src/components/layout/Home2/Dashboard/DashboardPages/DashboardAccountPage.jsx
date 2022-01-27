@@ -209,7 +209,7 @@ function DashboardAccountPage({
               console.log("file too large.");
             }
             // else {
-              setcustomer_image(passportFile);
+            setcustomer_image(passportFile);
             // }
           }
         }
