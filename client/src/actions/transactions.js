@@ -12,35 +12,80 @@ import {
 // import setAuthToken from "../utils/setAuthToken";
 import setAuthToken from "../utils/setAuthToken";
 
-// // charge card step One
-// export const proceedToCheckout =
-//   async (
-//     card_number,
-//     expiry_month,
-//     expiry_year,
-//     cvv,
-//     fullname,
-//     email,
-//     phone_number,
-//     amount
-//   ) =>
-//   async (dispatch) => {
-//     console.log(
-//       card_number,
-//       expiry_month,
-//       expiry_year,
-//       cvv,
-//       fullname,
-//       email,
-//       phone_number,
-//       amount
-//     );
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
-//     // try {
-//     console.log("running inside action");
+// Load User
+export const proceedToCheckout =
+  (
+    card_number,
+    expiry_month,
+    expiry_year,
+    cvv,
+    fullname,
+    email,
+    phone_number,
+    amount
+  ) =>
+  async (dispatch) => {
+    console.log(
+      card_number,
+      expiry_month,
+      expiry_year,
+      cvv,
+      fullname,
+      email,
+      phone_number,
+      amount
+    );
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+
+    const body = JSON.stringify({
+      card_number,
+      expiry_month,
+      expiry_year,
+      cvv,
+      fullname,
+      email,
+      phone_number,
+      amount,
+    });
+
+    console.log(body);
+    try {
+      const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
+      console.log(res.data.data);
+ 
+    } catch (error) {
+      console.log(error);
+      // dispatch({
+      //   type: AUTH_ERROR,
+      // });
+    }
+  };
 
 //   };
+// Check pin
+export const checkPin = (payload, pin) => async (dispatch) => {
+  console.log(payload, pin);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const body = JSON.stringify({
+  
+  });
+
+  console.log(body);
+  try {
+    const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
+    console.log(res.data.data);
+
+  } catch (error) {
+    console.log(error);
+
+  }
+};
