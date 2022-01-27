@@ -6,6 +6,8 @@ import { API_URL2 as api } from "../../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 import { allCart } from "../../../../../actions/shop";
+import DashBoardCard from "../DashBoardCard";
+import data from "../../../MockData";
 import { retrieveCart } from "../../../../../actions/shop";
 import {
   PRODUCT_LOADED,
@@ -246,28 +248,8 @@ const DashboardHomePage = ({ cart, auth, allCart }) => {
                 // transitionDuration={1000}
                 style={{ height: "25em" }}
               >
-                {cards.map((asset) => (
-                  <div className="card_cont1">
-                    <div className="card_cont_txtxs">
-                      {/* <div className="save_card_cont_txt1">
-                        <span className="savings_caption">Title</span>
-                        <div className="card_cont_txt_tittle">
-                          Total Savings
-                        </div>
-                      </div> */}
-                      <div className="save_card_cont_txt1">
-                        <span className="savings_caption">{asset.title}</span>
-                        <div className="card_cont_txt_tittle">
-                          ₦{asset.Balance}
-                        </div>
-                      </div>
-                      <div className="to_save_btn">
-                        <LogoutIcon className="to_save_area_icon" /> Start
-                        saving
-                      </div>
-                    </div>
-                    <img src={asset.img} alt="" className="savings_card" />
-                  </div>
+                {data.dashBoardHomeCard.map((asset, index) => (
+                  <DashBoardCard key={index} val={asset} />
                 ))}
               </Carousel>
               {/* Carousel end==============================
