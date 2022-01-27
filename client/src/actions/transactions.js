@@ -55,7 +55,8 @@ export const sendPin = (payload, pin) => async (dispatch) => {
       },
     };
   
-    const body = JSON.stringify({payload, pin});
+    // const body = JSON.stringify({payload, pin});
+    const body = {payload, pin};
   
     console.log(body);
     try {

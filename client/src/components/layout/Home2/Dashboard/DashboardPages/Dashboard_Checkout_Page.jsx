@@ -8,7 +8,7 @@ import NumberFormat from "react-number-format";
 import "../DashboardStyles/dashboardCheckout.css";
 const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, auth, cAmount}) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
-  const [isSuccessful, setIsSuccessful] = useState(false);
+  const [isSuccessful, setIsSuccessful] = useState(true);
   const [isOtp, setIsOtp] = useState(false);
   const [pin, setPin] = useState('');
   const [payload1, setPayload1] = useState(
