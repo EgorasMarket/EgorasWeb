@@ -56,6 +56,11 @@ export const proceedToCheckout =
     try {
       const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
       console.log(res.data.data);
+
+      return {
+        success: true, 
+        data: res
+      }
  
     } catch (error) {
       console.log(error);
@@ -82,10 +87,55 @@ export const checkPin = (payload, pin) => async (dispatch) => {
   console.log(body);
   try {
     const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
-    console.log(res.data.data);
+    // console.log(res.data);
 
+    return {
+    success: true,
+    data: res,
+    };
+    // console.log("Yes I call You because i can", res.data.data);
+    // dispatch({
+    //   type: FETCH_CART,
+    //   payload: res.data.data,
+    // });
   } catch (error) {
     console.log(error);
 
   }
 };
+
+
+export const sendPin = (payload, pin) => async (dispatch) => {
+    console.log(payload, pin);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+  
+    const body = JSON.stringify({payload, pin});
+  
+    console.log(body);
+    try {
+        
+      const res = await axios.post(api_url2 + "/v1/payment/card/pin", body, config);
+      console.log(res.data);
+  
+      return {
+          success: true,
+      data: res.data,
+      };
+      // console.log("Yes I call You because i can", res.data.data);
+      // dispatch({
+      //   type: FETCH_CART,
+      //   payload: res.data.data,
+      // });
+    } catch (error) {
+      console.log(error);
+      // dispatch({
+      //   type: AUTH_ERROR,
+      // });
+    }
+  };
+
+
