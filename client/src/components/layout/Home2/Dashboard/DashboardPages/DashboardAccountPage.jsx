@@ -3,23 +3,13 @@ import axios from "axios";
 import { API_URL2 as api_url2 } from "../../../../../actions/types";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
-// import AvatarSelector from "react-avatar-selector";
-// import poodle from "../../img/profile_img.jpeg";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import LockIcon from "@mui/icons-material/Lock";
-// import  {useLocal}
 import { useLocalStorage } from "../../Activation/useLocalStorage";
 import jwt from "jsonwebtoken";
-
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-
-// import TimePicker from "@mui/lab/TimePicker";
-// import TimePicker from "@mui/lab/TimePicker";
-// import DateTimePicker from "@mui/lab/DateTimePicker";
-// import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-// import MobileDatePicker from "@mui/lab/MobileDatePicker";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -209,7 +199,7 @@ function DashboardAccountPage({
               console.log("file too large.");
             }
             // else {
-              setcustomer_image(passportFile);
+            setcustomer_image(passportFile);
             // }
           }
         }
