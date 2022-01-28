@@ -6,7 +6,6 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
-// export const FETCH_USER = "FETCH_USER";
 export const FETCH_LOAN_SUCCESS = "FETCH_LOAN_SUCCESS";
 export const FETCH_LOAN_FAILED = "FETCH_LOAN_FAILED";
 export const FETCH_COMPANIES_SUCCESS = "FETCH_COMPANIES_SUCCESS";
