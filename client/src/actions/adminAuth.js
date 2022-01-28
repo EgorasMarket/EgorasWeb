@@ -204,12 +204,12 @@ export const nextOfKING =
 
     try {
       const res = await axios.post(
-        api_url2 + "/v1/user/add/customer/next-of-kin",
+        api_url2 + "/v1/admin/add/customer/next-of-kin/",
         body,
         config
       );
       console.log(res);
-
+      // /v1/admin/add/customer/next-of-kin/{customer_id}
       return {
         success: true,
         data: res.data,
@@ -427,3 +427,41 @@ export const adminAddCustomer =
       };
     }
   };
+// Admin update Customer address
+
+// export const adminUpdateAddress = (customerAddress) => async (dispatch) => {
+//   const config = {
+//     headers: {
+//       Accept: "*",
+//       "Content-Type": "application/json",
+//       "Access-Control-Allow-Origin": "*",
+//     },
+//   };
+
+//   const body = JSON.stringify({
+//     customerAddress,
+//   });
+
+//   console.log(body);
+
+//   try {
+//     const res = await axios.post(
+//       api_url2 + "/v1/admin/add/address/" + customerId,
+//       body,
+//       config
+//     );
+//     console.log(res);
+
+//     return {
+//       success: true,
+//       data: res.data,
+//     };
+//   } catch (err) {
+//     console.log(err.response);
+
+//     return {
+//       success: false,
+//       data: err.response,
+//     };
+//   }
+// };

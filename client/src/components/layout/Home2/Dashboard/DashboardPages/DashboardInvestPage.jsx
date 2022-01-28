@@ -10,7 +10,7 @@ import DvrIcon from "@mui/icons-material/Dvr";
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 import setAuthToken from "../../../../../utils/setAuthToken";
@@ -200,10 +200,7 @@ function DashboardInvestPage({ auth }) {
     },
   };
 
-  
   //  const names =["phones $ Tablet","grocery","Home & Kitchen","electronics","computer & electronics"]
-
-
 
   const [item, setItem] = useState([]);
 
@@ -212,7 +209,7 @@ function DashboardInvestPage({ auth }) {
   // const [cItem,setCItem] =useState([])
 
   const [img, setImg] = useState();
-  const [category,setCategory]=useState([])
+  const [category, setCategory] = useState([]);
 
   const {
     productId,
@@ -227,55 +224,45 @@ function DashboardInvestPage({ auth }) {
   } = item;
 
   useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/products",
-        null,
-        config
-    ).then((data) => {
-       
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
         console.log(data.data.data, "powerful");
-     
-       
-        setItem(data.data.data)
 
-
+        setItem(data.data.data);
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
-
-    
   }, []);
 
-
-  const phone =["2324tfgfd","2344w232ws","33822bj23","3473672gbn","NmCPfPsS25", "v6whRB7ii5","v6wwwd1ii5"]
+  const phone = [
+    "2324tfgfd",
+    "2344w232ws",
+    "33822bj23",
+    "3473672gbn",
+    "NmCPfPsS25",
+    "v6whRB7ii5",
+    "v6wwwd1ii5",
+  ];
 
   // const industrialsEquipment,MusicalEquipment,phoneTablet,Electronics,Furniture,ComputerAccessories,HomeApplinces;
 
+  useEffect(() => {
+    phoneTab();
+  }, []);
 
-  useEffect(()=>{
-    phoneTab()
-  },[])
-
-
-  function phoneTab (){
-
-    axios.get(
-      api_url2 + "/v1/product/retrieve/category",
-      null,
-      config
-  ).then((data) => {
-     
-      console.log(data.data.data, "king");
-      setCategory(data.data.data)
-    })
-    .catch((err) => {
-      console.log(err); // "oh, no!"
-    });
-
+  function phoneTab() {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .then((data) => {
+        console.log(data.data.data, "king");
+        setCategory(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
   }
-
 
   console.log(item);
 
@@ -438,12 +425,16 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -510,42 +501,58 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.map((asset) => { if ( phoneTablets === asset.product_category_code) return(
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
-                    <li className="carous_list no_marg">
-                      <div
-                        className="storeTiles_storeTileContainer__HoGEa"
-                        style={{
-                          backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
-                          //           height: "200px",
-                          //           width: "100%",
-                          //           backgroundRepeat: "no-repeat",
-                          //           backgroundSize: "cover",
-                          //           borderRadius: "8px",
-                          //           borderBottomLeftRadius: "0px",
-                          //           borderBottomRightRadius: "0px",
-                          //   backgroundPositionY: "center",
-                        }}
+                {item.map((asset) => {
+                  if (phoneTablets === asset.product_category_code)
+                    return (
+                      <a
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                       >
-                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                          <button className="items_remaining_btn">
-                            save now
-                          </button>
-                          <button className="items_remaining_btn2">
-                            100% off
-                          </button>
-                        </div>
-                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.product_name}</div>
-                          <div className="asset_title">
-                            {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
+                        <li className="carous_list no_marg">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                              <button className="items_remaining_btn">
+                                save now
+                              </button>
+                              <button className="items_remaining_btn2">
+                                100% off
+                              </button>
+                            </div>
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div className="asset_title">
+                                {asset.unitCount}
+                                {asset.unitCount === 1
+                                  ? "item left"
+                                  : asset.unitCount <= 1
+                                  ? "no item left"
+                                  : asset.unitCount > 1
+                                  ? "items left"
+                                  : null}
+                              </div>
+                            </div>
+                            {/* </a> */}
                           </div>
-                        </div>
-                        {/* </a> */}
-                      </div>
-                    </li>
-                  </a>
-                )})}
+                        </li>
+                      </a>
+                    );
+                })}
               </div>
             </div>
           </div>
@@ -568,12 +575,16 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -595,7 +606,14 @@ function DashboardInvestPage({ auth }) {
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                          {asset.unitCount}
+                          {asset.unitCount === 1
+                            ? "item left"
+                            : asset.unitCount <= 1
+                            ? "no item left"
+                            : asset.unitCount > 1
+                            ? "itms left"
+                            : null}
                         </div>
                       </div>
                       {/* </a> */}
@@ -631,13 +649,16 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} >
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
-                     
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                       }}
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
@@ -651,7 +672,14 @@ function DashboardInvestPage({ auth }) {
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                          {asset.unitCount}
+                          {asset.unitCount === 1
+                            ? "item left"
+                            : asset.unitCount <= 1
+                            ? "no item left"
+                            : asset.unitCount > 1
+                            ? "itms left"
+                            : null}
                         </div>
                       </div>
                       {/* </a> */}
@@ -697,12 +725,16 @@ function DashboardInvestPage({ auth }) {
               </div>
               <div className="products_display_body_conts2">
                 {item.map((asset) => (
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+                  <a
+                    href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                  >
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
                         style={{
-                          backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                          backgroundImage: `url(${
+                            api_url2 + "/" + asset.product_image
+                          })`,
                           //           height: "200px",
                           //           width: "100%",
                           //           backgroundRepeat: "no-repeat",
@@ -724,7 +756,14 @@ function DashboardInvestPage({ auth }) {
                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
                           <div className="asset_name">{asset.product_name}</div>
                           <div className="asset_title">
-                            {asset.unitCount }{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                            {asset.unitCount}
+                            {asset.unitCount === 1
+                              ? "item left"
+                              : asset.unitCount <= 1
+                              ? "no item left"
+                              : asset.unitCount > 1
+                              ? "itms left"
+                              : null}
                           </div>
                         </div>
                         {/* </a> */}
@@ -754,12 +793,16 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -775,13 +818,20 @@ function DashboardInvestPage({ auth }) {
                           save now
                         </button>
                         <button className="items_remaining_btn2">
-                        100% off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                          {asset.unitCount}
+                          {asset.unitCount === 1
+                            ? "item left"
+                            : asset.unitCount <= 1
+                            ? "no item left"
+                            : asset.unitCount > 1
+                            ? "itms left"
+                            : null}
                         </div>
                       </div>
                       {/* </a> */}
@@ -793,8 +843,7 @@ function DashboardInvestPage({ auth }) {
           </div>
         </div>
 
-
-{/* 
+        {/* 
         <div>
           {names.filter(name => name.includes('p')).map(filteredName => (
            <li>
@@ -802,8 +851,6 @@ function DashboardInvestPage({ auth }) {
           </li>
           ))}
          </div> */}
-
-
 
         <div className="fixed_pop">
           <img

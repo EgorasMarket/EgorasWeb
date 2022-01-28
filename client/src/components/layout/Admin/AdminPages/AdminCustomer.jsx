@@ -11,7 +11,6 @@ const AdminCustomer = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
 
-
   const [allCustomers, setAllCustomers] = useState([]);
   const config = {
     headers: {
@@ -74,6 +73,8 @@ const AdminCustomer = () => {
       .catch((err) => {
         console.log(err.response); // "oh, no!"
       });
+
+    console.log("my naem");
     // ============
   }, []);
   // useEffect(() => {
