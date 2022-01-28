@@ -18,6 +18,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+import data from "../../MockData";
 // import { nextOfKING } from "../../../../actions/adminAuth.js";
 
 // import
@@ -73,34 +74,19 @@ const responsive6 = {
 };
 const AdminSavingsOverview = ({ match }) => {
   const [customerId, setCustomerId] = useState(match.params.id);
-  // const [customer_id, setCustomer_id] = useState([]);
   const [image, setImage] = useState("/img/BAG.jpeg");
-  // const [newpassword, setnewpassword] = useState("");
-  // const [UseruserImage, setUseruserImage] = useState("/img/BAG.jpeg");
-  const [Userbvn, setUserBvn] = useState("242647651511");
-  const [UserdateOfBirth, setUserdateOfBirth] = useState("22-10-2022");
-  const [dateOfBirth, setdateOfBirth] = useState("22-10-2022");
   const [activeBg, setActiveBg] = useState("accounts");
-  // const [urelationship, setuRelationship] = useState("Brother");
-  const [phone_no2, setPhone_no2] = useState("09182568727");
-  // const [uphoneNumber, setuphoneNumber] = useState("09182568727");
-  // const [ugender, setuGender] = useState("Male");
-  const [Usergender, setUsergender] = useState("Male");
-  // const [nextOfKINGS, setnextOfKINGS] = useState("MHyufd");
-  const [UserphoneNumber, setUserphoneNumber] = useState("09182568727");
-
-  const [Useremail, setUseremail] = useState("samuelify225@gmail.com");
-  // const [ulastname, setulastname] = useState("Samuel");
-  const [Userlastname, setUserlastname] = useState("Samuel");
-  // const [ufirstname, setufirstname] = useState("Ifeanyi");
-  const [Userfirstname, setUserfirstname] = useState("Ifeanyi");
-  // const [uemail, setuemail] = useState("samuelify225@gmail.com");
-  // const [userGender, setUserGender] = useState({ gender: "", dateOfBirth: "" });
+  const [phone_no2, setPhone_no2] = useState("");
+  const [customer_image, setcustomer_image] = useState("");
+  const [genderDate, setGenderDate] = useState({
+    gender1: "",
+    dateOfBirth: "",
+  });
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
-  // const [allCustomers, setAllCustomers] = useState([]);
   const [customerAddress, setAddress] = useState("");
+  const [secondaryPhoneNumber, setSecondaryPhoneNumber] = useState("");
   const [nextKin, setNextKin] = useState({
     firstname: "",
     lastname: "",
@@ -109,6 +95,28 @@ const AdminSavingsOverview = ({ match }) => {
     relationship: "",
     gender: "",
   });
+  const [userInfo, setUserInfo] = useState({
+    CustFirstName: "",
+    CustLastName: "",
+    Custemail: "",
+    CustphoneNumber: "",
+    CustImage: "",
+    // CustRelationship: "",
+    Custgender: "",
+    CustBvn: "",
+    CustDateOfBirth: "",
+  });
+  const {
+    CustFirstName,
+    CustLastName,
+    Custemail,
+    Custgender,
+    // CustRelationship,
+    CustImage,
+    CustphoneNumber,
+    CustBvn,
+    CustDateOfBirth,
+  } = userInfo;
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -116,25 +124,7 @@ const AdminSavingsOverview = ({ match }) => {
   };
   const { firstname, lastname, email, gender, relationship, phoneNumber } =
     nextKin;
-
-  // const onSumitNofk = async (e) => {
-  //   let res = await nextKin(
-  //     firstname,
-  //     lastname,
-  //     email,
-  //     phoneNumber,
-  //     relationship,
-  //     gender
-  //   );
-
-  //   console.log(res);
-
-  //   if (res.data.data.success === true) {
-  //     console.log("okay Good Server");
-  //   } else {
-  //     // setAlert(res.data.data.errors[0].msg, "danger");
-  //   }
-  // };
+  const { gender1, dateOfBirth } = genderDate;
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
@@ -145,30 +135,96 @@ const AdminSavingsOverview = ({ match }) => {
     axios
       .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
       .then((data) => {
-        console.log(data.data.data.fullname);
-        // setAllCustomers(data.data.data);
-        // console.log(allCustomers[0].id);
-
-        // setUserInfo(data.data.data);
+        console.log(data.data.data);
+        const getName = data.data.data.fullname;
+        const splitName = getName.split(" ");
+        setUserInfo({
+          CustFirstName: splitName[0],
+          CustLastName: splitName[1],
+          Custemail: data.data.data.email,
+          CustImage: data.data.data.userImage,
+          CustphoneNumber: data.data.data.phoneNumber,
+          // CustRelationship: data.data.data,
+          Custgender: data.data.data.gender,
+          CustBvn: data.data.data.BVN,
+          CustDateOfBirth: data.data.data.dateOfBirth,
+        });
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
-    // console.log(customer_id);
   }, []);
   const onChangeaddress = (event) => {
     setAddress(event.target.value);
   };
+  const onImageChange = (event) => {
+    if (event.target.files && event.target.files[0]) {
+      setImage(URL.createObjectURL(event.target.files[0]));
 
+      const types = ["jpg", "png", "jpeg"];
+
+      if (event.currentTarget.id === "customer_image") {
+        if (event.currentTarget.files.length === 0) {
+          // setUserInfo({ ...userInfo, applicantImg: "" });
+          // document.getElementById("output1").src = "";
+        } else {
+          let passportFile = document.getElementById("customer_image").files[0];
+
+          let fileExtension = passportFile.name.split(".").pop();
+          console.log(passportFile);
+
+          if (!types.includes(fileExtension)) {
+          } else {
+            if (passportFile.size > 1000000) {
+              console.log("file too large.");
+            }
+            // else {
+            setcustomer_image(passportFile);
+            // }
+          }
+        }
+      }
+    }
+  };
+  const AddUserPhoto = async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData();
+
+    if (customer_image === "") {
+      console.log("empty passport");
+
+      // setAlert('Please provide a passport photo', 'danger');
+    } else {
+      const element = document.getElementById("customer_image");
+      const file = element.files[0];
+      formData.append("customer_image", file, file.name);
+
+      console.log(formData, "hhhh");
+
+      try {
+        const res = await axios.put(
+          api_url2 + "/v1/admin/add/customer/image/" + customerId,
+          formData
+        );
+        console.log(res.data, "undefined");
+
+        if (res.data.statusCode === 200) {
+          // setPassportUpload(true)
+        } else {
+          // setAlert('Something went wrong, please try again later', 'danger');
+        }
+      } catch (err) {
+        console.log(err.response);
+        // setAlert('Check your internet connection', 'danger');
+      }
+    }
+  };
   const submitAddress = async (e) => {
     e.preventDefault();
 
-    // console.log('vbvbvb');
-
     if (customerAddress === "") {
       console.log("empty address");
-
-      // setAlert('Please provide a passport photo', 'danger');
     } else {
       const body = JSON.stringify({ customerAddress });
       console.log(body);
@@ -192,13 +248,46 @@ const AdminSavingsOverview = ({ match }) => {
       }
     }
   };
-  const submitNextOfKin = async (e) => {
+  const submitPhoneNumber2 = async (e) => {
     e.preventDefault();
 
-    // console.log('vbvbvb');
+    if (secondaryPhoneNumber === "") {
+      console.log("empty address");
+    } else {
+      const body = JSON.stringify({ secondaryPhoneNumber });
+      console.log(body);
 
-    const body = JSON.stringify({ nextKin });
-    console.log(body);
+      try {
+        const res = await axios.put(
+          api_url2 + "/v1/admin/update/secondary/contact/" + customerId,
+          body,
+          config
+        );
+        console.log(res.data, "undefined");
+
+        if (res.data.statusCode === 200) {
+          // setPassportUpload(true)
+        } else {
+          // setAlert('Something went wrong, please try again later', 'danger');
+        }
+      } catch (err) {
+        console.log(err.response);
+        // setAlert('Check your internet connection', 'danger');
+      }
+    }
+  };
+  const submitNextOfKin = async (e) => {
+    e.preventDefault();
+    const { firstname, lastname, email, gender, relationship, phoneNumber } =
+      nextKin;
+    const body = {
+      firstname,
+      lastname,
+      email,
+      gender,
+      relationship,
+      phoneNumber,
+    };
 
     try {
       const res = await axios.post(
@@ -218,24 +307,40 @@ const AdminSavingsOverview = ({ match }) => {
       // setAlert('Check your internet connection', 'danger');
     }
   };
-  // const sumbitkin = async (e) => {
-  //   let res = await nextOfKING(
-  //     firstname,
-  //     lastname,
-  //     email,
-  //     phoneNumber,
-  //     relationship,
-  //     gender
-  //   );
+  const submitGender = async (e) => {
+    e.preventDefault();
+    const { gender1, dateOfBirth } = genderDate;
+    const body = {
+      gender: gender1,
+      dateOfBirth,
+    };
 
-  //   console.log(res);
+    try {
+      const res = await axios.put(
+        api_url2 + "/v1/admin/update/customer/info/" + customerId,
+        body,
+        config
+      );
+      console.log(res.data, "undefined");
 
-  //   if (res.data.data.success === true) {
-  //     console.log("okay Good Server");
-  //   } else {
-  //     // setAlert(res.data.data.errors[0].msg, "danger");
-  //   }
-  // };
+      if (res.data.statusCode === 200) {
+        // setPassportUpload(true)
+      } else {
+        // setAlert('Something went wrong, please try again later', 'danger');
+      }
+    } catch (err) {
+      console.log(err.response);
+      // setAlert('Check your internet connection', 'danger');
+    }
+  };
+  const handleChange = (event) => {
+    // setAge(event.target.value);
+    setSecondaryPhoneNumber(event.target.value);
+  };
+  const onChangeFor = (e) => {
+    setGenderDate({ ...genderDate, [e.target.name]: e.target.value });
+  };
+
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
     console.log(nextKin);
@@ -370,23 +475,29 @@ const AdminSavingsOverview = ({ match }) => {
                         {/* ================= */}
                         {/* ================= */}
                         {/* ================= */}
+
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
                         <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Change Profile Picture{" "}
-                            <span className="toggle_body_area1_cont1_sub_txts">
-                              {" "}
-                              Choose a new avatar to be used across Egoras
-                            </span>
-                          </div>
-                          {/* // ) : (
-                          //   <div className="toggle_body_area1_cont1_txts">
-                          //     My Profile Picture{" "}
-                          //     <span className="toggle_body_area1_cont1_sub_txts">
-                          //       {" "}
-                          //       Choose a new avatar to be used across Egoras */}
-                          {/* //     </span>
-                          //   </div>
-                          // )} */}
+                          {CustImage === null ? (
+                            <div className="toggle_body_area1_cont1_txts">
+                              Change Profile Picture{" "}
+                              <span className="toggle_body_area1_cont1_sub_txts">
+                                {" "}
+                                Choose a new avatar to be used across Egoras
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="toggle_body_area1_cont1_txts">
+                              My Profile Picture{" "}
+                              <span className="toggle_body_area1_cont1_sub_txts">
+                                {" "}
+                                {/* Choose a new avatar to be used across Egoras */}
+                              </span>
+                            </div>
+                          )}
                           <div className="toggle_body_area1_cont1_input">
                             {" "}
                             <img
@@ -394,10 +505,12 @@ const AdminSavingsOverview = ({ match }) => {
                               alt=""
                               className="user_upload_img"
                             />
-                            <AddCircleIcon
-                              className="add_icon"
-                              onClick={openModal}
-                            />
+                            {CustImage === null ? (
+                              <AddCircleIcon
+                                className="add_icon"
+                                onClick={openModal}
+                              />
+                            ) : null}
                           </div>
                         </div>
                         {/* ================= */}
@@ -410,7 +523,6 @@ const AdminSavingsOverview = ({ match }) => {
                             <span className="toggle_body_area1_cont1_sub_txts">
                               {" "}
                               Customize your account name
-                              {/* {allCustomers.fullName.split[0]} */}
                             </span>
                           </div>
                           <div className="toggle_body_area1_cont1_input">
@@ -419,22 +531,17 @@ const AdminSavingsOverview = ({ match }) => {
                               id="outlined-basic"
                               label="First Name"
                               variant="outlined"
-                              value={Userfirstname}
+                              value={CustFirstName}
                             />
                             <TextField
                               className="name_input1"
                               id="outlined-basic"
                               label="Last Name"
                               variant="outlined"
-                              value={Userlastname}
+                              value={CustLastName}
                             />
                           </div>
                         </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-
                         {/* ================= */}
                         {/* ================= */}
                         {/* ================= */}
@@ -448,15 +555,15 @@ const AdminSavingsOverview = ({ match }) => {
                             </span>
                           </div>
                           <div className="toggle_body_area1_cont1_input">
-                            {Usergender === null ? (
+                            {Custgender === null ? (
                               <div className="d-flex">
                                 <div className="radio_group pr-4">
                                   <input
                                     type="radio"
-                                    name="gender"
+                                    name="gender1"
                                     id="male"
                                     value="Male"
-                                    // onChange={onChangeFor}
+                                    onChange={onChangeFor}
                                   />
                                   <label for="male" class="radio">
                                     Male
@@ -465,10 +572,10 @@ const AdminSavingsOverview = ({ match }) => {
                                 <div className="radio_group">
                                   <input
                                     type="radio"
-                                    name="gender"
+                                    name="gender1"
                                     id="female"
                                     value="Female"
-                                    // onChange={onChangeFor}
+                                    onChange={onChangeFor}
                                   />
                                   <label for="female" class="radio">
                                     Female
@@ -476,7 +583,7 @@ const AdminSavingsOverview = ({ match }) => {
                                 </div>
                               </div>
                             ) : (
-                              Usergender
+                              Custgender
                             )}
                           </div>
                         </div>
@@ -493,17 +600,17 @@ const AdminSavingsOverview = ({ match }) => {
                             </span>
                           </div>
                           <div className="toggle_body_area1_cont1_input">
-                            {UserdateOfBirth === null ? (
+                            {CustDateOfBirth === null ? (
                               <input
                                 type="date"
                                 name="dateOfBirth"
                                 id=""
                                 value={dateOfBirth}
                                 className="name_input1 date_input"
-                                // onChange={onChangeFor}
+                                onChange={onChangeFor}
                               />
                             ) : (
-                              UserdateOfBirth
+                              CustDateOfBirth
                             )}
                           </div>
                         </div>
@@ -511,13 +618,13 @@ const AdminSavingsOverview = ({ match }) => {
                         {/* ================= */}
                         {/* ================= */}
                         {/* ================= */}
-                        {UserdateOfBirth === null ? (
+                        {CustDateOfBirth === null ? (
                           <div className="toggle_body_area1_cont1">
                             <div className="toggle_body_area1_cont1_txts"></div>
                             <div className="toggle_body_area1_cont1_input">
                               <button
                                 className="save_changes_btn"
-                                // onClick={sends}
+                                onClick={submitGender}
                               >
                                 Save Changes
                               </button>
@@ -756,7 +863,7 @@ const AdminSavingsOverview = ({ match }) => {
                             <span className="toggle_body_area1_cont1_sub_txts"></span>
                           </div>
                           <div className="toggle_body_area1_cont1_input">
-                            {Useremail}
+                            {Custemail}
                           </div>
                         </div>
                         {/* ================= */}
@@ -769,7 +876,7 @@ const AdminSavingsOverview = ({ match }) => {
                             <span className="toggle_body_area1_cont1_sub_txts"></span>
                           </div>
                           <div className="toggle_body_area1_cont1_input">
-                            {UserphoneNumber} {phone_no2}
+                            {CustphoneNumber} {phone_no2}
                             <AddCircleIcon
                               className="edit_icon"
                               onClick={openModal2}
@@ -788,7 +895,7 @@ const AdminSavingsOverview = ({ match }) => {
                             </span>
                           </div>
                           <div className="toggle_body_area1_cont1_input">
-                            <div className="bvn_btn">{Userbvn}</div>
+                            <div className="bvn_btn">{CustBvn}</div>
                           </div>
                         </div>
                         {/* ================= */}
@@ -849,7 +956,7 @@ const AdminSavingsOverview = ({ match }) => {
                                 style={{ width: "25%" }}
                                 onClick={submitAddress}
                               >
-                                Submit Addresxs
+                                Submit Address
                               </button>
                             </div>
                           </div>
@@ -905,27 +1012,24 @@ const AdminSavingsOverview = ({ match }) => {
                   <label
                     for="customer_image"
                     className="custom-file-upload33"
-                    // onChange={onImageChange}
+                    onChange={onImageChange}
                   >
                     <AddCircleIcon
                       className="add_icon33"
-                      // onChange={onImageChange}
+                      onChange={onImageChange}
                     />{" "}
                   </label>
                   <input
                     type="file"
                     id="customer_image"
                     name="customer_image"
-                    // onChange={onImageChange}
+                    onChange={onImageChange}
                     className="filetype"
                   />
                 </div>{" "}
               </div>
               <div className="profile_modal_area2">
-                <button
-                  className="add_photo"
-                  // onClick={AddUserPhoto}
-                >
+                <button className="add_photo" onClick={AddUserPhoto}>
                   <AddAPhotoIcon className="photo_icon" /> Add Photo
                 </button>
                 <button className="cancel_photo" onClick={closeModal}>
@@ -946,13 +1050,13 @@ const AdminSavingsOverview = ({ match }) => {
                   id="outlined-basic"
                   label="Phone No:"
                   variant="outlined"
-                  name="phone no"
-                  value={phone_no2}
-                  // onChange={handleChange}
+                  name="secondaryPhoneNumber"
+                  value={secondaryPhoneNumber}
+                  onChange={handleChange}
                 />
               </div>
               <div className="profile_modal_area2">
-                <button className="add_photo">
+                <button className="add_photo" onClick={submitPhoneNumber2}>
                   {" "}
                   <LocalPhoneIcon className="cancel_icon" />
                   Add Number
