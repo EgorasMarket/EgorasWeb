@@ -1,12 +1,45 @@
 import React, { useState, useRef, useEffect } from "react";
 import CloseIcon from "@mui/icons-material/Close";
+import { connect } from "react-redux";
+import axios from "axios";
 
+import { proceedToCheckout , sendPin, sendOtp } from "../../../../../actions/transactions";
 import NumberFormat from "react-number-format";
 import "../DashboardStyles/dashboardCheckout.css";
-const Dashboard_Checkout_Page = (props) => {
+const Dashboard_Checkout_Page = ({proceedToCheckout, sendPin, sendOtp, auth, cAmount}) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
+  const [pin, setPin] = useState('');
+  const [otp, setOtp] = useState('');
+  // const [payload1, setPayload1] = useState(
+  //   {
+  //     "card_number":"5399838383838381",
+  //     "cvv":"470",
+  //     "expiry_month":"10",
+  //     "expiry_year":"31",
+  //     "currency":"NGN",
+  //     "amount":2000,
+  //     "redirect_url":"https://www.google.com",
+  //     "fullname":"Ebri Goodness",
+  //     "email":"7huyhbhb@gmail.com",
+  //     "phone_number":"89888888888",
+  //     "enckey":"FLWSECK_TEST68fe8fdbc2e1",
+  //     "tx_ref":"IJPHM6ZQIKCH5X7NUSLF"
+  //   }
+  // );
+  const [payload1, setPayload1] = useState([]);
+  const [payload2, setPayload2] = useState([]);
+  const [payload3, setPayload3] = useState([]);
+  const [cardInfoOne, setCardInfoOne] = useState({
+    card_numberVar: '',
+    cardExDate: '',
+    cvv: '',
+  });
+
+  console.log(cAmount);
+
+  const { card_numberVar, cardExDate, cvv } = cardInfoOne;
   const [modal, setModal] = useState(false);
   function limit(val, max) {
     if (val.length === 1 && val[0] > max[0]) {
@@ -28,7 +61,7 @@ const Dashboard_Checkout_Page = (props) => {
 
   function cardExpiry(val) {
     let month = limit(val.substring(0, 2), "12");
-    let date = limit(val.substring(2, 4), "31");
+    let date = limit(val.substring(2, 4), "50");
 
     return month + (date.length ? "/" + date : "");
   }
@@ -40,13 +73,131 @@ const Dashboard_Checkout_Page = (props) => {
   const CloseModal = () => {
     setModal(false);
   };
-  const show_pin_modal = () => {
-    setIsSuccessful(true);
+
+
+  const [userInfo, setUserInfo] = useState({
+    Userfullname: "",
+    Useremail: "",
+    UserphoneNumber: "",
+    UseruserImage: "",
+    Userrelationship: "",
+    Usergender: "",
+    Userbvn: "",
+    UserdateOfBirth: "",
+  });
+
+  const { Userfullname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
+  userInfo;
+
+
+  useEffect(() => {
+
+    // setCartNum(cart.length)
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
+      
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
+      
+      
+      const getName = todecoded.user.fullname
+      const splitName = getName.split(' ');
+      
+      setUserInfo({
+        Userfullname: todecoded.user.fullname,
+        Userfirstname: splitName[0],
+        Userlastname: splitName[1],
+        Useremail: todecoded.user.email,
+        UseruserImage: todecoded.user.userImage,
+        UserphoneNumber: todecoded.user.phoneNumber,
+        Userrelationship: todecoded.user.relationship,
+        Usergender: todecoded.user.gender,
+        Userbvn:todecoded.user.BVN,
+        UserdateOfBirth:todecoded.user.dateOfBirth,
+      })
+  
+      // if (todecoded.user.userImage !== null) {
+      //   setImage(api_url2+'/'+todecoded.user.userImage)
+      // } else {
+      //   setImage('../../img/profile_img.jpeg')
+      // }
+      
+    }
+  }, [auth]);
+
+  const show_pin_modal = async () => {
+    const getExDate = cardExDate.split('/');
+    let expiry_month = getExDate[0];
+    let expiry_year = getExDate[1];
+    // console.log(card_numberVar.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
+    let card_number = card_numberVar.replace(/ /g, '')
+    
+    let res3 = await proceedToCheckout(card_number, expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, 2000);
+    console.log(res3.data.data.stringify, 'response from dashboard checkout ');
+    
+    if (res3.success === true) {
+      if (res3.data.data.mode === "pin") {
+        setIsSuccessful(true);
+        console.log(res3.data.data.stringify);
+        setPayload1(res3.data.data.stringify)
+        
+      } else {
+        setIsOtp(true);
+      }
+      
+    }
   };
-  const show_otp_modal = () => {
-    setIsOtp(true);
-    setIsSuccessful(!isSuccessful);
+
+  const show_otp_modal = async () => {
+    
+    console.log(payload1, pin);
+    let sendP1 = await sendPin(payload1, pin);
+    console.log(sendP1);
+    
+    if (sendP1.success === true) {
+      setIsOtp(true);
+      setIsSuccessful(!isSuccessful);
+      
+      console.log(sendP1.data.res_stringified);
+      setPayload2(sendP1.data.res_stringified)
+      
+    }
+
   };
+
+  const submitOtp = async () => {
+    console.log(payload2, otp);
+    let sendO1 = await sendOtp(payload2, otp);
+    console.log(sendO1);
+    
+    if (sendO1.success === true) {
+      // setIsOtp(true);
+      setIsSuccessful(!isSuccessful);
+      
+      // console.log(sendO1.data.data.res_stringified);
+      // setPayload3(sendO1.data.data.res_stringified)
+      
+    }
+  }
+
+  const onChange1 = (e) => {
+    setCardInfoOne({ ...cardInfoOne, [e.target.name]: e.target.value });
+
+  };
+
+  const onChangePin = (e) => {
+    setPin(e.target.value)
+  }
+
+  const onChangeOtp = (e) => {
+    setOtp(e.target.value)
+  }
   return (
     // <div className="checkout_main">
     <section className="checkout_page_section">
@@ -63,15 +214,15 @@ const Dashboard_Checkout_Page = (props) => {
                   />
                 </div>
                 <div className="checkout_header_btn">
-                  <CloseIcon
+                  {/* <CloseIcon
                     onClick={props.click}
                     className="close_checkout_icon"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="checkout_total_balance">
                 Total Balance:{" "}
-                <span className="balance_checkout">#{checkBal}</span>
+                <span className="balance_checkout">#{cAmount}</span>
               </div>
               <div className="card_details_title">ENTER CARD DETAILS</div>
               <div className="card_details_inputs">
@@ -82,6 +233,9 @@ const Dashboard_Checkout_Page = (props) => {
                     format="#### #### #### ####"
                     className="card_details_input1"
                     placeholder="0000 0000 0000 0000"
+                    name="card_numberVar"
+                    value={card_numberVar}
+                    onChange={(e) => onChange1(e)}
                   />
                 </div>
                 {/* ============ */}
@@ -95,6 +249,9 @@ const Dashboard_Checkout_Page = (props) => {
                       format={cardExpiry}
                       className="card_details_input1"
                       placeholder="MM/YY"
+                      name="cardExDate"
+                      value={cardExDate}
+                      onChange={(e) => onChange1(e)}
                     />
                   </div>
                   <div className="card_input_cont">
@@ -103,6 +260,9 @@ const Dashboard_Checkout_Page = (props) => {
                       format="###"
                       className="card_details_input1"
                       placeholder="000"
+                      name="cvv"
+                      value={cvv}
+                      onChange={(e) => onChange1(e)}
                     />
                   </div>
                 </div>
@@ -134,10 +294,10 @@ const Dashboard_Checkout_Page = (props) => {
                   />
                 </div>
                 <div className="checkout_header_btn">
-                  <CloseIcon
+                  {/* <CloseIcon
                     onClick={props.click}
                     className="close_checkout_icon"
-                  />
+                  /> */}
                 </div>
               </div>
               <div className="card_details_title">
@@ -152,6 +312,9 @@ const Dashboard_Checkout_Page = (props) => {
                     //   format="####"
                     className="card_details_input1"
                     placeholder="0000"
+                    name="pin"
+                    value={pin}
+                    onChange={onChangePin}
                   />
                   {/* <input
                   type="password"
@@ -189,10 +352,10 @@ const Dashboard_Checkout_Page = (props) => {
                 />
               </div>
               <div className="checkout_header_btn">
-                <CloseIcon
+                {/* <CloseIcon
                   onClick={props.click}
                   className="close_checkout_icon"
-                />
+                /> */}
               </div>
             </div>
             <div className="card_details_title">ENTER OTP SENT TO YOU</div>
@@ -201,12 +364,15 @@ const Dashboard_Checkout_Page = (props) => {
               <div className="card_input_cont">
                 <div className="card_input_heading">OTP Code</div>
                 <input
-                  type="password"
-                  maxLength={4}
+                  type="text"
+                  maxLength={5}
                   minLength={1}
                   //   format="####"
                   className="card_details_input1"
-                  placeholder="0000"
+                  placeholder="00000"
+                  name="otp"
+                  value={otp}
+                  onChange={onChangeOtp}
                 />
               </div>
               {/* ============ */}
@@ -221,7 +387,7 @@ const Dashboard_Checkout_Page = (props) => {
               {/* ====== */}
               {/* ====== */}
               {/* ====== */}
-              <button className="pay_now_btn">Submit</button>
+              <button className="pay_now_btn" onClick={submitOtp}>Submit</button>
             </div>
           </div>
         )}
@@ -239,4 +405,12 @@ const Dashboard_Checkout_Page = (props) => {
   );
 };
 
-export default Dashboard_Checkout_Page;
+// export default Dashboard_Checkout_Page;
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  // isAuthenticated: state.auth.isAuthenticated,
+  // cart: state.shop.cart
+});
+
+export default connect(mapStateToProps, { proceedToCheckout, sendPin, sendOtp })(Dashboard_Checkout_Page);

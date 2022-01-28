@@ -326,6 +326,7 @@ const DashboardHomePage = ({ cart, auth, allCart }) => {
                   className="partnerCards LEFTARROW"
                   showDots={false}
                   //   infinite={false}
+                  //   infinite={false}
                   autoPlay={true}
                   autoPlaySpeed={6000}
                   transitionDelay={"2s"}
