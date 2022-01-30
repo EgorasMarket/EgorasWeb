@@ -7,7 +7,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import LockIcon from "@mui/icons-material/Lock";
 import { useLocalStorage } from "../../Activation/useLocalStorage";
-import jwt from "jsonwebtoken";
+// import jwt from "jsonwebtoken";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import Box from "@mui/material/Box";
@@ -121,11 +121,28 @@ function DashboardAccountPage({
     }
   }, [auth]);
 
-  // const [userInfoUpdate,setUserInfoUpdate]=useState({
-  //   firstname:"",lastname:"",phoneNumber:"",email:"",BVN:"",
-  // })
+  useEffect(() => {
+    console.log('jjjjjjjj');
+    axios.get(
+        api_url2 + "/v1/user/nextOfKin/info",
+        null,
+        config
+    ).then((data) => {
+       console.log('eeeeee');
+        console.log(data.data.user, "king");
+     
+       
+        // setGoods(data.data.data)
 
-  // const {firstname1,lastname1,phoneNumber1,email1,BVN1} = userInfoUpdate;
+     
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+        console.log('wwwww');
+      });
+
+    
+  }, []);
 
   const [userName, setUserName] = useState({ user: "" });
   const [nameUpdate, setNameUpdate] = useState("");
