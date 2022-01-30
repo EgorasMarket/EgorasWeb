@@ -93,14 +93,12 @@ const DashboardCart = ({ cart, auth }) => {
 
       <section className="no-bg">
         <div className="container">
-
-
           <div className="cart_areas">
             <div className="cart_area1">
               <div className="cart_item_num">
                 Cart <span className="cart_num_num">({cart.length} items)</span>
               </div>
-              <div className="locked_items2">
+              <div className="locked_items2 locked_items2a">
                 <div class="save_prod_deta">
                   <table className="save_item_table">
                     <thead className="assets-category-titles">

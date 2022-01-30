@@ -16,3 +16,19 @@ ref_auth: "54ba6193-c48d-416a-910c-34a5782a7438"
 secondaryPhoneNumber: null
 updatedAt: "2022-01-25T09:41:31.000Z"
 userImage: "1643103691719.jpeg"
+
+
+
+{ successPop == true ? (
+                <div className="success_icon_div">
+                  <p>
+                    <SuccessIndicator
+                      size="96px"
+                      color="black"
+                      className="success_indic"
+                    />
+                  </p>
+
+                  <p className="acct_created_txt">Transaction Successful!</p>
+                </div>
+              ) :null}
