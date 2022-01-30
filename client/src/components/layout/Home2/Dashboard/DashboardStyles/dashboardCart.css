@@ -233,3 +233,12 @@ svg.icon-loading {
   color: #41b970;
   font-weight: 700;
 }
+.number_form_div {
+  position: relative;
+}
+.credit_icon {
+  position: absolute;
+  top: 25%;
+  left: 2%;
+  color: #9ebdac;
+}
