@@ -485,8 +485,10 @@ const PhonesCatPage = () => {
 
   const [goods,setGoods]=useState([]);
   const [phones,setPhone]=useState([]);
-  
 
+  const [page,setPage]=useState({categoryImage:"",categoryName:""})
+
+  const {categoryImage,categoryName} = page;
 
   const config = {
     headers: {
@@ -494,15 +496,22 @@ const PhonesCatPage = () => {
     },
   };
 
+
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // };
+
   useEffect(() => {
   
     axios.get(
-        api_url2 + "/v1/product/retrieve/category",
+        api_url2 + "/v1/product/retrieve/category/byId/{category}",
         null,
         config
     ).then((data) => {
        
-        console.log(data.data.data, "king");
+        console.log(data.data.data, "samuel_Chuks");
      
        
         setGoods(data.data.data)
@@ -515,6 +524,10 @@ const PhonesCatPage = () => {
 
     
   }, []);
+
+    //=====================//
+   //=====================//
+  //=====================//
 
   useEffect(() => {
     const results = assetBrand.filter((BrandName) =>

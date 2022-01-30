@@ -468,7 +468,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Top Categories{" "}
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -477,7 +477,7 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.slice(0,12).map((asset,index) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`} key={index.toString()}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -533,7 +533,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2" >
               Phones & Tablets
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -598,7 +598,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Grocery Store
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -661,7 +661,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Home & Kitchen
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -719,7 +719,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Electronics
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -784,7 +784,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Computers & Accessories
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -852,7 +852,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Musical Equipments
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -921,7 +921,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Industrial Equipments
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -993,7 +993,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Musical Equipments
               <a
-                href="/dashboard/products/categories/id-phone"
+                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
