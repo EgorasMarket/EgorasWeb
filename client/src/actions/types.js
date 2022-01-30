@@ -6,7 +6,6 @@ export const AUTH_ERROR = "AUTH_ERROR";
 export const LOGIN_SUCCESS = "LOGIN_SUCCESS";
 export const LOGIN_FAIL = "LOGIN_FAIL";
 export const LOGOUT = "LOGOUT";
-// export const FETCH_USER = "FETCH_USER";
 export const FETCH_LOAN_SUCCESS = "FETCH_LOAN_SUCCESS";
 export const FETCH_LOAN_FAILED = "FETCH_LOAN_FAILED";
 export const FETCH_COMPANIES_SUCCESS = "FETCH_COMPANIES_SUCCESS";
@@ -26,5 +25,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 
 export const API_URL = "https://tea.egoras.com";
 // export const API_URL2 = "https://330188b756ae73.lhr.life";
+//<<<<<<< HEAD
+export const API_URL2 = "https://bb37f67a24defd.lhr.life";
 // export const API_URL2 = "http://localhost:4000";
-export const API_URL2 = "https://493ef1a021516b.lhr.life";
+// =======

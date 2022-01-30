@@ -11,6 +11,7 @@ import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
+import SavingsIcon from "@mui/icons-material/Savings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
@@ -384,7 +385,7 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <PlaylistAddRoundedIcon className="sidebarIcon" />
+                    <SavingsIcon className="sidebarIcon" />
                     Savings
                   </li>
                 </a>
@@ -526,7 +527,7 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <PlaylistAddRoundedIcon className="sidebarIcon" />
+                    <SavingsIcon className="sidebarIcon" />
                     Savings
                   </li>
                 </a>
