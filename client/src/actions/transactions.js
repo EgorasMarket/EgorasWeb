@@ -137,8 +137,8 @@ export const sendPin = (payload1, pin) => async (dispatch) => {
   }
 };
 
-export const sendOtp = (payload1, otp) => async (dispatch) => {
-  console.log(payload1, otp);
+export const sendOtp = (payload1, otp, customer_id) => async (dispatch) => {
+  console.log(payload1, otp, customer_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -146,7 +146,7 @@ export const sendOtp = (payload1, otp) => async (dispatch) => {
   };
 
   const payload = JSON.stringify(payload1);
-  const body = { payload, otp };
+  const body = { payload, otp, customer_id};
 
   console.log(body);
   try {
