@@ -88,6 +88,7 @@ const Dashboard_Checkout_Page = ({
   };
 
   const [userInfo, setUserInfo] = useState({
+    UserId: "",
     Userfullname: "",
     Useremail: "",
     UserphoneNumber: "",
@@ -99,6 +100,7 @@ const Dashboard_Checkout_Page = ({
   });
 
   const {
+    UserId,
     Userfullname,
     Useremail,
     Usergender,
@@ -127,6 +129,7 @@ const Dashboard_Checkout_Page = ({
       const splitName = getName.split(" ");
 
       setUserInfo({
+        UserId: todecoded.user.id,
         Userfullname: todecoded.user.fullname,
         Userfirstname: splitName[0],
         Userlastname: splitName[1],
@@ -181,23 +184,23 @@ const Dashboard_Checkout_Page = ({
 
   const show_otp_modal = async () => {
     setLoading(true);
-    console.log(payload1, pin);
+    // console.log(payload1, pin);
     let sendP1 = await sendPin(payload1, pin);
-    console.log(sendP1);
+    // console.log(sendP1);
 
     if (sendP1.success === true) {
       setIsOtp(true);
       setIsSuccessful(!isSuccessful);
       setLoading(false);
-      console.log(sendP1.data.res_stringified);
+      // console.log(sendP1.data.res_stringified);
       setPayload2(sendP1.data.res_stringified);
     }
   };
 
   const submitOtp = async () => {
     setLoading(true);
-    console.log(payload2, otp);
-    let sendO1 = await sendOtp(payload2, otp);
+    console.log(payload2, otp, UserId);
+    let sendO1 = await sendOtp(payload2, otp, UserId);
     console.log(sendO1);
 
     if (sendO1.success === true) {
@@ -414,7 +417,17 @@ const Dashboard_Checkout_Page = ({
                 </div>
               </div>
               {Loading == true ? (
-                // <div className="loading_div">
+                <div className="loading_cont">
+                  <LoadingIcons.SpinningCircles
+                    fill="#41ba71"
+                    stroke="#41ba7161"
+                    speed={0.6}
+                  />
+                  <div className="loading_titile">Processing...</div>
+                </div>
+              ) : // <div className="loading_div">
+
+              successPop == true ? (
                 <div className="success_icon_div">
                   <p>
                     <SuccessIndicator
