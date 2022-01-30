@@ -43,6 +43,7 @@
     "react-loading-icons": "^1.0.8",
     "react-number-format": "^4.9.1",
     "react-slick": "^0.28.1",
+    "react-success-indicator": "^1.1.0",
     "react-swipeable-views": "^0.14.0",
     "react-visibility-sensor": "^5.1.1",
     "recharts": "^2.1.4",
