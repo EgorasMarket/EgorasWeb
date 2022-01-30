@@ -414,7 +414,17 @@ const Dashboard_Checkout_Page = ({
                 </div>
               </div>
               {Loading == true ? (
-                // <div className="loading_div">
+                <div className="loading_cont">
+                  <LoadingIcons.SpinningCircles
+                    fill="#41ba71"
+                    stroke="#41ba7161"
+                    speed={0.6}
+                  />
+                  <div className="loading_titile">Processing...</div>
+                </div>
+              ) : // <div className="loading_div">
+
+              successPop == true ? (
                 <div className="success_icon_div">
                   <p>
                     <SuccessIndicator
