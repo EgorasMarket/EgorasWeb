@@ -194,7 +194,28 @@ const DashboardCart = ({ cart, auth }) => {
                 </button>
               </div>
             </div>
-            <div className="cart_area2"></div>
+            <div className="cart_area2">
+              <div className="cart_area2_heading">Payment Options</div>
+              <div className="cart_area2_select">
+                <div className="wit_card">
+                  Pay via card{" "}
+                  <input type="checkbox" name="" id="" classNam="checkBox" />
+                </div>
+              </div>
+              <div className="cart_area2_select border_down">
+                <div className="wit_card">
+                  Pay via wallet{" "}
+                  <input type="checkbox" name="" id="" classNam="checkBox" />
+                </div>
+              </div>
+              <div className="cart_area2_notes">
+                No minimum or maximum order.<br/>
+                 Make sure your card is still valid.
+           <br/>
+                 Ensure sufficient balance to
+                cover this transaction. 
+              </div>
+            </div>
           </div>
         </div>
       </section>

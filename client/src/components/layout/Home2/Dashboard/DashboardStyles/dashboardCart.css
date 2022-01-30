@@ -22,10 +22,12 @@
 .cart_area2 {
   width: 37%;
   background: #fff;
-  box-shadow: 0px 0px 15px #c4e9d2;
-  border-radius: 20px;
+  /* box-shadow: 0px 0px 15px #c4e9d2; */
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  border: solid 1px #ceebd9;
+  margin-top: 5.5em;
 }
 .cart_item_num {
   font-size: 22px;
@@ -241,4 +243,23 @@ svg.icon-loading {
   top: 25%;
   left: 2%;
   color: #9ebdac;
+}
+.cart_area2_heading {
+  padding: 1em;
+  border-bottom: 1px solid #ceebd9;
+}
+.cart_area2_select {
+  padding: 0.5em;
+  /* border-bottom: 1px solid #ceebd9; */
+}
+.wit_card {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 1px #ceebd9;
+  border-radius: 5px;
+}
+.border_down {
+  border-bottom: 1px solid #ceebd9;
 }
