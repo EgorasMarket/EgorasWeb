@@ -184,14 +184,6 @@ const DashboardCart = ({ cart, auth }) => {
                     ))}
                   </table>
                 </div>
-                <div className="total_div">
-                  Total: <span className="sum_resu"> ₦{result}</span>
-                </div>
-              </div>
-              <div className="checkout_btns">
-                <button className="checkout_btn1" onClick={OpenModal}>
-                  Proceed to Checkout{" "}
-                </button>
               </div>
             </div>
             <div className="cart_area2">
@@ -208,13 +200,47 @@ const DashboardCart = ({ cart, auth }) => {
                   <input type="checkbox" name="" id="" classNam="checkBox" />
                 </div>
               </div>
+              {/* ========= */}
+              {/* ========= */}
+              {/* ========= */}
               <div className="cart_area2_notes">
-                No minimum or maximum order.<br/>
-                 Make sure your card is still valid.
-           <br/>
-                 Ensure sufficient balance to
-                cover this transaction. 
+                . No minimum or maximum order.
+                <br />
+                . Make sure your card is still valid.
+                <br />. Ensure sufficient balance to cover this transaction.
               </div>
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              <div className="sub_total_div">
+                Sub Total: <span className="sub_total_div_span">₦{result}</span>
+              </div>
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              <div className="sub_total_div">
+                Delivery Fee: <span className="sub_total_div_span">₦0</span>
+              </div>
+              {/* ========== */}
+              {/* ========== */}
+              <div className="secure_transac_text">
+                {" "}
+                Transactions are 100% Safe and Secure
+              </div>
+              {/* ========== */}
+              {/* ========== */}
+              <div className="transac_secure_div">
+                Total <span className="sub_total_div_span">₦{result}</span>
+              </div>
+              {/* ========== */}
+              {/* ========== */}
+         
+                <button className="checkout_btn1" onClick={OpenModal}>
+                  Proceed to Checkout{" "}
+                </button>
+  
             </div>
           </div>
         </div>
