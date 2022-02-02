@@ -94,15 +94,22 @@ const PhonesCatPage = () => {
   const [goods,setGoods]=useState([]);
   const [phones,setPhone]=useState([]);
 
-  const [page,setPage]=useState({categoryImage:"",categoryName:""})
+  // const [mark ,setMark]= setInfo({
+  //   phoneCath:"",computerCath:""
+  
+  // })
 
-  const {categoryImage,categoryName} = page;
+
+  const [page,setPage]=useState({categoryPhoneTablets:"",categoryHomeAppliances:"",categoryElectronics:"",categoryComputerAccessories:"",categoryFurniture:"",categoryMusicalEquipment:"",categoryIndustrialEquipment:""})
+
+  const {categoryPhoneTablets,categoryHomeAppliances,categoryElectronics,categoryComputerAccessories,categoryFurniture,categoryMusicalEquipment,categoryIndustrialEquipment} = page;
 
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
 
 
   // const config = {
@@ -114,15 +121,16 @@ const PhonesCatPage = () => {
   useEffect(() => {
   
     axios.get(
-        api_url2 + "/v1/product/retrieve/category/byId/{category}",
+        api_url2 + `/v1/product/retrieve/products/byId/${page}`,
         null,
         config
     ).then((data) => {
        
+      console.log("hello mr kingsley");
         console.log(data.data.data, "samuel_Chuks");
      
        
-        setGoods(data.data.data)
+        // setGoods(data.data.data)
 
      
       })

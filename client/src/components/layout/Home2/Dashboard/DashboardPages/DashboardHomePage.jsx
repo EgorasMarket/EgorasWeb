@@ -112,7 +112,7 @@ const responsive7 = {
   },
 };
 
-const DashboardHomePage = ({ cart, auth, allCart }) => {
+const DashboardHomePage = ({ cart, auth, allCart,match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
 
@@ -136,6 +136,12 @@ const DashboardHomePage = ({ cart, auth, allCart }) => {
   // },[])
 
   const [savedNum, setSavedNum] = useState(5);
+  const [productPage_id, setProductPageId] = useState(match.params.id);
+  const [lock,setlock ]=useState({
+    productImage:"",productName:"",productAmount:"",
+  });
+
+const { productImage,productName,productAmount}=lock;
 
   const config = {
     headers: {
@@ -157,6 +163,40 @@ const DashboardHomePage = ({ cart, auth, allCart }) => {
         console.log(err); // "oh, no!"
       });
   }, []);
+
+
+
+   
+  // useEffect(() => {
+
+    // const body = JSON.stringify({
+    //   productPage_id
+    // });
+  
+
+    // console.log(body);
+  
+//     axios.post(
+//         api_url2 + "/v1/product/retrieve/specific",
+//         // body,
+//         null,
+//         config
+//     ).then((cafe) => {
+       
+//       console.log("Goods only");
+//         console.log(cafe.data.data, "Feeding");
+
+//         setlock ({
+//           productImage:cafe.data.data.product_image,
+//           productName:cafe.data.data.product_name,
+//           productAmount:cafe.data.data.amount
+//         })   
+//     }).catch((err) => {
+//         console.log(err.response); // "oh, no!"
+//     })
+// }, []);
+    
+
   return (
     <div className="other2">
       <section className="no-bg">
