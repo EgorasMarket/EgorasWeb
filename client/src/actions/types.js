@@ -19,6 +19,7 @@ export const PRODUCT_LOADED = "PRODUCT_LOADED";
 
 //store  types
 export const FETCH_CART = "FETCH_CART";
+export const FETCH_LOCKED = "FETCH_LOCKED";
 export const REMOVE_CART = "REMOVE_CART";
 export const UPDATE_CART = "UPDATE_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
@@ -26,6 +27,7 @@ export const ADD_TO_CART = "ADD_TO_CART";
 export const API_URL = "https://tea.egoras.com";
 // export const API_URL2 = "https://330188b756ae73.lhr.life";
 //<<<<<<< HEAD
-export const API_URL2 = "https://1dd4837348ab6f.lhr.life";
+// export const API_URL2 = "https://9434474f241ea8.lhr.life";
+export const API_URL2 = "http://192.168.43.179:4000";
 // export const API_URL2 = "http://localhost:4000";
 // =======
