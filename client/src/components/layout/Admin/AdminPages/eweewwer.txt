@@ -32,3 +32,21 @@ userImage: "1643103691719.jpeg"
                   <p className="acct_created_txt">Transaction Successful!</p>
                 </div>
               ) :null}
+
+              customer_id: "11da3308-6113-4f96-8c8b-8e6e5bd847f3"
+id: "ALMHUI"
+image: "1642591690730.jpeg"
+item_amount: "20000"
+product_category_code: "NmCPfPsS25"
+product_details: "string string string string string"
+product_id: "42448ea3-03bc-49f1-b9ef-56c00ddc66bd"
+product_name: "Iphone 7 Pro"
+product_type: "MICRO"
+quantity: 1
+status: "NEW"
+sub_total: "20000"
+
+
+       Array(data.data.data.product_duration)
+            .fill(0)
+            .map((e, i) => i + 1)

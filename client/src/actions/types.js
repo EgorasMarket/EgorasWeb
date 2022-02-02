@@ -19,6 +19,7 @@ export const PRODUCT_LOADED = "PRODUCT_LOADED";
 
 //store  types
 export const FETCH_CART = "FETCH_CART";
+export const FETCH_LOCKED = "FETCH_LOCKED";
 export const REMOVE_CART = "REMOVE_CART";
 export const UPDATE_CART = "UPDATE_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
