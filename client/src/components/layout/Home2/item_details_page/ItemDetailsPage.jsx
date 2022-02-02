@@ -18,6 +18,13 @@ function ItemDetailsPage({ auth, match }) {
   const [spec, setSpec] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
+  const [lowOutCome, setLowOutCome] = useState("");
+  const [prod_ur, setProd_ur] = useState(4);
+  // const [lowNumS, setLowNumS] = useState({
+  //   prod_img: 0,
+  //   prod_dur: 8,
+  //   prod_num: 2,
+  // });
 
   const [maxDuration, setmaxDuration] = useState(25);
   const [base, setBase] = useState("");
@@ -94,21 +101,28 @@ function ItemDetailsPage({ auth, match }) {
           product_details: data.data.data.product_detail,
           // productSpecification:slipVar[0]
         });
+        // setLowNumS({prod_dur:"8"});
 
-        // console.log(amount,"rent");
-
-        // setSpec(data.data.data.Product_specification);
-        // console.log(product_specification)
-
-        // setDataFlow(data.data.data)
-
-        // console.log(product_name,"samuel Une")
+        console.log("====================================");
+        // const NumbsAr =
+        // setLowNumS(NumbLow);
+        // console.log(NumbLow);
+        console.log(lowOutCome);
       })
       .catch((err) => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
 
+  const calcDays = () => {
+    
+  }
+  const LowCalc = Array(product_duration)
+    .fill(0)
+    .map((e, i) => i + 1);
+
+  console.log("====================================");
+  console.log(LowCalc);
   const addToCart = async (customer_id, product_id, quantity) => {
     const payload = {
       customer_id,
@@ -182,76 +196,6 @@ function ItemDetailsPage({ auth, match }) {
       setDisable2(false);
     }
   };
-
-  const itemDetails = [
-    {
-      id: 1,
-      img: "/img/BAG.jpeg",
-      name: "Samsung smart tv series",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-
-      percentage: "100%",
-      // ratio: "175%",
-    },
-    {
-      id: 2,
-      img: "/img/samsung_tv_555.jpeg",
-      name: "Lg smart tv series",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 3,
-      img: "/img/BAG.jpeg",
-      name: "Iphone 12pro max",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 4,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 5,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-
-      percentage: "100%",
-    },
-    {
-      id: 6,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 7,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 8,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-  ];
 
   const itemsId = {
     firstItem: {
@@ -356,7 +300,27 @@ function ItemDetailsPage({ auth, match }) {
                 {/* ----------------- */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
-                <div className="product_details_price">₦{amount}</div>
+                <div className="lll">
+                  {product_duration == 1 ? (
+                    <span>₦{amount}</span>
+                  ) : (
+                    <>
+                      {LowCalc.map((calculate) => (
+                        <>
+                          <input
+                            type="radio"
+                            name="radio"
+                            id="radio"
+                            className="select_radio"
+                            style={{ display: "block" }}
+                          />
+                          {calculate}
+                          month(s)
+                        </>
+                      ))}
+                    </>
+                  )}
+                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="quantity_div">
@@ -395,20 +359,32 @@ function ItemDetailsPage({ auth, match }) {
                   <div className="items_left_div">
                     Items Left:{" "}
                     <span className="items_left_numb">
-                      {unitCount}{" "}
+                      {unitCount} items{" "}
                       {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
                     </span>
                   </div>
                   <div className="items_left_div">
                     Savings max-duration:{" "}
-                    <span className="days_left_numb">
-                      {product_duration}{" "}
-                      {product_duration === 1
-                        ? "month"
-                        : product_duration <= 0
-                        ? ""
-                        : "months"}
-                    </span>
+                    <div className="days_left_numb">
+                      {product_duration == 1 ? (
+                        <p className="left_num_nu">Out Right Buy</p>
+                      ) : null}
+                      {product_duration == 2 ? (
+                        <p className="left_num_nu">2</p>
+                      ) : null}
+                      {product_duration == 3 ? (
+                        <p className="left_num_nu">4</p>
+                      ) : null}
+                      {product_duration == 4 ? (
+                        <p className="left_num_nu">6</p>
+                      ) : null}
+                      {product_duration == 5 ? (
+                        <p className="left_num_nu">12</p>
+                      ) : null}
+                      {product_duration == 1 ? null : (
+                        <p className="months_class">months</p>
+                      )}
+                    </div>
                   </div>
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
