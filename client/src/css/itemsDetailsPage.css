@@ -171,8 +171,9 @@
   background: #239e54;
   border: none;
   color: #fff;
+  height: 62px;
   padding: 0.5em;
-  border-radius: 6px;
+  border-radius: 15px;
   transition: 0.3s ease-in-out;
 }
 .buy_now_button:hover {
@@ -209,9 +210,9 @@
 .items_left_div {
   font-size: 12px;
   font-weight: 700;
-      display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 .items_left_numb {
   font-size: 14px;
@@ -221,14 +222,13 @@
   border-radius: 5px;
 }
 .days_left_numb {
-  font-size: 12px;
+  font-size: 16px;
   color: #fff;
   background-color: #e4a788;
   padding: 0.1em 0.5em;
   border-radius: 5px;
   display: flex;
   align-items: center;
-
 }
 /* ============================== */
 /* ============================== */
@@ -309,10 +309,59 @@
   padding: 1em 0em;
   border-right: 0;
   border-left: 0;
+  flex-direction: column;
   margin: 2em 0em;
+  align-items: flex-start;
 }
 .left_num_nu,
 .months_class {
   margin: 0;
   padding: 0;
+}
+
+.max_dura {
+  display: flex;
+  gap: 10px;
+}
+.amnt_per_day {
+  margin: 0;
+  font-size: 14px;
+  color: grey;
+  display: flex;
+  gap: 6px;
+}
+.calc_amnt_div {
+  color: black;
+  font-weight: 800;
+}
+.rdrStaticRangeLabel {
+  display: block;
+  outline: 0;
+  line-height: 18px;
+  padding: 10px 0px !important;
+  text-align: left;
+}
+.rdrInputRange {
+  align-items: center;
+  padding: 5px 0px !important;
+}
+.rdrInRange {
+  color: #41ba71 !important;
+}
+.rdrDateRangePickerWrapper {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.rdrMonth {
+  width: 100% !important;
+}
+
+.rdrCalendarWrapper {
+  color: #000000;
+  font-size: 12px;
+  width: 100% !important;
+}
+.rdrDateDisplayItemActive {
+  border-color: #41ba71 !important;
 }
