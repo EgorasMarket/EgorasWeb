@@ -3,6 +3,20 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
+import { Calendar, DateRangePicker } from "react-date-range";
+import { addDays } from "date-fns";
+
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+// import "react-dates/initialize";
+// import "react-dates/lib/css/_datepicker.css";
+
+// import {
+//   DateRangePicker,
+//   SingleDatePicker,
+//   DayPickerRangeController,
+// } from "react-dates";
+
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -14,6 +28,22 @@ function ItemDetailsPage({ auth, match }) {
     headers: {
       "Content-Type": "application/json",
     },
+  };
+
+  const [state, setState] = useState({
+    selection: {
+      startDate: new Date(),
+      endDate: null,
+      key: "selection",
+    },
+    compare: {
+      startDate: new Date(),
+      endDate: addDays(new Date(), 3),
+      key: "compare",
+    },
+  });
+  const handleSelect = (ranges) => {
+    console.log(ranges);
   };
   const [spec, setSpec] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
@@ -30,6 +60,8 @@ function ItemDetailsPage({ auth, match }) {
   const [base, setBase] = useState("");
   // const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
+  // const [startDate, setStartDate] = useState("22 / 10 / 19");
+  // const [endDate, setEndDate] = useState("22 / 10 / 22");
   const [disable2, setDisable2] = useState(false);
   const [productCode, setProductCode] = useState(475758);
   const [productPrice, setProductPrice] = useState("400,000");
@@ -114,9 +146,14 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
-  const calcDays = () => {
-    
-  }
+  // const calcDays = (x) => {
+  //   if (product_duration == 5) {
+  //     product_duration = 12;
+  //   }
+  //   return x * product_duration;
+  // };
+
+  // console.log(calcDays(30));
   const LowCalc = Array(product_duration)
     .fill(0)
     .map((e, i) => i + 1);
@@ -259,6 +296,30 @@ function ItemDetailsPage({ auth, match }) {
 
   const ID = match.params.id;
 
+  const CalcDaysConvert = (x) => {
+    x = parseInt(x);
+    let result = 0;
+    if (x === 5) {
+      result = 12 * 30;
+    } else if (x === 4) {
+      result = 6 * 30;
+    } else if (x === 3) {
+      result = 4 * 30;
+    } else if (x === 2) {
+      result = 2 * 30;
+    }
+    return result;
+  };
+
+  const days = CalcDaysConvert(product_duration);
+  const percentDays = (50 / 100) * days;
+  console.log(percentDays);
+  const dd = 2;
+  // =================
+  // =================
+  console.log(days);
+  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+  // console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     console.log("Hello Mr King");
   }
@@ -301,69 +362,7 @@ function ItemDetailsPage({ auth, match }) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
                 <div className="lll">
-                  {product_duration == 1 ? (
-                    <span>₦{amount}</span>
-                  ) : (
-                    <>
-                      {LowCalc.map((calculate) => (
-                        <>
-                          <input
-                            type="radio"
-                            name="radio"
-                            id="radio"
-                            className="select_radio"
-                            style={{ display: "block" }}
-                          />
-                          {calculate}
-                          month(s)
-                        </>
-                      ))}
-                    </>
-                  )}
-                </div>
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
-                <div className="quantity_div">
-                  <div className="quantity_cont">
-                    <label htmlFor="Quantity" className="quantity_label">
-                      Quantity:
-                    </label>
-                    <div>
-                      <div className="increment_decrement_cont">
-                        <button
-                          className="decrement_btn"
-                          name="decrement"
-                          type="submit"
-                          value="0"
-                          onClick={decreaseCount}
-                          disabled={disable2}
-                        >
-                          -
-                        </button>
-
-                        <div className="increment_decrement_div">{count}</div>
-                        <button
-                          className="increment_btn"
-                          name="increment"
-                          type="submit"
-                          value="1"
-                          onClick={increaseCount}
-                          disabled={disable}
-                        >
-                          +
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="items_left_div">
-                    Items Left:{" "}
-                    <span className="items_left_numb">
-                      {unitCount} items{" "}
-                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
-                    </span>
-                  </div>
-                  <div className="items_left_div">
+                  <div className="max_dura">
                     Savings max-duration:{" "}
                     <div className="days_left_numb">
                       {product_duration == 1 ? (
@@ -386,25 +385,56 @@ function ItemDetailsPage({ auth, match }) {
                       )}
                     </div>
                   </div>
+
+                  {product_duration == 1 ? (
+                    <span>₦{amount}</span>
+                  ) : (
+                    <p className="amnt_per_day">
+                      Savings Amount to be paid per day:{""}
+                      <span className="calc_amnt_div">
+                        ₦{CalcAmtPerDay.toFixed()}
+                      </span>
+                    </p>
+                  )}
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
+                <div className="quantity_div">
+                  <div className="items_left_div">
+                    Items Left:{" "}
+                    <span className="items_left_numb">
+                      {unitCount}{" "}
+                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
+                    </span>
+                  </div>
+                </div>
+                {/* ======= */}
+                {/* ======= */}
+                <div className="date_picky">
+                  <DateRangePicker
+                    onChange={(item) => setState({ ...state, ...item })}
+                    months={1}
+                    minDate={addDays(new Date(), percentDays)}
+                    maxDate={addDays(new Date(), days)}
+                    direction="vertical"
+                    scroll={{ enabled: false }}
+                    // staticRanges={false}
+                    ranges={[state.selection]}
+                  />
+                </div>
+                {/* ======= */}
+                {/* ======= */}
+                {/* <hr className="horizontal_rule" /> */}
+                {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button
-                    onClick={() => {
-                      addToCart(auth.user.user.id, product_id, count);
-                    }}
-                    className="buy_now_button"
-                  >
-                    Add to Cart
-                  </button>
+                  <button className="buy_now_button">Proceed</button>
 
-                  <div className="save_later">
+                  {/* <div className="save_later">
                     <button className="save_later_btn">
                       <FavoriteIcon className="favorite_icon" />
                     </button>
                     <div className="save_later_txt">Add to favorites.</div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
