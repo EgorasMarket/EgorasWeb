@@ -68,6 +68,12 @@ function DashboardInvestPage({ auth }) {
   const Furnitures = "2324tfgfd";
   const MusicalEquipment = "V6whRB7ii5";
   const IndustrialEquipment = "V6wwwd1iii5";
+
+
+  const [wrap,setWrap]=useState({code:""});
+  const {code} = wrap;
+
+  const [seeMore,setSeeMore]=useState([{category: "phoneTables"},{category:'HomeAppliance'},{category:'Electronics'},{category:' ComputerAccessories'},{category:'MusicalEquipment'},{category:'IndustrialEquipment'}])
    
 
 
@@ -102,7 +108,10 @@ function DashboardInvestPage({ auth }) {
      
        
         setItem(data.data.data)
-
+        setWrap({
+          code:data.data.data.product_category_code
+        }
+        )
 
       })
       .catch((err) => {
@@ -318,7 +327,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Top Categories{" "}
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -383,7 +392,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2" >
               Phones & Tablets
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -448,7 +457,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Grocery Store
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -511,7 +520,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Home & Kitchen
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -569,7 +578,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Electronics
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -634,7 +643,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Computers & Accessories
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -702,7 +711,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Musical Equipments
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -771,7 +780,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Industrial Equipments
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -843,7 +852,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Musical Equipments
               <a
-                href={`/dashboard/products/categories/${item.id}/${item.product_name}`}
+                href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
