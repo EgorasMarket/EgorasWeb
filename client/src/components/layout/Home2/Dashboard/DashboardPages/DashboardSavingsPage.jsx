@@ -1,115 +1,11 @@
 import React, { useState, useEffect } from "react";
-import axios from "axios";
 import Carousel from "react-multi-carousel";
+import axios from "axios";
 import {
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
 import "../DashboardStyles/dashboard_savings.css";
 
-const lockedItems = [
-  {
-    id: 1,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Samsung smart tv series",
-    total_locked_amount: " 150,000",
-    days_left: "28",
-    days_left_percent: "82%",
-    quantity: "1",
-    unit_price: "350,000",
-
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    total_locked_amount: " 80,000",
-    days_left: "13",
-    days_left_percent: "27%",
-    quantity: "2",
-    unit_price: "150,000",
-  },
-  {
-    id: 3,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Iphone 12pro max",
-    total_locked_amount: " 250,000",
-    days_left: "23",
-    days_left_percent: "77%",
-    quantity: "2",
-    unit_price: "550,000",
-  },
-];
-
-const itemDetails = [
-  {
-    id: 1,
-    img: "/img/BAG.jpeg",
-    name: "Samsung smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 3,
-    img: "/img/BAG.jpeg",
-    name: "Iphone 12pro max",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 4,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 5,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-  },
-  {
-    id: 6,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 7,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-];
 
 const responsive7 = {
   superLargeDesktop: {

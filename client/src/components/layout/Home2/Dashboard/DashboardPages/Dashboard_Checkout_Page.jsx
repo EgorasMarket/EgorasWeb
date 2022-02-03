@@ -4,6 +4,8 @@ import { connect } from "react-redux";
 import axios from "axios";
 import LoadingIcons from "react-loading-icons";
 
+import { createOrder } from "../../../../../actions/shop";
+
 import {
   proceedToCheckout,
   sendPin,
@@ -17,6 +19,7 @@ const Dashboard_Checkout_Page = ({
   sendOtp,
   auth,
   cAmount,
+  createOrder
 }) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
@@ -41,6 +44,7 @@ const Dashboard_Checkout_Page = ({
   //   }
   // );
   const [payload1, setPayload1] = useState([]);
+  const [trnMode, setTrnMode] = useState('');
   const [Loading, setLoading] = useState(false);
   const [payload2, setPayload2] = useState([]);
   const [payload3, setPayload3] = useState([]);
@@ -167,9 +171,10 @@ const Dashboard_Checkout_Page = ({
       UserphoneNumber,
       2000
     );
-    console.log(res3.data.data.stringify, "response from dashboard checkout ");
+    console.log(res3.data.data, "response from dashboard checkout ");
 
     if (res3.success === true) {
+      setTrnMode(res3.data.data.mode)
       if (res3.data.data.mode === "pin") {
         setIsSuccessful(true);
         console.log(res3.data.data.stringify);
@@ -199,18 +204,25 @@ const Dashboard_Checkout_Page = ({
 
   const submitOtp = async () => {
     setLoading(true);
-    console.log(payload2, otp, UserId);
-    let sendO1 = await sendOtp(payload2, otp, UserId);
-    console.log(sendO1);
+    // console.log(payload2, otp, UserId);
+    if (trnMode === 'pin') {
+      let sendO1 = await sendOtp(payload2, otp, UserId);
+      // console.log(sendO1);
 
-    if (sendO1.success === true) {
-      setSuccessPop(true);
-      // setIsOtp(true);
-      setIsSuccessful(!isSuccessful);
-      setLoading(false);
-      // console.log(sendO1.data.data.res_stringified);
-      // setPayload3(sendO1.data.data.res_stringified)
+      if (sendO1.success === true) {
+        setSuccessPop(true);
+        
+        setIsSuccessful(!isSuccessful);
+        setLoading(false);
+
+        createOrder();
+      } else {
+        setSuccessPop(false);
+      }
+    } else {
+      
     }
+    
   };
 
   const onChange1 = (e) => {
@@ -510,4 +522,5 @@ export default connect(mapStateToProps, {
   proceedToCheckout,
   sendPin,
   sendOtp,
+  createOrder
 })(Dashboard_Checkout_Page);

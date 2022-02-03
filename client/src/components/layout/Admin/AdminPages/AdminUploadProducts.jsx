@@ -22,9 +22,11 @@ const AdminUploadProducts = () => {
   };
   const [product_image, setproduct_image] = useState("../../img/profile_img.jpeg");
   const [getrandom, setRandom] = useState('');
+  const [LSExist, setLSExist] = useState(null);
   const [productId, setProductId] = useState('');
   const [product_category_code1, setProduct_category_code1] = useState('');
   const [product_type, setProduct_type] = useState('');
+  const [product_duration, setProduct_duration] = useState(null);
   const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [allCategories, setCategories] = useState([]);
   const [categoryInsert, setCategoryInsert] = React.useState({
@@ -37,7 +39,7 @@ const AdminUploadProducts = () => {
     // product_category_code1: '',
     product_name: "",
     unitCount: null,
-    product_duration: null,
+    // product_duration: null,
     product_brand: "",
     product_specifications: "",
     amount: null,
@@ -45,7 +47,7 @@ const AdminUploadProducts = () => {
   });
 
   const { product_category_code, product_category_desc } = categoryInsert;
-  const { product_name, unitCount, product_duration, product_brand, product_specifications, amount, product_details } = productUpdateInfo;
+  const { product_name, unitCount, product_brand, product_specifications, amount, product_details } = productUpdateInfo;
 
   const generateString = (length) => {
     let result = ' ';
@@ -88,9 +90,11 @@ const AdminUploadProducts = () => {
     let getproductId = localStorage.getItem("productId");
 
   if (localStorage.productId) {
-    console.log('localStorage');
+    // console.log('localStorage');
     setProductId(getproductId)
+    setLSExist(true)
   } else {
+    setLSExist(false)
     // console.log('localStorage localStorage');
 
   }
@@ -235,6 +239,12 @@ const AdminUploadProducts = () => {
 
 };
 
+const handleDuration = (event) => {
+  setProduct_duration(event.target.value || '');
+  // // console.log('handleMOI');
+
+};
+
 const handleproductType = (event) => {
   setProduct_type(event.target.value || '');
   // // console.log('handleMOI');
@@ -364,6 +374,10 @@ const handleproductType = (event) => {
             </div>
             <div className="upload_products_details_area2">
               {/* === */}
+              
+              {
+                LSExist ? <span className='text-success'>Upload Status: Product upload in progress</span> : <span className='text-danger'>Upload Status: Upload new product image</span>
+              }
               <div className="toggle_body_area1_cont1_input products_des_upload">
                 {" "}
                 <div className="add_cat_input_title">
@@ -432,7 +446,7 @@ const handleproductType = (event) => {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      name="relationship"
+                      name="product_category_code1"
                       className='w-100'
                       value={product_category_code1}
                       label="Product category"
@@ -469,8 +483,8 @@ const handleproductType = (event) => {
                 </div>
                 <div className="add_cat_input_title">
                   <span className="input_brand">Product Duration</span>
-
-                  <TextField
+                  {/* handleDuration */}
+                  {/* <TextField
                     className=" width_incr"
                     id="outlined-basic"
                     label="Duration"
@@ -479,7 +493,43 @@ const handleproductType = (event) => {
                     value={product_duration}
                     type="number"
                     onChange={(e) => onChange1(e)}
-                  />
+                  /> */}
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Duration
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="product_duration"
+                      className='w-100'
+                      value={product_duration}
+                      label="Product category"
+                      onChange={handleDuration}
+                    >
+
+                        <MenuItem >
+                          Select Duration
+                        </MenuItem>
+                        <MenuItem  value={1}>
+                          Outright Sell
+                        </MenuItem>
+                        <MenuItem value={2}>
+                          2 Months
+                        </MenuItem>
+                        <MenuItem value={3}>
+                          4 Months
+                        </MenuItem>
+                        <MenuItem  value={4}>
+                          6 Months
+                        </MenuItem>
+                        <MenuItem  value={5}>
+                          12 Months
+                        </MenuItem>
+                      
+                    </Select>
+                  </FormControl>
                 </div>
                 
                 <div className="add_cat_input_title">
