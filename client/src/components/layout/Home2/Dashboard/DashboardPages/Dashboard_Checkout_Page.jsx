@@ -6,6 +6,10 @@ import LoadingIcons from "react-loading-icons";
 
 import { createOrder } from "../../../../../actions/shop";
 
+import CreditCardIcon from "@mui/icons-material/CreditCard";
+import KeyIcon from "@mui/icons-material/Key";
+import PasswordIcon from "@mui/icons-material/Password";
+import DateRangeIcon from "@mui/icons-material/DateRange";
 import {
   proceedToCheckout,
   sendPin,
@@ -282,14 +286,17 @@ const Dashboard_Checkout_Page = ({
                       {/* -------------==== */}
                       <div className="card_input_cont">
                         <div className="card_input_heading">Card Number</div>
-                        <NumberFormat
-                          format="#### #### #### ####"
-                          className="card_details_input1"
-                          placeholder="0000 0000 0000 0000"
-                          name="card_numberVar"
-                          value={card_numberVar}
-                          onChange={(e) => onChange1(e)}
-                        />
+                        <div className="number_form_div">
+                          <CreditCardIcon className="credit_icon" />
+                          <NumberFormat
+                            format="#### #### #### ####"
+                            className="card_details_input1"
+                            placeholder="0000 0000 0000 0000"
+                            name="card_numberVar"
+                            value={card_numberVar}
+                            onChange={(e) => onChange1(e)}
+                          />
+                        </div>
                       </div>
                       {/* ============ */}
                       {/* ============ */}
@@ -298,25 +305,31 @@ const Dashboard_Checkout_Page = ({
                       <div className="card_input_contss">
                         <div className="card_input_cont">
                           <div className="card_input_heading">Date</div>
-                          <NumberFormat
-                            format={cardExpiry}
-                            className="card_details_input1"
-                            placeholder="MM/YY"
-                            name="cardExDate"
-                            value={cardExDate}
-                            onChange={(e) => onChange1(e)}
-                          />
+                          <div className="number_form_div">
+                            <DateRangeIcon className="credit_icon" />
+                            <NumberFormat
+                              format={cardExpiry}
+                              className="card_details_input1"
+                              placeholder="MM/YY"
+                              name="cardExDate"
+                              value={cardExDate}
+                              onChange={(e) => onChange1(e)}
+                            />
+                          </div>
                         </div>
                         <div className="card_input_cont">
                           <div className="card_input_heading">CVV</div>
-                          <NumberFormat
-                            format="###"
-                            className="card_details_input1"
-                            placeholder="000"
-                            name="cvv"
-                            value={cvv}
-                            onChange={(e) => onChange1(e)}
-                          />
+                          <div className="number_form_div">
+                            <CreditCardIcon className="credit_icon" />
+                            <NumberFormat
+                              format="###"
+                              className="card_details_input1"
+                              placeholder="123"
+                              name="cvv"
+                              value={cvv}
+                              onChange={(e) => onChange1(e)}
+                            />
+                          </div>
                         </div>
                       </div>
                       {/* ========= */}
@@ -375,15 +388,21 @@ const Dashboard_Checkout_Page = ({
                       {/* -------------==== */}
                       <div className="card_input_cont">
                         <div className="card_input_heading">Card Pin</div>
-                        <NumberFormat
-                          type="password"
-                          //   format="####"
-                          className="card_details_input1"
-                          placeholder="0000"
-                          name="pin"
-                          value={pin}
-                          onChange={onChangePin}
-                        />
+                        <div className="number_form_div">
+                          <KeyIcon className="credit_icon" />
+                          <NumberFormat
+                            type="password"
+                            maxLength={4}
+                            minLength={1}
+                            //   format="####"
+                            className="card_details_input1"
+                            placeholder="0000"
+                            name="pin"
+                            value={pin}
+                            onChange={onChangePin}
+                          />
+                        </div>
+
                         {/* <input
                   type="password"
                 //   format="####"
@@ -463,17 +482,21 @@ const Dashboard_Checkout_Page = ({
                     {/* -------------==== */}
                     <div className="card_input_cont">
                       <div className="card_input_heading">OTP Code</div>
-                      <input
-                        type="text"
-                        maxLength={5}
-                        minLength={1}
-                        //   format="####"
-                        className="card_details_input1"
-                        placeholder="00000"
-                        name="otp"
-                        value={otp}
-                        onChange={onChangeOtp}
-                      />
+
+                      <div className="number_form_div">
+                        <PasswordIcon className="credit_icon" />
+                        <input
+                          type="number"
+                          maxLength={5}
+                          minLength={1}
+                          //   format="####"
+                          className="card_details_input1"
+                          placeholder="00000"
+                          name="otp"
+                          value={otp}
+                          onChange={onChangeOtp}
+                        />
+                      </div>
                     </div>
                     {/* ============ */}
                     {/* ============ */}
