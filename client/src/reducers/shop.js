@@ -1,8 +1,9 @@
-import { FETCH_CART, REMOVE_CART } from "../actions/types";
+import { FETCH_CART, REMOVE_CART, FETCH_LOCKED } from "../actions/types";
 
 const initialState = {
   cart: [],
   products: [],
+  locked: [],
 };
 
 export default function (state = initialState, action) {
@@ -18,6 +19,11 @@ export default function (state = initialState, action) {
       return {
         ...state,
         cart: payload,
+      };
+    case FETCH_LOCKED:
+      return {
+        ...state,
+        locked: payload,
       };
 
     default:

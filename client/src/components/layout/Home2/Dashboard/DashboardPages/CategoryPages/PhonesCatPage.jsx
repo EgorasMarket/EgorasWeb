@@ -6,75 +6,12 @@ import SearchIcon from "@mui/icons-material/Search";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import "../../DashboardStyles/category.css";
-const itemDetails = [
-  {
-    id: 1,
-    img: "/img/BAG.jpeg",
-    name: "Samsung smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
+import axios from "axios";
+import { connect } from "react-redux";
+import {
+  API_URL2 as api_url2,
+} from "../../../../../../actions/types";
 
-    percentage: "100%",
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 3,
-    img: "/img/BAG.jpeg",
-    name: "Iphone 12pro max",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 4,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 5,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-  },
-  {
-    id: 6,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 7,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-];
 const assetBrand = [
   {
     id: "apple",
@@ -125,331 +62,7 @@ const assetBrand = [
     name: "Xiaomi",
   },
 ];
-const itemDetails2 = [
-  {
-    id: 1,
-    img: "/img/BAG.jpeg",
-    name: "Samsung smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
 
-    percentage: "100%",
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 3,
-    img: "/img/BAG.jpeg",
-    name: "Iphone 12pro max",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 4,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 5,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-  },
-  {
-    id: 6,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 7,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-];
 const responsive6 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -478,12 +91,69 @@ const PhonesCatPage = () => {
     setSearchTerm(event.target.value);
   };
 
+  const [goods,setGoods]=useState([]);
+  const [phones,setPhone]=useState([]);
+  
+
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/category",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "king");
+     
+       
+        setGoods(data.data.data)
+
+     
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
   useEffect(() => {
     const results = assetBrand.filter((BrandName) =>
       BrandName.name.toString().toLowerCase().includes(searchTerm.toLowerCase())
     );
     setSearchResults(results);
   }, [searchTerm]);
+
+
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "phlip");
+     
+       
+        setPhone(data.data.data)
+
+       
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
   return (
     <div className="other2">
       <section className="no-bg">
@@ -525,27 +195,27 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {itemDetails.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                  {phones.map((asset) => (
+                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${asset.img})`,
+                            backgroundImage: `url(${api_url2 + '/'+ asset.product_image})`,
                           }}
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
                             <button className="items_remaining_btn">
-                              {asset.Save_button}
+                              save now
                             </button>
                             <button className="items_remaining_btn2">
-                              {asset.percentage} off
+                              25% off
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_name">{asset.product_name}</div>
                             <div className="asset_title">
-                              {asset.items_remainings}
+                              {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
                             </div>
                           </div>
                           {/* </a> */}
@@ -595,27 +265,27 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {itemDetails.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                  {phones.map((asset) => (
+                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${asset.img})`,
+                            backgroundImage: `url(${api_url2 + '/'+ asset.product_image})`,
                           }}
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
                             <button className="items_remaining_btn">
-                              {asset.Save_button}
+                              save now
                             </button>
                             <button className="items_remaining_btn2">
-                              {asset.percentage} off
+                              40% off
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_name">{asset.product_name}</div>
                             <div className="asset_title">
-                              {asset.items_remainings}
+                            {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
                             </div>
                           </div>
                           {/* </a> */}
@@ -722,27 +392,27 @@ const PhonesCatPage = () => {
                   </span>
                 </div>
                 <div className="items_all_list_body">
-                  {itemDetails2.map((asset) => (
-                    <a href={`/products/details/${asset.id}/${asset.name}`}>
+                  {phones.map((asset) => (
+                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list caro_lisss_2">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${asset.img})`,
+                            backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
                           }}
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
                             <button className="items_remaining_btn">
-                              {asset.Save_button}
+                              save now
                             </button>
                             <button className="items_remaining_btn2">
-                              {asset.percentage} off
+                              20% off
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_name">{asset.product_name}</div>
                             <div className="asset_title">
-                              {asset.items_remainings}
+                              {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
                             </div>
                           </div>
                           {/* </a> */}
@@ -760,4 +430,11 @@ const PhonesCatPage = () => {
   );
 };
 
-export default PhonesCatPage;
+
+
+const mapStateToProps1 = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default  connect(mapStateToProps1)(PhonesCatPage);

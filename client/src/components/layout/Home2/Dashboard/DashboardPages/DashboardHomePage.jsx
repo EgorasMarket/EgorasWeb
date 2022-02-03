@@ -2,36 +2,43 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import LogoutIcon from "@mui/icons-material/Logout";
 import "../DashboardStyles/dashboard_home.css";
-import {API_URL2 as api} from '../../../../../actions/types'
-import {connect, useDispatch } from 'react-redux';
-import axios from 'axios'
-import { allCart} from '../../../../../actions/shop'
+import { API_URL2 as api } from "../../../../../actions/types";
+import { connect, useDispatch } from "react-redux";
+import axios from "axios";
+import { allCart } from "../../../../../actions/shop";
+import DashBoardCard from "../DashBoardCard";
+import data from "../../../MockData";
+import { retrieveCart } from "../../../../../actions/shop";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../../../actions/types";
 const cards = [
   {
     id: 1,
     img: "/img/save_card1.svg",
-    title: "Total Savings",
+    title: "Total Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card2.svg",
-    title: "Item Savings",
+    title: "Savings Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card3.svg",
-    title: "Flex Savings",
+    title: "Ledger Balance",
     Balance: "50,000",
     Save_button: "Save",
   },
   {
     id: 1,
     img: "/img/save_card4.svg",
-    title: "Dollar Savings",
+    title: "Accumulated Bal",
     Balance: "50,000",
     Save_button: "Save",
   },
@@ -55,75 +62,7 @@ const responsive6 = {
     items: 1,
   },
 };
-const itemDetails = [
-  {
-    id: 1,
-    img: "/img/BAG.jpeg",
-    name: "Samsung smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
 
-    percentage: "100%",
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 3,
-    img: "/img/BAG.jpeg",
-    name: "Iphone 12pro max",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 4,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 5,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-  },
-  {
-    id: 6,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 7,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-];
 const itemDetails2 = [
   {
     // id: 1,
@@ -173,39 +112,51 @@ const responsive7 = {
   },
 };
 
-
-const DashboardHomePage = ({cart, auth, allCart}) => {
-
+const DashboardHomePage = ({ cart, auth, allCart }) => {
+  const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
 
+  // const fetchFromCart = async (customer_id) => {
+  //   console.log('fetchfromCart', customer_id);
+  //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
+  //     console.log("error from dashboardcart", err.message);
+  //   });
+  //   // setCartData(call.data.data)
 
-  const fetchFromCart = async (customer_id) => {
-    console.log('fetchfromCart', customer_id);
-    let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
-      console.log("error from dashboardcart", err.message);
-    });
-    // setCartData(call.data.data)
+  //   console.log(call.data.data, 'async call');
+  //   dispatch(allCart(call.data.data))
+  //   // dispatch(allCart(call)) // use this to send to the redux store
+  // }
 
-    console.log(call.data.data, 'async call');
-    dispatch(allCart(call.data.data))
-    // dispatch(allCart(call)) // use this to send to the redux store 
-  }
+  // useEffect(() => {
+  //   console.log(cus_id);
+  //   retrieveCart(cus_id)
+  //   console.log("inside use effect")
 
-  useEffect(() => {
-
-    if (auth){
-      console.log(auth.user.user.id)
-
-      let customer_id = auth.user.user.id
-      fetchFromCart(customer_id);
-    }
-    console.log("inside use effect")
-    
-  },[cart])
-
-
+  // },[])
 
   const [savedNum, setSavedNum] = useState(5);
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const [itemGalleryShow, setItemGalleryShow] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip");
+
+        setItemGalleryShow(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
   return (
     <div className="other2">
       <section className="no-bg">
@@ -229,28 +180,8 @@ const DashboardHomePage = ({cart, auth, allCart}) => {
                 // transitionDuration={1000}
                 style={{ height: "25em" }}
               >
-                {cards.map((asset) => (
-                  <div className="card_cont1">
-                    <div className="card_cont_txtxs">
-                      {/* <div className="save_card_cont_txt1">
-                        <span className="savings_caption">Title</span>
-                        <div className="card_cont_txt_tittle">
-                          Total Savings
-                        </div>
-                      </div> */}
-                      <div className="save_card_cont_txt1">
-                        <span className="savings_caption">{asset.title}</span>
-                        <div className="card_cont_txt_tittle">
-                          ₦{asset.Balance}
-                        </div>
-                      </div>
-                      <div className="to_save_btn">
-                        <LogoutIcon className="to_save_area_icon" /> Start
-                        saving
-                      </div>
-                    </div>
-                    <img src={asset.img} alt="" className="savings_card" />
-                  </div>
+                {data.dashBoardHomeCard.map((asset, index) => (
+                  <DashBoardCard key={index} val={asset} />
                 ))}
               </Carousel>
               {/* Carousel end==============================
@@ -327,6 +258,7 @@ const DashboardHomePage = ({cart, auth, allCart}) => {
                   className="partnerCards LEFTARROW"
                   showDots={false}
                   //   infinite={false}
+                  //   infinite={false}
                   autoPlay={true}
                   autoPlaySpeed={6000}
                   transitionDelay={"2s"}
@@ -336,13 +268,17 @@ const DashboardHomePage = ({cart, auth, allCart}) => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {itemDetails.map((asset) => (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+                  {itemGalleryShow.map((asset) => (
+                    <a
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${asset.img})`,
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -355,16 +291,23 @@ const DashboardHomePage = ({cart, auth, allCart}) => {
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
                             <button className="items_remaining_btn">
-                              {asset.Save_button}
+                              save now
                             </button>
                             <button className="items_remaining_btn2">
-                              {asset.percentage} off
+                              40 off
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
                             <div className="asset_title">
-                              {asset.items_remainings}
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
                             </div>
                           </div>
                           {/* </a> */}
@@ -415,13 +358,17 @@ const DashboardHomePage = ({cart, auth, allCart}) => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {itemDetails.map((asset) => (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+                  {itemGalleryShow.map((asset) => (
+                    <a
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${asset.img})`,
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -434,16 +381,23 @@ const DashboardHomePage = ({cart, auth, allCart}) => {
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
                             <button className="items_remaining_btn">
-                              {asset.Save_button}
+                              save now
                             </button>
                             <button className="items_remaining_btn2">
-                              {asset.percentage} off
+                              40 off
                             </button>
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.name}</div>
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
                             <div className="asset_title">
-                              {asset.items_remainings}
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
                             </div>
                           </div>
                           {/* </a> */}
@@ -466,10 +420,9 @@ const DashboardHomePage = ({cart, auth, allCart}) => {
   );
 };
 
-
-const mapStateToProps = (state) =>({
+const mapStateToProps = (state) => ({
   auth: state.auth,
-  cart: state.shop.cart
-})
+  cart: state.shop.cart,
+});
 
-export default connect(mapStateToProps,{allCart}) (DashboardHomePage);
+export default connect(mapStateToProps, { allCart })(DashboardHomePage);

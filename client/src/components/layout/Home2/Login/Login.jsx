@@ -51,16 +51,15 @@ const Login = ({ getLogin, isAuthenticated }) => {
       setDisable(true);
     } else if (password === "") {
       setDisable(true);
-    }
-    
-    else if (isLoading == true) {
+    } else if (isLoading == true) {
       setDisable(true);
     } else if (isLoading == false) {
       setDisable(false);
-    }
-    
-    
-    else {
+    } else if (email != "") {
+      setDisable(false);
+    } else if (password != "") {
+      setDisable(false);
+    } else {
       setDisable(false);
     }
   });

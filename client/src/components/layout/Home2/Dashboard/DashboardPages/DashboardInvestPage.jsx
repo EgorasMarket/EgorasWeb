@@ -10,7 +10,7 @@ import DvrIcon from "@mui/icons-material/Dvr";
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
-import {Link} from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 import axios from "axios";
 import setAuthToken from "../../../../../utils/setAuthToken";
@@ -19,157 +19,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
 
-const Category = [
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-  {
-    cat: "Electronics",
-  },
-];
-const itemDetails = [
-  {
-    id: 1,
-    img: "/img/BAG.jpeg",
-    name: "Samsung smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
 
-    percentage: "100%",
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 3,
-    img: "/img/BAG.jpeg",
-    name: "Iphone 12pro max",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 4,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 5,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-  },
-  {
-    id: 6,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-];
-const itemDetails5 = [
-  {
-    id: 1,
-    img: "/img/BAG.jpeg",
-    name: "Samsung smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-    // ratio: "175%",
-  },
-  {
-    id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 3,
-    img: "/img/BAG.jpeg",
-    name: "Iphone 12pro max",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 4,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 5,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-
-    percentage: "100%",
-  },
-  {
-    id: 6,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 7,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-  {
-    id: 8,
-    img: "/img/BAG.jpeg",
-    name: "Samsung galaxy s9+",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    percentage: "100%",
-  },
-];
 
 const responsive7 = {
   superLargeDesktop: {
@@ -200,11 +50,16 @@ function DashboardInvestPage({ auth }) {
     },
   };
 
-  
+  //  const names =["phones $ Tablet","grocery","Home & Kitchen","electronics","computer & electronics"]
 
   const [item, setItem] = useState([]);
 
+  const phoneTablets = "NmCPfPsS25";
+
+  // const [cItem,setCItem] =useState([])
+
   const [img, setImg] = useState();
+  const [category, setCategory] = useState([]);
 
   const {
     productId,
@@ -219,69 +74,45 @@ function DashboardInvestPage({ auth }) {
   } = item;
 
   useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/products",
-        null,
-        config
-    ).then((data) => {
-       
-        console.log(data.data.data, "king");
-     
-       
-    setItem(data.data.data)
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
 
-        //  const imageBlob =  resR.blob();
-        //  const imageObjectURL = URL.createObjectURL(imageBlob);
-
-        //  setImg(imageObjectURL);
-
-        // console.log(resR);
-
-        // data.data.data.map((seed)=>setItem(seed)
-
-        // )
-
-        // setItem({
-        //   productId:data.data.data[0].id,
-        //   productAmount:data.data.data[0].amount,
-        //   productBrand:data.data.data[0].product_brand,
-        //   ProductImg:data.data.data[2].product_image
-
-        // })
+        setItem(data.data.data);
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
-
-    // setItem({
-    //   productId:data.data.data[0].id,
-    //   productAmount:data.data.data[0].amount,
-    //   productBrand:data.data.data[0].product_brand,
-    //   ProductImg:data.data.data[0].product_image
-
-    // })
   }, []);
 
-  //   const loadUser2 = () => async (dispatch) => {
-  //     // console.log('okkkkkkk');
+  const phone = [
+    "2324tfgfd",
+    "2344w232ws",
+    "33822bj23",
+    "3473672gbn",
+    "NmCPfPsS25",
+    "v6whRB7ii5",
+    "v6wwwd1ii5",
+  ];
 
-  //     // if (localStorage.token) {
-  //     //   setAuthToken(localStorage.token);
-  //     // }
+  // const industrialsEquipment,MusicalEquipment,phoneTablet,Electronics,Furniture,ComputerAccessories,HomeApplinces;
 
-  //     const res = await axios.get(api_url2 + "/v1/product/retrieve/products");
-  //     console.log(res);
-  //     setItem(res);
-  //     console.log(item)
-  // console.log(res.data)
-  //     dispatch({
-  //       type: PRODUCT_LOADED,
-  //       payload: res.data,
-  //     });
+  useEffect(() => {
+    phoneTab();
+  }, []);
 
-  //   };
-
+  function phoneTab() {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .then((data) => {
+        console.log(data.data.data, "king");
+        setCategory(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }
 
   console.log(item);
 
@@ -443,13 +274,17 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {itemDetails.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+              {item.map((asset) => (
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${asset.img})`,
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -462,16 +297,16 @@ function DashboardInvestPage({ auth }) {
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          {asset.Save_button}
+                          save now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.items_remainings}
+                          {asset.unitCount + "items left"}
                         </div>
                       </div>
                       {/* </a> */}
@@ -516,42 +351,58 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {itemDetails5.map((asset) => (
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
-                    <li className="carous_list no_marg">
-                      <div
-                        className="storeTiles_storeTileContainer__HoGEa"
-                        style={{
-                          backgroundImage: `url(${asset.img})`,
-                          //           height: "200px",
-                          //           width: "100%",
-                          //           backgroundRepeat: "no-repeat",
-                          //           backgroundSize: "cover",
-                          //           borderRadius: "8px",
-                          //           borderBottomLeftRadius: "0px",
-                          //           borderBottomRightRadius: "0px",
-                          //   backgroundPositionY: "center",
-                        }}
+                {item.map((asset) => {
+                  if (phoneTablets === asset.product_category_code)
+                    return (
+                      <a
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                       >
-                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                          <button className="items_remaining_btn">
-                            {asset.Save_button}
-                          </button>
-                          <button className="items_remaining_btn2">
-                            {asset.percentage} off
-                          </button>
-                        </div>
-                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.name}</div>
-                          <div className="asset_title">
-                            {asset.items_remainings}
+                        <li className="carous_list no_marg">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                              <button className="items_remaining_btn">
+                                save now
+                              </button>
+                              <button className="items_remaining_btn2">
+                                100% off
+                              </button>
+                            </div>
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div className="asset_title">
+                                {asset.unitCount}
+                                {asset.unitCount === 1
+                                  ? "item left"
+                                  : asset.unitCount <= 1
+                                  ? "no item left"
+                                  : asset.unitCount > 1
+                                  ? "items left"
+                                  : null}
+                              </div>
+                            </div>
+                            {/* </a> */}
                           </div>
-                        </div>
-                        {/* </a> */}
-                      </div>
-                    </li>
-                  </a>
-                ))}
+                        </li>
+                      </a>
+                    );
+                })}
               </div>
             </div>
           </div>
@@ -573,13 +424,17 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {itemDetails.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+              {item.map((asset) => (
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${asset.img})`,
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -592,16 +447,23 @@ function DashboardInvestPage({ auth }) {
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          {asset.Save_button}
+                          save now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.items_remainings}
+                          {asset.unitCount}
+                          {asset.unitCount === 1
+                            ? "item left"
+                            : asset.unitCount <= 1
+                            ? "no item left"
+                            : asset.unitCount > 1
+                            ? "itms left"
+                            : null}
                         </div>
                       </div>
                       {/* </a> */}
@@ -637,13 +499,16 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} >
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
-                     
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                       }}
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
@@ -651,13 +516,20 @@ function DashboardInvestPage({ auth }) {
                           Save Now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.unitCount + "items left"}
+                          {asset.unitCount}
+                          {asset.unitCount === 1
+                            ? "item left"
+                            : asset.unitCount <= 1
+                            ? "no item left"
+                            : asset.unitCount > 1
+                            ? "itms left"
+                            : null}
                         </div>
                       </div>
                       {/* </a> */}
@@ -702,13 +574,17 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {itemDetails5.map((asset) => (
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+                {item.map((asset) => (
+                  <a
+                    href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                  >
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
                         style={{
-                          backgroundImage: `url(${asset.img})`,
+                          backgroundImage: `url(${
+                            api_url2 + "/" + asset.product_image
+                          })`,
                           //           height: "200px",
                           //           width: "100%",
                           //           backgroundRepeat: "no-repeat",
@@ -721,16 +597,23 @@ function DashboardInvestPage({ auth }) {
                       >
                         <div className="storeTiles_storeTileOffersContainer__3v8lC">
                           <button className="items_remaining_btn">
-                            {asset.Save_button}
+                            save now
                           </button>
                           <button className="items_remaining_btn2">
-                            {asset.percentage} off
+                            100% off
                           </button>
                         </div>
                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.name}</div>
+                          <div className="asset_name">{asset.product_name}</div>
                           <div className="asset_title">
-                            {asset.items_remainings}
+                            {asset.unitCount}
+                            {asset.unitCount === 1
+                              ? "item left"
+                              : asset.unitCount <= 1
+                              ? "no item left"
+                              : asset.unitCount > 1
+                              ? "itms left"
+                              : null}
                           </div>
                         </div>
                         {/* </a> */}
@@ -759,13 +642,17 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {itemDetails.map((asset) => (
-                <a href={`/dashboard/products/details/${asset.id}/${asset.name}`}>
+              {item.map((asset) => (
+                <a
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                >
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
-                        backgroundImage: `url(${asset.img})`,
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
                         //           height: "200px",
                         //           width: "100%",
                         //           backgroundRepeat: "no-repeat",
@@ -778,16 +665,23 @@ function DashboardInvestPage({ auth }) {
                     >
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
-                          {asset.Save_button}
+                          save now
                         </button>
                         <button className="items_remaining_btn2">
-                          {asset.percentage} off
+                          100% off
                         </button>
                       </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
+                        <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          {asset.items_remainings}
+                          {asset.unitCount}
+                          {asset.unitCount === 1
+                            ? "item left"
+                            : asset.unitCount <= 1
+                            ? "no item left"
+                            : asset.unitCount > 1
+                            ? "itms left"
+                            : null}
                         </div>
                       </div>
                       {/* </a> */}
@@ -798,6 +692,15 @@ function DashboardInvestPage({ auth }) {
             </div>
           </div>
         </div>
+
+        {/* 
+        <div>
+          {names.filter(name => name.includes('p')).map(filteredName => (
+           <li>
+            {filteredName}
+          </li>
+          ))}
+         </div> */}
 
         <div className="fixed_pop">
           <img
