@@ -3,26 +3,80 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
+import { Calendar, DateRangePicker } from "react-date-range";
+import { addDays } from "date-fns";
+
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+// import "react-dates/initialize";
+// import "react-dates/lib/css/_datepicker.css";
+
+// import {
+//   DateRangePicker,
+//   SingleDatePicker,
+//   DayPickerRangeController,
+// } from "react-dates";
+
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-
+const Accordion = ({ title, children }) => {
+  const [isOpen, setOpen] = React.useState(false);
+  return (
+    <div className="accordion-wrapper">
+      <div
+        className={`accordion-title ${isOpen ? "open" : ""}`}
+        onClick={() => setOpen(!isOpen)}
+      >
+        {title}
+      </div>
+      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
+        <div className="accordion-content">{children}</div>
+      </div>
+    </div>
+  );
+};
 function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
+  const [state, setState] = useState({
+    selection: {
+      startDate: new Date(),
+      endDate: null,
+      key: "selection",
+    },
+    // compare: {
+    //   startDate: new Date(),
+    //   endDate: addDays(new Date(), 3),
+    //   key: "compare",
+    // },
+  });
+  const handleSelect = (ranges) => {
+    console.log(ranges);
+  };
   const [spec, setSpec] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
+  const [lowOutCome, setLowOutCome] = useState("");
+  const [prod_ur, setProd_ur] = useState(4);
+  // const [lowNumS, setLowNumS] = useState({
+  //   prod_img: 0,
+  //   prod_dur: 8,
+  //   prod_num: 2,
+  // });
 
   const [maxDuration, setmaxDuration] = useState(25);
   const [base, setBase] = useState("");
   // const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
+  // const [startDate, setStartDate] = useState("22 / 10 / 19");
+  // const [endDate, setEndDate] = useState("22 / 10 / 22");
   const [disable2, setDisable2] = useState(false);
   const [productCode, setProductCode] = useState(475758);
   const [productPrice, setProductPrice] = useState("400,000");
@@ -46,6 +100,7 @@ function ItemDetailsPage({ auth, match }) {
     product_category_code: "",
     product_details: "",
     productSpecification: "",
+    percentage: "",
   });
 
   const {
@@ -60,6 +115,7 @@ function ItemDetailsPage({ auth, match }) {
     product_category_code,
     productSpecification,
     product_details,
+    percentage,
   } = productDetails;
 
   useEffect(() => {
@@ -92,23 +148,36 @@ function ItemDetailsPage({ auth, match }) {
           product_duration: data.data.data.product_duration,
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
+          percentage: data.data.data.percentage,
           // productSpecification:slipVar[0]
         });
+        // setLowNumS({prod_dur:"8"});
 
-        // console.log(amount,"rent");
-
-        // setSpec(data.data.data.Product_specification);
-        // console.log(product_specification)
-
-        // setDataFlow(data.data.data)
-
-        // console.log(product_name,"samuel Une")
+        console.log("====================================");
+        // const NumbsAr =
+        // setLowNumS(NumbLow);
+        // console.log(NumbLow);
+        console.log(lowOutCome);
       })
       .catch((err) => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
 
+  // const calcDays = (x) => {
+  //   if (product_duration == 5) {
+  //     product_duration = 12;
+  //   }
+  //   return x * product_duration;
+  // };
+
+  // console.log(calcDays(30));
+  const LowCalc = Array(product_duration)
+    .fill(0)
+    .map((e, i) => i + 1);
+
+  console.log("====================================");
+  console.log(LowCalc);
   const addToCart = async (customer_id, product_id, quantity) => {
     const payload = {
       customer_id,
@@ -183,76 +252,6 @@ function ItemDetailsPage({ auth, match }) {
     }
   };
 
-  const itemDetails = [
-    {
-      id: 1,
-      img: "/img/BAG.jpeg",
-      name: "Samsung smart tv series",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-
-      percentage: "100%",
-      // ratio: "175%",
-    },
-    {
-      id: 2,
-      img: "/img/samsung_tv_555.jpeg",
-      name: "Lg smart tv series",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 3,
-      img: "/img/BAG.jpeg",
-      name: "Iphone 12pro max",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 4,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 5,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-
-      percentage: "100%",
-    },
-    {
-      id: 6,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 7,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-    {
-      id: 8,
-      img: "/img/BAG.jpeg",
-      name: "Samsung galaxy s9+",
-      items_remainings: "16 items left.",
-      Save_button: "Save now",
-      percentage: "100%",
-    },
-  ];
-
   const itemsId = {
     firstItem: {
       // the naming can be any, depends on you.
@@ -315,6 +314,30 @@ function ItemDetailsPage({ auth, match }) {
 
   const ID = match.params.id;
 
+  const CalcDaysConvert = (x) => {
+    x = parseInt(x);
+    let result = 0;
+    if (x === 5) {
+      result = 12 * 30;
+    } else if (x === 4) {
+      result = 6 * 30;
+    } else if (x === 3) {
+      result = 4 * 30;
+    } else if (x === 2) {
+      result = 2 * 30;
+    }
+    return result;
+  };
+
+  const days = CalcDaysConvert(product_duration);
+  const percentDays = (percentage / 100) * days;
+  console.log(percentDays);
+  const dd = 2;
+  // =================
+  // =================
+  console.log(days);
+  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+  // console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     console.log("Hello Mr King");
   }
@@ -356,42 +379,45 @@ function ItemDetailsPage({ auth, match }) {
                 {/* ----------------- */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
-                <div className="product_details_price">₦{amount}</div>
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
-                <div className="quantity_div">
-                  <div className="quantity_cont">
-                    <label htmlFor="Quantity" className="quantity_label">
-                      Quantity:
-                    </label>
-                    <div>
-                      <div className="increment_decrement_cont">
-                        <button
-                          className="decrement_btn"
-                          name="decrement"
-                          type="submit"
-                          value="0"
-                          onClick={decreaseCount}
-                          disabled={disable2}
-                        >
-                          -
-                        </button>
-
-                        <div className="increment_decrement_div">{count}</div>
-                        <button
-                          className="increment_btn"
-                          name="increment"
-                          type="submit"
-                          value="1"
-                          onClick={increaseCount}
-                          disabled={disable}
-                        >
-                          +
-                        </button>
-                      </div>
+                <div className="lll">
+                  <div className="max_dura">
+                    Savings max-duration:{" "}
+                    <div className="days_left_numb">
+                      {product_duration == 1 ? (
+                        <p className="left_num_nu">Out Right Buy</p>
+                      ) : null}
+                      {product_duration == 2 ? (
+                        <p className="left_num_nu">2</p>
+                      ) : null}
+                      {product_duration == 3 ? (
+                        <p className="left_num_nu">4</p>
+                      ) : null}
+                      {product_duration == 4 ? (
+                        <p className="left_num_nu">6</p>
+                      ) : null}
+                      {product_duration == 5 ? (
+                        <p className="left_num_nu">12</p>
+                      ) : null}
+                      {product_duration == 1 ? null : (
+                        <p className="months_class">months</p>
+                      )}
                     </div>
                   </div>
 
+                  {product_duration == 1 ? (
+                    <span>₦{amount}</span>
+                  ) : (
+                    <p className="amnt_per_day">
+                      Savings Amount to be paid per day:{""}
+                      <span className="calc_amnt_div">
+                        ₦{CalcAmtPerDay.toFixed()}
+                      </span>
+                    </p>
+                  )}
+                </div>
+                {/* <hr className="horizontal_rule" /> */}
+                {/* ------- */}
+                <div className="quantity_div">
                   <div className="items_left_div">
                     Items Left:{" "}
                     <span className="items_left_numb">
@@ -399,36 +425,59 @@ function ItemDetailsPage({ auth, match }) {
                       {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
                     </span>
                   </div>
-                  <div className="items_left_div">
-                    Savings max-duration:{" "}
-                    <span className="days_left_numb">
-                      {product_duration}{" "}
-                      {product_duration === 1
-                        ? "month"
-                        : product_duration <= 0
-                        ? ""
-                        : "months"}
-                    </span>
-                  </div>
                 </div>
+                <div className="quantity_div">
+                  <div className="items_left_div">
+                    This item has an upfront payment of : {percentage}%
+                  </div>
+                  <span className="upfront_para">
+                    That means you are to pay {percentage} before this item can
+                    be locked by you.
+                  </span>
+                </div>
+                {/* ======= */}
+                {/* ======= */}
+                <div className="date_picky">
+                  <div className="date_picky_note">
+                    Note: the below calendar shows the total amount of days to
+                    complete payment for this item
+                    <br />
+                    the grey color shows the total days that has been initially
+                    locked for this item
+                    <br />
+                    while the green color shows the total amount of days that is
+                    left for payment .
+                  </div>
+                  <Accordion title="Click to view calendar">
+                    <DateRangePicker
+                      onChange={(item) => {
+                        setState({ ...state, ...item });
+                        console.log(item)
+                      }}
+                      months={1}
+                      minDate={addDays(new Date(), percentDays)}
+                      maxDate={addDays(new Date(), days)}
+                      direction="vertical"
+                      scroll={{ enabled: false }}
+                      moveRangeOnFirstSelection={false}
+                      // staticRanges={false}
+                      ranges={[state.selection]}
+                    />
+                  </Accordion>
+                </div>
+                {/* ======= */}
+                {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button
-                    onClick={() => {
-                      addToCart(auth.user.user.id, product_id, count);
-                    }}
-                    className="buy_now_button"
-                  >
-                    Add to Cart
-                  </button>
+                  <button className="buy_now_button">Proceed</button>
 
-                  <div className="save_later">
+                  {/* <div className="save_later">
                     <button className="save_later_btn">
                       <FavoriteIcon className="favorite_icon" />
                     </button>
                     <div className="save_later_txt">Add to favorites.</div>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

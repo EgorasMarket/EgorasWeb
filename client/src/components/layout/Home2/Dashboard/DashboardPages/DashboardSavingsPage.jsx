@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import axios from "axios";
+import { connect } from "react-redux";
 import {
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
@@ -26,21 +27,42 @@ const responsive7 = {
     items: 2,
   },
 };
-function DashboardSavingsPage({match}) {
+function DashboardSavingsPage({ match, auth }) {
   const [savedNum, setSavedNum] = useState(5);
-  const [itemdisplay,setItemDisplay] = useState([]);
+  const [itemdisplay, setItemDisplay] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
-  const [productDetail,setProductDetail] = useState({
+  const [lockedItems, setLockedItems] = useState([]);
+  const [productDetail, setProductDetail] = useState({
     product_image: "",
     product_name: "",
-    amount:"",
-    product_duration:"",
+    amount: "",
+    product_duration: "",
   });
+  // const [userInfo, setUserInfo] = useState({
+  //   CustFirstName: "",
+  //   CustLastName: "",
+  //   Custemail: "",
+  //   CustphoneNumber: "",
+  //   CustImage: "",
+  //   // CustRelationship: "",
+  //   Custgender: "",
+  //   CustBvn: "",
+  //   CustDateOfBirth: "",
+  // });
 
-  const {product_image,product_name,amount,product_duration}=productDetail;
-
-
-
+  // const {
+  //   CustFirstName,
+  //   CustLastName,
+  //   Custemail,
+  //   Custgender,
+  //   // CustRelationship,
+  //   CustImage,
+  //   CustphoneNumber,
+  //   CustBvn,
+  //   CustDateOfBirth,
+  // } = userInfo;
+  const { product_image, product_name, amount, product_duration } =
+    productDetail;
 
   const config = {
     headers: {
@@ -48,69 +70,83 @@ function DashboardSavingsPage({match}) {
     },
   };
 
+  useEffect(async () => {
+    // console.log(auth.user);
+    const customer_id = auth.user.user.id;
+    console.log("customer id ", customer_id);
+    // retrieveSaved(customer_id);
 
-  useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/products",
+    try {
+      const call = await axios.get(
+        api_url2 + "/v1/product/retrieve/locked/" + customer_id,
         null,
         config
-    ).then((data) => {
-       
+      );
+
+      console.log(call);
+    } catch (err) {
+      console.log("error", err.response);
+    }
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
         console.log(data.data.data, "chukwubuike");
-     
-       
+
         setItemDisplay(data.data.data);
 
         console.log("=============");
         console.log(itemdisplay);
         console.log("=============");
-
-      
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
-
-    
   }, []);
 
+  useEffect(() => {
+    console.log(match.params.id);
 
+    axios
+      .get(api_url2 + "/v1/admin/get/customer/byId/" + product_id, null, config)
+      .then((data) => {
+        console.log(data.data.data);
+        const getName = data.data.data.fullname;
+        const splitName = getName.split(" ");
+        // setUserInfo({
+
+        // });
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
 
   useEffect(() => {
-
     const body = JSON.stringify({
-      product_id
+      product_id,
     });
 
     console.log(body);
-  
-    axios.post(
-        api_url2 + "/v1/product/retrieve/specific",
-        body,
-        config
-    ).then((data) => {
-       
+
+    axios
+      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+      .then((data) => {
         console.log(data.data.data, "king");
 
-      
-       
-  
         setProductDetail({
-          product_image:data.data.data.product_image,
-          product_name:data.data.data.product_name,
-          amount:data.data.data.amount,
-          product_duration:data.data.data.product_duration,
-        })
-
-
-        
-
-        
-    }).catch((err) => {
+          product_image: data.data.data.product_image,
+          product_name: data.data.data.product_name,
+          amount: data.data.data.amount,
+          product_duration: data.data.data.product_duration,
+        });
+      })
+      .catch((err) => {
         console.log(err.response); // "oh, no!"
-    })
-}, []);
+      });
+  }, []);
 
   return (
     <div className="other2">
@@ -152,7 +188,7 @@ function DashboardSavingsPage({match}) {
                       </tr>
                     </thead>
 
-                    {itemdisplay.map((asset) => (
+                    {lockedItems.map((asset) => (
                       <tbody
                         className="save_items_cat popular-categories"
                         id="popular-categories"
@@ -162,7 +198,8 @@ function DashboardSavingsPage({match}) {
                           <td className="save_item_data">
                             <div className="assets-data height_data">
                               <img
-                                src={api_url2+'/'+ asset.product_image}
+                                src="/img/BAG.jpeg"
+                                // src={api_url2 + "/" + asset.product_image}
                                 alt=""
                                 className="save_item_img_img"
                               />
@@ -178,12 +215,17 @@ function DashboardSavingsPage({match}) {
                                 {asset.product_name}
                               </div>
                               <div className="save_item_days_left">
-                                {asset.unitCount} days left
+                                {asset.quantity} days left
                                 <div className="days_left_percentage_cont">
                                   <span
                                     className="days_left_percentage"
                                     style={{
-                                      width: 100% -((asset.amount * 100)/asset.unitCount)
+                                      width:
+                                        100 %
+                                        -(
+                                          (asset.amount * 100) /
+                                          asset.quantity
+                                        ),
                                     }}
                                   ></span>
                                 </div>
@@ -192,7 +234,7 @@ function DashboardSavingsPage({match}) {
                                 <span className="items_left_amount">
                                   Total Amount Locked on Item
                                 </span>
-                                #{asset.total_locked_amount}
+                                #{asset.quantity}
                               </div>
                             </div>
                           </td>
@@ -268,7 +310,9 @@ function DashboardSavingsPage({match}) {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${api_url2+'/'+product.product_image})`,
+                              backgroundImage: `url(${
+                                api_url2 + "/" + product.product_image
+                              })`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -288,9 +332,18 @@ function DashboardSavingsPage({match}) {
                               </button>
                             </div>
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">{product.product_name}</div>
+                              <div className="asset_name">
+                                {product.product_name}
+                              </div>
                               <div className="asset_title">
-                                {product.unitCount}{product.unitCount ===1? "item left": product.unitCount <= 1? "no item left":product.unitCount > 1? "items left": null }
+                                {product.unitCount}
+                                {product.unitCount === 1
+                                  ? "item left"
+                                  : product.unitCount <= 1
+                                  ? "no item left"
+                                  : product.unitCount > 1
+                                  ? "items left"
+                                  : null}
                               </div>
                             </div>
                             {/* </a> */}
@@ -321,4 +374,10 @@ function DashboardSavingsPage({match}) {
   );
 }
 
-export default DashboardSavingsPage;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+// export default DashboardSavingsPage;
+
+export default connect(mapStateToProps, {})(DashboardSavingsPage);

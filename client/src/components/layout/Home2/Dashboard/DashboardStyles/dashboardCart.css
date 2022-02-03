@@ -22,10 +22,13 @@
 .cart_area2 {
   width: 37%;
   background: #fff;
-  box-shadow: 0px 0px 15px #c4e9d2;
-  border-radius: 20px;
+  /* box-shadow: 0px 0px 15px #c4e9d2; */
+  border-radius: 10px;
   display: flex;
   flex-direction: column;
+  border: solid 1px #ceebd9;
+  margin-top: 5.5em;
+  height: 100%;
 }
 .cart_item_num {
   font-size: 22px;
@@ -98,6 +101,7 @@ button.checkout_btn1 {
   color: #fff;
   font-weight: 700;
   box-shadow: 0px 4px 15px #5fd591;
+  margin: 1em;
 }
 
 .assets-category-row {
@@ -232,4 +236,64 @@ svg.icon-loading {
 .acct_created_txt {
   color: #41b970;
   font-weight: 700;
+}
+.number_form_div {
+  position: relative;
+}
+.credit_icon {
+  position: absolute;
+  top: 25%;
+  left: 2%;
+  color: #9ebdac;
+}
+.cart_area2_heading {
+  padding: 1em;
+  border-bottom: 1px solid #ceebd9;
+}
+.cart_area2_select {
+  padding: 1em;
+  /* border-bottom: 1px solid #ceebd9; */
+}
+.wit_card {
+  padding: 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border: solid 1px #ceebd9;
+  border-radius: 5px;
+}
+.border_down {
+  border-bottom: 1px solid #ceebd9;
+}
+.cart_area2_notes {
+  font-size: 14px;
+  font-weight: 100;
+  color: #b1b1b1;
+  padding: 1em 2em;
+  border-bottom: 1px solid #ceebd9;
+}
+.sub_total_div {
+  padding: 1em 2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 13px;
+  border-bottom: 1px solid #ceebd9;
+}
+.sub_total_div_span {
+  font-weight: 700;
+  color: #329559;
+}
+.transac_secure_div {
+  padding: 1em 2em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #ceebd9;
+}
+.secure_transac_text {
+  padding: 0.5em 2em;
+  font-size: 12px;
+  background: #dddddd;
+  color: #979797;
 }

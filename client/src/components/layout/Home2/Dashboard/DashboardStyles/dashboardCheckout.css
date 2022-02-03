@@ -86,6 +86,7 @@
   font-size: 14px;
   font-weight: 500;
   color: #799786;
+  padding-left: 3em;
 }
 .card_details_input1::placeholder {
   color: #94ad9f;
