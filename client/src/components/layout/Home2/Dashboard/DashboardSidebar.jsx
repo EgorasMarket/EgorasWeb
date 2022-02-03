@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import HomeIcon from "@mui/icons-material/Home";
-import {API_URL2 as api_url2} from "../../../../actions/types";
+import { API_URL2 as api_url2 } from "../../../../actions/types";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
 import BarChartIcon from "@mui/icons-material/BarChart";
@@ -11,8 +11,10 @@ import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
+import SavingsIcon from "@mui/icons-material/Savings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
@@ -28,7 +30,8 @@ import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
-const DashboardSidebar = ({auth, cart }) => {
+import { retrieveCart } from "../../../../actions/shop";
+const DashboardSidebar = ({auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -38,7 +41,6 @@ const DashboardSidebar = ({auth, cart }) => {
   const [image, setImage] = useState("");
   const linksActive = window.location.pathname;
 
-
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
     Userlastname: "",
@@ -47,9 +49,8 @@ const DashboardSidebar = ({auth, cart }) => {
     UseruserImage: "",
     Userrelationship: "",
     Usergender: "",
-    Userbvn:"",
-    UserdateOfBirth:""
-   
+    Userbvn: "",
+    UserdateOfBirth: "",
   });
 
   const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
@@ -58,7 +59,7 @@ const DashboardSidebar = ({auth, cart }) => {
     
 useEffect(() => {
 
-  setCartNum(cart.length)
+  // setCartNum(cart.length)
   // fetchDepositLinks();
   console.log(auth);
   if (auth.user !== null) {
@@ -66,15 +67,16 @@ useEffect(() => {
     // console.log( new Buffer(dataa));
     var todecoded = auth.user;
     var todecodedn = todecoded.user.userImage;
-
+    
     // console.log('====================================');
     console.log(todecodedn);
     // console.log('====================================');
-
-
+    
+    
     const getName = todecoded.user.fullname
     const splitName = getName.split(' ');
-
+    
+    retrieveCart(todecoded.user.id)
     setUserInfo({
       Userfirstname: splitName[0],
       Userlastname: splitName[1],
@@ -94,7 +96,13 @@ useEffect(() => {
     }
     
   }
-}, [auth, cart]);
+}, [auth]);
+
+useEffect(() => {
+
+  setCartNum(cart.length)
+  
+}, [cart]);
 
   // console.log(dddd);
   const changeBg = (e) => {
@@ -138,6 +146,14 @@ useEffect(() => {
       setActiveBg("accounts");
       setCatDiv("not_home");
     }
+    if (linksActive === "/dashboard/wallet") {
+      setActiveBg("wallet");
+      setCatDiv("not_home");
+    }
+    if (linksActive === "/dashboard/wallet/withdrawal") {
+      setActiveBg("wallet");
+      setCatDiv("not_home");
+    }
 
     if (smallSide == "not_small") {
       localStorage.setItem("smallSidetoken", "not_small");
@@ -145,7 +161,7 @@ useEffect(() => {
       localStorage.setItem("smallSidetoken", "smallSide");
     }
   }, []);
- 
+
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -155,7 +171,6 @@ useEffect(() => {
       localStorage.setItem("smallSidetoken", "not_small");
     }
   };
- 
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
@@ -202,11 +217,7 @@ useEffect(() => {
                   </button>
                 </div> */}
                 <div className="immmgg">
-                  <img
-                    src={image}
-                    alt=""
-                    className="user_profile"
-                  />
+                  <img src={image} alt="" className="user_profile" />
                   {/* <img
                     src="/img/profile_icon2.svg"
                     alt=""
@@ -373,8 +384,30 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <PlaylistAddRoundedIcon className="sidebarIcon" />
+                    <SavingsIcon className="sidebarIcon" />
                     Savings
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/dashboard/wallet"
+                  className="link"
+                  id="wallet"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "wallet"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <AccountBalanceWalletIcon className="sidebarIcon" />
+                    Wallet
                   </li>
                 </a>
                 {/* ===================== */}
@@ -493,8 +526,30 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <PlaylistAddRoundedIcon className="sidebarIcon" />
+                    <SavingsIcon className="sidebarIcon" />
                     Savings
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/dashboard/wallet"
+                  className="link"
+                  id="wallet"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "wallet"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <AccountBalanceWalletIcon className="sidebarIcon" />
+                    Wallet
                   </li>
                 </a>
                 {/* ===================== */}
@@ -565,7 +620,4 @@ const mapStateToProps = (state) => ({
 
 // export default DashboardSidebar;
 
-
-export default connect(mapStateToProps, { })(
-  DashboardSidebar
-);
+export default connect(mapStateToProps, {retrieveCart})(DashboardSidebar);

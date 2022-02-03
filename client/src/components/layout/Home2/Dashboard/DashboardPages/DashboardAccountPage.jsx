@@ -3,23 +3,13 @@ import axios from "axios";
 import { API_URL2 as api_url2 } from "../../../../../actions/types";
 import Stack from "@mui/material/Stack";
 import EditIcon from "@mui/icons-material/Edit";
-// import AvatarSelector from "react-avatar-selector";
-// import poodle from "../../img/profile_img.jpeg";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import LockIcon from "@mui/icons-material/Lock";
-// import  {useLocal}
 import { useLocalStorage } from "../../Activation/useLocalStorage";
-import jwt from "jsonwebtoken";
-
+// import jwt from "jsonwebtoken";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
-
-// import TimePicker from "@mui/lab/TimePicker";
-// import TimePicker from "@mui/lab/TimePicker";
-// import DateTimePicker from "@mui/lab/DateTimePicker";
-// import DesktopDatePicker from "@mui/lab/DesktopDatePicker";
-// import MobileDatePicker from "@mui/lab/MobileDatePicker";
 import Box from "@mui/material/Box";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
@@ -50,7 +40,17 @@ function DashboardAccountPage({
     },
   };
   const [image, setImage] = useState("");
-  const [previewImg, setPreviewImg] = useState(null);
+  const [nxtOfKinA, setNxtOfKinA] = useState(false);
+  // const [getNxtOfKin, setGetNxtOfKin] = useState([]);
+  const[nextOfKinData, setNextOfKinData] =useState({
+    nxtcustomer_id: "",
+    nxtemail: "",
+    nxtfirstname: "",
+    nxtgender: "",
+    nxtlastname: "",
+    nxtphoneNumber: "",
+    nxtrelationship: ""
+  })
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
   const [customerAddress, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
@@ -93,6 +93,15 @@ function DashboardAccountPage({
     UserdateOfBirth,
   } = userInfo;
 
+  const {
+    nxtcustomer_id,
+    nxtemail,
+    nxtfirstname,
+    nxtgender,
+    nxtlastname,
+    nxtphoneNumber,
+    nxtrelationship
+   } = nextOfKinData;
   const { oldpassword, newpassword } = changePassword1;
 
   useEffect(() => {
@@ -131,11 +140,53 @@ function DashboardAccountPage({
     }
   }, [auth]);
 
-  // const [userInfoUpdate,setUserInfoUpdate]=useState({
-  //   firstname:"",lastname:"",phoneNumber:"",email:"",BVN:"",
-  // })
+  useEffect(() => {
+    axios.get(
+        api_url2 + "/v1/user/nextOfKin/info",
+        null,
+        config
+    ).then((data) => {
+       console.log('eeeeee');
+        console.log(data.data.nxtOfKin, "king");
 
-  // const {firstname1,lastname1,phoneNumber1,email1,BVN1} = userInfoUpdate;
+        if (data.data.status === true) {
+          setNxtOfKinA(true)
+        } 
+     
+        setNextOfKinData({
+          // nxtcustomer_id: customer_id,
+          nxtemail: data.data.nxtOfKin.email,
+          nxtfirstname: data.data.nxtOfKin.firstname,
+          nxtgender: data.data.nxtOfKin.gender,
+          nxtlastname: data.data.nxtOfKin.lastname,
+          nxtphoneNumber: data.data.nxtOfKin.phoneNumber,
+          nxtrelationship: data.data.nxtOfKin.relationship
+    })
+        // setGoods(data.data.data)
+
+     
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+
+
+
+      axios.get(
+        api_url2 + "/v1/user/address/info",
+        null,
+        config
+      ).then((data) => {
+       console.log('eeeeee');
+        console.log(data.data.cusAddress, "king");
+     
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+
+    
+  }, []);
 
   const [userName, setUserName] = useState({ user: "" });
   const [nameUpdate, setNameUpdate] = useState("");
@@ -209,7 +260,7 @@ function DashboardAccountPage({
               console.log("file too large.");
             }
             // else {
-            //   setcustomer_image(passportFile);
+            setcustomer_image(passportFile);
             // }
           }
         }
@@ -595,200 +646,382 @@ function DashboardAccountPage({
                   <div className="account_toggle_body_area1_title">
                     Personal Details
                   </div>
-                  <div className="account_toggle_body_area1_txts_input">
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Full Name
-                        <span className="toggle_body_area1_cont1_sub_txts"></span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <TextField
-                          className="name_input1"
-                          id="outlined-basic"
-                          label="First Name"
-                          variant="outlined"
-                          name="firstname"
-                          value={firstname}
-                          onChange={onChangeFor2}
-                        />
-                        <TextField
-                          className="name_input1"
-                          id="outlined-basic"
-                          label="Last Name"
-                          variant="outlined"
-                          name="lastname"
-                          value={lastname}
-                          onChange={onChangeFor2}
-                        />
-                      </div>
-                    </div>
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Email Address
-                        <span className="toggle_body_area1_cont1_sub_txts"></span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <TextField
-                          className="name_input1a"
-                          id="outlined-basic"
-                          label="Email Address"
-                          variant="outlined"
-                          name="email"
-                          value={email}
-                          onChange={onChangeFor2}
-                        />
-                      </div>
-                    </div>
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Phone number
-                        <span className="toggle_body_area1_cont1_sub_txts"></span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <TextField
-                          className="name_input1a"
-                          id="outlined-basic"
-                          label="Phone number"
-                          variant="outlined"
-                          name="phoneNumber"
-                          value={phoneNumber}
-                          onChange={onChangeFor2}
-                        />
-                      </div>
-                    </div>
-                    {/* '''''''''''''''''''''∂∂ */}
-                    {/* '''''''''''''''''''''∂∂ */}
-                    {/* '''''''''''''''''''''∂∂ */}
-                    {/* <div className="account_toggle_body_area1_title">
-                      Bank Details
-                    </div> */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
+                  {
+                    nxtOfKinA === true ? (
+                      <div className="account_toggle_body_area1_txts_input">
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Full Name
+                            <span className="toggle_body_area1_cont1_sub_txts"></span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <TextField
+                              className="name_input1"
+                              id="outlined-basic"
+                              label="First Name"
+                              variant="outlined"
+                              name="firstname"
+                              value={nxtfirstname}
+                              // onChange={onChangeFor2}
+                            />
+                            <TextField
+                              className="name_input1"
+                              id="outlined-basic"
+                              label="Last Name"
+                              variant="outlined"
+                              name="lastname"
+                              value={nxtlastname}
+                              // onChange={onChangeFor2}
+                            />
+                          </div>
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Email Address
+                            <span className="toggle_body_area1_cont1_sub_txts"></span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <TextField
+                              className="name_input1a"
+                              id="outlined-basic"
+                              label="Email Address"
+                              variant="outlined"
+                              name="email"
+                              value={nxtemail}
+                              // onChange={onChangeFor2}
+                            />
+                          </div>
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Phone number
+                            <span className="toggle_body_area1_cont1_sub_txts"></span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <TextField
+                              className="name_input1a"
+                              id="outlined-basic"
+                              label="Phone number"
+                              variant="outlined"
+                              name="phoneNumber"
+                              value={nxtphoneNumber}
+                              // onChange={onChangeFor2}
+                            />
+                          </div>
+                        </div>
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* <div className="account_toggle_body_area1_title">
+                          Bank Details
+                        </div> */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
 
-                    {/* '''''''''''''''''''''∂∂ */}
-                    {/* '''''''''''''''''''''∂∂ */}
-                    {/* '''''''''''''''''''''∂∂ */}
-                    <div className="account_toggle_body_area1_title">
-                      Other Details
-                    </div>
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Relationship{" "}
-                        <span className="toggle_body_area1_cont1_sub_txts">
-                          Father, Mother, Sister ...
-                        </span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <div className="name_input1a">
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              Select Relationship
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              name="relationship"
-                              value={relationship}
-                              label="Age"
-                              // onChange={handleChange}
-                              onChange={onChangeFor2}
-                              // onSelect={onChangeFor2}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        <div className="account_toggle_body_area1_title">
+                          Other Details
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Relationship{" "}
+                            <span className="toggle_body_area1_cont1_sub_txts">
+                              Father, Mother, Sister ...
+                            </span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                           <TextField
+                              className="name_input1a"
+                              id="outlined-basic"
+                              label="Relationship"
+                              variant="outlined"
+                              // name="phoneNumber"
+                              value={nxtrelationship}
+                              // onChange={onChangeFor2}
+                            />
+                          </div>
+                        </div>
+
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Gender
+                            <span className="toggle_body_area1_cont1_sub_txts">
+                              {" "}
+                              How you would like to be identified
+                            </span>
+                          </div>
+                          {/* <div className="toggle_body_area1_cont1_input">
+                            <div className="radio_group">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="male"
+                                // value={Male}
+                                value="Male"
+                                onChange={onChangeFor2}
+                              />
+                              <label for="male" class="radio" value={gender}>
+                                Male
+                              </label>
+                            </div>
+                            <div className="radio_group">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="female"
+                                // value="female"
+                                value="Female"
+                                onChange={onChangeFor2}
+                              />
+                              <label for="female" class="radio" value={gender}>
+                                Female
+                              </label>
+                            </div>
+                          </div> */}
+                          {nxtgender}
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+
+                        {/* <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts"></div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <button
+                              className="save_changes_btn"
+                              onClick={nextOfKINGS}
                             >
-                              <MenuItem name="relationship" value="Mother">
-                                Mother
-                              </MenuItem>
-                              <MenuItem value="Father">Father</MenuItem>
-                              <MenuItem value="Sister">Sister</MenuItem>
-                              <MenuItem value="Uncle">Uncle</MenuItem>
-                              <MenuItem value="Aunt">Aunt</MenuItem>
-                              <MenuItem value="Brother">Brother</MenuItem>
-                              <MenuItem value="Inlaw">Inlaw</MenuItem>
-                            </Select>
-                          </FormControl>
-                        </div>
+                              Save Changes
+                            </button>
+                          </div>
+                        </div> */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
                       </div>
-                    </div>
+                    ) : (
+                      <div className="account_toggle_body_area1_txts_input">
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Full Name
+                            <span className="toggle_body_area1_cont1_sub_txts"></span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <TextField
+                              className="name_input1"
+                              id="outlined-basic"
+                              label="First Name"
+                              variant="outlined"
+                              name="firstname"
+                              value={firstname}
+                              onChange={onChangeFor2}
+                            />
+                            <TextField
+                              className="name_input1"
+                              id="outlined-basic"
+                              label="Last Name"
+                              variant="outlined"
+                              name="lastname"
+                              value={lastname}
+                              onChange={onChangeFor2}
+                            />
+                          </div>
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Email Address
+                            <span className="toggle_body_area1_cont1_sub_txts"></span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <TextField
+                              className="name_input1a"
+                              id="outlined-basic"
+                              label="Email Address"
+                              variant="outlined"
+                              name="email"
+                              value={email}
+                              onChange={onChangeFor2}
+                            />
+                          </div>
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Phone number
+                            <span className="toggle_body_area1_cont1_sub_txts"></span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <TextField
+                              className="name_input1a"
+                              id="outlined-basic"
+                              label="Phone number"
+                              variant="outlined"
+                              name="phoneNumber"
+                              value={phoneNumber}
+                              onChange={onChangeFor2}
+                            />
+                          </div>
+                        </div>
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* <div className="account_toggle_body_area1_title">
+                          Bank Details
+                        </div> */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
 
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts">
-                        Gender
-                        <span className="toggle_body_area1_cont1_sub_txts">
-                          {" "}
-                          How you would like to be identified
-                        </span>
-                      </div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <div className="radio_group">
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="male"
-                            // value={Male}
-                            value="Male"
-                            onChange={onChangeFor2}
-                          />
-                          <label for="male" class="radio" value={gender}>
-                            Male
-                          </label>
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        {/* '''''''''''''''''''''∂∂ */}
+                        <div className="account_toggle_body_area1_title">
+                          Other Details
                         </div>
-                        <div className="radio_group">
-                          <input
-                            type="radio"
-                            name="gender"
-                            id="female"
-                            // value="female"
-                            value="Female"
-                            onChange={onChangeFor2}
-                          />
-                          <label for="female" class="radio" value={gender}>
-                            Female
-                          </label>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Relationship{" "}
+                            <span className="toggle_body_area1_cont1_sub_txts">
+                              Father, Mother, Sister ...
+                            </span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <div className="name_input1a">
+                              <FormControl fullWidth>
+                                <InputLabel id="demo-simple-select-label">
+                                  Select Relationship
+                                </InputLabel>
+                                <Select
+                                  labelId="demo-simple-select-label"
+                                  id="demo-simple-select"
+                                  name="relationship"
+                                  value={relationship}
+                                  label="Age"
+                                  // onChange={handleChange}
+                                  onChange={onChangeFor2}
+                                  // onSelect={onChangeFor2}
+                                >
+                                  <MenuItem name="relationship" value="Mother">
+                                    Mother
+                                  </MenuItem>
+                                  <MenuItem value="Father">Father</MenuItem>
+                                  <MenuItem value="Sister">Sister</MenuItem>
+                                  <MenuItem value="Uncle">Uncle</MenuItem>
+                                  <MenuItem value="Aunt">Aunt</MenuItem>
+                                  <MenuItem value="Brother">Brother</MenuItem>
+                                  <MenuItem value="Inlaw">Inlaw</MenuItem>
+                                </Select>
+                              </FormControl>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                    </div>
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
 
-                    <div className="toggle_body_area1_cont1">
-                      <div className="toggle_body_area1_cont1_txts"></div>
-                      <div className="toggle_body_area1_cont1_input">
-                        <button
-                          className="save_changes_btn"
-                          onClick={nextOfKINGS}
-                        >
-                          Save Changes
-                        </button>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts">
+                            Gender
+                            <span className="toggle_body_area1_cont1_sub_txts">
+                              {" "}
+                              How you would like to be identified
+                            </span>
+                          </div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <div className="radio_group">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="male"
+                                // value={Male}
+                                value="Male"
+                                onChange={onChangeFor2}
+                              />
+                              <label for="male" class="radio" value={gender}>
+                                Male
+                              </label>
+                            </div>
+                            <div className="radio_group">
+                              <input
+                                type="radio"
+                                name="gender"
+                                id="female"
+                                // value="female"
+                                value="Female"
+                                onChange={onChangeFor2}
+                              />
+                              <label for="female" class="radio" value={gender}>
+                                Female
+                              </label>
+                            </div>
+                          </div>
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+
+                        <div className="toggle_body_area1_cont1">
+                          <div className="toggle_body_area1_cont1_txts"></div>
+                          <div className="toggle_body_area1_cont1_input">
+                            <button
+                              className="save_changes_btn"
+                              onClick={nextOfKINGS}
+                            >
+                              Save Changes
+                            </button>
+                          </div>
+                        </div>
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
+                        {/* ================= */}
                       </div>
-                    </div>
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                    {/* ================= */}
-                  </div>
+                    )
+                  }
                 </div>
               ) : null}
               {/* ================= */}

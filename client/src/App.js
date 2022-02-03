@@ -100,7 +100,8 @@ import Login from "./components/layout/Home2/Login/Login";
 // import Signup from "./components/layout/Home2/Signup/Signup";
 
 import Signup from "./components/layout/Home2/Signup/Signup";
-
+// import Wallet
+// import Walle
 import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
@@ -154,7 +155,6 @@ if (localStorage.token) {
 const App = () => {
   // const currentPage = window.location.pathname;
   const [adminLocate, setAdminLocate] = useState("");
-  
 
   useEffect(() => {
     localStorage.setItem("xrate", 410);
@@ -223,15 +223,14 @@ const App = () => {
     console.log(myArr[1]);
     if (myArr[1] === "super_admin") {
       setAdminLocate("super_admin");
-      console.log('super_admin');
+      console.log("super_admin");
       store.dispatch(loadAdminUser());
     } else if (myArr[1] === "dashboard") {
       setAdminLocate("dashboard");
-      console.log('dashboard');
+      console.log("dashboard");
       store.dispatch(loadUser());
-    } 
+    }
   });
-
 
   return (
     <Web3ReactProvider getLibrary={getLibrary}>
@@ -452,11 +451,11 @@ const App = () => {
                     <PrivateRoute3>
                       <Admin />
                     </PrivateRoute3>
-                  ) : (adminLocate === "dashboard" ? (
+                  ) : adminLocate === "dashboard" ? (
                     <PrivateRoute2>
                       <Dashboard />
                     </PrivateRoute2>
-                  ) : null)}
+                  ) : null}
                   {/* {(() => {
                     if (adminLocate === "super_admin"){
                       console.log('super_admin');

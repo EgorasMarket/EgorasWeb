@@ -56,6 +56,11 @@
   border: solid 1px #c2e9d1;
   border-radius: 10px;
 }
+.locked_items2 {
+  padding: 1em 0em;
+  /* border: solid 1px #c2e9d1;
+  border-radius: 10px; */
+}
 
 .save_item_table {
   box-sizing: border-box;
@@ -120,6 +125,9 @@
   min-width: 0px;
   color: #373737;
   font-weight: 700;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 .save_item_data1 {
   box-sizing: border-box;
@@ -131,11 +139,11 @@
   border-right: solid 1px #d7f7e4;
   width: 35%;
 }
-.save_items_details {
+.save_items_detailssss {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  width: 430px;
+  /* width: 430px; */
 }
 .save_total_locked_amount {
   display: flex;
@@ -156,7 +164,7 @@
   font-weight: 700;
   font-size: 22px;
   white-space: nowrap;
-  width: 100%;
+  width: 350px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
@@ -174,7 +182,7 @@ span.items_left_amount {
   text-align: center;
 }
 .height_data {
-  height: 130px;
+  height: 187px;
 }
 .save_item_img_img {
   width: 100%;
