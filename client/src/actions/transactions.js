@@ -131,9 +131,10 @@ export const sendPin = (payload1, pin) => async (dispatch) => {
     // });
   } catch (error) {
     console.log(error.response);
-    // dispatch({
-    //   type: AUTH_ERROR,
-    // });
+    return {
+        success: false,
+        data: error.response,
+      };
   }
 };
 

@@ -13,36 +13,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
-const cards = [
-  {
-    id: 1,
-    img: "/img/save_card1.svg",
-    title: "Total Balance",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-  {
-    id: 1,
-    img: "/img/save_card2.svg",
-    title: "Savings Balance",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-  {
-    id: 1,
-    img: "/img/save_card3.svg",
-    title: "Ledger Balance",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-  {
-    id: 1,
-    img: "/img/save_card4.svg",
-    title: "Accumulated Bal",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-];
+
 const responsive6 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
