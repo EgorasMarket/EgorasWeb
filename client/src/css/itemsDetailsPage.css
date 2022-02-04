@@ -74,11 +74,13 @@
 .quantity_div {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 2px;
   /* align-items: center; */
   padding-bottom: 1em;
   border-bottom: solid 1px #e5e5e5;
+  margin-bottom: 1em;
 }
+
 .quantity_cont {
   display: flex;
   align-items: center;
@@ -171,8 +173,9 @@
   background: #239e54;
   border: none;
   color: #fff;
+  height: 62px;
   padding: 0.5em;
-  border-radius: 6px;
+  border-radius: 15px;
   transition: 0.3s ease-in-out;
 }
 .buy_now_button:hover {
@@ -209,9 +212,9 @@
 .items_left_div {
   font-size: 12px;
   font-weight: 700;
-      display: flex;
-    gap: 10px;
-    align-items: center;
+  display: flex;
+  gap: 10px;
+  align-items: center;
 }
 .items_left_numb {
   font-size: 14px;
@@ -221,14 +224,13 @@
   border-radius: 5px;
 }
 .days_left_numb {
-  font-size: 12px;
+  font-size: 16px;
   color: #fff;
   background-color: #e4a788;
   padding: 0.1em 0.5em;
   border-radius: 5px;
   display: flex;
   align-items: center;
-
 }
 /* ============================== */
 /* ============================== */
@@ -309,10 +311,144 @@
   padding: 1em 0em;
   border-right: 0;
   border-left: 0;
-  margin: 2em 0em;
+  flex-direction: column;
+  margin: 1em 0em;
+  align-items: flex-start;
 }
 .left_num_nu,
 .months_class {
   margin: 0;
   padding: 0;
+}
+
+.max_dura {
+  display: flex;
+  gap: 10px;
+}
+.amnt_per_day {
+  margin: 0;
+  font-size: 14px;
+  color: grey;
+  display: flex;
+  gap: 6px;
+}
+.calc_amnt_div {
+  color: black;
+  font-weight: 800;
+}
+.rdrStaticRangeLabel {
+  display: block;
+  outline: 0;
+  line-height: 18px;
+  padding: 10px 0px !important;
+  text-align: left;
+}
+.rdrInputRange {
+  align-items: center;
+  padding: 5px 0px !important;
+}
+.rdrInRange {
+  color: #41ba71 !important;
+}
+.rdrDateRangePickerWrapper {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+}
+.rdrMonth {
+  width: 100% !important;
+}
+
+.rdrCalendarWrapper {
+  color: #000000;
+  font-size: 12px;
+  width: 100% !important;
+}
+.rdrDateDisplayItemActive {
+  border-color: #41ba71 !important;
+}
+.date_picky_note {
+  font-size: 12px;
+  color: #919191;
+}
+.date_picky {
+  display: flex;
+  flex-direction: column;
+  gap: 19px;
+}
+.rdrDefinedRangesWrapper {
+  font-size: 12px;
+  width: 226px;
+  border-right: solid 1px #eff2f7;
+  background: #fff;
+  display: none !important;
+}
+/* ======================= */
+/* ======================= */
+/* ======================= */
+/* ======================= */
+/* ======================= */
+/* ======================= */
+/* ======================= */
+/* ======ACCORDION STYLES */
+.wrapper {
+  width: 600px;
+  margin: 0 auto;
+}
+.accordion-wrapper + * {
+  margin-top: 0.5em;
+}
+.accordion-item {
+  overflow: hidden;
+  transition: max-height 0.3s cubic-bezier(1, 0, 1, 0);
+  height: auto;
+  max-height: 9999px;
+}
+.accordion-item.collapsed {
+  max-height: 0;
+  transition: max-height 0.35s cubic-bezier(0, 1, 0, 1);
+}
+.accordion-title {
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+  color: #858585;
+  padding: 0.5em 1.5em;
+  border: solid 1px #e9e9e9;
+  border-radius: 1.5em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.accordion-title::after {
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid currentColor;
+}
+.accordion-title:hover,
+.accordion-title.open {
+  color: #239e54;
+}
+.accordion-title.open {
+  color: #239e54;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+  border-bottom: 0;
+}
+.accordion-title.open::after {
+  content: "";
+  border-top: 0;
+  border-bottom: 5px solid;
+}
+.accordion-content {
+  padding: 1em 0em;
+  padding-top: 0em;
+}
+
+.upfront_para {
+  font-size: 12px;
+  color: #7fa58e;
 }
