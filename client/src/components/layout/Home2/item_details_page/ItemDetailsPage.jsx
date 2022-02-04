@@ -72,7 +72,7 @@ function ItemDetailsPage({ auth, match }) {
   //   prod_num: 2,
   // });
 
-  const [maxDuration, setmaxDuration] = useState(25);
+  // const [cEndDate, setEndDate] = useState('');
   const [base, setBase] = useState("");
   // const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
@@ -338,6 +338,23 @@ function ItemDetailsPage({ auth, match }) {
   const percentDays = (percentage / 100) * days;
   console.log(percentDays);
   const dd = 2;
+  const [cStartDate, setStartDate] = useState(new Date());
+  const [cEndDate, setEndDate] = useState(new Date(), days);
+  console.log(cStartDate);
+
+  const [state, setState] = useState({
+    selection: {
+      startDate: new Date(),
+      endDate: cEndDate,
+      key: "selection",
+    },
+    // compare: {
+    //   startDate: new Date(),
+    //   endDate: addDays(new Date(), 3),
+    //   key: "compare",
+    // },
+  });
+
   // =================
   // =================
   console.log(days);
@@ -462,6 +479,7 @@ function ItemDetailsPage({ auth, match }) {
                         }}
                         date={date}
                         minDate={addDays(new Date(), percentDays)}
+                        maxDate={addDays(new Date(), days)}
                       />
                     </div>
                   </Accordion>
