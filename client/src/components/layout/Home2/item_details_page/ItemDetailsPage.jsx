@@ -344,6 +344,7 @@ function ItemDetailsPage({ auth, match }) {
 
   const days = CalcDaysConvert(product_duration);
   const percentDays = (percentage / 100) * days;
+  const endDate = addDays(new Date(), percentDays-1)
   console.log(percentDays);
   const dd = 2;
   // =================
@@ -468,6 +469,7 @@ function ItemDetailsPage({ auth, match }) {
                           setDate(item);
                           console.log(item)
                           console.log(differenceInCalendarDays( new Date(item), new Date()), 'days');
+                          console.log(addDays(new Date(), percentDays-1))
                           
                         }}
                         date={date}
