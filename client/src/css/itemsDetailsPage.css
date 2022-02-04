@@ -429,6 +429,9 @@
 .rdrDayHovered {
   color: #41ba71 !important;
 }
+.rdrDay:not(.rdrDayPassive) .rdrSelected ~ .rdrDayNumber span {
+  color: rgb(255 255 255) !important;
+}
 /* ======================= */
 /* ======================= */
 /* ======================= */
