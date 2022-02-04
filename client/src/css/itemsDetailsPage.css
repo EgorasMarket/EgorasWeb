@@ -355,6 +355,7 @@
   width: 100%;
   justify-content: space-between;
 }
+
 .rdrMonth {
   width: 100% !important;
 }
@@ -376,12 +377,57 @@
   flex-direction: column;
   gap: 19px;
 }
+.rdrDayDisabled {
+  background-color: rgb(227 227 227) !important;
+}
 .rdrDefinedRangesWrapper {
   font-size: 12px;
   width: 226px;
   border-right: solid 1px #eff2f7;
   background: #fff;
   display: none !important;
+}
+.rdrDayEndOfMonth .rdrDayStartPreview {
+  border-top-right-radius: 1.333em;
+  border-bottom-right-radius: 1.333em;
+  border-right-width: 1px;
+  right: 0px;
+  color: rgb(35 158 84) !important;
+}
+.rdrSelected {
+  left: 2px;
+  right: 2px;
+  color: rgb(65 186 113) !important;
+}
+.rdrDayToday .rdrDayNumber span:after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: 50%;
+  transform: translate(-50%, 0);
+  width: 18px;
+  height: 2px;
+  border-radius: 2px;
+  background: #41ba71 !important;
+}
+.rdrDayDisabled .rdrDayNumber span {
+  color: #9fa8ad !important;
+}
+.rdrDayEndPreview {
+  border-top-width: 1px;
+  border-right-width: 1px;
+  border-bottom-width: 1px;
+  border-top-right-radius: 1.333em;
+  border-bottom-right-radius: 1.333em;
+  right: 2px;
+  right: 0px;
+  color: #41ba71 !important;
+}
+.rdrDayActive {
+  color: #41ba71 !important;
+}
+.rdrDayHovered {
+  color: #41ba71 !important;
 }
 /* ======================= */
 /* ======================= */

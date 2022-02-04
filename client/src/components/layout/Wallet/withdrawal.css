@@ -7,6 +7,7 @@
   padding: 2em;
   border: solid 1px #d7efe0;
   border-radius: 15px;
+  width:60%;
 }
 .back {
   padding-bottom: 45px;
@@ -261,7 +262,7 @@ input[type="number"] {
   top: 0;
   background-color: rgba(0, 0, 0, 0.5);
   position: fixed;
-  z-index: 100;
+  z-index: 1000;
   padding-top: 12rem;
   overflow-y: scroll;
   padding-bottom: 2em;
