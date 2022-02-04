@@ -237,13 +237,14 @@ useEffect(() => {
       {/* =============''''''''' */}
       {/* =============''''''''' */}
       {/* =============''''''''' */}
-      {catDiv == "home" ? (
+      {/* {catDiv == "home" ? (
         <div className="cat_div" id="cat_div">
           <div className="cat_body_toggle">
-            <div className="cat_body_toggle1">
+          <div className="cat_body_toggle1">
               All Categories
               <ListIcon className="cat_icon" />
-            </div>
+               </div>
+           
             <div className="cat_body_toggle1">Computers and Accessories</div>
             <div className="cat_body_toggle1">Phones and Tablets</div>
             <div className="cat_body_toggle1">Electronics</div>
@@ -254,7 +255,7 @@ useEffect(() => {
         </div>
       ) : (
         <div></div>
-      )}
+      )} */}
 
       {/* ========== */}
       {/* ========== */}
@@ -349,7 +350,7 @@ useEffect(() => {
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
-
+{/* 
                 <a
                   href="/dashboard/cart"
                   className="link"
@@ -366,7 +367,7 @@ useEffect(() => {
                     <ShoppingCartIcon className="sidebarIcon" />
                     My Cart
                   </li>
-                </a>
+                </a> */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
