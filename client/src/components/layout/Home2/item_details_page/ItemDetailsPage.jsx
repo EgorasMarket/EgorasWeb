@@ -1,23 +1,15 @@
 import React, { useState, useEffect, useCallback } from "react";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import {  DateRangePicker } from "react-date-range";
-import {Calendar} from '@natscale/react-calendar';
-import '@natscale/react-calendar/dist/main.css'; // style for the netscale react calendar
-import { addDays, differenceInDays } from "date-fns";
+import { Calendar, DateRangePicker, DateRange } from "react-date-range";
+import { addDays, differenceInCalendarDays } from "date-fns";
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-// import "react-dates/initialize";
-// import "react-dates/lib/css/_datepicker.css";
 
-// import {
-//   DateRangePicker,
-//   SingleDatePicker,
-//   DayPickerRangeController,
-// } from "react-dates";
 
 import {
   PRODUCT_LOADED,
@@ -47,21 +39,21 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-  const [state, setState] = useState({
-    selection: {
-      startDate: new Date(),
-      endDate: null,
-      key: "selection",
-    },
-    // compare: {
-    //   startDate: new Date(),
-    //   endDate: addDays(new Date(), 3),
-    //   key: "compare",
-    // },
-  });
+  const [date, setDate] = useState(null);
+
+  // const handleSelect = (ranges) => {
+  //   console.log(ranges);
+  // };
   const handleSelect = (ranges) => {
     console.log(ranges);
+    // {
+    //   selection: {
+    //     startDate: [native Date Object],
+    //     endDate: [native Date Object],
+    //   }
+    // }
   };
+
   const [spec, setSpec] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
@@ -205,13 +197,15 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
         alert("Item successfully added to cart ");
+
+        console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
         alert(err.response.data.message);
         console.log("error reported", err.response);
       });
 
-    console.log(call);
+    console.log(call, "chukwubuike kingsley");
   };
 
   // const food = spec[0].split('');
@@ -243,7 +237,7 @@ function ItemDetailsPage({ auth, match }) {
       setDisable2(false);
     }
 
-    if (unitCount <= 1 || count >= unitCount || count === unitCount) {
+    if (unitCount < 1 || count === unitCount || count === 0) {
       setDisable(true);
     } else {
       setDisable(false);
@@ -321,6 +315,8 @@ function ItemDetailsPage({ auth, match }) {
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
         console.log(data.data.data, "phlip");
+
+        setTerm(data.data.data);
 
         // setTerm(data.data.data)
       })
@@ -466,31 +462,20 @@ function ItemDetailsPage({ auth, match }) {
                     left for payment .
                   </div>
                   <Accordion title="Click to view calendar">
-                    <DateRangePicker
-                  onChange={(item) => {
-                        setState({ ...state, ...item });
-                        console.log(item)
-                        console.log(differenceInDays(new Date(item), new Date()), "difference in days ")
-                      }}
-                      months={1}
-                      minDate={addDays(new Date(), percentDays)}
-                      maxDate={addDays(new Date(), days)}
-                      direction="vertical"
-                      scroll={{ enabled: false }}
-                      moveRangeOnFirstSelection={false}
-                      // staticRanges={false}
-                      ranges={[state.selection]}
-                    />
+                    <div style={{ display: "flex", flexFlow: "column nowrap" }}>
+                      <Calendar
+                        onChange={(item) => {
+                          setDate(item);
+                          console.log(item)
+                          console.log(differenceInCalendarDays( new Date(item), new Date()), 'days');
+                          
+                        }}
+                        date={date}
+                        minDate={addDays(new Date(), percentDays)}
+                      />
+                    </div>
                   </Accordion>
 
-                  <div>
-                    <Calendar 
-                      disablePast  
-                      value={calvalue}  
-                      onChange={onChange}
-                      isDisabled={isDisabled}
-                      />
-                  </div> 
                 </div>
                 {/* ======= */}
                 {/* ======= */}
@@ -763,7 +748,7 @@ function ItemDetailsPage({ auth, match }) {
                       //   </div>
                       //   </div>
                       <a
-                        href={`/products/details/${asset.id}/${asset.product_name}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                       >
                         <li className="carous_list">
                           <div

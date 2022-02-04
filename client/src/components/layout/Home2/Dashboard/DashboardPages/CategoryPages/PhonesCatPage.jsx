@@ -93,8 +93,16 @@ const PhonesCatPage = () => {
 
   const [goods,setGoods]=useState([]);
   const [phones,setPhone]=useState([]);
-  
 
+  // const [mark ,setMark]= setInfo({
+  //   phoneCath:"",computerCath:""
+  
+  // })
+
+
+  const [page,setPage]=useState({categoryPhoneTablets:"",categoryHomeAppliances:"",categoryElectronics:"",categoryComputerAccessories:"",categoryFurniture:"",categoryMusicalEquipment:"",categoryIndustrialEquipment:""})
+
+  const {categoryPhoneTablets,categoryHomeAppliances,categoryElectronics,categoryComputerAccessories,categoryFurniture,categoryMusicalEquipment,categoryIndustrialEquipment} = page;
 
   const config = {
     headers: {
@@ -102,18 +110,27 @@ const PhonesCatPage = () => {
     },
   };
 
+
+
+  // const config = {
+  //   headers: {
+  //     "Content-Type": "application/json",
+  //   },
+  // };
+
   useEffect(() => {
   
     axios.get(
-        api_url2 + "/v1/product/retrieve/category",
+        api_url2 + `/v1/product/retrieve/products/byId/${page}`,
         null,
         config
     ).then((data) => {
        
-        console.log(data.data.data, "king");
+      console.log("hello mr kingsley");
+        console.log(data.data.data, "samuel_Chuks");
      
        
-        setGoods(data.data.data)
+        // setGoods(data.data.data)
 
      
       })
@@ -123,6 +140,10 @@ const PhonesCatPage = () => {
 
     
   }, []);
+
+    //=====================//
+   //=====================//
+  //=====================//
 
   useEffect(() => {
     const results = assetBrand.filter((BrandName) =>
@@ -195,8 +216,8 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {phones.map((asset) => (
-                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
+                  {phones.map((asset,index15) => (
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index15.toString()}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -265,8 +286,8 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {phones.map((asset) => (
-                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
+                  {phones.slice(0,100).map((asset,index12) => (
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index12.toString()}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -356,8 +377,8 @@ const PhonesCatPage = () => {
                     </div>
                   </div>
                   <div className="cat_select_div2_body">
-                    {searchResults.map((brand) => (
-                      <div className="select_brand_check_box">
+                    {searchResults.map((brand,index10) => (
+                      <div className="select_brand_check_box" key={index10.toString()}>
                         <label class="label_cont">
                           {brand.name}
                           <input
@@ -392,8 +413,8 @@ const PhonesCatPage = () => {
                   </span>
                 </div>
                 <div className="items_all_list_body">
-                  {phones.map((asset) => (
-                    <a href={`/dashboard/products/dels/${asset.id}/${asset.product_name}`}>
+                  {phones.slice(0,100).map((asset,index11) => (
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index11.toString()}>
                       <li className="carous_list caro_lisss_2">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
