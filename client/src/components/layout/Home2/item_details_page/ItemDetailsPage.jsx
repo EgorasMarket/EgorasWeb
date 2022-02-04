@@ -459,7 +459,6 @@ function ItemDetailsPage({ auth, match }) {
                         onChange={(item) => {
                           setDate(item);
                           console.log(item);
-                          
                         }}
                         date={date}
                         minDate={addDays(new Date(), percentDays)}
