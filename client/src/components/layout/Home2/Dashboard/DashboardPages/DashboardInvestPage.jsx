@@ -13,7 +13,7 @@ import { connect } from "react-redux";
 // import {Link} from 'react-router-dom';
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_header.css";
-import { Link, animateScroll as scroll } from "react-scroll";
+// import { Link, animateScroll as scroll } from "react-scroll";
 
 
 import axios from "axios";
