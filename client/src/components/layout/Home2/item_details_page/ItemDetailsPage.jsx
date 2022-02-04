@@ -5,18 +5,11 @@ import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
-import { addDays } from "date-fns";
+import { addDays, differenceInCalendarDays } from "date-fns";
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-// import "react-dates/initialize";
-// import "react-dates/lib/css/_datepicker.css";
 
-// import {
-//   DateRangePicker,
-//   SingleDatePicker,
-//   DayPickerRangeController,
-// } from "react-dates";
 
 import {
   PRODUCT_LOADED,
@@ -103,6 +96,21 @@ function ItemDetailsPage({ auth, match }) {
     productSpecification: "",
     percentage: "",
   });
+
+  const [calvalue , setCalValue] = useState(); 
+
+  const onChange = useCallback((value) => {
+    setCalValue(value)
+
+    console.log("this calendar", value.getTime())
+  }, [setCalValue])
+
+  const isDisabled =  useCallback((date) => {
+     if (date.getDate() ) {
+      return true;
+    }
+    console.log(date.getDate() + 2, "memememe")
+  }, []);
 
   const {
     product_image,
@@ -475,7 +483,9 @@ function ItemDetailsPage({ auth, match }) {
                       <Calendar
                         onChange={(item) => {
                           setDate(item);
-                          console.log(item);
+                          console.log(item)
+                          console.log(differenceInCalendarDays( new Date(item), new Date()), 'days');
+                          
                         }}
                         date={date}
                         minDate={addDays(new Date(), percentDays)}
@@ -483,6 +493,7 @@ function ItemDetailsPage({ auth, match }) {
                       />
                     </div>
                   </Accordion>
+
                 </div>
                 {/* ======= */}
                 {/* ======= */}
