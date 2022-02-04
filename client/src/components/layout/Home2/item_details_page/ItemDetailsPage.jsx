@@ -45,18 +45,7 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-  const [state, setState] = useState({
-    selection: {
-      startDate: new Date(),
-      endDate: null,
-      key: "selection",
-    },
-    // compare: {
-    //   startDate: new Date(),
-    //   endDate: addDays(new Date(), 3),
-    //   key: "compare",
-    // },
-  });
+  
   const handleSelect = (ranges) => {
     console.log(ranges);
   };
@@ -71,7 +60,7 @@ function ItemDetailsPage({ auth, match }) {
   //   prod_num: 2,
   // });
 
-  const [maxDuration, setmaxDuration] = useState(25);
+  // const [cEndDate, setEndDate] = useState('');
   const [base, setBase] = useState("");
   // const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
@@ -333,6 +322,23 @@ function ItemDetailsPage({ auth, match }) {
   const percentDays = (percentage / 100) * days;
   console.log(percentDays);
   const dd = 2;
+  const [cStartDate, setStartDate] = useState(new Date());
+  const [cEndDate, setEndDate] = useState(new Date(), days);
+  console.log(cStartDate);
+
+  const [state, setState] = useState({
+    selection: {
+      startDate: new Date(),
+      endDate: cEndDate,
+      key: "selection",
+    },
+    // compare: {
+    //   startDate: new Date(),
+    //   endDate: addDays(new Date(), 3),
+    //   key: "compare",
+    // },
+  });
+
   // =================
   // =================
   console.log(days);
@@ -452,7 +458,8 @@ function ItemDetailsPage({ auth, match }) {
                     <DateRangePicker
                       onChange={(item) => {
                         setState({ ...state, ...item });
-                        console.log(item)
+                        console.log(item.selection)
+                        console.log(new Date(), percentDays)
                       }}
                       months={1}
                       minDate={addDays(new Date(), percentDays)}

@@ -33,22 +33,11 @@ const AdminAllProducts = () => {
     },
   };
 
-  //   const [page, setPage] = React.useState(0);
-  //   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
-  //   const handleChangePage = (event, newPage) => {
-  //     setPage(newPage);
-  //   };
-
-  //   const handleChangeRowsPerPage = (event) => {
-  //     setRowsPerPage(+event.target.value);
-  //     setPage(0);
-  //   };
 
   useEffect(() => {
   
     axios.get(
-        api_url2 + "/v1/product/retrieve/products",
+        api_url2 + "/v1/product/retrieve/new/products",
         null,
         config
     ).then((data) => {
@@ -58,11 +47,6 @@ const AdminAllProducts = () => {
        
         setItemDisplay(data.data.data);
 
-        console.log("=============");
-        // console.log(itemdisplay);
-        console.log("=============");
-
-      
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
@@ -70,6 +54,49 @@ const AdminAllProducts = () => {
 
     
   }, []);
+
+
+  const submitCallCheck = async (product_id) => {
+
+    console.log(product_id, 'I feel it');
+
+    const body = JSON.stringify({
+      product_id
+    });
+    
+    axios.post(
+      api_url2 + "/v1/product/approve/product",
+      body,
+      config
+      ).then((data) => {
+        document.getElementById(product_id).remove();
+        
+          console.log(data.data);
+    
+        })
+        .catch((err) => {
+          console.log(err.response); // "oh, no!"
+        });
+
+
+    // var elem = document.getElementById('btn_' + loanId);
+
+    // elem.innerHTML = "Sending...";
+
+    // let res = await sendCustomerResponse({ feedback, loanId })
+    // console.log(res);
+
+    // if (res === undefined) {
+      
+    // } else {
+    //     if (res.success == true) {
+           
+    //         document.getElementById('yes_'+productID).remove();
+
+    //     }
+    // }
+
+}
 
   return (
     <div className="other2">
@@ -115,7 +142,7 @@ const AdminAllProducts = () => {
                         id="popular-categories"
                       >
                         {" "}
-                        <tr className="assets-category-row">
+                        <tr id={asset.id} className="assets-category-row">
                           <td className="save_item_data_cart small_height">
                             <div className="assets-data height_data height_data1">
                               <img
@@ -155,12 +182,13 @@ const AdminAllProducts = () => {
                             {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
-                            <button className="checkout_btn1 py-1 px-2">
+                            <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0">
+                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                               Approve{" "}
                             </button>
-                            <button className="checkout_btn1 py-1 px-2 ml-1">
+                            {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
-                            </button>
+                            </button> */}
                           </td>
                          
                         </tr>
