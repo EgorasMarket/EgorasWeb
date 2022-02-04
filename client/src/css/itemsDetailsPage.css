@@ -336,6 +336,19 @@
   color: black;
   font-weight: 800;
 }
+.days_to_pay_now {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  font-size: 12px;
+  color: #819d8c;
+}
+.day_add,
+.money_add {
+  font-size: 14px;
+  font-weight: 700;
+  color: black;
+}
 .rdrStaticRangeLabel {
   display: block;
   outline: 0;
@@ -364,6 +377,9 @@
   color: #000000;
   font-size: 12px;
   width: 100% !important;
+}
+.rdrMonth {
+  padding: 0 0 1.666em 0 !important;
 }
 .rdrDateDisplayItemActive {
   border-color: #41ba71 !important;
