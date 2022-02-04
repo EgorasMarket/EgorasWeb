@@ -141,7 +141,7 @@ const Withdrawal = () => {
   return (
     <div className="other2">
       <section className="no-bg">
-        <div className="container">
+        <div className="container" style={{display:'flex',justifyContent:'center'}}>
           <div className="parentDiv">
             <Link to="/dashboard/wallet" style={{ color: "black" }}>
               {" "}
