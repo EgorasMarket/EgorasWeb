@@ -10,7 +10,6 @@ import { addDays, differenceInCalendarDays } from "date-fns";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
-
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -55,6 +54,9 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const [spec, setSpec] = useState([]);
+  const [displayDays, setDisplayDays] = useState([]);
+
+  const [daysAddedDiv, setDaysAddedDiv] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
@@ -65,7 +67,7 @@ function ItemDetailsPage({ auth, match }) {
   //   prod_num: 2,
   // });
 
-  const [maxDuration, setmaxDuration] = useState(25);
+  // const [cEndDate, setEndDate] = useState('');
   const [base, setBase] = useState("");
   // const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
@@ -97,19 +99,22 @@ function ItemDetailsPage({ auth, match }) {
     percentage: "",
   });
 
-  const [calvalue , setCalValue] = useState(); 
+  const [calvalue, setCalValue] = useState();
 
-  const onChange = useCallback((value) => {
-    setCalValue(value)
+  const onChange = useCallback(
+    (value) => {
+      setCalValue(value);
 
-    console.log("this calendar", value.getTime())
-  }, [setCalValue])
+      console.log("this calendar", value.getTime());
+    },
+    [setCalValue]
+  );
 
-  const isDisabled =  useCallback((date) => {
-     if (date.getDate() ) {
+  const isDisabled = useCallback((date) => {
+    if (date.getDate()) {
       return true;
     }
-    console.log(date.getDate() + 2, "memememe")
+    console.log(date.getDate() + 2, "memememe");
   }, []);
 
   const {
@@ -212,6 +217,8 @@ function ItemDetailsPage({ auth, match }) {
   // console.log(food[0])
 
   const [itemsLeft, setItemsLeft] = useState(2);
+  const [daysAdded, setDaysAdded] = useState(0);
+  const [moneyAdded, setMoneyAdded] = useState(0);
 
   // const iteming = unitCount;
 
@@ -346,7 +353,26 @@ function ItemDetailsPage({ auth, match }) {
   const percentDays = (percentage / 100) * days;
   const endDate = addDays(new Date(), percentDays-1)
   console.log(percentDays);
+  const percentMoney = (percentage / 100) * amount;
+  console.log(percentDays);
   const dd = 2;
+  const [cStartDate, setStartDate] = useState(new Date());
+  const [cEndDate, setEndDate] = useState(new Date(), days);
+  console.log(cStartDate);
+
+  const [state, setState] = useState({
+    selection: {
+      startDate: new Date(),
+      endDate: cEndDate,
+      key: "selection",
+    },
+    // compare: {
+    //   startDate: new Date(),
+    //   endDate: addDays(new Date(), 3),
+    //   key: "compare",
+    // },
+  });
+
   // =================
   // =================
   console.log(days);
@@ -445,8 +471,8 @@ function ItemDetailsPage({ auth, match }) {
                     This item has an upfront payment of : {percentage}%
                   </div>
                   <span className="upfront_para">
-                    That means you are to pay {percentage} before this item can
-                    be locked by you.
+                    That means you are to pay #{percentMoney} before this item
+                    can be locked by you.
                   </span>
                 </div>
                 {/* ======= */}
@@ -467,17 +493,60 @@ function ItemDetailsPage({ auth, match }) {
                       <Calendar
                         onChange={(item) => {
                           setDate(item);
-                          console.log(item)
-                          console.log(differenceInCalendarDays( new Date(item), new Date()), 'days');
-                          console.log(addDays(new Date(), percentDays-1))
-                          
+                          console.log(item);
+                          console.log(
+                            differenceInCalendarDays(
+                              new Date(item),
+                              new Date()
+                            )+1,
+                            "days"
+                          );
+                          const addedDays = differenceInCalendarDays(
+                            new Date(item),
+                            new Date()
+                          )  +1;
+                          const newPercentage = (percentDays * addedDays) / 100;
+                          console.log(newPercentage, "%");
+                          const newPercentMoney = (newPercentage / 100) * amount;
+
+                          setDaysAdded(addedDays - percentDays);
+
+                          setMoneyAdded(newPercentMoney.toFixed());
+
+                          setDaysAddedDiv(true);
+
                         }}
                         date={date}
                         minDate={addDays(new Date(), percentDays)}
+                        maxDate={addDays(new Date(), days)}
                       />
+                      {daysAddedDiv == true ? (
+                        <div className="days_to_pay_now">
+                          <span className="added_">
+                            You have added{" "}
+                            <span className="day_add">{daysAdded} days</span> to
+                            the previously locked days.
+                          </span>
+
+                          <span className="total_pay_now">
+                            And you are now to pay a total amount of{" "}
+                            <span className="money_add">#{moneyAdded}</span>{" "}
+                            before this item can be locked by you.
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="days_to_pay_now">
+                          <span>
+                            This item has a total of{" "}
+                            <span className="money_add">
+                              {percentDays} days
+                            </span>{" "}
+                            locked on it.
+                          </span>
+                        </div>
+                      )}
                     </div>
                   </Accordion>
-
                 </div>
                 {/* ======= */}
                 {/* ======= */}

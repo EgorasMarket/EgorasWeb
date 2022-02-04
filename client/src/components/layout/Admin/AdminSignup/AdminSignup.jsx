@@ -201,6 +201,7 @@ const AdminSignup = ({ getAuthentication }) => {
                             <MenuItem value={1}>MANAGER</MenuItem>
                             <MenuItem value={2}>BUSINESS_ADMIN</MenuItem>
                             <MenuItem value={3}>MEDIA</MenuItem>
+                            <MenuItem value={6}>HOD_MEDIA</MenuItem>
                             <MenuItem value={4}>CASHIER</MenuItem>
                             <MenuItem value={5}>CUSTOMER_SERVICE</MenuItem>
                           </Select>
