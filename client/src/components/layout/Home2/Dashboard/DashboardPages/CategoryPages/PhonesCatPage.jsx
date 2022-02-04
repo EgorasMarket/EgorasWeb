@@ -83,7 +83,7 @@ const responsive6 = {
   },
 };
 
-const PhonesCatPage = () => {
+const PhonesCatPage = ({match}) => {
   const [totalProducts, setTotalProducts] = useState("200 ");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -91,8 +91,18 @@ const PhonesCatPage = () => {
     setSearchTerm(event.target.value);
   };
 
+  console.log('====================================');
+  console.log(match.params.category);
+  console.log(match.params.product_name)
+  console.log('====================================');
+
+    const [category2,setCategory2]=useState([]);
+    const [erra,setErra]=useState({cate:""});
+    const {cate}=erra;
+
   const [goods,setGoods]=useState([]);
   const [phones,setPhone]=useState([]);
+  const [seeAll,setSeeAll]=useState([])
 
   // const [mark ,setMark]= setInfo({
   //   phoneCath:"",computerCath:""
@@ -121,13 +131,15 @@ const PhonesCatPage = () => {
   useEffect(() => {
   
     axios.get(
-        api_url2 + `/v1/product/retrieve/products/byId/${page}`,
+        api_url2 + '/v1/product/retrieve/products/byId/'+ match.params.category,
         null,
         config
     ).then((data) => {
        
       console.log("hello mr kingsley");
         console.log(data.data.data, "samuel_Chuks");
+
+        setSeeAll(data.data.data);
      
        
         // setGoods(data.data.data)
@@ -140,6 +152,37 @@ const PhonesCatPage = () => {
 
     
   }, []);
+
+
+
+  useEffect(()=>{
+    phoneTab2()
+  },[])
+
+
+  function phoneTab2(){
+
+    axios.get(
+      api_url2 + "/v1/product/retrieve/category",
+      null,
+      config
+  ).then((data) => {
+     
+      console.log(data.data.data, "dominic kig King");
+      setCategory2(data.data.data)
+       
+      //  cate:category2.product_category_code;
+      //  console.log(cate);
+    })
+    .catch((err) => {
+      console.log(err); // "oh, no!"
+    });
+
+  }
+
+//   {category2.map((person=>{
+// person.product_category_pa
+//   })}
 
     //=====================//
    //=====================//
@@ -198,7 +241,7 @@ const PhonesCatPage = () => {
 
             <div className="products_display_body pad_bot">
               <div className="products_display_body_heading">
-                Apple Phones
+             {match.params.category} 
                 <dispatchEvent></dispatchEvent>
               </div>
               <div className="cat_carous">
@@ -216,7 +259,7 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {phones.map((asset,index15) => (
+                  {seeAll.map((asset,index15) => (
                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index15.toString()}>
                       <li className="carous_list">
                         <div
@@ -268,7 +311,7 @@ const PhonesCatPage = () => {
 
             <div className="products_display_body pad_bot">
               <div className="products_display_body_heading">
-                Android Phones
+              {match.params.category} 
                 <dispatchEvent></dispatchEvent>
               </div>
               <div className="cat_carous">
@@ -286,7 +329,7 @@ const PhonesCatPage = () => {
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {phones.slice(0,100).map((asset,index12) => (
+                  {seeAll.slice(0,100).map((asset,index12) => (
                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index12.toString()}>
                       <li className="carous_list">
                         <div
@@ -332,6 +375,7 @@ const PhonesCatPage = () => {
               <div className="cat_banner_group1">
                 <img
                   src="/img/fake_assets/apple_iphone_13_gr_1.png"
+                  // src={api_url2 + '/'+ seeAll[0].product_image}
                   alt=""
                   className="img_gr1"
                 />
@@ -357,7 +401,7 @@ const PhonesCatPage = () => {
                 <div className="cat_select_div1">
                   <div className="cat_select_div1_head">Categories</div>
                   <div className="cat_select_div1_sub_head">
-                    Phones & Laptops
+                  {match.params.category} 
                   </div>
                 </div>
                 <div className="cat_select_div2">
@@ -407,13 +451,13 @@ const PhonesCatPage = () => {
                   </span>
                 </div>
                 <div className="items_all_list_body_cont_head2">
-                  {totalProducts} Products Found
+                  {seeAll.length} {seeAll.length <= 1?"prodcut Found":"products Found"}
                   <span className="sort_cont">
                     <WidgetsIcon className="widgi_widgi" />
                   </span>
                 </div>
                 <div className="items_all_list_body">
-                  {phones.slice(0,100).map((asset,index11) => (
+                  {seeAll.slice(0,100).map((asset,index11) => (
                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index11.toString()}>
                       <li className="carous_list caro_lisss_2">
                         <div
@@ -451,6 +495,8 @@ const PhonesCatPage = () => {
   );
 };
 
+
+PhonesCatPage.propsTypes = {}
 
 
 const mapStateToProps1 = (state) => ({

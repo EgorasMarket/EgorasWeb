@@ -22,7 +22,22 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-
+const Accordion = ({ title, children }) => {
+  const [isOpen, setOpen] = React.useState(false);
+  return (
+    <div className="accordion-wrapper">
+      <div
+        className={`accordion-title ${isOpen ? "open" : ""}`}
+        onClick={() => setOpen(!isOpen)}
+      >
+        {title}
+      </div>
+      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
+        <div className="accordion-content">{children}</div>
+      </div>
+    </div>
+  );
+};
 function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
@@ -36,11 +51,11 @@ function ItemDetailsPage({ auth, match }) {
       endDate: null,
       key: "selection",
     },
-    compare: {
-      startDate: new Date(),
-      endDate: addDays(new Date(), 3),
-      key: "compare",
-    },
+    // compare: {
+    //   startDate: new Date(),
+    //   endDate: addDays(new Date(), 3),
+    //   key: "compare",
+    // },
   });
   const handleSelect = (ranges) => {
     console.log(ranges);
@@ -85,6 +100,7 @@ function ItemDetailsPage({ auth, match }) {
     product_category_code: "",
     product_details: "",
     productSpecification: "",
+    percentage: "",
   });
 
   const {
@@ -99,6 +115,7 @@ function ItemDetailsPage({ auth, match }) {
     product_category_code,
     productSpecification,
     product_details,
+    percentage,
   } = productDetails;
 
   useEffect(() => {
@@ -131,6 +148,7 @@ function ItemDetailsPage({ auth, match }) {
           product_duration: data.data.data.product_duration,
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
+          percentage: data.data.data.percentage,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -317,7 +335,7 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const days = CalcDaysConvert(product_duration);
-  const percentDays = (50 / 100) * days;
+  const percentDays = (percentage / 100) * days;
   console.log(percentDays);
   const dd = 2;
   // =================
@@ -413,19 +431,44 @@ function ItemDetailsPage({ auth, match }) {
                     </span>
                   </div>
                 </div>
+                <div className="quantity_div">
+                  <div className="items_left_div">
+                    This item has an upfront payment of : {percentage}%
+                  </div>
+                  <span className="upfront_para">
+                    That means you are to pay {percentage} before this item can
+                    be locked by you.
+                  </span>
+                </div>
                 {/* ======= */}
                 {/* ======= */}
                 <div className="date_picky">
-                  <DateRangePicker
-                    onChange={(item) => setState({ ...state, ...item })}
-                    months={1}
-                    minDate={addDays(new Date(), percentDays)}
-                    maxDate={addDays(new Date(), days)}
-                    direction="vertical"
-                    scroll={{ enabled: false }}
-                    // staticRanges={false}
-                    ranges={[state.selection]}
-                  />
+                  <div className="date_picky_note">
+                    Note: the below calendar shows the total amount of days to
+                    complete payment for this item
+                    <br />
+                    the grey color shows the total days that has been initially
+                    locked for this item
+                    <br />
+                    while the green color shows the total amount of days that is
+                    left for payment .
+                  </div>
+                  <Accordion title="Click to view calendar">
+                    <DateRangePicker
+                      onChange={(item) => {
+                        setState({ ...state, ...item });
+                        console.log(item)
+                      }}
+                      months={1}
+                      minDate={addDays(new Date(), percentDays)}
+                      maxDate={addDays(new Date(), days)}
+                      direction="vertical"
+                      scroll={{ enabled: false }}
+                      moveRangeOnFirstSelection={false}
+                      // staticRanges={false}
+                      ranges={[state.selection]}
+                    />
+                  </Accordion>
                 </div>
                 {/* ======= */}
                 {/* ======= */}

@@ -30,6 +30,12 @@ import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../actions/types";
+
 const AdminSideBar = () => {
   const dddd = localStorage.getItem("smallSidetoken");
 
@@ -38,6 +44,19 @@ const AdminSideBar = () => {
   const [smallSide, setSmallSide] = useState(dddd);
   const [cartNum, setCartNum] = useState(5);
   const linksActive = window.location.pathname;
+
+  const [notEqual,setNotEqual] = useState(true);
+  const [notEqual1,setNotEqual1] = useState(true);
+  const [notEqual2,setNotEqual2] = useState(false);
+  const [notEqual3,setNotEqual3] = useState(false);
+  const [notEqual4,setNotEqual4] = useState(false);
+  const [notEqual5,setNotEqual5] = useState(false);
+
+  const [roles,setRoles]=useState({role1:"",role2
+:"",role3:""});
+
+
+const {role1,role2,role3}= roles;
 
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
@@ -80,6 +99,8 @@ const AdminSideBar = () => {
       localStorage.setItem("smallSidetoken", "smallSide");
     }
   }, []);
+
+
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -89,6 +110,36 @@ const AdminSideBar = () => {
       localStorage.setItem("smallSidetoken", "not_small");
     }
   };
+
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/admin/info",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.user, "line_ful");
+        setRoles({
+          role1:data.data.user.role,
+        })
+       
+    
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      }); 
+  }, []);
+
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
       <section className="DashBoardHeaderSection">
@@ -188,6 +239,9 @@ const AdminSideBar = () => {
                 {/* =================== */}
                 {/* =================== */}
                 {/* =================== */}
+
+                 
+                {role1 === "MEDIA"?
                 <a
                   href="/super_admin"
                   id="Home"
@@ -196,7 +250,7 @@ const AdminSideBar = () => {
                 >
                   <li
                     className={
-                      activeBg == "Home"
+                      ((activeBg == "Home") && (role1 === "MEDIA"))
                         ? "sidebarListItem list-item-active"
                         : "sidebarListItem"
                     }
@@ -204,12 +258,14 @@ const AdminSideBar = () => {
                     <Inventory2Icon className="sidebarIcon" />
                     Products
                   </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                </a>: null}
 
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+               
+                {role1 === "HOD_MEDIA" ?
                 <a
                   href="/super_admin/all_products"
                   className="link"
@@ -218,7 +274,7 @@ const AdminSideBar = () => {
                 >
                   <li
                     className={
-                      activeBg == "allProd"
+                      ((activeBg == "allProd") && (role1 === "HOD_MEDIA"))
                         ? "sidebarListItem list-item-active"
                         : "sidebarListItem"
                     }
@@ -226,12 +282,15 @@ const AdminSideBar = () => {
                     <ViewListIcon className="sidebarIcon" />
                     All Prod
                   </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                </a>: null}
 
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+             
+
+                {/* {role1 === "BUSINESS_ADMIN" ? */}
                 <a
                   href="/super_admin/all_user"
                   className="link"
@@ -248,12 +307,15 @@ const AdminSideBar = () => {
                     <GroupsIcon className="sidebarIcon" />
                     Customer
                   </li>
-                </a>
+                </a> 
+                {/* : null} */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
+
+                { role1 === "BUSINESS_ADMIN" ?
                 <a
                   href="/super_admin/register_user"
                   className="link"
@@ -268,14 +330,17 @@ const AdminSideBar = () => {
                     }
                   >
                     <GroupAddIcon className="sidebarIcon" />
+                    {/* { role1} */}
                     Register
                   </li>
-                </a>
+                </a> : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
+                
 
+                {role1 === "BUSINESS_ADMIN"  ?
                 <a
                   href="/super_admin/user_overview"
                   className="link"
@@ -293,10 +358,13 @@ const AdminSideBar = () => {
                     Cust Acct
                   </li>
                 </a>
+                : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
+
+                {role1 === "CASHIER" ?
 
                 <a href="#" className="link" id="accounts" onClick={changeBg}>
                   <li
@@ -310,6 +378,8 @@ const AdminSideBar = () => {
                     Accounts
                   </li>
                 </a>
+
+                : null}              
 
                 {/* ===================== */}
                 {/* ===================== */}
@@ -401,6 +471,9 @@ const AdminSideBar = () => {
                   >
                     <GroupAddIcon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
+
+                     {/* { role1} */}
+
                     Register
                   </li>
                 </a>

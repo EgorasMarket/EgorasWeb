@@ -132,6 +132,9 @@ function DashboardInvestPage({ auth }) {
   },[])
 
 
+  
+
+
   function phoneTab (){
 
     axios.get(
@@ -392,7 +395,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2" >
               Phones & Tablets
               <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/dashboard/products/categories/Phones & Tablet`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -408,7 +411,7 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.slice(0,8).map((asset,index1) => { if ( phoneTablets === asset.product_category_code) return(
+                {item.slice(0,12).map((asset,index1) => {if ( phoneTablets === asset.product_category_code) return(
                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index1.toString()}>
                     <li className="carous_list no_marg">
                       <div
@@ -520,7 +523,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Home & Kitchen
               <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/dashboard/products/categories/Home Appliances`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -528,7 +531,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.slice(0,8).map((asset,index3) => { if ( HomeApplinces === asset.product_category_code) return(
+              {item.slice(0,12).map((asset,index3) => { if ( HomeApplinces === asset.product_category_code) return(
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index3.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -578,7 +581,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Electronics
               <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/dashboard/products/categories/Electronics`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -594,13 +597,13 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.slice(0,12).map((asset,index4) => { if ( Electronics  === asset.product_category_code) return(
-                  <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index4.toString()}>
+                {item.map((asset3,index4) => { if ( Electronics  === asset3.product_category_code) return(
+                  <a href={`/dashboard/products/details/${asset3.id}/${asset3.product_name}`} key={index4.toString()}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
                         style={{
-                          backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
+                          backgroundImage: `url(${api_url2+'/'+asset3.product_image})`,
                           //           height: "200px",
                           //           width: "100%",
                           //           backgroundRepeat: "no-repeat",
@@ -620,9 +623,9 @@ function DashboardInvestPage({ auth }) {
                           </button>
                         </div>
                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.product_name}</div>
+                          <div className="asset_name">{asset3.product_name}</div>
                           <div className="asset_title">
-                            {asset.unitCount }{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
+                            {asset3.unitCount }{asset3.unitCount ===1? "item left": asset3.unitCount <= 1? "no item left":asset3.unitCount > 1? "itms left": null }
                           </div>
                         </div>
                         {/* </a> */}
@@ -643,7 +646,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Computers & Accessories
               <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/dashboard/products/categories/Computer & Accessories`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -711,7 +714,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Musical Equipments
               <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/dashboard/products/categories/Musical Equipments`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -780,7 +783,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading">
               Industrial Equipments
               <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/dashboard/products/categories/Industral Equipments`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -852,7 +855,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_heading heading_color_2">
               Musical Equipments
               <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/dashboard/products/categories/Musical Equipments`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
