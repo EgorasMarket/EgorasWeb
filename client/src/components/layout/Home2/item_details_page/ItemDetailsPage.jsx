@@ -555,7 +555,11 @@ function ItemDetailsPage({ auth, match }) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button className="buy_now_button">Proceed</button>
+                  <button
+                    onClick={()=> {
+                      alert('here')
+                    }}
+                   className="buy_now_button">Proceed</button>
 
                   {/* <div className="save_later">
                     <button className="save_later_btn">
