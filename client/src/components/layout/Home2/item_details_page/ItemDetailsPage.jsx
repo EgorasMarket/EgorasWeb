@@ -57,6 +57,7 @@ function ItemDetailsPage({ auth, match }) {
   const [displayDays, setDisplayDays] = useState([]);
 
   const [daysAddedDiv, setDaysAddedDiv] = useState(false);
+  const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
@@ -99,16 +100,23 @@ function ItemDetailsPage({ auth, match }) {
     percentage: "",
   });
 
+  const openDetailsModal = () => {
+    setDetailsModal(true);
+  };
+
+  const closeDetailModal = () => {
+    setDetailsModal(false)
+  }
   const [calvalue, setCalValue] = useState();
 
-  const onChange = useCallback(
-    (value) => {
-      setCalValue(value);
+  // const onChange = useCallback(
+  //   (value) => {
+  //     setCalValue(value);
 
-      console.log("this calendar", value.getTime());
-    },
-    [setCalValue]
-  );
+  // //     console.log("this calendar", value.getTime());
+  // //  detailsModal },
+  //   // [setCalValue]
+  // );
 
   const isDisabled = useCallback((date) => {
     if (date.getDate()) {
@@ -355,7 +363,6 @@ function ItemDetailsPage({ auth, match }) {
   console.log(percentDays);
   const percentMoney = (percentage / 100) * amount;
   console.log(percentDays);
-  const dd = 2;
   const [cStartDate, setStartDate] = useState(new Date());
   const [cEndDate, setEndDate] = useState(new Date(), days);
   console.log(cStartDate);
@@ -498,7 +505,7 @@ function ItemDetailsPage({ auth, match }) {
                             differenceInCalendarDays(
                               new Date(item),
                               new Date()
-                            ) + 1,
+                             ) + 1,
                             "days"
                           );
                           const addedDays =
@@ -555,11 +562,9 @@ function ItemDetailsPage({ auth, match }) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button
-                    onClick={()=> {
-                      alert('here')
-                    }}
-                   className="buy_now_button">Proceed</button>
+                  <button className="buy_now_button" onClick={openDetailsModal}>
+                    Proceed
+                  </button>
 
                   {/* <div className="save_later">
                     <button className="save_later_btn">
@@ -881,6 +886,11 @@ function ItemDetailsPage({ auth, match }) {
             </section>
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
+            {detailsModal == true ? (
+              <div className="detailsModal">
+                <p> detailsModal</p>
+              </div>
+            ) : null}
           </div>
         </div>
       </section>
