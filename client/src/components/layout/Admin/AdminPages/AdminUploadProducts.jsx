@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CustomAlert } from "../../../../";
+import { CustomAlert } from "../../../../CustomAlert.js";
 import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -23,6 +23,7 @@ const AdminUploadProducts = () => {
   );
   const [getrandom, setRandom] = useState("");
   const [LSExist, setLSExist] = useState(null);
+  const [alert, setAlert] = useState("");
   const [productId, setProductId] = useState("");
   const [product_category_code1, setProduct_category_code1] = useState("");
   const [product_type, setProduct_type] = useState("");
@@ -131,6 +132,7 @@ const AdminUploadProducts = () => {
 
     if (product_category_desc === "") {
       console.log("Please supply product description.");
+      setAlert("Please supply product description");
     } else {
       const body = JSON.stringify({
         product_category_code,
@@ -146,9 +148,11 @@ const AdminUploadProducts = () => {
         console.log(res, "undefined");
 
         if (res.data.statusCode === 200) {
+          // setAlert(res.data.data.errors[0].msg, "danger");
           // setExDateUpload(true)
           // window.location.reload();
         } else {
+          setAlert(res.data.data.errors[0].msg, "danger");
           // console.log('Not Delete');
           // setAlert('Something went wrong, please try again later', 'danger');
         }
@@ -158,7 +162,9 @@ const AdminUploadProducts = () => {
       }
     }
   };
-
+  const timer = setTimeout(() => {
+    setAlert("");
+  }, 5000);
   // console.log(generateString(10));
   // console.log('oookkkk');
 
@@ -180,6 +186,7 @@ const AdminUploadProducts = () => {
           } else {
             console.log(productFile.size);
             if (productFile.size > 1000000) {
+              setAlert("file too large");
               console.log("file too large.");
             } else {
               setproduct_image(URL.createObjectURL(event.target.files[0]));
@@ -197,6 +204,7 @@ const AdminUploadProducts = () => {
 
     if (product_image === "") {
       console.log("empty passport");
+      setAlert("empty passport");
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
@@ -218,6 +226,8 @@ const AdminUploadProducts = () => {
           setProductId(res.data.data[0].productId);
           localStorage.setItem("productId", res.data.data[0].productId);
         } else {
+          setAlert(res.data.data.errors[0].msg, "danger");
+
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
@@ -257,11 +267,13 @@ const AdminUploadProducts = () => {
       product_details === ""
     ) {
       console.log("Please supply all information.");
+      setAlert("Please supply all information");
     } else {
       if (!localStorage.productId) {
         console.log(
           "Please provide a product id by adding a new product image."
         );
+        setAlert("Please provide a product id by adding a new product image");
       } else {
         console.log(
           product_type,
@@ -301,6 +313,8 @@ const AdminUploadProducts = () => {
             // setMOIUpload(true)
             localStorage.removeItem("productId");
           } else {
+            setAlert(res.data.data.errors[0].msg, "danger");
+
             // setAlert('Something went wrong, please try again later', 'danger');
           }
         } catch (err) {
@@ -596,6 +610,7 @@ const AdminUploadProducts = () => {
           </div>
         </div>
       </section>
+      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
     </div>
   );
 };
