@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CustomAlert } from "../../../../CustomAlert.js";
 import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -17,14 +18,18 @@ const AdminUploadProducts = () => {
       "Access-Control-Allow-Origin": "*",
     },
   };
-  const [product_image, setproduct_image] = useState("../../img/profile_img.jpeg");
-  const [getrandom, setRandom] = useState('');
+  const [product_image, setproduct_image] = useState(
+    "../../img/profile_img.jpeg"
+  );
+  const [getrandom, setRandom] = useState("");
   const [LSExist, setLSExist] = useState(null);
-  const [productId, setProductId] = useState('');
-  const [product_category_code1, setProduct_category_code1] = useState('');
-  const [product_type, setProduct_type] = useState('');
+  const [alert, setAlert] = useState("");
+  const [productId, setProductId] = useState("");
+  const [product_category_code1, setProduct_category_code1] = useState("");
+  const [product_type, setProduct_type] = useState("");
   const [product_duration, setProduct_duration] = useState(null);
-  const characters ='ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  const characters =
+    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const [allCategories, setCategories] = useState([]);
   const [categoryInsert, setCategoryInsert] = React.useState({
     product_category_code: "",
@@ -43,7 +48,14 @@ const AdminUploadProducts = () => {
   });
 
   const { product_category_code, product_category_desc } = categoryInsert;
-  const { product_name, unitCount, product_brand, product_specifications, amount, product_details } = productUpdateInfo;
+  const {
+    product_name,
+    unitCount,
+    product_brand,
+    product_specifications,
+    amount,
+    product_details,
+  } = productUpdateInfo;
 
   const generateString = (length) => {
     let result = " ";
@@ -81,17 +93,15 @@ const AdminUploadProducts = () => {
   useEffect(() => {
     let getproductId = localStorage.getItem("productId");
 
-  if (localStorage.productId) {
-    // console.log('localStorage');
-    setProductId(getproductId)
-    setLSExist(true)
-  } else {
-    setLSExist(false)
-    // console.log('localStorage localStorage');
-
-  }
-    
-  }, [])
+    if (localStorage.productId) {
+      // console.log('localStorage');
+      setProductId(getproductId);
+      setLSExist(true);
+    } else {
+      setLSExist(false);
+      // console.log('localStorage localStorage');
+    }
+  }, []);
 
   const onChange = (e) => {
     setCategoryInsert({ ...categoryInsert, [e.target.name]: e.target.value });
@@ -122,6 +132,7 @@ const AdminUploadProducts = () => {
 
     if (product_category_desc === "") {
       console.log("Please supply product description.");
+      setAlert("Please supply product description");
     } else {
       const body = JSON.stringify({
         product_category_code,
@@ -137,9 +148,11 @@ const AdminUploadProducts = () => {
         console.log(res, "undefined");
 
         if (res.data.statusCode === 200) {
+          // setAlert(res.data.data.errors[0].msg, "danger");
           // setExDateUpload(true)
           // window.location.reload();
         } else {
+          setAlert(res.data.data.errors[0].msg, "danger");
           // console.log('Not Delete');
           // setAlert('Something went wrong, please try again later', 'danger');
         }
@@ -149,7 +162,9 @@ const AdminUploadProducts = () => {
       }
     }
   };
-
+  const timer = setTimeout(() => {
+    setAlert("");
+  }, 5000);
   // console.log(generateString(10));
   // console.log('oookkkk');
 
@@ -171,6 +186,7 @@ const AdminUploadProducts = () => {
           } else {
             console.log(productFile.size);
             if (productFile.size > 1000000) {
+              setAlert("file too large");
               console.log("file too large.");
             } else {
               setproduct_image(URL.createObjectURL(event.target.files[0]));
@@ -188,6 +204,7 @@ const AdminUploadProducts = () => {
 
     if (product_image === "") {
       console.log("empty passport");
+      setAlert("empty passport");
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
@@ -209,6 +226,8 @@ const AdminUploadProducts = () => {
           setProductId(res.data.data[0].productId);
           localStorage.setItem("productId", res.data.data[0].productId);
         } else {
+          setAlert(res.data.data.errors[0].msg, "danger");
+
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
@@ -223,19 +242,17 @@ const AdminUploadProducts = () => {
     // // console.log('handleMOI');
   };
 
-// };
+  // };
 
-const handleDuration = (event) => {
-  setProduct_duration(event.target.value || '');
-  // // console.log('handleMOI');
+  const handleDuration = (event) => {
+    setProduct_duration(event.target.value || "");
+    // // console.log('handleMOI');
+  };
 
-};
-
-const handleproductType = (event) => {
-  setProduct_type(event.target.value || '');
-  // // console.log('handleMOI');
-
-};
+  const handleproductType = (event) => {
+    setProduct_type(event.target.value || "");
+    // // console.log('handleMOI');
+  };
 
   const UpdateProductInfo = async (e) => {
     if (
@@ -250,11 +267,13 @@ const handleproductType = (event) => {
       product_details === ""
     ) {
       console.log("Please supply all information.");
+      setAlert("Please supply all information");
     } else {
       if (!localStorage.productId) {
         console.log(
           "Please provide a product id by adding a new product image."
         );
+        setAlert("Please provide a product id by adding a new product image");
       } else {
         console.log(
           product_type,
@@ -294,6 +313,8 @@ const handleproductType = (event) => {
             // setMOIUpload(true)
             localStorage.removeItem("productId");
           } else {
+            setAlert(res.data.data.errors[0].msg, "danger");
+
             // setAlert('Something went wrong, please try again later', 'danger');
           }
         } catch (err) {
@@ -388,10 +409,16 @@ const handleproductType = (event) => {
             </div>
             <div className="upload_products_details_area2">
               {/* === */}
-              
-              {
-                LSExist ? <span className='text-success'>Upload Status: Product upload in progress</span> : <span className='text-danger'>Upload Status: Upload new product image</span>
-              }
+
+              {LSExist ? (
+                <span className="text-success">
+                  Upload Status: Product upload in progress
+                </span>
+              ) : (
+                <span className="text-danger">
+                  Upload Status: Upload new product image
+                </span>
+              )}
               <div className="toggle_body_area1_cont1_input products_des_upload">
                 {" "}
                 <div className="add_cat_input_title">
@@ -458,7 +485,7 @@ const handleproductType = (event) => {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="product_category_code1"
-                      className='w-100'
+                      className="w-100"
                       value={product_category_code1}
                       label="Product category"
                       onChange={handleCenter}
@@ -514,31 +541,17 @@ const handleproductType = (event) => {
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
                       name="product_duration"
-                      className='w-100'
+                      className="w-100"
                       value={product_duration}
                       label="Product category"
                       onChange={handleDuration}
                     >
-
-                        <MenuItem >
-                          Select Duration
-                        </MenuItem>
-                        <MenuItem  value={1}>
-                          Outright Sell
-                        </MenuItem>
-                        <MenuItem value={2}>
-                          2 Months
-                        </MenuItem>
-                        <MenuItem value={3}>
-                          4 Months
-                        </MenuItem>
-                        <MenuItem  value={4}>
-                          6 Months
-                        </MenuItem>
-                        <MenuItem  value={5}>
-                          12 Months
-                        </MenuItem>
-                      
+                      <MenuItem>Select Duration</MenuItem>
+                      <MenuItem value={1}>Outright Sell</MenuItem>
+                      <MenuItem value={2}>2 Months</MenuItem>
+                      <MenuItem value={3}>4 Months</MenuItem>
+                      <MenuItem value={4}>6 Months</MenuItem>
+                      <MenuItem value={5}>12 Months</MenuItem>
                     </Select>
                   </FormControl>
                 </div>
@@ -597,6 +610,7 @@ const handleproductType = (event) => {
           </div>
         </div>
       </section>
+      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
     </div>
   );
 };
