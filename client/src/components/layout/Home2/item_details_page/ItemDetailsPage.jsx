@@ -351,7 +351,7 @@ function ItemDetailsPage({ auth, match }) {
 
   const days = CalcDaysConvert(product_duration);
   const percentDays = (percentage / 100) * days;
-  const endDate = addDays(new Date(), percentDays-1)
+  const endDate = addDays(new Date(), percentDays - 1);
   console.log(percentDays);
   const percentMoney = (percentage / 100) * amount;
   console.log(percentDays);
@@ -498,23 +498,25 @@ function ItemDetailsPage({ auth, match }) {
                             differenceInCalendarDays(
                               new Date(item),
                               new Date()
-                            )+1,
+                            ) + 1,
                             "days"
                           );
-                          const addedDays = differenceInCalendarDays(
-                            new Date(item),
-                            new Date()
-                          )  +1;
-                          const newPercentage = (percentDays * addedDays) / 100;
+                          const addedDays =
+                            differenceInCalendarDays(
+                              new Date(item),
+                              new Date()
+                            ) + 1;
+                          const subtractedPercent = (days - addedDays) / 100;
+                          const newPercentage = 100 - subtractedPercent;
                           console.log(newPercentage, "%");
-                          const newPercentMoney = (newPercentage / 100) * amount;
+                          const newPercentMoney =
+                            (newPercentage / 100) * amount;
 
                           setDaysAdded(addedDays - percentDays);
 
                           setMoneyAdded(newPercentMoney.toFixed());
 
                           setDaysAddedDiv(true);
-
                         }}
                         date={date}
                         minDate={addDays(new Date(), percentDays)}
@@ -524,8 +526,8 @@ function ItemDetailsPage({ auth, match }) {
                         <div className="days_to_pay_now">
                           <span className="added_">
                             You have added{" "}
-                            <span className="day_add">{daysAdded} days</span> to
-                            the previously locked days.
+                            <span className="day_add">{daysAdded} day(s)</span>{" "}
+                            to the previously locked days.
                           </span>
 
                           <span className="total_pay_now">

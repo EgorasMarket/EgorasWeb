@@ -93,10 +93,19 @@ function DashboardSavingsPage({ match }) {
             <div className="dash_savings_area1">
               <div className="dash_savings_area1_title">Savings Overview</div>
               <div className="savings_overview_card">
-                <div className="savings_overview_card1 over_first_card"></div>
-                <div className="savings_overview_card1 over_second_card"></div>
+                <div className="savings_overview_card1 over_first_card">
+                  <div className="card_over_body">
+                    <div className="card_over_title">
+                      Total Balance
+                      <div className="card_over_balance">#50,000</div>
+                    </div>
+
+                    <div className="card_over_balance_button">Start Saving</div>
+                  </div>
+                </div>
+                {/* <div className="savings_overview_card1 over_second_card"></div>
                 <div className="savings_overview_card1  over_third_card"></div>
-                <div className="savings_overview_card1 over_fourth_card"></div>
+                <div className="savings_overview_card1 over_fourth_card"></div> */}
               </div>
               <div className="savings_overview_body_cont1">
                 Total Number of Locked Items{" "}

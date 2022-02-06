@@ -207,3 +207,43 @@ span.items_left_amount {
   position: relative;
   margin-top: 8px;
 }
+.card_over_body {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+  grid-gap: 0px;
+  gap: 0px;
+  justify-content: space-between;
+}
+.card_over_title {
+  font-size: 14px;
+}
+.card_over_balance {
+  font-size: 32px;
+  font-weight: 800;
+  color: #316d48;
+}
+.savings_overview_card1 {
+  background: #ffff;
+  width: 23%;
+  height: 175px;
+  border: solid 2px #316d48;
+  border-radius: 10px;
+  background: #316d48;
+}
+.card_over_balance {
+  font-size: 32px;
+  font-weight: 800;
+  color: #316d48;
+  color: #fff;
+}
+
+.card_over_title {
+  font-size: 14px;
+  color: #fff;
+}
+
+.card_over_balance_button {
+  color: #fff;
+}
