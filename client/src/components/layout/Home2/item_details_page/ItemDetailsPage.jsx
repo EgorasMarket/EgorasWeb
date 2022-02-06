@@ -177,13 +177,15 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
         alert("Item successfully added to cart ");
+
+        console.log("kingsley Chukwubuike")
       })
       .catch((err) => {
         alert(err.response.data.message);
         console.log("error reported", err.response);
       });
 
-    console.log(call);
+    console.log(call, "chukwubuike kingsley");
   };
 
   // const food = spec[0].split('');
@@ -215,7 +217,7 @@ function ItemDetailsPage({ auth, match }) {
       setDisable2(false);
     }
 
-    if (unitCount <= 1 || count >= unitCount || count === unitCount) {
+    if ((unitCount < 1) ||(count === unitCount) ||(count === 0)){
       setDisable(true);
     } else {
       setDisable(false);
@@ -293,6 +295,9 @@ function ItemDetailsPage({ auth, match }) {
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
         console.log(data.data.data, "phlip");
+     
+       
+        setTerm(data.data.data)
 
         // setTerm(data.data.data)
       })
@@ -742,9 +747,7 @@ function ItemDetailsPage({ auth, match }) {
                       //     </div>
                       //   </div>
                       //   </div>
-                      <a
-                        href={`/products/details/${asset.id}/${asset.product_name}`}
-                      >
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
