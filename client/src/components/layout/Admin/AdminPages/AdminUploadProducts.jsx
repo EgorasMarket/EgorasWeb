@@ -40,7 +40,7 @@ const AdminUploadProducts = () => {
     // product_category_code1: '',
     product_name: "",
     unitCount: null,
-    // product_duration: null,
+    percentage: null,
     product_brand: "",
     product_specifications: "",
     amount: null,
@@ -52,6 +52,7 @@ const AdminUploadProducts = () => {
     product_name,
     unitCount,
     product_brand,
+    percentage,
     product_specifications,
     amount,
     product_details,
@@ -260,6 +261,7 @@ const AdminUploadProducts = () => {
       product_category_code1 === "" ||
       unitCount === null ||
       product_duration === null ||
+      percentage === null ||
       product_brand === "" ||
       product_type === "" ||
       product_specifications === "" ||
@@ -296,6 +298,7 @@ const AdminUploadProducts = () => {
           unitCount,
           product_duration,
           product_brand,
+          percentage,
           product_specifications,
           amount,
           product_details,
@@ -520,19 +523,22 @@ const AdminUploadProducts = () => {
                   />
                 </div>
                 <div className="add_cat_input_title">
-                  <span className="input_brand">Product Duration</span>
-                  {/* handleDuration */}
-                  {/* <TextField
+                  <span className="input_brand">Initial Percent</span>
+
+                  <TextField
                     className=" width_incr"
                     id="outlined-basic"
-                    label="Duration"
-                    variant="outlined"
-                    name="product_duration"
-                    value={product_duration}
+                    label="Product count"
                     type="number"
+                    variant="outlined"
+                    name="percentage"
+                    value={percentage}
                     onChange={(e) => onChange1(e)}
-                  /> */}
-
+                  />
+                </div>
+                <div className="add_cat_input_title">
+                  <span className="input_brand">Product Duration</span>
+       
                   <FormControl fullWidth>
                     <InputLabel id="demo-simple-select-label">
                       Duration
