@@ -46,7 +46,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
           <div className="dashboard">
             <DashboardSidebar />
             <Switch>
-              <PrivateRoute2
+              < PrivateRoute2
                 exact
                 path="/dashboard"
                 component={DashboardHomePage}
@@ -75,7 +75,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               /> */}
               <Route
                 exact
-                path="/dashboard/products/categories/id-phone"
+                path="/dashboard/products/categories/:category"
                 component={PhonesCatPage}
               />
               <Route
@@ -90,7 +90,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               />
             </Switch>
           </div>
-        )}
+         )} 
       </Route>
     </div>
   );

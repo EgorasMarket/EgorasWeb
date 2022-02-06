@@ -465,7 +465,7 @@ const Wallet = () => {
   return (
     <div className="other2">
       <section className="no-bg">
-        <div className="container">
+        <div className="container" >
           <div className="walletClass3">
             <div className="walletSubClass3ng">
               <span className="spanEstimated">Estimated assets value:</span>
