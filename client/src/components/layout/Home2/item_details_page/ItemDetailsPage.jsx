@@ -57,6 +57,7 @@ function ItemDetailsPage({ auth, match }) {
   const [displayDays, setDisplayDays] = useState([]);
 
   const [daysAddedDiv, setDaysAddedDiv] = useState(false);
+  const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
@@ -99,6 +100,9 @@ function ItemDetailsPage({ auth, match }) {
     percentage: "",
   });
 
+  const openDetailsModal = () => {
+    setDetailsModal(true);
+  };
   const [calvalue, setCalValue] = useState();
 
   const onChange = useCallback(
@@ -555,7 +559,9 @@ function ItemDetailsPage({ auth, match }) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button className="buy_now_button">Proceed</button>
+                  <button className="buy_now_button" onClick={openDetailsModal}>
+                    Proceed
+                  </button>
 
                   {/* <div className="save_later">
                     <button className="save_later_btn">
@@ -877,6 +883,9 @@ function ItemDetailsPage({ auth, match }) {
             </section>
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
+            {detailsModal == true ? (
+              <div className="detailsModal">detailsModal</div>
+            ) : null}
           </div>
         </div>
       </section>
