@@ -48,6 +48,7 @@
     "react-in-viewport": "^1.0.0-alpha.19",
     "react-loading-icons": "^1.0.8",
     "react-number-format": "^4.9.1",
+    "react-scroll": "^1.8.4",
     "react-slick": "^0.28.1",
     "react-success-indicator": "^1.1.0",
     "react-swipeable-views": "^0.14.0",

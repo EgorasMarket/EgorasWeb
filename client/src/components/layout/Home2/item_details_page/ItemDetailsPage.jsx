@@ -1,21 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
+
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import { Calendar, DateRangePicker } from "react-date-range";
-import { addDays } from "date-fns";
+import { Calendar, DateRangePicker, DateRange } from "react-date-range";
+import { addDays, differenceInCalendarDays } from "date-fns";
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-// import "react-dates/initialize";
-// import "react-dates/lib/css/_datepicker.css";
-
-// import {
-//   DateRangePicker,
-//   SingleDatePicker,
-//   DayPickerRangeController,
-// } from "react-dates";
 
 import {
   PRODUCT_LOADED,
@@ -45,11 +38,25 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-  
+  const [date, setDate] = useState(null);
+
+  // const handleSelect = (ranges) => {
+  //   console.log(ranges);
+  // };
   const handleSelect = (ranges) => {
     console.log(ranges);
+    // {
+    //   selection: {
+    //     startDate: [native Date Object],
+    //     endDate: [native Date Object],
+    //   }
+    // }
   };
+
   const [spec, setSpec] = useState([]);
+  const [displayDays, setDisplayDays] = useState([]);
+
+  const [daysAddedDiv, setDaysAddedDiv] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
@@ -91,6 +98,24 @@ function ItemDetailsPage({ auth, match }) {
     productSpecification: "",
     percentage: "",
   });
+
+  const [calvalue, setCalValue] = useState();
+
+  const onChange = useCallback(
+    (value) => {
+      setCalValue(value);
+
+      console.log("this calendar", value.getTime());
+    },
+    [setCalValue]
+  );
+
+  const isDisabled = useCallback((date) => {
+    if (date.getDate()) {
+      return true;
+    }
+    console.log(date.getDate() + 2, "memememe");
+  }, []);
 
   const {
     product_image,
@@ -178,7 +203,7 @@ function ItemDetailsPage({ auth, match }) {
       .then((response) => {
         alert("Item successfully added to cart ");
 
-        console.log("kingsley Chukwubuike")
+        console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -192,6 +217,8 @@ function ItemDetailsPage({ auth, match }) {
   // console.log(food[0])
 
   const [itemsLeft, setItemsLeft] = useState(2);
+  const [daysAdded, setDaysAdded] = useState(0);
+  const [moneyAdded, setMoneyAdded] = useState(0);
 
   // const iteming = unitCount;
 
@@ -217,7 +244,7 @@ function ItemDetailsPage({ auth, match }) {
       setDisable2(false);
     }
 
-    if ((unitCount < 1) ||(count === unitCount) ||(count === 0)){
+    if (unitCount < 1 || count === unitCount || count === 0) {
       setDisable(true);
     } else {
       setDisable(false);
@@ -295,9 +322,8 @@ function ItemDetailsPage({ auth, match }) {
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
         console.log(data.data.data, "phlip");
-     
-       
-        setTerm(data.data.data)
+
+        setTerm(data.data.data);
 
         // setTerm(data.data.data)
       })
@@ -325,6 +351,9 @@ function ItemDetailsPage({ auth, match }) {
 
   const days = CalcDaysConvert(product_duration);
   const percentDays = (percentage / 100) * days;
+  const endDate = addDays(new Date(), percentDays - 1);
+  console.log(percentDays);
+  const percentMoney = (percentage / 100) * amount;
   console.log(percentDays);
   const dd = 2;
   const [cStartDate, setStartDate] = useState(new Date());
@@ -442,8 +471,8 @@ function ItemDetailsPage({ auth, match }) {
                     This item has an upfront payment of : {percentage}%
                   </div>
                   <span className="upfront_para">
-                    That means you are to pay {percentage} before this item can
-                    be locked by you.
+                    That means you are to pay #{percentMoney} before this item
+                    can be locked by you.
                   </span>
                 </div>
                 {/* ======= */}
@@ -460,21 +489,65 @@ function ItemDetailsPage({ auth, match }) {
                     left for payment .
                   </div>
                   <Accordion title="Click to view calendar">
-                    <DateRangePicker
-                      onChange={(item) => {
-                        setState({ ...state, ...item });
-                        console.log(item.selection)
-                        console.log(new Date(), percentDays)
-                      }}
-                      months={1}
-                      minDate={addDays(new Date(), percentDays)}
-                      maxDate={addDays(new Date(), days)}
-                      direction="vertical"
-                      scroll={{ enabled: false }}
-                      moveRangeOnFirstSelection={false}
-                      // staticRanges={false}
-                      ranges={[state.selection]}
-                    />
+                    <div style={{ display: "flex", flexFlow: "column nowrap" }}>
+                      <Calendar
+                        onChange={(item) => {
+                          setDate(item);
+                          console.log(item);
+                          console.log(
+                            differenceInCalendarDays(
+                              new Date(item),
+                              new Date()
+                            ) + 1,
+                            "days"
+                          );
+                          const addedDays =
+                            differenceInCalendarDays(
+                              new Date(item),
+                              new Date()
+                            ) + 1;
+                          const subtractedPercent = (days - addedDays) / 100;
+                          const newPercentage = 100 - subtractedPercent;
+                          console.log(newPercentage, "%");
+                          const newPercentMoney =
+                            (newPercentage / 100) * amount;
+
+                          setDaysAdded(addedDays - percentDays);
+
+                          setMoneyAdded(newPercentMoney.toFixed());
+
+                          setDaysAddedDiv(true);
+                        }}
+                        date={date}
+                        minDate={addDays(new Date(), percentDays)}
+                        maxDate={addDays(new Date(), days)}
+                      />
+                      {daysAddedDiv == true ? (
+                        <div className="days_to_pay_now">
+                          <span className="added_">
+                            You have added{" "}
+                            <span className="day_add">{daysAdded} day(s)</span>{" "}
+                            to the previously locked days.
+                          </span>
+
+                          <span className="total_pay_now">
+                            And you are now to pay a total amount of{" "}
+                            <span className="money_add">#{moneyAdded}</span>{" "}
+                            before this item can be locked by you.
+                          </span>
+                        </div>
+                      ) : (
+                        <div className="days_to_pay_now">
+                          <span>
+                            This item has a total of{" "}
+                            <span className="money_add">
+                              {percentDays} days
+                            </span>{" "}
+                            locked on it.
+                          </span>
+                        </div>
+                      )}
+                    </div>
                   </Accordion>
                 </div>
                 {/* ======= */}
@@ -747,7 +820,9 @@ function ItemDetailsPage({ auth, match }) {
                       //     </div>
                       //   </div>
                       //   </div>
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
+                      <a
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      >
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
