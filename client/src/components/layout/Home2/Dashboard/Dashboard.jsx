@@ -6,7 +6,7 @@ import Wallet from "../../Wallet/Wallet";
 import DashboardSidebar from "./DashboardSidebar";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
-import DashboardCart from "./DashboardPages/DashboardCart";
+// import DashboardCart from "./DashboardPages/DashboardCart";
 import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
 import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
 import PhonesCatPage from "./DashboardPages/CategoryPages/PhonesCatPage";
@@ -46,7 +46,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
           <div className="dashboard">
             <DashboardSidebar />
             <Switch>
-              < PrivateRoute2
+              <PrivateRoute2
                 exact
                 path="/dashboard"
                 component={DashboardHomePage}
@@ -61,7 +61,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 path="/dashboard/wallet/withdrawal"
                 component={Withdrawal}
               />
-              <Route exact path="/dashboard/cart" component={DashboardCart} />
+              {/* <Route exact path="/dashboard/cart" component={DashboardCart} /> */}
               <Route exact path="/dashboard/wallet" component={Wallet} />
               <Route
                 exact
@@ -90,7 +90,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               />
             </Switch>
           </div>
-         )} 
+        )}
       </Route>
     </div>
   );

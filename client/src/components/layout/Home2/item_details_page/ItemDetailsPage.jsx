@@ -4,8 +4,10 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
+import "../Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import { addDays, differenceInCalendarDays } from "date-fns";
+import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -54,8 +56,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [spec, setSpec] = useState([]);
   const [displayDays, setDisplayDays] = useState([]);
-
-  const [daysAddedDiv, setDasetDaysAddedDiv] = useState(false);
+  const [modal, setModal] = useState(false);
+  const [daysAddedDiv, setDaysAddedDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState('')
@@ -102,8 +104,8 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const closeDetailModal = () => {
-    setDetailsModal(false)
-  }
+    setDetailsModal(false);
+  };
   const [calvalue, setCalValue] = useState();
 
 
@@ -390,9 +392,20 @@ function ItemDetailsPage({ auth, match }) {
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     console.log("Hello Mr King");
   }
-
+  const OpenModal = () => {
+    setModal(true);
+  };
+  const CloseModal = () => {
+    setModal(false);
+  };
   return (
     <div className="other2">
+      {modal == false ? null : (
+        <div className="checkout_main">
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <Dashboard_Checkout_Page cAmount="10000" click={CloseModal} />
+        </div>
+      )}
       {/* {dataFlow.map((item)=>{return( */}
       <section className="no-bg">
         <div className="container">
@@ -910,7 +923,125 @@ function ItemDetailsPage({ auth, match }) {
             {/* =================================================================================================================================================================================================================================================================== */}
             {detailsModal == true ? (
               <div className="detailsModal">
-                <p> detailsModal</p>
+                <div className="detailsModalSection1">
+                  <div className="detailsModalSection1_area1">
+                    <div className="delivery_title1">
+                      Delivery / Pickup Options
+                    </div>
+                    <div className="delivery_cards_section">
+                      <div className="delivery_card1">
+                        <div className="delivery_card_title">
+                          Deliver to me{" "}
+                          <button className="button_change_delivery_address">
+                            Change Address
+                          </button>
+                        </div>
+                        <div className="delivery_card_body">
+                          <div className="delivery_card_body_cont1">
+                            Samuel Ifeanyi
+                          </div>
+                          <div className="delivery_card_body_cont1">
+                            62 Harold Wilson Drive, Borokiri, RV, Port Harcourt,
+                            Rivers
+                          </div>
+                          <div className="delivery_card_body_cont1">
+                            08164020234
+                          </div>
+                        </div>
+                      </div>
+                      {/* ============= */}
+                      {/* ============= */}
+                      {/* ============= */}
+                      {/* ============= */}
+                      <div className="delivery_card2">
+                        <div className="delivery_card_title">
+                          Pickup from our agents
+                          <button className="button_change_delivery_address pickup_btn">
+                            Select Pickup Location
+                          </button>
+                        </div>
+                        <div className="delivery_card_body">
+                          <div className="delivery_card_body_cont1">
+                            Select a pickup location in your area from our 32
+                            locations nationwide.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="detailsModalSection1_area2">
+                    <div className="detailsModalSection1-area2_title">
+                      Review Order
+                    </div>
+                    <div className="review_order_div">Delivery 1 of 1</div>
+                  </div>
+                </div>
+                <div className="detailsModalSection2">
+                  <div className="cart_area2_heading">Payment Options</div>
+                  <div className="cart_area2_select">
+                    <div className="wit_card">
+                      Pay via card{" "}
+                      <input
+                        type="checkbox"
+                        name=""
+                        id=""
+                        classNam="checkBox"
+                      />
+                    </div>
+                  </div>
+                  <div className="cart_area2_select border_down">
+                    <div className="wit_card">
+                      Pay via wallet{" "}
+                      <input
+                        type="checkbox"
+                        name=""
+                        id=""
+                        classNam="checkBox"
+                      />
+                    </div>
+                  </div>
+                  {/* ========= */}
+                  {/* ========= */}
+                  {/* ========= */}
+                  <div className="cart_area2_notes">
+                    . No minimum or maximum order.
+                    <br />
+                    . Make sure your card is still valid.
+                    <br />. Ensure sufficient balance to cover this transaction.
+                  </div>
+                  {/* ========== */}
+                  {/* ========== */}
+                  {/* ========== */}
+                  {/* ========== */}
+                  <div className="sub_total_div">
+                    Sub Total: <span className="sub_total_div_span">₦100</span>
+                  </div>
+                  {/* ========== */}
+                  {/* ========== */}
+                  {/* ========== */}
+                  {/* ========== */}
+                  <div className="sub_total_div">
+                    Delivery Fee: <span className="sub_total_div_span">₦0</span>
+                  </div>
+                  {/* ========== */}
+                  {/* ========== */}
+                  <div className="secure_transac_text">
+                    {" "}
+                    Transactions are 100% Safe and Secure
+                  </div>
+                  {/* ========== */}
+                  {/* ========== */}
+                  <div className="transac_secure_div">
+                    Total <span className="sub_total_div_span">₦1000</span>
+                  </div>
+                  {/* ========== */}
+                  {/* ========== */}
+
+                  <button className="checkout_btn1a" onClick={OpenModal}>
+                    Proceed to Checkout{" "}
+                  </button>
+                </div>
               </div>
             ) : null}
           </div>
