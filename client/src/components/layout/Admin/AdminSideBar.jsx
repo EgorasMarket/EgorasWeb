@@ -393,6 +393,8 @@ const {role1,role2,role3}= roles;
                 {/* =================== */}
                 {/* =================== */}
                 {/* =================== */}
+
+                {role1 === "MEDIA"?
                 <a
                   href="/super_admin"
                   id="Home"
@@ -410,10 +412,13 @@ const {role1,role2,role3}= roles;
                     Products
                   </li>
                 </a>
+                 : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
+
+                {role1 === "HOD_MEDIA" ?
 
                 <a
                   href="/super_admin/all_products"
@@ -433,11 +438,16 @@ const {role1,role2,role3}= roles;
                     All Prod
                   </li>
                 </a>
+
+                  : null}
+
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
+                
+                {((role1 === "CASHIER") || (role1 === "CUSTOMER_SERVICE" ))?
                 <a href="#" className="link" id="products" onClick={changeBg}>
                   <li
                     className={
@@ -451,11 +461,14 @@ const {role1,role2,role3}= roles;
                     Customer
                   </li>
                 </a>
+                   : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
+
+                { role1 === "BUSINESS_ADMIN" ?
                 <a
                   href="/super_admin/register_user"
                   className="link"
@@ -477,12 +490,13 @@ const {role1,role2,role3}= roles;
                     Register
                   </li>
                 </a>
+                : null}
 
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
-
+                {role1 === "CASHIER" ?
                 <a href="#" className="link" id="accounts" onClick={changeBg}>
                   <li
                     className={
@@ -495,7 +509,7 @@ const {role1,role2,role3}= roles;
                     Accounts
                   </li>
                 </a>
-
+                  : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
