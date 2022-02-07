@@ -38,7 +38,6 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-  const [date, setDate] = useState(null);
 
   // const handleSelect = (ranges) => {
   //   console.log(ranges);
@@ -56,30 +55,26 @@ function ItemDetailsPage({ auth, match }) {
   const [spec, setSpec] = useState([]);
   const [displayDays, setDisplayDays] = useState([]);
 
-  const [daysAddedDiv, setDaysAddedDiv] = useState(false);
+  const [daysAddedDiv, setDasetDaysAddedDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
+  const [user_id, set_user_id] = useState('')
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
   const [prod_ur, setProd_ur] = useState(4);
-  // const [lowNumS, setLowNumS] = useState({
-  //   prod_img: 0,
-  //   prod_dur: 8,
-  //   prod_num: 2,
-  // });
 
-  // const [cEndDate, setEndDate] = useState('');
+
   const [base, setBase] = useState("");
-  // const [base1, setBase1] = useState("");
   const [disable, setDisable] = useState(false);
-  // const [startDate, setStartDate] = useState("22 / 10 / 19");
-  // const [endDate, setEndDate] = useState("22 / 10 / 22");
+
   const [disable2, setDisable2] = useState(false);
   const [productCode, setProductCode] = useState(475758);
   const [productPrice, setProductPrice] = useState("400,000");
   const [BrandCode, setBrandCode] = useState("Samsung");
   const [count, setCount] = useState(0);
   const [imeeg, setImeeg] = useState("");
+  const [startDate, setStartDate]   = useState('')
+  const [endDate, setEndDate]   = useState('')
 
   const [activeBg, setActiveBg] = useState("descript");
 
@@ -100,6 +95,8 @@ function ItemDetailsPage({ auth, match }) {
     percentage: "",
   });
 
+  const addedDays = 0; 
+
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -109,14 +106,7 @@ function ItemDetailsPage({ auth, match }) {
   }
   const [calvalue, setCalValue] = useState();
 
-  // const onChange = useCallback(
-  //   (value) => {
-  //     setCalValue(value);
 
-  // //     console.log("this calendar", value.getTime());
-  // //  detailsModal },
-  //   // [setCalValue]
-  // );
 
   const isDisabled = useCallback((date) => {
     if (date.getDate()) {
@@ -144,6 +134,9 @@ function ItemDetailsPage({ auth, match }) {
     const body = JSON.stringify({
       product_id,
     });
+    if (auth){
+      set_user_id(auth.user.user.id)
+    }
 
     console.log(body);
 
@@ -186,14 +179,7 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
-  // const calcDays = (x) => {
-  //   if (product_duration == 5) {
-  //     product_duration = 12;
-  //   }
-  //   return x * product_duration;
-  // };
 
-  // console.log(calcDays(30));
   const LowCalc = Array(product_duration)
     .fill(0)
     .map((e, i) => i + 1);
@@ -221,6 +207,33 @@ function ItemDetailsPage({ auth, match }) {
     console.log(call, "chukwubuike kingsley");
   };
 
+
+  const checkout = async (customer_id, product_id, installment_days, startDate, endDate ) => {
+      const payload = {
+        customer_id, 
+        product_id, 
+        installment_days, 
+        startDate,
+        endDate,
+
+      }
+
+      let call = await axios
+      .post(api_url2 + "/v1/checkout/add", payload, config)
+      .then((response) => {
+        alert("Item successfully added to cart ");
+
+        console.log(response);
+      })
+      .catch((err) => {
+        alert(err.response.data.message);
+        console.log("error reported", err.response);
+      });
+
+    console.log(call, "chukwubuike kingsley");
+
+
+  }
   // const food = spec[0].split('');
   // console.log(food[0])
 
@@ -359,26 +372,15 @@ function ItemDetailsPage({ auth, match }) {
 
   const days = CalcDaysConvert(product_duration);
   const percentDays = (percentage / 100) * days;
-  const endDate = addDays(new Date(), percentDays - 1);
+  // const endDate = addDays(new Date(), percentDays - 1);
   console.log(percentDays);
   const percentMoney = (percentage / 100) * amount;
   console.log(percentDays);
-  const [cStartDate, setStartDate] = useState(new Date());
-  const [cEndDate, setEndDate] = useState(new Date(), days);
-  console.log(cStartDate);
+  // const [cStartDate, setStartDate] = useState(new Date());
+  // const [cEndDate, setEndDate] = useState(new Date(), days);
+  // console.log(cStartDate);
 
-  const [state, setState] = useState({
-    selection: {
-      startDate: new Date(),
-      endDate: cEndDate,
-      key: "selection",
-    },
-    // compare: {
-    //   startDate: new Date(),
-    //   endDate: addDays(new Date(), 3),
-    //   key: "compare",
-    // },
-  });
+
 
   // =================
   // =================
@@ -499,7 +501,8 @@ function ItemDetailsPage({ auth, match }) {
                     <div style={{ display: "flex", flexFlow: "column nowrap" }}>
                       <Calendar
                         onChange={(item) => {
-                          setDate(item);
+                          setEndDate(item);
+                          setStartDate(new Date())
                           console.log(item);
                           console.log(
                             differenceInCalendarDays(
@@ -508,7 +511,7 @@ function ItemDetailsPage({ auth, match }) {
                              ) + 1,
                             "days"
                           );
-                          const addedDays =
+                           addedDays =
                             differenceInCalendarDays(
                               new Date(item),
                               new Date()
@@ -523,9 +526,9 @@ function ItemDetailsPage({ auth, match }) {
 
                           setMoneyAdded(newPercentMoney.toFixed());
 
-                          setDaysAddedDiv(true);
+                          // setDaysAddedDiv(true);
                         }}
-                        date={date}
+                        // date={date}
                         minDate={addDays(new Date(), percentDays)}
                         maxDate={addDays(new Date(), days)}
                       />
@@ -562,7 +565,12 @@ function ItemDetailsPage({ auth, match }) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button className="buy_now_button" onClick={openDetailsModal}>
+                  <button className="buy_now_button" onClick={() => {
+                    // openDetailsModal(); 
+                    //call  the checkout api here 
+                    checkout(user_id, product_id, daysAdded, startDate, endDate)
+
+                  }}>
                     Proceed
                   </button>
 
