@@ -225,7 +225,7 @@ function ItemDetailsPage({ auth, match }) {
       .then((response) => {
         // alert("Item successfully added to cart ");
 
-        console.log(response);
+        console.log(response.data.data);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -975,6 +975,97 @@ function ItemDetailsPage({ auth, match }) {
                       Review Order
                     </div>
                     <div className="review_order_div">Delivery 1 of 1</div>
+                    <div>
+                    <div class="save_prod_deta">
+                      <table className="save_item_table">
+                        <thead className="assets-category-titles">
+                          <tr className="assets">
+                            <th className="assets-category-titles-heading1">
+                              Item
+                            </th>
+                            <th className="assets-category-titles-heading1">
+                              Item Details
+                            </th>
+                            <th className="assets-category-titles-heading1 quant">
+                              Quantity
+                            </th>
+                            {/* <th className="assets-category-titles-heading1 quant">
+                              Unit Price
+                            </th> */}
+                            <th className="assets-category-titles-heading1_last">
+                              Sub Total
+                            </th>
+                          </tr>
+                        </thead>
+
+                          <tbody
+                            className="save_items_cat popular-categories"
+                            id="popular-categories"
+                          >
+                            {" "}
+                            <tr className="assets-category-row">
+                              <td className="save_item_data">
+                                <div className="assets-data height_data">
+                                  <img
+                                    src={api_url2 + "/" + product_image}
+                                    alt=""
+                                    className="save_item_img_img"
+                                  />
+                                </div>
+                              </td>
+                              {/* ======== */}
+                              {/* ======== */}
+                              {/* ======== */}
+                              {/* ======== */}
+                              <td className="save_item_data1">
+                                <div className="save_items_details">
+                                  <div className="save_items_details1">
+                                    {product_name}
+                                  </div>
+                                  <div className="save_item_days_left">
+                                    {unitCount} days left
+                                    <div className="days_left_percentage_cont">
+                                      <span
+                                        className="days_left_percentage"
+                                        style={{
+                                          width:
+                                            100 %
+                                            -(
+                                              (amount * 100) /
+                                              unitCount
+                                            ),
+                                        }}
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <div className="save_total_locked_amount">
+                                    <span className="items_left_amount">
+                                      Total Amount Locked on Item
+                                    </span>
+                                    #{'1000'}
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  {unitCount}
+                                </div>
+                              </td>
+                              {/* <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  #{amount}
+                                </div>
+                              </td> */}
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name_last">
+                                  #{amount * unitCount}
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                      </table>
+                    </div>
+                    </div>
                   </div>
                 </div>
                 <div className="detailsModalSection2">
