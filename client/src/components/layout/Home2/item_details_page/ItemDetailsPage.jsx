@@ -63,15 +63,12 @@ function ItemDetailsPage({ auth, match }) {
   const [user_id, set_user_id] = useState("");
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
-  const [prod_ur, setProd_ur] = useState(4);
 
   const [base, setBase] = useState("");
   const [disable, setDisable] = useState(false);
 
   const [disable2, setDisable2] = useState(false);
-  const [productCode, setProductCode] = useState(475758);
-  const [productPrice, setProductPrice] = useState("400,000");
-  const [BrandCode, setBrandCode] = useState("Samsung");
+
   const [count, setCount] = useState(0);
   const [imeeg, setImeeg] = useState("");
   const [startDate, setStartDate] = useState("");
@@ -81,6 +78,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
+  const [ dailyAmount , setDailyAmount ] = useState()
+  const [ initialDeposit , setInitialDeposit ] = useState()
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -225,8 +224,11 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/checkout/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
+        // setDailyAmount(response.data.details.rounded)
 
         console.log(response.data.details);
+        setDailyAmount(response.data.details.rounded);
+        setInitialDeposit(response.data.details.initial_deposit)
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -329,6 +331,7 @@ function ItemDetailsPage({ auth, match }) {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
 
+
     setAsset(assetVal);
     setBase(baseVal);
 
@@ -372,6 +375,7 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const days = CalcDaysConvert(product_duration);
+  // setDaysAdded(days)
   const percentDays = (percentage / 100) * days;
   // const endDate = addDays(new Date(), percentDays - 1);
   console.log(percentDays);
@@ -400,7 +404,7 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page cAmount="10000" click={CloseModal} />
+          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -991,7 +995,7 @@ function ItemDetailsPage({ auth, match }) {
                                 Item Details
                               </th>
                               <th className="assets-category-titles-heading1 quant">
-                                Quantity
+                                Amount daily
                               </th>
                               {/* <th className="assets-category-titles-heading1 quant">
                               Unit Price
@@ -1042,13 +1046,13 @@ function ItemDetailsPage({ auth, match }) {
                                     <span className="items_left_amount">
                                       Total Amount Locked on Item
                                     </span>
-                                    #{"200"}
+                                    #{initialDeposit}
                                   </div>
                                 </div>
                               </td>
                               <td className="save_item_data1b">
-                                <div className="assets-data-name center_name">
-                                  {unitCount}
+                                <div className="assets-data-name_last">
+                                  #{dailyAmount}
                                 </div>
                               </td>
                               {/* <td className="save_item_data1b">
@@ -1109,7 +1113,7 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">₦100</span>
+                      <span className="sub_total_div_span">{amount * unitCount}</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1128,7 +1132,7 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">₦1000</span>
+                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
