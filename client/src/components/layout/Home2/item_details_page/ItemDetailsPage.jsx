@@ -6,6 +6,7 @@ import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
 import "../Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
@@ -217,6 +218,7 @@ function ItemDetailsPage({ auth, match }) {
       installment_days,
       startDate,
       endDate,
+      // spread_balance,
     };
 
     let call = await axios
@@ -224,7 +226,7 @@ function ItemDetailsPage({ auth, match }) {
       .then((response) => {
         // alert("Item successfully added to cart ");
 
-        console.log(response);
+        console.log(response.data.details);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -239,7 +241,7 @@ function ItemDetailsPage({ auth, match }) {
   const [itemsLeft, setItemsLeft] = useState(2);
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
-const [date, setDate] = useState(null);
+  const [date, setDate] = useState(null);
   // const iteming = unitCount;
 
   console.log("====================================");
@@ -922,6 +924,10 @@ const [date, setDate] = useState(null);
             {detailsModal == true ? (
               <div className="detailsModal">
                 <div className="detailsModalSection1">
+                  <div className="bacKbutton" onClick={closeDetailModal}>
+                    Previous
+                    <ArrowForwardIosIcon className="arrow_back" />
+                  </div>
                   <div className="detailsModalSection1_area1">
                     <div className="delivery_title1">
                       Delivery / Pickup Options
@@ -973,72 +979,164 @@ const [date, setDate] = useState(null);
                       Review Order
                     </div>
                     <div className="review_order_div">Delivery 1 of 1</div>
+                    <div>
+                      <div class="save_prod_deta">
+                        <table className="save_item_table">
+                          <thead className="assets-category-titles">
+                            <tr className="assets">
+                              <th className="assets-category-titles-heading1">
+                                Item
+                              </th>
+                              <th className="assets-category-titles-heading1">
+                                Item Details
+                              </th>
+                              <th className="assets-category-titles-heading1 quant">
+                                Quantity
+                              </th>
+                              {/* <th className="assets-category-titles-heading1 quant">
+                              Unit Price
+                            </th> */}
+                              <th className="assets-category-titles-heading1_last">
+                                Sub Total
+                              </th>
+                            </tr>
+                          </thead>
+
+                          <tbody
+                            className="save_items_cat popular-categories"
+                            id="popular-categories"
+                          >
+                            {" "}
+                            <tr className="assets-category-row">
+                              <td className="save_item_data">
+                                <div className="assets-data height_data">
+                                  <img
+                                    src={api_url2 + "/" + product_image}
+                                    alt=""
+                                    className="save_item_img_img"
+                                  />
+                                </div>
+                              </td>
+                              {/* ======== */}
+                              {/* ======== */}
+                              {/* ======== */}
+                              {/* ======== */}
+                              <td className="save_item_data1">
+                                <div className="save_items_details">
+                                  <div className="save_items_details1">
+                                    {product_name}
+                                  </div>
+                                  <div className="save_item_days_left">
+                                    {unitCount} days left
+                                    <div className="days_left_percentage_cont">
+                                      <span
+                                        className="days_left_percentage"
+                                        style={{
+                                          width:
+                                            100 % -((amount * 100) / unitCount),
+                                        }}
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <div className="save_total_locked_amount">
+                                    <span className="items_left_amount">
+                                      Total Amount Locked on Item
+                                    </span>
+                                    #{"1000"}
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  {unitCount}
+                                </div>
+                              </td>
+                              {/* <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  #{amount}
+                                </div>
+                              </td> */}
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name_last">
+                                  #{amount * unitCount}
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
                   </div>
                 </div>
                 <div className="detailsModalSection2">
-                  <div className="cart_area2_heading">Payment Options</div>
-                  <div className="cart_area2_select">
-                    <div className="wit_card">
-                      Pay via card{" "}
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        classNam="checkBox"
-                      />
+                  <div className="details_modal_divv">
+                    <div className="cart_area2_heading">Payment Options</div>
+                    <div className="cart_area2_select">
+                      <div className="wit_card">
+                        Pay via card{" "}
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          classNam="checkBox"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="cart_area2_select border_down">
-                    <div className="wit_card">
-                      Pay via wallet{" "}
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        classNam="checkBox"
-                      />
+                    <div className="cart_area2_select border_down">
+                      <div className="wit_card">
+                        Pay via wallet{" "}
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          classNam="checkBox"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  {/* ========= */}
-                  {/* ========= */}
-                  {/* ========= */}
-                  <div className="cart_area2_notes">
-                    . No minimum or maximum order.
-                    <br />
-                    . Make sure your card is still valid.
-                    <br />. Ensure sufficient balance to cover this transaction.
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="sub_total_div">
-                    Sub Total: <span className="sub_total_div_span">₦100</span>
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="sub_total_div">
-                    Delivery Fee: <span className="sub_total_div_span">₦0</span>
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="secure_transac_text">
-                    {" "}
-                    Transactions are 100% Safe and Secure
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="transac_secure_div">
-                    Total <span className="sub_total_div_span">₦1000</span>
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
+                    {/* ========= */}
+                    {/* ========= */}
+                    {/* ========= */}
+                    <div className="cart_area2_notes">
+                      . No minimum or maximum order.
+                      <br />
+                      . Make sure your card is still valid.
+                      <br />. Ensure sufficient balance to cover this
+                      transaction.
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="sub_total_div">
+                      Sub Total:{" "}
+                      <span className="sub_total_div_span">₦100</span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="sub_total_div">
+                      Delivery Fee:{" "}
+                      <span className="sub_total_div_span">₦0</span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="secure_transac_text">
+                      {" "}
+                      Transactions are 100% Safe and Secure
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="transac_secure_div">
+                      Total <span className="sub_total_div_span">₦1000</span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
 
-                  <button className="checkout_btn1a" onClick={OpenModal}>
-                    Proceed to Checkout{" "}
-                  </button>
+                    <button className="checkout_btn1a" onClick={OpenModal}>
+                      Proceed to Checkout{" "}
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : null}
