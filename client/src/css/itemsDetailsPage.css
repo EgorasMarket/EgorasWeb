@@ -43,7 +43,23 @@
   /* border: solid; */
   /* border-width: 7px; */
   /* border-color: #d2f5e0; */
-  /* box-shadow: 0px 0px 15px #9cc3ac;*/
+  /* box-s
+  
+  
+  .hadow: 0px 0px 15px #9cc3ac;*/
+}
+.total_amount {
+  font-size: 20px !important;
+  color: #239e54;
+  font-weight: 600 !important;
+}
+.total_amount {
+  font-size: 18px;
+}
+
+span.sub_total_txt {
+  font-size: 16px;
+  color: grey;
 }
 .amount_item_div {
   font-size: 26px;
