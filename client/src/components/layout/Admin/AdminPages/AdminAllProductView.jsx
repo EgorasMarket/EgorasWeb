@@ -4,11 +4,11 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
+// import "../Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+// import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -18,6 +18,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
+import { fontSize } from "@mui/system";
 const Accordion = ({ title, children }) => {
   const [isOpen, setOpen] = React.useState(false);
   return (
@@ -162,6 +163,7 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
+          productId: data.data.data.product_ID
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -176,6 +178,30 @@ function ItemDetailsPage({ auth, match }) {
         console.log(err.response); // "oh, no!"
       });
   }, []);
+
+
+  const submitCallCheck = async (product_id) => {
+
+    console.log(product_id, 'I feel it');
+
+    const body = JSON.stringify({
+      product_id
+    });
+    
+    axios.post(
+      api_url2 + "/v1/product/approve/product",
+      body,
+      config
+      ).then((data) => {
+        document.getElementById(product_id).remove();
+        
+          console.log(data.data);
+    
+        })
+        .catch((err) => {
+          console.log(err.response); // "oh, no!"
+        });}
+
 
   const LowCalc = Array(product_duration)
     .fill(0)
@@ -244,7 +270,11 @@ function ItemDetailsPage({ auth, match }) {
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
   const [date, setDate] = useState(null);
+
+  const [workss,setWorkss]=useState([]);
   // const iteming = unitCount;
+co
+
 
   console.log("====================================");
   console.log(spec);
@@ -327,6 +357,29 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/new/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "chukwubuike");
+     
+       
+        setWorkss(data.data.data);
+
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
+
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
@@ -404,7 +457,7 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
+          {/* <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} /> */}
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -472,7 +525,7 @@ function ItemDetailsPage({ auth, match }) {
                   ) : (
                     <p className="amnt_per_day">
                       Savings Amount to be paid per day:{""}
-                      <span className="calc_amnt_div">
+                      <span className={["calc_amnt_div"]}>
                         ₦{CalcAmtPerDay.toFixed()}
                       </span>
                     </p>
@@ -480,7 +533,7 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                <div className="quantity_div">
+                {/* <div className="quantity_div">
                   <div className="items_left_div">
                     Items Left:{" "}
                     <span className="items_left_numb">
@@ -488,21 +541,21 @@ function ItemDetailsPage({ auth, match }) {
                       {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
                     </span>
                   </div>
-                </div>
+                </div> */}
                 {product_duration !== 1 ? (
                   <div className="quantity_div">
                     <div className="items_left_div">
                       This item has an upfront payment of : {percentage}%
                     </div>
-                    <span className="upfront_para">
+                    {/* <span className="upfront_para">
                       That means you are to pay #{percentMoney} before this item
                       can be locked by you.
-                    </span>
+                    </span> */}
                   </div>
                 ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                {product_duration !== 1 ? (
+                {/* {product_duration !== 1 ? (
                   <div className="date_picky">
                     <div className="date_picky_note">
                       Note: the below calendar shows the total amount of days to
@@ -582,7 +635,7 @@ function ItemDetailsPage({ auth, match }) {
                       </div>
                     </Accordion>
                   </div>
-                ) : null}
+                ) : null} */}
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
@@ -590,19 +643,20 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="buy_now_btn_div">
                   <button
                     className="buy_now_button"
-                    onClick={() => {
-                      openDetailsModal();
-                      //call  the checkout api here
-                      checkout(
-                        user_id,
-                        product_id,
-                        daysAdded,
-                        startDate,
-                        endDate
-                      );
-                    }}
+                    // onClick={() => {
+                    //   openDetailsModal();
+                    //   //call  the checkout api here
+                    //   checkout(
+                    //     user_id,
+                    //     product_id,
+                    //     daysAdded,
+                    //     startDate,
+                    //     endDate
+                    //   );
+                    // }}
+                    onClick={e => submitCallCheck(asset.id)} 
                   >
-                    {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
+                    {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
                   </button>
 
                   {/* <div className="save_later">

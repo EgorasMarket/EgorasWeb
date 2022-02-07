@@ -80,3 +80,28 @@ export const removeCart = (item) => {
     payload: item,
   };
 };
+
+
+export const createOrder = () => async (dispatch) => {
+  console.log('customer_id');
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+  try {
+    const res = await axios.get(api_url2 + "/v1/order/add/order", null, config);
+    console.log(res.data.data);
+    // console.log("Yes I call You because i can", res.data.data);
+    // dispatch({
+    //   type: FETCH_CART,
+    //   payload: res.data.data,
+    // });
+  } catch (error) {
+    console.log(error.response);
+    console.log("not registered");
+    // dispatch({
+    //   type: AUTH_ERROR,
+    // });
+  }
+};
