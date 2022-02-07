@@ -18,22 +18,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-const Accordion = ({ title, children }) => {
-  const [isOpen, setOpen] = React.useState(false);
-  return (
-    <div className="accordion-wrapper">
-      <div
-        className={`accordion-title ${isOpen ? "open" : ""}`}
-        onClick={() => setOpen(!isOpen)}
-      >
-        {title}
-      </div>
-      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
-        <div className="accordion-content">{children}</div>
-      </div>
-    </div>
-  );
-};
+
 function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
@@ -78,8 +63,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
-  const [ dailyAmount , setDailyAmount ] = useState()
-  const [ initialDeposit , setInitialDeposit ] = useState()
+  const [dailyAmount, setDailyAmount] = useState();
+  const [initialDeposit, setInitialDeposit] = useState();
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -96,7 +81,9 @@ function ItemDetailsPage({ auth, match }) {
   });
 
   var addedDays = 0;
-
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  };
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -228,7 +215,7 @@ function ItemDetailsPage({ auth, match }) {
 
         console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit)
+        setInitialDeposit(response.data.details.initial_deposit);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -330,7 +317,6 @@ function ItemDetailsPage({ auth, match }) {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
 
-
     setAsset(assetVal);
     setBase(baseVal);
 
@@ -362,13 +348,13 @@ function ItemDetailsPage({ auth, match }) {
     x = parseInt(x);
     let result = 0;
     if (x === 5) {
-      result = 12 * 30;
+      result = 12 * 31;
     } else if (x === 4) {
-      result = 6 * 30;
+      result = 6 * 31;
     } else if (x === 3) {
-      result = 4 * 30;
+      result = 4 * 31;
     } else if (x === 2) {
-      result = 2 * 30;
+      result = 2 * 31;
     }
     return result;
   };
@@ -403,7 +389,10 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
+          <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          />
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -439,6 +428,21 @@ function ItemDetailsPage({ auth, match }) {
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
+                {product_duration == 1 ? null : (
+                  <div className="amount_item_div">
+                    ₦
+                    {numberWithCommas(
+                      numberWithCommas(CalcAmtPerDay.toFixed())
+                    )}{" "}
+                    <span className="per_day"> / per-day</span>
+                  </div>
+                )}
+                {/* // =========================== */}
+                <div className="amount_item_div total_amount">
+                  <span className="sub_total_txt">Total: </span> ₦
+                  {numberWithCommas(numberWithCommas(amount))}{" "}
+                  <span className="per_day"></span>
+                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
                 <div className="lll">
@@ -465,43 +469,24 @@ function ItemDetailsPage({ auth, match }) {
                       )}
                     </div>
                   </div>
-
-                  {product_duration == 1 ? (
-                    <span>₦{amount}</span>
-                  ) : (
-                    <p className="amnt_per_day">
-                      Savings Amount to be paid per day:{""}
-                      <span className="calc_amnt_div">
-                        ₦{CalcAmtPerDay.toFixed()}
-                      </span>
-                    </p>
-                  )}
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                <div className="quantity_div">
-                  <div className="items_left_div">
-                    Items Left:{" "}
-                    <span className="items_left_numb">
-                      {unitCount}{" "}
-                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
-                    </span>
-                  </div>
-                </div>
                 {product_duration !== 1 ? (
                   <div className="quantity_div">
                     <div className="items_left_div">
                       This item has an upfront payment of : {percentage}%
                     </div>
                     <span className="upfront_para">
-                      That means you are to pay #{percentMoney} before this item
-                      can be locked by you.
+                      That means you are to pay #
+                      {numberWithCommas(percentMoney)} before this item can be
+                      locked by you.
                     </span>
                   </div>
                 ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                {product_duration !== 1 ? (
+                {/* {product_duration !== 1 ? (
                   <div className="date_picky">
                     <div className="date_picky_note">
                       Note: the below calendar shows the total amount of days to
@@ -513,75 +498,8 @@ function ItemDetailsPage({ auth, match }) {
                       while the green color shows the total amount of days that
                       is left for payment .
                     </div>
-                    <Accordion title="Click to view calendar">
-                      <div
-                        style={{ display: "flex", flexFlow: "column nowrap" }}
-                      >
-                        <Calendar
-                          onChange={(item) => {
-                            setEndDate(item);
-                            setStartDate(new Date());
-                            console.log(item);
-                            console.log(
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1,
-                              "days"
-                            );
-                            addedDays =
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1;
-                            const subtractedPercent = (days - addedDays) / 100;
-                            const newPercentage = 100 - subtractedPercent;
-                            console.log(newPercentage, "%");
-                            const newPercentMoney =
-                              (newPercentage / 100) * amount;
-
-                            setDaysAdded(addedDays - percentDays);
-
-                            setMoneyAdded(newPercentMoney.toFixed());
-
-                            setDaysAddedDiv(true);
-                          }}
-                          date={date}
-                          minDate={addDays(new Date(), percentDays)}
-                          maxDate={addDays(new Date(), days)}
-                          // date={date}
-                        />
-                        {daysAddedDiv == true ? (
-                          <div className="days_to_pay_now">
-                            <span className="added_">
-                              You have added{" "}
-                              <span className="day_add">
-                                {daysAdded} day(s)
-                              </span>{" "}
-                              to the previously locked days.
-                            </span>
-
-                            <span className="total_pay_now">
-                              And you are now to pay a total amount of{" "}
-                              <span className="money_add">#{moneyAdded}</span>{" "}
-                              before this item can be locked by you.
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="days_to_pay_now">
-                            <span>
-                              This item has a total of{" "}
-                              <span className="money_add">
-                                {percentDays} days
-                              </span>{" "}
-                              locked on it.
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </Accordion>
                   </div>
-                ) : null}
+                ) : null} */}
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
@@ -925,13 +843,228 @@ function ItemDetailsPage({ auth, match }) {
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
             {detailsModal == true ? (
-                <CheckoutModalComponent
-                endDate={endDate}
-                startDate={startDate}
-                 customer_id={user_id} 
-                 product_id={product_id}
-                 
-                 />
+              <div className="detailsModal">
+                <div className="detailsModalSection1">
+                  <div className="bacKbutton" onClick={closeDetailModal}>
+                    Previous
+                    <ArrowForwardIosIcon className="arrow_back" />
+                  </div>
+                  <div className="detailsModalSection1_area1">
+                    <div className="delivery_title1">
+                      Delivery / Pickup Options
+                    </div>
+                    <div className="delivery_cards_section">
+                      <div className="delivery_card1">
+                        <div className="delivery_card_title">
+                          Deliver to me{" "}
+                          <button className="button_change_delivery_address">
+                            Change Address
+                          </button>
+                        </div>
+                        <div className="delivery_card_body">
+                          <div className="delivery_card_body_cont1">
+                            Samuel Ifeanyi
+                          </div>
+                          <div className="delivery_card_body_cont1">
+                            62 Harold Wilson Drive, Borokiri, RV, Port Harcourt,
+                            Rivers
+                          </div>
+                          <div className="delivery_card_body_cont1">
+                            08164020234
+                          </div>
+                        </div>
+                      </div>
+                      {/* ============= */}
+                      {/* ============= */}
+                      {/* ============= */}
+                      {/* ============= */}
+                      <div className="delivery_card2">
+                        <div className="delivery_card_title">
+                          Pickup from our agents
+                          <button className="button_change_delivery_address pickup_btn">
+                            Select Pickup Location
+                          </button>
+                        </div>
+                        <div className="delivery_card_body">
+                          <div className="delivery_card_body_cont1">
+                            Select a pickup location in your area from our 32
+                            locations nationwide.
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div className="detailsModalSection1_area2">
+                    <div className="detailsModalSection1-area2_title">
+                      Review Order
+                    </div>
+                    <div className="review_order_div">Delivery 1 of 1</div>
+                    <div>
+                      <div class="save_prod_deta">
+                        <table className="save_item_table">
+                          <thead className="assets-category-titles">
+                            <tr className="assets">
+                              <th className="assets-category-titles-heading1">
+                                Item
+                              </th>
+                              <th className="assets-category-titles-heading1">
+                                Item Details
+                              </th>
+                              <th className="assets-category-titles-heading1 quant">
+                                Amount daily
+                              </th>
+                              {/* <th className="assets-category-titles-heading1 quant">
+                              Unit Price
+                            </th> */}
+                              <th className="assets-category-titles-heading1_last">
+                                Sub Total
+                              </th>
+                            </tr>
+                          </thead>
+
+                          <tbody
+                            className="save_items_cat popular-categories"
+                            id="popular-categories"
+                          >
+                            {" "}
+                            <tr className="assets-category-row">
+                              <td className="save_item_data">
+                                <div className="assets-data height_data">
+                                  <img
+                                    src={api_url2 + "/" + product_image}
+                                    alt=""
+                                    className="save_item_img_img"
+                                  />
+                                </div>
+                              </td>
+                              {/* ======== */}
+                              {/* ======== */}
+                              {/* ======== */}
+                              {/* ======== */}
+                              <td className="save_item_data1">
+                                <div className="save_items_details">
+                                  <div className="save_items_details1">
+                                    {product_name}
+                                  </div>
+                                  <div className="save_item_days_left">
+                                    {unitCount} days left
+                                    <div className="days_left_percentage_cont">
+                                      <span
+                                        className="days_left_percentage"
+                                        style={{
+                                          width:
+                                            100 % -((amount * 100) / unitCount),
+                                        }}
+                                      ></span>
+                                    </div>
+                                  </div>
+                                  <div className="save_total_locked_amount">
+                                    <span className="items_left_amount">
+                                      Total Amount Locked on Item
+                                    </span>
+                                    #{initialDeposit}
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name_last">
+                                  #{dailyAmount}
+                                </div>
+                              </td>
+                              {/* <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  #{amount}
+                                </div>
+                              </td> */}
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name_last">
+                                  #{amount}
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div className="detailsModalSection2">
+                  <div className="details_modal_divv">
+                    <div className="cart_area2_heading">Payment Options</div>
+                    <div className="cart_area2_select">
+                      <div className="wit_card">
+                        Pay via card{" "}
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          classNam="checkBox"
+                        />
+                      </div>
+                    </div>
+                    <div className="cart_area2_select border_down">
+                      <div className="wit_card">
+                        Pay via wallet{" "}
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          classNam="checkBox"
+                        />
+                      </div>
+                    </div>
+                    {/* ========= */}
+                    {/* ========= */}
+                    {/* ========= */}
+                    <div className="cart_area2_notes">
+                      . No minimum or maximum order.
+                      <br />
+                      . Make sure your card is still valid.
+                      <br />. Ensure sufficient balance to cover this
+                      transaction.
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="sub_total_div">
+                      Sub Total:{" "}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="sub_total_div">
+                      Delivery Fee:{" "}
+                      <span className="sub_total_div_span">₦0</span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="secure_transac_text">
+                      {" "}
+                      Transactions are 100% Safe and Secure
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="transac_secure_div">
+                      Total{" "}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+
+                    <button className="checkout_btn1a" onClick={OpenModal}>
+                      Proceed to Checkout{" "}
+                    </button>
+                  </div>
+                </div>
+              </div>
             ) : null}
           </div>
         </div>
