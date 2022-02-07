@@ -6,6 +6,7 @@ import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
 import "../Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
@@ -40,7 +41,6 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-
   // const handleSelect = (ranges) => {
   //   console.log(ranges);
   // };
@@ -60,28 +60,26 @@ function ItemDetailsPage({ auth, match }) {
   const [daysAddedDiv, setDaysAddedDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
-  const [user_id, set_user_id] = useState('')
+  const [user_id, set_user_id] = useState("");
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
-  const [prod_ur, setProd_ur] = useState(4);
-
 
   const [base, setBase] = useState("");
   const [disable, setDisable] = useState(false);
 
   const [disable2, setDisable2] = useState(false);
-  const [productCode, setProductCode] = useState(475758);
-  const [productPrice, setProductPrice] = useState("400,000");
-  const [BrandCode, setBrandCode] = useState("Samsung");
+
   const [count, setCount] = useState(0);
   const [imeeg, setImeeg] = useState("");
-  const [startDate, setStartDate]   = useState('')
-  const [endDate, setEndDate]   = useState('')
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const [activeBg, setActiveBg] = useState("descript");
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
+  const [ dailyAmount , setDailyAmount ] = useState()
+  const [ initialDeposit , setInitialDeposit ] = useState()
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -97,7 +95,7 @@ function ItemDetailsPage({ auth, match }) {
     percentage: "",
   });
 
-  var addedDays = 0; 
+  var addedDays = 0;
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -107,8 +105,6 @@ function ItemDetailsPage({ auth, match }) {
     setDetailsModal(false);
   };
   const [calvalue, setCalValue] = useState();
-
-
 
   const isDisabled = useCallback((date) => {
     if (date.getDate()) {
@@ -136,8 +132,8 @@ function ItemDetailsPage({ auth, match }) {
     const body = JSON.stringify({
       product_id,
     });
-    if (auth){
-      set_user_id(auth.user.user.id)
+    if (auth) {
+      set_user_id(auth.user.user.id);
     }
 
     console.log(body);
@@ -181,7 +177,6 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
-
   const LowCalc = Array(product_duration)
     .fill(0)
     .map((e, i) => i + 1);
@@ -209,23 +204,31 @@ function ItemDetailsPage({ auth, match }) {
     console.log(call, "chukwubuike kingsley");
   };
 
+  const checkout = async (
+    customer_id,
+    product_id,
+    installment_days,
+    startDate,
+    endDate
+  ) => {
+    const payload = {
+      customer_id,
+      product_id,
+      installment_days,
+      startDate,
+      endDate,
+      // spread_balance,
+    };
 
-  const checkout = async (customer_id, product_id, installment_days, startDate, endDate ) => {
-      const payload = {
-        customer_id, 
-        product_id, 
-        installment_days, 
-        startDate,
-        endDate,
-
-      }
-
-      let call = await axios
+    let call = await axios
       .post(api_url2 + "/v1/checkout/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
+        // setDailyAmount(response.data.details.rounded)
 
         console.log(response.data.details);
+        setDailyAmount(response.data.details.rounded);
+        setInitialDeposit(response.data.details.initial_deposit)
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -233,16 +236,14 @@ function ItemDetailsPage({ auth, match }) {
       });
 
     console.log(call, "chukwubuike kingsley");
-
-
-  }
+  };
   // const food = spec[0].split('');
   // console.log(food[0])
 
   const [itemsLeft, setItemsLeft] = useState(2);
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
-
+  const [date, setDate] = useState(null);
   // const iteming = unitCount;
 
   console.log("====================================");
@@ -330,6 +331,7 @@ function ItemDetailsPage({ auth, match }) {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
 
+
     setAsset(assetVal);
     setBase(baseVal);
 
@@ -373,6 +375,7 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const days = CalcDaysConvert(product_duration);
+  // setDaysAdded(days)
   const percentDays = (percentage / 100) * days;
   // const endDate = addDays(new Date(), percentDays - 1);
   console.log(percentDays);
@@ -381,8 +384,6 @@ function ItemDetailsPage({ auth, match }) {
   // const [cStartDate, setStartDate] = useState(new Date());
   // const [cEndDate, setEndDate] = useState(new Date(), days);
   // console.log(cStartDate);
-
-
 
   // =================
   // =================
@@ -403,7 +404,7 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page cAmount="10000" click={CloseModal} />
+          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -479,7 +480,6 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                
                 <div className="quantity_div">
                   <div className="items_left_div">
                     Items Left:{" "}
@@ -489,116 +489,120 @@ function ItemDetailsPage({ auth, match }) {
                     </span>
                   </div>
                 </div>
-                {
-                  product_duration !== 1 ? (
-                    <div className="quantity_div">
-                      <div className="items_left_div">
-                        This item has an upfront payment of : {percentage}%
-                      </div>
-                      <span className="upfront_para">
-                        That means you are to pay #{percentMoney} before this item
-                        can be locked by you.
-                      </span>
+                {product_duration !== 1 ? (
+                  <div className="quantity_div">
+                    <div className="items_left_div">
+                      This item has an upfront payment of : {percentage}%
                     </div>
-                  ) : null
-                }
-                
+                    <span className="upfront_para">
+                      That means you are to pay #{percentMoney} before this item
+                      can be locked by you.
+                    </span>
+                  </div>
+                ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                
-                {
-                  product_duration !== 1 ? (
-                    <div className="date_picky">
-                      <div className="date_picky_note">
-                        Note: the below calendar shows the total amount of days to
-                        complete payment for this item
-                        <br />
-                        the grey color shows the total days that has been initially
-                        locked for this item
-                        <br />
-                        while the green color shows the total amount of days that is
-                        left for payment .
-                      </div>
-                      <Accordion title="Click to view calendar">
-                        <div style={{ display: "flex", flexFlow: "column nowrap" }}>
-                          <Calendar
-                            onChange={(item) => {
-                              setEndDate(item);
-                              setStartDate(new Date())
-                              console.log(item);
-                              console.log(
-                                differenceInCalendarDays(
-                                  new Date(item),
-                                  new Date()
-                                ) + 1,
-                                "days"
-                              );
-                              addedDays =
-                                differenceInCalendarDays(
-                                  new Date(item),
-                                  new Date()
-                                ) + 1;
-                              const subtractedPercent = (days - addedDays) / 100;
-                              const newPercentage = 100 - subtractedPercent;
-                              console.log(newPercentage, "%");
-                              const newPercentMoney =
-                                (newPercentage / 100) * amount;
-
-                              setDaysAdded(addedDays - percentDays);
-
-                              setMoneyAdded(newPercentMoney.toFixed());
-
-                              setDaysAddedDiv(true);
-                            }}
-                            // date={date}
-                            minDate={addDays(new Date(), percentDays)}
-                            maxDate={addDays(new Date(), days)}
-                          />
-                          {daysAddedDiv == true ? (
-                            <div className="days_to_pay_now">
-                              <span className="added_">
-                                You have added{" "}
-                                <span className="day_add">{daysAdded} day(s)</span>{" "}
-                                to the previously locked days.
-                              </span>
-
-                              <span className="total_pay_now">
-                                And you are now to pay a total amount of{" "}
-                                <span className="money_add">#{moneyAdded}</span>{" "}
-                                before this item can be locked by you.
-                              </span>
-                            </div>
-                          ) : (
-                            <div className="days_to_pay_now">
-                              <span>
-                                This item has a total of{" "}
-                                <span className="money_add">
-                                  {percentDays} days
-                                </span>{" "}
-                                locked on it.
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      </Accordion>
+                {product_duration !== 1 ? (
+                  <div className="date_picky">
+                    <div className="date_picky_note">
+                      Note: the below calendar shows the total amount of days to
+                      complete payment for this item
+                      <br />
+                      the grey color shows the total days that has been
+                      initially locked for this item
+                      <br />
+                      while the green color shows the total amount of days that
+                      is left for payment .
                     </div>
-                  ) : null
-                }
+                    <Accordion title="Click to view calendar">
+                      <div
+                        style={{ display: "flex", flexFlow: "column nowrap" }}
+                      >
+                        <Calendar
+                          onChange={(item) => {
+                            setEndDate(item);
+                            setStartDate(new Date());
+                            console.log(item);
+                            console.log(
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1,
+                              "days"
+                            );
+                            addedDays =
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1;
+                            const subtractedPercent = (days - addedDays) / 100;
+                            const newPercentage = 100 - subtractedPercent;
+                            console.log(newPercentage, "%");
+                            const newPercentMoney =
+                              (newPercentage / 100) * amount;
+
+                            setDaysAdded(addedDays - percentDays);
+
+                            setMoneyAdded(newPercentMoney.toFixed());
+
+                            setDaysAddedDiv(true);
+                          }}
+                          date={date}
+                          minDate={addDays(new Date(), percentDays)}
+                          maxDate={addDays(new Date(), days)}
+                          // date={date}
+                        />
+                        {daysAddedDiv == true ? (
+                          <div className="days_to_pay_now">
+                            <span className="added_">
+                              You have added{" "}
+                              <span className="day_add">
+                                {daysAdded} day(s)
+                              </span>{" "}
+                              to the previously locked days.
+                            </span>
+
+                            <span className="total_pay_now">
+                              And you are now to pay a total amount of{" "}
+                              <span className="money_add">#{moneyAdded}</span>{" "}
+                              before this item can be locked by you.
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="days_to_pay_now">
+                            <span>
+                              This item has a total of{" "}
+                              <span className="money_add">
+                                {percentDays} days
+                              </span>{" "}
+                              locked on it.
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Accordion>
+                  </div>
+                ) : null}
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button className="buy_now_button" onClick={() => {
-                    openDetailsModal(); 
-                    //call  the checkout api here 
-                    checkout(user_id, product_id, daysAdded, startDate, endDate)
-
-                  }}>
-                    
-                    {
-                      product_duration !== 1 ? 'Proceed' : 'Proceed to checkout'
-                    }
+                  <button
+                    className="buy_now_button"
+                    onClick={() => {
+                      openDetailsModal();
+                      //call  the checkout api here
+                      checkout(
+                        user_id,
+                        product_id,
+                        daysAdded,
+                        startDate,
+                        endDate
+                      );
+                    }}
+                  >
+                    {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
                   </button>
 
                   {/* <div className="save_later">
@@ -924,6 +928,10 @@ function ItemDetailsPage({ auth, match }) {
             {detailsModal == true ? (
               <div className="detailsModal">
                 <div className="detailsModalSection1">
+                  <div className="bacKbutton" onClick={closeDetailModal}>
+                    Previous
+                    <ArrowForwardIosIcon className="arrow_back" />
+                  </div>
                   <div className="detailsModalSection1_area1">
                     <div className="delivery_title1">
                       Delivery / Pickup Options
@@ -976,27 +984,27 @@ function ItemDetailsPage({ auth, match }) {
                     </div>
                     <div className="review_order_div">Delivery 1 of 1</div>
                     <div>
-                    <div class="save_prod_deta">
-                      <table className="save_item_table">
-                        <thead className="assets-category-titles">
-                          <tr className="assets">
-                            <th className="assets-category-titles-heading1">
-                              Item
-                            </th>
-                            <th className="assets-category-titles-heading1">
-                              Item Details
-                            </th>
-                            <th className="assets-category-titles-heading1 quant">
-                              Quantity
-                            </th>
-                            {/* <th className="assets-category-titles-heading1 quant">
+                      <div class="save_prod_deta">
+                        <table className="save_item_table">
+                          <thead className="assets-category-titles">
+                            <tr className="assets">
+                              <th className="assets-category-titles-heading1">
+                                Item
+                              </th>
+                              <th className="assets-category-titles-heading1">
+                                Item Details
+                              </th>
+                              <th className="assets-category-titles-heading1 quant">
+                                Amount daily
+                              </th>
+                              {/* <th className="assets-category-titles-heading1 quant">
                               Unit Price
                             </th> */}
-                            <th className="assets-category-titles-heading1_last">
-                              Sub Total
-                            </th>
-                          </tr>
-                        </thead>
+                              <th className="assets-category-titles-heading1_last">
+                                Sub Total
+                              </th>
+                            </tr>
+                          </thead>
 
                           <tbody
                             className="save_items_cat popular-categories"
@@ -1029,11 +1037,7 @@ function ItemDetailsPage({ auth, match }) {
                                         className="days_left_percentage"
                                         style={{
                                           width:
-                                            100 %
-                                            -(
-                                              (amount * 100) /
-                                              unitCount
-                                            ),
+                                            100 % -((amount * 100) / unitCount),
                                         }}
                                       ></span>
                                     </div>
@@ -1042,13 +1046,13 @@ function ItemDetailsPage({ auth, match }) {
                                     <span className="items_left_amount">
                                       Total Amount Locked on Item
                                     </span>
-                                    #{'1000'}
+                                    #{initialDeposit}
                                   </div>
                                 </div>
                               </td>
                               <td className="save_item_data1b">
-                                <div className="assets-data-name center_name">
-                                  {unitCount}
+                                <div className="assets-data-name_last">
+                                  #{dailyAmount}
                                 </div>
                               </td>
                               {/* <td className="save_item_data1b">
@@ -1063,75 +1067,80 @@ function ItemDetailsPage({ auth, match }) {
                               </td>
                             </tr>
                           </tbody>
-                      </table>
-                    </div>
+                        </table>
+                      </div>
                     </div>
                   </div>
                 </div>
                 <div className="detailsModalSection2">
-                  <div className="cart_area2_heading">Payment Options</div>
-                  <div className="cart_area2_select">
-                    <div className="wit_card">
-                      Pay via card{" "}
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        classNam="checkBox"
-                      />
+                  <div className="details_modal_divv">
+                    <div className="cart_area2_heading">Payment Options</div>
+                    <div className="cart_area2_select">
+                      <div className="wit_card">
+                        Pay via card{" "}
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          classNam="checkBox"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  <div className="cart_area2_select border_down">
-                    <div className="wit_card">
-                      Pay via wallet{" "}
-                      <input
-                        type="checkbox"
-                        name=""
-                        id=""
-                        classNam="checkBox"
-                      />
+                    <div className="cart_area2_select border_down">
+                      <div className="wit_card">
+                        Pay via wallet{" "}
+                        <input
+                          type="checkbox"
+                          name=""
+                          id=""
+                          classNam="checkBox"
+                        />
+                      </div>
                     </div>
-                  </div>
-                  {/* ========= */}
-                  {/* ========= */}
-                  {/* ========= */}
-                  <div className="cart_area2_notes">
-                    . No minimum or maximum order.
-                    <br />
-                    . Make sure your card is still valid.
-                    <br />. Ensure sufficient balance to cover this transaction.
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="sub_total_div">
-                    Sub Total: <span className="sub_total_div_span">₦100</span>
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="sub_total_div">
-                    Delivery Fee: <span className="sub_total_div_span">₦0</span>
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="secure_transac_text">
-                    {" "}
-                    Transactions are 100% Safe and Secure
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
-                  <div className="transac_secure_div">
-                    Total <span className="sub_total_div_span">₦1000</span>
-                  </div>
-                  {/* ========== */}
-                  {/* ========== */}
+                    {/* ========= */}
+                    {/* ========= */}
+                    {/* ========= */}
+                    <div className="cart_area2_notes">
+                      . No minimum or maximum order.
+                      <br />
+                      . Make sure your card is still valid.
+                      <br />. Ensure sufficient balance to cover this
+                      transaction.
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="sub_total_div">
+                      Sub Total:{" "}
+                      <span className="sub_total_div_span">{amount * unitCount}</span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="sub_total_div">
+                      Delivery Fee:{" "}
+                      <span className="sub_total_div_span">₦0</span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="secure_transac_text">
+                      {" "}
+                      Transactions are 100% Safe and Secure
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
+                    <div className="transac_secure_div">
+                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
+                    </div>
+                    {/* ========== */}
+                    {/* ========== */}
 
-                  <button className="checkout_btn1a" onClick={OpenModal}>
-                    Proceed to Checkout{" "}
-                  </button>
+                    <button className="checkout_btn1a" onClick={OpenModal}>
+                      Proceed to Checkout{" "}
+                    </button>
+                  </div>
                 </div>
               </div>
             ) : null}
