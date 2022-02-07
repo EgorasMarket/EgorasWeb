@@ -97,7 +97,7 @@ function ItemDetailsPage({ auth, match }) {
     percentage: "",
   });
 
-  const addedDays = 0; 
+  var addedDays = 0; 
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -590,7 +590,7 @@ function ItemDetailsPage({ auth, match }) {
                 {/* ------- */}
                 <div className="buy_now_btn_div">
                   <button className="buy_now_button" onClick={() => {
-                    // openDetailsModal(); 
+                    openDetailsModal(); 
                     //call  the checkout api here 
                     checkout(user_id, product_id, daysAdded, startDate, endDate)
 
