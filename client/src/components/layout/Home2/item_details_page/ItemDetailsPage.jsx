@@ -79,6 +79,7 @@ function ItemDetailsPage({ auth, match }) {
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
   const [ dailyAmount , setDailyAmount ] = useState()
+  const [ initialDeposit , setInitialDeposit ] = useState()
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -227,6 +228,7 @@ function ItemDetailsPage({ auth, match }) {
 
         console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
+        setInitialDeposit(response.data.details.initial_deposit)
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -1044,7 +1046,7 @@ function ItemDetailsPage({ auth, match }) {
                                     <span className="items_left_amount">
                                       Total Amount Locked on Item
                                     </span>
-                                    #{"1000"}
+                                    #{initialDeposit}
                                   </div>
                                 </div>
                               </td>
@@ -1111,7 +1113,7 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">₦100</span>
+                      <span className="sub_total_div_span">{amount * unitCount}</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1130,7 +1132,7 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">₦1000</span>
+                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
