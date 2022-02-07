@@ -23,7 +23,7 @@ const Dashboard_Checkout_Page = ({
   sendOtp,
   auth,
   cAmount,
-  createOrder
+  createOrder,
 }) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
@@ -48,7 +48,7 @@ const Dashboard_Checkout_Page = ({
   //   }
   // );
   const [payload1, setPayload1] = useState([]);
-  const [trnMode, setTrnMode] = useState('');
+  const [trnMode, setTrnMode] = useState("");
   const [Loading, setLoading] = useState(false);
   const [payload2, setPayload2] = useState([]);
   const [payload3, setPayload3] = useState([]);
@@ -178,7 +178,7 @@ const Dashboard_Checkout_Page = ({
     console.log(res3.data.data, "response from dashboard checkout ");
 
     if (res3.success === true) {
-      setTrnMode(res3.data.data.mode)
+      setTrnMode(res3.data.data.mode);
       if (res3.data.data.mode === "pin") {
         setIsSuccessful(true);
         console.log(res3.data.data.stringify);
@@ -209,13 +209,13 @@ const Dashboard_Checkout_Page = ({
   const submitOtp = async () => {
     setLoading(true);
     // console.log(payload2, otp, UserId);
-    if (trnMode === 'pin') {
+    if (trnMode === "pin") {
       let sendO1 = await sendOtp(payload2, otp, UserId);
       // console.log(sendO1);
 
       if (sendO1.success === true) {
         setSuccessPop(true);
-        
+
         setIsSuccessful(!isSuccessful);
         setLoading(false);
 
@@ -224,9 +224,7 @@ const Dashboard_Checkout_Page = ({
         setSuccessPop(false);
       }
     } else {
-      
     }
-    
   };
 
   const onChange1 = (e) => {
@@ -470,7 +468,10 @@ const Dashboard_Checkout_Page = ({
                     />
                   </p>
 
-                  <p className="acct_created_txt">Transaction Successful!</p>
+                  <p className="acct_created_txt">
+                    You have successfully made your initial payment and have
+                    locked your item.{" "}
+                  </p>
                 </div>
               ) : (
                 // </div>
@@ -545,5 +546,5 @@ export default connect(mapStateToProps, {
   proceedToCheckout,
   sendPin,
   sendOtp,
-  createOrder
+  createOrder,
 })(Dashboard_Checkout_Page);

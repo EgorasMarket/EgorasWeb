@@ -492,7 +492,7 @@ useEffect(() => {
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <a
+                {/* <a
                   href="/dashboard/cart"
                   className="link"
                   id="cart"
@@ -508,7 +508,7 @@ useEffect(() => {
                     <ShoppingCartIcon className="sidebarIcon" />
                     My Cart
                   </li>
-                </a>
+                </a> */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
