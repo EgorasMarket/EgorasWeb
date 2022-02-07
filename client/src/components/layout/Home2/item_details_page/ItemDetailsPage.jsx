@@ -403,7 +403,7 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page cAmount="10000" click={CloseModal} />
+          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -1015,7 +1015,7 @@ function ItemDetailsPage({ auth, match }) {
                   {/* ========== */}
                   {/* ========== */}
                   <div className="sub_total_div">
-                    Sub Total: <span className="sub_total_div_span">₦100</span>
+                    Sub Total: <span className="sub_total_div_span">{productDetails.amount}</span>
                   </div>
                   {/* ========== */}
                   {/* ========== */}
