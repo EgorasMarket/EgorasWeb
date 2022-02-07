@@ -48,6 +48,11 @@
   justify-content: center;
   margin: auto;
 }
+
+.cat_body_toggle a {
+  color: #fff;
+}
+
 .cat_body_toggle1 {
   font-size: 13px;
   padding: 0.9em 2em;
