@@ -18,22 +18,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-const Accordion = ({ title, children }) => {
-  const [isOpen, setOpen] = React.useState(false);
-  return (
-    <div className="accordion-wrapper">
-      <div
-        className={`accordion-title ${isOpen ? "open" : ""}`}
-        onClick={() => setOpen(!isOpen)}
-      >
-        {title}
-      </div>
-      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
-        <div className="accordion-content">{children}</div>
-      </div>
-    </div>
-  );
-};
+
 function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
@@ -444,6 +429,15 @@ function ItemDetailsPage({ auth, match }) {
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
+                <div className="amount_item_div">
+                  ₦{numberWithCommas(numberWithCommas(CalcAmtPerDay.toFixed()))}{" "}
+                  <span className="per_day">per/day</span>
+                </div>
+                // ===========================
+                <div className="amount_item_div">
+                  ₦{numberWithCommas(numberWithCommas(CalcAmtPerDay.toFixed()))}{" "}
+                  <span className="per_day">per/day</span>
+                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
                 <div className="lll">
@@ -470,29 +464,9 @@ function ItemDetailsPage({ auth, match }) {
                       )}
                     </div>
                   </div>
-
-                  {product_duration == 1 ? (
-                    <span>₦{numberWithCommas(amount)}</span>
-                  ) : (
-                    <p className="amnt_per_day">
-                      Savings Amount to be paid per day:{""}
-                      <span className="calc_amnt_div">
-                        ₦{numberWithCommas(CalcAmtPerDay.toFixed())}
-                      </span>
-                    </p>
-                  )}
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                <div className="quantity_div">
-                  <div className="items_left_div">
-                    Items Left:{" "}
-                    <span className="items_left_numb">
-                      {unitCount}{" "}
-                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
-                    </span>
-                  </div>
-                </div>
                 {product_duration !== 1 ? (
                   <div className="quantity_div">
                     <div className="items_left_div">
@@ -507,7 +481,7 @@ function ItemDetailsPage({ auth, match }) {
                 ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                {product_duration !== 1 ? (
+                {/* {product_duration !== 1 ? (
                   <div className="date_picky">
                     <div className="date_picky_note">
                       Note: the below calendar shows the total amount of days to
@@ -519,77 +493,8 @@ function ItemDetailsPage({ auth, match }) {
                       while the green color shows the total amount of days that
                       is left for payment .
                     </div>
-                    <Accordion title="Click to view calendar">
-                      <div
-                        style={{ display: "flex", flexFlow: "column nowrap" }}
-                      >
-                        <Calendar
-                          onChange={(item) => {
-                            setEndDate(item);
-                            setStartDate(new Date());
-                            console.log(item);
-                            console.log(
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1,
-                              "days"
-                            );
-                            addedDays =
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1;
-                            const subtractedPercent = (days - addedDays) / 100;
-                            const newPercentage = 100 - subtractedPercent;
-                            console.log(newPercentage, "%");
-                            const newPercentMoney =
-                              (newPercentage / 100) * amount;
-
-                            setDaysAdded(addedDays - percentDays);
-
-                            setMoneyAdded(newPercentMoney.toFixed());
-
-                            setDaysAddedDiv(true);
-                          }}
-                          date={date}
-                          minDate={addDays(new Date(), percentDays)}
-                          maxDate={addDays(new Date(), days)}
-                          // date={date}
-                        />
-                        {daysAddedDiv == true ? (
-                          <div className="days_to_pay_now">
-                            <span className="added_">
-                              You have added{" "}
-                              <span className="day_add">
-                                {daysAdded} day(s)
-                              </span>{" "}
-                              to the previously locked days.
-                            </span>
-
-                            <span className="total_pay_now">
-                              And you are now to pay a total amount of{" "}
-                              <span className="money_add">
-                                #{numberWithCommas(moneyAdded)}
-                              </span>{" "}
-                              before this item can be locked by you.
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="days_to_pay_now">
-                            <span>
-                              This item has a total of{" "}
-                              <span className="money_add">
-                                {percentDays} days
-                              </span>{" "}
-                              locked on it.
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </Accordion>
                   </div>
-                ) : null}
+                ) : null} */}
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
