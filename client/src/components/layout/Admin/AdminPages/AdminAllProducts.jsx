@@ -8,6 +8,10 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TablePagination from "@mui/material/TablePagination";
 import TableRow from "@mui/material/TableRow";
+import axios from "axios";
+import {
+  API_URL2 as api_url2,
+} from "../../../../actions/types";
 import "../AdminStyles/admin_all_products.css";
 const data = [
   {
@@ -19,123 +23,196 @@ const data = [
   },
 ];
 
-// const columns = [
-//   { id: "name", label: "Name", minWidth: 170 },
-//   { id: "code", label: "ISO\u00a0Code", minWidth: 100 },
-//   {
-//     id: "population",
-//     label: "Population",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value) => value.toLocaleString("en-US"),
-//   },
-//   {
-//     id: "size",
-//     label: "Size\u00a0(km\u00b2)",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value) => value.toLocaleString("en-US"),
-//   },
-//   {
-//     id: "density",
-//     label: "Density",
-//     minWidth: 170,
-//     align: "right",
-//     format: (value) => value.toFixed(2),
-//   },
-// ];
-
-// function createData(name, code, population, size) {
-//   const density = population / size;
-//   return { name, code, population, size, density };
-// }
-
-// const rows = [
-//   createData("Nigeria", "IN", 1324171354, 3287263),
-//   createData("China", "CN", 1403500365, 9596961),
-//   createData("Italy", "IT", 60483973, 301340),
-//   createData("United States", "US", 327167434, 9833520),
-//   createData("Canada", "CA", 37602103, 9984670),
-//   createData("Australia", "AU", 25475400, 7692024),
-//   createData("Germany", "DE", 83019200, 357578),
-//   createData("Ireland", "IE", 4857000, 70273),
-//   createData("Mexico", "MX", 126577691, 1972550),
-//   createData("Japan", "JP", 126317000, 377973),
-//   createData("France", "FR", 67022000, 640679),
-//   createData("United Kingdom", "GB", 67545757, 242495),
-//   createData("Russia", "RU", 146793744, 17098246),
-//   createData("Nigeria", "NG", 200962417, 923768),
-//   createData("Brazil", "BR", 210147125, 8515767),
-// ];
 
 let PageSize = 10;
 const AdminAllProducts = () => {
-  //   const [page, setPage] = React.useState(0);
-  //   const [rowsPerPage, setRowsPerPage] = React.useState(10);
+  const [itemdisplay,setItemDisplay] = useState([]);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-  //   const handleChangePage = (event, newPage) => {
-  //     setPage(newPage);
-  //   };
 
-  //   const handleChangeRowsPerPage = (event) => {
-  //     setRowsPerPage(+event.target.value);
-  //     setPage(0);
-  //   };
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/new/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "chukwubuike");
+     
+       
+        setItemDisplay(data.data.data);
+
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
+
+  const submitCallCheck = async (product_id) => {
+
+    console.log(product_id, 'I feel it');
+
+    const body = JSON.stringify({
+      product_id
+    });
+    
+    axios.post(
+      api_url2 + "/v1/product/approve/product",
+      body,
+      config
+      ).then((data) => {
+        document.getElementById(product_id).remove();
+        
+          console.log(data.data);
+    
+        })
+        .catch((err) => {
+          console.log(err.response); // "oh, no!"
+        });
+
+
+    // var elem = document.getElementById('btn_' + loanId);
+
+    // elem.innerHTML = "Sending...";
+
+    // let res = await sendCustomerResponse({ feedback, loanId })
+    // console.log(res);
+
+    // if (res === undefined) {
+      
+    // } else {
+    //     if (res.success == true) {
+           
+    //         document.getElementById('yes_'+productID).remove();
+
+    //     }
+    // }
+
+}
 
   return (
     <div className="other2">
       <section className="no-bg">
-        {/* <div className="paginate_body">
-          <Table stickyHeader aria-label="sticky table">
-            <TableHead>
-              <TableRow>
-                {columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.code}
-                    >
-                      {columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <TableCell key={column.id} align={column.align}>
-                            {column.format && typeof value === "number"
-                              ? column.format(value)
-                              : value}
-                          </TableCell>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-          />
-        </div> */}
+      <div className="container">
+          <div className="cart_areas">
+            <div className="cart_area1">
+              <div className="cart_item_num">
+                All Products
+              </div>
+              <div className="locked_items2 locked_items2a">
+                <div class="save_prod_deta">
+                  <table className="save_item_table">
+                    <thead className="assets-category-titles">
+                      <tr className="assets">
+                        <th className="assets-category-titles-heading1">
+                          Image
+                        </th>
+                        <th className="assets-category-titles-heading1">
+                          Name
+                        </th>
+                        <th className="assets-category-titles-heading1">
+                          Brand
+                        </th>
+                        <th className="assets-category-titles-heading1 quant">
+                          Category
+                        </th>
+                        {/* <th className="assets-category-titles-heading1 quant">
+                          Unit Price
+                        </th> */}
+                        <th className="assets-category-titles-heading1_last">
+                          Price
+                        </th>
+                        <th className="assets-category-titles-heading1_last">
+                          Action
+                        </th>
+                      </tr>
+                    </thead>
+
+                    {itemdisplay.map((asset) => (
+                      <tbody
+                        className="save_items_cat  small_height popular-categories"
+                        id="popular-categories"
+                      >
+                        {" "}
+                        <tr id={asset.id} className="assets-category-row">
+                          <td className="save_item_data_cart small_height">
+                            <div className="assets-data height_data height_data1">
+                              <img
+                                src={`${api_url2}/${asset.product_image}`}
+                                alt=""
+                                className="save_item_img_img"
+                              />
+                            </div>
+                          </td>
+                         
+                          <td className="save_item_data1" style={{width: 'unset'}}>
+                            <div className="save_items_detailssss">
+                              <div className="save_items_details1 small_tetxt">
+                                {asset.product_name}
+                              </div>
+                              
+                            </div>
+                          </td>
+                          <td className="save_item_data1b">
+                            <div className="assets-data-name center_name">
+                              {asset.product_brand}
+                            </div>
+                          </td>
+                          <td className="save_item_data1b">
+                            <div className="assets-data-name center_name">
+                              {asset.product_category_desc}
+                            </div>
+                          </td>
+                          
+                          <td className="save_item_data1b">
+                            <div className="assets-data-name center_name">
+                              ₦{asset.amount}
+                            </div>
+                          </td>
+
+                          <td className="save_item_data1b">
+                            {/* <div className="assets-data-name center_name">
+                              ₦{asset.amount}
+                            </div> */}
+                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                             <a href={`/super_admin/all_products_view/${asset.id}/${asset.product_name}`} >
+                            <button id={'yes_' + asset.id}  className="checkout_btn1 py-1 px-2 m-0">
+                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                              View detail{" "}
+                            </button>
+                            </a>
+                        
+                            {/* <button className="checkout_btn1 py-1 px-2 ml-1">
+                              Refuse{" "}
+                            </button> */}
+                          </td>
+                         
+                        </tr>
+                      </tbody>
+                    ))}
+                  </table>
+                </div>
+                {/* <div className="total_div">
+                  Total: <span className="sum_resu"> ₦{'bnbnbn'}</span>
+                </div> */}
+              </div>
+              <div className="checkout_btns">
+                {/* <button className="checkout_btn1" onClick={OpenModal}>
+                  Proceed to Checkout{" "}
+                </button> */}
+              </div>
+            </div>
+            {/* <div className="cart_area2"></div> */}
+          </div>
+        </div>
       </section>
     </div>
   );

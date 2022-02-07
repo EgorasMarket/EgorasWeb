@@ -6,9 +6,9 @@ import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
 import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
+import AdminAllView from "./AdminPages/AdminAllProductView";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
-import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
 
 import "./AdminStyles/admin.css";
 const Admin = ({ isAuthenticated, loading }) => {
@@ -38,21 +38,12 @@ const Admin = ({ isAuthenticated, loading }) => {
           <div className="admin">
             <AdminSideBar />
             <Switch>
-              <Route
-                exact
-                path="/super_admin"
-                component={AdminUploadProducts}
-              />
+              <Route exact path="/super_admin" component={AdminUploadProducts} />
               {/* <Route exact path="/super_admin/admin" component={AdminTest} /> */}
               <Route
                 exact
                 path="/super_admin/register_user"
                 component={RegisterCustomer}
-              />
-              <Route
-                exact
-                path="/super_admin/user_overview/:id"
-                component={AdminSavingsOverview}
               />
               <Route
                 exact
@@ -63,6 +54,13 @@ const Admin = ({ isAuthenticated, loading }) => {
                 exact
                 path="/super_admin/all_products"
                 component={AdminAllProducts}
+              />
+              <Route
+                exact
+                path="/super_admin/all_products_view/:id/:name"  
+                // path="/dashboard/products/details/:id/:name"
+                // / dashboard/products/details/:id/:name
+                component={AdminAllView}
               />
             </Switch>
           </div>

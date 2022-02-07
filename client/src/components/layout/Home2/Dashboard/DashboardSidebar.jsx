@@ -350,7 +350,7 @@ useEffect(() => {
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
-
+{/* 
                 <a
                   href="/dashboard/cart"
                   className="link"
@@ -367,7 +367,7 @@ useEffect(() => {
                     <ShoppingCartIcon className="sidebarIcon" />
                     My Cart
                   </li>
-                </a>
+                </a> */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
@@ -492,7 +492,7 @@ useEffect(() => {
                 {/* ===================== */}
                 {/* ===================== */}
 
-                <a
+                {/* <a
                   href="/dashboard/cart"
                   className="link"
                   id="cart"
@@ -508,7 +508,7 @@ useEffect(() => {
                     <ShoppingCartIcon className="sidebarIcon" />
                     My Cart
                   </li>
-                </a>
+                </a> */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}

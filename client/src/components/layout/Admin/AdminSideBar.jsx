@@ -1,32 +1,17 @@
 import React, { useState, useEffect } from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-
+import { connect } from "react-redux";
 import GroupsIcon from "@mui/icons-material/Groups";
 import GroupAddIcon from "@mui/icons-material/GroupAdd";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
-// import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
-// import SecurityIcon from "@mui/icons-material/Security";
-import BarChartIcon from "@mui/icons-material/BarChart";
+
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import "./AdminStyles/adminUploadProducts.css";
-// import ImportExportIcon from "@mui/icons-material/ImportExport";
-import DescriptionIcon from "@mui/icons-material/Description";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import GitHubIcon from "@mui/icons-material/GitHub";
-import YouTubeIcon from "@mui/icons-material/YouTube";
-import TelegramIcon from "@mui/icons-material/Telegram";
-import FileCopyIcon from "@mui/icons-material/FileCopy";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
-import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
+
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
@@ -36,7 +21,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../actions/types";
 
-const AdminSideBar = () => {
+const AdminSideBar = ({auth}) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -45,6 +30,62 @@ const AdminSideBar = () => {
   const [cartNum, setCartNum] = useState(5);
   const linksActive = window.location.pathname;
 
+
+  const [userInfo, setUserInfo] = useState({
+    userbranch: "",
+    usercreatedAt: "",
+    useremail: "",
+    userfullname: "",
+    usergender: "",
+    userid: "",
+    usermobile: "",
+    userrole: "",
+  });
+
+  const { 
+    userbranch,
+    usercreatedAt,
+    useremail,
+    userfullname,
+    usergender,
+    userid,
+    usermobile,
+    userrole,
+} =
+userInfo;
+
+useEffect(() => {
+
+  // setCartNum(cart.length)
+  // fetchDepositLinks();
+  console.log(auth);
+  if (auth.user !== null) {
+    // let dataa = 'stackabuse.com';
+    // console.log( new Buffer(dataa));
+    var todecoded = auth.user;
+    var todecodedn = todecoded.user.userImage;
+    
+    // console.log('====================================');
+    console.log(todecodedn);
+    // console.log('====================================');
+    
+    
+    const getName = todecoded.user.fullname
+    const splitName = getName.split(' ');
+    
+    setUserInfo({
+      userbranch: todecoded.user.branch,
+      usercreatedAt: todecoded.user.createdAt,
+      useremail: todecoded.user.email,
+      userfullname: todecoded.user.fullname,
+      usergender: todecoded.user.gender,
+      userid: todecoded.user.id,
+      usermobile: todecoded.user.mobile,
+      userrole: todecoded.user.role,
+    })
+
+  }
+}, [auth]);
   const [notEqual,setNotEqual] = useState(true);
   const [notEqual1,setNotEqual1] = useState(true);
   const [notEqual2,setNotEqual2] = useState(false);
@@ -256,7 +297,7 @@ const {role1,role2,role3}= roles;
                     }
                   >
                     <Inventory2Icon className="sidebarIcon" />
-                    Products
+                    Add Product
                   </li>
                 </a>: null}
 
@@ -547,4 +588,14 @@ const {role1,role2,role3}= roles;
   );
 };
 
-export default AdminSideBar;
+// export default AdminSideBar;
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart
+});
+
+// export default DashboardSidebar;
+
+export default connect(mapStateToProps, {})(AdminSideBar);

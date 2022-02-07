@@ -173,7 +173,7 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
               </div>
             </div>
             <span className="login_txt">
-              <a href="/signup" className="login_link">
+              <a href="/signup/super_admin" className="login_link">
                 Don't have an account? Register
               </a>
             </span>

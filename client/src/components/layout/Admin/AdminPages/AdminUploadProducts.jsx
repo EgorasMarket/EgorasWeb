@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { CustomAlert } from "../../../../CustomAlert.js";
 import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
@@ -21,9 +22,12 @@ const AdminUploadProducts = () => {
     "../../img/profile_img.jpeg"
   );
   const [getrandom, setRandom] = useState("");
+  const [LSExist, setLSExist] = useState(null);
+  const [alert, setAlert] = useState("");
   const [productId, setProductId] = useState("");
   const [product_category_code1, setProduct_category_code1] = useState("");
   const [product_type, setProduct_type] = useState("");
+  const [product_duration, setProduct_duration] = useState(null);
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const [allCategories, setCategories] = useState([]);
@@ -36,7 +40,7 @@ const AdminUploadProducts = () => {
     // product_category_code1: '',
     product_name: "",
     unitCount: null,
-    product_duration: null,
+    percentage: null,
     product_brand: "",
     product_specifications: "",
     amount: null,
@@ -47,8 +51,8 @@ const AdminUploadProducts = () => {
   const {
     product_name,
     unitCount,
-    product_duration,
     product_brand,
+    percentage,
     product_specifications,
     amount,
     product_details,
@@ -91,9 +95,11 @@ const AdminUploadProducts = () => {
     let getproductId = localStorage.getItem("productId");
 
     if (localStorage.productId) {
-      console.log("localStorage");
+      // console.log('localStorage');
       setProductId(getproductId);
+      setLSExist(true);
     } else {
+      setLSExist(false);
       // console.log('localStorage localStorage');
     }
   }, []);
@@ -127,6 +133,7 @@ const AdminUploadProducts = () => {
 
     if (product_category_desc === "") {
       console.log("Please supply product description.");
+      setAlert("Please supply product description");
     } else {
       const body = JSON.stringify({
         product_category_code,
@@ -142,9 +149,11 @@ const AdminUploadProducts = () => {
         console.log(res, "undefined");
 
         if (res.data.statusCode === 200) {
+          // setAlert(res.data.data.errors[0].msg, "danger");
           // setExDateUpload(true)
           // window.location.reload();
         } else {
+          setAlert(res.data.data.errors[0].msg, "danger");
           // console.log('Not Delete');
           // setAlert('Something went wrong, please try again later', 'danger');
         }
@@ -154,7 +163,9 @@ const AdminUploadProducts = () => {
       }
     }
   };
-
+  const timer = setTimeout(() => {
+    setAlert("");
+  }, 5000);
   // console.log(generateString(10));
   // console.log('oookkkk');
 
@@ -176,6 +187,7 @@ const AdminUploadProducts = () => {
           } else {
             console.log(productFile.size);
             if (productFile.size > 1000000) {
+              setAlert("file too large");
               console.log("file too large.");
             } else {
               setproduct_image(URL.createObjectURL(event.target.files[0]));
@@ -193,6 +205,7 @@ const AdminUploadProducts = () => {
 
     if (product_image === "") {
       console.log("empty passport");
+      setAlert("empty passport");
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
@@ -210,10 +223,13 @@ const AdminUploadProducts = () => {
         console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
+          setLSExist(true);
           console.log(res.data.data[0].productId, "undefined");
           setProductId(res.data.data[0].productId);
           localStorage.setItem("productId", res.data.data[0].productId);
         } else {
+          setAlert(res.data.data.errors[0].msg, "danger");
+
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
@@ -228,6 +244,13 @@ const AdminUploadProducts = () => {
     // // console.log('handleMOI');
   };
 
+  // };
+
+  const handleDuration = (event) => {
+    setProduct_duration(event.target.value || "");
+    // // console.log('handleMOI');
+  };
+
   const handleproductType = (event) => {
     setProduct_type(event.target.value || "");
     // // console.log('handleMOI');
@@ -239,6 +262,7 @@ const AdminUploadProducts = () => {
       product_category_code1 === "" ||
       unitCount === null ||
       product_duration === null ||
+      percentage === null ||
       product_brand === "" ||
       product_type === "" ||
       product_specifications === "" ||
@@ -246,24 +270,15 @@ const AdminUploadProducts = () => {
       product_details === ""
     ) {
       console.log("Please supply all information.");
+      setAlert("Please supply all information");
     } else {
       if (!localStorage.productId) {
         console.log(
           "Please provide a product id by adding a new product image."
         );
+        setAlert("Please provide a product id by adding a new product image");
       } else {
-        console.log(
-          product_type,
-          productId,
-          product_name,
-          product_category_code1,
-          unitCount,
-          product_duration,
-          product_brand,
-          product_specifications,
-          amount,
-          product_details
-        );
+        
         let product_category_code = product_category_code1;
         const body = JSON.stringify({
           product_type,
@@ -273,11 +288,12 @@ const AdminUploadProducts = () => {
           unitCount,
           product_duration,
           product_brand,
+          percentage,
           product_specifications,
           amount,
           product_details,
         });
-        console.log(body, "yyyyyy");
+        // console.log(body, "yyyyyy");
         try {
           const res = await axios.put(
             api_url2 + "/v1/product/add/product",
@@ -289,7 +305,24 @@ const AdminUploadProducts = () => {
           if (res.data.statusCode === 200) {
             // setMOIUpload(true)
             localStorage.removeItem("productId");
+            setLSExist(false);
+            setProduct_category_code1('')
+            setProduct_duration('')
+            setAlert('Product was uploaded successfully', "success");
+            setProductId('')
+            setProduct_type('')
+            setProductUpdateInfo({
+              product_name: "",
+              unitCount: null,
+              percentage: null,
+              product_brand: "",
+              product_specifications: "",
+              amount: null,
+              product_details: "",
+            })
           } else {
+            setAlert(res.data.data.errors[0].msg, "danger");
+
             // setAlert('Something went wrong, please try again later', 'danger');
           }
         } catch (err) {
@@ -384,6 +417,16 @@ const AdminUploadProducts = () => {
             </div>
             <div className="upload_products_details_area2">
               {/* === */}
+
+              {LSExist ? (
+                <span className="text-success">
+                  Upload Status: Product upload in progress
+                </span>
+              ) : (
+                <span className="text-danger">
+                  Upload Status: Upload new product image
+                </span>
+              )}
               <div className="toggle_body_area1_cont1_input products_des_upload">
                 {" "}
                 <div className="add_cat_input_title">
@@ -449,7 +492,7 @@ const AdminUploadProducts = () => {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      name="relationship"
+                      name="product_category_code1"
                       className="w-100"
                       value={product_category_code1}
                       label="Product category"
@@ -485,18 +528,43 @@ const AdminUploadProducts = () => {
                   />
                 </div>
                 <div className="add_cat_input_title">
-                  <span className="input_brand">Product Duration</span>
+                  <span className="input_brand">Initial Percent</span>
 
                   <TextField
                     className=" width_incr"
                     id="outlined-basic"
-                    label="Duration"
-                    variant="outlined"
-                    name="product_duration"
-                    value={product_duration}
+                    label="Product count"
                     type="number"
+                    variant="outlined"
+                    name="percentage"
+                    value={percentage}
                     onChange={(e) => onChange1(e)}
                   />
+                </div>
+                <div className="add_cat_input_title">
+                  <span className="input_brand">Product Duration</span>
+       
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Duration
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="product_duration"
+                      className="w-100"
+                      value={product_duration}
+                      label="Product category"
+                      onChange={handleDuration}
+                    >
+                      <MenuItem>Select Duration</MenuItem>
+                      <MenuItem value={1}>Outright Sell</MenuItem>
+                      <MenuItem value={2}>2 Months</MenuItem>
+                      <MenuItem value={3}>4 Months</MenuItem>
+                      <MenuItem value={4}>6 Months</MenuItem>
+                      <MenuItem value={5}>12 Months</MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 <div className="add_cat_input_title">
                   <span className="input_brand">Product Amount</span>
@@ -553,6 +621,7 @@ const AdminUploadProducts = () => {
           </div>
         </div>
       </section>
+      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
     </div>
   );
 };
