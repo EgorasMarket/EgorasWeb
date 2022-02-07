@@ -40,7 +40,6 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-
   // const handleSelect = (ranges) => {
   //   console.log(ranges);
   // };
@@ -60,11 +59,10 @@ function ItemDetailsPage({ auth, match }) {
   const [daysAddedDiv, setDaysAddedDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
-  const [user_id, set_user_id] = useState('')
+  const [user_id, set_user_id] = useState("");
   const [asset, setAsset] = useState("");
   const [lowOutCome, setLowOutCome] = useState("");
   const [prod_ur, setProd_ur] = useState(4);
-
 
   const [base, setBase] = useState("");
   const [disable, setDisable] = useState(false);
@@ -75,8 +73,8 @@ function ItemDetailsPage({ auth, match }) {
   const [BrandCode, setBrandCode] = useState("Samsung");
   const [count, setCount] = useState(0);
   const [imeeg, setImeeg] = useState("");
-  const [startDate, setStartDate]   = useState('')
-  const [endDate, setEndDate]   = useState('')
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const [activeBg, setActiveBg] = useState("descript");
 
@@ -97,7 +95,7 @@ function ItemDetailsPage({ auth, match }) {
     percentage: "",
   });
 
-  const addedDays = 0; 
+  var addedDays = 0;
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -107,8 +105,6 @@ function ItemDetailsPage({ auth, match }) {
     setDetailsModal(false);
   };
   const [calvalue, setCalValue] = useState();
-
-
 
   const isDisabled = useCallback((date) => {
     if (date.getDate()) {
@@ -136,8 +132,8 @@ function ItemDetailsPage({ auth, match }) {
     const body = JSON.stringify({
       product_id,
     });
-    if (auth){
-      set_user_id(auth.user.user.id)
+    if (auth) {
+      set_user_id(auth.user.user.id);
     }
 
     console.log(body);
@@ -181,7 +177,6 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
-
   const LowCalc = Array(product_duration)
     .fill(0)
     .map((e, i) => i + 1);
@@ -209,18 +204,22 @@ function ItemDetailsPage({ auth, match }) {
     console.log(call, "chukwubuike kingsley");
   };
 
+  const checkout = async (
+    customer_id,
+    product_id,
+    installment_days,
+    startDate,
+    endDate
+  ) => {
+    const payload = {
+      customer_id,
+      product_id,
+      installment_days,
+      startDate,
+      endDate,
+    };
 
-  const checkout = async (customer_id, product_id, installment_days, startDate, endDate ) => {
-      const payload = {
-        customer_id, 
-        product_id, 
-        installment_days, 
-        startDate,
-        endDate,
-
-      }
-
-      let call = await axios
+    let call = await axios
       .post(api_url2 + "/v1/checkout/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
@@ -233,16 +232,14 @@ function ItemDetailsPage({ auth, match }) {
       });
 
     console.log(call, "chukwubuike kingsley");
-
-
-  }
+  };
   // const food = spec[0].split('');
   // console.log(food[0])
 
   const [itemsLeft, setItemsLeft] = useState(2);
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
-
+const [date, setDate] = useState(null);
   // const iteming = unitCount;
 
   console.log("====================================");
@@ -382,8 +379,6 @@ function ItemDetailsPage({ auth, match }) {
   // const [cEndDate, setEndDate] = useState(new Date(), days);
   // console.log(cStartDate);
 
-
-
   // =================
   // =================
   console.log(days);
@@ -479,7 +474,6 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                
                 <div className="quantity_div">
                   <div className="items_left_div">
                     Items Left:{" "}
@@ -489,116 +483,120 @@ function ItemDetailsPage({ auth, match }) {
                     </span>
                   </div>
                 </div>
-                {
-                  product_duration !== 1 ? (
-                    <div className="quantity_div">
-                      <div className="items_left_div">
-                        This item has an upfront payment of : {percentage}%
-                      </div>
-                      <span className="upfront_para">
-                        That means you are to pay #{percentMoney} before this item
-                        can be locked by you.
-                      </span>
+                {product_duration !== 1 ? (
+                  <div className="quantity_div">
+                    <div className="items_left_div">
+                      This item has an upfront payment of : {percentage}%
                     </div>
-                  ) : null
-                }
-                
+                    <span className="upfront_para">
+                      That means you are to pay #{percentMoney} before this item
+                      can be locked by you.
+                    </span>
+                  </div>
+                ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                
-                {
-                  product_duration !== 1 ? (
-                    <div className="date_picky">
-                      <div className="date_picky_note">
-                        Note: the below calendar shows the total amount of days to
-                        complete payment for this item
-                        <br />
-                        the grey color shows the total days that has been initially
-                        locked for this item
-                        <br />
-                        while the green color shows the total amount of days that is
-                        left for payment .
-                      </div>
-                      <Accordion title="Click to view calendar">
-                        <div style={{ display: "flex", flexFlow: "column nowrap" }}>
-                          <Calendar
-                            onChange={(item) => {
-                              setEndDate(item);
-                              setStartDate(new Date())
-                              console.log(item);
-                              console.log(
-                                differenceInCalendarDays(
-                                  new Date(item),
-                                  new Date()
-                                ) + 1,
-                                "days"
-                              );
-                              addedDays =
-                                differenceInCalendarDays(
-                                  new Date(item),
-                                  new Date()
-                                ) + 1;
-                              const subtractedPercent = (days - addedDays) / 100;
-                              const newPercentage = 100 - subtractedPercent;
-                              console.log(newPercentage, "%");
-                              const newPercentMoney =
-                                (newPercentage / 100) * amount;
-
-                              setDaysAdded(addedDays - percentDays);
-
-                              setMoneyAdded(newPercentMoney.toFixed());
-
-                              // setDaysAddedDiv(true);
-                            }}
-                            // date={date}
-                            minDate={addDays(new Date(), percentDays)}
-                            maxDate={addDays(new Date(), days)}
-                          />
-                          {daysAddedDiv == true ? (
-                            <div className="days_to_pay_now">
-                              <span className="added_">
-                                You have added{" "}
-                                <span className="day_add">{daysAdded} day(s)</span>{" "}
-                                to the previously locked days.
-                              </span>
-
-                              <span className="total_pay_now">
-                                And you are now to pay a total amount of{" "}
-                                <span className="money_add">#{moneyAdded}</span>{" "}
-                                before this item can be locked by you.
-                              </span>
-                            </div>
-                          ) : (
-                            <div className="days_to_pay_now">
-                              <span>
-                                This item has a total of{" "}
-                                <span className="money_add">
-                                  {percentDays} days
-                                </span>{" "}
-                                locked on it.
-                              </span>
-                            </div>
-                          )}
-                        </div>
-                      </Accordion>
+                {product_duration !== 1 ? (
+                  <div className="date_picky">
+                    <div className="date_picky_note">
+                      Note: the below calendar shows the total amount of days to
+                      complete payment for this item
+                      <br />
+                      the grey color shows the total days that has been
+                      initially locked for this item
+                      <br />
+                      while the green color shows the total amount of days that
+                      is left for payment .
                     </div>
-                  ) : null
-                }
+                    <Accordion title="Click to view calendar">
+                      <div
+                        style={{ display: "flex", flexFlow: "column nowrap" }}
+                      >
+                        <Calendar
+                          onChange={(item) => {
+                            setEndDate(item);
+                            setStartDate(new Date());
+                            console.log(item);
+                            console.log(
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1,
+                              "days"
+                            );
+                            addedDays =
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1;
+                            const subtractedPercent = (days - addedDays) / 100;
+                            const newPercentage = 100 - subtractedPercent;
+                            console.log(newPercentage, "%");
+                            const newPercentMoney =
+                              (newPercentage / 100) * amount;
+
+                            setDaysAdded(addedDays - percentDays);
+
+                            setMoneyAdded(newPercentMoney.toFixed());
+
+                            setDaysAddedDiv(true);
+                          }}
+                          date={date}
+                          minDate={addDays(new Date(), percentDays)}
+                          maxDate={addDays(new Date(), days)}
+                          // date={date}
+                        />
+                        {daysAddedDiv == true ? (
+                          <div className="days_to_pay_now">
+                            <span className="added_">
+                              You have added{" "}
+                              <span className="day_add">
+                                {daysAdded} day(s)
+                              </span>{" "}
+                              to the previously locked days.
+                            </span>
+
+                            <span className="total_pay_now">
+                              And you are now to pay a total amount of{" "}
+                              <span className="money_add">#{moneyAdded}</span>{" "}
+                              before this item can be locked by you.
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="days_to_pay_now">
+                            <span>
+                              This item has a total of{" "}
+                              <span className="money_add">
+                                {percentDays} days
+                              </span>{" "}
+                              locked on it.
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Accordion>
+                  </div>
+                ) : null}
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
-                  <button className="buy_now_button" onClick={() => {
-                    // openDetailsModal(); 
-                    //call  the checkout api here 
-                    checkout(user_id, product_id, daysAdded, startDate, endDate)
-
-                  }}>
-                    
-                    {
-                      product_duration !== 1 ? 'Proceed' : 'Proceed to checkout'
-                    }
+                  <button
+                    className="buy_now_button"
+                    onClick={() => {
+                      openDetailsModal();
+                      //call  the checkout api here
+                      checkout(
+                        user_id,
+                        product_id,
+                        daysAdded,
+                        startDate,
+                        endDate
+                      );
+                    }}
+                  >
+                    {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
                   </button>
 
                   {/* <div className="save_later">
