@@ -235,7 +235,9 @@ svg.icon-loading {
 }
 .acct_created_txt {
   color: #41b970;
-  font-weight: 700;
+  font-weight: 400;
+  text-align: center;
+  font-size: 18px;
 }
 .number_form_div {
   position: relative;
