@@ -195,7 +195,7 @@ function ItemDetailsPage({ auth, match }) {
     let call = await axios
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
-        alert("Item successfully added to cart ");
+        // alert("Item successfully added to cart ");
 
         console.log("kingsley Chukwubuike");
       })
@@ -221,7 +221,7 @@ function ItemDetailsPage({ auth, match }) {
       let call = await axios
       .post(api_url2 + "/v1/checkout/add", payload, config)
       .then((response) => {
-        alert("Item successfully added to cart ");
+        // alert("Item successfully added to cart ");
 
         console.log(response);
       })
@@ -466,6 +466,7 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
+                
                 <div className="quantity_div">
                   <div className="items_left_div">
                     Items Left:{" "}
@@ -475,91 +476,101 @@ function ItemDetailsPage({ auth, match }) {
                     </span>
                   </div>
                 </div>
-                <div className="quantity_div">
-                  <div className="items_left_div">
-                    This item has an upfront payment of : {percentage}%
-                  </div>
-                  <span className="upfront_para">
-                    That means you are to pay #{percentMoney} before this item
-                    can be locked by you.
-                  </span>
-                </div>
-                {/* ======= */}
-                {/* ======= */}
-                <div className="date_picky">
-                  <div className="date_picky_note">
-                    Note: the below calendar shows the total amount of days to
-                    complete payment for this item
-                    <br />
-                    the grey color shows the total days that has been initially
-                    locked for this item
-                    <br />
-                    while the green color shows the total amount of days that is
-                    left for payment .
-                  </div>
-                  <Accordion title="Click to view calendar">
-                    <div style={{ display: "flex", flexFlow: "column nowrap" }}>
-                      <Calendar
-                        onChange={(item) => {
-                          setEndDate(item);
-                          setStartDate(new Date())
-                          console.log(item);
-                          console.log(
-                            differenceInCalendarDays(
-                              new Date(item),
-                              new Date()
-                             ) + 1,
-                            "days"
-                          );
-                           addedDays =
-                            differenceInCalendarDays(
-                              new Date(item),
-                              new Date()
-                            ) + 1;
-                          const subtractedPercent = (days - addedDays) / 100;
-                          const newPercentage = 100 - subtractedPercent;
-                          console.log(newPercentage, "%");
-                          const newPercentMoney =
-                            (newPercentage / 100) * amount;
-
-                          setDaysAdded(addedDays - percentDays);
-
-                          setMoneyAdded(newPercentMoney.toFixed());
-
-                          // setDaysAddedDiv(true);
-                        }}
-                        // date={date}
-                        minDate={addDays(new Date(), percentDays)}
-                        maxDate={addDays(new Date(), days)}
-                      />
-                      {daysAddedDiv == true ? (
-                        <div className="days_to_pay_now">
-                          <span className="added_">
-                            You have added{" "}
-                            <span className="day_add">{daysAdded} day(s)</span>{" "}
-                            to the previously locked days.
-                          </span>
-
-                          <span className="total_pay_now">
-                            And you are now to pay a total amount of{" "}
-                            <span className="money_add">#{moneyAdded}</span>{" "}
-                            before this item can be locked by you.
-                          </span>
-                        </div>
-                      ) : (
-                        <div className="days_to_pay_now">
-                          <span>
-                            This item has a total of{" "}
-                            <span className="money_add">
-                              {percentDays} days
-                            </span>{" "}
-                            locked on it.
-                          </span>
-                        </div>
-                      )}
+                {
+                  product_duration !== 1 ? (
+                    <div className="quantity_div">
+                      <div className="items_left_div">
+                        This item has an upfront payment of : {percentage}%
+                      </div>
+                      <span className="upfront_para">
+                        That means you are to pay #{percentMoney} before this item
+                        can be locked by you.
+                      </span>
                     </div>
-                  </Accordion>
-                </div>
+                  ) : null
+                }
+                
+                {/* ======= */}
+                {/* ======= */}
+                
+                {
+                  product_duration !== 1 ? (
+                    <div className="date_picky">
+                      <div className="date_picky_note">
+                        Note: the below calendar shows the total amount of days to
+                        complete payment for this item
+                        <br />
+                        the grey color shows the total days that has been initially
+                        locked for this item
+                        <br />
+                        while the green color shows the total amount of days that is
+                        left for payment .
+                      </div>
+                      <Accordion title="Click to view calendar">
+                        <div style={{ display: "flex", flexFlow: "column nowrap" }}>
+                          <Calendar
+                            onChange={(item) => {
+                              setEndDate(item);
+                              setStartDate(new Date())
+                              console.log(item);
+                              console.log(
+                                differenceInCalendarDays(
+                                  new Date(item),
+                                  new Date()
+                                ) + 1,
+                                "days"
+                              );
+                              addedDays =
+                                differenceInCalendarDays(
+                                  new Date(item),
+                                  new Date()
+                                ) + 1;
+                              const subtractedPercent = (days - addedDays) / 100;
+                              const newPercentage = 100 - subtractedPercent;
+                              console.log(newPercentage, "%");
+                              const newPercentMoney =
+                                (newPercentage / 100) * amount;
+
+                              setDaysAdded(addedDays - percentDays);
+
+                              setMoneyAdded(newPercentMoney.toFixed());
+
+                              // setDaysAddedDiv(true);
+                            }}
+                            // date={date}
+                            minDate={addDays(new Date(), percentDays)}
+                            maxDate={addDays(new Date(), days)}
+                          />
+                          {daysAddedDiv == true ? (
+                            <div className="days_to_pay_now">
+                              <span className="added_">
+                                You have added{" "}
+                                <span className="day_add">{daysAdded} day(s)</span>{" "}
+                                to the previously locked days.
+                              </span>
+
+                              <span className="total_pay_now">
+                                And you are now to pay a total amount of{" "}
+                                <span className="money_add">#{moneyAdded}</span>{" "}
+                                before this item can be locked by you.
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="days_to_pay_now">
+                              <span>
+                                This item has a total of{" "}
+                                <span className="money_add">
+                                  {percentDays} days
+                                </span>{" "}
+                                locked on it.
+                              </span>
+                            </div>
+                          )}
+                        </div>
+                      </Accordion>
+                    </div>
+                  ) : null
+                }
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
@@ -571,7 +582,10 @@ function ItemDetailsPage({ auth, match }) {
                     checkout(user_id, product_id, daysAdded, startDate, endDate)
 
                   }}>
-                    Proceed
+                    
+                    {
+                      product_duration !== 1 ? 'Proceed' : 'Proceed to checkout'
+                    }
                   </button>
 
                   {/* <div className="save_later">
