@@ -6,7 +6,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
-const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, installation_days  }) => {
+const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, installation_days, previousBtn, CheckBtn  }) => {
   
 
     //use states 
