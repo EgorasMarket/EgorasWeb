@@ -349,13 +349,13 @@ function ItemDetailsPage({ auth, match }) {
     x = parseInt(x);
     let result = 0;
     if (x === 5) {
-      result = 12 * 30;
+      result = 12 * 31;
     } else if (x === 4) {
-      result = 6 * 30;
+      result = 6 * 31;
     } else if (x === 3) {
-      result = 4 * 30;
+      result = 4 * 31;
     } else if (x === 2) {
-      result = 2 * 30;
+      result = 2 * 31;
     }
     return result;
   };
@@ -429,14 +429,20 @@ function ItemDetailsPage({ auth, match }) {
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
-                <div className="amount_item_div">
-                  ₦{numberWithCommas(numberWithCommas(CalcAmtPerDay.toFixed()))}{" "}
-                  <span className="per_day">per/day</span>
-                </div>
-                // ===========================
-                <div className="amount_item_div">
-                  ₦{numberWithCommas(numberWithCommas(CalcAmtPerDay.toFixed()))}{" "}
-                  <span className="per_day">per/day</span>
+                {product_duration == 1 ? null : (
+                  <div className="amount_item_div">
+                    ₦
+                    {numberWithCommas(
+                      numberWithCommas(CalcAmtPerDay.toFixed())
+                    )}{" "}
+                    <span className="per_day"> / per-day</span>
+                  </div>
+                )}
+                {/* // =========================== */}
+                <div className="amount_item_div total_amount">
+                  <span className="sub_total_txt">Total: </span> ₦
+                  {numberWithCommas(numberWithCommas(amount))}{" "}
+                  <span className="per_day"></span>
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
