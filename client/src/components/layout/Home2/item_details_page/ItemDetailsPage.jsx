@@ -929,7 +929,9 @@ function ItemDetailsPage({ auth, match }) {
                 endDate={endDate}
                 startDate={startDate}
                  customer_id={user_id} 
-                 product_id={product_id} />
+                 product_id={product_id}
+                 
+                 />
             ) : null}
           </div>
         </div>
