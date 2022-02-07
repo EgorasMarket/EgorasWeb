@@ -17,52 +17,9 @@ const AdminCustomer = () => {
       "Content-Type": "application/json",
     },
   };
-  // const allCustomers = [
-  //   {
-  //     id: "2",
-  //     name: "Samuel",
-  //     phoneNumber: "08164020234",
-  //     gender: "male",
-  //     email: "samuelify225@gmail.com",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Patrick",
-  //     phoneNumber: "08164020234",
-  //     gender: "male",
-  //     email: "samuelify225@gmail.com",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "John",
-  //     phoneNumber: "08164020234",
-  //     gender: "male",
-  //     email: "samuelify225@gmail.com",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Goodness",
-  //     phoneNumber: "08164020234",
-  //     gender: "male",
-  //     email: "samuelify225@gmail.com",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Kingsley",
-  //     phoneNumber: "08164020234",
-  //     gender: "male",
-  //     email: "samuelify225@gmail.com",
-  //   },
-  //   {
-  //     id: "2",
-  //     name: "Simon",
-  //     phoneNumber: "08164020234",
-  //     gender: "male",
-  //     email: "samuelify225@gmail.com",
-  //   },
-  // ];
-
+ 
   useEffect(() => {
+    console.log('ttttrr');
     axios
       .get(api_url2 + "/v1/admin/retrieve/customers/byBranch/", null, config)
       .then((data) => {
@@ -71,7 +28,7 @@ const AdminCustomer = () => {
         setAllCustomers(data.data.data);
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        console.log(err.response, 'ooooo'); // "oh, no!"
       });
 
     console.log("my naem");
