@@ -27,7 +27,8 @@ const AdminUploadProducts = () => {
   const [productId, setProductId] = useState("");
   const [product_category_code1, setProduct_category_code1] = useState("");
   const [product_type, setProduct_type] = useState("");
-  const [product_duration, setProduct_duration] = useState(null);
+  const [payment_type, setPayment_type] = useState(1);
+  // const [product_duration, setProduct_duration] = useState(null);
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   const [allCategories, setCategories] = useState([]);
@@ -45,6 +46,7 @@ const AdminUploadProducts = () => {
     product_specifications: "",
     amount: null,
     product_details: "",
+    product_duration: null
   });
 
   const { product_category_code, product_category_desc } = categoryInsert;
@@ -56,6 +58,7 @@ const AdminUploadProducts = () => {
     product_specifications,
     amount,
     product_details,
+    product_duration
   } = productUpdateInfo;
 
   const generateString = (length) => {
@@ -246,91 +249,173 @@ const AdminUploadProducts = () => {
 
   // };
 
-  const handleDuration = (event) => {
-    setProduct_duration(event.target.value || "");
-    // // console.log('handleMOI');
-  };
+  // const handleDuration = (event) => {
+  //   setProduct_duration(event.target.value || "");
+  //   // // console.log('handleMOI');
+  // };
 
   const handleproductType = (event) => {
     setProduct_type(event.target.value || "");
     // // console.log('handleMOI');
   };
 
+  const handlepaymentType = (event) => {
+    setPayment_type(event.target.value || null);
+    // // console.log('handleMOI');
+  };
+
   const UpdateProductInfo = async (e) => {
-    if (
-      product_name === "" ||
-      product_category_code1 === "" ||
-      unitCount === null ||
-      product_duration === null ||
-      percentage === null ||
-      product_brand === "" ||
-      product_type === "" ||
-      product_specifications === "" ||
-      amount === null ||
-      product_details === ""
-    ) {
-      console.log("Please supply all information.");
-      setAlert("Please supply all information");
-    } else {
-      if (!localStorage.productId) {
-        console.log(
-          "Please provide a product id by adding a new product image."
-        );
-        setAlert("Please provide a product id by adding a new product image");
+
+    if (payment_type === 1) {
+      if (
+        product_name === "" ||
+        product_category_code1 === "" ||
+        unitCount === null ||
+        // product_duration === null ||
+        // percentage === null ||
+        product_brand === "" ||
+        product_type === "" ||
+        product_specifications === "" ||
+        amount === null ||
+        product_details === ""
+      ) {
+        // console.log("Please supply all information.");
+        setAlert("Please supply all information");
       } else {
-        
-        let product_category_code = product_category_code1;
-        const body = JSON.stringify({
-          product_type,
-          productId,
-          product_name,
-          product_category_code,
-          unitCount,
-          product_duration,
-          product_brand,
-          percentage,
-          product_specifications,
-          amount,
-          product_details,
-        });
-        // console.log(body, "yyyyyy");
-        try {
-          const res = await axios.put(
-            api_url2 + "/v1/product/add/product",
-            body,
-            config
-          );
-          console.log(res, "undefined");
-
-          if (res.data.statusCode === 200) {
-            // setMOIUpload(true)
-            localStorage.removeItem("productId");
-            setLSExist(false);
-            setProduct_category_code1('')
-            setProduct_duration('')
-            setAlert('Product was uploaded successfully', "success");
-            setProductId('')
-            setProduct_type('')
-            setProductUpdateInfo({
-              product_name: "",
-              unitCount: null,
-              percentage: null,
-              product_brand: "",
-              product_specifications: "",
-              amount: null,
-              product_details: "",
-            })
-          } else {
-            setAlert(res.data.data.errors[0].msg, "danger");
-
-            // setAlert('Something went wrong, please try again later', 'danger');
+        if (!localStorage.productId) {
+          
+          setAlert("Please provide a product id by adding a new product image");
+        } else {
+          
+          let product_category_code = product_category_code1;
+          const body = JSON.stringify({
+            product_type,
+            payment_type,
+            productId,
+            product_name,
+            product_category_code,
+            unitCount,
+            product_duration,
+            product_brand,
+            percentage,
+            product_specifications,
+            amount,
+            product_details,
+          });
+          console.log(body, "yyyyyy");
+          try {
+            const res = await axios.put(
+              api_url2 + "/v1/product/add/product",
+              body,
+              config
+            );
+            console.log(res, "undefined");
+  
+            if (res.data.statusCode === 200) {
+              // setMOIUpload(true)
+              localStorage.removeItem("productId");
+              setLSExist(false);
+              setProduct_category_code1('')
+              // setProduct_duration('')
+              setAlert('Product was uploaded successfully', "success");
+              setProductId('')
+              setProduct_type('')
+              setProductUpdateInfo({
+                product_name: "",
+                unitCount: null,
+                percentage: null,
+                product_brand: "",
+                product_specifications: "",
+                amount: null,
+                product_details: "",
+              })
+            } else {
+              setAlert(res.data.data.errors[0].msg, "danger");
+  
+              // setAlert('Something went wrong, please try again later', 'danger');
+            }
+          } catch (err) {
+            console.log(err.response);
+            // setAlert('Check your internet connection', 'danger');
           }
-        } catch (err) {
-          console.log(err.response);
-          // setAlert('Check your internet connection', 'danger');
+        }
+      }
+    } else {
+      if (
+        product_name === "" ||
+        product_category_code1 === "" ||
+        unitCount === null ||
+        product_duration === null ||
+        percentage === null ||
+        product_brand === "" ||
+        product_type === "" ||
+        product_specifications === "" ||
+        amount === null ||
+        product_details === ""
+      ) {
+        // console.log("Please supply all information.");
+        setAlert("Please supply all information");
+      } else {
+        if (!localStorage.productId) {
+          
+          setAlert("Please provide a product id by adding a new product image");
+        } else {
+          
+          let product_category_code = product_category_code1;
+          const body = JSON.stringify({
+            product_type,
+            payment_type,
+            productId,
+            product_name,
+            product_category_code,
+            unitCount,
+            product_duration,
+            product_brand,
+            percentage,
+            product_specifications,
+            amount,
+            product_details,
+          });
+          console.log(body, "yyyyyy");
+          try {
+            const res = await axios.put(
+              api_url2 + "/v1/product/add/product",
+              body,
+              config
+            );
+            console.log(res, "undefined");
+  
+            if (res.data.statusCode === 200) {
+              // setMOIUpload(true)
+              localStorage.removeItem("productId");
+              setLSExist(false);
+              setProduct_category_code1('')
+              // setProduct_duration('')
+              setAlert('Product was uploaded successfully', "success");
+              setProductId('')
+              setProduct_type('')
+              setProductUpdateInfo({
+                product_name: "",
+                unitCount: null,
+                percentage: null,
+                product_brand: "",
+                product_specifications: "",
+                amount: null,
+                product_details: "",
+              })
+            } else {
+              setAlert(res.data.data.errors[0].msg, "danger");
+  
+              // setAlert('Something went wrong, please try again later', 'danger');
+            }
+          } catch (err) {
+            console.log(err.response);
+            // setAlert('Check your internet connection', 'danger');
+          }
         }
       }
     }
+
   };
 
   return (
@@ -439,7 +524,7 @@ const AdminUploadProducts = () => {
                     <Select
                       labelId="demo-simple-select-label"
                       id="demo-simple-select"
-                      name="relationship"
+                      name="product_type"
                       className="w-100"
                       value={product_type}
                       label="Product Type"
@@ -454,6 +539,7 @@ const AdminUploadProducts = () => {
                     </Select>
                   </FormControl>
                 </div>
+                
                 <div className="add_cat_input_title">
                   {/* <span className="input_brand">Product category code</span> */}
                   <span className="input_brand">Product Name</span>
@@ -527,21 +613,7 @@ const AdminUploadProducts = () => {
                     onChange={(e) => onChange1(e)}
                   />
                 </div>
-                <div className="add_cat_input_title">
-                  <span className="input_brand">Initial Percent</span>
-
-                  <TextField
-                    className=" width_incr"
-                    id="outlined-basic"
-                    label="Product count"
-                    type="number"
-                    variant="outlined"
-                    name="percentage"
-                    value={percentage}
-                    onChange={(e) => onChange1(e)}
-                  />
-                </div>
-                <div className="add_cat_input_title">
+                {/* <div className="add_cat_input_title">
                   <span className="input_brand">Product Duration</span>
        
                   <FormControl fullWidth>
@@ -565,7 +637,69 @@ const AdminUploadProducts = () => {
                       <MenuItem value={5}>12 Months</MenuItem>
                     </Select>
                   </FormControl>
+                </div> */}
+                <div className="add_cat_input_title">
+                  <span className="input_brand">Payment Type</span>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Select Type
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="payment_type"
+                      className="w-100"
+                      value={payment_type}
+                      label="Payment Type"
+                      onChange={handlepaymentType}
+                    >
+                      <MenuItem value={1}>
+                        OUTRIGHT
+                      </MenuItem>
+                      <MenuItem value={2}>
+                        INSTALLMENTAL
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
+                {
+                  payment_type !== 1 ? (
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Initial Percent</span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Initial Percent"
+                        type="number"
+                        variant="outlined"
+                        name="percentage"
+                        value={percentage}
+                        onChange={(e) => onChange1(e)}
+                      />
+                    </div>
+                  ) : null
+                }
+                
+                {
+                  payment_type !== 1 ? (
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Product Duration</span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Product Duration"
+                        type="number"
+                        variant="outlined"
+                        name="product_duration"
+                        value={product_duration}
+                        onChange={(e) => onChange1(e)}
+                      />
+                    </div>
+                  ) : null
+                }
                 <div className="add_cat_input_title">
                   <span className="input_brand">Product Amount</span>
 
