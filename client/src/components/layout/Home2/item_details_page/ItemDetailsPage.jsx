@@ -225,7 +225,7 @@ function ItemDetailsPage({ auth, match }) {
       .then((response) => {
         // alert("Item successfully added to cart ");
 
-        console.log(response.data.data);
+        console.log(response.data.details);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -548,7 +548,7 @@ function ItemDetailsPage({ auth, match }) {
 
                               setMoneyAdded(newPercentMoney.toFixed());
 
-                              // setDaysAddedDiv(true);
+                              setDaysAddedDiv(true);
                             }}
                             // date={date}
                             minDate={addDays(new Date(), percentDays)}

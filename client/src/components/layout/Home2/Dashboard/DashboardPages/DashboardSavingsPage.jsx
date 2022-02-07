@@ -27,7 +27,7 @@ const responsive7 = {
     items: 2,
   },
 };
-function DashboardSavingsPage({ match }) {
+function DashboardSavingsPage({ match, auth }) {
   const [savedNum, setSavedNum] = useState(5);
   const [itemdisplay, setItemDisplay] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
@@ -62,7 +62,7 @@ function DashboardSavingsPage({ match }) {
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
-  }, []);
+  }, [auth]);
 
   useEffect(() => {
     const body = JSON.stringify({
@@ -96,6 +96,36 @@ function DashboardSavingsPage({ match }) {
             <div className="dash_savings_area1">
               <div className="dash_savings_area1_title">Savings Overview</div>
               <div className="savings_overview_card">
+                <div className="savings_overview_card1 over_first_card">
+                  <div className="card_over_body">
+                    <div className="card_over_title">
+                      Total Balance
+                      <div className="card_over_balance">#50,000</div>
+                    </div>
+
+                    <div className="card_over_balance_button">Start Saving</div>
+                  </div>
+                </div>
+                <div className="savings_overview_card1 over_first_card">
+                  <div className="card_over_body">
+                    <div className="card_over_title">
+                      Total Balance
+                      <div className="card_over_balance">#50,000</div>
+                    </div>
+
+                    <div className="card_over_balance_button">Start Saving</div>
+                  </div>
+                </div>
+                <div className="savings_overview_card1 over_first_card">
+                  <div className="card_over_body">
+                    <div className="card_over_title">
+                      Total Balance
+                      <div className="card_over_balance">#50,000</div>
+                    </div>
+
+                    <div className="card_over_balance_button">Start Saving</div>
+                  </div>
+                </div>
                 <div className="savings_overview_card1 over_first_card">
                   <div className="card_over_body">
                     <div className="card_over_title">
@@ -322,4 +352,15 @@ function DashboardSavingsPage({ match }) {
   );
 }
 
-export default DashboardSavingsPage;
+// export default DashboardSavingsPage;
+
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  // cart: state.shop.cart
+});
+
+// export default DashboardSidebar;
+
+export default connect(mapStateToProps, {})(DashboardSavingsPage);
