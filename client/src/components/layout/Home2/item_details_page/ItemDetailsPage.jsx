@@ -1042,7 +1042,7 @@ function ItemDetailsPage({ auth, match }) {
                                     <span className="items_left_amount">
                                       Total Amount Locked on Item
                                     </span>
-                                    #{"1000"}
+                                    #{"200"}
                                   </div>
                                 </div>
                               </td>
