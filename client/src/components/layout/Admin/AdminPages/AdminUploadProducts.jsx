@@ -223,6 +223,7 @@ const AdminUploadProducts = () => {
         console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
+          setLSExist(true);
           console.log(res.data.data[0].productId, "undefined");
           setProductId(res.data.data[0].productId);
           localStorage.setItem("productId", res.data.data[0].productId);
@@ -277,18 +278,7 @@ const AdminUploadProducts = () => {
         );
         setAlert("Please provide a product id by adding a new product image");
       } else {
-        console.log(
-          product_type,
-          productId,
-          product_name,
-          product_category_code1,
-          unitCount,
-          product_duration,
-          product_brand,
-          product_specifications,
-          amount,
-          product_details
-        );
+        
         let product_category_code = product_category_code1;
         const body = JSON.stringify({
           product_type,
@@ -303,7 +293,7 @@ const AdminUploadProducts = () => {
           amount,
           product_details,
         });
-        console.log(body, "yyyyyy");
+        // console.log(body, "yyyyyy");
         try {
           const res = await axios.put(
             api_url2 + "/v1/product/add/product",
@@ -315,6 +305,21 @@ const AdminUploadProducts = () => {
           if (res.data.statusCode === 200) {
             // setMOIUpload(true)
             localStorage.removeItem("productId");
+            setLSExist(false);
+            setProduct_category_code1('')
+            setProduct_duration('')
+            setAlert('Product was uploaded successfully', "success");
+            setProductId('')
+            setProduct_type('')
+            setProductUpdateInfo({
+              product_name: "",
+              unitCount: null,
+              percentage: null,
+              product_brand: "",
+              product_specifications: "",
+              amount: null,
+              product_details: "",
+            })
           } else {
             setAlert(res.data.data.errors[0].msg, "danger");
 
