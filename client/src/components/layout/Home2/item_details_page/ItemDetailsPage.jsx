@@ -78,8 +78,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
-  const [ dailyAmount , setDailyAmount ] = useState()
-  const [ initialDeposit , setInitialDeposit ] = useState()
+  const [dailyAmount, setDailyAmount] = useState();
+  const [initialDeposit, setInitialDeposit] = useState();
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -96,7 +96,9 @@ function ItemDetailsPage({ auth, match }) {
   });
 
   var addedDays = 0;
-
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  };
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -228,7 +230,7 @@ function ItemDetailsPage({ auth, match }) {
 
         console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit)
+        setInitialDeposit(response.data.details.initial_deposit);
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -331,7 +333,6 @@ function ItemDetailsPage({ auth, match }) {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
 
-
     setAsset(assetVal);
     setBase(baseVal);
 
@@ -404,7 +405,10 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
+          <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          />
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -468,12 +472,12 @@ function ItemDetailsPage({ auth, match }) {
                   </div>
 
                   {product_duration == 1 ? (
-                    <span>₦{amount}</span>
+                    <span>₦{numberWithCommas(amount)}</span>
                   ) : (
                     <p className="amnt_per_day">
                       Savings Amount to be paid per day:{""}
                       <span className="calc_amnt_div">
-                        ₦{CalcAmtPerDay.toFixed()}
+                        ₦{numberWithCommas(CalcAmtPerDay.toFixed())}
                       </span>
                     </p>
                   )}
@@ -495,8 +499,9 @@ function ItemDetailsPage({ auth, match }) {
                       This item has an upfront payment of : {percentage}%
                     </div>
                     <span className="upfront_para">
-                      That means you are to pay #{percentMoney} before this item
-                      can be locked by you.
+                      That means you are to pay #
+                      {numberWithCommas(percentMoney)} before this item can be
+                      locked by you.
                     </span>
                   </div>
                 ) : null}
@@ -564,7 +569,9 @@ function ItemDetailsPage({ auth, match }) {
 
                             <span className="total_pay_now">
                               And you are now to pay a total amount of{" "}
-                              <span className="money_add">#{moneyAdded}</span>{" "}
+                              <span className="money_add">
+                                #{numberWithCommas(moneyAdded)}
+                              </span>{" "}
                               before this item can be locked by you.
                             </span>
                           </div>
@@ -1062,7 +1069,7 @@ function ItemDetailsPage({ auth, match }) {
                               </td> */}
                               <td className="save_item_data1b">
                                 <div className="assets-data-name_last">
-                                  #{amount * unitCount}
+                                  #{amount}
                                 </div>
                               </td>
                             </tr>
@@ -1113,7 +1120,9 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">{amount * unitCount}</span>
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1132,7 +1141,10 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
+                      Total{" "}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
