@@ -220,12 +220,21 @@ const Dashboard_Checkout_Page = ({
         setLoading(false);
 
         createOrder();
+
+        setTimeout(() => {
+          return window.location.replace("/dashboard/savings");
+        }, 5000);
+
       } else {
         setSuccessPop(false);
       }
     } else {
     }
   };
+
+  // const timer = setTimeout(() => {
+  //   return window.location.replace("/dashboard/savings");
+  // }, 5000);
 
   const onChange1 = (e) => {
     setCardInfoOne({ ...cardInfoOne, [e.target.name]: e.target.value });
