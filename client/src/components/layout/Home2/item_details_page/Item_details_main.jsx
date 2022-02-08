@@ -79,6 +79,8 @@ const Item_details_main = ({ match }) => {
     product_details: "",
     productSpecification: "",
     percentage: "",
+    payment_type: "",
+    amount_per_day: "",
   });
 
   var addedDays = 0;
@@ -114,6 +116,8 @@ const Item_details_main = ({ match }) => {
     productSpecification,
     product_details,
     percentage,
+    amount_per_day,
+    payment_type,
   } = productDetails;
 
   useEffect(() => {
@@ -150,6 +154,8 @@ const Item_details_main = ({ match }) => {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
+          payment_type: data.data.data.payment_type,
+          amount_per_day: data.data.data.amount_per_day,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -428,12 +434,9 @@ const Item_details_main = ({ match }) => {
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
-                {product_duration == 1 ? null : (
+                {payment_type == "OUTRIGHT" ? null : (
                   <div className="amount_item_div">
-                    ₦
-                    {numberWithCommas(
-                      numberWithCommas(CalcAmtPerDay.toFixed())
-                    )}{" "}
+                    ₦{numberWithCommas(numberWithCommas(amount_per_day))}{" "}
                     <span className="per_day"> / per-day</span>
                   </div>
                 )}
@@ -447,12 +450,12 @@ const Item_details_main = ({ match }) => {
                 {/* -------------- */}
                 <div className="lll">
                   <div className="max_dura">
-                    {product_duration == "OUTRIGHTBUY" ? null : (
+                    {payment_type == "OUTRIGHT" ? null : (
                       <p className="no_margg">Savings Max Duration:</p>
                     )}
                     <div className="days_left_numb">
-                      {product_duration == "OUTRIGHTBUY" ? (
-                        <p className="no_margg"></p>
+                      {payment_type == "OUTRIGHT" ? (
+                        <p className="no_margg">Outright Buy</p>
                       ) : (
                         <p className="no_margg">{product_duration}day(s)</p>
                       )}
@@ -461,7 +464,7 @@ const Item_details_main = ({ match }) => {
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                {product_duration !== 1 ? (
+                {payment_type !== "OUTRIGHT" ? (
                   <div className="quantity_div">
                     <div className="items_left_div">
                       This item has an upfront payment of : {percentage}%
