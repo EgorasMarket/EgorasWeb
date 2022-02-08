@@ -143,6 +143,7 @@ import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSec
 import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
+import Item_details_main from "./components/layout/Home2/item_details_page/Item_details_main";
 import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
@@ -257,8 +258,8 @@ const App = () => {
                   <Route exact path="/savings" component={Savings} />
                   <Route
                     exact
-                    path="/products/details/:id/:name"
-                    component={ItemDetailsPage}
+                    path="/products/details/:id"
+                    component={Item_details_main}
                   />
                   <Route exact path="/loan" component={Newhome2} />
                   <Route exact path="/validator" component={Landing} />
