@@ -102,7 +102,7 @@ import Login from "./components/layout/Home2/Login/Login";
 import Signup from "./components/layout/Home2/Signup/Signup";
 // import Wallet
 // import Walle
-import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
+
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
 import Activation from "./components/layout/Home2/Activation/Activation";
@@ -146,7 +146,7 @@ import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
-
+import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
   //console.log("setAuthToken");
@@ -317,6 +317,16 @@ const App = () => {
                     path="/documentation1"
                     component={Documentation1}
                   />
+                  <Route
+                    exact
+                    path="/products/details/:id/:name"
+                    component={ItemDetailsPage}
+                  />
+                  {/* <Route
+                    exact
+                    path="/products/details/:id/:name"
+                    component={ItemDetailsPage}
+                  /> */}
                   <Route
                     exact
                     path="/egoras-decentralized-autonomous-organization"
