@@ -6,6 +6,7 @@ import Wallet from "../../Wallet/Wallet";
 import DashboardSidebar from "./DashboardSidebar";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
+import CheckoutModalComponent from "../item_details_page/CheckoutModalComponent"
 // import DashboardCart from "./DashboardPages/DashboardCart";
 import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
 import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
@@ -87,6 +88,11 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 exact
                 path="/dashboard/products/details/:id/:name"
                 component={ItemDetailsPage}
+              />
+                <Route
+                exact
+                path="/dashboard/products/checkout"
+                component={CheckoutModalComponent}
               />
             </Switch>
           </div>
