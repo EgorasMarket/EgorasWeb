@@ -18,7 +18,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-const Item_details_main = ({match}) => {
+const Item_details_main = ({ match }) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -447,25 +447,14 @@ const Item_details_main = ({match}) => {
                 {/* -------------- */}
                 <div className="lll">
                   <div className="max_dura">
-                    Savings max-duration:{" "}
+                    {product_duration == "OUTRIGHTBUY" ? null : (
+                      <p className="no_margg">Savings Max Duration:</p>
+                    )}
                     <div className="days_left_numb">
-                      {product_duration == 1 ? (
-                        <p className="left_num_nu">Out Right Buy</p>
-                      ) : null}
-                      {product_duration == 2 ? (
-                        <p className="left_num_nu">2</p>
-                      ) : null}
-                      {product_duration == 3 ? (
-                        <p className="left_num_nu">4</p>
-                      ) : null}
-                      {product_duration == 4 ? (
-                        <p className="left_num_nu">6</p>
-                      ) : null}
-                      {product_duration == 5 ? (
-                        <p className="left_num_nu">12</p>
-                      ) : null}
-                      {product_duration == 1 ? null : (
-                        <p className="months_class">months</p>
+                      {product_duration == "OUTRIGHTBUY" ? (
+                        <p className="no_margg"></p>
+                      ) : (
+                        <p className="no_margg">{product_duration}day(s)</p>
                       )}
                     </div>
                   </div>
