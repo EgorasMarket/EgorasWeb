@@ -102,7 +102,7 @@ import Login from "./components/layout/Home2/Login/Login";
 import Signup from "./components/layout/Home2/Signup/Signup";
 // import Wallet
 // import Walle
-import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
+
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
 import Activation from "./components/layout/Home2/Activation/Activation";
@@ -132,6 +132,7 @@ import Documentation1 from "./components/layout/documentation/documentationSideT
 import Dashboard from "./components/layout/Home2/Dashboard/Dashboard";
 import Explore_Loans from "./components/layout/Explore_Loan/explore_loans";
 import Savings from "./components/layout/Home2/Savings/Savings";
+// import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import HomeUpdate from "./components/layout/HomeUpdate/HomeUpdate";
 import Explore_Loans_Page from "./components/layout/Explore_Loan/exploreLoanSection5";
 import Explore_Loans_Page1 from "./components/layout/Explore_Loan/exploreLoanSection7";
@@ -142,11 +143,12 @@ import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSec
 import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
+import Item_details_main from "./components/layout/Home2/item_details_page/Item_details_main";
 import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
-
+import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
   //console.log("setAuthToken");
@@ -254,6 +256,11 @@ const App = () => {
                   <Route exact path="/" component={HomeUpdate} />
                   <Route exact path="/activation" component={Activation} />
                   <Route exact path="/savings" component={Savings} />
+                  <Route
+                    exact
+                    path="/products/details/:id"
+                    component={Item_details_main}
+                  />
                   <Route exact path="/loan" component={Newhome2} />
                   <Route exact path="/validator" component={Landing} />
                   {/* <Route exact path='/loan/details/:id' component={Loan} /> */}
@@ -317,6 +324,16 @@ const App = () => {
                     path="/documentation1"
                     component={Documentation1}
                   />
+                  <Route
+                    exact
+                    path="/products/details/:id/:name"
+                    component={ItemDetailsPage}
+                  />
+                  {/* <Route
+                    exact
+                    path="/products/details/:id/:name"
+                    component={ItemDetailsPage}
+                  /> */}
                   <Route
                     exact
                     path="/egoras-decentralized-autonomous-organization"

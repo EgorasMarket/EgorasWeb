@@ -2,6 +2,7 @@ import React, {useState, } from 'react'
 
 const Accordion = ({ title, children }) => {
   const [isOpen, setOpen] = React.useState(false);
+  
   return (
     <div className="accordion-wrapper">
       <div
