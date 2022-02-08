@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Carousel from "react-multi-carousel";
+import { connect, useDispatch } from "react-redux";
+import axios from "axios";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../../actions/types";
 import NumberFormat from "react-number-format";
 import "../../../../css/savings.css";
 
@@ -114,10 +120,44 @@ const responsive6 = {
 };
 
 const Savings = () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   //   var elementoo = document.getElementById("element");
   // //   const paused = elementoo.style.animationPlayState === "paused";
 
   //   const running = elementoo.style.animationPlayState === "running";
+
+  const [itemGalleryShow, setItemGalleryShow] = useState([]);
+  const [outrightProducts, setOutrightProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip");
+
+        setItemGalleryShow(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip222");
+
+        setOutrightProducts(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
   return (
     <div>
       <section className="savings_section">
@@ -274,7 +314,7 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {itemDetails.map((asset) => (
+              {outrightProducts.map((asset) => (
                 // <div className="cardA">
                 //   <div className="img">
                 //     <div
@@ -330,40 +370,78 @@ const Savings = () => {
                 //     </div>
                 //   </div>
                 //   </div>
-                <a href={`/products/details/${asset.id}/${asset.name}`}>
-                  <li className="carous_list">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${asset.img})`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
                     >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.Save_button}
-                        </button>
-                        <button className="items_remaining_btn2">
-                          {asset.percentage} off
-                        </button>
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
-                        <div className="asset_title">
-                          {asset.items_remainings}
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
+                      </li>
+                    </a>
               ))}
             </Carousel>
             {/* Carousel end==============================
@@ -372,6 +450,1270 @@ const Savings = () => {
           </div>
         </div>
       </section>
+
+
+
+
+
+     {/*  Projects Section start*/}
+     <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsLinea"></div>
+            <div className="projectsTitleContentsa">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Top Deals</h1>
+              </div>
+              {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {outrightProducts.map((asset) => (
+                // <div className="cardA">
+                //   <div className="img">
+                //     <div
+                //       className="img-sub"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                //         height: "200px",
+                //         width: "100%",
+                //         backgroundRepeat: "no-repeat",
+                //         backgroundSize: "cover",
+                //         borderRadius: "8px",
+                //         borderBottomLeftRadius: "0px",
+                //         borderBottomRightRadius: "0px",
+                //         backgroundPositionY: "center",
+                //       }}
+                //     >
+                //       {/* <div className="img-amount">
+                //       <NumberFormat
+                //         value={1000}
+                //         displayitems_remainings={"text"}
+                //         thousandSeparator={true}
+                //         prefix={"$"}
+                //       />
+                //     </div> */}
+                //     </div>
+                //   </div>
+
+                //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                //     <h1 className="cardHeader">{asset.name}</h1>
+                //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                //     <div className="heroSlider2">
+                //       <div className="slider-txts1">
+                //         <div className="h-texts">
+                //           <h3 className="htxt1a">{asset.days_left}</h3>
+                //           <h3 className="htxt2a">{asset.percentage}</h3>
+                //         </div>
+                //       </div>
+                //       {/* <div className="slider-a"></div> */}
+                //       <div className="slider" style={{ height: "7px" }}>
+                //         <div
+                //           className="sliderafter"
+                //           style={{
+                //             width: `5%`,
+                //             height: "7px",
+                //           }}
+                //         ></div>
+                //       </div>
+                //       <div className="slider-txts2">
+                //         <div className="p-texts2a">
+                //           <p className="ptxt2a">Remaining Items: 100</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
+      
+     {/*  Projects Section start*/}
+     <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsLinea"></div>
+            <div className="projectsTitleContentsa">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Top Deals</h1>
+              </div>
+              {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {outrightProducts.map((asset) => (
+                // <div className="cardA">
+                //   <div className="img">
+                //     <div
+                //       className="img-sub"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                //         height: "200px",
+                //         width: "100%",
+                //         backgroundRepeat: "no-repeat",
+                //         backgroundSize: "cover",
+                //         borderRadius: "8px",
+                //         borderBottomLeftRadius: "0px",
+                //         borderBottomRightRadius: "0px",
+                //         backgroundPositionY: "center",
+                //       }}
+                //     >
+                //       {/* <div className="img-amount">
+                //       <NumberFormat
+                //         value={1000}
+                //         displayitems_remainings={"text"}
+                //         thousandSeparator={true}
+                //         prefix={"$"}
+                //       />
+                //     </div> */}
+                //     </div>
+                //   </div>
+
+                //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                //     <h1 className="cardHeader">{asset.name}</h1>
+                //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                //     <div className="heroSlider2">
+                //       <div className="slider-txts1">
+                //         <div className="h-texts">
+                //           <h3 className="htxt1a">{asset.days_left}</h3>
+                //           <h3 className="htxt2a">{asset.percentage}</h3>
+                //         </div>
+                //       </div>
+                //       {/* <div className="slider-a"></div> */}
+                //       <div className="slider" style={{ height: "7px" }}>
+                //         <div
+                //           className="sliderafter"
+                //           style={{
+                //             width: `5%`,
+                //             height: "7px",
+                //           }}
+                //         ></div>
+                //       </div>
+                //       <div className="slider-txts2">
+                //         <div className="p-texts2a">
+                //           <p className="ptxt2a">Remaining Items: 100</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+
+        
+      
+     {/*  Projects Section start*/}
+     <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsLinea"></div>
+            <div className="projectsTitleContentsa">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Phones & Tablet</h1>
+              </div>
+              {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {outrightProducts.map((asset) => (
+                // <div className="cardA">
+                //   <div className="img">
+                //     <div
+                //       className="img-sub"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                //         height: "200px",
+                //         width: "100%",
+                //         backgroundRepeat: "no-repeat",
+                //         backgroundSize: "cover",
+                //         borderRadius: "8px",
+                //         borderBottomLeftRadius: "0px",
+                //         borderBottomRightRadius: "0px",
+                //         backgroundPositionY: "center",
+                //       }}
+                //     >
+                //       {/* <div className="img-amount">
+                //       <NumberFormat
+                //         value={1000}
+                //         displayitems_remainings={"text"}
+                //         thousandSeparator={true}
+                //         prefix={"$"}
+                //       />
+                //     </div> */}
+                //     </div>
+                //   </div>
+
+                //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                //     <h1 className="cardHeader">{asset.name}</h1>
+                //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                //     <div className="heroSlider2">
+                //       <div className="slider-txts1">
+                //         <div className="h-texts">
+                //           <h3 className="htxt1a">{asset.days_left}</h3>
+                //           <h3 className="htxt2a">{asset.percentage}</h3>
+                //         </div>
+                //       </div>
+                //       {/* <div className="slider-a"></div> */}
+                //       <div className="slider" style={{ height: "7px" }}>
+                //         <div
+                //           className="sliderafter"
+                //           style={{
+                //             width: `5%`,
+                //             height: "7px",
+                //           }}
+                //         ></div>
+                //       </div>
+                //       <div className="slider-txts2">
+                //         <div className="p-texts2a">
+                //           <p className="ptxt2a">Remaining Items: 100</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+
+          
+      
+     {/*  Projects Section start*/}
+     <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsLinea"></div>
+            <div className="projectsTitleContentsa">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Nfts</h1>
+              </div>
+              {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {outrightProducts.map((asset) => (
+                // <div className="cardA">
+                //   <div className="img">
+                //     <div
+                //       className="img-sub"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                //         height: "200px",
+                //         width: "100%",
+                //         backgroundRepeat: "no-repeat",
+                //         backgroundSize: "cover",
+                //         borderRadius: "8px",
+                //         borderBottomLeftRadius: "0px",
+                //         borderBottomRightRadius: "0px",
+                //         backgroundPositionY: "center",
+                //       }}
+                //     >
+                //       {/* <div className="img-amount">
+                //       <NumberFormat
+                //         value={1000}
+                //         displayitems_remainings={"text"}
+                //         thousandSeparator={true}
+                //         prefix={"$"}
+                //       />
+                //     </div> */}
+                //     </div>
+                //   </div>
+
+                //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                //     <h1 className="cardHeader">{asset.name}</h1>
+                //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                //     <div className="heroSlider2">
+                //       <div className="slider-txts1">
+                //         <div className="h-texts">
+                //           <h3 className="htxt1a">{asset.days_left}</h3>
+                //           <h3 className="htxt2a">{asset.percentage}</h3>
+                //         </div>
+                //       </div>
+                //       {/* <div className="slider-a"></div> */}
+                //       <div className="slider" style={{ height: "7px" }}>
+                //         <div
+                //           className="sliderafter"
+                //           style={{
+                //             width: `5%`,
+                //             height: "7px",
+                //           }}
+                //         ></div>
+                //       </div>
+                //       <div className="slider-txts2">
+                //         <div className="p-texts2a">
+                //           <p className="ptxt2a">Remaining Items: 100</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+          
+     {/*  Projects Section start*/}
+     <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsLinea"></div>
+            <div className="projectsTitleContentsa">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Computers & Appliances</h1>
+              </div>
+              {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {outrightProducts.map((asset) => (
+                // <div className="cardA">
+                //   <div className="img">
+                //     <div
+                //       className="img-sub"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                //         height: "200px",
+                //         width: "100%",
+                //         backgroundRepeat: "no-repeat",
+                //         backgroundSize: "cover",
+                //         borderRadius: "8px",
+                //         borderBottomLeftRadius: "0px",
+                //         borderBottomRightRadius: "0px",
+                //         backgroundPositionY: "center",
+                //       }}
+                //     >
+                //       {/* <div className="img-amount">
+                //       <NumberFormat
+                //         value={1000}
+                //         displayitems_remainings={"text"}
+                //         thousandSeparator={true}
+                //         prefix={"$"}
+                //       />
+                //     </div> */}
+                //     </div>
+                //   </div>
+
+                //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                //     <h1 className="cardHeader">{asset.name}</h1>
+                //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                //     <div className="heroSlider2">
+                //       <div className="slider-txts1">
+                //         <div className="h-texts">
+                //           <h3 className="htxt1a">{asset.days_left}</h3>
+                //           <h3 className="htxt2a">{asset.percentage}</h3>
+                //         </div>
+                //       </div>
+                //       {/* <div className="slider-a"></div> */}
+                //       <div className="slider" style={{ height: "7px" }}>
+                //         <div
+                //           className="sliderafter"
+                //           style={{
+                //             width: `5%`,
+                //             height: "7px",
+                //           }}
+                //         ></div>
+                //       </div>
+                //       <div className="slider-txts2">
+                //         <div className="p-texts2a">
+                //           <p className="ptxt2a">Remaining Items: 100</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
+        
+     {/*  Projects Section start*/}
+     <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsLinea"></div>
+            <div className="projectsTitleContentsa">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Furnitures</h1>
+              </div>
+              {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {outrightProducts.map((asset) => (
+                // <div className="cardA">
+                //   <div className="img">
+                //     <div
+                //       className="img-sub"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                //         height: "200px",
+                //         width: "100%",
+                //         backgroundRepeat: "no-repeat",
+                //         backgroundSize: "cover",
+                //         borderRadius: "8px",
+                //         borderBottomLeftRadius: "0px",
+                //         borderBottomRightRadius: "0px",
+                //         backgroundPositionY: "center",
+                //       }}
+                //     >
+                //       {/* <div className="img-amount">
+                //       <NumberFormat
+                //         value={1000}
+                //         displayitems_remainings={"text"}
+                //         thousandSeparator={true}
+                //         prefix={"$"}
+                //       />
+                //     </div> */}
+                //     </div>
+                //   </div>
+
+                //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                //     <h1 className="cardHeader">{asset.name}</h1>
+                //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                //     <div className="heroSlider2">
+                //       <div className="slider-txts1">
+                //         <div className="h-texts">
+                //           <h3 className="htxt1a">{asset.days_left}</h3>
+                //           <h3 className="htxt2a">{asset.percentage}</h3>
+                //         </div>
+                //       </div>
+                //       {/* <div className="slider-a"></div> */}
+                //       <div className="slider" style={{ height: "7px" }}>
+                //         <div
+                //           className="sliderafter"
+                //           style={{
+                //             width: `5%`,
+                //             height: "7px",
+                //           }}
+                //         ></div>
+                //       </div>
+                //       <div className="slider-txts2">
+                //         <div className="p-texts2a">
+                //           <p className="ptxt2a">Remaining Items: 100</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
+         
+     {/*  Projects Section start*/}
+     <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsLinea"></div>
+            <div className="projectsTitleContentsa">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Electronics</h1>
+              </div>
+              {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {outrightProducts.map((asset) => (
+                // <div className="cardA">
+                //   <div className="img">
+                //     <div
+                //       className="img-sub"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                //         height: "200px",
+                //         width: "100%",
+                //         backgroundRepeat: "no-repeat",
+                //         backgroundSize: "cover",
+                //         borderRadius: "8px",
+                //         borderBottomLeftRadius: "0px",
+                //         borderBottomRightRadius: "0px",
+                //         backgroundPositionY: "center",
+                //       }}
+                //     >
+                //       {/* <div className="img-amount">
+                //       <NumberFormat
+                //         value={1000}
+                //         displayitems_remainings={"text"}
+                //         thousandSeparator={true}
+                //         prefix={"$"}
+                //       />
+                //     </div> */}
+                //     </div>
+                //   </div>
+
+                //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                //     <h1 className="cardHeader">{asset.name}</h1>
+                //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                //     <div className="heroSlider2">
+                //       <div className="slider-txts1">
+                //         <div className="h-texts">
+                //           <h3 className="htxt1a">{asset.days_left}</h3>
+                //           <h3 className="htxt2a">{asset.percentage}</h3>
+                //         </div>
+                //       </div>
+                //       {/* <div className="slider-a"></div> */}
+                //       <div className="slider" style={{ height: "7px" }}>
+                //         <div
+                //           className="sliderafter"
+                //           style={{
+                //             width: `5%`,
+                //             height: "7px",
+                //           }}
+                //         ></div>
+                //       </div>
+                //       <div className="slider-txts2">
+                //         <div className="p-texts2a">
+                //           <p className="ptxt2a">Remaining Items: 100</p>
+                //         </div>
+                //       </div>
+                //     </div>
+                //   </div>
+                //   </div>
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
       {/*  Projects Section end*/}
       {/* =================================================================================================================================================================================================================================================================== */}
       {/*  Projects Section start*/}
@@ -385,7 +1727,7 @@ const Savings = () => {
             <div className="projectsLinea"></div>
             <div className="projectsTitleContentsa">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Most Popular</h1>
+                <h1 className="gttitle TITE">Musical Equipments</h1>
               </div>
               {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -411,7 +1753,7 @@ const Savings = () => {
               // transitionDuration={1000}
               style={{ height: "25em" }}
             >
-              {itemDetails.map((asset) => (
+              {outrightProducts.map((asset) => (
                 // <div className="cardA">
                 //   <div className="img">
                 //     <div
@@ -520,7 +1862,7 @@ const Savings = () => {
             <div className="projectsLinea"></div>
             <div className="projectsTitleContentsa">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">New Deals</h1>
+                <h1 className="gttitle TITE">industrial Equipments</h1>
               </div>
               {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -545,7 +1887,7 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {itemDetails.map((asset) => (
+              {outrightProducts.map((asset) => (
                 // <div className="cardA">
                 //   <div className="img">
                 //     <div

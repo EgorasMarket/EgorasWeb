@@ -395,7 +395,7 @@ function ItemDetailsPage({ auth, match }) {
           />
         </div>
       )}
-      
+
       {/* {dataFlow.map((item)=>{return( */}
       <section className="no-bg">
         <div className="container">
@@ -422,7 +422,7 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 <div
                   className="product_details_code"
-                  style={{ color: "#239e54" }}
+                  style={{ color: "#000000" }}
                 >
                   <span className="product_code_title">Brand: </span>
                   {product_brand}
@@ -562,39 +562,42 @@ function ItemDetailsPage({ auth, match }) {
                   ))}
                 </div> */}
 
+               
               <div className="description_body">
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
+                    {spec.map((apple)=>(
                       <tr>
                         {/* <td>Colour</td> */}
-                        <td>{spec[0]}</td>
+                        <td>{apple}</td>
                       </tr>
-                      <tr>
+                      ))}
+                      {/* <tr> */}
                         {/* <td>Warranty Period</td> */}
-                        <td>{spec[1]}</td>
-                      </tr>
+                        {/* <td>{spec[1]}</td> */}
+                      {/* </tr> */}
                       {/* <tr>
                        <td>
                        {tree[0]}
                        </td>
                       </tr> */}
-                      <tr>
+                      {/* <tr> */}
                         {/* <td>Brand</td> */}
-                        <td>{spec[2]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[2]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>Display Features</td> */}
-                        <td>{spec[3]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[3]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>Display Technology</td> */}
-                        <td>{spec[4]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[4]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr>
                         {/* <td>TV Screen Size</td> */}
-                        <td>{spec[5]}</td>
-                      </tr>
+                        {/* <td>{spec[5]}</td> */}
+                      {/* </tr> */} 
                       {/* <tr> */}
                       {/* <td>Television 3D Technology</td> */}
                       {/* <td>{spec[6]}</td> */}
