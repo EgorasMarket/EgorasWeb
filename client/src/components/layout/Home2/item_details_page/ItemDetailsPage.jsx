@@ -449,24 +449,9 @@ function ItemDetailsPage({ auth, match }) {
                   <div className="max_dura">
                     Savings max-duration:{" "}
                     <div className="days_left_numb">
-                      {product_duration == 1 ? (
-                        <p className="left_num_nu">Out Right Buy</p>
-                      ) : null}
-                      {product_duration == 2 ? (
-                        <p className="left_num_nu">2</p>
-                      ) : null}
-                      {product_duration == 3 ? (
-                        <p className="left_num_nu">4</p>
-                      ) : null}
-                      {product_duration == 4 ? (
-                        <p className="left_num_nu">6</p>
-                      ) : null}
-                      {product_duration == 5 ? (
-                        <p className="left_num_nu">12</p>
-                      ) : null}
-                      {product_duration == 1 ? null : (
-                        <p className="months_class">months</p>
-                      )}
+                      {
+                        
+                     }
                     </div>
                   </div>
                 </div>

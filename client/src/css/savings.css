@@ -105,7 +105,7 @@ button.savings_area_btn {
 .carous_list {
   box-sizing: border-box;
   display: inline-block;
-  height: 270px;
+  height: 230px;
   /* left: 2912px; */
   list-style-type: none;
   margin: auto 12px;
@@ -121,7 +121,7 @@ button.savings_area_btn {
 }
 
 .storeTiles_storeTileContainer__HoGEa {
-  background-position: 50%;
+  background-position: 48%;
   background-repeat: no-repeat;
   background-size: cover;
   border-radius: 0.75rem;
@@ -152,7 +152,7 @@ button.savings_area_btn {
   padding: 0.25rem 0.5rem;
   position: relative;
   box-shadow: 0px 0px 3px grey;
-  bottom: 2px;
+  bottom: -1px;
   flex-direction: column;
   align-items: flex-start;
 }
@@ -186,7 +186,7 @@ button.savings_area_btn {
   color: #8b8b8b;
   text-decoration: line-through 1px !important;
   font-weight: 500;
-  font-size: 13px;
+  font-size: 11px;
 }
 
 .items_remaining_btn {
@@ -201,13 +201,14 @@ button.savings_area_btn {
 }
 .items_remaining_btn2 {
   color: #239e54;
-  width: 30%;
-  font-size: 9px;
+  width: 40%;
+  font-size: 10px;
   border: solid;
   background: #ffffff;
   border-radius: 6px;
   padding: 0.5em 0em;
   /* border-width: 1px; */
+  font-weight: 700;
   border-width: 1px;
 }
 .LEFTARROW .react-multiple-carousel__arrow--left {
@@ -258,4 +259,28 @@ button.savings_area_btn {
 }
 .no_margg {
   margin: 0px;
+}
+.forward_icons {
+  font-size: 18px !important;
+}
+.see_all_cat {
+  display: flex;
+  align-items: center;
+  color: #000;
+}
+.ouright_sell {
+  color: #229e54;
+  font-weight: 700;
+  font-size: 18px;
+}
+.asset_prices_div {
+  display: flex;
+  gap: 25px;
+  justify-content: space-between;
+  align-items: center;
+}
+.amount_per_day_div {
+  color: #229e54;
+  font-size: 12px;
+  font-weight: 700;
 }

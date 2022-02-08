@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Carousel from "react-multi-carousel";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 import {
@@ -220,9 +221,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Top Deals</h1>
+                <h1 className="gttitle TITE">
+                  Top Deals{" "}
+                  <span className="ouright_sell">/ Outright sell-off.</span>
+                </h1>
               </div>
-              <a href="see_all_cat">See all</a>
+              <a href="" className="see_all_cat">
+                See all <ArrowForwardIosIcon className="forward_icons" />
+              </a>
             </div>
 
             {/* Carousel start==============================
@@ -287,6 +293,110 @@ const Savings = () => {
                           <span className="slashed_price">
                             ₦{numberWithCommas(asset.amount * 2)}
                           </span>
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+              ))}
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+      {/*  Projects Section end*/}
+      {/* =================================================================================================================================================================================================================================================================== */}
+      {/* =================================================================================================================================================================================================================================================================== */}
+      {/*  Projects Section start*/}
+      <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea item_card_area"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsTitleContentsa bg_a">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Phone & Tablets</h1>
+              </div>
+              <a href="" className="see_all_cat">
+                See all <ArrowForwardIosIcon className="forward_icons" />
+              </a>
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {itemGalleryShow.map((asset) => (
+                <a href={`/products/details/${asset.id}`}>
+                  <li className="carous_list">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
+                        //           height: "200px",
+                        //           width: "100%",
+                        //           backgroundRepeat: "no-repeat",
+                        //           backgroundSize: "cover",
+                        //           borderRadius: "8px",
+                        //           borderBottomLeftRadius: "0px",
+                        //           borderBottomRightRadius: "0px",
+                        //   backgroundPositionY: "center",
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <p className="no_margg"> Buy now</p>
+                          ) : (
+                            <p className="no_margg"> Save now</p>
+                          )}
+                        </button>
+
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <div></div>
+                        ) : (
+                          <button className="items_remaining_btn2">
+                            {" "}
+                            {asset.percentage}% locked
+                          </button>
+                        )}
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.product_name}</div>
+                        <div className="asset_prices_div">
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.amount * 2)}
+                            </span>
+                          </div>
+                          <div className="amount_per_day_div">
+                            {numberWithCommas(
+                              asset.amount / asset.product_duration
+                            )} 
+                             / perday
+                          </div>
                         </div>
                       </div>
                       {/* </a> */}
