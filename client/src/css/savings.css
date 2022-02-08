@@ -96,7 +96,7 @@ button.savings_area_btn {
 }
 
 .LEFTARROW {
-  margin-top: 30px;
+  margin-top: 10px;
   position: relative;
   z-index: 3;
   padding: 1em 0em;
@@ -105,7 +105,7 @@ button.savings_area_btn {
 .carous_list {
   box-sizing: border-box;
   display: inline-block;
-  height: 228px;
+  height: 270px;
   /* left: 2912px; */
   list-style-type: none;
   margin: auto 12px;
@@ -130,6 +130,7 @@ button.savings_area_btn {
   flex-direction: column;
   justify-content: space-between;
   height: 14.25rem;
+  height: 100%;
   padding: 0.25rem;
   width: 100%;
   grid-column: span 2 / span 2;
@@ -147,29 +148,45 @@ button.savings_area_btn {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  min-height: 2.5rem;
+  min-height: 3.2rem;
   padding: 0.25rem 0.5rem;
   position: relative;
   box-shadow: 0px 0px 3px grey;
-  bottom: 0px;
+  bottom: 2px;
+  flex-direction: column;
+  align-items: flex-start;
 }
 .asset_name {
-  font-weight: 700;
+  font-size: 14px;
+  font-weight: 400;
+  /* font-weight: 300; */
   text-align: left;
-  font-size: 12px;
+  /* font-size: 13px; */
   color: #000000;
   white-space: nowrap;
-  width: 50%;
+  width: 100%;
   /* border: 1px solid #000000; */
   overflow: hidden;
   text-overflow: ellipsis;
-  /* margin-bottom: 10px; */
+  /* margin-bottom: 10px;*/
 }
 .asset_title {
-  width: 50%;
-  font-size: 10px;
-  text-align: right;
-  color: #239e54;
+  width: 100%;
+  text-align: left;
+  color: #000000;
+  display: flex;
+  align-items: baseline;
+  grid-gap: 0px;
+  gap: 0px;
+  font-size: 16px;
+  font-weight: 700;
+  flex-direction: column;
+}
+.slashed_price {
+  color: #8b8b8b;
+  text-decoration: line-through 1px !important;
+  font-weight: 500;
+  font-size: 13px;
 }
 
 .items_remaining_btn {
@@ -184,7 +201,7 @@ button.savings_area_btn {
 }
 .items_remaining_btn2 {
   color: #239e54;
-  width: 25%;
+  width: 30%;
   font-size: 9px;
   border: solid;
   background: #ffffff;
@@ -207,10 +224,38 @@ button.savings_area_btn {
   font-weight: 900;
   color: #000;
 }
-.LEFTARROW .react-multiple-carousel__arrow--left,
 .LEFTARROW .react-multiple-carousel__arrow--right {
   background-color: #ffffff !important;
   box-shadow: 0px 0px 15px #b8d2c2;
   right: 2px;
   top: 45%;
+}
+.LEFTARROW .react-multiple-carousel__arrow--left {
+  background-color: #ffffff !important;
+  box-shadow: 0px 0px 15px #b8d2c2;
+
+  top: 45%;
+}
+.item_card_area {
+  padding: 2em 0em;
+  background: #ffffff;
+  border-radius: 15px;
+  box-shadow: 0px 0px 10px #dbdbdb;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  padding-bottom: 0em;
+  padding-top: 0;
+}
+.bg_a {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #d3ebdc;
+  padding-top: 0em;
+  border-top-right-radius: 15px;
+  border-top-left-radius: 15px;
+  padding: 0em 2em;
+}
+.no_margg {
+  margin: 0px;
 }
