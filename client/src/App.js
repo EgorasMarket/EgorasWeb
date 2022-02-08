@@ -132,6 +132,7 @@ import Documentation1 from "./components/layout/documentation/documentationSideT
 import Dashboard from "./components/layout/Home2/Dashboard/Dashboard";
 import Explore_Loans from "./components/layout/Explore_Loan/explore_loans";
 import Savings from "./components/layout/Home2/Savings/Savings";
+// import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
 import HomeUpdate from "./components/layout/HomeUpdate/HomeUpdate";
 import Explore_Loans_Page from "./components/layout/Explore_Loan/exploreLoanSection5";
 import Explore_Loans_Page1 from "./components/layout/Explore_Loan/exploreLoanSection7";
@@ -254,6 +255,11 @@ const App = () => {
                   <Route exact path="/" component={HomeUpdate} />
                   <Route exact path="/activation" component={Activation} />
                   <Route exact path="/savings" component={Savings} />
+                  <Route
+                    exact
+                    path="/products/details/:id/:name"
+                    component={ItemDetailsPage}
+                  />
                   <Route exact path="/loan" component={Newhome2} />
                   <Route exact path="/validator" component={Landing} />
                   {/* <Route exact path='/loan/details/:id' component={Loan} /> */}

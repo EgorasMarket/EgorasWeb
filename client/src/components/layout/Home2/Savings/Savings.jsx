@@ -1,6 +1,12 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import Carousel from "react-multi-carousel";
+import { connect, useDispatch } from "react-redux";
+import axios from "axios";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../../actions/types";
 import NumberFormat from "react-number-format";
 import "../../../../css/savings.css";
 
@@ -114,10 +120,44 @@ const responsive6 = {
 };
 
 const Savings = () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   //   var elementoo = document.getElementById("element");
   // //   const paused = elementoo.style.animationPlayState === "paused";
 
   //   const running = elementoo.style.animationPlayState === "running";
+
+  const [itemGalleryShow, setItemGalleryShow] = useState([]);
+  const [outrightProducts, setOutrightProducts] = useState([]);
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip");
+
+        setItemGalleryShow(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip222");
+
+        setOutrightProducts(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
   return (
     <div>
       <section className="savings_section">
@@ -274,7 +314,7 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {itemDetails.map((asset) => (
+              {outrightProducts.map((asset) => (
                 // <div className="cardA">
                 //   <div className="img">
                 //     <div
@@ -330,40 +370,78 @@ const Savings = () => {
                 //     </div>
                 //   </div>
                 //   </div>
-                <a href={`/products/details/${asset.id}/${asset.name}`}>
-                  <li className="carous_list">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${asset.img})`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
+                // <a href={`/products/details/${asset.id}/${asset.name}`}>
+                //   <li className="carous_list">
+                //     <div
+                //       className="storeTiles_storeTileContainer__HoGEa"
+                //       style={{
+                //         backgroundImage: `url(${asset.img})`,
+                       
+                //       }}
+                //     >
+                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                //         <button className="items_remaining_btn">
+                //           {asset.Save_button}
+                //         </button>
+                //         <button className="items_remaining_btn2">
+                //           {asset.percentage} off
+                //         </button>
+                //       </div>
+                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                //         <div className="asset_name">{asset.name}</div>
+                //         <div className="asset_title">
+                //           {asset.items_remainings}
+                //         </div>
+                //       </div>
+                     
+                //     </div>
+                //   </li>
+                // </a>
+                <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
                     >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.Save_button}
-                        </button>
-                        <button className="items_remaining_btn2">
-                          {asset.percentage} off
-                        </button>
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.name}</div>
-                        <div className="asset_title">
-                          {asset.items_remainings}
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              save now
+                            </button>
+                            <button className="items_remaining_btn2">
+                              40 off
+                            </button>
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              {asset.unitCount}
+                              {asset.unitCount === 1
+                                ? "item"
+                                : asset.unitCount < 1
+                                ? " "
+                                : "items"}
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
+                      </li>
+                    </a>
               ))}
             </Carousel>
             {/* Carousel end==============================
