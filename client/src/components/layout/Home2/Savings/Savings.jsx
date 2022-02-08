@@ -398,7 +398,7 @@ const Savings = () => {
                 //   </li>
                 // </a>
                 <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
                     >
                       <li className="carous_list">
                         <div
