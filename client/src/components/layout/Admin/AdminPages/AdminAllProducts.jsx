@@ -23,15 +23,23 @@ const data = [
   },
 ];
 
+const way = window.location.pathname;
 
 let PageSize = 10;
 const AdminAllProducts = () => {
   const [itemdisplay,setItemDisplay] = useState([]);
+  const [rolesInfo,setRolesInfo]= useState({
+    role20:""
+  })
+
+
+  const {role20} = rolesInfo
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
 
 
   useEffect(() => {
@@ -53,6 +61,28 @@ const AdminAllProducts = () => {
       });
 
     
+  }, []);
+
+
+      
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/admin/info",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.user, "line_ful");
+        setRolesInfo({
+          role20:data.data.user.role,
+        })
+       
+    
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      }); 
   }, []);
 
 
@@ -99,6 +129,8 @@ const AdminAllProducts = () => {
 }
 
   return (
+    <>
+         {/* {(role20 === "HOD_MEDIA") && (way ===  "/super_admin/all_products" )? */}
     <div className="other2">
       <section className="no-bg">
       <div className="container">
@@ -215,6 +247,8 @@ const AdminAllProducts = () => {
         </div>
       </section>
     </div>
+    {/* :null} */}
+    </>
   );
 };
 

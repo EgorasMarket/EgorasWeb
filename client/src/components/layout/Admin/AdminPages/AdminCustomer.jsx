@@ -7,9 +7,18 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
+
+
+const way = window.location.pathname;
+
 const AdminCustomer = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [rolesInfos,setRolesInfos]= useState({
+    role201:""
+  })
+
+  const {role201}=rolesInfos;
 
   const [allCustomers, setAllCustomers] = useState([]);
   const config = {
@@ -47,6 +56,30 @@ const AdminCustomer = () => {
   //     });
   // }, []);
 
+
+
+       
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/admin/info",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.user, "line_ful");
+        setRolesInfos({
+          role201:data.data.user.role,
+        })
+       
+    
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      }); 
+  }, []);
+
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     console.log(event.target.value);
@@ -73,6 +106,8 @@ const AdminCustomer = () => {
   // =========
   // =========
   return (
+    <>
+       {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
     <div className="other2">
       <section className="no-bg">
         <div className="container">
@@ -156,6 +191,8 @@ const AdminCustomer = () => {
         </div>
       </section>
     </div>
+    {/* :null} */}
+    </>
   );
 };
 
