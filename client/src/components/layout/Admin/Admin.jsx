@@ -9,12 +9,27 @@ import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminAllView from "./AdminPages/AdminAllProductView";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
+import axios from "axios";
+import {
+  PRODUCT_LOADED,
+  API_URL2 as api_url2,
+} from "../../../actions/types";
 
 import "./AdminStyles/admin.css";
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
+  const [roleDisplay,setRoleDisplay]= useState({
+    Role:""
+  })
+
+  const {Role} = roleDisplay;
   console.log(isAuthenticated, loading);
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   useEffect(() => {
     // console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
@@ -29,6 +44,29 @@ const Admin = ({ isAuthenticated, loading }) => {
 
     // setSplashScreen(true);
   }, [isAuthenticated]);
+
+
+    
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/admin/info",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.user, "line_ful");
+        setRoleDisplay({
+          Role:data.data.user.role,
+        })
+       
+    
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      }); 
+  }, []);
+
   return (
     <div>
       <Route>
@@ -38,33 +76,39 @@ const Admin = ({ isAuthenticated, loading }) => {
           <div className="admin">
             <AdminSideBar />
             <Switch>
-              <Route exact path="/super_admin" component={AdminUploadProducts} />
-              {/* <Route exact path="/super_admin/admin" component={AdminTest} /> */}
+            {Role === "MEDIA"?  <Route exact path="/super_admin" component={AdminUploadProducts} />: 
+               Role === "BUSINESS_ADMIN" ?
+               <Route
+               exact
+               path="/super_admin/register_user"
+               component={RegisterCustomer}
+               />:
+
+           (( Role === "CASHIER") || (Role === "CUSTOMER_SERVICE" ))?
               <Route
-                exact
-                path="/super_admin/register_user"
-                component={RegisterCustomer}
-              />
+              exact
+              path="/super_admin/all_user"
+              component={AdminCustomer}
+              />:
+
+              Role === "HOD_MEDIA" ?
               <Route
-                exact
-                path="/super_admin/all_user"
-                component={AdminCustomer}
-              />
-              <Route
-                exact
-                path="/super_admin/all_products"
-                component={AdminAllProducts}
-              />
+              exact
+              path="/super_admin/all_products"
+              component={AdminAllProducts}
+              />:null}
+
               <Route
                 exact
                 path="/super_admin/all_products_view/:id/:name"  
                 // path="/dashboard/products/details/:id/:name"
                 // / dashboard/products/details/:id/:name
                 component={AdminAllView}
-              />
+                />
             </Switch>
           </div>
         )}
+        {/* <Route exact path="/super_admin/admin" component={AdminTest} /> */}
       </Route>
     </div>
   );

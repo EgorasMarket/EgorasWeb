@@ -270,6 +270,7 @@ function ItemDetailsPage({ auth, match }) {
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
   const [date, setDate] = useState(null);
+  const [itemdisplay,setItemDisplay] = useState([]);
 
   const [workss,setWorkss]=useState([]);
   // const iteming = unitCount;
@@ -409,6 +410,31 @@ function ItemDetailsPage({ auth, match }) {
         console.log(err); // "oh, no!"
       });
   }, []);
+
+
+
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/new/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "chukwubuike");
+     
+       
+        setItemDisplay(data.data.data);
+
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
 
   const ID = match.params.id;
 
@@ -641,6 +667,7 @@ function ItemDetailsPage({ auth, match }) {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
+                  
                   <button
                     className="buy_now_button"
                     // onClick={() => {
@@ -658,6 +685,7 @@ function ItemDetailsPage({ auth, match }) {
                   >
                     {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
                   </button>
+               
 
                   {/* <div className="save_later">
                     <button className="save_later_btn">

@@ -411,7 +411,8 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.slice(0).map((asset,index1) => {if ( phoneTablets === asset.product_category_code) return(
+                {item.slice(0,8).map((asset,index1) => {if ( phoneTablets === asset.product_category_code)
+                 return(
                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index1.toString()}>
                     <li className="carous_list no_marg">
                       <div
@@ -469,6 +470,8 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.slice(0,12).map((asset,index2) => (
+
+               
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index2.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -503,7 +506,9 @@ function DashboardInvestPage({ auth }) {
                     </div>
                   </li>
                 </a>
-              ))}
+
+             
+))}
             </div>
           </div>
 
@@ -531,7 +536,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.slice(0,12).map((asset,index3) => { if ( HomeApplinces === asset.product_category_code) return(
+              {item.slice(0,12).map((asset,index3) => { if ( HomeApplinces === asset.product_category_code) {return(
                 <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index3.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -559,7 +564,7 @@ function DashboardInvestPage({ auth }) {
                     </div>
                   </li>
                 </a>
-              )})}
+              )}})}
             </div>
           </div>
 
