@@ -22,6 +22,7 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
+import Login from "../Login/Login"
 
 // styles
 import "../../../../css/header.css";
@@ -255,6 +256,12 @@ const Header = () => {
   // class change on click functions
   const [page1, setPage1] = useState("/");
 
+  // const [weed,setWeed]= useState( false);
+
+  // const pad =()=>{
+  //   setWeed(!weed)
+  // }
+
   useEffect(() => {
     if (currentPage === "/loan") {
       setPage1("/loan");
@@ -422,7 +429,6 @@ const Header = () => {
             <a href="/documents" className="docs">
               Products
             </a>
-
             <a href="about" className="about">
               Company
               <ArrowDropDownIcon />
@@ -792,6 +798,8 @@ const Header = () => {
           </div>
         </div>
       </section>
+ 
+      
     </div>
   );
 };

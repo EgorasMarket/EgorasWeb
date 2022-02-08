@@ -9,7 +9,7 @@ import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import CheckoutModalComponent from './CheckoutModalComponent'
+
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
@@ -18,7 +18,22 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-
+const Accordion = ({ title, children }) => {
+  const [isOpen, setOpen] = React.useState(false);
+  return (
+    <div className="accordion-wrapper">
+      <div
+        className={`accordion-title ${isOpen ? "open" : ""}`}
+        onClick={() => setOpen(!isOpen)}
+      >
+        {title}
+      </div>
+      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
+        <div className="accordion-content">{children}</div>
+      </div>
+    </div>
+  );
+};
 function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
@@ -63,8 +78,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
-  const [dailyAmount, setDailyAmount] = useState();
-  const [initialDeposit, setInitialDeposit] = useState();
+  const [ dailyAmount , setDailyAmount ] = useState()
+  const [ initialDeposit , setInitialDeposit ] = useState()
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -81,9 +96,7 @@ function ItemDetailsPage({ auth, match }) {
   });
 
   var addedDays = 0;
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -215,7 +228,7 @@ function ItemDetailsPage({ auth, match }) {
 
         console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit);
+        setInitialDeposit(response.data.details.initial_deposit)
       })
       .catch((err) => {
         alert(err.response.data.message);
@@ -317,6 +330,7 @@ function ItemDetailsPage({ auth, match }) {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
 
+
     setAsset(assetVal);
     setBase(baseVal);
 
@@ -348,13 +362,13 @@ function ItemDetailsPage({ auth, match }) {
     x = parseInt(x);
     let result = 0;
     if (x === 5) {
-      result = 12 * 31;
+      result = 12 * 30;
     } else if (x === 4) {
-      result = 6 * 31;
+      result = 6 * 30;
     } else if (x === 3) {
-      result = 4 * 31;
+      result = 4 * 30;
     } else if (x === 2) {
-      result = 2 * 31;
+      result = 2 * 30;
     }
     return result;
   };
@@ -389,13 +403,9 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page
-            cAmount={parseInt(productDetails.amount)}
-            click={CloseModal}
-          />
+          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
         </div>
       )}
-      
       {/* {dataFlow.map((item)=>{return( */}
       <section className="no-bg">
         <div className="container">
@@ -429,21 +439,6 @@ function ItemDetailsPage({ auth, match }) {
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
-                {product_duration == 1 ? null : (
-                  <div className="amount_item_div">
-                    ₦
-                    {numberWithCommas(
-                      numberWithCommas(CalcAmtPerDay.toFixed())
-                    )}{" "}
-                    <span className="per_day"> / per-day</span>
-                  </div>
-                )}
-                {/* // =========================== */}
-                <div className="amount_item_div total_amount">
-                  <span className="sub_total_txt">Total: </span> ₦
-                  {numberWithCommas(numberWithCommas(amount))}{" "}
-                  <span className="per_day"></span>
-                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
                 <div className="lll">
@@ -470,24 +465,43 @@ function ItemDetailsPage({ auth, match }) {
                       )}
                     </div>
                   </div>
+
+                  {product_duration == 1 ? (
+                    <span>₦{amount}</span>
+                  ) : (
+                    <p className="amnt_per_day">
+                      Savings Amount to be paid per day:{""}
+                      <span className="calc_amnt_div">
+                        ₦{CalcAmtPerDay.toFixed()}
+                      </span>
+                    </p>
+                  )}
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
+                <div className="quantity_div">
+                  <div className="items_left_div">
+                    Items Left:{" "}
+                    <span className="items_left_numb">
+                      {unitCount}{" "}
+                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
+                    </span>
+                  </div>
+                </div>
                 {product_duration !== 1 ? (
                   <div className="quantity_div">
                     <div className="items_left_div">
                       This item has an upfront payment of : {percentage}%
                     </div>
                     <span className="upfront_para">
-                      That means you are to pay #
-                      {numberWithCommas(percentMoney)} before this item can be
-                      locked by you.
+                      That means you are to pay #{percentMoney} before this item
+                      can be locked by you.
                     </span>
                   </div>
                 ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                {/* {product_duration !== 1 ? (
+                {product_duration !== 1 ? (
                   <div className="date_picky">
                     <div className="date_picky_note">
                       Note: the below calendar shows the total amount of days to
@@ -499,8 +513,75 @@ function ItemDetailsPage({ auth, match }) {
                       while the green color shows the total amount of days that
                       is left for payment .
                     </div>
+                    <Accordion title="Click to view calendar">
+                      <div
+                        style={{ display: "flex", flexFlow: "column nowrap" }}
+                      >
+                        <Calendar
+                          onChange={(item) => {
+                            setEndDate(item);
+                            setStartDate(new Date());
+                            console.log(item);
+                            console.log(
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1,
+                              "days"
+                            );
+                            addedDays =
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1;
+                            const subtractedPercent = (days - addedDays) / 100;
+                            const newPercentage = 100 - subtractedPercent;
+                            console.log(newPercentage, "%");
+                            const newPercentMoney =
+                              (newPercentage / 100) * amount;
+
+                            setDaysAdded(addedDays - percentDays);
+
+                            setMoneyAdded(newPercentMoney.toFixed());
+
+                            setDaysAddedDiv(true);
+                          }}
+                          date={date}
+                          minDate={addDays(new Date(), percentDays)}
+                          maxDate={addDays(new Date(), days)}
+                          // date={date}
+                        />
+                        {daysAddedDiv == true ? (
+                          <div className="days_to_pay_now">
+                            <span className="added_">
+                              You have added{" "}
+                              <span className="day_add">
+                                {daysAdded} day(s)
+                              </span>{" "}
+                              to the previously locked days.
+                            </span>
+
+                            <span className="total_pay_now">
+                              And you are now to pay a total amount of{" "}
+                              <span className="money_add">#{moneyAdded}</span>{" "}
+                              before this item can be locked by you.
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="days_to_pay_now">
+                            <span>
+                              This item has a total of{" "}
+                              <span className="money_add">
+                                {percentDays} days
+                              </span>{" "}
+                              locked on it.
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Accordion>
                   </div>
-                ) : null} */}
+                ) : null}
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
@@ -980,7 +1061,7 @@ function ItemDetailsPage({ auth, match }) {
                               </td> */}
                               <td className="save_item_data1b">
                                 <div className="assets-data-name_last">
-                                  #{amount}
+                                  #{amount * unitCount}
                                 </div>
                               </td>
                             </tr>
@@ -1031,9 +1112,7 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">
-                        {amount * unitCount}
-                      </span>
+                      <span className="sub_total_div_span">{amount * unitCount}</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1052,10 +1131,7 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total{" "}
-                      <span className="sub_total_div_span">
-                        {amount * unitCount}
-                      </span>
+                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
