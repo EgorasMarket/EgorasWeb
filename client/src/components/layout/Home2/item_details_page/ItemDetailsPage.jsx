@@ -27,6 +27,7 @@ function ItemDetailsPage({ auth, match }) {
       "Content-Type": "application/json",
     },
   };
+  console.log(match.params.id);
 
 
 
@@ -35,13 +36,17 @@ function ItemDetailsPage({ auth, match }) {
   const [payload, setPayload] = useState({})
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
+  const [showCheckout, setCheckoutStatus] = useState(false);
+
+
+
    const openDetailsModal = () => {
     setDetailsModal(true);
   };
 
   const closeDetailModal = () => {
     setDetailsModal(false);
-  };
+  };  
   const OpenModal = () => {
       setModal(true);
   };
@@ -49,6 +54,15 @@ function ItemDetailsPage({ auth, match }) {
   const CloseModal = () => {
       setModal(false);
   };
+
+    const openCheckout = () => {
+    setCheckoutStatus(true)
+  }
+
+  const closeCheckout = () => {
+    setCheckoutStatus(false)
+  }
+  
 
   useEffect(() => {
     const body = JSON.stringify({
@@ -133,7 +147,7 @@ function ItemDetailsPage({ auth, match }) {
       }}  /> 
 
       {detailsModal === true  ? (
-        <Checkout installation_days={payload.product_duration}  product_id={product_id} customer_id={user_id}  /> 
+        <Checkout installation_days={payload.product_duration}  product_id={product_id} customer_id={user_id} /> 
       ): null}
     </div>
   );

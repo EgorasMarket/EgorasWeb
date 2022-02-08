@@ -12,25 +12,34 @@ const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, i
     //use states 
     const [isloading, setIsLoading] = useState(true); 
     const [ dailyAmount , setDailyAmount ] = useState()
-  const [ initialDeposit , setInitialDeposit ] = useState()
   const [payload, setPayload] = useState({
-      "amount_per_day": ""
   })
+  const [amount_per_day, setAmountPerDay ] = useState('')
+  const [days_left, setDaysLeft ] = useState('')
+  const [initial_deposit, setInitialDeposit ] = useState('')
+  const [installemnt_days , setInstallmentDays ] = useState('')
+  const [no_of_days , setNoOfDays ] = useState('')
+  const [product_name , setProductName ] = useState('')
+  const [product_brand , setProductBrand  ] = useState('')
+  const [product_details , setProductDetails  ] = useState('')
+  const [product_duration , setProductDuration  ] = useState('')
+  const [product_image , setProductImage  ] = useState('')
+  const [amount , setAmount  ] = useState('')
+  const [unitCount, setUnitCount ] = useState('')
+  const sub_total =  parseInt(unitCount)  * parseInt(amount);
 
-  const {
-    product_image,
-    product_name,
-    product_brand,
-    product_type,
-    unitCount,
-    amount,
-    product_duration,
-    product_category_code,
-    productSpecification,
-    product_details,
-    percentage,
-  } = payload;
+  const [showCheckout, setCheckoutStatus] = useState(false);
+   
 
+
+  const openCheckout = () => {
+    setCheckoutStatus(true)
+  }
+
+  const closeCheckout = () => {
+    setCheckoutStatus(false)
+  }
+  
 
     const checkout = async (
     customer_id,
@@ -52,17 +61,23 @@ const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, i
       .post(api_url2 + "/v1/checkout/add", payload_data, config)
       .then((response) => {
 
-        console.log(response.data.details);
+        console.log(response.data);
         setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit)
         const {amount_per_day, days_left, initial_deposit, installment_days, no_of_days} = response.data.details;   
-        const {product_name, product_brand, product_details, product_duration, product_image} = response.data.details.payloads
-        console.log(product_name)
-        setPayload({
-            amount_per_day, 
-            days_left,
-        })
-        console.log(payload)
+        const {product_name, product_brand, product_details, product_duration, product_image,amount} = response.data.details.payloads
+       
+        setAmountPerDay(amount_per_day)
+        setDaysLeft(days_left)
+        setInitialDeposit(initial_deposit )
+        setInstallmentDays(installment_days)
+        setNoOfDays(no_of_days)
+        setProductName(response.data.items.product_name)
+        setProductBrand(product_brand)
+        setProductDetails(product_details)
+        setProductDuration(product_duration)
+        setProductImage(response.data.items.product_image)
+        setAmount (response.data.items.amount)
+        setUnitCount(response.data.items.unitCount)
 
       })
       .catch((err) => {
@@ -193,14 +208,14 @@ const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, i
                                     {product_name}
                                   </div>
                                   <div className="save_item_days_left">
-                                    {unitCount} days left
+                                      {days_left} days left
                                     <div className="days_left_percentage_cont">
                                       <span
                                         className="days_left_percentage"
-                                        style={{
-                                          width:
-                                            100 % -((amount * 100) / unitCount),
-                                        }}
+                                        // style={{
+                                        //   width:
+                                        //     100 % -((amount * 100) / unitCount),
+                                        // }}
                                       ></span>
                                     </div>
                                   </div>
@@ -208,7 +223,7 @@ const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, i
                                     <span className="items_left_amount">
                                       Total Amount Locked on Item
                                     </span>
-                                    #{initialDeposit}
+                                    #{initial_deposit}
                                   </div>
                                 </div>
                               </td>
@@ -224,7 +239,7 @@ const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, i
                               </td> */}
                               <td className="save_item_data1b">
                                 <div className="assets-data-name_last">
-                                  #{amount}
+                                  #{amount}                             
                                 </div>
                               </td>
                             </tr>
@@ -276,7 +291,7 @@ const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, i
                     <div className="sub_total_div">
                       Sub Total:{" "}
                       <span className="sub_total_div_span">
-                        {amount * unitCount}
+                        {sub_total}
                       </span>
                     </div>
                     {/* ========== */}
@@ -298,19 +313,31 @@ const CheckoutModalComponent = ({startDate, endDate, product_id , customer_id, i
                     <div className="transac_secure_div">
                       Total{" "}
                       <span className="sub_total_div_span">
-                        {amount * unitCount}
+                       {sub_total}
                       </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
 
-                    <button className="checkout_btn1a" >
+                    <button className="checkout_btn1a" onClick={() => {
+                        openCheckout()
+                    }}>
                       Proceed to Checkout{" "}
                     </button>
                   </div>
                 </div>
               </div>
+
+              {/* {showCheckout ? 
+                (
+                  <DashboardCheckoutPage />
+                ): 
+                null 
+            } */}
+
+
       </div> 
+
   )
 
 
