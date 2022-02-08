@@ -411,7 +411,7 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {item.slice(0,12).map((asset,index1) => {if ( phoneTablets === asset.product_category_code) return(
+                {item.slice(0).map((asset,index1) => {if ( phoneTablets === asset.product_category_code) return(
                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index1.toString()}>
                     <li className="carous_list no_marg">
                       <div

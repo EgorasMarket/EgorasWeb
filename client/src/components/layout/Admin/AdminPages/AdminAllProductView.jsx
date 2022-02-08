@@ -702,35 +702,36 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      <tr>
+                    {spec.map((apple)=>(  <tr>
                         {/* <td>Colour</td> */}
-                        <td>{spec[0]}</td>
-                      </tr>
-                      <tr>
+                        <td>{apple}</td>
+                        
+                      </tr>))}
+                      {/* <tr> */}
                         {/* <td>Warranty Period</td> */}
-                        <td>{spec[1]}</td>
-                      </tr>
+                        {/* <td>{spec[1]}</td> */}
+                      {/* </tr> */}
                       {/* <tr>
                        <td>
                        {tree[0]}
                        </td>
                       </tr> */}
-                      <tr>
+                      {/* <tr> */}
                         {/* <td>Brand</td> */}
-                        <td>{spec[2]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[2]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>Display Features</td> */}
-                        <td>{spec[3]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[3]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>Display Technology</td> */}
-                        <td>{spec[4]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[4]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>TV Screen Size</td> */}
-                        <td>{spec[5]}</td>
-                      </tr>
+                        {/* <td>{spec[5]}</td> */}
+                      {/* </tr> */}
                       {/* <tr> */}
                       {/* <td>Television 3D Technology</td> */}
                       {/* <td>{spec[6]}</td> */}
