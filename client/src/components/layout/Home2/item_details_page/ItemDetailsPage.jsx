@@ -422,7 +422,7 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 <div
                   className="product_details_code"
-                  style={{ color: "#239e54" }}
+                  style={{ color: "#000000" }}
                 >
                   <span className="product_code_title">Brand: </span>
                   {product_brand}
