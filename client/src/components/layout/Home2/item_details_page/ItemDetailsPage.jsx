@@ -35,7 +35,7 @@ function ItemDetailsPage({ auth, match }) {
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
   const [spec, setSpec] = useState([]);
-  const [isAuthenticated, setIsAuthenticated ]  = useState(null)
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -133,33 +133,32 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
 
-
   return (
-  <>
-   
-
-      {detailsModal === true ? (
-        <Checkout
-          installation_days={payload.product_duration}
-          product_id={product_id}
-          customer_id={user_id}
-     
-        />
-
-
-      ) : null}
-
-         <ItemDetailComponent
-        payload={payload}
-        // numberWithCommas={numberWithCommas}
-        card={spec}
-        openCheckoutModal={()=> {
-          
-         openDetailsModal()
-        }}
-   
-      />
-  </>
+    <>
+      <div className="other2">
+        <section className="no-bg">
+          <div className="container">
+            {detailsModal === true ? (
+              <Checkout
+                installation_days={payload.product_duration}
+                product_id={product_id}
+                customer_id={user_id}
+                closeCheckoutOptions={closeDetailModal}
+              />
+            ) : (
+              <ItemDetailComponent
+                payload={payload}
+                // numberWithCommas={numberWithCommas}
+                card={spec}
+                openCheckoutModal={() => {
+                  openDetailsModal();
+                }}
+              />
+            )}
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
 
