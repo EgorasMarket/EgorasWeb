@@ -6,6 +6,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
 import "../../DashboardStyles/category.css";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
 import { connect } from "react-redux";
 import {
@@ -103,6 +104,8 @@ const PhonesCatPage = ({match}) => {
   const [goods,setGoods]=useState([]);
   const [phones,setPhone]=useState([]);
   const [seeAll,setSeeAll]=useState([])
+  const [park,setPark]=useState({imgs:""})
+  const {imgs}=park;
 
   // const [mark ,setMark]= setInfo({
   //   phoneCath:"",computerCath:""
@@ -140,9 +143,10 @@ const PhonesCatPage = ({match}) => {
         console.log(data.data.data, "samuel_Chuks");
 
         setSeeAll(data.data.data);
+
+        const feed = data.data.data.product_image
      
-       
-        // setGoods(data.data.data)
+        // /setGoods(data.data.data)
 
      
       })
@@ -218,6 +222,12 @@ const PhonesCatPage = ({match}) => {
 
     
   }, []);
+
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  };
+
+
   return (
     <div className="other2">
       <section className="no-bg">
@@ -225,11 +235,16 @@ const PhonesCatPage = ({match}) => {
           <div className="categories_page_area">
             <div className="cat_banner_heading">
               Connect Your World
+
+              {seeAll.map((asset,rd)=>(
               <img
-                src="/img/fake_assets/refurb_img.jpeg"
+                 key={rd.toString}
+                // src="/img/fake_assets/refurb_img.jpeg"
+                src ={`url(${api_url2 + '/'+ asset.product_image[0]})`}
                 alt=""
                 className="refurb_img_bann"
               />
+              ))}
             </div>
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
@@ -238,7 +253,7 @@ const PhonesCatPage = ({match}) => {
             {/* Carousel start==============================
 ==============================================
 ============================= */}
-
+{/* 
             <div className="products_display_body pad_bot">
               <div className="products_display_body_heading">
              {match.params.category} 
@@ -282,14 +297,14 @@ const PhonesCatPage = ({match}) => {
                               {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
                             </div>
                           </div>
-                          {/* </a> */}
+                          
                         </div>
                       </li>
                     </a>
                   ))}
                 </Carousel>
               </div>
-            </div>
+            </div> */}
             {/* Carousel end==============================
 ==============================================
 ============================= */}
@@ -298,9 +313,144 @@ const PhonesCatPage = ({match}) => {
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
+
+
+
+
+
+
+
+{/*  Projects Section start*/}
+<section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea item_card_area"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsTitleContentsa bg_a">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">
+                {match.params.category}  <span className="ouright_sell">/ Esusu.</span>
+                </h1>
+              </div>
+              {/* <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
+                See all <ArrowForwardIosIcon className="forward_icons" />
+              </a> */}
+            </div>
+
+            {/* Carousel start==============================
+==============================================
+============================= */}
+
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {seeAll.map((asset) => {return(
+                <a href={`/products/details/${asset.id}`}>
+                  <li className="carous_list">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
+                        //           height: "200px",
+                        //           width: "100%",
+                        //           backgroundRepeat: "no-repeat",
+                        //           backgroundSize: "cover",
+                        //           borderRadius: "8px",
+                        //           borderBottomLeftRadius: "0px",
+                        //           borderBottomRightRadius: "0px",
+                        //   backgroundPositionY: "center",
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <p className="no_margg"> Buy now</p>
+                          ) : (
+                            <p className="no_margg"> Save now</p>
+                          )}
+                        </button>
+
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <div></div>
+                        ) : (
+                          <button className="items_remaining_btn2">
+                            {" "}
+                            {asset.percentage}% locked
+                          </button>
+                        )}
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.product_name}</div>
+                        <div className="asset_prices_div">
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.amount * 2)}
+                            </span>
+                          </div>
+                          <div className="amount_per_day_div">
+                            ₦
+                            {numberWithCommas(
+                              (asset.amount / asset.product_duration).toFixed()
+                            )}
+                            <span className="per_day_symbol"> / perday</span>
+                          </div>
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+              )} )}
+            </Carousel>
+
+
+         
+
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
+
+
+
+
+
+
+
+
+
+
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
+
+
+       
+         
+
+
+
+
+
+
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
@@ -315,51 +465,93 @@ const PhonesCatPage = ({match}) => {
                 <dispatchEvent></dispatchEvent>
               </div>
               <div className="cat_carous">
-                <Carousel
-                  responsive={responsive6}
-                  className="partnerCards LEFTARROW"
-                  showDots={false}
-                  //   infinite={false}
-                  autoPlay={false}
-                  autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
-                  infinite={false}
-                  draggable={true}
-                  // transitionDuration={500}
-                  swipeable={true}
-                  style={{ height: "25em" }}
-                >
-                  {seeAll.slice(0,100).map((asset,index12) => (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index12.toString()}>
-                      <li className="carous_list">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${api_url2 + '/'+ asset.product_image})`,
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              save now
-                            </button>
-                            <button className="items_remaining_btn2">
-                              40% off
-                            </button>
+
+
+              <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {seeAll.map((asset) => {return(
+                <a href={`/products/details/${asset.id}`}>
+                  <li className="carous_list">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
+                        //           height: "200px",
+                        //           width: "100%",
+                        //           backgroundRepeat: "no-repeat",
+                        //           backgroundSize: "cover",
+                        //           borderRadius: "8px",
+                        //           borderBottomLeftRadius: "0px",
+                        //           borderBottomRightRadius: "0px",
+                        //   backgroundPositionY: "center",
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <p className="no_margg"> Buy now</p>
+                          ) : (
+                            <p className="no_margg"> Save now</p>
+                          )}
+                        </button>
+
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <div></div>
+                        ) : (
+                          <button className="items_remaining_btn2">
+                            {" "}
+                            {asset.percentage}% locked
+                          </button>
+                        )}
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.product_name}</div>
+                        <div className="asset_prices_div">
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.amount * 2)}
+                            </span>
                           </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_title">
-                            {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
-                            </div>
+                          <div className="amount_per_day_div">
+                            ₦
+                            {numberWithCommas(
+                              (asset.amount / asset.product_duration).toFixed()
+                            )}
+                            <span className="per_day_symbol"> / perday</span>
                           </div>
-                          {/* </a> */}
                         </div>
-                      </li>
-                    </a>
-                  ))}
-                </Carousel>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+              )} )}
+            </Carousel>
+
+
+               
               </div>
             </div>
+
+          
+
+
+
             {/* Carousel end==============================
 ==============================================
 ============================= */}
@@ -458,32 +650,68 @@ const PhonesCatPage = ({match}) => {
                 </div>
                 <div className="items_all_list_body">
                   {seeAll.slice(0,100).map((asset,index11) => (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index11.toString()}>
-                      <li className="carous_list caro_lisss_2">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              save now
-                            </button>
-                            <button className="items_remaining_btn2">
-                              20% off
-                            </button>
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_title">
-                              {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "items left": null }
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
+
+
+<a href={`/products/details/${asset.id}`}>
+<li className="carous_list">
+  <div
+    className="storeTiles_storeTileContainer__HoGEa"
+    style={{
+      backgroundImage: `url(${
+        api_url2 + "/" + asset.product_image
+      })`,
+      //           height: "200px",
+      //           width: "100%",
+      //           backgroundRepeat: "no-repeat",
+      //           backgroundSize: "cover",
+      //           borderRadius: "8px",
+      //           borderBottomLeftRadius: "0px",
+      //           borderBottomRightRadius: "0px",
+      //   backgroundPositionY: "center",
+    }}
+  >
+    <div className="storeTiles_storeTileOffersContainer__3v8lC">
+      <button className="items_remaining_btn">
+        {asset.payment_type == "OUTRIGHT" ? (
+          <p className="no_margg"> Buy now</p>
+        ) : (
+          <p className="no_margg"> Save now</p>
+        )}
+      </button>
+
+      {asset.payment_type == "OUTRIGHT" ? (
+        <div></div>
+      ) : (
+        <button className="items_remaining_btn2">
+          {" "}
+          {asset.percentage}% locked
+        </button>
+      )}
+    </div>
+    <div className="storeTiles_storeTileBottomContainer__2sWHh">
+      <div className="asset_name">{asset.product_name}</div>
+      <div className="asset_prices_div">
+        <div className="asset_title">
+          ₦{numberWithCommas(asset.amount)}{" "}
+          <span className="slashed_price">
+            ₦{numberWithCommas(asset.amount * 2)}
+          </span>
+        </div>
+        <div className="amount_per_day_div">
+          ₦
+          {numberWithCommas(
+            (asset.amount / asset.product_duration).toFixed()
+          )}
+          <span className="per_day_symbol"> / perday</span>
+        </div>
+      </div>
+    </div>
+    {/* </a> */}
+  </div>
+</li>
+</a>
+
+
                   ))}
                 </div>
               </div>

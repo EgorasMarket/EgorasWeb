@@ -7,6 +7,7 @@ import PropTypes from "prop-types";
 import { CustomAlert } from "../../../../CustomAlert";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./Kcl.css"
 
 import { getLogin } from "../../../../actions/auth";
 // import { getAuthentication } from "../../../../actions/auth";
@@ -117,6 +118,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
   }, 5000);
   return (
     <div>
+      
       <section className="signup_section">
         <div className="container">
           <div className="signup_area">
@@ -211,7 +213,8 @@ const Login = ({ getLogin, isAuthenticated }) => {
       </section>
 
       {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
-    </div>
+      </div>
+ 
     // :null}
   );
 };
