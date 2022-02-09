@@ -57,8 +57,9 @@ const Dashboard_Checkout_Page = ({
     cardExDate: "",
     cvv: "",
   });
+  const [amount , setAmount] = useState(cAmount)
 
-  console.log(cAmount);
+  console.log(amount);
 
   const { card_numberVar, cardExDate, cvv } = cardInfoOne;
   const [modal, setModal] = useState(false);
