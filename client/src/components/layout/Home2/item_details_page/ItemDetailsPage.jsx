@@ -134,7 +134,7 @@ function ItemDetailsPage({ auth, match }) {
 
 
   return (
-    <div>
+  <>
       <ItemDetailComponent
         payload={payload}
         // numberWithCommas={numberWithCommas}
@@ -151,7 +151,7 @@ function ItemDetailsPage({ auth, match }) {
           customer_id={user_id}
         />
       ) : null}
-    </div>
+</>
   );
 }
 
