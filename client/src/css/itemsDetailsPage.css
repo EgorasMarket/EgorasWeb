@@ -67,6 +67,7 @@ span.sub_total_txt {
   border-top: solid 1px #e7e7e7;
   padding-top: 0.5em;
   margin-top: 0.5em;
+  width: 100%;
 }
 span.per_day {
   font-size: 16px;
@@ -109,6 +110,7 @@ span.per_day {
   padding-bottom: 1em;
   border-bottom: solid 1px #e5e5e5;
   margin-bottom: 1em;
+  padding-top: 1em;
 }
 
 .quantity_cont {
@@ -353,7 +355,13 @@ span.per_day {
 
 .max_dura {
   display: flex;
+  grid-gap: 10px;
   gap: 10px;
+  border-top: solid 1px #e7e7e7;
+  margin-top: 1em;
+  padding-top: 1em;
+  border-bottom: solid 1px #e5e5e5;
+  padding-bottom: 1em;
 }
 .amnt_per_day {
   margin: 0;

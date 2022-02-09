@@ -19,21 +19,94 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
+const InstallmentComponent = ({
+  product_duration,
+  rounded,
+  percentage,
+  initial_deposit,
+  amount,
+  amount_per_day,
+  numberWithCommas,
+}) => {
+  return (
+    <div>
+      <div className="amount_item_div">
+        ₦{numberWithCommas(parseInt(amount_per_day).toFixed())}{" "}
+        <span className="per_day"> / per-day</span>
+      </div>
+
+      <div className="amount_item_div total_amount">
+        <span className="sub_total_txt">Total: </span> ₦
+        {numberWithCommas(parseInt(amount).toFixed())}
+        <span className="per_day"></span>
+      </div>
+
+      {/* <hr className="horizontal_rule" /> */}
+      {/* ------- */}
+
+      <div className="max_dura">
+        <p className="no_margg">Savings Max Duration:</p>
+
+        <div className="days_left_numb">
+          <p className="no_margg">{product_duration}day(s)</p>
+        </div>
+      </div>
+      <div className="quantity_div">
+        <div className="items_left_div">
+          This item has an upfront payment of : {percentage}%
+        </div>
+        <span className="upfront_para">
+          That means you are to pay{" "}
+          <span className="percent_days_amnt">
+            ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
+          </span>
+          before this item can be locked by you.
+        </span>
+      </div>
+    </div>
+  );
+};
+
+const OutrightComponent = ({
+  product_duration,
+  rounded,
+  percentage,
+  initial_deposit,
+  amount,
+  numberWithCommas,
+}) => {
+  return (
+    <div>
+      <div className="amount_item_div total_amount">
+        <span className="sub_total_txt">Total: </span> ₦amount
+        {/* {numberWithCommas(parseInt(amount).toFixed())} */}
+      </div>
+      <div className="max_dura">
+        <div className="days_left_numb">
+          <p className="no_margg">Outright Sell</p>
+        </div>
+      </div>
+
+      {/* <hr className="horizontal_rule" /> */}
+      {/* ------- */}
+    </div>
+  );
+};
+
 const ItemDetailComponent = ({
   payload,
   card,
   user_id,
   CloseModal,
   OpenModal,
-  closeDetailModal,
-  openDetailsModal,
+  openCheckoutModal,
 }) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  // const [spec, setSpec] = useState([]);
+
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [UID, setUserId] = useState(user_id);
@@ -63,6 +136,14 @@ const ItemDetailComponent = ({
     no_of_days,
   } = payload;
 
+  const openDetailsModal = () => {
+    setDetailsModal(true);
+  };
+
+  const closeDetailModal = () => {
+    setDetailsModal(false);
+  };
+  // let spec = [product_specifications];
   // spec.push(product_specifications)
 
   const responsive6 = {
@@ -84,16 +165,29 @@ const ItemDetailComponent = ({
       items: 2,
     },
   };
+  const checkProductType = (payment_type) => {
+    const outrightScenario = () => {};
+    const installmentScenario = () => {};
+    switch (payment_type) {
+      case "OUTRIGHT":
+        outrightScenario();
+        break;
+      case "INSTALLMENT":
+        installmentScenario();
+        break;
+    }
+  };
 
   useEffect(() => {
+    checkProductType(product_type);
+
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
         console.log(data.data.data, "item detail component ");
 
         setTerm(data.data.data);
-        // const getSlid = data.data.data.product_specifications;
-        // setSpec(data.data.data.product_specifications);
+
         // setTerm(data.data.data)
       })
       .catch((err) => {
@@ -101,9 +195,14 @@ const ItemDetailComponent = ({
       });
   }, []);
 
+  // {
+  //   console.log(spec, " welcome  Daniel");
+  // }
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   };
+  console.log(product_id);
+
   return (
     <div className="other2">
       {modal == false ? null : (
@@ -111,6 +210,7 @@ const ItemDetailComponent = ({
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
             cAmount={parseInt(amount)}
+            getProductId={product_id}
             click={CloseModal}
           />
         </div>
@@ -148,51 +248,28 @@ const ItemDetailComponent = ({
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
-                {payment_type == "OUTRIGHT" ? null : (
-                  <div className="amount_item_div">
-                    ₦{numberWithCommas(parseInt(amount_per_day).toFixed())}{" "}
-                    <span className="per_day"> / per-day</span>
-                  </div>
-                )}
-                {/* // =========================== */}
-                <div className="amount_item_div total_amount">
-                  <span className="sub_total_txt">Total: </span> ₦
-                  {numberWithCommas(parseInt(amount).toFixed())}
-                  <span className="per_day"></span>
-                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
-                <div className="lll">
-                  <div className="max_dura">
-                    {payment_type == "OUTRIGHT" ? null : (
-                      <p className="no_margg">Savings Max Duration:</p>
-                    )}
-                    <div className="days_left_numb">
-                      {payment_type == "OUTRIGHT" ? (
-                        <p className="no_margg">Outright Buy</p>
-                      ) : (
-                        <p className="no_margg">{product_duration}day(s)</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                {/* // =========================== */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
-                {payment_type !== "OUTRIGHT" ? (
-                  <div className="quantity_div">
-                    <div className="items_left_div">
-                      This item has an upfront payment of : {percentage}%
-                    </div>
-                    <span className="upfront_para">
-                      That means you are to pay{" "}
-                      <span className="percent_days_amnt">
-                        ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
-                      </span>
-                      before this item can be locked by you.
-                    </span>
-                  </div>
-                ) : null}
+                {payment_type === "INSTALLMENT" ? (
+                  <>
+                    <InstallmentComponent
+                      initial_deposit={initial_deposit}
+                      product_duration={product_duration}
+                      rounded={rounded}
+                      percentage={percentage}
+                      amount={amount}
+                      amount_per_day={amount_per_day}
+                      numberWithCommas={numberWithCommas}
+                    />
+                  </>
+                ) : (
+                  <>
+                    <OutrightComponent
+                      amount={amount}
+                      // numberWithCommas={numberWithCommas}
+                    />
+                  </>
+                )}
                 {/* ======= */}
                 {/* ======= */}
                 {/* ======= */}
@@ -202,7 +279,7 @@ const ItemDetailComponent = ({
                 <div className="buy_now_btn_div">
                   <button
                     className="buy_now_button"
-                    onClick={openDetailsModal()}
+                    onClick={openCheckoutModal}
                   >
                     Proceed to Checkout
                   </button>
@@ -235,8 +312,8 @@ const ItemDetailComponent = ({
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      {card.map((apple, xd) => (
-                        <tr key={xd}>
+                      {card.map((apple) => (
+                        <tr>
                           <td>{apple}</td>
                         </tr>
                       ))}
@@ -338,7 +415,13 @@ const ItemDetailComponent = ({
             </section>
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
-            {detailsModal == true ? <CheckoutModalComponent /> : null}
+            {/* {detailsModal == true ? 
+            <CheckoutModalComponent 
+                installation_days={product_duration}
+                product_id={product_id}
+                customer_id={user_id}
+
+            /> : null} */}
           </div>
         </div>
       </section>
