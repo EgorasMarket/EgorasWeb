@@ -72,7 +72,7 @@ import { loadAdminUser } from "./actions/adminAuth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
 import Footer from "./components/layout/Home2/Footer/Footer";
 // import { Header } from './components/layout/parts/Header';
-
+import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 import Loan from "./components/layout/home/Loan";
 import Terms from "./components/layout/home/Terms";
 import Privacy from "./components/layout/Home2/PrivacyPolicy/Privacy";
@@ -148,7 +148,7 @@ import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
-import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
+// import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
   //console.log("setAuthToken");
@@ -256,11 +256,11 @@ const App = () => {
                   <Route exact path="/" component={HomeUpdate} />
                   <Route exact path="/activation" component={Activation} />
                   <Route exact path="/savings" component={Savings} />
-                  <Route
+                  {/* <Route
                     exact
                     path="/products/details/:id"
                     component={Item_details_main}
-                  />
+                  /> */}
                   <Route exact path="/loan" component={Newhome2} />
                   <Route exact path="/validator" component={Landing} />
                   {/* <Route exact path='/loan/details/:id' component={Loan} /> */}
@@ -324,16 +324,16 @@ const App = () => {
                     path="/documentation1"
                     component={Documentation1}
                   />
-                  <Route
-                    exact
-                    path="/products/details/:id/:name"
-                    component={ItemDetailsPage}
-                  />
                   {/* <Route
                     exact
-                    path="/products/details/:id/:name"
+                    path="/products/details/:id"
                     component={ItemDetailsPage}
                   /> */}
+                  <Route
+                    exact
+                    path="/products/details/:id"
+                    component={Item_details_main}
+                  />
                   <Route
                     exact
                     path="/egoras-decentralized-autonomous-organization"

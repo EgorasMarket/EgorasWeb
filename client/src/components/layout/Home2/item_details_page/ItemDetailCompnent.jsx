@@ -33,12 +33,12 @@ const ItemDetailComponent = ({
       "Content-Type": "application/json",
     },
   };
-
+  // const [spec, setSpec] = useState([]);
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
-  const [activeBg,setActiveBg]=useState("descript")
+  const [activeBg, setActiveBg] = useState("descript");
   //destructure the payload and return values
   const {
     amount,
@@ -62,7 +62,7 @@ const ItemDetailComponent = ({
     total_amount,
     no_of_days,
   } = payload;
-  let spec = [product_specifications];
+
   // spec.push(product_specifications)
 
   const responsive6 = {
@@ -92,7 +92,8 @@ const ItemDetailComponent = ({
         console.log(data.data.data, "item detail component ");
 
         setTerm(data.data.data);
-
+        // const getSlid = data.data.data.product_specifications;
+        // setSpec(data.data.data.product_specifications);
         // setTerm(data.data.data)
       })
       .catch((err) => {
@@ -100,13 +101,9 @@ const ItemDetailComponent = ({
       });
   }, []);
 
-
-     {
-       console.log(spec, " welcome  Daniel");
-     }
-  
-
-
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  };
   return (
     <div className="other2">
       {modal == false ? null : (
@@ -151,26 +148,34 @@ const ItemDetailComponent = ({
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
+                {payment_type == "OUTRIGHT" ? null : (
+                  <div className="amount_item_div">
+                    ₦{parseInt(amount_per_day)}{" "}
+                    <span className="per_day"> / per-day</span>
+                  </div>
+                )}
+                {/* // =========================== */}
+                <div className="amount_item_div total_amount">
+                  <span className="sub_total_txt">Total: </span> ₦{amount}{" "}
+                  <span className="per_day"></span>
+                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
                 <div className="lll">
                   <div className="max_dura">
-                    Savings max-duration:{" "}
-                    <p className="months_class"> {product_duration} days</p>
-                  </div>
-
-                  {payment_type === "OUTRIGHT" ? (
-                    <span>₦{amount}</span>
-                  ) : (
-                    <div>
-                      <span>₦{amount}</span>
-                      <p className="amnt_per_day">
-                        Savings Amount to be paid per day:{""}
-                        <span className="calc_amnt_div">N {rounded}</span>
-                      </p>
+                    {payment_type == "OUTRIGHT" ? null : (
+                      <p className="no_margg">Savings Max Duration:</p>
+                    )}
+                    <div className="days_left_numb">
+                      {payment_type == "OUTRIGHT" ? (
+                        <p className="no_margg">Outright Buy</p>
+                      ) : (
+                        <p className="no_margg">{product_duration}day(s)</p>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
+                {/* // =========================== */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 {payment_type !== "OUTRIGHT" ? (
@@ -228,14 +233,11 @@ const ItemDetailComponent = ({
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      {card.map((apple) => (
-                      <tr>
-                          <td key={apple}>{apple}</td>
-                      </tr>
-                
-                       ))} 
-
-                   
+                      {card.map((apple, xd) => (
+                        <tr key={xd}>
+                          <td>{apple}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
