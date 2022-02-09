@@ -273,14 +273,29 @@ button.savings_area_btn {
   font-weight: 700;
   font-size: 18px;
 }
-.asset_prices_div {
+.per_day_symbol {
   display: flex;
-  gap: 25px;
-  justify-content: space-between;
   align-items: center;
+  font-size: 9px;
+  color: #000;
 }
+
 .amount_per_day_div {
   color: #229e54;
   font-size: 12px;
   font-weight: 700;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  gap: 3px;
+  justify-content: flex-end;
+}
+
+.asset_prices_div {
+  display: flex;
+  grid-gap: 0px;
+  gap: 0px;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
 }

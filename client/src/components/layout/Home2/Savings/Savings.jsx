@@ -392,10 +392,11 @@ const Savings = () => {
                             </span>
                           </div>
                           <div className="amount_per_day_div">
+                            ₦
                             {numberWithCommas(
-                              asset.amount / asset.product_duration
-                            )} 
-                             / perday
+                              (asset.amount / asset.product_duration).toFixed()
+                            )}
+                            <span className="per_day_symbol"> / perday</span>
                           </div>
                         </div>
                       </div>

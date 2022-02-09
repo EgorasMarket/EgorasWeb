@@ -37,6 +37,8 @@ function ItemDetailsPage({ auth, match }) {
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
+  const [spec, setSpec] = useState([]);
+  const [isAuthenticated, setIsAuthenticated ]  = useState(null)
 
 
 
@@ -124,6 +126,9 @@ function ItemDetailsPage({ auth, match }) {
           no_of_days 
         })
         const getSlid = data.data.data.product_specifications;
+
+        setSpec(getSlid);
+
         //  const slipVar = getSlid.split(',');
         console.log("====================================");
         console.log(getSlid);
@@ -141,14 +146,22 @@ function ItemDetailsPage({ auth, match }) {
 
   return (
     <div>
+      <ItemDetailComponent
+        payload={payload}
+        card={spec}
+        openDetailsModal={() => {
+          openDetailsModal();
+        }}
+        
+      />
 
-      <ItemDetailComponent  payload={ payload } openDetailsModal = {() => {
-        openDetailsModal()
-      }}  /> 
-
-      {detailsModal === true  ? (
-        <Checkout installation_days={payload.product_duration}  product_id={product_id} customer_id={user_id} /> 
-      ): null}
+      {detailsModal === true ? (
+        <Checkout
+          installation_days={payload.product_duration}
+          product_id={product_id}
+          customer_id={user_id}
+        />
+      ) : null}
     </div>
   );
 }
