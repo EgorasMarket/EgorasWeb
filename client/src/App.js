@@ -148,6 +148,8 @@ import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
+import ResetPassword from "./components/layout/Home2/PasswordReset/ResetPassword";
+
 // import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -225,11 +227,15 @@ const App = () => {
     console.log(myArr[1]);
     if (myArr[1] === "super_admin") {
       setAdminLocate("super_admin");
-      console.log("super_admin");
+      // console.log("super_admin");
       store.dispatch(loadAdminUser());
     } else if (myArr[1] === "dashboard") {
       setAdminLocate("dashboard");
-      console.log("dashboard");
+      // console.log("dashboard");
+      store.dispatch(loadUser());
+    } else if (myArr[1] === "products") {
+      setAdminLocate("dashboard");
+      // console.log("dashboard");
       store.dispatch(loadUser());
     }
   });
@@ -254,7 +260,8 @@ const App = () => {
               <section>
                 <Switch>
                   <Route exact path="/" component={HomeUpdate} />
-                  <Route exact path="/activation" component={Activation} />
+                  <Route exact path="/activation/:id" component={Activation} />
+                  <Route exact path="/password/reset/:id" component={ResetPassword} />
                   <Route exact path="/savings" component={Savings} />
                   {/* <Route
                     exact

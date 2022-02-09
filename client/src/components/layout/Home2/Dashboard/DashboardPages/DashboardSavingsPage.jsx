@@ -64,29 +64,29 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
-  useEffect(() => {
-    const body = JSON.stringify({
-      product_id,
-    });
+  // useEffect(() => {
+  //   const body = JSON.stringify({
+  //     product_id,
+  //   });
 
-    console.log(body);
+  //   console.log(body);
 
-    axios
-      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
-      .then((data) => {
-        console.log(data.data.data, "king");
+  //   axios
+  //     .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+  //     .then((data) => {
+  //       console.log(data.data.data, "king");
 
-        setProductDetail({
-          product_image: data.data.data.product_image,
-          product_name: data.data.data.product_name,
-          amount: data.data.data.amount,
-          product_duration: data.data.data.product_duration,
-        });
-      })
-      .catch((err) => {
-        console.log(err.response); // "oh, no!"
-      });
-  }, []);
+  //       setProductDetail({
+  //         product_image: data.data.data.product_image,
+  //         product_name: data.data.data.product_name,
+  //         amount: data.data.data.amount,
+  //         product_duration: data.data.data.product_duration,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response); // "oh, no!"
+  //     });
+  // }, []);
 
   return (
     <div className="other2">
