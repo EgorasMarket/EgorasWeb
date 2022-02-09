@@ -1,39 +1,100 @@
 import React, { useEffect, useState } from "react";
-
+import { connect } from "react-redux";
+import axios from "axios";
 import "../../../../css/signup.css";
 
-const Activation = () => {
-  const [email, setEmail] = useState("samuelify225@gmail.com ");
+import { activate } from "../../../../actions/auth";
+
+const Activation = ({match, activate}) => {
+  const [email_auth, setEmail_auth] = useState(match.params.id);
+  const [activated, setActivated] = useState(false);
+
+  console.log(email_auth);
+
+  useEffect(() => {
+    async function fetchMyAPI() {
+      let response = await activate(email_auth);
+      console.log(response);
+      console.log(response.data.statusCode);
+      if (response.data.statusCode === 200) {
+        //console.log("okay Good Server");
+        setActivated(true)
+
+      } else {
+        setActivated(false)
+      }
+    }
+
+    fetchMyAPI();
+  }, []);
   return (
     <div>
-      <section className="signup_section">
-        <div className="container">
-          <div className="activation_area">
-            <div className="activation_div">
-              <img src="/img/activate.svg" alt="" className="activate_img" />
-              <h1>Success</h1>
-              <div className="">
-                An activation email has been sent to s{email}
-                with instructions to activate your account. * If the email
-                doesn’t show up soon, check your spam folder or make sure you
-                enter the email you used for registration.
+     
+      <section style={{marginTop: '60px'}} className="signup_section success_section">
+          <div className="container">
+            <div className="sign_up_area">
+              <div className="sign_up_cont  success_div">
+                
+                {
+                  activated ? (
+                    <div className="sign_up_area2 ">
+                      <div className="sign_up_area1_cont1">
+                        <div className="forgot_password_div center_me">
+                          <img
+                            src="/img/success-mail-icon.svg"
+                            alt=""
+                            className="success_img"
+                          />
+                          <h4 className="check_mail">Success</h4>
+
+                          <p>
+                          Email activation was successful. Proceed to login page.
+                          </p>
+                          
+                        </div>
+                      </div>
+
+                      <div className="sign_up_btns">
+                        <a href="/login" className="login2">
+                          {" "}
+                          <button
+                            className="sign_up_btn"
+                            // type="submit"
+                          >
+                            {" "}
+                            Return to login
+                          </button>
+                        </a>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="sign_up_area2 ">
+                    <div className="sign_up_area1_cont1">
+                      <div className="forgot_password_div center_me">
+                        <img
+                          src="/img/success-mail-icon.svg"
+                          alt=""
+                          className="success_img"
+                        />
+                        <h4 className="check_mail">Error</h4>
+
+                        <p>
+                        Email activation was declined. Email activation code is invalid.
+                        </p>
+                        
+                      </div>
+                    </div>
+
+                    
+                  </div>
+                  )
+                }
               </div>
-              <button
-                // type="submit"
-                className="loginButton activate_btn"
-              >
-                <a href="/login" className="login activate_link">
-                  Login
-                </a>
-              </button>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
     </div>
   );
 };
 
-// export default Activation;
-
-export default Activation;
+export default connect(null, { activate })(Activation);

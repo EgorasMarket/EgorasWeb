@@ -222,9 +222,9 @@ const Dashboard_Checkout_Page = ({
 
         createOrder();
 
-        setTimeout(() => {
-          return window.location.replace("/dashboard/savings");
-        }, 5000);
+        // setTimeout(() => {
+        //   return window.location.replace("/dashboard/savings");
+        // }, 5000);
 
       } else {
         setSuccessPop(false);
