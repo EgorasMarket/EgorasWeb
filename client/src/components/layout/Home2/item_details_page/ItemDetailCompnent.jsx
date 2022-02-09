@@ -78,8 +78,8 @@ const OutrightComponent = ({
   return (
     <div>
       <div className="amount_item_div total_amount">
-        <span className="sub_total_txt">Total: </span> ₦amount
-        {/* {numberWithCommas(parseInt(amount).toFixed())} */}
+        <span className="sub_total_txt">Total: </span> ₦
+        {numberWithCommas(parseInt(amount).toFixed())}
       </div>
       <div className="max_dura">
         <div className="days_left_numb">
@@ -266,7 +266,7 @@ const ItemDetailComponent = ({
                   <>
                     <OutrightComponent
                       amount={amount}
-                      // numberWithCommas={numberWithCommas}
+                      numberWithCommas={numberWithCommas}
                     />
                   </>
                 )}
@@ -297,7 +297,6 @@ const ItemDetailComponent = ({
               <div className="description_header">
                 <div
                   id="descript"
-                  // onClick={changeBg}
                   className={
                     activeBg == "descript"
                       ? "description_click1 description_click1_active"
