@@ -436,7 +436,7 @@ const Item_details_main = ({ match }) => {
                 {/* ----------------- */}
                 {payment_type == "OUTRIGHT" ? null : (
                   <div className="amount_item_div">
-                    ₦{numberWithCommas(numberWithCommas(amount_per_day))}{" "}
+                    ₦{numberWithCommas(amount_per_day)}{" "}
                     <span className="per_day"> / per-day</span>
                   </div>
                 )}
