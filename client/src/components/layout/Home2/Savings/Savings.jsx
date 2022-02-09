@@ -291,7 +291,7 @@ const Savings = () => {
             >
               {outrightProducts.map((asset) => (
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -432,7 +432,7 @@ const Savings = () => {
             >
               {item.map((asset) => {if (phonesTablets === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -550,7 +550,7 @@ const Savings = () => {
             >
                 {item.map((asset) => {if (electronics === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -667,7 +667,7 @@ const Savings = () => {
             >
             {item.map((asset) => {if (musicalEquipment === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -783,7 +783,7 @@ const Savings = () => {
             >
               {item.map((asset) => {if (ComputerAccessories === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -896,7 +896,7 @@ const Savings = () => {
             >
                {item.map((asset) => {if (furniture === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -1010,7 +1010,7 @@ const Savings = () => {
             >
               {itemGalleryShow.map((asset) => (
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -1116,7 +1116,7 @@ const Savings = () => {
             >
            {item.map((asset) => {if (homeAppliances === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -1225,7 +1225,7 @@ const Savings = () => {
             >
                {item.map((asset) => {if (nfts === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -1336,7 +1336,7 @@ const Savings = () => {
             >
              {item.map((asset) => {if (industrialEquipments === asset.product_category_desc){ return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{

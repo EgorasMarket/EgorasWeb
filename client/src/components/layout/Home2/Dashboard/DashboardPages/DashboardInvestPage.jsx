@@ -349,7 +349,7 @@ function DashboardInvestPage({ auth }) {
                   href={`/products/details/${asset.id}`}
                   key={index.toString()}
                 >
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -442,7 +442,7 @@ function DashboardInvestPage({ auth }) {
                         href={`/products/details/${asset.id}`}
                         key={index.toString()}
                       >
-                        <li className="carous_list">
+                        <li className="carous_list no_marg">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -517,7 +517,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_conts">
               {item.slice(0, 12).map((asset, index2) => (
                 // <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index2.toString()}>
-                //   <li className="carous_list no_marg">
+                //   <li className="carous_list no_marg no_marg">
                 //     <div
                 //       className="storeTiles_storeTileContainer__HoGEa"
                 //       style={{
@@ -555,7 +555,7 @@ function DashboardInvestPage({ auth }) {
                   href={`/products/details/${asset.id}`}
                   key={index.toString()}
                 >
-                  <li className="carous_list">
+                  <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
@@ -638,7 +638,7 @@ function DashboardInvestPage({ auth }) {
                       href={`/products/details/${asset.id}`}
                       key={index.toString()}
                     >
-                      <li className="carous_list">
+                      <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -735,7 +735,7 @@ function DashboardInvestPage({ auth }) {
                         href={`/products/details/${asset.id}`}
                         key={index.toString()}
                       >
-                        <li className="carous_list">
+                        <li className="carous_list no_marg">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -815,7 +815,7 @@ function DashboardInvestPage({ auth }) {
                       href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                       key={index5.toString()}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -905,7 +905,7 @@ function DashboardInvestPage({ auth }) {
                         href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                         key={index7.toString()}
                       >
-                        <li className="carous_list no_marg">
+                        <li className="carous_list no_marg no_marg">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -978,7 +978,7 @@ function DashboardInvestPage({ auth }) {
                       href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                       key={index8.toString()}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -1068,7 +1068,7 @@ function DashboardInvestPage({ auth }) {
                         href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                         key={index9.toString()}
                       >
-                        <li className="carous_list no_marg">
+                        <li className="carous_list no_marg no_marg">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
