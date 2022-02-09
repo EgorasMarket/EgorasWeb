@@ -72,7 +72,7 @@ import { loadAdminUser } from "./actions/adminAuth";
 import Header from "./components/layout/Home2/NavBar/Header.js";
 import Footer from "./components/layout/Home2/Footer/Footer";
 // import { Header } from './components/layout/parts/Header';
-
+import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 import Loan from "./components/layout/home/Loan";
 import Terms from "./components/layout/home/Terms";
 import Privacy from "./components/layout/Home2/PrivacyPolicy/Privacy";
@@ -102,7 +102,7 @@ import Login from "./components/layout/Home2/Login/Login";
 import Signup from "./components/layout/Home2/Signup/Signup";
 // import Wallet
 // import Walle
-import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
+
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
 import Activation from "./components/layout/Home2/Activation/Activation";
@@ -143,12 +143,14 @@ import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSec
 import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
+import Item_details_main from "./components/layout/Home2/item_details_page/Item_details_main";
 import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
 import ResetPassword from "./components/layout/Home2/PasswordReset/ResetPassword";
 
+// import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
   //console.log("setAuthToken");
@@ -257,7 +259,11 @@ const App = () => {
                   <Route exact path="/activation/:id" component={Activation} />
                   <Route exact path="/password/reset/:id" component={ResetPassword} />
                   <Route exact path="/savings" component={Savings} />
-                  <Route exact path="/products/details/:id/:name" component={ItemDetailsPage} />
+                  {/* <Route
+                    exact
+                    path="/products/details/:id"
+                    component={Item_details_main}
+                  /> */}
                   <Route exact path="/loan" component={Newhome2} />
                   <Route exact path="/validator" component={Landing} />
                   {/* <Route exact path='/loan/details/:id' component={Loan} /> */}
@@ -320,6 +326,16 @@ const App = () => {
                     exact
                     path="/documentation1"
                     component={Documentation1}
+                  />
+                  {/* <Route
+                    exact
+                    path="/products/details/:id"
+                    component={ItemDetailsPage}
+                  /> */}
+                  <Route
+                    exact
+                    path="/products/details/:id"
+                    component={Item_details_main}
                   />
                   <Route
                     exact
