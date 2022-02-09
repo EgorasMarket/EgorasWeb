@@ -19,26 +19,82 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
+const InstallmentComponent = ({product_duration, rounded, percentage, initial_deposit,amount}) =>{
+  
+  return (
+    <div>
+        <div className="lll">
+          <div className="max_dura">
+            Savings max-duration:{" "}
+            <p className="months_class"> {product_duration} days</p>
+          </div>
+ 
+            <div>
+              <span>₦{amount}</span>
+              <p className="amnt_per_day">
+                Savings Amount to be paid per day:{""}
+                <span className="calc_amnt_div">N {rounded}</span>
+              </p>
+            </div>
+        </div>
+        {/* <hr className="horizontal_rule" /> */}
+        {/* ------- */}
+          <div className="quantity_div">
+            <div className="items_left_div">
+              This item has an upfront payment of : {percentage}%
+            </div>
+            <span className="upfront_para">
+              That means you are to pay #{initial_deposit} before this
+              item can be locked by you.
+            </span>
+          </div>
+    </div>
+  )
+}
+
+const OutrightComponent = ({product_duration, rounded, percentage, initial_deposit,amount}) =>{
+  
+  return (
+    <div>
+        <div className="lll">
+         
+ 
+            <div>
+              <span>₦{amount}</span>
+         
+            </div>
+        </div>
+        {/* <hr className="horizontal_rule" /> */}
+        {/* ------- */}
+          <div className="quantity_div">
+         
+            <span className="upfront_para">
+              That means you are to pay an outright fee for this product.
+            </span>
+          </div>
+    </div>
+  )
+}
+
 const ItemDetailComponent = ({
   payload,
   card,
   user_id,
   CloseModal,
   OpenModal,
-  closeDetailModal,
-  openDetailsModal,
+  openCheckoutModal,
 }) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  // const [spec, setSpec] = useState([]);
+
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
-  const [activeBg, setActiveBg] = useState("descript");
+  const [activeBg,setActiveBg]=useState("descript")
   //destructure the payload and return values
   const {
     amount,
@@ -63,6 +119,15 @@ const ItemDetailComponent = ({
     no_of_days,
   } = payload;
 
+  
+  const openDetailsModal = () => {
+    setDetailsModal(true);
+  };
+
+  const closeDetailModal = () => {
+    setDetailsModal(false);
+  };
+  let spec = [product_specifications];
   // spec.push(product_specifications)
 
   const responsive6 = {
@@ -84,16 +149,39 @@ const ItemDetailComponent = ({
       items: 2,
     },
   };
+  const checkProductType = (payment_type) => {
+
+    const outrightScenario = () => {
+
+    }
+    const installmentScenario = () => {
+
+    }
+      switch(payment_type) {
+
+        case "OUTRIGHT": 
+          outrightScenario(); 
+          break
+        case "INSTALLMENT": 
+          installmentScenario() 
+          break; 
+
+
+      }
+  }
 
   useEffect(() => {
+
+    checkProductType(product_type)
+
+
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
         console.log(data.data.data, "item detail component ");
 
         setTerm(data.data.data);
-        // const getSlid = data.data.data.product_specifications;
-        // setSpec(data.data.data.product_specifications);
+
         // setTerm(data.data.data)
       })
       .catch((err) => {
@@ -101,9 +189,13 @@ const ItemDetailComponent = ({
       });
   }, []);
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+
+     {
+       console.log(spec, " welcome  Daniel");
+     }
+  
+
+
   return (
     <div className="other2">
       {modal == false ? null : (
@@ -148,47 +240,27 @@ const ItemDetailComponent = ({
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
-                {payment_type == "OUTRIGHT" ? null : (
-                  <div className="amount_item_div">
-                    ₦{parseInt(amount_per_day)}{" "}
-                    <span className="per_day"> / per-day</span>
-                  </div>
-                )}
-                {/* // =========================== */}
-                <div className="amount_item_div total_amount">
-                  <span className="sub_total_txt">Total: </span> ₦{amount}{" "}
-                  <span className="per_day"></span>
-                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
-                <div className="lll">
-                  <div className="max_dura">
-                    {payment_type == "OUTRIGHT" ? null : (
-                      <p className="no_margg">Savings Max Duration:</p>
-                    )}
-                    <div className="days_left_numb">
-                      {payment_type == "OUTRIGHT" ? (
-                        <p className="no_margg">Outright Buy</p>
-                      ) : (
-                        <p className="no_margg">{product_duration}day(s)</p>
-                      )}
-                    </div>
-                  </div>
-                </div>
-                {/* // =========================== */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
-                {payment_type !== "OUTRIGHT" ? (
-                  <div className="quantity_div">
-                    <div className="items_left_div">
-                      This item has an upfront payment of : {percentage}%
-                    </div>
-                    <span className="upfront_para">
-                      That means you are to pay #{initial_deposit} before this
-                      item can be locked by you.
-                    </span>
-                  </div>
-                ) : null}
+                {payment_type === "INSTALLMENT" ?  (
+                  <>
+                <InstallmentComponent  
+                initial_deposit={initial_deposit}
+                product_duration={product_duration} 
+                rounded={rounded}
+                percentage={percentage}
+                amount = {amount}
+                />  
+                  </>
+
+                ): 
+
+                <>
+                  <OutrightComponent 
+                    />
+                </>
+                  
+                  }
                 {/* ======= */}
                 {/* ======= */}
                 {/* ======= */}
@@ -198,9 +270,7 @@ const ItemDetailComponent = ({
                 <div className="buy_now_btn_div">
                   <button
                     className="buy_now_button"
-                    onClick={() => {
-                      openDetailsModal();
-                    }}
+                    onClick={openCheckoutModal}
                   >
                     {payment_type !== 1 ? "Proceed" : "Proceed to checkout"}
                   </button>
@@ -233,11 +303,17 @@ const ItemDetailComponent = ({
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      {card.map((apple, xd) => (
-                        <tr key={xd}>
-                          <td>{apple}</td>
-                        </tr>
-                      ))}
+                      {spec.map((apple) => (
+                      <tr>
+                          <td style={{display:'flex',flexDirection:'column'}}>{apple}</td>
+                      </tr>
+                
+                
+                 
+                   
+                       ))} 
+
+                   
                     </tbody>
                   </table>
                 </div>
@@ -336,7 +412,13 @@ const ItemDetailComponent = ({
             </section>
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
-            {detailsModal == true ? <CheckoutModalComponent /> : null}
+            {/* {detailsModal == true ? 
+            <CheckoutModalComponent 
+                installation_days={product_duration}
+                product_id={product_id}
+                customer_id={user_id}
+
+            /> : null} */}
           </div>
         </div>
       </section>
