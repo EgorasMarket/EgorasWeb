@@ -204,7 +204,7 @@ const ItemDetailComponent = ({
   console.log(product_id);
 
   return (
-    <div className="other2">
+    <>
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
@@ -216,8 +216,8 @@ const ItemDetailComponent = ({
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
-      <section className="no-bg">
-        <div className="container">
+      {/* <section className="no-bg">
+        <div className="container"> */}
           <div className="products_area">
             <div className="product_details_area1">
               <div className="details_area1_cont1">
@@ -422,10 +422,10 @@ const ItemDetailComponent = ({
 
             /> : null} */}
           </div>
-        </div>
-      </section>
+        {/* </div>
+      </section> */}
       {/* )})} */}
-    </div>
+    </>
   );
 };
 
