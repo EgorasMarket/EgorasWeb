@@ -150,13 +150,14 @@ const ItemDetailComponent = ({
                 {/* ----------------- */}
                 {payment_type == "OUTRIGHT" ? null : (
                   <div className="amount_item_div">
-                    ₦{parseInt(amount_per_day)}{" "}
+                    ₦{numberWithCommas(parseInt(amount_per_day).toFixed())}{" "}
                     <span className="per_day"> / per-day</span>
                   </div>
                 )}
                 {/* // =========================== */}
                 <div className="amount_item_div total_amount">
-                  <span className="sub_total_txt">Total: </span> ₦{amount}{" "}
+                  <span className="sub_total_txt">Total: </span> ₦
+                  {numberWithCommas(parseInt(amount).toFixed())}
                   <span className="per_day"></span>
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
@@ -184,8 +185,11 @@ const ItemDetailComponent = ({
                       This item has an upfront payment of : {percentage}%
                     </div>
                     <span className="upfront_para">
-                      That means you are to pay #{initial_deposit} before this
-                      item can be locked by you.
+                      That means you are to pay{" "}
+                      <span className="percent_days_amnt">
+                        ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
+                      </span>
+                      before this item can be locked by you.
                     </span>
                   </div>
                 ) : null}
@@ -198,11 +202,9 @@ const ItemDetailComponent = ({
                 <div className="buy_now_btn_div">
                   <button
                     className="buy_now_button"
-                    onClick={() => {
-                      openDetailsModal();
-                    }}
+                    onClick={openDetailsModal()}
                   >
-                    {payment_type !== 1 ? "Proceed" : "Proceed to checkout"}
+                    Proceed to Checkout
                   </button>
                 </div>
               </div>
