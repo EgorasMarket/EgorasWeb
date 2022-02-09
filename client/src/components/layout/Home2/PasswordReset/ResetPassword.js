@@ -7,6 +7,7 @@ import { reset } from "../../../../actions/auth";
 
 const ResetPassword = ({ match, reset }) => {
   const [alert, setAlert] = useState("");
+  const [alertType, setAlertType] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [visibility, setVisibility] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
@@ -53,9 +54,11 @@ const ResetPassword = ({ match, reset }) => {
 
     if (password === '' || confirmpassword === '') {
       setAlert('All fields are required');
+      setAlertType('danger')
     } else {
       if (password !== confirmpassword) {
         setAlert('Passwords do not match');
+        setAlertType('danger')
       } else {
         let res = await reset({ password, email_auth });
         //console.log(res);
@@ -63,7 +66,8 @@ const ResetPassword = ({ match, reset }) => {
           setIsSuccessful(true);
           //console.log("okay Good Server");
         } else {
-          setAlert(res.data[0].msg, "danger");
+          setAlert(res.data[0].msg);
+          setAlertType('danger')
         }
       }
     }
@@ -92,7 +96,7 @@ const ResetPassword = ({ match, reset }) => {
   };
   const timer = setTimeout(() => {
     setAlert("");
-  }, 5000);
+  }, 9000);
 
   return (
     <div>
@@ -211,7 +215,8 @@ const ResetPassword = ({ match, reset }) => {
           </div>
         </div>
       </section>
-      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
+      {/* {alert == null ? "" : <CustomAlert alert={alert} alertType={alertType}  />} */}
+      {alert == "" ? null : <CustomAlert alert={alert} alertType={alertType} onChange={timer} />}
     </div>
   );
 };
