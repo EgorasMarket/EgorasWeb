@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 // import "../../../../css/signup.css";
 import { connect } from "react-redux";
 import "../../../../css/login.css";
@@ -9,10 +9,10 @@ import { getLogin } from "../../../../actions/auth";
 // import { getAuthentication } from "../../../../actions/auth";
 import { setAlert } from "../../../../actions/alert";
 
-const LoginComp = ({ getLogin, setAlert, isAuthenticated }) => {
+const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
   const [toke, setToke] = useState({ email: "", password: "" });
-
-  // const [email,setEmail]= useState();
+  const [userName, setUserName] = useState("");
+  // const [loginSuccess,setLoginSuccess]= useState('successfully');
   // const [password,setPassword]= useState();
 
   const { email, password } = toke;
@@ -32,15 +32,16 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated }) => {
   //  }
 
   const sumit = async (e) => {
+    // loginSuccess('true')
+    
     let res3 = await getLogin(email, password);
-
-    //  setToken(res)
-
+    
     console.log(res3);
-
+    
     // if (res.data.email !== e.target.value)
-
+    
     if (res3.data.success === true) {
+      parentCallback(true);
       console.log("okay Good Server");
     } else {
       setAlert(res3.data.errors[0].msg, "danger");
@@ -49,13 +50,13 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated }) => {
   // Redirect if logged in
   if (isAuthenticated) {
     // return <Redirect to="/dashboard" />;
-    return window.location.replace("/dashboard");
+    // return window.location.replace("/dashboard");
   }
 
   return (
     <div>
-      <div className="signup_area">
-        <div className="signup_cont">
+      <div style={{zIndex: '10000'}} className="signup_area">
+        <div style={{width: '110%'}} className="signup_cont">
           <div className="signup_title">Login to user account</div>
           <span className="signup_para">
             Securely login to your Egoras Savings account.

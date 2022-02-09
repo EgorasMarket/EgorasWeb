@@ -227,11 +227,15 @@ const App = () => {
     console.log(myArr[1]);
     if (myArr[1] === "super_admin") {
       setAdminLocate("super_admin");
-      console.log("super_admin");
+      // console.log("super_admin");
       store.dispatch(loadAdminUser());
     } else if (myArr[1] === "dashboard") {
       setAdminLocate("dashboard");
-      console.log("dashboard");
+      // console.log("dashboard");
+      store.dispatch(loadUser());
+    } else if (myArr[1] === "products") {
+      setAdminLocate("dashboard");
+      // console.log("dashboard");
       store.dispatch(loadUser());
     }
   });
