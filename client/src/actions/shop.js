@@ -89,8 +89,13 @@ export const createOrder = (product_id) => async (dispatch) => {
       "Content-Type": "application/json",
     },
   };
+
+  const body = JSON.stringify({
+    product_id,
+  });
+
   try {
-    const res = await axios.get(api_url2 + "/v1/order/add/order", null, config);
+    const res = await axios.post(api_url2 + "/v1/order/add/order", body, config);
     console.log(res.data.data);
     // console.log("Yes I call You because i can", res.data.data);
     // dispatch({

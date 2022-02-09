@@ -315,7 +315,7 @@ const CheckoutModalComponent = ({
       </div>
 
       {showPayment ?  
-      <Dashboard_Checkout_Page /> 
+      <Dashboard_Checkout_Page cAmount={100} getProductId={product_id} /> 
         : null 
     }
 
