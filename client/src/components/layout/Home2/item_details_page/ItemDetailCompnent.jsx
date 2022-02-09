@@ -243,7 +243,6 @@ const ItemDetailComponent = ({
                 percentage={percentage}
                 amount = {amount}
                 />  
-                {alert("this is an installment payment ")}
                   </>
 
                 ): 
@@ -251,7 +250,6 @@ const ItemDetailComponent = ({
                 <>
                   <OutrightComponent 
                     />
-                  {alert("this is an Outright payment ")}
                 </>
                   
                   }
