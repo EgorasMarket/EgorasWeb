@@ -194,6 +194,7 @@ const ItemDetailComponent = ({
        console.log(spec, " welcome  Daniel");
      }
   
+     console.log(product_id);
 
 
   return (
@@ -203,6 +204,7 @@ const ItemDetailComponent = ({
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
             cAmount={parseInt(amount)}
+            getProductId={product_id}
             click={CloseModal}
           />
         </div>

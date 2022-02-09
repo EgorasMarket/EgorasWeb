@@ -82,8 +82,8 @@ export const removeCart = (item) => {
 };
 
 
-export const createOrder = () => async (dispatch) => {
-  console.log('customer_id');
+export const createOrder = (product_id) => async (dispatch) => {
+  console.log(product_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
