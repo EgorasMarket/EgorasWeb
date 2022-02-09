@@ -219,28 +219,23 @@ const  ItemDetailComponent = ({payload , user_id, CloseModal, OpenModal, closeDe
 
               <div className='my-4'>
                   
-
-                    <div>
-                        <div className="description_body">
-                        <div className="description_table">
-                          <table class="_3a09a_1e-gU">
-                            <tbody>
-                              {spec.map((apple)=>(
-                              <tr>
-                                {/* <td>Colour</td> */}
-                                <td>{apple}</td>
-                              </tr>   ))}
-                            
-                            
-                            </tbody>
-                          </table>
-                        </div>
-                        {/* ====== */}
-                        {/* ====== */}
-                        </div>
-                    </div>
-               
+                <div className="description_body">
+                <div className="description_table">
+                  <table class="_3a09a_1e-gU">
+                    <tbody>
+                    {spec.map((apple)=>(
+                      <tr>
+                        <td>{apple}</td>
+                      </tr>
+                      ))}
+         
+                    </tbody>
+                  </table>
                 </div>
+                {/* ====== */}
+                {/* ====== */}  
+              </div>
+              </div>
 
 
 
