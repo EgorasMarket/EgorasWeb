@@ -19,20 +19,21 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-import InstagramIcon from "@mui/icons-material/Instagram";
-import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-import TwitterIcon from "@mui/icons-material/Twitter";
-import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
-import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
-import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
-import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+// import InstagramIcon from "@mui/icons-material/Instagram";
+// import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
+// import TwitterIcon from "@mui/icons-material/Twitter";
+// import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
+// import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
+// import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
+// import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
+// import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 import { retrieveCart } from "../../../../actions/shop";
-const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
+import Logout from "../Logout/Logout";
+const DashboardSidebar = ({auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -590,7 +591,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
             <hr className="hrr" />
             <ul className="social_icons">
-              <div
+              {/* <div
                 to="/dashboard/accounts"
                 className="link"
                 id="logout"
@@ -598,17 +599,13 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               >
                 <span
                   className="link_color"
-                  //   className={
-                  //     activeBg == "logout"
-                  //       ? "sidebarListItem list-item-active"
-                  //       : "sidebarListItem"
-                  //   }
-                  //   onClick={trigger}
+                  
                 >
                   <PowerSettingsNewIcon className="sidebarIcon" />
                   Logout
                 </span>
-              </div>
+              </div> */}
+              <Logout />
             </ul>
           </div>
         </div>

@@ -5,6 +5,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+import Dashboard_Checkout_Page from '../Dashboard/DashboardPages/Dashboard_Checkout_Page'
 
 const CheckoutModalComponent = ({
   startDate,
@@ -15,6 +16,8 @@ const CheckoutModalComponent = ({
   previousBtn,
   CheckBtn,
 }) => {
+
+
   //use states
   const [isloading, setIsLoading] = useState(true);
   const [dailyAmount, setDailyAmount] = useState();
@@ -31,16 +34,17 @@ const CheckoutModalComponent = ({
   const [product_image, setProductImage] = useState("");
   const [amount, setAmount] = useState("");
   const [unitCount, setUnitCount] = useState("");
-  const sub_total = parseInt(unitCount) * parseInt(amount);
+  const sub_total = 1;
 
-  const [showCheckout, setCheckoutStatus] = useState(false);
+  const [showPayment , setShowPayment] = useState(false);
 
-  const openCheckout = () => {
-    setCheckoutStatus(true);
+  const openPayment = () => {
+    setShowPayment(true);
   };
 
-  const closeCheckout = () => {
-    setCheckoutStatus(false);
+  const closePayment = () => {
+    setShowPayment(false);
+    
   };
 
   const checkout = async (
@@ -111,7 +115,9 @@ const CheckoutModalComponent = ({
 
   return (
     <div>
-      <div className="detailsModal">
+
+
+       <div className="detailsModal">
         <div className="detailsModalSection1">
           <div className="bacKbutton">
             Previous
@@ -299,21 +305,25 @@ const CheckoutModalComponent = ({
             <button
               className="checkout_btn1a"
               onClick={() => {
-                openCheckout();
+                openPayment()
               }}
             >
-              Proceed to Checkout{" "}
+              Proceed to Checkout
             </button>
           </div>
         </div>
       </div>
 
-      {/* {showCheckout ? 
-                (
-                  <DashboardCheckoutPage />
-                ): 
-                null 
-            } */}
+      {showPayment ?  
+      <Dashboard_Checkout_Page cAmount={100} getProductId={product_id} /> 
+        : null 
+    }
+
+
+
+  
+
+     
     </div>
   );
 };
