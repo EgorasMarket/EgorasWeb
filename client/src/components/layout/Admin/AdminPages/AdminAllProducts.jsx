@@ -168,10 +168,10 @@ const AdminAllProducts = () => {
                       </tr>
                     </thead>
 
-                    {itemdisplay.map((asset) => (
+                    {itemdisplay.slice(0,50).map((asset,index) => (
                       <tbody
                         className="save_items_cat  small_height popular-categories"
-                        id="popular-categories"
+                        id="popular-categories" key={index.toString()}
                       >
                         {" "}
                         <tr id={asset.id} className="assets-category-row">
@@ -230,8 +230,11 @@ const AdminAllProducts = () => {
                         </tr>
                       </tbody>
                     ))}
+
+                  
                   </table>
                 </div>
+                <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div>
                 {/* <div className="total_div">
                   Total: <span className="sum_resu"> ₦{'bnbnbn'}</span>
                 </div> */}
