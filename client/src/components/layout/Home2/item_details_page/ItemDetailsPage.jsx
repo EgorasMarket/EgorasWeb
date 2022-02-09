@@ -136,23 +136,30 @@ function ItemDetailsPage({ auth, match }) {
 
   return (
   <>
-      <ItemDetailComponent
-        payload={payload}
-        // numberWithCommas={numberWithCommas}
-        card={spec}
-        openDetailsModal={() => {
-          openDetailsModal();
-        }}
-      />
+   
 
       {detailsModal === true ? (
         <Checkout
           installation_days={payload.product_duration}
           product_id={product_id}
           customer_id={user_id}
+     
         />
+
+
       ) : null}
-</>
+
+         <ItemDetailComponent
+        payload={payload}
+        // numberWithCommas={numberWithCommas}
+        card={spec}
+        openCheckoutModal={()=> {
+          
+         openDetailsModal()
+        }}
+   
+      />
+  </>
   );
 }
 

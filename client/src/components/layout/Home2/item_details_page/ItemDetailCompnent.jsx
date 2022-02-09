@@ -82,8 +82,7 @@ const ItemDetailComponent = ({
   user_id,
   CloseModal,
   OpenModal,
-  closeDetailModal,
-  openDetailsModal,
+  openCheckoutModal,
 }) => {
   const config = {
     headers: {
@@ -119,6 +118,15 @@ const ItemDetailComponent = ({
     total_amount,
     no_of_days,
   } = payload;
+
+  
+  const openDetailsModal = () => {
+    setDetailsModal(true);
+  };
+
+  const closeDetailModal = () => {
+    setDetailsModal(false);
+  };
   let spec = [product_specifications];
   // spec.push(product_specifications)
 
@@ -262,9 +270,7 @@ const ItemDetailComponent = ({
                 <div className="buy_now_btn_div">
                   <button
                     className="buy_now_button"
-                    onClick={() => {
-                      openDetailsModal();
-                    }}
+                    onClick={openCheckoutModal}
                   >
                     {payment_type !== 1 ? "Proceed" : "Proceed to checkout"}
                   </button>
@@ -406,7 +412,13 @@ const ItemDetailComponent = ({
             </section>
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
-            {detailsModal == true ? <CheckoutModalComponent /> : null}
+            {/* {detailsModal == true ? 
+            <CheckoutModalComponent 
+                installation_days={product_duration}
+                product_id={product_id}
+                customer_id={user_id}
+
+            /> : null} */}
           </div>
         </div>
       </section>
