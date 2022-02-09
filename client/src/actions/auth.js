@@ -109,6 +109,45 @@ export const getAuthentication =
       };
     }
   };
+  export const activate = (email_auth) => async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+  
+    const body = JSON.stringify({
+      email_auth,
+    });
+  
+    console.log(body);
+  
+    try {
+      const res = await axios.post(api_url2 + "/v1/user/activate", body, config);
+      console.log(res);
+      //console.log("yyyyy");
+  
+      return res;
+    } catch (err) {
+      //console.log(err);
+  
+      //console.log("ok");
+  
+      // const errors = err.response.data.errors;
+      // //console.log(errors);
+      // if (errors) {
+      //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      // }
+  
+      //   return {
+      //   status: false,
+      //   id: null
+      // }
+    }
+  };
+
 
 export const getLogin = (email, password) => async (dispatch) => {
   const config = {
@@ -165,6 +204,50 @@ export const getLogin = (email, password) => async (dispatch) => {
     };
   }
 };
+
+export const reset =
+  ({ password, email_auth }) =>
+  async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    const body = JSON.stringify({
+      password,
+      email_auth,
+    });
+
+    console.log(body);
+
+    try {
+      const res = await axios.put(api_url2 + "/v1/user/reset", body, config);
+      //console.log(res);
+
+      return {
+        status: true,
+        data: res.data,
+      };
+    } catch (err) {
+      console.log(err.response);
+
+      //console.log("ok");
+
+      const errors = err.response.data.errors;
+      // //console.log(errors);
+      // if (errors) {
+      //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+      // }
+
+      return {
+        status: false,
+        data: errors,
+      };
+    }
+  };
 
 export const nextOfKING =
   (firstname, lastname, email, phoneNumber, gender, relationship) =>

@@ -147,6 +147,7 @@ import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
+import ResetPassword from "./components/layout/Home2/PasswordReset/ResetPassword";
 
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -253,7 +254,8 @@ const App = () => {
               <section>
                 <Switch>
                   <Route exact path="/" component={HomeUpdate} />
-                  <Route exact path="/activation" component={Activation} />
+                  <Route exact path="/activation/:id" component={Activation} />
+                  <Route exact path="/password/reset/:id" component={ResetPassword} />
                   <Route exact path="/savings" component={Savings} />
                   <Route exact path="/products/details/:id/:name" component={ItemDetailsPage} />
                   <Route exact path="/loan" component={Newhome2} />
