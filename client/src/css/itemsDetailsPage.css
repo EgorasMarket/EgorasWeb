@@ -693,6 +693,12 @@ span.per_day {
   cursor: pointer;
   color: #8f8f8f;
 }
+span.percent_days_amnt {
+  font-weight: 800;
+  color: #000;
+  font-size: 14px;
+  margin-right: 2px;
+}
 .arrow_back {
   font-size: 15px !important;
 }
@@ -759,6 +765,7 @@ span.per_day {
     width: 5.6% !important;
   }
 }
+
 @media screen and (max-width: 900px) {
   .product_details_area1 {
     display: flex;
