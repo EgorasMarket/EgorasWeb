@@ -209,7 +209,8 @@ const ItemDetailComponent = ({
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
-            cAmount={parseInt(amount)}
+            cAmount={100}
+            // cAmount={parseInt(amount)}
             getProductId={product_id}
             click={CloseModal}
           />
