@@ -258,7 +258,7 @@ const ItemDetailComponent = ({
                 ): 
 
                 <>
-                  <OutrightComponent 
+                  <OutrightComponent amount={amount}
                     />
                 </>
                   
@@ -305,9 +305,9 @@ const ItemDetailComponent = ({
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      {spec.map((apple) => (
+                      {card.map((apple) => (
                       <tr>
-                          <td style={{display:'flex',flexDirection:'column'}}>{apple}</td>
+                          <td>{apple}</td>
                       </tr>
                 
                 
