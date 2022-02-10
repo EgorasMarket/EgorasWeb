@@ -34,9 +34,10 @@ export const proceedToCheckout =
       fullname,
       email,
       phone_number,
-      amount,
+      // amount,
       // product_id
     );
+    const amount = 100
     const config = {
       headers: {
         "Content-Type": "application/json",

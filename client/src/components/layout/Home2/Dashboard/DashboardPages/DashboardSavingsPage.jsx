@@ -47,6 +47,13 @@ function DashboardSavingsPage({ match, auth }) {
     },
   };
 
+  const [accountInfo, setAccountInfo] = useState({
+    ledger: "",
+    pending_sum: "",
+    total_sum: ""
+  })
+  const {ledger, pending_sum, total_sum} = accountInfo;
+
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
@@ -61,6 +68,31 @@ function DashboardSavingsPage({ match, auth }) {
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
+      });
+  }, [auth]);
+
+  useEffect(async() => {
+
+    console.log(auth.user.user.id);
+    const customer_id = auth.user.user.id
+    const body = JSON.stringify({
+      customer_id,
+    });
+    await axios
+      .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
+      .then((data) => {
+        console.log(data.data.data, "bbbbbbb");
+
+        setAccountInfo({
+          ledger: data.data.data.ledger,
+          pending_sum: data.data.data.pending_sum,
+          total_sum: data.data.data.total_sum
+        })
+
+        // setItemGalleryShow(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
       });
   }, [auth]);
 
@@ -99,8 +131,8 @@ function DashboardSavingsPage({ match, auth }) {
                 <div className="savings_overview_card1 over_first_card">
                   <div className="card_over_body">
                     <div className="card_over_title">
-                      Total Balance
-                      <div className="card_over_balance">#50,000</div>
+                      Total Savings
+                      <div className="card_over_balance">₦{total_sum}</div>
                     </div>
 
                     <div className="card_over_balance_button">Start Saving</div>
@@ -109,8 +141,8 @@ function DashboardSavingsPage({ match, auth }) {
                 <div className="savings_overview_card1 over_first_card">
                   <div className="card_over_body">
                     <div className="card_over_title">
-                      Total Balance
-                      <div className="card_over_balance">#50,000</div>
+                      Pending Payment
+                      <div className="card_over_balance">₦{pending_sum}</div>
                     </div>
 
                     <div className="card_over_balance_button">Start Saving</div>
@@ -119,23 +151,14 @@ function DashboardSavingsPage({ match, auth }) {
                 <div className="savings_overview_card1 over_first_card">
                   <div className="card_over_body">
                     <div className="card_over_title">
-                      Total Balance
-                      <div className="card_over_balance">#50,000</div>
+                      Ledger Balance
+                      <div className="card_over_balance">₦{ledger}</div>
                     </div>
 
                     <div className="card_over_balance_button">Start Saving</div>
                   </div>
                 </div>
-                <div className="savings_overview_card1 over_first_card">
-                  <div className="card_over_body">
-                    <div className="card_over_title">
-                      Total Balance
-                      <div className="card_over_balance">#50,000</div>
-                    </div>
-
-                    <div className="card_over_balance_button">Start Saving</div>
-                  </div>
-                </div>
+                
                 {/* <div className="savings_overview_card1 over_second_card"></div>
                 <div className="savings_overview_card1  over_third_card"></div>
                 <div className="savings_overview_card1 over_fourth_card"></div> */}

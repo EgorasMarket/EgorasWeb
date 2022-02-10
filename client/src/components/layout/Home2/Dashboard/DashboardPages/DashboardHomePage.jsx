@@ -121,9 +121,15 @@ const { productImage,productName,productAmount}=lock;
   };
 
   const [itemGalleryShow, setItemGalleryShow] = useState([]);
+  const [accountInfo, setAccountInfo] = useState({
+    ledger: "",
+    pending_sum: "",
+    total_sum: ""
+  })
+  const {ledger, pending_sum, total_sum} = accountInfo;
 
-  useEffect(() => {
-    axios
+  useEffect(async() => {
+    await axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
         console.log(data.data.data, "phlip");
@@ -134,6 +140,32 @@ const { productImage,productName,productAmount}=lock;
         console.log(err); // "oh, no!"
       });
   }, []);
+
+
+  useEffect(async() => {
+
+    console.log(auth.user.user.id);
+    const customer_id = auth.user.user.id
+    const body = JSON.stringify({
+      customer_id,
+    });
+    await axios
+      .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
+      .then((data) => {
+        console.log(data.data.data, "bbbbbbb");
+
+        setAccountInfo({
+          ledger: data.data.data.ledger,
+          pending_sum: data.data.data.pending_sum,
+          total_sum: data.data.data.total_sum
+        })
+
+        // setItemGalleryShow(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+  }, [auth]);
 
 
 
@@ -191,9 +223,12 @@ const { productImage,productName,productAmount}=lock;
                 // transitionDuration={1000}
                 style={{ height: "25em" }}
               >
-                {data.dashBoardHomeCard.map((asset, index) => (
-                  <DashBoardCard key={index} val={asset} />
-                ))}
+                {/* {data.dashBoardHomeCard.map((asset, index) => ( */}
+                  <DashBoardCard background ={'/img/save_card1.svg'} title={"Total Saving"} balance={total_sum} />
+                  <DashBoardCard background ={'/img/save_card2.svg'} title={"Pending Payment"} balance={pending_sum} />
+                  <DashBoardCard background ={'/img/save_card3.svg'} title={"Ledger Balance"} balance={ledger}/>
+               
+                {/* ))} */}
               </Carousel>
               {/* Carousel end==============================
 ==============================================
