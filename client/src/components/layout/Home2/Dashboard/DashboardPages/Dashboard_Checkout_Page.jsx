@@ -162,7 +162,8 @@ const Dashboard_Checkout_Page = ({
       Userfullname,
       Useremail,
       UserphoneNumber,
-      2000
+      amount
+      
     );
     console.log(res3.data.data, "response from dashboard checkout ");
 
@@ -199,7 +200,7 @@ const Dashboard_Checkout_Page = ({
     setLoading(true);
     // console.log(payload2, otp, UserId);
     if (trnMode === "pin") {
-      let sendO1 = await sendOtp(payload2, otp, UserId);
+      let sendO1 = await sendOtp(payload2, otp, UserId, getProductId);
       // console.log(sendO1);
 
       if (sendO1.success === true) {

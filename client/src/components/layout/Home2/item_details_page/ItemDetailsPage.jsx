@@ -34,7 +34,7 @@ function ItemDetailsPage({ auth, match }) {
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
-  const [spec, setSpec] = useState([]);
+  const [card, setSpec] = useState([]);
   const [isAuthenticated, setIsAuthenticated ]  = useState(null)
 
   const openDetailsModal = () => {
@@ -118,18 +118,21 @@ function ItemDetailsPage({ auth, match }) {
           no_of_days,
         });
         const getSlid = data.data.data.product_specifications;
+        // const myArray = getSlid.split(",");
+
+        console.log(getSlid);
 
         setSpec(getSlid);
 
-        //  const slipVar = getSlid.split(',');
-        console.log("====================================");
-        console.log(getSlid);
-        console.log("====================================");
+        // //  const slipVar = getSlid.split(',');
+        // console.log("====================================");
+        // console.log(getSlid);
+        // console.log("====================================");
 
-        console.log("====================================");
+        // console.log("====================================");
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        console.log(err); // "oh, no!"
       });
   }, []); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
 
@@ -152,7 +155,7 @@ function ItemDetailsPage({ auth, match }) {
          <ItemDetailComponent
         payload={payload}
         // numberWithCommas={numberWithCommas}
-        card={spec}
+        card={card}
         openCheckoutModal={()=> {
           
          openDetailsModal()
