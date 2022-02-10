@@ -557,35 +557,38 @@ const Item_details_main = ({ match }) => {
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      <tr>
+
+                      {spec.map((apple,xd)=>(
+                      <tr key={xd.toString()}>
                         {/* <td>Colour</td> */}
-                        <td>{spec[0]}</td>
+                        <td>{apple}</td>
                       </tr>
-                      <tr>
+                      ))}
+                      {/* <tr> */}
                         {/* <td>Warranty Period</td> */}
-                        <td>{spec[1]}</td>
-                      </tr>
+                        {/* <td>{spec[1]}</td> */}
+                      {/* </tr> */}
                       {/* <tr>
                        <td>
                        {tree[0]}
                        </td>
                       </tr> */}
-                      <tr>
+                      {/* <tr> */}
                         {/* <td>Brand</td> */}
-                        <td>{spec[2]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[2]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>Display Features</td> */}
-                        <td>{spec[3]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[3]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>Display Technology</td> */}
-                        <td>{spec[4]}</td>
-                      </tr>
-                      <tr>
+                        {/* <td>{spec[4]}</td> */}
+                      {/* </tr> */}
+                      {/* <tr> */}
                         {/* <td>TV Screen Size</td> */}
-                        <td>{spec[5]}</td>
-                      </tr>
+                        {/* <td>{spec[5]}</td> */}
+                      {/* </tr> */}
                       {/* <tr> */}
                       {/* <td>Television 3D Technology</td> */}
                       {/* <td>{spec[6]}</td> */}
@@ -694,7 +697,7 @@ const Item_details_main = ({ match }) => {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products</h1>
+                      <h1 className="gttitle TITE">Recent Products / Outright sell-off</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -722,108 +725,49 @@ const Item_details_main = ({ match }) => {
                     style={{ height: "25em" }}
                   >
                     {term.map((asset) => (
-                      // <div className="cardA">
-                      //   <div className="img">
-                      //     <div
-                      //       className="img-sub"
-                      //       style={{
-                      //         backgroundImage: `url(${asset.img})`,
-                      //         height: "200px",
-                      //         width: "100%",
-                      //         backgroundRepeat: "no-repeat",
-                      //         backgroundSize: "cover",
-                      //         borderRadius: "8px",
-                      //         borderBottomLeftRadius: "0px",
-                      //         borderBottomRightRadius: "0px",
-                      //         backgroundPositionY: "center",
-                      //       }}
-                      //     >
-                      //       {/* <div className="img-amount">
-                      //       <NumberFormat
-                      //         value={1000}
-                      //         displayitems_remainings={"text"}
-                      //         thousandSeparator={true}
-                      //         prefix={"$"}
-                      //       />
-                      //     </div> */}
-                      //     </div>
-                      //   </div>
-
-                      //   <div className="cardDetails" style={{ textAlign: "left" }}>
-                      //     <h1 className="cardHeader">{asset.name}</h1>
-                      //     <h1 className="collat-category">{asset.items_remainings}</h1>
-                      //     <div className="heroSlider2">
-                      //       <div className="slider-txts1">
-                      //         <div className="h-texts">
-                      //           <h3 className="htxt1a">{asset.days_left}</h3>
-                      //           <h3 className="htxt2a">{asset.percentage}</h3>
-                      //         </div>
-                      //       </div>
-                      //       {/* <div className="slider-a"></div> */}
-                      //       <div className="slider" style={{ height: "7px" }}>
-                      //         <div
-                      //           className="sliderafter"
-                      //           style={{
-                      //             width: `5%`,
-                      //             height: "7px",
-                      //           }}
-                      //         ></div>
-                      //       </div>
-                      //       <div className="slider-txts2">
-                      //         <div className="p-texts2a">
-                      //           <p className="ptxt2a">Remaining Items: 100</p>
-                      //         </div>
-                      //       </div>
-                      //     </div>
-                      //   </div>
-                      //   </div>
-                      <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                      >
-                        <li className="carous_list">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                save now
-                              </button>
+                     
+                      <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                           
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
+    
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
                               <button className="items_remaining_btn2">
-                                20% off
+                                {" "}
+                                40% locked
                               </button>
-                            </div>
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_title">
-                                {asset.unitCount}
-                                {asset.unitCount === 1
-                                  ? "item left"
-                                  : asset.unitCount <= 1
-                                  ? "no item left"
-                                  : asset.unitCount > 1
-                                  ? "items left"
-                                  : null}
-                              </div>
-                            </div>
-                            {/* </a> */}
+                            )}
                           </div>
-                        </li>
-                      </a>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_title">
+                              ₦{numberWithCommas(asset.amount)}{" "}
+                              <span className="slashed_price">
+                                ₦{numberWithCommas(asset.amount * 2)}
+                              </span>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
                     ))}
                   </Carousel>
                   {/* Carousel end==============================
@@ -832,6 +776,109 @@ const Item_details_main = ({ match }) => {
                 </div>
               </div>
             </section>
+
+
+
+
+            {/*  Projects Section start*/}
+            <section className="projectsSection" id="projects">
+              <div className="container">
+                <div className="projectsArea">
+                  <div className="projectsLinea"></div>
+                  <div className="projectsTitleContentsa">
+                    <div className="projectTitle">
+                      <h1 className="gttitle TITE">Recent Products / Esusu</h1>
+                    </div>
+                    {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+                  </div>
+
+                  {/* Carousel start==============================
+==============================================
+============================= */}
+
+                  <Carousel
+                    responsive={responsive6}
+                    className="partnerCards LEFTARROW"
+                    showDots={false}
+                    //   infinite={false}
+                    autoPlay={true}
+                    autoPlaySpeed={6000}
+                    transitionDelay={"2s"}
+                    infinite={true}
+                    draggable={true}
+                    // transitionDuration={500}
+                    swipeable={true}
+                    style={{ height: "25em" }}
+                  >
+                    {term.map((asset) => (
+                    
+                      <a href={`/products/details/${asset.id}`}>
+                  <li className="carous_list">
+                    <div
+                      className="storeTiles_storeTileContainer__HoGEa"
+                      style={{
+                        backgroundImage: `url(${
+                          api_url2 + "/" + asset.product_image
+                        })`,
+                       
+                      }}
+                    >
+                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                        <button className="items_remaining_btn">
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <p className="no_margg"> Buy now</p>
+                          ) : (
+                            <p className="no_margg"> Save now</p>
+                          )}
+                        </button>
+
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <div></div>
+                        ) : (
+                          <button className="items_remaining_btn2">
+                            {" "}
+                            {asset.percentage}% locked
+                          </button>
+                        )}
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.product_name}</div>
+                        <div className="asset_prices_div">
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.amount * 2)}
+                            </span>
+                          </div>
+                          <div className="amount_per_day_div">
+                            ₦
+                            {numberWithCommas(
+                              (asset.amount / asset.product_duration).toFixed()
+                            )}
+                            <span className="per_day_symbol"> / perday</span>
+                          </div>
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
+                    ))}
+                  </Carousel>
+                  {/* Carousel end==============================
+==============================================
+============================= */}
+                </div>
+              </div>
+            </section>
+
+
+
+
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
             {detailsModal == true ? (
