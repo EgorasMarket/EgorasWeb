@@ -30,6 +30,7 @@ const AdminUploadProducts = () => {
   const [getrandom, setRandom] = useState("");
   const [LSExist, setLSExist] = useState(null);
   const [alert, setAlert] = useState("");
+  const [alertType, setAlertType] = useState("");
   const [productId, setProductId] = useState("");
   const [product_category_code1, setProduct_category_code1] = useState("");
   const [product_type, setProduct_type] = useState("");
@@ -169,8 +170,9 @@ const AdminUploadProducts = () => {
     console.log(product_category_code, product_category_desc);
 
     if (product_category_desc === "") {
-      console.log("Please supply product description.");
+      // console.log("Please supply product description.");
       setAlert("Please supply product description");
+      setAlertType('danger')
     } else {
       const body = JSON.stringify({
         product_category_code,
@@ -186,13 +188,14 @@ const AdminUploadProducts = () => {
         console.log(res, "undefined");
 
         if (res.data.statusCode === 200) {
-          // setAlert(res.data.data.errors[0].msg, "danger");
+          setAlert('Category added succefully');
+          setAlertType('success')
           // setExDateUpload(true)
           // window.location.reload();
         } else {
           setAlert(res.data.data.errors[0].msg, "danger");
-          // console.log('Not Delete');
-          // setAlert('Something went wrong, please try again later', 'danger');
+          setAlertType('danger')
+         
         }
       } catch (err) {
         console.log(err.response);
@@ -225,6 +228,7 @@ const AdminUploadProducts = () => {
             console.log(productFile.size);
             if (productFile.size > 1000000) {
               setAlert("file too large");
+              setAlertType('danger')
               console.log("file too large.");
             } else {
               setproduct_image(URL.createObjectURL(event.target.files[0]));
@@ -242,9 +246,9 @@ const AdminUploadProducts = () => {
 
     if (product_image === "") {
       console.log("empty passport");
-      setAlert("empty passport");
-
-      // setAlert('Please provide a passport photo', 'danger');
+      setAlert("Please provide product image");
+      setAlertType('danger')
+    
     } else {
       const element = document.getElementById("product_image");
       const file = element.files[0];
@@ -265,13 +269,13 @@ const AdminUploadProducts = () => {
           setProductId(res.data.data[0].productId);
           localStorage.setItem("productId", res.data.data[0].productId);
         } else {
-          setAlert(res.data.data.errors[0].msg, "danger");
-
-          // setAlert('Something went wrong, please try again later', 'danger');
+          setAlert(res.data.data.errors[0].msg);
+          setAlertType('danger')
+          
         }
       } catch (err) {
         console.log(err.response);
-        // setAlert('Check your internet connection', 'danger');
+        
       }
     }
   };
@@ -315,10 +319,12 @@ const AdminUploadProducts = () => {
       ) {
         // console.log("Please supply all information.");
         setAlert("Please supply all information");
+        setAlertType('danger')
       } else {
         if (!localStorage.productId) {
           
           setAlert("Please provide a product id by adding a new product image");
+          setAlertType('danger')
         } else {
           
           let product_category_code = product_category_code1;
@@ -351,7 +357,8 @@ const AdminUploadProducts = () => {
               setLSExist(false);
               setProduct_category_code1('')
               // setProduct_duration('')
-              setAlert('Product was uploaded successfully', "success");
+              setAlert('Product was uploaded successfully');
+              setAlertType('success')
               setProductId('')
               setProduct_type('')
               setProductUpdateInfo({
@@ -364,9 +371,9 @@ const AdminUploadProducts = () => {
                 product_details: "",
               })
             } else {
-              setAlert(res.data.data.errors[0].msg, "danger");
+              setAlert(res.data.data.errors[0].msg);
+              setAlertType('danger')
   
-              // setAlert('Something went wrong, please try again later', 'danger');
             }
           } catch (err) {
             console.log(err.response);
@@ -389,10 +396,12 @@ const AdminUploadProducts = () => {
       ) {
         // console.log("Please supply all information.");
         setAlert("Please supply all information");
+        setAlertType('danger')
       } else {
         if (!localStorage.productId) {
           
           setAlert("Please provide a product id by adding a new product image");
+          setAlertType('danger')
         } else {
           
           let product_category_code = product_category_code1;
@@ -425,7 +434,8 @@ const AdminUploadProducts = () => {
               setLSExist(false);
               setProduct_category_code1('')
               // setProduct_duration('')
-              setAlert('Product was uploaded successfully', "success");
+              setAlert('Product was uploaded successfully');
+              setAlertType('success')
               setProductId('')
               setProduct_type('')
               setProductUpdateInfo({
@@ -438,9 +448,10 @@ const AdminUploadProducts = () => {
                 product_details: "",
               })
             } else {
-              setAlert(res.data.data.errors[0].msg, "danger");
+              setAlert(res.data.data.errors[0].msg);
+              setAlertType('danger')
   
-              // setAlert('Something went wrong, please try again later', 'danger');
+              
             }
           } catch (err) {
             console.log(err.response);
@@ -793,8 +804,7 @@ const AdminUploadProducts = () => {
           </div>
         </div>
       </section>
-      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
-
+      {alert == "" ? null : <CustomAlert alert={alert} alertType={alertType} onChange={timer} />}
     </div>
     {/* :null} */}
     </>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import LogoutIcon from "@mui/icons-material/Logout";
 const DashBoardCard = ({ val, key }) => {
+
+
+
   return (
     <div className="card_cont1" key={key}>
       <div className="card_cont_txtxs">

@@ -136,6 +136,20 @@ const { productImage,productName,productAmount}=lock;
   }, []);
 
 
+  useEffect(() => {
+    axios
+      .post(api_url2 + "/v1/user/accounts/fetch/dashboard", null, config)
+      .then((data) => {
+        console.log(data, "Chukwubuike Ifeanyi");
+
+       
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+
 
    
   // useEffect(() => {
@@ -167,7 +181,9 @@ const { productImage,productName,productAmount}=lock;
 //     })
 // }, []);
     
-
+const numberWithCommas = (x) => {
+  return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+};
   return (
     <div className="other2">
       <section className="no-bg">
@@ -244,14 +260,16 @@ const { productImage,productName,productAmount}=lock;
             </div>
           </div>
           {/* =================================================================================================================================================================================================================================================================== */}
-          {/*  Projects Section start*/}
-          <section className="projectsSection savvvvv" id="projects">
+        
+        
+  {/*  Projects Section start*/}
+  <section className="projectsSection savvvvv" id="projects">
             <div className="container">
               <div className="projectsArea">
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Recent Products</h1>
+                    <h1 className="gttitle TITE">Recent Products / Outright sell-off</h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -280,51 +298,55 @@ const { productImage,productName,productAmount}=lock;
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                    <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                    >
-                      <li className="carous_list">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              save now
-                            </button>
-                            <button className="items_remaining_btn2">
-                              40 off
-                            </button>
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">
-                              {asset.product_name}
-                            </div>
-                            <div className="asset_title">
-                              {asset.unitCount}
-                              {asset.unitCount === 1
-                                ? "item"
-                                : asset.unitCount < 1
-                                ? " "
-                                : "items"}
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
+                   <a href={`/products/details/${asset.id}`}>
+                   <li className="carous_list no_marg">
+                     <div
+                       className="storeTiles_storeTileContainer__HoGEa"
+                       style={{
+                         backgroundImage: `url(${
+                           api_url2 + "/" + asset.product_image
+                         })`,
+                         //           height: "200px",
+                         //           width: "100%",
+                         //           backgroundRepeat: "no-repeat",
+                         //           backgroundSize: "cover",
+                         //           borderRadius: "8px",
+                         //           borderBottomLeftRadius: "0px",
+                         //           borderBottomRightRadius: "0px",
+                         //   backgroundPositionY: "center",
+                       }}
+                     >
+                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                         <button className="items_remaining_btn">
+                           {asset.payment_type == "OUTRIGHT" ? (
+                             <p className="no_margg"> Buy now</p>
+                           ) : (
+                             <p className="no_margg"> Save now</p>
+                           )}
+                         </button>
+ 
+                         {asset.payment_type == "OUTRIGHT" ? (
+                           <div></div>
+                         ) : (
+                           <button className="items_remaining_btn2">
+                             {" "}
+                             40% locked
+                           </button>
+                         )}
+                       </div>
+                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                         <div className="asset_name">{asset.product_name}</div>
+                         <div className="asset_title">
+                           ₦{numberWithCommas(asset.amount)}{" "}
+                           <span className="slashed_price">
+                             ₦{numberWithCommas(asset.amount * 2)}
+                           </span>
+                         </div>
+                       </div>
+                       {/* </a> */}
+                     </div>
+                   </li>
+                 </a>
                   ))}
                 </Carousel>
                 {/* Carousel end==============================
@@ -334,6 +356,114 @@ const { productImage,productName,productAmount}=lock;
             </div>
           </section>
           {/*  Projects Section end*/}
+
+
+
+                
+  {/*  Projects Section start*/}
+  <section className="projectsSection savvvvv" id="projects">
+            <div className="container">
+              <div className="projectsArea">
+                <div className="projectsLinea"></div>
+                <div className="projectsTitleContentsa">
+                  <div className="projectTitle">
+                    <h1 className="gttitle TITE">Recent Products / Esusu</h1>
+                  </div>
+                  {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+                </div>
+
+                {/* Carousel start==============================
+==============================================
+============================= */}
+
+                <Carousel
+                  responsive={responsive7}
+                  className="partnerCards LEFTARROW"
+                  showDots={false}
+                  //   infinite={false}
+                  //   infinite={false}
+                  autoPlay={true}
+                  autoPlaySpeed={6000}
+                  transitionDelay={"2s"}
+                  infinite={true}
+                  draggable={true}
+                  // transitionDuration={500}
+                  swipeable={true}
+                  style={{ height: "25em" }}
+                >
+                  {itemGalleryShow.map((asset) => (
+                    <a href={`/products/details/${asset.id}`}>
+                    <li className="carous_list no_marg">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${
+                            api_url2 + "/" + asset.product_image
+                          })`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <p className="no_margg"> Buy now</p>
+                            ) : (
+                              <p className="no_margg"> Save now</p>
+                            )}
+                          </button>
+  
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <div></div>
+                          ) : (
+                            <button className="items_remaining_btn2">
+                              {" "}
+                              {asset.percentage}% locked
+                            </button>
+                          )}
+                        </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.product_name}</div>
+                          <div className="asset_prices_div">
+                            <div className="asset_title">
+                              ₦{numberWithCommas(asset.amount)}{" "}
+                              <span className="slashed_price">
+                                ₦{numberWithCommas(asset.amount * 2)}
+                              </span>
+                            </div>
+                            <div className="amount_per_day_div">
+                              ₦
+                              {numberWithCommas(
+                                (asset.amount / asset.product_duration).toFixed()
+                              )}
+                              <span className="per_day_symbol"> / perday</span>
+                            </div>
+                          </div>
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    </li>
+                  </a>
+                  ))}
+                </Carousel>
+                {/* Carousel end==============================
+==============================================
+============================= */}
+              </div>
+            </div>
+          </section>
+          {/*  Projects Section end*/}
+
           {/* =================================================================================================================================================================================================================================================================== */}
           {/*  Projects Section start*/}
           <section className="projectsSection savvvvv" id="projects">
@@ -342,7 +472,7 @@ const { productImage,productName,productAmount}=lock;
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Top Products</h1>
+                    <h1 className="gttitle TITE">Top Products / Outright sell-off</h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -370,51 +500,55 @@ const { productImage,productName,productAmount}=lock;
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                    <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                    >
-                      <li className="carous_list">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              save now
-                            </button>
-                            <button className="items_remaining_btn2">
-                              40 off
-                            </button>
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">
-                              {asset.product_name}
-                            </div>
-                            <div className="asset_title">
-                              {asset.unitCount}
-                              {asset.unitCount === 1
-                                ? "item"
-                                : asset.unitCount < 1
-                                ? " "
-                                : "items"}
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
+                     <a href={`/products/details/${asset.id}`}>
+                     <li className="carous_list no_marg">
+                       <div
+                         className="storeTiles_storeTileContainer__HoGEa"
+                         style={{
+                           backgroundImage: `url(${
+                             api_url2 + "/" + asset.product_image
+                           })`,
+                           //           height: "200px",
+                           //           width: "100%",
+                           //           backgroundRepeat: "no-repeat",
+                           //           backgroundSize: "cover",
+                           //           borderRadius: "8px",
+                           //           borderBottomLeftRadius: "0px",
+                           //           borderBottomRightRadius: "0px",
+                           //   backgroundPositionY: "center",
+                         }}
+                       >
+                         <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                           <button className="items_remaining_btn">
+                             {asset.payment_type == "OUTRIGHT" ? (
+                               <p className="no_margg"> Buy now</p>
+                             ) : (
+                               <p className="no_margg"> Save now</p>
+                             )}
+                           </button>
+   
+                           {asset.payment_type == "OUTRIGHT" ? (
+                             <div></div>
+                           ) : (
+                             <button className="items_remaining_btn2">
+                               {" "}
+                               40% locked
+                             </button>
+                           )}
+                         </div>
+                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                           <div className="asset_name">{asset.product_name}</div>
+                           <div className="asset_title">
+                             ₦{numberWithCommas(asset.amount)}{" "}
+                             <span className="slashed_price">
+                               ₦{numberWithCommas(asset.amount * 2)}
+                             </span>
+                           </div>
+                         </div>
+                         {/* </a> */}
+                       </div>
+                     </li>
+                   </a>
                   ))}
                 </Carousel>
                 {/* Carousel end==============================
@@ -424,6 +558,112 @@ const { productImage,productName,productAmount}=lock;
             </div>
           </section>
           {/*  Projects Section end*/}
+
+
+        {/*  Projects Section start*/}
+        <section className="projectsSection savvvvv" id="projects">
+            <div className="container">
+              <div className="projectsArea">
+                <div className="projectsLinea"></div>
+                <div className="projectsTitleContentsa">
+                  <div className="projectTitle">
+                    <h1 className="gttitle TITE">Top Products / Esusu</h1>
+                  </div>
+                  {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+                </div>
+
+                {/* Carousel start==============================
+==============================================
+============================= */}
+
+                <Carousel
+                  responsive={responsive7}
+                  className="partnerCards LEFTARROW"
+                  showDots={false}
+                  //   infinite={false}
+                  autoPlay={true}
+                  autoPlaySpeed={6000}
+                  transitionDelay={"2s"}
+                  infinite={true}
+                  draggable={true}
+                  // transitionDuration={500}
+                  swipeable={true}
+                  style={{ height: "25em" }}
+                >
+                  {itemGalleryShow.map((asset) => (
+                   <a href={`/products/details/${asset.id}`}>
+                   <li className="carous_list no_marg">
+                     <div
+                       className="storeTiles_storeTileContainer__HoGEa"
+                       style={{
+                         backgroundImage: `url(${
+                           api_url2 + "/" + asset.product_image
+                         })`,
+                         //           height: "200px",
+                         //           width: "100%",
+                         //           backgroundRepeat: "no-repeat",
+                         //           backgroundSize: "cover",
+                         //           borderRadius: "8px",
+                         //           borderBottomLeftRadius: "0px",
+                         //           borderBottomRightRadius: "0px",
+                         //   backgroundPositionY: "center",
+                       }}
+                     >
+                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                         <button className="items_remaining_btn">
+                           {asset.payment_type == "OUTRIGHT" ? (
+                             <p className="no_margg"> Buy now</p>
+                           ) : (
+                             <p className="no_margg"> Save now</p>
+                           )}
+                         </button>
+ 
+                         {asset.payment_type == "OUTRIGHT" ? (
+                           <div></div>
+                         ) : (
+                           <button className="items_remaining_btn2">
+                             {" "}
+                             {asset.percentage}% locked
+                           </button>
+                         )}
+                       </div>
+                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                         <div className="asset_name">{asset.product_name}</div>
+                         <div className="asset_prices_div">
+                           <div className="asset_title">
+                             ₦{numberWithCommas(asset.amount)}{" "}
+                             <span className="slashed_price">
+                               ₦{numberWithCommas(asset.amount * 2)}
+                             </span>
+                           </div>
+                           <div className="amount_per_day_div">
+                             ₦
+                             {numberWithCommas(
+                               (asset.amount / asset.product_duration).toFixed()
+                             )}
+                             <span className="per_day_symbol"> / perday</span>
+                           </div>
+                         </div>
+                       </div>
+                       {/* </a> */}
+                     </div>
+                   </li>
+                 </a>
+                  ))}
+                </Carousel>
+                {/* Carousel end==============================
+==============================================
+============================= */}
+              </div>
+            </div>
+          </section>
+          {/*  Projects Section end*/}
+          
+
           {/* =================================================================================================================================================================================================================================================================== */}
         </div>
       </section>
