@@ -139,17 +139,18 @@ button.logout-btn {
   } */
   .DashBoardHeaderSection {
     padding: 0.5em 0em;
-    background-image: linear-gradient(45deg, #2a7c4b, #41ba71);
+    /* background-image: linear-gradient(45deg, #2a7c4b, #41ba71); */
+    background: #fff;
     position: sticky;
-    top: 7px;
+    top: 0;
     z-index: 10000;
-    box-shadow: 0px 0px 15px #3b925e;
+    box-shadow: 0px 0px 15px #c5dfcf;
     position: fixed;
-    width: 95%;
+    width: 100%;
     margin: auto;
-    left: 2.5%;
-    right: 2.5%;
-    border-radius: 10px;
+    left: 0;
+    right: 0;
+    border-radius: 0;
   }
   .user_profile {
     width: 30px;

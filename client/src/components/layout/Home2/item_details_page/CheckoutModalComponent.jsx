@@ -5,6 +5,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 const CheckoutModalComponent = ({
   startDate,
@@ -12,6 +13,7 @@ const CheckoutModalComponent = ({
   product_id,
   customer_id,
   installation_days,
+  closeCheckoutOptions,
   previousBtn,
   CheckBtn,
 }) => {
@@ -31,16 +33,16 @@ const CheckoutModalComponent = ({
   const [product_image, setProductImage] = useState("");
   const [amount, setAmount] = useState("");
   const [unitCount, setUnitCount] = useState("");
-  const sub_total = parseInt(unitCount) * parseInt(amount);
+  const sub_total = 1;
 
-  const [showCheckout, setCheckoutStatus] = useState(false);
+  const [showPayment, setShowPayment] = useState(false);
 
-  const openCheckout = () => {
-    setCheckoutStatus(true);
+  const openPayment = () => {
+    setShowPayment(true);
   };
 
-  const closeCheckout = () => {
-    setCheckoutStatus(false);
+  const closePayment = () => {
+    setShowPayment(false);
   };
 
   const checkout = async (
@@ -110,10 +112,10 @@ const CheckoutModalComponent = ({
   }, []);
 
   return (
-    <div>
+    <>
       <div className="detailsModal">
         <div className="detailsModalSection1">
-          <div className="bacKbutton">
+          <div className="bacKbutton" onClick={closeCheckoutOptions}>
             Previous
             <ArrowForwardIosIcon className="arrow_back" />
           </div>
@@ -206,7 +208,7 @@ const CheckoutModalComponent = ({
                           </div>
                           <div className="save_item_days_left">
                             {days_left} days left
-                            <div className="days_left_percentage_cont">
+                            {/* <div className="days_left_percentage_cont">
                               <span
                                 className="days_left_percentage"
                                 // style={{
@@ -214,28 +216,28 @@ const CheckoutModalComponent = ({
                                 //     100 % -((amount * 100) / unitCount),
                                 // }}
                               ></span>
-                            </div>
+                            </div> */}
                           </div>
                           <div className="save_total_locked_amount">
                             <span className="items_left_amount">
                               Total Amount Locked on Item
                             </span>
-                            #{initial_deposit}
+                            ₦{initial_deposit}
                           </div>
                         </div>
                       </td>
                       <td className="save_item_data1b">
                         <div className="assets-data-name_last">
-                          #{dailyAmount}
+                          ₦{dailyAmount}
                         </div>
                       </td>
                       {/* <td className="save_item_data1b">
                                 <div className="assets-data-name center_name">
-                                  #{amount}
+                                  ₦{amount}
                                 </div>
                               </td> */}
                       <td className="save_item_data1b">
-                        <div className="assets-data-name_last">#{amount}</div>
+                        <div className="assets-data-name_last">₦{amount}</div>
                       </td>
                     </tr>
                   </tbody>
@@ -253,12 +255,12 @@ const CheckoutModalComponent = ({
                 <input type="checkbox" name="" id="" classNam="checkBox" />
               </div>
             </div>
-            <div className="cart_area2_select border_down">
+            {/* <div className="cart_area2_select border_down">
               <div className="wit_card">
                 Pay via wallet{" "}
                 <input type="checkbox" name="" id="" classNam="checkBox" />
               </div>
-            </div>
+            </div> */}
             {/* ========= */}
             {/* ========= */}
             {/* ========= */}
@@ -273,7 +275,8 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
-              Sub Total: <span className="sub_total_div_span">{sub_total}</span>
+              Sub Total:{" "}
+              <span className="sub_total_div_span">₦{sub_total}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -291,7 +294,7 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             {/* ========== */}
             <div className="transac_secure_div">
-              Total <span className="sub_total_div_span">{sub_total}</span>
+              Total <span className="sub_total_div_span">₦{sub_total}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -299,22 +302,23 @@ const CheckoutModalComponent = ({
             <button
               className="checkout_btn1a"
               onClick={() => {
-                openCheckout();
+                openPayment();
               }}
             >
-              Proceed to Checkout{" "}
+              Proceed to Checkout
             </button>
           </div>
         </div>
       </div>
 
-      {/* {showCheckout ? 
-                (
-                  <DashboardCheckoutPage />
-                ): 
-                null 
-            } */}
-    </div>
+      {showPayment ? (
+        <Dashboard_Checkout_Page
+          cAmount={100}
+          getProductId={product_id}
+          closePaymentModal={closePayment}
+        />
+      ) : null}
+    </>
   );
 };
 

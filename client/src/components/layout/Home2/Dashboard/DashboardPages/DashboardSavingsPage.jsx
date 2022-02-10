@@ -64,29 +64,29 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
-  useEffect(() => {
-    const body = JSON.stringify({
-      product_id,
-    });
+  // useEffect(() => {
+  //   const body = JSON.stringify({
+  //     product_id,
+  //   });
 
-    console.log(body);
+  //   console.log(body);
 
-    axios
-      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
-      .then((data) => {
-        console.log(data.data.data, "king");
+  //   axios
+  //     .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+  //     .then((data) => {
+  //       console.log(data.data.data, "king");
 
-        setProductDetail({
-          product_image: data.data.data.product_image,
-          product_name: data.data.data.product_name,
-          amount: data.data.data.amount,
-          product_duration: data.data.data.product_duration,
-        });
-      })
-      .catch((err) => {
-        console.log(err.response); // "oh, no!"
-      });
-  }, []);
+  //       setProductDetail({
+  //         product_image: data.data.data.product_image,
+  //         product_name: data.data.data.product_name,
+  //         amount: data.data.data.amount,
+  //         product_duration: data.data.data.product_duration,
+  //       });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response); // "oh, no!"
+  //     });
+  // }, []);
 
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -257,7 +257,7 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products</h1>
+                      <h1 className="gttitle TITE">New Products / Outright sell-off</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -352,7 +352,7 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products</h1>
+                      <h1 className="gttitle TITE">New Products / Esusu</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -379,54 +379,65 @@ function DashboardSavingsPage({ match, auth }) {
                     swipeable={true}
                     style={{ height: "25em" }}
                   >
-                    {itemdisplay.map((product) => (
-                      <a
-                        href={`/dashboard/products/details/${product.id}/${product.product_name}`}
-                      >
-                        <li className="carous_list">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + product.product_image
-                              })`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                save now
-                              </button>
+                    {itemdisplay.map((asset) => (
+                      <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
+    
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
                               <button className="items_remaining_btn2">
-                                20% off
+                                {" "}
+                                {asset.percentage}% locked
                               </button>
-                            </div>
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {product.product_name}
-                              </div>
-                              <div className="asset_title">
-                                {product.unitCount}
-                                {product.unitCount === 1
-                                  ? "item left"
-                                  : product.unitCount <= 1
-                                  ? "no item left"
-                                  : product.unitCount > 1
-                                  ? "items left"
-                                  : null}
-                              </div>
-                            </div>
-                            {/* </a> */}
+                            )}
                           </div>
-                        </li>
-                      </a>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (asset.amount / asset.product_duration).toFixed()
+                                )}
+                                <span className="per_day_symbol"> / perday</span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
                     ))}
                   </Carousel>
                   {/* Carousel end==============================

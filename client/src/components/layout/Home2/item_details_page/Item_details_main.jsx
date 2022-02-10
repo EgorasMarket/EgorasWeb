@@ -18,7 +18,8 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-const Item_details_main = ({ match }) => {
+import LoginComp from "../Login/LoginComp";
+const Item_details_main = ({ match, auth }) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -26,6 +27,9 @@ const Item_details_main = ({ match }) => {
   };
 
   console.log(match.params.id);
+  console.log(auth);
+
+  const [loginSuccess,setLoginSuccess]= useState(false);
 
   // const handleSelect = (ranges) => {
   //   console.log(ranges);
@@ -40,6 +44,7 @@ const Item_details_main = ({ match }) => {
     // }
   };
 
+  const [loginModal, setLoginModal] = useState(false);
   const [spec, setSpec] = useState([]);
   const [displayDays, setDisplayDays] = useState([]);
   const [modal, setModal] = useState(false);
@@ -171,6 +176,32 @@ const Item_details_main = ({ match }) => {
       });
   }, []);
 
+  useEffect(() => {
+
+    // setCartNum(cart.length)
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
+      
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
+      
+      
+      const getName = todecoded.user.fullname
+      const splitName = getName.split(' ');
+      
+      
+  
+      set_user_id(todecoded.user.id)
+      
+    }
+  }, [auth]);
+
   const LowCalc = Array(product_duration)
     .fill(0)
     .map((e, i) => i + 1);
@@ -225,7 +256,7 @@ const Item_details_main = ({ match }) => {
         setInitialDeposit(response.data.details.initial_deposit);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        // alert(err.response.data.message);
         console.log("error reported", err.response);
       });
   };
@@ -390,8 +421,63 @@ const Item_details_main = ({ match }) => {
   const CloseModal = () => {
     setModal(false);
   };
+
+  const OpenLoginModal = () => {
+    
+    if (auth.user !== null) {
+      openDetailsModal();
+      checkout(
+        user_id,
+        product_id,
+        daysAdded,
+        startDate,
+        endDate
+        );
+      } else {
+      setLoginModal(true);
+      
+    }
+  };
+
+  const CloseLoginModal = () => {
+    setLoginModal(false);
+  };
+
+  const callback = useCallback((loginSuccess) => {
+    setLoginSuccess(loginSuccess);
+
+    if (loginSuccess === true) {
+      CloseLoginModal()
+      window.location.reload()
+      // openDetailsModal();
+      // checkout(
+      //   user_id,
+      //   product_id,
+      //   daysAdded,
+      //   startDate,
+      //   endDate
+      // );
+    } else {
+      
+    }
+
+  }, []);
+  console.log(loginSuccess);
   return (
     <div className="other2">
+
+      {loginModal == false ? null : (
+        <div className="checkout_main">
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          {/* <div>Login</div> */}
+          {/* <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          /> */}
+          <LoginComp parentCallback={callback} />
+        </div>
+      )}
+
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
@@ -500,15 +586,16 @@ const Item_details_main = ({ match }) => {
                   <button
                     className="buy_now_button"
                     onClick={() => {
-                      openDetailsModal();
+                      // openDetailsModal();
+                      OpenLoginModal()
                       //call  the checkout api here
-                      checkout(
-                        user_id,
-                        product_id,
-                        daysAdded,
-                        startDate,
-                        endDate
-                      );
+                      // checkout(
+                      //   user_id,
+                      //   product_id,
+                      //   daysAdded,
+                      //   startDate,
+                      //   endDate
+                      // );
                     }}
                   >
                     {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
@@ -1113,7 +1200,7 @@ const Item_details_main = ({ match }) => {
   );
 };
 const mapStateToProps1 = (state) => ({
-  //   auth: state.auth,
+    auth: state.auth,
   //   isAuthenticated: state.auth.isAuthenticated,
   cart: state.shop.cart,
 });
