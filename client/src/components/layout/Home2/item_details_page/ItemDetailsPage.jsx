@@ -136,33 +136,32 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
 
-
   return (
-  <>
-   
-
-      {detailsModal === true ? (
-        <Checkout
-          installation_days={payload.product_duration}
-          product_id={product_id}
-          customer_id={user_id}
-     
-        />
-
-
-      ) : null}
-
-         <ItemDetailComponent
-        payload={payload}
-        // numberWithCommas={numberWithCommas}
-        card={card}
-        openCheckoutModal={()=> {
-          
-         openDetailsModal()
-        }}
-   
-      />
-  </>
+    <>
+      <div className="other2">
+        <section className="no-bg">
+          <div className="container">
+            {detailsModal === true ? (
+              <Checkout
+                installation_days={payload.product_duration}
+                product_id={product_id}
+                customer_id={user_id}
+                closeCheckoutOptions={closeDetailModal}
+              />
+            ) : (
+              <ItemDetailComponent
+                payload={payload}
+                // numberWithCommas={numberWithCommas}
+                card={card}
+                openCheckoutModal={() => {
+                  openDetailsModal();
+                }}
+              />
+            )}
+          </div>
+        </section>
+      </div>
+    </>
   );
 }
 

@@ -299,3 +299,26 @@ button.savings_area_btn {
   align-items: center;
   width: 100%;
 }
+@media screen and (max-width: 1168px) {
+  .asset_name {
+    font-size: 11px;
+  }
+  .asset_title {
+    font-size: 12px;
+  }
+  .storeTiles_storeTileBottomContainer__2sWHh {
+    min-height: 0rem;
+  }
+  .products_display_body_conts_banner_cont {
+    width: 100%;
+  }
+  .products_display_body_conts2 {
+    padding: 0em 1em;
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 15px;
+    gap: 15px;
+    width: 55%;
+  }
+
+}

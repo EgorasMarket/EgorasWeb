@@ -283,7 +283,7 @@ const { productImage,productName,productAmount}=lock;
                     <a
                       href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                     >
-                      <li className="carous_list">
+                      <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -373,7 +373,7 @@ const { productImage,productName,productAmount}=lock;
                     <a
                       href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                     >
-                      <li className="carous_list">
+                      <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
