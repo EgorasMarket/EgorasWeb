@@ -25,6 +25,7 @@ const Dashboard_Checkout_Page = ({
   cAmount,
   getProductId,
   createOrder,
+  closePaymentModal,
 }) => {
   const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
@@ -32,7 +33,7 @@ const Dashboard_Checkout_Page = ({
   const [pin, setPin] = useState("");
   const [otp, setOtp] = useState("");
   const [successPop, setSuccessPop] = useState(false);
-  
+
   const [payload1, setPayload1] = useState([]);
   const [trnMode, setTrnMode] = useState("");
   const [Loading, setLoading] = useState(false);
@@ -43,7 +44,7 @@ const Dashboard_Checkout_Page = ({
     cardExDate: "",
     cvv: "",
   });
-  const [amount , setAmount] = useState(cAmount)
+  const [amount, setAmount] = useState(cAmount);
 
   console.log(cAmount);
   console.log(getProductId);
@@ -214,7 +215,6 @@ const Dashboard_Checkout_Page = ({
         // setTimeout(() => {
         //   return window.location.replace("/dashboard/savings");
         // }, 5000);
-
       } else {
         setSuccessPop(false);
       }
@@ -241,6 +241,7 @@ const Dashboard_Checkout_Page = ({
     // <div className="checkout_main">
     <>
       <section className="checkout_page_section">
+        <div className="checkout_out_div" onClick={closePaymentModal}></div>
         <div className="container">
           {isOtp == false ? (
             isSuccessful == false ? (

@@ -10,6 +10,12 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import { API_URL2 as api_url2 } from "../../../../actions/types.js";
+
+
+
+
+const way = window.location.pathname;
+
 const AdminUploadProducts = () => {
   const config = {
     headers: {
@@ -29,6 +35,8 @@ const AdminUploadProducts = () => {
   const [product_category_code1, setProduct_category_code1] = useState("");
   const [product_type, setProduct_type] = useState("");
   const [payment_type, setPayment_type] = useState(1);
+  const [roles1,setRoles1]=useState({role15:"",role2
+  :"",role3:""});
   // const [product_duration, setProduct_duration] = useState(null);
   const characters =
     "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
@@ -50,6 +58,7 @@ const AdminUploadProducts = () => {
     product_duration: null
   });
 
+  const {role15,role2,role3}= roles1;
   const { product_category_code, product_category_desc } = categoryInsert;
   const {
     product_name,
@@ -107,6 +116,31 @@ const AdminUploadProducts = () => {
       // console.log('localStorage localStorage');
     }
   }, []);
+
+
+
+     
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/admin/info",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.user, "line_ful");
+        setRoles1({
+          role15:data.data.user.role,
+        })
+       
+    
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      }); 
+  }, []);
+
+
 
   const onChange = (e) => {
     setCategoryInsert({ ...categoryInsert, [e.target.name]: e.target.value });
@@ -430,7 +464,11 @@ const AdminUploadProducts = () => {
   };
 
   return (
+
+    <>
+    {/* {  (role15 === "MEDIA") &&  (way === "/super_admin"  )? */}
     <div className="other2">
+      
       <section className="no-bg">
         <div className="container">
           <div className=" upload_products_details_area">
@@ -768,6 +806,8 @@ const AdminUploadProducts = () => {
       </section>
       {alert == "" ? null : <CustomAlert alert={alert} alertType={alertType} onChange={timer} />}
     </div>
+    {/* :null} */}
+    </>
   );
 };
 

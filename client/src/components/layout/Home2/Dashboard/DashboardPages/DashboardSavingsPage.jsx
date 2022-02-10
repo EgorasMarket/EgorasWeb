@@ -284,7 +284,7 @@ function DashboardSavingsPage({ match, auth }) {
                       <a
                         href={`/dashboard/products/details/${product.id}/${product.product_name}`}
                       >
-                        <li className="carous_list">
+                        <li className="carous_list no_marg">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
