@@ -257,7 +257,7 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products / Outright sell-off</h1>
+                      <h1 className="gttitle TITE">New Products / Outright  Buy</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -285,7 +285,7 @@ function DashboardSavingsPage({ match, auth }) {
                     style={{ height: "25em" }}
                   >
                     {itemdisplay.map((asset) => (
-                      <a href={`/products/details/${asset.id}`}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -352,7 +352,7 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products / Esusu</h1>
+                      <h1 className="gttitle TITE">New Products </h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -380,7 +380,7 @@ function DashboardSavingsPage({ match, auth }) {
                     style={{ height: "25em" }}
                   >
                     {itemdisplay.map((asset) => (
-                      <a href={`/products/details/${asset.id}`}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"

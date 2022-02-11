@@ -269,7 +269,7 @@ const numberWithCommas = (x) => {
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Recent Products / Outright sell-off</h1>
+                    <h1 className="gttitle TITE">Similar Products / Outright Buy</h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -298,7 +298,7 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                   <a href={`/products/details/${asset.id}`}>
+                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                    <li className="carous_list no_marg">
                      <div
                        className="storeTiles_storeTileContainer__HoGEa"
@@ -367,7 +367,7 @@ const numberWithCommas = (x) => {
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Recent Products / Esusu</h1>
+                    <h1 className="gttitle TITE">Similar Products </h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -396,7 +396,7 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -472,7 +472,7 @@ const numberWithCommas = (x) => {
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Top Products / Outright sell-off</h1>
+                    <h1 className="gttitle TITE">Top Products / Outright Buy</h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -500,7 +500,7 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                     <a href={`/products/details/${asset.id}`}>
+                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                      <li className="carous_list no_marg">
                        <div
                          className="storeTiles_storeTileContainer__HoGEa"
@@ -567,7 +567,7 @@ const numberWithCommas = (x) => {
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Top Products / Esusu</h1>
+                    <h1 className="gttitle TITE">Top Products </h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -595,7 +595,7 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                   <a href={`/products/details/${asset.id}`}>
+                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                    <li className="carous_list no_marg">
                      <div
                        className="storeTiles_storeTileContainer__HoGEa"

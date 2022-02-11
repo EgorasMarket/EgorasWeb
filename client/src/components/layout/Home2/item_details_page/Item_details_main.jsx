@@ -269,6 +269,8 @@ const Item_details_main = ({ match, auth }) => {
   const [date, setDate] = useState(null);
   // const iteming = unitCount;
 
+  const [nfts,setNfts] =useState("Nfts");
+
   console.log("====================================");
   console.log(spec);
   console.log(productDetails);
@@ -349,6 +351,29 @@ const Item_details_main = ({ match, auth }) => {
       items: 2,
     },
   };
+
+
+
+  const responsive67= {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 6,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 4,
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 600 },
+      items: 3,
+    },
+    mobile: {
+      breakpoint: { max: 600, min: 0 },
+      items: 2,
+    },
+  };
+
 
   useEffect(() => {
     let assetVal = match.params.img;
@@ -499,6 +524,7 @@ const Item_details_main = ({ match, auth }) => {
                   alt=""
                   className="product_details_img"
                 />
+
               </div>
               {/* ================ */}
               {/* ================ */}
@@ -522,7 +548,7 @@ const Item_details_main = ({ match, auth }) => {
                 {/* ----------------- */}
                 {payment_type == "OUTRIGHT" ? null : (
                   <div className="amount_item_div">
-                    ₦{numberWithCommas(amount_per_day)}{" "}
+                    ₦{numberWithCommas(Math.ceil(amount_per_day))}{" "}
                     <span className="per_day"> / per-day</span>
                   </div>
                 )}
@@ -784,7 +810,7 @@ const Item_details_main = ({ match, auth }) => {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products / Outright sell-off</h1>
+                      <h1 className="gttitle TITE">Similar Products / Outright Buy</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -874,7 +900,7 @@ const Item_details_main = ({ match, auth }) => {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products / Esusu</h1>
+                      <h1 className="gttitle TITE">Similar Products </h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
