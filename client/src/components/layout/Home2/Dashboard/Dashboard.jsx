@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
 import { connect } from "react-redux";
 // import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import Wallet from "../../Wallet/Wallet";
+
+
 import DashboardSidebar from "./DashboardSidebar";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
@@ -35,8 +37,16 @@ const Dashboard = ({ isAuthenticated, loading }) => {
       }, 1000);
     }
 
+    if(window.location.pathname === "/saving"){
+      return(
+      <Redirect to ="/savings"/>)
+    }
+
     // setSplashScreen(true);
   }, [isAuthenticated]);
+
+
+
 
   return (
     <div>
@@ -55,8 +65,10 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               <Route
                 exact
                 path="/dashboard/savings"
+                // path={"/dashboard/savings" || "/dashboard/saving"}
                 component={DashboardSavingsPage}
               />
+           
               <Route
                 exact
                 path="/dashboard/wallet/withdrawal"

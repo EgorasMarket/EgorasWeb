@@ -4,12 +4,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
+// import "../Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import CheckoutModalComponent from "./CheckoutModalComponent";
+// import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
@@ -18,18 +18,29 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-import LoginComp from "../Login/LoginComp";
-const Item_details_main = ({ match, auth }) => {
+import { fontSize } from "@mui/system";
+const Accordion = ({ title, children }) => {
+  const [isOpen, setOpen] = React.useState(false);
+  return (
+    <div className="accordion-wrapper">
+      <div
+        className={`accordion-title ${isOpen ? "open" : ""}`}
+        onClick={() => setOpen(!isOpen)}
+      >
+        {title}
+      </div>
+      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
+        <div className="accordion-content">{children}</div>
+      </div>
+    </div>
+  );
+};
+function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-
-  console.log(match.params.id);
-  console.log(auth);
-
-  const [loginSuccess,setLoginSuccess]= useState(false);
 
   // const handleSelect = (ranges) => {
   //   console.log(ranges);
@@ -44,7 +55,6 @@ const Item_details_main = ({ match, auth }) => {
     // }
   };
 
-  const [loginModal, setLoginModal] = useState(false);
   const [spec, setSpec] = useState([]);
   const [displayDays, setDisplayDays] = useState([]);
   const [modal, setModal] = useState(false);
@@ -69,8 +79,8 @@ const Item_details_main = ({ match, auth }) => {
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
-  const [dailyAmount, setDailyAmount] = useState();
-  const [initialDeposit, setInitialDeposit] = useState();
+  const [ dailyAmount , setDailyAmount ] = useState()
+  const [ initialDeposit , setInitialDeposit ] = useState()
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -84,14 +94,10 @@ const Item_details_main = ({ match, auth }) => {
     product_details: "",
     productSpecification: "",
     percentage: "",
-    payment_type: "",
-    amount_per_day: "",
   });
 
   var addedDays = 0;
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -121,17 +127,15 @@ const Item_details_main = ({ match, auth }) => {
     productSpecification,
     product_details,
     percentage,
-    amount_per_day,
-    payment_type,
   } = productDetails;
 
   useEffect(() => {
     const body = JSON.stringify({
       product_id,
     });
-    // if (auth) {
-    //   set_user_id(auth.user.user.id);
-    // }
+    if (auth) {
+      set_user_id(auth.user.user.id);
+    }
 
     console.log(body);
 
@@ -159,8 +163,7 @@ const Item_details_main = ({ match, auth }) => {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          payment_type: data.data.data.payment_type,
-          amount_per_day: data.data.data.amount_per_day,
+          productId: data.data.data.product_ID
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -176,31 +179,29 @@ const Item_details_main = ({ match, auth }) => {
       });
   }, []);
 
-  useEffect(() => {
 
-    // setCartNum(cart.length)
-    // fetchDepositLinks();
-    console.log(auth);
-    if (auth.user !== null) {
-      // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
-      var todecoded = auth.user;
-      var todecodedn = todecoded.user.userImage;
-      
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
-      
-      
-      const getName = todecoded.user.fullname
-      const splitName = getName.split(' ');
-      
-      
-  
-      set_user_id(todecoded.user.id)
-      
-    }
-  }, [auth]);
+  const submitCallCheck = async (product_id) => {
+
+    console.log(product_id, 'I feel it');
+
+    const body = JSON.stringify({
+      product_id
+    });
+    
+    axios.post(
+      api_url2 + "/v1/product/approve/product",
+      body,
+      config
+      ).then((data) => {
+        document.getElementById(product_id).remove();
+        
+          console.log(data.data);
+    
+        })
+        .catch((err) => {
+          console.log(err.response); // "oh, no!"
+        });}
+
 
   const LowCalc = Array(product_duration)
     .fill(0)
@@ -253,12 +254,14 @@ const Item_details_main = ({ match, auth }) => {
 
         console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit);
+        setInitialDeposit(response.data.details.initial_deposit)
       })
       .catch((err) => {
-        // alert(err.response.data.message);
+        alert(err.response.data.message);
         console.log("error reported", err.response);
       });
+
+    console.log(call, "chukwubuike kingsley");
   };
   // const food = spec[0].split('');
   // console.log(food[0])
@@ -267,7 +270,12 @@ const Item_details_main = ({ match, auth }) => {
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
   const [date, setDate] = useState(null);
+  const [itemdisplay,setItemDisplay] = useState([]);
+
+  const [workss,setWorkss]=useState([]);
   // const iteming = unitCount;
+
+
 
   console.log("====================================");
   console.log(spec);
@@ -350,9 +358,33 @@ const Item_details_main = ({ match, auth }) => {
     },
   };
 
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/new/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "chukwubuike");
+     
+       
+        setWorkss(data.data.data);
+
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
+
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
+
 
     setAsset(assetVal);
     setBase(baseVal);
@@ -379,19 +411,44 @@ const Item_details_main = ({ match, auth }) => {
       });
   }, []);
 
+
+
+
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/product/retrieve/new/products",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.data, "chukwubuike");
+     
+       
+        setItemDisplay(data.data.data);
+
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+
+    
+  }, []);
+
+
   const ID = match.params.id;
 
   const CalcDaysConvert = (x) => {
     x = parseInt(x);
     let result = 0;
     if (x === 5) {
-      result = 12 * 31;
+      result = 12 * 30;
     } else if (x === 4) {
-      result = 6 * 31;
+      result = 6 * 30;
     } else if (x === 3) {
-      result = 4 * 31;
+      result = 4 * 30;
     } else if (x === 2) {
-      result = 2 * 31;
+      result = 2 * 30;
     }
     return result;
   };
@@ -421,70 +478,12 @@ const Item_details_main = ({ match, auth }) => {
   const CloseModal = () => {
     setModal(false);
   };
-
-  const OpenLoginModal = () => {
-    
-    if (auth.user !== null) {
-      openDetailsModal();
-      checkout(
-        user_id,
-        product_id,
-        daysAdded,
-        startDate,
-        endDate
-        );
-      } else {
-      setLoginModal(true);
-      
-    }
-  };
-
-  const CloseLoginModal = () => {
-    setLoginModal(false);
-  };
-
-  const callback = useCallback((loginSuccess) => {
-    setLoginSuccess(loginSuccess);
-
-    if (loginSuccess === true) {
-      CloseLoginModal()
-      window.location.reload()
-      // openDetailsModal();
-      // checkout(
-      //   user_id,
-      //   product_id,
-      //   daysAdded,
-      //   startDate,
-      //   endDate
-      // );
-    } else {
-      
-    }
-
-  }, []);
-  console.log(loginSuccess);
   return (
     <div className="other2">
-
-      {loginModal == false ? null : (
-        <div className="checkout_main">
-          <div className="checkout_modal_out" onClick={CloseModal}></div>
-          {/* <div>Login</div> */}
-          {/* <Dashboard_Checkout_Page
-            cAmount={parseInt(productDetails.amount)}
-            click={CloseModal}
-          /> */}
-          <LoginComp parentCallback={callback} />
-        </div>
-      )}
-
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page
-            cAmount={parseInt(productDetails.amount)}
-            click={CloseModal}
-          />
+          {/* <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} /> */}
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -513,53 +512,71 @@ const Item_details_main = ({ match, auth }) => {
                 </div>
                 <div
                   className="product_details_code"
-                  style={{ color: "#000000" }}
+                  style={{ color: "#239e54" }}
                 >
                   <span className="product_code_title">Brand: </span>
                   {product_brand}
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
-                {payment_type == "OUTRIGHT" ? null : (
-                  <div className="amount_item_div">
-                    ₦{numberWithCommas(amount_per_day)}{" "}
-                    <span className="per_day"> / per-day</span>
-                  </div>
-                )}
-                {/* // =========================== */}
-                <div className="amount_item_div total_amount">
-                  <span className="sub_total_txt">Total: </span> ₦
-                  {numberWithCommas(numberWithCommas(amount))}{" "}
-                  <span className="per_day"></span>
-                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
                 <div className="lll">
                   <div className="max_dura">
-                    {payment_type == "OUTRIGHT" ? null : (
-                      <p className="no_margg">Savings Max Duration:</p>
-                    )}
+                    Savings max-duration:{" "}
                     <div className="days_left_numb">
-                      {payment_type == "OUTRIGHT" ? (
-                        <p className="no_margg">Outright Buy</p>
-                      ) : (
-                        <p className="no_margg">{product_duration}day(s)</p>
+                      {product_duration == 1 ? (
+                        <p className="left_num_nu">Out Right Buy</p>
+                      ) : null}
+                      {product_duration == 2 ? (
+                        <p className="left_num_nu">2</p>
+                      ) : null}
+                      {product_duration == 3 ? (
+                        <p className="left_num_nu">4</p>
+                      ) : null}
+                      {product_duration == 4 ? (
+                        <p className="left_num_nu">6</p>
+                      ) : null}
+                      {product_duration == 5 ? (
+                        <p className="left_num_nu">12</p>
+                      ) : null}
+                      {product_duration == 1 ? null : (
+                        <p className="months_class">months</p>
                       )}
                     </div>
                   </div>
+
+                  {product_duration == 1 ? (
+                    <span>₦{amount}</span>
+                  ) : (
+                    <p className="amnt_per_day">
+                      Savings Amount to be paid per day:{""}
+                      <span className={["calc_amnt_div"]}>
+                        ₦{CalcAmtPerDay.toFixed()}
+                      </span>
+                    </p>
+                  )}
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                {payment_type !== "OUTRIGHT" ? (
+                {/* <div className="quantity_div">
+                  <div className="items_left_div">
+                    Items Left:{" "}
+                    <span className="items_left_numb">
+                      {unitCount}{" "}
+                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
+                    </span>
+                  </div>
+                </div> */}
+                {product_duration !== 1 ? (
                   <div className="quantity_div">
                     <div className="items_left_div">
                       This item has an upfront payment of : {percentage}%
                     </div>
-                    <span className="upfront_para">
-                      That means you are to pay #
-                      {numberWithCommas(percentMoney)} before this item can be
-                      locked by you.
-                    </span>
+                    {/* <span className="upfront_para">
+                      That means you are to pay #{percentMoney} before this item
+                      can be locked by you.
+                    </span> */}
                   </div>
                 ) : null}
                 {/* ======= */}
@@ -576,6 +593,73 @@ const Item_details_main = ({ match, auth }) => {
                       while the green color shows the total amount of days that
                       is left for payment .
                     </div>
+                    <Accordion title="Click to view calendar">
+                      <div
+                        style={{ display: "flex", flexFlow: "column nowrap" }}
+                      >
+                        <Calendar
+                          onChange={(item) => {
+                            setEndDate(item);
+                            setStartDate(new Date());
+                            console.log(item);
+                            console.log(
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1,
+                              "days"
+                            );
+                            addedDays =
+                              differenceInCalendarDays(
+                                new Date(item),
+                                new Date()
+                              ) + 1;
+                            const subtractedPercent = (days - addedDays) / 100;
+                            const newPercentage = 100 - subtractedPercent;
+                            console.log(newPercentage, "%");
+                            const newPercentMoney =
+                              (newPercentage / 100) * amount;
+
+                            setDaysAdded(addedDays - percentDays);
+
+                            setMoneyAdded(newPercentMoney.toFixed());
+
+                            setDaysAddedDiv(true);
+                          }}
+                          date={date}
+                          minDate={addDays(new Date(), percentDays)}
+                          maxDate={addDays(new Date(), days)}
+                          // date={date}
+                        />
+                        {daysAddedDiv == true ? (
+                          <div className="days_to_pay_now">
+                            <span className="added_">
+                              You have added{" "}
+                              <span className="day_add">
+                                {daysAdded} day(s)
+                              </span>{" "}
+                              to the previously locked days.
+                            </span>
+
+                            <span className="total_pay_now">
+                              And you are now to pay a total amount of{" "}
+                              <span className="money_add">#{moneyAdded}</span>{" "}
+                              before this item can be locked by you.
+                            </span>
+                          </div>
+                        ) : (
+                          <div className="days_to_pay_now">
+                            <span>
+                              This item has a total of{" "}
+                              <span className="money_add">
+                                {percentDays} days
+                              </span>{" "}
+                              locked on it.
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    </Accordion>
                   </div>
                 ) : null} */}
                 {/* ======= */}
@@ -583,23 +667,25 @@ const Item_details_main = ({ match, auth }) => {
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
                 <div className="buy_now_btn_div">
+                  
                   <button
                     className="buy_now_button"
-                    onClick={() => {
-                      // openDetailsModal();
-                      OpenLoginModal()
-                      //call  the checkout api here
-                      // checkout(
-                      //   user_id,
-                      //   product_id,
-                      //   daysAdded,
-                      //   startDate,
-                      //   endDate
-                      // );
-                    }}
+                    // onClick={() => {
+                    //   openDetailsModal();
+                    //   //call  the checkout api here
+                    //   checkout(
+                    //     user_id,
+                    //     product_id,
+                    //     daysAdded,
+                    //     startDate,
+                    //     endDate
+                    //   );
+                    // }}
+                    onClick={e => submitCallCheck(asset.id)} 
                   >
-                    {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
+                    {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
                   </button>
+               
 
                   {/* <div className="save_later">
                     <button className="save_later_btn">
@@ -644,13 +730,11 @@ const Item_details_main = ({ match, auth }) => {
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-
-                      {spec.map((apple,xd)=>(
-                      <tr key={xd.toString()}>
+                    {spec.map((apple)=>(  <tr>
                         {/* <td>Colour</td> */}
                         <td>{apple}</td>
-                      </tr>
-                      ))}
+                        
+                      </tr>))}
                       {/* <tr> */}
                         {/* <td>Warranty Period</td> */}
                         {/* <td>{spec[1]}</td> */}
@@ -784,7 +868,7 @@ const Item_details_main = ({ match, auth }) => {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products / Outright sell-off</h1>
+                      <h1 className="gttitle TITE">Recent Products</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -812,49 +896,108 @@ const Item_details_main = ({ match, auth }) => {
                     style={{ height: "25em" }}
                   >
                     {term.map((asset) => (
-                     
-                      <a href={`/products/details/${asset.id}`}>
-                      <li className="carous_list">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                           
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                40% locked
+                      // <div className="cardA">
+                      //   <div className="img">
+                      //     <div
+                      //       className="img-sub"
+                      //       style={{
+                      //         backgroundImage: `url(${asset.img})`,
+                      //         height: "200px",
+                      //         width: "100%",
+                      //         backgroundRepeat: "no-repeat",
+                      //         backgroundSize: "cover",
+                      //         borderRadius: "8px",
+                      //         borderBottomLeftRadius: "0px",
+                      //         borderBottomRightRadius: "0px",
+                      //         backgroundPositionY: "center",
+                      //       }}
+                      //     >
+                      //       {/* <div className="img-amount">
+                      //       <NumberFormat
+                      //         value={1000}
+                      //         displayitems_remainings={"text"}
+                      //         thousandSeparator={true}
+                      //         prefix={"$"}
+                      //       />
+                      //     </div> */}
+                      //     </div>
+                      //   </div>
+
+                      //   <div className="cardDetails" style={{ textAlign: "left" }}>
+                      //     <h1 className="cardHeader">{asset.name}</h1>
+                      //     <h1 className="collat-category">{asset.items_remainings}</h1>
+                      //     <div className="heroSlider2">
+                      //       <div className="slider-txts1">
+                      //         <div className="h-texts">
+                      //           <h3 className="htxt1a">{asset.days_left}</h3>
+                      //           <h3 className="htxt2a">{asset.percentage}</h3>
+                      //         </div>
+                      //       </div>
+                      //       {/* <div className="slider-a"></div> */}
+                      //       <div className="slider" style={{ height: "7px" }}>
+                      //         <div
+                      //           className="sliderafter"
+                      //           style={{
+                      //             width: `5%`,
+                      //             height: "7px",
+                      //           }}
+                      //         ></div>
+                      //       </div>
+                      //       <div className="slider-txts2">
+                      //         <div className="p-texts2a">
+                      //           <p className="ptxt2a">Remaining Items: 100</p>
+                      //         </div>
+                      //       </div>
+                      //     </div>
+                      //   </div>
+                      //   </div>
+                      <a
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      >
+                        <li className="carous_list">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                              <button className="items_remaining_btn">
+                                save now
                               </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
+                              <button className="items_remaining_btn2">
+                                20% off
+                              </button>
                             </div>
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div className="asset_title">
+                                {asset.unitCount}
+                                {asset.unitCount === 1
+                                  ? "item left"
+                                  : asset.unitCount <= 1
+                                  ? "no item left"
+                                  : asset.unitCount > 1
+                                  ? "items left"
+                                  : null}
+                              </div>
+                            </div>
+                            {/* </a> */}
                           </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
+                        </li>
+                      </a>
                     ))}
                   </Carousel>
                   {/* Carousel end==============================
@@ -863,109 +1006,6 @@ const Item_details_main = ({ match, auth }) => {
                 </div>
               </div>
             </section>
-
-
-
-
-            {/*  Projects Section start*/}
-            <section className="projectsSection" id="projects">
-              <div className="container">
-                <div className="projectsArea">
-                  <div className="projectsLinea"></div>
-                  <div className="projectsTitleContentsa">
-                    <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products / Esusu</h1>
-                    </div>
-                    {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                  </div>
-
-                  {/* Carousel start==============================
-==============================================
-============================= */}
-
-                  <Carousel
-                    responsive={responsive6}
-                    className="partnerCards LEFTARROW"
-                    showDots={false}
-                    //   infinite={false}
-                    autoPlay={true}
-                    autoPlaySpeed={6000}
-                    transitionDelay={"2s"}
-                    infinite={true}
-                    draggable={true}
-                    // transitionDuration={500}
-                    swipeable={true}
-                    style={{ height: "25em" }}
-                  >
-                    {term.map((asset) => (
-                    
-                      <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                       
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
-
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
-                            )}
-                            <span className="per_day_symbol"> / perday</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-                    ))}
-                  </Carousel>
-                  {/* Carousel end==============================
-==============================================
-============================= */}
-                </div>
-              </div>
-            </section>
-
-
-
-
             {/*  Projects Section end*/}
             {/* =================================================================================================================================================================================================================================================================== */}
             {detailsModal == true ? (
@@ -1105,7 +1145,7 @@ const Item_details_main = ({ match, auth }) => {
                               </td> */}
                               <td className="save_item_data1b">
                                 <div className="assets-data-name_last">
-                                  #{amount}
+                                  #{amount * unitCount}
                                 </div>
                               </td>
                             </tr>
@@ -1156,9 +1196,7 @@ const Item_details_main = ({ match, auth }) => {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">
-                        {amount * unitCount}
-                      </span>
+                      <span className="sub_total_div_span">{amount * unitCount}</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1177,10 +1215,7 @@ const Item_details_main = ({ match, auth }) => {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total{" "}
-                      <span className="sub_total_div_span">
-                        {amount * unitCount}
-                      </span>
+                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1198,12 +1233,12 @@ const Item_details_main = ({ match, auth }) => {
       {/* )})} */}
     </div>
   );
-};
+}
+
 const mapStateToProps1 = (state) => ({
-    auth: state.auth,
-  //   isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
   cart: state.shop.cart,
 });
 
-export default connect(mapStateToProps1)(Item_details_main);
-// export default Item_details_main;
+export default connect(mapStateToProps1)(ItemDetailsPage);

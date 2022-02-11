@@ -192,7 +192,7 @@
 }
 .Line {
   position: absolute;
-  width: 100%;
+  width: 100% !important;
   height: 3.5px;
   background: #229e54;
   bottom: -9px;

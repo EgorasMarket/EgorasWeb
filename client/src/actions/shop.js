@@ -82,15 +82,20 @@ export const removeCart = (item) => {
 };
 
 
-export const createOrder = () => async (dispatch) => {
-  console.log('customer_id');
+export const createOrder = (product_id) => async (dispatch) => {
+  console.log(product_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
+  const body = JSON.stringify({
+    product_id,
+  });
+
   try {
-    const res = await axios.get(api_url2 + "/v1/order/add/order", null, config);
+    const res = await axios.post(api_url2 + "/v1/order/add/order", body, config);
     console.log(res.data.data);
     // console.log("Yes I call You because i can", res.data.data);
     // dispatch({

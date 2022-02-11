@@ -11,7 +11,7 @@ import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
-import StorefrontIcon from '@mui/icons-material/Storefront';
+import StoreIcon from "@mui/icons-material/Store";
 import SavingsIcon from "@mui/icons-material/Savings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -33,13 +33,13 @@ import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 import { retrieveCart } from "../../../../actions/shop";
 import Logout from "../Logout/Logout";
-const DashboardSidebar = ({auth, cart, retrieveCart }) => {
+const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
   const [catDiv, setCatDiv] = useState("not_home");
   const [smallSide, setSmallSide] = useState(dddd);
-  const [cartNum, setCartNum] = useState('');
+  const [cartNum, setCartNum] = useState("");
   const [image, setImage] = useState("");
   const linksActive = window.location.pathname;
 
@@ -55,56 +55,59 @@ const DashboardSidebar = ({auth, cart, retrieveCart }) => {
     UserdateOfBirth: "",
   });
 
-  const { Userfirstname, Userlastname, Useremail, Usergender, Userrelationship, UseruserImage, UserphoneNumber, Userbvn, UserdateOfBirth } =
-  userInfo;
+  const {
+    Userfirstname,
+    Userlastname,
+    Useremail,
+    Usergender,
+    Userrelationship,
+    UseruserImage,
+    UserphoneNumber,
+    Userbvn,
+    UserdateOfBirth,
+  } = userInfo;
 
-    
-useEffect(() => {
+  useEffect(() => {
+    // setCartNum(cart.length)
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
 
-  // setCartNum(cart.length)
-  // fetchDepositLinks();
-  console.log(auth);
-  if (auth.user !== null) {
-    // let dataa = 'stackabuse.com';
-    // console.log( new Buffer(dataa));
-    var todecoded = auth.user;
-    var todecodedn = todecoded.user.userImage;
-    
-    // console.log('====================================');
-    console.log(todecodedn);
-    // console.log('====================================');
-    
-    
-    const getName = todecoded.user.fullname
-    const splitName = getName.split(' ');
-    
-    retrieveCart(todecoded.user.id)
-    setUserInfo({
-      Userfirstname: splitName[0],
-      Userlastname: splitName[1],
-      Useremail: todecoded.user.email,
-      UseruserImage: todecoded.user.userImage,
-      UserphoneNumber: todecoded.user.phoneNumber,
-      Userrelationship: todecoded.user.relationship,
-      Usergender: todecoded.user.gender,
-      Userbvn:todecoded.user.BVN,
-      UserdateOfBirth:todecoded.user.dateOfBirth,
-    })
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
 
-    if (todecoded.user.userImage !== null) {
-      setImage(api_url2+'/'+todecoded.user.userImage)
-    } else {
-      setImage('../../img/profile_img.jpeg')
+      const getName = todecoded.user.fullname;
+      const splitName = getName.split(" ");
+
+      retrieveCart(todecoded.user.id);
+      setUserInfo({
+        Userfirstname: splitName[0],
+        Userlastname: splitName[1],
+        Useremail: todecoded.user.email,
+        UseruserImage: todecoded.user.userImage,
+        UserphoneNumber: todecoded.user.phoneNumber,
+        Userrelationship: todecoded.user.relationship,
+        Usergender: todecoded.user.gender,
+        Userbvn: todecoded.user.BVN,
+        UserdateOfBirth: todecoded.user.dateOfBirth,
+      });
+
+      if (todecoded.user.userImage !== null) {
+        setImage(api_url2 + "/" + todecoded.user.userImage);
+      } else {
+        setImage("../../img/profile_img.jpeg");
+      }
     }
-    
-  }
-}, [auth]);
+  }, [auth]);
 
-useEffect(() => {
-
-  setCartNum(cart.length)
-  
-}, [cart]);
+  useEffect(() => {
+    setCartNum(cart.length);
+  }, [cart]);
 
   // console.log(dddd);
   const changeBg = (e) => {
@@ -196,11 +199,8 @@ useEffect(() => {
             >
               <div className="together">
                 <div className="save_numb_div">
-                  <ShoppingCartIcon className="cart_icon" />
+                  <SavingsIcon className="cart_icon" />
                   <div className="cart_num">{cartNum}</div>
-                </div>
-                <div className="account_numb_div">
-                  <FileCopyIcon className="copy_icon" /> 29887728631612
                 </div>
 
                 {/* <div
@@ -343,7 +343,7 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <StorefrontIcon className="sidebarIcon" />
+                    <StoreIcon className="sidebarIcon" />
                     Market
                   </li>
                 </a>
@@ -352,7 +352,7 @@ useEffect(() => {
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
-{/* 
+                {/* 
                 <a
                   href="/dashboard/cart"
                   className="link"
@@ -483,9 +483,9 @@ useEffect(() => {
                         : "sidebarListItem"
                     }
                   >
-                    <StorefrontIcon className="sidebarIcon" />
+                    <StoreIcon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
-             Market
+                    Market
                   </li>
                 </a>
 
@@ -614,9 +614,9 @@ useEffect(() => {
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
-  cart: state.shop.cart
+  cart: state.shop.cart,
 });
 
 // export default DashboardSidebar;
 
-export default connect(mapStateToProps, {retrieveCart})(DashboardSidebar);
+export default connect(mapStateToProps, { retrieveCart })(DashboardSidebar);
