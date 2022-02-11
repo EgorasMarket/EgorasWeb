@@ -23,15 +23,23 @@ const data = [
   },
 ];
 
+const way = window.location.pathname;
 
 let PageSize = 10;
 const AdminAllProducts = () => {
   const [itemdisplay,setItemDisplay] = useState([]);
+  const [rolesInfo,setRolesInfo]= useState({
+    role20:""
+  })
+
+
+  const {role20} = rolesInfo
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
 
 
   useEffect(() => {
@@ -53,6 +61,28 @@ const AdminAllProducts = () => {
       });
 
     
+  }, []);
+
+
+      
+  useEffect(() => {
+  
+    axios.get(
+        api_url2 + "/v1/admin/info",
+        null,
+        config
+    ).then((data) => {
+       
+        console.log(data.data.user, "line_ful");
+        setRolesInfo({
+          role20:data.data.user.role,
+        })
+       
+    
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      }); 
   }, []);
 
 
@@ -99,6 +129,8 @@ const AdminAllProducts = () => {
 }
 
   return (
+    <>
+         {/* {(role20 === "HOD_MEDIA") && (way ===  "/super_admin/all_products" )? */}
     <div className="other2">
       <section className="no-bg">
       <div className="container">
@@ -136,10 +168,10 @@ const AdminAllProducts = () => {
                       </tr>
                     </thead>
 
-                    {itemdisplay.map((asset) => (
+                    {itemdisplay.slice(0,50).map((asset,index) => (
                       <tbody
                         className="save_items_cat  small_height popular-categories"
-                        id="popular-categories"
+                        id="popular-categories" key={index.toString()}
                       >
                         {" "}
                         <tr id={asset.id} className="assets-category-row">
@@ -182,10 +214,14 @@ const AdminAllProducts = () => {
                             {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
-                            <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0">
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              Approve{" "}
+                             <a href={`/super_admin/all_products_view/${asset.id}/${asset.product_name}`} >
+                            <button id={'yes_' + asset.id}  className="checkout_btn1 py-1 px-2 m-0">
+                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                              View detail{" "}
                             </button>
+                            </a>
+                        
                             {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
                             </button> */}
@@ -194,8 +230,11 @@ const AdminAllProducts = () => {
                         </tr>
                       </tbody>
                     ))}
+
+                  
                   </table>
                 </div>
+                <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div>
                 {/* <div className="total_div">
                   Total: <span className="sum_resu"> ₦{'bnbnbn'}</span>
                 </div> */}
@@ -211,6 +250,8 @@ const AdminAllProducts = () => {
         </div>
       </section>
     </div>
+    {/* :null} */}
+    </>
   );
 };
 

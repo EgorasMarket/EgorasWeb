@@ -10,7 +10,7 @@ const FlutterButton  = ({amount, customer, payment_title, payment_options }) => 
     tx_ref: Date.now(),
     amount: amount,
     currency: 'NGN',
-    payment_options,
+    payment_options:"0",
     customer:customer, 
     customizations: {
       title: payment_title,

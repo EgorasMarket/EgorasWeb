@@ -23,30 +23,16 @@ const Dashboard_Checkout_Page = ({
   sendOtp,
   auth,
   cAmount,
+  getProductId,
   createOrder,
-  click
+  closePaymentModal,
 }) => {
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
   const [pin, setPin] = useState("");
   const [otp, setOtp] = useState("");
   const [successPop, setSuccessPop] = useState(false);
-  // const [payload1, setPayload1] = useState(
-  //   {
-  //     "card_number":"5399838383838381",
-  //     "cvv":"470",
-  //     "expiry_month":"10",
-  //     "expiry_year":"31",
-  //     "currency":"NGN",
-  //     "amount":2000,
-  //     "redirect_url":"https://www.google.com",
-  //     "fullname":"Ebri Goodness",
-  //     "email":"7huyhbhb@gmail.com",
-  //     "phone_number":"89888888888",
-  //     "enckey":"FLWSECK_TEST68fe8fdbc2e1",
-  //     "tx_ref":"IJPHM6ZQIKCH5X7NUSLF"
-  //   }
-  // );
+
   const [payload1, setPayload1] = useState([]);
   const [trnMode, setTrnMode] = useState("");
   const [Loading, setLoading] = useState(false);
@@ -57,9 +43,10 @@ const Dashboard_Checkout_Page = ({
     cardExDate: "",
     cvv: "",
   });
-  const [amount , setAmount] = useState(cAmount)
+  const [amount, setAmount] = useState(cAmount);
 
-  console.log(amount);
+  console.log(cAmount);
+  console.log(getProductId);
 
   const { card_numberVar, cardExDate, cvv } = cardInfoOne;
   const [modal, setModal] = useState(false);
@@ -121,6 +108,7 @@ const Dashboard_Checkout_Page = ({
   } = userInfo;
 
   useEffect(() => {
+    console.log(cAmount);
     // setCartNum(cart.length)
     // fetchDepositLinks();
     console.log(auth);
@@ -220,12 +208,11 @@ const Dashboard_Checkout_Page = ({
         setIsSuccessful(!isSuccessful);
         setLoading(false);
 
-        createOrder();
+        createOrder(getProductId);
 
         // setTimeout(() => {
         //   return window.location.replace("/dashboard/savings");
         // }, 5000);
-
       } else {
         setSuccessPop(false);
       }
@@ -252,6 +239,7 @@ const Dashboard_Checkout_Page = ({
     // <div className="checkout_main">
     <>
       <section className="checkout_page_section">
+        <div className="checkout_out_div" onClick={closePaymentModal}></div>
         <div className="container">
           {isOtp == false ? (
             isSuccessful == false ? (

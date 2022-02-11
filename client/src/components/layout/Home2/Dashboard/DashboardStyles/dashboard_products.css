@@ -225,3 +225,76 @@
 .fixed_pop_img {
   width: 100%;
 }
+@media screen and (max-width: 1168px) {
+  .cat_body_toggle {
+    width: 75%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    margin-left: 184px;
+  }
+  .cat_body_toggle1 {
+    font-size: 10px;
+    padding: 0.2em 1em;
+    cursor: pointer;
+    transition: 0.3s linear;
+  }
+
+  .products_display_body_conts {
+    padding: 0em 2em;
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 15px;
+    gap: 15px;
+    overflow-x: scroll;
+  }
+  .no_marg {
+    margin: 0 !important;
+    width: 178px !important;
+  }
+  .storeTiles_storeTileContainer__HoGEa {
+    background-position: 48%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 14.25rem;
+    height: 100%;
+    padding: 0.25rem;
+    width: 100%;
+    grid-column: span 2 / span 2;
+  }
+  .carous_list {
+    height: 204px !important;
+  }
+}
+@media screen and (max-width: 991px) {
+  .brands_area {
+    display: grid;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 1em;
+    grid-gap: 10px;
+    grid-template-columns: auto auto auto auto;
+    gap: 10px;
+  }
+
+  .brand_cont1 {
+    width: 100%;
+    /* height: 29px; */
+    background: #fff;
+    border-radius: 6px;
+    box-shadow: 0px 0px 10px #d3e7db;
+    padding: 0.5em 0.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .brand_imgs {
+    width: 100%;
+  }
+}
