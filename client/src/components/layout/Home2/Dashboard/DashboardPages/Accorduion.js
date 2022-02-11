@@ -18,9 +18,9 @@ const Accordion = ({ title, children }) => {
 export const Accorduion = (props) => {
   return (
     <div>
-      <Accordion title={props.title}></Accordion>
+      <Accordion title={props.title}>
+
+      </Accordion>
     </div>
   );
 };
-
-
