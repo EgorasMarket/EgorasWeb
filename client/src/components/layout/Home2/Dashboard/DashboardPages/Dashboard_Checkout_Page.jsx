@@ -212,9 +212,9 @@ const Dashboard_Checkout_Page = ({
 
         createOrder(getProductId);
 
-        // setTimeout(() => {
-        //   return window.location.replace("/dashboard/savings");
-        // }, 5000);
+        setTimeout(() => {
+          return window.location.replace("/dashboard/savings");
+        }, 5000);
       } else {
         setSuccessPop(false);
       }
@@ -277,7 +277,7 @@ const Dashboard_Checkout_Page = ({
                   <>
                     <div className="checkout_total_balance">
                       Total Balance:{" "}
-                      <span className="balance_checkout">#{cAmount}</span>
+                      <span className="balance_checkout">₦{cAmount}</span>
                     </div>
                     <div className="card_details_title">ENTER CARD DETAILS</div>
                     <div className="card_details_inputs">

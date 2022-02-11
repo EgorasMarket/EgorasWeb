@@ -366,45 +366,55 @@ const ItemDetailComponent = ({
                     style={{ height: "25em" }}
                   >
                     {term.map((asset) => (
-                      <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                      >
-                        <li className="carous_list">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
-                            }}
-                          >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                save now
-                              </button>
+                      <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
+    
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
                               <button className="items_remaining_btn2">
-                                20% off
+                                {" "}
+                                40% locked
                               </button>
-                            </div>
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_title">
-                                {asset.unitCount}
-                                {asset.unitCount === 1
-                                  ? "item left"
-                                  : asset.unitCount <= 1
-                                  ? "no item left"
-                                  : asset.unitCount > 1
-                                  ? "items left"
-                                  : null}
-                              </div>
-                            </div>
-                            {/* </a> */}
+                            )}
                           </div>
-                        </li>
-                      </a>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_title">
+                              ₦{numberWithCommas(asset.amount)}{" "}
+                              <span className="slashed_price">
+                                ₦{numberWithCommas(asset.amount * 2)}
+                              </span>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
                     ))}
                   </Carousel>
                   {/* Carousel end==============================
@@ -414,6 +424,102 @@ const ItemDetailComponent = ({
               </div>
             </section>
             {/*  Projects Section end*/}
+             
+
+
+                 {/*  Projects Section start*/}
+                 <section className="projectsSection" id="projects">
+              <div className="container">
+                <div className="projectsArea">
+                  <div className="projectsLinea"></div>
+                  <div className="projectsTitleContentsa">
+                    <div className="projectTitle">
+                      <h1 className="gttitle TITE">Recent Products</h1>
+                    </div>
+                    {/* 
+              <a href="/explore_collaterals" className="projectsLink">
+                Explore collaterals
+                <div className="projectsLinkHover"></div>
+              </a> */}
+                  </div>
+
+                  {/* Carousel start==============================
+==============================================
+============================= */}
+
+                  <Carousel
+                    responsive={responsive6}
+                    className="partnerCards LEFTARROW"
+                    showDots={false}
+                    //   infinite={false}
+                    autoPlay={true}
+                    autoPlaySpeed={6000}
+                    transitionDelay={"2s"}
+                    infinite={true}
+                    draggable={true}
+                    // transitionDuration={500}
+                    swipeable={true}
+                    style={{ height: "25em" }}
+                  >
+                    {term.map((asset) => (
+                      <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
+    
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                40% locked
+                              </button>
+                            )}
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_title">
+                              ₦{numberWithCommas(asset.amount)}{" "}
+                              <span className="slashed_price">
+                                ₦{numberWithCommas(asset.amount * 2)}
+                              </span>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                    ))}
+                  </Carousel>
+                  {/* Carousel end==============================
+==============================================
+============================= */}
+                </div>
+              </div>
+            </section>
+
             {/* =================================================================================================================================================================================================================================================================== */}
             {/* {detailsModal == true ? 
             <CheckoutModalComponent 

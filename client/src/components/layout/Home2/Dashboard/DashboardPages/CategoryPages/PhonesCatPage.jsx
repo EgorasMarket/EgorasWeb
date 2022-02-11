@@ -331,7 +331,7 @@ const PhonesCatPage = ({match}) => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                {match.params.category}  <span className="ouright_sell">/ Esusu.</span>
+                {match.params.category}  <span className="ouright_sell">/ Outright sell-off</span>
                 </h1>
               </div>
               {/* <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
@@ -359,63 +359,54 @@ const PhonesCatPage = ({match}) => {
             >
               {seeAll.map((asset) => {return(
                 <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
-
+                <li className="carous_list">
+                  <div
+                    className="storeTiles_storeTileContainer__HoGEa"
+                    style={{
+                      backgroundImage: `url(${
+                        api_url2 + "/" + asset.product_image
+                      })`,
+                      //           height: "200px",
+                      //           width: "100%",
+                      //           backgroundRepeat: "no-repeat",
+                      //           backgroundSize: "cover",
+                      //           borderRadius: "8px",
+                      //           borderBottomLeftRadius: "0px",
+                      //           borderBottomRightRadius: "0px",
+                      //   backgroundPositionY: "center",
+                    }}
+                  >
+                    <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                      <button className="items_remaining_btn">
                         {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
+                          <p className="no_margg"> Buy now</p>
                         ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% locked
-                          </button>
+                          <p className="no_margg"> Save now</p>
                         )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
-                            )}
-                            <span className="per_day_symbol"> / perday</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/* </a> */}
+                      </button>
+
+                      {asset.payment_type == "OUTRIGHT" ? (
+                        <div></div>
+                      ) : (
+                        <button className="items_remaining_btn2">
+                          {" "}
+                          40% locked
+                        </button>
+                      )}
                     </div>
-                  </li>
-                </a>
+                    <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                      <div className="asset_name">{asset.product_name}</div>
+                      <div className="asset_title">
+                        ₦{numberWithCommas(asset.amount)}{" "}
+                        <span className="slashed_price">
+                          ₦{numberWithCommas(asset.amount * 2)}
+                        </span>
+                      </div>
+                    </div>
+                    {/* </a> */}
+                  </div>
+                </li>
+              </a>
               )} )}
             </Carousel>
 
@@ -461,7 +452,7 @@ const PhonesCatPage = ({match}) => {
 
             <div className="products_display_body pad_bot">
               <div className="products_display_body_heading">
-              {match.params.category} 
+              {match.params.category} / Esusu
                 <dispatchEvent></dispatchEvent>
               </div>
               <div className="cat_carous">
