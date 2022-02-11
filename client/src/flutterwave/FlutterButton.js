@@ -10,12 +10,13 @@ const FlutterButton  = ({amount, customer, payment_title, payment_options }) => 
     tx_ref: Date.now(),
     amount: amount,
     currency: 'NGN',
-    payment_options:"0",
+    redirect_url :"https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
+    // payment_options:"0",
     customer:customer, 
     customizations: {
       title: payment_title,
       description: 'Payment for items in cart',
-      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+      logo: 'https://https://egoras.com/img/egoras-logo.svg',
     },
     };
 
