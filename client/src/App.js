@@ -338,7 +338,7 @@ const App = () => {
                   /> */}
                   <Route
                     exact
-                    path="/products/details/:id"
+                    path="/products/details/:id/:name"
                     component={Item_details_main}
                   />
                   <Route

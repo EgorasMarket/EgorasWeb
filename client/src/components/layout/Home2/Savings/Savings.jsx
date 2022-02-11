@@ -262,8 +262,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Top Deals{" "}
-                  <span className="ouright_sell">/ Outright sell-off.</span>
+                  Top Deals{" "}/ Outright Buy.
+                  {/* <span className="ouright_sell">/ Outright sell-off.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Outright `}  className="see_all_cat">
@@ -290,7 +290,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
               {outrightProducts.map((asset) => (
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -408,7 +408,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Phone & Tablets <span className="ouright_sell">/ Esusu.</span>
+                  Phone & Tablets 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
@@ -435,7 +436,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
               {item.map((asset) => {if (phonesTablets === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -526,7 +527,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Electronics <span className="ouright_sell">/ Esusu.</span>
+                  Electronics 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Electronics`} className="see_all_cat">
@@ -553,7 +555,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
                 {item.map((asset) => {if (electronics === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -643,7 +645,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Musical Equipments <span className="ouright_sell">/ Esusu.</span>
+                  Musical Equipments 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Musical Equipments`} className="see_all_cat">
@@ -670,7 +673,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
             {item.map((asset) => {if (musicalEquipment === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -759,7 +762,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Computer &  Accessories <span className="ouright_sell">/ Esusu.</span>
+                  Computer &  Accessories 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Computer & Accessories`} className="see_all_cat">
@@ -786,7 +790,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
               {item.map((asset) => {if (ComputerAccessories === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -872,7 +876,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Furniture <span className="ouright_sell">/ Esusu.</span>
+                  Furniture 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Furnitures`}  className="see_all_cat">
@@ -899,7 +904,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
                {item.map((asset) => {if (furniture === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -986,7 +991,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Groceries <span className="ouright_sell">/ Esusu.</span>
+                  Groceries
+                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Home Appliances`}  className="see_all_cat">
@@ -1013,7 +1019,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
               {itemGalleryShow.map((asset) => (
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -1092,7 +1098,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Home Appliances <span className="ouright_sell">/ Esusu.</span>
+                  Home Appliances 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Home Appliances`}  className="see_all_cat">
@@ -1119,7 +1126,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
            {item.map((asset) => {if (homeAppliances === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -1201,7 +1208,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Nfts <span className="ouright_sell">/ Esusu.</span>
+                  Nfts 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a href={`/dashboard/products/categories/Nfts`} className="see_all_cat">
@@ -1228,7 +1236,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
                {item.map((asset) => {if (nfts === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -1312,7 +1320,8 @@ const Savings = () => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                  Industrial Equipments <span className="ouright_sell">/ Esusu.</span>
+                  Industrial Equipments 
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
               <a  href={`/dashboard/products/categories/Industral Equipments`} className="see_all_cat">
@@ -1339,7 +1348,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
              {item.map((asset) => {if (industrialEquipments === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"

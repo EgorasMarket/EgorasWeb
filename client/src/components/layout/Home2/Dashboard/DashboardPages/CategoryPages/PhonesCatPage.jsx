@@ -452,7 +452,7 @@ const PhonesCatPage = ({match}) => {
 
             <div className="products_display_body pad_bot">
               <div className="products_display_body_heading">
-              {match.params.category} / Esusu
+              {match.params.category} 
                 <dispatchEvent></dispatchEvent>
               </div>
               <div className="cat_carous">

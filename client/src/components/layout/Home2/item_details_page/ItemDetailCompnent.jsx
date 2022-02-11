@@ -337,7 +337,7 @@ const ItemDetailComponent = ({
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products</h1>
+                      <h1 className="gttitle TITE">Similar Products / Outright Buy</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -365,7 +365,7 @@ const ItemDetailComponent = ({
                     style={{ height: "25em" }}
                   >
                     {term.map((asset) => (
-                      <a href={`/products/details/${asset.id}`}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                       <li className="carous_list">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -433,7 +433,7 @@ const ItemDetailComponent = ({
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products</h1>
+                      <h1 className="gttitle TITE">Similar Products</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -461,8 +461,8 @@ const ItemDetailComponent = ({
                     style={{ height: "25em" }}
                   >
                     {term.map((asset) => (
-                      <a href={`/products/details/${asset.id}`}>
-                      <li className="carous_list">
+                      <a href={`/products/details/${asset.id}/${asset.product_name}`}>
+                      <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -493,17 +493,26 @@ const ItemDetailComponent = ({
                             ) : (
                               <button className="items_remaining_btn2">
                                 {" "}
-                                40% locked
+                                {asset.percentage}% locked
                               </button>
                             )}
                           </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
                             <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (asset.amount / asset.product_duration).toFixed()
+                                )}
+                                <span className="per_day_symbol"> / perday</span>
+                              </div>
                             </div>
                           </div>
                           {/* </a> */}
