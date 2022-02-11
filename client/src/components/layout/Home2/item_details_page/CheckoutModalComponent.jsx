@@ -252,6 +252,8 @@ const CheckoutModalComponent = ({
         </div>
         <div className="detailsModalSection2">
           <div className="details_modal_divv">
+            {/* ======================= */}
+
             <div className="cart_area2_heading">Payment Options</div>
             <div className="cart_area2_select">
               <div className="wit_card">
@@ -259,12 +261,24 @@ const CheckoutModalComponent = ({
                 <input type="checkbox" name="" id="" classNam="checkBox" />
               </div>
             </div>
+            {/* ======================= */}
+
             <div className="cart_area2_select border_down">
               <div className="wit_card">
                 Pay via wallet{" "}
                 <input type="checkbox" name="" id="" classNam="checkBox" />
               </div>
             </div>
+
+            {/* ======================= */}
+             <div className="cart_area2_select border_down">
+              <div className="wit_card">
+                Pay via USSD{" "}
+                <input type="checkbox" name="" id="" classNam="checkBox" />
+              </div>
+            </div>
+            {/* ======================= */}
+
             {/* ========= */}
             {/* ========= */}
             {/* ========= */}
@@ -319,6 +333,7 @@ const CheckoutModalComponent = ({
         : null 
     }
 
+ 
 
 
   

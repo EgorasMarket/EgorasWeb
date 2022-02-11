@@ -24,8 +24,8 @@ const Dashboard_Checkout_Page = ({
   auth,
   cAmount,
   createOrder,
+  click
 }) => {
-  const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
   const [pin, setPin] = useState("");
@@ -174,7 +174,7 @@ const Dashboard_Checkout_Page = ({
       Userfullname,
       Useremail,
       UserphoneNumber,
-      2000
+      amount
     );
     console.log(res3.data.data, "response from dashboard checkout ");
 
