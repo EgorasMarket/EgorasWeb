@@ -1137,7 +1137,7 @@ function DashboardAccountPage({
                             style={{ width: "25%" }}
                             onClick={submitAddress}
                           >
-                            Submit Addresxs
+                            Submit Address
                           </button>
                         </div>
                       </div>
