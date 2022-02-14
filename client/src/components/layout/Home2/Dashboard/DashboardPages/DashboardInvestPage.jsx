@@ -346,7 +346,7 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_conts">
               {item.slice(0, 12).map((asset, index) => (
                 <a
-                  href={`/products/details/${asset.id}`}
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                   key={index.toString()}
                 >
                   <li className="carous_list no_marg">
@@ -439,7 +439,7 @@ function DashboardInvestPage({ auth }) {
                   if (phonesTablets === asset.product_category_desc)
                     return (
                       <a
-                        href={`/products/details/${asset.id}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                         key={index.toString()}
                       >
                         <li className="carous_list no_marg">
@@ -552,7 +552,7 @@ function DashboardInvestPage({ auth }) {
                 // </a>
 
                 <a
-                  href={`/products/details/${asset.id}`}
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                   key={index.toString()}
                 >
                   <li className="carous_list no_marg">
@@ -635,7 +635,7 @@ function DashboardInvestPage({ auth }) {
                 if (homeAppliances === asset.product_category_desc) {
                   return (
                     <a
-                      href={`/products/details/${asset.id}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                       key={index.toString()}
                     >
                       <li className="carous_list no_marg">
@@ -732,7 +732,7 @@ function DashboardInvestPage({ auth }) {
                   if (electronics === asset.product_category_desc)
                     return (
                       <a
-                        href={`/products/details/${asset.id}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                         key={index.toString()}
                       >
                         <li className="carous_list no_marg">

@@ -335,7 +335,7 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                   <a href={`/products/details/${asset.id}`}>
+                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                    <li className="carous_list no_marg">
                      <div
                        className="storeTiles_storeTileContainer__HoGEa"
@@ -465,7 +465,7 @@ const numberWithCommas = (x) => {
                           ) : (
                             <button className="items_remaining_btn2">
                               {" "}
-                              {asset.percentage}% locked
+                              {asset.percentage}% to be locked
                             </button>
                           )}
                         </div>
@@ -537,7 +537,7 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                     <a href={`/products/details/${asset.id}`}>
+                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                      <li className="carous_list no_marg">
                        <div
                          className="storeTiles_storeTileContainer__HoGEa"
@@ -632,7 +632,7 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                   <a href={`/products/details/${asset.id}`}>
+                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                    <li className="carous_list no_marg">
                      <div
                        className="storeTiles_storeTileContainer__HoGEa"
@@ -664,7 +664,7 @@ const numberWithCommas = (x) => {
                          ) : (
                            <button className="items_remaining_btn2">
                              {" "}
-                             {asset.percentage}% locked
+                             {asset.percentage}% to be locked
                            </button>
                          )}
                        </div>

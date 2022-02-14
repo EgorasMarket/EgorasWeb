@@ -435,7 +435,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
               {item.map((asset) => {if (phonesTablets === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -467,7 +467,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -585,7 +585,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -702,7 +702,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -818,7 +818,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -931,7 +931,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -1045,7 +1045,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -1151,7 +1151,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -1260,7 +1260,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
@@ -1371,7 +1371,7 @@ const Savings = () => {
                         ) : (
                           <button className="items_remaining_btn2">
                             {" "}
-                            {asset.percentage}% locked
+                            {asset.percentage}% to be locked
                           </button>
                         )}
                       </div>
