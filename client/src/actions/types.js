@@ -30,3 +30,4 @@ export const API_URL = "https://tea.egoras.com";
 // export const API_URL2 = "http://localhost:4000";
 // export const API_URL2 = "http://192.168.43.179:4000";
 export const API_URL2 = "http://192.168.43.179:4000";
+// export const API_URL2 = "http://192.168.251.63:4000";
