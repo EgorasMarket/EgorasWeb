@@ -131,6 +131,11 @@ const CheckoutModalComponent = ({
     },
   };
 
+  const options = {
+  method: 'GET',
+  headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
+};
+
   const handleFlutterPayment =  useFlutterwave(flutterConfig)
 
   useEffect(() => {
@@ -173,7 +178,7 @@ const CheckoutModalComponent = ({
                   <button className="button_change_delivery_address pickup_btn">
                     Select Pickup Location
                   </button>
-                </div>
+                </div>flutter
                 <div className="delivery_card_body">
                   <div className="delivery_card_body_cont1">
                     Select a pickup location in your area from our 32 locations
@@ -292,7 +297,7 @@ const CheckoutModalComponent = ({
             </div>
 
              <FlutterButton 
-             amount={100}
+             amount={1}
              payment_title={"Payment From Egoras savings "}
             //  payment_options={"ussd"}
              customer={
@@ -360,7 +365,7 @@ const CheckoutModalComponent = ({
 
       {showPayment ? (
         <Dashboard_Checkout_Page
-          cAmount={100}
+          cAmount={1}
           getProductId={product_id}
           closePaymentModal={closePayment}
         />

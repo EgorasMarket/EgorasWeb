@@ -16,7 +16,7 @@ const FlutterButton  = ({amount, customer, payment_title, payment_options }) => 
     customizations: {
       title: payment_title,
       description: 'Payment for items in cart',
-      logo: 'https://https://egoras.com/img/egoras-logo.svg',
+      logo: 'https://egoras.com/img/egoras-logo.svg',
     },
     };
 
