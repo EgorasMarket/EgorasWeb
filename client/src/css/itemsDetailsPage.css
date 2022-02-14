@@ -336,11 +336,11 @@ span.per_day {
   font-size: 14px;
 }
 .lll {
-  border: solid 1px #e7e7e7;
+  /* border: solid 1px #e7e7e7; */
   display: flex;
   align-items: center;
   gap: 10px;
-  padding: 1em 0em;
+  /* padding: 1em 0em; */
   border-right: 0;
   border-left: 0;
   flex-direction: column;

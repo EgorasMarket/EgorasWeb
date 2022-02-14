@@ -78,12 +78,16 @@ const responsive7 = {
     items: 4,
   },
   mobile: {
-    breakpoint: { max: 600, min: 0 },
+    breakpoint: { max: 670, min: 400 },
+    items: 3,
+  },
+  mobile: {
+    breakpoint: { max: 400, min: 0 },
     items: 2,
   },
 };
 
-const DashboardHomePage = ({ cart, auth, allCart,match }) => {
+const DashboardHomePage = ({ cart, auth, allCart, match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
 
@@ -108,11 +112,13 @@ const DashboardHomePage = ({ cart, auth, allCart,match }) => {
 
   const [savedNum, setSavedNum] = useState(5);
   const [productPage_id, setProductPageId] = useState(match.params.id);
-  const [lock,setlock ]=useState({
-    productImage:"",productName:"",productAmount:"",
+  const [lock, setlock] = useState({
+    productImage: "",
+    productName: "",
+    productAmount: "",
   });
 
-const { productImage,productName,productAmount}=lock;
+  const { productImage, productName, productAmount } = lock;
 
   const config = {
     headers: {
@@ -135,6 +141,7 @@ const { productImage,productName,productAmount}=lock;
       });
   }, []);
 
+  // useEffect(() => {
 
   useEffect(() => {
     axios
@@ -151,25 +158,17 @@ const { productImage,productName,productAmount}=lock;
 
 
 
-   
-  // useEffect(() => {
+  // console.log(body);
 
-    // const body = JSON.stringify({
-    //   productPage_id
-    // });
-  
+  //     axios.post(
+  //         api_url2 + "/v1/product/retrieve/specific",
+  //         // body,
+  //         null,
+  //         config
+  //     ).then((cafe) => {
 
-    // console.log(body);
-  
-//     axios.post(
-//         api_url2 + "/v1/product/retrieve/specific",
-//         // body,
-//         null,
-//         config
-//     ).then((cafe) => {
-       
-//       console.log("Goods only");
-//         console.log(cafe.data.data, "Feeding");
+  //       console.log("Goods only");
+  //         console.log(cafe.data.data, "Feeding");
 
 //         setlock ({
 //           productImage:cafe.data.data.product_image,
@@ -428,7 +427,7 @@ const numberWithCommas = (x) => {
                           ) : (
                             <button className="items_remaining_btn2">
                               {" "}
-                              {asset.percentage}% locked
+                              {asset.percentage}% to be locked
                             </button>
                           )}
                         </div>
@@ -627,7 +626,7 @@ const numberWithCommas = (x) => {
                          ) : (
                            <button className="items_remaining_btn2">
                              {" "}
-                             {asset.percentage}% locked
+                             {asset.percentage}% to be locked
                            </button>
                          )}
                        </div>

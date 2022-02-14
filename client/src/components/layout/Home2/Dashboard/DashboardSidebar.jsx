@@ -33,7 +33,7 @@ import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 import { retrieveCart } from "../../../../actions/shop";
 import Logout from "../Logout/Logout";
-const DashboardSidebar = ({auth, cart, retrieveCart }) => {
+const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -199,11 +199,8 @@ const DashboardSidebar = ({auth, cart, retrieveCart }) => {
             >
               <div className="together">
                 <div className="save_numb_div">
-                  <ShoppingCartIcon className="cart_icon" />
+                  <SavingsIcon className="cart_icon" />
                   <div className="cart_num">{cartNum}</div>
-                </div>
-                <div className="account_numb_div">
-                  <FileCopyIcon className="copy_icon" /> 29887728631612
                 </div>
 
                 {/* <div

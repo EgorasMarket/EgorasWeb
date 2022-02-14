@@ -94,6 +94,7 @@ function ItemDetailsPage({ auth, match }) {
     product_details: "",
     productSpecification: "",
     percentage: "",
+    productId:""
   });
 
   var addedDays = 0;
@@ -117,6 +118,7 @@ function ItemDetailsPage({ auth, match }) {
   const {
     product_image,
     product_name,
+    productId,
 
     product_brand,
     product_type,
@@ -163,7 +165,7 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          productId: data.data.data.product_ID
+          productId: data.data.data.product_id
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -359,26 +361,68 @@ function ItemDetailsPage({ auth, match }) {
   };
 
 
-  useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/new/products",
-        null,
-        config
-    ).then((data) => {
-       
-        console.log(data.data.data, "chukwubuike");
-     
-       
-        setWorkss(data.data.data);
+  // const delete2 = e => {
+  //   console.log(e.target.id)
+  //   const id = e.target.id;
+  //   const body = JSON.stringify({
+  //    id
+  //   });
+  //   console.log('====================================');
+  //   console.log(body);
+  //   console.log('====================================');
+  // // console.log(id)
+  //   axios.delete(
+  //       api_url2 + `/v1/product/delete/product`,
+  //       body,
+  //       config
+  //   ).then((data) => {
 
-      })
-      .catch((err) => {
-        console.log(err); // "oh, no!"
-      });
+  //       console.log(data);
+
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response); // "oh, no!"
+  //     });
 
     
-  }, []);
+  // }
+
+
+  // const delete2 =async(e) => {
+  //   console.log(e.target.id)
+  // const id = e.target.id;
+  //   const body = JSON.stringify({
+  //    id
+  //   });
+  //    await axios
+  //   .delete(api_url2 + "/v1/product/delete/product", body, config)
+  //   .then((response) => {
+  //     console.log(response.data);
+     
+
+      
+  //   })
+  //   .catch((err) => {
+  //     // alert(err.response.data.message);
+  //     console.log("error reported", err.response);
+  //   });
+
+  // }
+
+  const delete2 =(id)=>{
+    //  alert(id)
+    const body = JSON.stringify({
+         id
+        });
+        console.log(body)
+
+        axios.delete(api_url2 + "/v1/product/delete/product", body, config).then(
+          (response)=>{
+            console.log(response.data);
+          }
+        )
+  }
+  
 
 
   useEffect(() => {
@@ -581,118 +625,35 @@ function ItemDetailsPage({ auth, match }) {
                 ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                {/* {product_duration !== 1 ? (
-                  <div className="date_picky">
-                    <div className="date_picky_note">
-                      Note: the below calendar shows the total amount of days to
-                      complete payment for this item
-                      <br />
-                      the grey color shows the total days that has been
-                      initially locked for this item
-                      <br />
-                      while the green color shows the total amount of days that
-                      is left for payment .
-                    </div>
-                    <Accordion title="Click to view calendar">
-                      <div
-                        style={{ display: "flex", flexFlow: "column nowrap" }}
-                      >
-                        <Calendar
-                          onChange={(item) => {
-                            setEndDate(item);
-                            setStartDate(new Date());
-                            console.log(item);
-                            console.log(
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1,
-                              "days"
-                            );
-                            addedDays =
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1;
-                            const subtractedPercent = (days - addedDays) / 100;
-                            const newPercentage = 100 - subtractedPercent;
-                            console.log(newPercentage, "%");
-                            const newPercentMoney =
-                              (newPercentage / 100) * amount;
-
-                            setDaysAdded(addedDays - percentDays);
-
-                            setMoneyAdded(newPercentMoney.toFixed());
-
-                            setDaysAddedDiv(true);
-                          }}
-                          date={date}
-                          minDate={addDays(new Date(), percentDays)}
-                          maxDate={addDays(new Date(), days)}
-                          // date={date}
-                        />
-                        {daysAddedDiv == true ? (
-                          <div className="days_to_pay_now">
-                            <span className="added_">
-                              You have added{" "}
-                              <span className="day_add">
-                                {daysAdded} day(s)
-                              </span>{" "}
-                              to the previously locked days.
-                            </span>
-
-                            <span className="total_pay_now">
-                              And you are now to pay a total amount of{" "}
-                              <span className="money_add">#{moneyAdded}</span>{" "}
-                              before this item can be locked by you.
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="days_to_pay_now">
-                            <span>
-                              This item has a total of{" "}
-                              <span className="money_add">
-                                {percentDays} days
-                              </span>{" "}
-                              locked on it.
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </Accordion>
-                  </div>
-                ) : null} */}
+                
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                <div className="buy_now_btn_div">
+                <div className="buy_now_btn_div" style={{justifyContent:"space-between",display:"flex"}}>
+
+                <button
+
+                 style={{width:"48%",backgroundColor:'#e4a788'}}
+                    className="buy_now_button"
+                // {/* id={productId}  */}
+                    // onClick={e => submitCallCheck(asset.id)} 
+                    onClick={()=>delete2(productId)}
+                  >
+                    {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
+                  </button>
+               
                   
                   <button
+
+                    style={{width:"48%"}}
                     className="buy_now_button"
-                    // onClick={() => {
-                    //   openDetailsModal();
-                    //   //call  the checkout api here
-                    //   checkout(
-                    //     user_id,
-                    //     product_id,
-                    //     daysAdded,
-                    //     startDate,
-                    //     endDate
-                    //   );
-                    // }}
+                   
                     onClick={e => submitCallCheck(asset.id)} 
                   >
                     {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
                   </button>
                
-
-                  {/* <div className="save_later">
-                    <button className="save_later_btn">
-                      <FavoriteIcon className="favorite_icon" />
-                    </button>
-                    <div className="save_later_txt">Add to favorites.</div>
-                  </div> */}
                 </div>
               </div>
             </div>
