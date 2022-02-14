@@ -27,7 +27,6 @@ const Dashboard_Checkout_Page = ({
   createOrder,
   closePaymentModal,
 }) => {
-  const [checkBal, setCheckBal] = useState("200,000.00");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [isOtp, setIsOtp] = useState(false);
   const [pin, setPin] = useState("");
