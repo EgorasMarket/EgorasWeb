@@ -52,6 +52,8 @@ function DashboardInvestPage({ auth }) {
     },
   };
 
+  const linksActive = window.location.pathname;
+  console.log(linksActive);
   //  const names =["phones $ Tablet","grocery","Home & Kitchen","electronics","computer & electronics"]
 
   const [item, setItem] = useState([]);
@@ -345,6 +347,9 @@ function DashboardInvestPage({ auth }) {
             </div>
             <div className="products_display_body_conts">
               {item.slice(0, 12).map((asset, index) => (
+                // {
+                //   linksActive 
+                // }
                 <a
                   href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                   key={index.toString()}
