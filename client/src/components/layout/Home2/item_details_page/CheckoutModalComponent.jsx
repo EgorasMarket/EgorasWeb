@@ -65,7 +65,9 @@ const CheckoutModalComponent = ({
       endDate,
       // spread_balance,
     };
+
     console.log(payload_data);
+
     let call = await axios
       .post(api_url2 + "/v1/checkout/add", payload_data, config)
       .then((response) => {

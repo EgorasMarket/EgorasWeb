@@ -28,7 +28,7 @@ const AdminCustomer = () => {
   };
  
   useEffect(() => {
-    console.log('ttttrr');
+    // console.log('ttttrr');
     axios
       .get(api_url2 + "/v1/admin/retrieve/customers/byBranch/", null, config)
       .then((data) => {
@@ -172,12 +172,20 @@ const AdminCustomer = () => {
                       </td>
                       <td className="assets-category-data-last">
                         <div className="assets-data-name-last">
-                          <a href={`/super_admin/user_overview/${user.id}`}>
+                          <a href={`/super_admin/user_overview/${user.id}`} className='mr-2'>
                             <button
                               // id={user.id}
                               className="btn btn-primary"
                             >
                               View
+                            </button>
+                          </a>
+                          <a href={`/super_admin/user_overview/${user.id}`}>
+                            <button
+                              // id={user.id}
+                              className="btn btn-success"
+                            >
+                              Book
                             </button>
                           </a>
                         </div>
