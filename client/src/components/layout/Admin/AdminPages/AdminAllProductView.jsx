@@ -163,7 +163,7 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          productId: data.data.data.product_ID
+          // productId: data.data.data.product_id
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -193,9 +193,15 @@ function ItemDetailsPage({ auth, match }) {
       body,
       config
       ).then((data) => {
-        document.getElementById(product_id).remove();
+        // document.getElementById(product_id).remove();
         
           console.log(data.data);
+
+          if (data.data.success === true) {
+
+            return window.location.replace("/super_admin/all_products");
+          }
+
     
         })
         .catch((err) => {
@@ -681,7 +687,7 @@ function ItemDetailsPage({ auth, match }) {
                     //     endDate
                     //   );
                     // }}
-                    onClick={e => submitCallCheck(asset.id)} 
+                    onClick={e => submitCallCheck(product_id)} 
                   >
                     {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
                   </button>

@@ -21,6 +21,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
   const [toke, setToke] = useState({ email: "", password: "" });
   const [strongPass, setStrongPass] = useState(false);
   const [alert, setAlert] = useState("");
+  const [alertType, setAlertType] = useState("");
   const { email, password } = toke;
   const [isSuccessful, setIsSuccessful] = useState(false);
   const onChange2 = (e) => {
@@ -86,7 +87,9 @@ const Login = ({ getLogin, isAuthenticated }) => {
       // setDisable(false);
       console.log("okay Good Server");
     } else {
-      setAlert(res3.data, "danger");
+      console.log('ffff');
+      setAlert(res3.data);
+      setAlertType('danger')
       setIsLoading(false);
       setDisable(false);
     }
@@ -212,7 +215,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
         <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
       </section>
 
-      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
+      {alert == "" ? null : <CustomAlert alert={alert} alertType={alertType} onChange={timer} />}
       </div>
  
     // :null}
