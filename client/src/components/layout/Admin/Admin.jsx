@@ -16,6 +16,7 @@ import {
 } from "../../../actions/types";
 
 import "./AdminStyles/admin.css";
+import DashboardInvestPage from "../Home2/Dashboard/DashboardPages/DashboardInvestPage";
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
   const [roleDisplay,setRoleDisplay]= useState({
@@ -105,6 +106,14 @@ const Admin = ({ isAuthenticated, loading }) => {
                 // / dashboard/products/details/:id/:name
                 component={AdminAllView}
                 />
+
+                <Route
+                  exact
+                  path="/super_admin/user_overview"  
+                  // path="/dashboard/products/details/:id/:name"
+                  // / dashboard/products/details/:id/:name
+                  component={DashboardInvestPage}
+                  />
             </Switch>
           </div>
         )}
