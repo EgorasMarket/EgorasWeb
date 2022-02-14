@@ -5,8 +5,8 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
-import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3'
-import FlutterButton from '../../../../flutterwave/FlutterButton'
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import FlutterButton from "../../../../flutterwave/FlutterButton";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 const CheckoutModalComponent = ({
@@ -37,7 +37,7 @@ const CheckoutModalComponent = ({
   const [total, setTotal] = useState("");
   const [deliveryFee, setDeliveryFee] = useState(0);
   const [unitCount, setUnitCount] = useState("");
-  
+
   const sub_total = 0;
 
   const [showPayment, setShowPayment] = useState(false);
@@ -101,7 +101,7 @@ const CheckoutModalComponent = ({
         setProductDuration(product_duration);
         setProductImage(response.data.items.product_image);
         setAmount(response.data.items.amount);
-        setTotal(parseInt(response.data.items.amount)+ parseInt(deliveryFee))
+        setTotal(parseInt(response.data.items.amount) + parseInt(deliveryFee));
         setUnitCount(response.data.items.unitCount);
       })
       .catch((err) => {
@@ -115,30 +115,30 @@ const CheckoutModalComponent = ({
       "Content-Type": "application/json",
     },
   };
-   const flutterConfig  =  {
-    public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
+  const flutterConfig = {
+    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
     tx_ref: Date.now(),
     amount: 100,
-    currency: 'NGN',
-    payment_options: 'card,mobilemoney,ussd',
+    currency: "NGN",
+    payment_options: "card,mobilemoney,ussd",
     customer: {
-      email: 'user@gmail.com',
-      phonenumber: '07064586146',
-      name: 'joel ugwumadu',
+      email: "user@gmail.com",
+      phonenumber: "07064586146",
+      name: "joel ugwumadu",
     },
     customizations: {
-      title: 'my Payment Title',
-      description: 'Payment for items in cart',
-      logo: 'https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg',
+      title: "my Payment Title",
+      description: "Payment for items in cart",
+      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
     },
   };
 
   const options = {
-  method: 'GET',
-  headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
-};
+    method: "GET",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+  };
 
-  const handleFlutterPayment =  useFlutterwave(flutterConfig)
+  const handleFlutterPayment = useFlutterwave(flutterConfig);
 
   useEffect(() => {
     checkout(customer_id, product_id, installation_days, startDate, endDate);
@@ -180,7 +180,7 @@ const CheckoutModalComponent = ({
                   <button className="button_change_delivery_address pickup_btn">
                     Select Pickup Location
                   </button>
-                </div>flutter
+                </div>
                 <div className="delivery_card_body">
                   <div className="delivery_card_body_cont1">
                     Select a pickup location in your area from our 32 locations
@@ -291,23 +291,23 @@ const CheckoutModalComponent = ({
               </div>
             </div>
             {/* ===================== */}
-              <div className="cart_area2_select">
+            <div className="cart_area2_select">
               <div className="wit_card">
                 Pay via card{" "}
                 <input type="checkbox" name="" id="" classNam="checkBox" />
               </div>
             </div>
 
-             <FlutterButton 
-             amount={1}
-             payment_title={"Payment From Egoras savings "}
-            //  payment_options={"ussd"}
-             customer={
-              
-              { email:"goodluckcanhelp@gmail.com", 
-               phonenumber:"08165226413", 
-               name:"Kingsley goodluck"}
-             } />
+            <FlutterButton
+              amount={1}
+              payment_title={"Payment From Egoras savings "}
+              //  payment_options={"ussd"}
+              customer={{
+                email: "goodluckcanhelp@gmail.com",
+                phonenumber: "08165226413",
+                name: "Kingsley goodluck",
+              }}
+            />
 
             {/* <div className="cart_area2_select border_down">
               <div className="wit_card">

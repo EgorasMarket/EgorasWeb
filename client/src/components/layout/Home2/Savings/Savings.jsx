@@ -63,19 +63,21 @@ const Savings = () => {
 
   const [itemGalleryShow, setItemGalleryShow] = useState([]);
   const [outrightProducts, setOutrightProducts] = useState([]);
-  const [item,setItem]=useState([]);
+  const [item, setItem] = useState([]);
 
-
-
-
-  const [furniture,setFurniture] =useState("Furnitures");
-  const [ComputerAccessories,setComputerAccessories] =useState("Computer & Accessories");
-  const [homeAppliances,setHomeAppliances] =useState("Home Appliances");
-  const [electronics,setElectronics] =useState("Electronics");
-  const [nfts,setNfts] =useState("Nfts");
-  const [phonesTablets,setPhoneTablets] =useState("Phones & Tablet");
-  const [musicalEquipment,setMusicalEquipment] =useState("Musical Equipments");
-  const [industrialEquipments,setIndustrialEquipments]= useState("Industral Equipments")
+  const [furniture, setFurniture] = useState("Furnitures");
+  const [ComputerAccessories, setComputerAccessories] = useState(
+    "Computer & Accessories"
+  );
+  const [homeAppliances, setHomeAppliances] = useState("Home Appliances");
+  const [electronics, setElectronics] = useState("Electronics");
+  const [nfts, setNfts] = useState("Nfts");
+  const [phonesTablets, setPhoneTablets] = useState("Phones & Tablet");
+  const [musicalEquipment, setMusicalEquipment] =
+    useState("Musical Equipments");
+  const [industrialEquipments, setIndustrialEquipments] = useState(
+    "Industral Equipments"
+  );
 
   useEffect(() => {
     axios
@@ -103,32 +105,22 @@ const Savings = () => {
       });
   }, []);
 
-
   useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/products",
-        null,
-        config
-    ).then((data) => {
-       
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
         console.log(data.data.data, "powerful");
-     
-       
-        setItem(data.data.data)
+
+        setItem(data.data.data);
         // setWrap({
         //   code:data.data.data.product_category_code
         // }
         // )
-
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
-
-    
   }, []);
-
 
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -261,12 +253,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Top Deals{" "}
-                  <span className="ouright_sell">/ Outright sell-off.</span>
-                </h1>
+                <h1 className="gttitle TITE">Top Deals </h1>
               </div>
-              <a href={`/dashboard/products/categories/Outright `}  className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Outright `}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -348,51 +340,128 @@ const Savings = () => {
         </div>
       </section>
 
+      {/*  Projects Section end*/}
+      {/* =================================================================================================================================================================================================================================================================== */}
+      {/* =================================================================================================================================================================================================================================================================== */}
+      {/*  Projects Section start*/}
+      <section className="projectsSection" id="projects">
+        <div className="container">
+          <div
+            className="projectsArea item_card_area"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="projectsTitleContentsa bg_a">
+              <div className="projectTitle">
+                <h1 className="gttitle TITE">Phone & Tablets</h1>
+              </div>
+              <a
+                href={`/dashboard/products/categories/Phones & Tablet`}
+                className="see_all_cat"
+              >
+                See all <ArrowForwardIosIcon className="forward_icons" />
+              </a>
+            </div>
 
+            {/* Carousel start==============================
+==============================================
+============================= */}
 
+            <Carousel
+              responsive={responsive6}
+              className="partnerCards LEFTARROW"
+              showDots={false}
+              //   infinite={false}
+              autoPlay={true}
+              autoPlaySpeed={6000}
+              transitionDelay={"2s"}
+              infinite={true}
+              draggable={true}
+              // transitionDuration={500}
+              swipeable={true}
+              style={{ height: "25em" }}
+            >
+              {item.map((asset) => {
+                if (phonesTablets === asset.product_category_desc) {
+                  return (
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
+                            )}
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                  );
+                }
+              })}
+            </Carousel>
 
-
-
-
-
-
-
-
-     
-
-
-
-
-
-
-        
-      
-     
-
-
-
-
-
-
-          
-      
-
-
-
-
-
-      
-
-
-
-
-
-
-
-
-
-
+            {/* Carousel end==============================
+==============================================
+============================= */}
+          </div>
+        </div>
+      </section>
 
       {/*  Projects Section end*/}
       {/* =================================================================================================================================================================================================================================================================== */}
@@ -407,11 +476,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Phone & Tablets <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Electronics</h1>
               </div>
-              <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Electronics`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -434,70 +504,78 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {item.map((asset) => {if (phonesTablets === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {item.map((asset) => {
+                if (electronics === asset.product_category_desc) {
+                  return (
+                    <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
                             )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-              )}} )}
+                      </li>
+                    </a>
+                  );
+                }
+              })}
             </Carousel>
-
-
-         
 
             {/* Carousel end==============================
 ==============================================
@@ -505,12 +583,6 @@ const Savings = () => {
           </div>
         </div>
       </section>
-
-
-
-
-
-
 
       {/*  Projects Section end*/}
       {/* =================================================================================================================================================================================================================================================================== */}
@@ -525,11 +597,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Electronics <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Musical Equipments</h1>
               </div>
-              <a href={`/dashboard/products/categories/Electronics`} className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Musical Equipments`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -552,70 +625,78 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-                {item.map((asset) => {if (electronics === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {item.map((asset) => {
+                if (musicalEquipment === asset.product_category_desc) {
+                  return (
+                    <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
                             )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-               )}} )}
+                      </li>
+                    </a>
+                  );
+                }
+              })}
             </Carousel>
-
-
-         
 
             {/* Carousel end==============================
 ==============================================
@@ -624,13 +705,6 @@ const Savings = () => {
         </div>
       </section>
 
-
-
-
-
-
-      {/*  Projects Section end*/}
-      {/* =================================================================================================================================================================================================================================================================== */}
       {/* =================================================================================================================================================================================================================================================================== */}
       {/*  Projects Section start*/}
       <section className="projectsSection" id="projects">
@@ -642,11 +716,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Musical Equipments <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Computer & Accessories</h1>
               </div>
-              <a href={`/dashboard/products/categories/Musical Equipments`} className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Computer & Accessories`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -669,70 +744,78 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-            {item.map((asset) => {if (musicalEquipment === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {item.map((asset) => {
+                if (ComputerAccessories === asset.product_category_desc) {
+                  return (
+                    <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
                             )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-                   )}} )}
+                      </li>
+                    </a>
+                  );
+                }
+              })}
             </Carousel>
-
-
-         
 
             {/* Carousel end==============================
 ==============================================
@@ -741,13 +824,6 @@ const Savings = () => {
         </div>
       </section>
 
-
-
-
-
-
-          
-       {/* =================================================================================================================================================================================================================================================================== */}
       {/*  Projects Section start*/}
       <section className="projectsSection" id="projects">
         <div className="container">
@@ -758,11 +834,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Computer &  Accessories <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Furniture</h1>
               </div>
-              <a href={`/dashboard/products/categories/Computer & Accessories`} className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Furnitures`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -785,70 +862,78 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {item.map((asset) => {if (ComputerAccessories === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {item.map((asset) => {
+                if (furniture === asset.product_category_desc) {
+                  return (
+                    <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
                             )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-             )}} )}
+                      </li>
+                    </a>
+                  );
+                }
+              })}
             </Carousel>
-
-
-         
 
             {/* Carousel end==============================
 ==============================================
@@ -856,122 +941,6 @@ const Savings = () => {
           </div>
         </div>
       </section>
-
-
-
-
-
-     {/*  Projects Section start*/}
-     <section className="projectsSection" id="projects">
-        <div className="container">
-          <div
-            className="projectsArea item_card_area"
-            data-aos="fade-up"
-            data-aos-duration="3000"
-          >
-            <div className="projectsTitleContentsa bg_a">
-              <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Furniture <span className="ouright_sell">/ Esusu.</span>
-                </h1>
-              </div>
-              <a href={`/dashboard/products/categories/Furnitures`}  className="see_all_cat">
-                See all <ArrowForwardIosIcon className="forward_icons" />
-              </a>
-            </div>
-
-            {/* Carousel start==============================
-==============================================
-============================= */}
-
-            <Carousel
-              responsive={responsive6}
-              className="partnerCards LEFTARROW"
-              showDots={false}
-              //   infinite={false}
-              autoPlay={true}
-              autoPlaySpeed={6000}
-              transitionDelay={"2s"}
-              infinite={true}
-              draggable={true}
-              // transitionDuration={500}
-              swipeable={true}
-              style={{ height: "25em" }}
-            >
-               {item.map((asset) => {if (furniture === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
-
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
-                            )}
-                            <span className="per_day_symbol"> / perday</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-             )}} )}
-            </Carousel>
-
-
-         
-
-            {/* Carousel end==============================
-==============================================
-============================= */}
-          </div>
-        </div>
-      </section>
-     
-
-
 
       {/*  Projects Section end*/}
       {/* =================================================================================================================================================================================================================================================================== */}
@@ -985,11 +954,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Groceries <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Groceries</h1>
               </div>
-              <a href={`/dashboard/products/categories/Home Appliances`}  className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Home Appliances`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -1091,11 +1061,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Home Appliances <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Home Appliances</h1>
               </div>
-              <a href={`/dashboard/products/categories/Home Appliances`}  className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Home Appliances`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -1118,66 +1089,77 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-           {item.map((asset) => {if (homeAppliances === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {item.map((asset) => {
+                if (homeAppliances === asset.product_category_desc) {
+                  return (
+                    <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
                             )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-               )}} )}
+                      </li>
+                    </a>
+                  );
+                }
+              })}
             </Carousel>
             {/* Carousel end==============================
 ==============================================
@@ -1186,10 +1168,6 @@ const Savings = () => {
         </div>
       </section>
 
-
-
-
-   
       {/*  Projects Section start*/}
       <section className="projectsSection" id="projects">
         <div className="container">
@@ -1200,11 +1178,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Nfts <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Nfts</h1>
               </div>
-              <a href={`/dashboard/products/categories/Nfts`} className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Nfts`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -1227,66 +1206,77 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-               {item.map((asset) => {if (nfts === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {item.map((asset) => {
+                if (nfts === asset.product_category_desc) {
+                  return (
+                    <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
                             )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-                )}} )}
+                      </li>
+                    </a>
+                  );
+                }
+              })}
             </Carousel>
             {/* Carousel end==============================
 ==============================================
@@ -1295,12 +1285,6 @@ const Savings = () => {
         </div>
       </section>
 
-
-
-
-
-
-  
       {/*  Projects Section start*/}
       <section className="projectsSection" id="projects">
         <div className="container">
@@ -1311,11 +1295,12 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Industrial Equipments <span className="ouright_sell">/ Esusu.</span>
-                </h1>
+                <h1 className="gttitle TITE">Industrial Equipments</h1>
               </div>
-              <a  href={`/dashboard/products/categories/Industral Equipments`} className="see_all_cat">
+              <a
+                href={`/dashboard/products/categories/Industral Equipments`}
+                className="see_all_cat"
+              >
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -1338,66 +1323,77 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-             {item.map((asset) => {if (industrialEquipments === asset.product_category_desc){ return(
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {item.map((asset) => {
+                if (industrialEquipments === asset.product_category_desc) {
+                  return (
+                    <a href={`/products/details/${asset.id}`}>
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% to be locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
                             )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
                         </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-                 )}} )}
+                      </li>
+                    </a>
+                  );
+                }
+              })}
             </Carousel>
             {/* Carousel end==============================
 ==============================================
@@ -1405,8 +1401,6 @@ const Savings = () => {
           </div>
         </div>
       </section>
-
-
 
       {/*  Projects Section end*/}
       {/* =================================================================================================================================================================================================================================================================== */}
