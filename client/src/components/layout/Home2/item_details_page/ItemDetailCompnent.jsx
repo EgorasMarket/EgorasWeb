@@ -1,20 +1,14 @@
 import React, { useState, useEffect, useCallback } from "react";
 import PaymentsIcon from "@mui/icons-material/Payments";
-import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
+import { ProductImageCarousel } from "./ProductImageCarousel";
 import "../Dashboard/DashboardStyles/dashboardCart.css";
-import ImageGallery from "react-image-gallery";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import CallIcon from "@mui/icons-material/Call";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { ProductDescription } from "./ProductDescription";
-// import Accordion from "./Accordion";
-// import ImageGallery from "react-image-gallery";
-import { Calendar, DateRangePicker, DateRange } from "react-date-range";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { addDays, differenceInCalendarDays } from "date-fns";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 // import CheckoutModalComponent from "./CheckoutModalComponent";
@@ -193,6 +187,29 @@ const ItemDetailComponent = ({
         console.log(err); // "oh, no!"
       });
   }, []);
+  const data1 = api_url2 + "/" + product_image;
+  const data = [
+    {
+      image:
+        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
+      caption: "San Francisco",
+    },
+    {
+      image:
+        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
+      caption: "Scotland",
+    },
+    {
+      image:
+        "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
+      caption: "Darjeeling",
+    },
+    {
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
+      caption: "San Francisco",
+    },
+  ];
 
   // {
   //   console.log(spec, " welcome  Daniel");
@@ -226,11 +243,12 @@ const ItemDetailComponent = ({
         <div className="product_details_area1">
           <div className="details_area1_cont1">
             {" "}
-            <img
+            {/* <img
               src={api_url2 + "/" + product_image}
               alt=""
               className="product_details_img"
-            />
+            /> */}
+            <ProductImageCarousel img={api_url2 + "/" + product_image} />
           </div>
           {/* ================ */}
           {/* ================ */}
