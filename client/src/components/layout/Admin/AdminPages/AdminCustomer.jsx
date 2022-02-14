@@ -103,8 +103,14 @@ const AdminCustomer = () => {
 
   // =========
   // =========
+
   // =========
   // =========
+
+  const saveCustomerId = (event) => {
+    console.log(event.target.id);
+    localStorage.setItem("adminCusId", event.target.id);
+  }
   return (
     <>
        {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
@@ -180,9 +186,10 @@ const AdminCustomer = () => {
                               View
                             </button>
                           </a>
-                          <a href={`/super_admin/user_overview/${user.id}`}>
+                          <a href={`/super_admin/user_overview`}>
                             <button
-                              // id={user.id}
+                              id={user.id}
+                              onClick={saveCustomerId}
                               className="btn btn-success"
                             >
                               Book
