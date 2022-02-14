@@ -11,7 +11,7 @@ import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
 import { ProductDescription } from "./ProductDescription";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
-import CheckoutModalComponent from "./CheckoutModalComponent";
+// import CheckoutModalComponent from "./CheckoutModalComponent";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import Accordion from "./Accordion";
@@ -81,20 +81,7 @@ const OutrightComponent = ({
     </div>
   );
 };
-const images = [
-  {
-    original: "https://picsum.photos/id/1018/1000/600/",
-    thumbnail: "https://picsum.photos/id/1018/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1015/1000/600/",
-    thumbnail: "https://picsum.photos/id/1015/250/150/",
-  },
-  {
-    original: "https://picsum.photos/id/1019/1000/600/",
-    thumbnail: "https://picsum.photos/id/1019/250/150/",
-  },
-];
+
 
 const ItemDetailComponent = ({
   payload,
@@ -238,7 +225,8 @@ const ItemDetailComponent = ({
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
-            cAmount={parseInt(amount)}
+            cAmount={100}
+            // cAmount={parseInt(amount)}
             getProductId={product_id}
             click={CloseModal}
           />

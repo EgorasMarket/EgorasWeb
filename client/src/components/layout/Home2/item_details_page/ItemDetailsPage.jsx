@@ -19,6 +19,7 @@ import {
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import ItemDetailComponent from "./ItemDetailCompnent";
+import LoginComp from "../Login/LoginComp";
 
 function ItemDetailsPage({ auth, match }) {
   const config = {
@@ -26,16 +27,32 @@ function ItemDetailsPage({ auth, match }) {
       "Content-Type": "application/json",
     },
   };
-  console.log(match.params.id);
-
-  const [product_id, setProductId] = useState(match.params.id);
+  console.log(window.location.pathname.split("/"));
+  // console.log(match.params.id);
+  const [loginModal, setLoginModal] = useState(false);
+  const [loginSuccess,setLoginSuccess]= useState(false);
+  const [product_id, setProductId] = useState();
   const [user_id, set_user_id] = useState("");
   const [payload, setPayload] = useState({});
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
-  const [spec, setSpec] = useState([]);
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [card, setSpec] = useState([]);
+  const [isAuthenticated, setIsAuthenticated ]  = useState(null)
+
+  
+  useEffect(() => {
+    console.log(auth);
+    if (window.location.pathname.split("/")[1] === 'dashboard') {
+      setProductId(match.params.id)
+      setIsAuthenticated(true)
+    } else {
+      setProductId(window.location.pathname.split("/")[3])
+      setIsAuthenticated(false)
+    }
+
+
+  }, [auth]);
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -60,12 +77,60 @@ function ItemDetailsPage({ auth, match }) {
     setCheckoutStatus(false);
   };
 
+  const OpenLoginModal = () => {
+    // console.log(auth.user.user);
+    if (auth.user !== null) {
+      console.log(auth.user.user);
+      // set_user_id(customer_id);
+      openDetailsModal();
+      // checkout(
+      //   user_id,
+      //   product_id,
+      //   daysAdded,
+      //   startDate,
+      //   endDate
+      //   );
+      } else {
+      setLoginModal(true);
+      
+    }
+  };
+
+  const CloseLoginModal = () => {
+    setLoginModal(false);
+  };
+
+  const callback = useCallback((loginSuccess) => {
+    setLoginSuccess(loginSuccess);
+
+    if (loginSuccess === true) {
+      CloseLoginModal()
+      window.location.reload()
+      // openDetailsModal();
+      // checkout(
+      //   user_id,
+      //   product_id,
+      //   daysAdded,
+      //   startDate,
+      //   endDate
+      // );
+    } else {
+      
+    }
+
+  }, []);
+
   useEffect(() => {
+    console.log(auth.isAuthenticated);
     const body = JSON.stringify({
       product_id,
     });
-    if (auth) {
+    if (auth.user !== null) {
       set_user_id(auth.user.user.id);
+      console.log(auth.user.user);
+    } else {
+      set_user_id('')
+      console.log('rrrrr');
     }
 
     axios
@@ -118,23 +183,38 @@ function ItemDetailsPage({ auth, match }) {
           no_of_days,
         });
         const getSlid = data.data.data.product_specifications;
+        // const myArray = getSlid.split(",");
+
+        console.log(getSlid);
 
         setSpec(getSlid);
 
-        //  const slipVar = getSlid.split(',');
-        console.log("====================================");
-        console.log(getSlid);
-        console.log("====================================");
+        // //  const slipVar = getSlid.split(',');
+        // console.log("====================================");
+        // console.log(getSlid);
+        // console.log("====================================");
 
-        console.log("====================================");
+        // console.log("====================================");
       })
       .catch((err) => {
         console.log(err.response); // "oh, no!"
       });
-  }, []); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
+  }, [product_id, auth]); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
 
+  console.log(product_id);
   return (
     <>
+      {loginModal == false ? null : (
+        <div className="checkout_main">
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          {/* <div>Login</div> */}
+          {/* <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          /> */}
+          <LoginComp parentCallback={callback} />
+        </div>
+      )}
       <div className="other2">
         <section className="no-bg">
           <div className="container">
@@ -149,9 +229,11 @@ function ItemDetailsPage({ auth, match }) {
               <ItemDetailComponent
                 payload={payload}
                 // numberWithCommas={numberWithCommas}
-                card={spec}
+                card={card}
                 openCheckoutModal={() => {
-                  openDetailsModal();
+                  // openDetailsModal();
+                  OpenLoginModal()
+                  // console.log('gggg');
                 }}
               />
             )}
