@@ -412,7 +412,7 @@ function DashboardSavingsPage({ match, auth }) {
                             ) : (
                               <button className="items_remaining_btn2">
                                 {" "}
-                                {asset.percentage}% locked
+                                {asset.percentage}% to be locked
                               </button>
                             )}
                           </div>

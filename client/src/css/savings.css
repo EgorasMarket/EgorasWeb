@@ -3,10 +3,10 @@
   padding-top: 12em;
   position: relative;
 }
-.savings_section .container {
+/* .savings_section .container {
   max-width: 1274px;
   /* overflow: hidden; */
-}
+/* } */ 
 
 .savings_area {
   display: flex;
@@ -53,10 +53,10 @@ button.savings_area_btn {
   position: relative;
   background: #f2fff7;
 }
-.savings_section2 .container {
+/* .savings_section2 .container {
   max-width: 1274px;
   /* overflow: hidden; */
-}
+/* } */
 .savings_section2_area {
   display: flex;
   flex-direction: column;

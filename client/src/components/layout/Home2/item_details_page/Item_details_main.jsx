@@ -554,7 +554,7 @@ const Item_details_main = ({ match, auth }) => {
                 )}
                 {/* // =========================== */}
                 <div className="amount_item_div total_amount">
-                  <span className="sub_total_txt">Total: </span> ₦
+                  <span className="sub_total_txt">Price: </span> ₦
                   {numberWithCommas(numberWithCommas(amount))}{" "}
                   <span className="per_day"></span>
                 </div>
@@ -575,6 +575,35 @@ const Item_details_main = ({ match, auth }) => {
                   </div>
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
+
+
+                <div className="buy_now_btn_div">
+                  <button
+                    className="buy_now_button"
+                    onClick={() => {
+                      // openDetailsModal();
+                      OpenLoginModal()
+                      //call  the checkout api here
+                      // checkout(
+                      //   user_id,
+                      //   product_id,
+                      //   daysAdded,
+                      //   startDate,
+                      //   endDate
+                      // );
+                    }}
+                  >
+                    {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
+                  </button>
+
+                  {/* <div className="save_later">
+                    <button className="save_later_btn">
+                      <FavoriteIcon className="favorite_icon" />
+                    </button>
+                    <div className="save_later_txt">Add to favorites.</div>
+                  </div> */}
+                </div>
+
                 {/* ------- */}
                 {payment_type !== "OUTRIGHT" ? (
                   <div className="quantity_div">
@@ -608,32 +637,7 @@ const Item_details_main = ({ match, auth }) => {
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                <div className="buy_now_btn_div">
-                  <button
-                    className="buy_now_button"
-                    onClick={() => {
-                      // openDetailsModal();
-                      OpenLoginModal()
-                      //call  the checkout api here
-                      // checkout(
-                      //   user_id,
-                      //   product_id,
-                      //   daysAdded,
-                      //   startDate,
-                      //   endDate
-                      // );
-                    }}
-                  >
-                    {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
-                  </button>
-
-                  {/* <div className="save_later">
-                    <button className="save_later_btn">
-                      <FavoriteIcon className="favorite_icon" />
-                    </button>
-                    <div className="save_later_txt">Add to favorites.</div>
-                  </div> */}
-                </div>
+                
               </div>
             </div>
 
@@ -803,92 +807,7 @@ const Item_details_main = ({ match, auth }) => {
             {/* ================ */}
             {/* =================================================================================================================================================================================================================================================================== */}
             {/* =================================================================================================================================================================================================================================================================== */}
-            {/*  Projects Section start*/}
-            <section className="projectsSection" id="projects">
-              <div className="container">
-                <div className="projectsArea">
-                  <div className="projectsLinea"></div>
-                  <div className="projectsTitleContentsa">
-                    <div className="projectTitle">
-                      <h1 className="gttitle TITE">Similar Products / Outright Buy</h1>
-                    </div>
-                    {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                  </div>
-
-                  {/* Carousel start==============================
-==============================================
-============================= */}
-
-                  <Carousel
-                    responsive={responsive6}
-                    className="partnerCards LEFTARROW"
-                    showDots={false}
-                    //   infinite={false}
-                    autoPlay={true}
-                    autoPlaySpeed={6000}
-                    transitionDelay={"2s"}
-                    infinite={true}
-                    draggable={true}
-                    // transitionDuration={500}
-                    swipeable={true}
-                    style={{ height: "25em" }}
-                  >
-                    {term.map((asset) => (
-                     
-                      <a href={`/products/details/${asset.id}`}>
-                      <li className="carous_list">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                           
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                40% locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
-                    ))}
-                  </Carousel>
-                  {/* Carousel end==============================
-==============================================
-============================= */}
-                </div>
-              </div>
-            </section>
+           
 
 
 
@@ -929,7 +848,7 @@ const Item_details_main = ({ match, auth }) => {
                   >
                     {term.map((asset) => (
                     
-                      <a href={`/products/details/${asset.id}`}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"

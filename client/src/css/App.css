@@ -1,3 +1,5 @@
+/* @import "~react-image-gallery/styles/css/image-gallery.css"; */
+
 * {
   margin: 0;
   padding: 0;
@@ -253,4 +255,12 @@ input:-internal-autofill-selected {
     opacity: 1;
     top: 1%;
   }
+}
+.caroCard .react-multiple-carousel__arrow--left,
+.caroCard .react-multiple-carousel__arrow--right {
+  background-color: #ffffff !important;
+  box-shadow: 0px 0px 15px #b8d2c2;
+  left: 10px !;
+  top: 45%;
+  width: 10px !important;
 }
