@@ -5,7 +5,7 @@ import "../DashboardStyles/dashboard_home.css";
 import { API_URL2 as api } from "../../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
-import { allCart } from "../../../../../actions/shop";
+// import { allCart } from "../../../../../actions/shop";
 import DashBoardCard from "../DashBoardCard";
 import data from "../../../MockData";
 import { retrieveCart } from "../../../../../actions/shop";
@@ -87,7 +87,7 @@ const responsive7 = {
   },
 };
 
-const DashboardHomePage = ({ cart, auth, allCart, match }) => {
+const DashboardHomePage = ({ auth, match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
 
@@ -178,18 +178,6 @@ const DashboardHomePage = ({ cart, auth, allCart, match }) => {
    
   // useEffect(() => {
 
-  useEffect(() => {
-    axios
-      .post(api_url2 + "/v1/user/accounts/fetch/dashboard", null, config)
-      .then((data) => {
-        console.log(data, "Chukwubuike Ifeanyi");
-
-       
-      })
-      .catch((err) => {
-        console.log(err); // "oh, no!"
-      });
-  }, []);
 
 
 
@@ -710,7 +698,7 @@ const numberWithCommas = (x) => {
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-  cart: state.shop.cart,
+  // cart: state.shop.cart,
 });
 
-export default connect(mapStateToProps, { allCart })(DashboardHomePage);
+export default connect(mapStateToProps, {  })(DashboardHomePage);
