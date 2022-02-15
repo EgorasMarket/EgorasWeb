@@ -137,7 +137,7 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       .then((data) => {
         const {
-          amount,
+          roundedAmount,
           percentage,
           product_brand,
           product_category_code,
@@ -152,7 +152,7 @@ function ItemDetailsPage({ auth, match }) {
           product_type,
           initial_deposit,
           dailyAmount,
-          amount_per_day,
+          paymentPerday,
           days_left,
           rounded,
           total_amount,
@@ -161,7 +161,7 @@ function ItemDetailsPage({ auth, match }) {
 
         console.log(data.data.data, "king");
         setPayload({
-          amount,
+          roundedAmount,
           percentage,
           product_brand,
           product_category_code,
@@ -176,7 +176,7 @@ function ItemDetailsPage({ auth, match }) {
           product_type,
           initial_deposit,
           dailyAmount,
-          amount_per_day,
+          paymentPerday,
           days_left,
           rounded,
           total_amount,

@@ -374,9 +374,9 @@ const numberWithCommas = (x) => {
                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
                          <div className="asset_name">{asset.product_name}</div>
                          <div className="asset_title">
-                           ₦{numberWithCommas(asset.amount)}{" "}
+                           ₦{numberWithCommas(asset.roundedAmount)}{" "}
                            <span className="slashed_price">
-                             ₦{numberWithCommas(asset.amount * 2)}
+                             ₦{numberWithCommas(asset.roundedAmount * 2)}
                            </span>
                          </div>
                        </div>
@@ -473,15 +473,15 @@ const numberWithCommas = (x) => {
                           <div className="asset_name">{asset.product_name}</div>
                           <div className="asset_prices_div">
                             <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
+                              ₦{numberWithCommas(asset.roundedAmount)}{" "}
                               <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
+                                ₦{numberWithCommas(asset.roundedAmount * 2)}
                               </span>
                             </div>
                             <div className="amount_per_day_div">
                               ₦
                               {numberWithCommas(
-                                (asset.amount / asset.product_duration).toFixed()
+                                (asset.roundedAmount / asset.product_duration).toFixed()
                               )}
                               <span className="per_day_symbol"> / perday</span>
                             </div>
@@ -576,9 +576,9 @@ const numberWithCommas = (x) => {
                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
                            <div className="asset_name">{asset.product_name}</div>
                            <div className="asset_title">
-                             ₦{numberWithCommas(asset.amount)}{" "}
+                             ₦{numberWithCommas(asset.roundedAmount)}{" "}
                              <span className="slashed_price">
-                               ₦{numberWithCommas(asset.amount * 2)}
+                               ₦{numberWithCommas(asset.roundedAmount * 2)}
                              </span>
                            </div>
                          </div>
@@ -672,15 +672,15 @@ const numberWithCommas = (x) => {
                          <div className="asset_name">{asset.product_name}</div>
                          <div className="asset_prices_div">
                            <div className="asset_title">
-                             ₦{numberWithCommas(asset.amount)}{" "}
+                             ₦{numberWithCommas(asset.roundedAmount)}{" "}
                              <span className="slashed_price">
-                               ₦{numberWithCommas(asset.amount * 2)}
+                               ₦{numberWithCommas(asset.roundedAmount * 2)}
                              </span>
                            </div>
                            <div className="amount_per_day_div">
                              ₦
                              {numberWithCommas(
-                               (asset.amount / asset.product_duration).toFixed()
+                               (asset.roundedAmount / asset.product_duration).toFixed()
                              )}
                              <span className="per_day_symbol"> / perday</span>
                            </div>
