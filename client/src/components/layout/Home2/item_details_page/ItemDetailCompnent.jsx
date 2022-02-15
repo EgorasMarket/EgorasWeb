@@ -1,21 +1,17 @@
 import React, { useState, useEffect, useCallback } from "react";
-
-import FavoriteIcon from "@mui/icons-material/Favorite";
+import PaymentsIcon from "@mui/icons-material/Payments";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
+import { ProductImageCarousel } from "./ProductImageCarousel";
 import "../Dashboard/DashboardStyles/dashboardCart.css";
-// import ImageGallery from "react-image-gallery";
-
-// import Accordion from "./Accordion";
-// import ImageGallery from "react-image-gallery";
-import { Calendar, DateRangePicker, DateRange } from "react-date-range";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { addDays, differenceInCalendarDays } from "date-fns";
+import CreditScoreIcon from "@mui/icons-material/CreditScore";
+import CallIcon from "@mui/icons-material/Call";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { ProductDescription } from "./ProductDescription";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-// import CheckoutModalComponent from "./CheckoutModalComponent.jsx";
-// import "react-image-gallery/styles/css/image-gallery.css";
-import CheckoutModalComponent from "./CheckoutModalComponent";
+
+// import CheckoutModalComponent from "./CheckoutModalComponent";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import Accordion from "./Accordion";
@@ -85,20 +81,8 @@ const OutrightComponent = ({
     </div>
   );
 };
-const images = [
-  {
-    original: "/img/BAG.jpeg",
-    thumbnail: "/img/BAG.jpeg",
-  },
-  {
-    original: "/img/BAG.jpeg",
-    thumbnail: "/img/BAG.jpeg",
-  },
-  {
-    original: "/img/BAG.jpeg",
-    thumbnail: "/img/BAG.jpeg",
-  },
-];
+
+
 const ItemDetailComponent = ({
   payload,
   card,
@@ -117,7 +101,10 @@ const ItemDetailComponent = ({
   const [detailsModal, setDetailsModal] = useState(false);
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
-  const [activeBg, setActiveBg] = useState("descript");
+  const [activeBg, setActiveBg] = useState("features");
+  const [outrightProducts, setOutrightProducts] = useState([]);
+  const [categ,setcate]=useState([])
+  const [food,setFood]=useState([])
   //destructure the payload and return values
   const {
     amount,
@@ -151,7 +138,10 @@ const ItemDetailComponent = ({
   };
   // let spec = [product_specifications];
   // spec.push(product_specifications)
-
+  const changeBg = (e) => {
+    let currentId = e.currentTarget.id;
+    setActiveBg(currentId);
+  };
   const responsive6 = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -185,6 +175,51 @@ const ItemDetailComponent = ({
   };
 
   useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip22278");
+
+        setOutrightProducts(data.data.data);
+        // setCaping({
+        //   code3:data.data.data.product_category_desc
+        // })
+        
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .then((data) => {
+        console.log(data.data.data, "Anthonia");
+
+        // const pad = data.data.data[0].product_category_code;
+
+        setcate(data.data.data)
+
+      
+          setFood(data.data.data.product_category_code)
+       
+     console.log(food," water is good for cooking")
+
+        // setOutrightProducts(data.data.data);
+        // setCaping({
+        //   code3:data.data.data.product_category_desc
+        // })
+        
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+
+  useEffect(() => {
     checkProductType(product_type);
 
     axios
@@ -200,6 +235,29 @@ const ItemDetailComponent = ({
         console.log(err); // "oh, no!"
       });
   }, []);
+  const data1 = api_url2 + "/" + product_image;
+  const data = [
+    {
+      image:
+        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
+      caption: "San Francisco",
+    },
+    {
+      image:
+        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
+      caption: "Scotland",
+    },
+    {
+      image:
+        "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
+      caption: "Darjeeling",
+    },
+    {
+      image:
+        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
+      caption: "San Francisco",
+    },
+  ];
 
   // {
   //   console.log(spec, " welcome  Daniel");
@@ -209,13 +267,17 @@ const ItemDetailComponent = ({
   };
   console.log(product_id);
 
+
+
+
   return (
     <>
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
-            cAmount={parseInt(amount)}
+            cAmount={100}
+            // cAmount={parseInt(amount)}
             getProductId={product_id}
             click={CloseModal}
           />
@@ -226,16 +288,21 @@ const ItemDetailComponent = ({
         <div className="container"> */}
       <div className="products_area">
         {/* <div className="wrapper"> */}
-          {/* <ImageGallery items={images} /> */}
+        {/* <ImageGallery items={images} /> */}
         {/* </div> */}
+
+
+      
+
         <div className="product_details_area1">
           <div className="details_area1_cont1">
             {" "}
-            <img
+            {/* <img
               src={api_url2 + "/" + product_image}
               alt=""
               className="product_details_img"
-            />
+            /> */}
+            <ProductImageCarousel img={api_url2 + "/" + product_image} />
           </div>
           {/* ================ */}
           {/* ================ */}
@@ -284,14 +351,26 @@ const ItemDetailComponent = ({
             {/* ------- */}
             <div className="buy_now_btn_div">
               <button className="buy_now_button" onClick={openCheckoutModal}>
+                <ShoppingCartCheckoutIcon className="payment_btn_icon" />
                 Proceed to Checkout
               </button>
             </div>
+            <div className="offline_payment_div">
+              <div className="offline_payment_tittle">
+                For offline bookings contact:
+              </div>
+              <div className="offline_payment_para">
+                <CallIcon className="call_us_icon" /> 08164020234, 090234567893
+              </div>
+            </div>
             <div className="quantity_div">
+              <div className="Notice_Title">Notice:</div>
               <div className="items_left_div">
+                <CreditScoreIcon className="creditCardIcon_icon" />
                 This item has an upfront payment of : {percentage}%
               </div>
               <span className="upfront_para">
+                <PaymentsIcon className="creditCardIcon_icon" />
                 That means you are to pay{" "}
                 <span className="percent_days_amnt">
                   ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
@@ -311,29 +390,45 @@ const ItemDetailComponent = ({
         <div className="description_area">
           <div className="description_header">
             <div
+              id="features"
+              className={
+                activeBg == "features"
+                  ? "description_click1 description_click1_active"
+                  : "description_click1"
+              }
+              onClick={changeBg}
+            >
+              Features
+            </div>
+            <div
               id="descript"
               className={
                 activeBg == "descript"
                   ? "description_click1 description_click1_active"
                   : "description_click1"
               }
+              onClick={changeBg}
             >
-              Features
+              Description
             </div>
           </div>
 
           <div className="description_body">
-            <div className="description_table">
-              <table class="_3a09a_1e-gU">
-                <tbody>
-                  {card.map((apple) => (
-                    <tr>
-                      <td>{apple}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+            {activeBg == "features" ? (
+              <div className="description_table">
+                <table class="_3a09a_1e-gU">
+                  <tbody>
+                    {card.map((apple) => (
+                      <tr>
+                        <td>{apple}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <ProductDescription />
+            )}
           </div>
         </div>
 
@@ -379,7 +474,8 @@ const ItemDetailComponent = ({
                 swipeable={true}
                 style={{ height: "25em" }}
               >
-                {term.map((asset) => (
+                {term.map((asset) => { if(product_category_code === asset.product_category_code){return(
+
                   <a
                     href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                   >
@@ -431,7 +527,7 @@ const ItemDetailComponent = ({
                       </div>
                     </li>
                   </a>
-                ))}
+               )} })}
               </Carousel>
               {/* Carousel end==============================
 ==============================================
@@ -443,13 +539,71 @@ const ItemDetailComponent = ({
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}
+        {/* =================================================================================================================================================================================================================================================================== */}
+        {/*  Projects Section start*/}
+        
+        {/* ============= */}
+        {/* ============= */}
+        {/* ============= */}
+        {/* ============= */}
 
         <section className="faq_section">
-          {/* <Accordion title="Lorem Ipsum dolor it"  children={<div>
-          
-          vgjfghfhasfdhfsgdhfahhvasd</div>}/> */}
+          <div className="accordion_title">
+            Frequently Asked Questions(FAQ).
+          </div>
           <Accordion title="How do I save for a product.">
-            <div className="accordion_body"></div>
+            <div className="accordion_body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
+            </div>
+          </Accordion>
+          <Accordion title="How do I save for a product.">
+            <div className="accordion_body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
+            </div>
+          </Accordion>
+          <Accordion title="How do I save for a product.">
+            <div className="accordion_body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
+            </div>
+          </Accordion>
+          <Accordion title="How do I save for a product.">
+            <div className="accordion_body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
+            </div>
+          </Accordion>
+          <Accordion title="How do I save for a product.">
+            <div className="accordion_body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
+            </div>
+          </Accordion>
+          <Accordion title="How do I save for a product.">
+            <div className="accordion_body">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
+            </div>
           </Accordion>
         </section>
         {/* ============= */}
