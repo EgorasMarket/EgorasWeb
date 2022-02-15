@@ -144,6 +144,7 @@ import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
 import Item_details_main from "./components/layout/Home2/item_details_page/Item_details_main";
+import See_ALL_Category from "./components/layout/Home2/item_details_page/seeAllCate";
 import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
@@ -340,6 +341,11 @@ const App = () => {
                     exact
                     path="/products/details/:id/:name"
                     component={Item_details_main}
+                  />
+                     <Route
+                    exact
+                    path="/products/categories/:category"
+                    component={See_ALL_Category}
                   />
                   <Route
                     exact

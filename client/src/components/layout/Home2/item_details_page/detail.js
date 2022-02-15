@@ -41,18 +41,18 @@ function ItemDetailsPage({ auth, match }) {
   const [isAuthenticated, setIsAuthenticated ]  = useState(null)
 
   
-  useEffect(() => {
-    console.log(auth);
-    if (window.location.pathname.split("/")[1] === 'dashboard') {
-      setProductId(match.params.id)
-      setIsAuthenticated(true)
-    } else {
-      setProductId(window.location.pathname.split("/")[3])
-      setIsAuthenticated(false)
-    }
+//   useEffect(() => {
+//     console.log(auth);
+//     if (window.location.pathname.split("/")[1] === 'dashboard') {
+//       setProductId(match.params.id)
+//       setIsAuthenticated(true)
+//     } else {
+//       setProductId(window.location.pathname.split("/")[3])
+//       setIsAuthenticated(false)
+//     }
 
 
-  }, [auth]);
+//   }, [auth]);
 
   const openDetailsModal = () => {
     setDetailsModal(true);

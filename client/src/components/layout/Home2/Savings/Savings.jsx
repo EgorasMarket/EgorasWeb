@@ -77,6 +77,30 @@ const Savings = () => {
   const [musicalEquipment,setMusicalEquipment] =useState("Musical Equipments");
   const [industrialEquipments,setIndustrialEquipments]= useState("Industral Equipments")
 
+  const [wrap, setWrap1] = useState({ code2: "" });
+
+  const [caping,setCaping]= useState({code3:""})
+  const { code2 } = wrap;
+  const {code3} = caping;
+
+
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
+
+        // setItem(data.data.data);
+        setWrap1({
+          code2: data.data.data.product_category_code,
+        });
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
@@ -94,9 +118,13 @@ const Savings = () => {
     axios
       .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip222");
+        console.log(data.data.data, "phlip22278");
 
         setOutrightProducts(data.data.data);
+        setCaping({
+          code3:data.data.data.product_category_desc
+        })
+        
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
@@ -266,7 +294,12 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Outright sell-off.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Outright `}  className="see_all_cat">
+              <a 
+              // href={`/products/categories/Outright `}  
+              
+              href={`/dashboard/products/categories/${code3}`}
+              
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -289,7 +322,10 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {outrightProducts.map((asset) => (
+{/* 
+              {outrightProducts.length <= 0 ? null: */}
+
+                 {outrightProducts.map((asset) => {return(
                 <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
@@ -339,7 +375,7 @@ const Savings = () => {
                     </div>
                   </li>
                 </a>
-              ))}
+             )} )  }
             </Carousel>
             {/* Carousel end==============================
 ==============================================
@@ -412,7 +448,10 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
+              <a 
+               href={`/dashboard/products/categories/${code2}`}
+              // href={`/products/categories/Phones & Tablet`} 
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -531,7 +570,11 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Electronics`} className="see_all_cat">
+              <a 
+              // href={`/products/categories/Electronics`} 
+              href={`/dashboard/products/categories/${code2}`}
+              
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -649,7 +692,12 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Musical Equipments`} className="see_all_cat">
+              <a 
+              
+              // href={`/products/categories/Musical Equipments`} 
+              href={`/dashboard/products/categories/${code2}`}
+              
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -766,7 +814,11 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Computer & Accessories`} className="see_all_cat">
+              <a 
+                href={`/dashboard/products/categories/${code2}`}
+              // href={`/products/categories/Computer & Accessories`} 
+              
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -880,7 +932,12 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Furnitures`}  className="see_all_cat">
+
+              <a 
+              
+              // href={`/products/categories/Furnitures`}  
+              href={`/dashboard/products/categories/${code2}`}
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -995,7 +1052,11 @@ const Savings = () => {
                    {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Home Appliances`}  className="see_all_cat">
+              <a 
+              
+              // href={`/products/categories/Home Appliances`}  
+              href={`/dashboard/products/categories/${code2}`}
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -1102,7 +1163,11 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Home Appliances`}  className="see_all_cat">
+              <a 
+              
+              // href={`/dashboard/products/categories/Home Appliances`}  
+              
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -1212,7 +1277,12 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a href={`/dashboard/products/categories/Nfts`} className="see_all_cat">
+              <a 
+              
+              // href={`/products/categories/Nfts`}
+              href={`/dashboard/products/categories/${code2}`}
+              
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
@@ -1324,7 +1394,11 @@ const Savings = () => {
                   {/* <span className="ouright_sell">/ Esusu.</span> */}
                 </h1>
               </div>
-              <a  href={`/dashboard/products/categories/Industral Equipments`} className="see_all_cat">
+              <a  
+              // href={`/products/categories/Industral Equipments`} 
+              href={`/dashboard/products/categories/${code2}`}
+              
+              className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a>
             </div>
