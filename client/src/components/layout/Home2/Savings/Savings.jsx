@@ -79,6 +79,30 @@ const Savings = () => {
     "Industral Equipments"
   );
 
+  const [wrap, setWrap1] = useState({ code2: "" });
+
+  const [caping,setCaping]= useState({code3:""})
+  const { code2 } = wrap;
+  const {code3} = caping;
+
+
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
+
+        // setItem(data.data.data);
+        setWrap1({
+          code2: data.data.data.product_category_code,
+        });
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
@@ -96,9 +120,13 @@ const Savings = () => {
     axios
       .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip222");
+        console.log(data.data.data, "phlip22278");
 
         setOutrightProducts(data.data.data);
+        setCaping({
+          code3:data.data.data.product_category_desc
+        })
+        
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
@@ -253,10 +281,15 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Top Deals </h1>
+                <h1 className="gttitle TITE">
+                  Top Deals / Outright Buy.
+                  {/* <span className="ouright_sell">/ Outright sell-off.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Outright `}
+                // href={`/products/categories/Outright `}
+
+                href={`/dashboard/products/categories/${code3}`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -281,57 +314,64 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {outrightProducts.map((asset) => (
-                <a href={`/products/details/${asset.id}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
+              {/* 
+              {outrightProducts.length <= 0 ? null: */}
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            40% locked
+              {outrightProducts.map((asset) => {
+                return (
+                  <a
+                    href={`/products/details/${asset.id}/${asset.product_name}`}
+                  >
+                    <li className="carous_list no_marg">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${
+                            api_url2 + "/" + asset.product_image
+                          })`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <p className="no_margg"> Buy now</p>
+                            ) : (
+                              <p className="no_margg"> Save now</p>
+                            )}
                           </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_title">
-                          ₦{numberWithCommas(asset.amount)}{" "}
-                          <span className="slashed_price">
-                            ₦{numberWithCommas(asset.amount * 2)}
-                          </span>
+
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <div></div>
+                          ) : (
+                            <button className="items_remaining_btn2">
+                              {" "}
+                              40% locked
+                            </button>
+                          )}
                         </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.product_name}</div>
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.amount * 2)}
+                            </span>
+                          </div>
+                        </div>
+                        {/* </a> */}
                       </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-              ))}
+                    </li>
+                  </a>
+                );
+              })}
             </Carousel>
             {/* Carousel end==============================
 ==============================================
@@ -353,10 +393,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Phone & Tablets</h1>
+                <h1 className="gttitle TITE">
+                  Phone & Tablets
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Phones & Tablet`}
+                href={`/dashboard/products/categories/${code2}`}
+                // href={`/products/categories/Phones & Tablet`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -476,10 +520,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Electronics</h1>
+                <h1 className="gttitle TITE">
+                  Electronics
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Electronics`}
+                // href={`/products/categories/Electronics`}
+                href={`/dashboard/products/categories/${code2}`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -507,7 +555,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (electronics === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -597,10 +647,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Musical Equipments</h1>
+                <h1 className="gttitle TITE">
+                  Musical Equipments
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Musical Equipments`}
+                // href={`/products/categories/Musical Equipments`}
+                href={`/dashboard/products/categories/${code2}`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -628,7 +682,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (musicalEquipment === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -716,10 +772,15 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Computer & Accessories</h1>
+                <h1 className="gttitle TITE">
+                  Computer & Accessories
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Computer & Accessories`}
+                href={`/dashboard/products/categories/${code2}`}
+                // href={`/products/categories/Computer & Accessories`}
+
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -747,7 +808,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (ComputerAccessories === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -834,10 +897,15 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Furniture</h1>
+                <h1 className="gttitle TITE">
+                  Furniture
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
+
               <a
-                href={`/products/categories/Furnitures`}
+                // href={`/products/categories/Furnitures`}
+                href={`/dashboard/products/categories/${code2}`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -865,7 +933,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (furniture === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -954,10 +1024,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Groceries</h1>
+                <h1 className="gttitle TITE">
+                  Groceries
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Home Appliances`}
+                // href={`/products/categories/Home Appliances`}
+                href={`/dashboard/products/categories/${code2}`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -983,7 +1057,7 @@ const Savings = () => {
               style={{ height: "25em" }}
             >
               {itemGalleryShow.map((asset) => (
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -1061,10 +1135,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Home Appliances</h1>
+                <h1 className="gttitle TITE">
+                  Home Appliances
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Home Appliances`}
+                // href={`/dashboard/products/categories/Home Appliances`}
+
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1092,7 +1170,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (homeAppliances === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1178,10 +1258,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Nfts</h1>
+                <h1 className="gttitle TITE">
+                  Nfts
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Nfts`}
+                // href={`/products/categories/Nfts`}
+                href={`/dashboard/products/categories/${code2}`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1209,7 +1293,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (nfts === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1295,10 +1381,14 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">Industrial Equipments</h1>
+                <h1 className="gttitle TITE">
+                  Industrial Equipments
+                  {/* <span className="ouright_sell">/ Esusu.</span> */}
+                </h1>
               </div>
               <a
-                href={`/products/categories/Industral Equipments`}
+                // href={`/products/categories/Industral Equipments`}
+                href={`/dashboard/products/categories/${code2}`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1326,7 +1416,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (industrialEquipments === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"

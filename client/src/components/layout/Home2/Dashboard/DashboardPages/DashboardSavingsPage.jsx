@@ -280,7 +280,7 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products / Outright sell-off</h1>
+                      <h1 className="gttitle TITE">New Products / Outright  Buy</h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -375,7 +375,7 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products / Esusu</h1>
+                      <h1 className="gttitle TITE">New Products </h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
