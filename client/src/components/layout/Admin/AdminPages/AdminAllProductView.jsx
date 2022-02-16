@@ -82,6 +82,8 @@ function ItemDetailsPage({ auth, match }) {
   const [ dailyAmount , setDailyAmount ] = useState()
   const [ initialDeposit , setInitialDeposit ] = useState()
 
+  const [itemDisplay,setItemDisplay]=useState([])
+
   const [productDetails, setProductDetails] = useState({
     product_image: "",
     product_name: "",
@@ -94,6 +96,7 @@ function ItemDetailsPage({ auth, match }) {
     product_details: "",
     productSpecification: "",
     percentage: "",
+    productId:""
   });
 
   var addedDays = 0;
@@ -117,6 +120,7 @@ function ItemDetailsPage({ auth, match }) {
   const {
     product_image,
     product_name,
+    productId,
 
     product_brand,
     product_type,
@@ -163,7 +167,7 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          // productId: data.data.data.product_id
+          productId: data.data.data.product_id
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -179,6 +183,52 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
+
+      // const deletebro =()=>{
+      //   const body = JSON.stringify({
+      //     product_id,
+      //   });
+      //   axios
+      //   .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+      //   .then((data) => {
+      //     console.log(data.data.data, "king");
+  
+      //     const getSlid = data.data.data.product_specifications;
+      //     //  const slipVar = getSlid.split(',');
+      //     console.log("====================================");
+      //     console.log(getSlid);
+      //     console.log("====================================");
+         
+  
+      //     setProductDetails({
+      //       product_image: data.data.data.product_image,
+      //       product_name: data.data.data.product_name,
+      //       product_brand: data.data.data.product_brand,
+      //       product_type: data.data.data.product_type,
+      //       unitCount: data.data.data.unitCount,
+      //       amount: data.data.data.amount,
+      //       product_duration: data.data.data.product_duration,
+      //       product_category_code: data.data.data.product_category_code,
+      //       product_details: data.data.data.product_detail,
+      //       percentage: data.data.data.percentage,
+      //       productId: data.data.data.product_id
+      //       // productSpecification:slipVar[0]
+      //     });
+      //     // setLowNumS({prod_dur:"8"});
+  
+      //     console.log("====================================");
+      //     // const NumbsAr =
+      //     // setLowNumS(NumbLow);
+      //     // console.log(NumbLow);
+      //     console.log(lowOutCome);
+      //   })
+      //   .catch((err) => {
+      //     console.log(err.response); // "oh, no!"
+      //   });
+    
+  
+        
+      // }
 
   const submitCallCheck = async (product_id) => {
 
@@ -276,7 +326,7 @@ function ItemDetailsPage({ auth, match }) {
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
   const [date, setDate] = useState(null);
-  const [itemdisplay,setItemDisplay] = useState([]);
+  const [itemDisplay2, setItemDisplay2] = useState([]);
 
   const [workss,setWorkss]=useState([]);
   // const iteming = unitCount;
@@ -365,26 +415,23 @@ function ItemDetailsPage({ auth, match }) {
   };
 
 
-  useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/new/products",
-        null,
-        config
-    ).then((data) => {
-       
-        console.log(data.data.data, "chukwubuike");
-     
-       
-        setWorkss(data.data.data);
+ 
 
-      })
-      .catch((err) => {
-        console.log(err); // "oh, no!"
-      });
-
+  const delete2 =(id)=>{
     
-  }, []);
+    
+
+        axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
+          (response)=>{
+            console.log(response.data);
+
+            // deletebro()
+          }
+        )
+  }
+
+
+  
 
 
   useEffect(() => {
@@ -587,94 +634,28 @@ function ItemDetailsPage({ auth, match }) {
                 ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                {/* {product_duration !== 1 ? (
-                  <div className="date_picky">
-                    <div className="date_picky_note">
-                      Note: the below calendar shows the total amount of days to
-                      complete payment for this item
-                      <br />
-                      the grey color shows the total days that has been
-                      initially locked for this item
-                      <br />
-                      while the green color shows the total amount of days that
-                      is left for payment .
-                    </div>
-                    <Accordion title="Click to view calendar">
-                      <div
-                        style={{ display: "flex", flexFlow: "column nowrap" }}
-                      >
-                        <Calendar
-                          onChange={(item) => {
-                            setEndDate(item);
-                            setStartDate(new Date());
-                            console.log(item);
-                            console.log(
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1,
-                              "days"
-                            );
-                            addedDays =
-                              differenceInCalendarDays(
-                                new Date(item),
-                                new Date()
-                              ) + 1;
-                            const subtractedPercent = (days - addedDays) / 100;
-                            const newPercentage = 100 - subtractedPercent;
-                            console.log(newPercentage, "%");
-                            const newPercentMoney =
-                              (newPercentage / 100) * amount;
-
-                            setDaysAdded(addedDays - percentDays);
-
-                            setMoneyAdded(newPercentMoney.toFixed());
-
-                            setDaysAddedDiv(true);
-                          }}
-                          date={date}
-                          minDate={addDays(new Date(), percentDays)}
-                          maxDate={addDays(new Date(), days)}
-                          // date={date}
-                        />
-                        {daysAddedDiv == true ? (
-                          <div className="days_to_pay_now">
-                            <span className="added_">
-                              You have added{" "}
-                              <span className="day_add">
-                                {daysAdded} day(s)
-                              </span>{" "}
-                              to the previously locked days.
-                            </span>
-
-                            <span className="total_pay_now">
-                              And you are now to pay a total amount of{" "}
-                              <span className="money_add">#{moneyAdded}</span>{" "}
-                              before this item can be locked by you.
-                            </span>
-                          </div>
-                        ) : (
-                          <div className="days_to_pay_now">
-                            <span>
-                              This item has a total of{" "}
-                              <span className="money_add">
-                                {percentDays} days
-                              </span>{" "}
-                              locked on it.
-                            </span>
-                          </div>
-                        )}
-                      </div>
-                    </Accordion>
-                  </div>
-                ) : null} */}
+                
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                <div className="buy_now_btn_div">
+                <div className="buy_now_btn_div" style={{justifyContent:"space-between",display:"flex"}}>
+
+                <button
+
+                 style={{width:"48%",backgroundColor:'#e4a788'}}
+                    className="buy_now_button"
+                // {/* id={productId}  */}
+                    // onClick={e => submitCallCheck(asset.id)} 
+                    onClick={()=>delete2(productId)}
+                  >
+                    {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
+                  </button>
+               
                   
                   <button
+
+                    style={{width:"48%"}}
                     className="buy_now_button"
                     // onClick={() => {
                     //   openDetailsModal();
@@ -692,13 +673,6 @@ function ItemDetailsPage({ auth, match }) {
                     {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
                   </button>
                
-
-                  {/* <div className="save_later">
-                    <button className="save_later_btn">
-                      <FavoriteIcon className="favorite_icon" />
-                    </button>
-                    <div className="save_later_txt">Add to favorites.</div>
-                  </div> */}
                 </div>
               </div>
             </div>
