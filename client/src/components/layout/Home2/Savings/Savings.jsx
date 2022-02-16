@@ -256,7 +256,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Top Deals </h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Outright `}
+                href={`/products/categories/Outright `}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -356,7 +356,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Phone & Tablets</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Phones & Tablet`}
+                href={`/products/categories/Phones & Tablet`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -479,7 +479,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Electronics</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Electronics`}
+                href={`/products/categories/Electronics`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -600,7 +600,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Musical Equipments</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Musical Equipments`}
+                href={`/products/categories/Musical Equipments`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -719,7 +719,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Computer & Accessories</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Computer & Accessories`}
+                href={`/products/categories/Computer & Accessories`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -837,7 +837,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Furniture</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Furnitures`}
+                href={`/products/categories/Furnitures`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -957,7 +957,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Groceries</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Home Appliances`}
+                href={`/products/categories/Home Appliances`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1064,7 +1064,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Home Appliances</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Home Appliances`}
+                href={`/products/categories/Home Appliances`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1181,7 +1181,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Nfts</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Nfts`}
+                href={`/products/categories/Nfts`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1298,7 +1298,7 @@ const Savings = () => {
                 <h1 className="gttitle TITE">Industrial Equipments</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/Industral Equipments`}
+                href={`/products/categories/Industral Equipments`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />

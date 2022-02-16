@@ -25,20 +25,20 @@ const InstallmentComponent = ({
   rounded,
   percentage,
   initial_deposit,
-  amount,
-  amount_per_day,
+  roundedAmount,
+  paymentPerday,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div">
-        ₦{numberWithCommas(parseInt(amount_per_day).toFixed())}{" "}
+        ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}{" "}
         <span className="per_day"> / per-day</span>
       </div>
 
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(parseInt(amount).toFixed())}
+        {numberWithCommas(parseInt(roundedAmount).toFixed())}
         <span className="per_day"></span>
       </div>
 
@@ -61,14 +61,14 @@ const OutrightComponent = ({
   rounded,
   percentage,
   initial_deposit,
-  amount,
+  roundedAmount,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(parseInt(amount).toFixed())}
+        {numberWithCommas(parseInt(roundedAmount).toFixed())}
       </div>
       <div className="max_dura">
         <div className="days_left_numb">
@@ -119,8 +119,9 @@ const ItemDetailComponent = ({
     product_type,
     initial_deposit,
     dailyAmount,
-    amount_per_day,
+    paymentPerday,
     days_left,
+    roundedAmount,
     rounded,
     total_amount,
     no_of_days,
@@ -226,7 +227,7 @@ const ItemDetailComponent = ({
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
             cAmount={100}
-            // cAmount={parseInt(amount)}
+            // cAmount={parseInt(roundedAmount)}
             getProductId={product_id}
             click={CloseModal}
           />
@@ -276,15 +277,15 @@ const ItemDetailComponent = ({
                   product_duration={product_duration}
                   rounded={rounded}
                   percentage={percentage}
-                  amount={amount}
-                  amount_per_day={amount_per_day}
+                  roundedAmount={roundedAmount}
+                  paymentPerday={paymentPerday}
                   numberWithCommas={numberWithCommas}
                 />
               </>
             ) : (
               <>
                 <OutrightComponent
-                  amount={amount}
+                  roundedAmount={roundedAmount}
                   numberWithCommas={numberWithCommas}
                 />
               </>
@@ -462,9 +463,9 @@ const ItemDetailComponent = ({
                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
                           <div className="asset_name">{asset.product_name}</div>
                           <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
+                            ₦{numberWithCommas(asset.roundedAmount)}{" "}
                             <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
+                              ₦{numberWithCommas(asset.roundedAmount * 2)}
                             </span>
                           </div>
                         </div>
@@ -561,9 +562,9 @@ const ItemDetailComponent = ({
                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
                           <div className="asset_name">{asset.product_name}</div>
                           <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
+                            ₦{numberWithCommas(asset.roundedAmount)}{" "}
                             <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
+                              ₦{numberWithCommas(asset.roundedAmount * 2)}
                             </span>
                           </div>
                         </div>
