@@ -9,7 +9,8 @@ import StarRateIcon from "@mui/icons-material/StarRate";
 import { Link } from "react-router-dom";
 import InputLabel from "@mui/material/InputLabel";
 import CloseIcon from "@mui/icons-material/Close";
-
+import { API_URL2 as api_url2 } from "../../../actions/types";
+import axios from "axios";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
@@ -23,17 +24,40 @@ const options = [
   "Transaction History",
 ];
 
+
 const ITEM_HEIGHT = 48;
 
 const Wallet = () => {
   const [age, setAge] = React.useState("");
   const [assetVal, setAssetVal] = useState("200,000.00");
+  const [allTokens, setAllTokens] = useState([]);
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
 
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
+
+        setAllTokens(data.data.data);
+        // setWrap({
+        //   code: data.data.data.product_category_code,
+        // });
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+  }, []);
   //  const [anchorE2, setAnchorE2] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -481,12 +505,13 @@ const Wallet = () => {
                       Contact Support
                     </div>
                   </div>
-                  <div className="divConcept2">
+                  {allTokens.map((data) => (
+                  <div className="divConcept2 border-bottom">
                     <div>
                       <StarRateIcon className="starRateIcon" />
                     </div>
                     <div>
-                      <div className="nigeriaCurrency">Nigeria Naira</div>
+                      <div className="nigeriaCurrency">{data.tokenName}</div>
                       <div style={{ marginBottom: "5px" }}>0.00</div>
                       <div style={{ display: "flex" }}>
                         <button
@@ -530,10 +555,10 @@ const Wallet = () => {
                       </div>
                     </div>
                   </div>
-                  <hr />
-                  <div className="divConcept2">
+                   ))}
+                  {/* <hr /> */}
+                  {/* <div className="divConcept2">
                     <div>
-                      {/*<StarRateIcon className="starRateIcon"/>*/}
                       <img
                         src="egoras-favicon.svg"
                         width="28"
@@ -587,8 +612,8 @@ const Wallet = () => {
                       </div>
                     </div>
                   </div>
-                  <hr />
-                  <div className="divConcept2">
+                  <hr /> */}
+                  {/* <div className="divConcept2">
                     <div>
                       <img
                         src="token-right.svg"
@@ -641,7 +666,7 @@ const Wallet = () => {
                         </button>
                       </div>
                     </div>
-                  </div>
+                  </div> */}
                 </div>
 
                 <div className="buyAndSellDiv" id="weed">
