@@ -392,9 +392,9 @@ function DashboardInvestPage({ auth }) {
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          ₦{numberWithCommas(asset.amount)}{" "}
+                          ₦{numberWithCommas(asset.roundedAmount)}{" "}
                           <span className="slashed_price">
-                            ₦{numberWithCommas(asset.amount * 2)}
+                            ₦{numberWithCommas(asset.roundedAmount * 2)}
                           </span>
                         </div>
                       </div>
@@ -487,9 +487,9 @@ function DashboardInvestPage({ auth }) {
                                 {asset.product_name}
                               </div>
                               <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
+                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
                                 <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
+                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
                                 </span>
                               </div>
                             </div>
@@ -598,9 +598,9 @@ function DashboardInvestPage({ auth }) {
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
-                          ₦{numberWithCommas(asset.amount)}{" "}
+                          ₦{numberWithCommas(asset.roundedAmount)}{" "}
                           <span className="slashed_price">
-                            ₦{numberWithCommas(asset.amount * 2)}
+                            ₦{numberWithCommas(asset.roundedAmount * 2)}
                           </span>
                         </div>
                       </div>
@@ -683,9 +683,9 @@ function DashboardInvestPage({ auth }) {
                               {asset.product_name}
                             </div>
                             <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
+                              ₦{numberWithCommas(asset.roundedAmount)}{" "}
                               <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
+                                ₦{numberWithCommas(asset.roundedAmount * 2)}
                               </span>
                             </div>
                           </div>
@@ -780,9 +780,9 @@ function DashboardInvestPage({ auth }) {
                                 {asset.product_name}
                               </div>
                               <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
+                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
                                 <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
+                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
                                 </span>
                               </div>
                             </div>

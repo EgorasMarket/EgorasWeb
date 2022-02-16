@@ -7,6 +7,7 @@ import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 // import { allCart } from "../../../../../actions/shop";
 import DashBoardCard from "../DashBoardCard";
+import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 import data from "../../../MockData";
 import { retrieveCart } from "../../../../../actions/shop";
 import {
@@ -130,11 +131,11 @@ const DashboardHomePage = ({ auth, match }) => {
   const [accountInfo, setAccountInfo] = useState({
     ledger: "",
     pending_sum: "",
-    total_sum: ""
-  })
-  const {ledger, pending_sum, total_sum} = accountInfo;
+    total_sum: "",
+  });
+  const { ledger, pending_sum, total_sum } = accountInfo;
 
-  useEffect(async() => {
+  useEffect(async () => {
     await axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
@@ -147,11 +148,9 @@ const DashboardHomePage = ({ auth, match }) => {
       });
   }, []);
 
-
-  useEffect(async() => {
-
+  useEffect(async () => {
     console.log(auth.user.user.id);
-    const customer_id = auth.user.user.id
+    const customer_id = auth.user.user.id;
     const body = JSON.stringify({
       customer_id,
     });
@@ -163,8 +162,8 @@ const DashboardHomePage = ({ auth, match }) => {
         setAccountInfo({
           ledger: data.data.data.ledger,
           pending_sum: data.data.data.pending_sum,
-          total_sum: data.data.data.total_sum
-        })
+          total_sum: data.data.data.total_sum,
+        });
 
         // setItemGalleryShow(data.data.data);
       })
@@ -173,12 +172,7 @@ const DashboardHomePage = ({ auth, match }) => {
       });
   }, [auth]);
 
-
-
-   
   // useEffect(() => {
-
-
 
 
   // console.log(body);
@@ -193,19 +187,19 @@ const DashboardHomePage = ({ auth, match }) => {
   //       console.log("Goods only");
   //         console.log(cafe.data.data, "Feeding");
 
-//         setlock ({
-//           productImage:cafe.data.data.product_image,
-//           productName:cafe.data.data.product_name,
-//           productAmount:cafe.data.data.amount
-//         })   
-//     }).catch((err) => {
-//         console.log(err.response); // "oh, no!"
-//     })
-// }, []);
-    
-const numberWithCommas = (x) => {
-  return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-};
+  //         setlock ({
+  //           productImage:cafe.data.data.product_image,
+  //           productName:cafe.data.data.product_name,
+  //           productAmount:cafe.data.data.amount
+  //         })
+  //     }).catch((err) => {
+  //         console.log(err.response); // "oh, no!"
+  //     })
+  // }, []);
+
+  const numberWithCommas = (x) => {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  };
   return (
     <div className="other2">
       <section className="no-bg">
@@ -230,10 +224,22 @@ const numberWithCommas = (x) => {
                 style={{ height: "25em" }}
               >
                 {/* {data.dashBoardHomeCard.map((asset, index) => ( */}
-                  <DashBoardCard background ={'/img/save_card1.svg'} title={"Total Saving"} balance={total_sum} />
-                  <DashBoardCard background ={'/img/save_card2.svg'} title={"Pending Payment"} balance={pending_sum} />
-                  <DashBoardCard background ={'/img/save_card3.svg'} title={"Ledger Balance"} balance={ledger}/>
-               
+                <DashBoardCard
+                  background={"/img/save_card1.svg"}
+                  title={"Total Saving"}
+                  balance={total_sum}
+                />
+                <DashBoardCard
+                  background={"/img/save_card2.svg"}
+                  title={"Pending Payment"}
+                  balance={pending_sum}
+                />
+                <DashBoardCard
+                  background={"/img/save_card3.svg"}
+                  title={"Ledger Balance"}
+                  balance={ledger}
+                />
+
                 {/* ))} */}
               </Carousel>
               {/* Carousel end==============================
@@ -250,6 +256,7 @@ const numberWithCommas = (x) => {
                   Total Number of Locked Items{" "}
                   <span className="saved_figure">{savedNum}</span>
                 </div>
+                <NoDataFoundComponent nodataTxt="Sorry nothing here yet." />
                 <div className="savings_overview_body_cont2">
                   {itemDetails2.map((item) => (
                     <div className="savings_overview_body_cont2_1a">
@@ -285,16 +292,17 @@ const numberWithCommas = (x) => {
             </div>
           </div>
           {/* =================================================================================================================================================================================================================================================================== */}
-        
-        
-  {/*  Projects Section start*/}
-  <section className="projectsSection savvvvv" id="projects">
+
+          {/*  Projects Section start*/}
+          <section className="projectsSection savvvvv" id="projects">
             <div className="container">
               <div className="projectsArea">
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Recent Products / Outright sell-off</h1>
+                    <h1 className="gttitle TITE">
+                      Recent Products / Outright sell-off
+                    </h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -323,55 +331,59 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
-                   <li className="carous_list no_marg">
-                     <div
-                       className="storeTiles_storeTileContainer__HoGEa"
-                       style={{
-                         backgroundImage: `url(${
-                           api_url2 + "/" + asset.product_image
-                         })`,
-                         //           height: "200px",
-                         //           width: "100%",
-                         //           backgroundRepeat: "no-repeat",
-                         //           backgroundSize: "cover",
-                         //           borderRadius: "8px",
-                         //           borderBottomLeftRadius: "0px",
-                         //           borderBottomRightRadius: "0px",
-                         //   backgroundPositionY: "center",
-                       }}
-                     >
-                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                         <button className="items_remaining_btn">
-                           {asset.payment_type == "OUTRIGHT" ? (
-                             <p className="no_margg"> Buy now</p>
-                           ) : (
-                             <p className="no_margg"> Save now</p>
-                           )}
-                         </button>
- 
-                         {asset.payment_type == "OUTRIGHT" ? (
-                           <div></div>
-                         ) : (
-                           <button className="items_remaining_btn2">
-                             {" "}
-                             40% locked
-                           </button>
-                         )}
-                       </div>
-                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                         <div className="asset_name">{asset.product_name}</div>
-                         <div className="asset_title">
-                           ₦{numberWithCommas(asset.amount)}{" "}
-                           <span className="slashed_price">
-                             ₦{numberWithCommas(asset.amount * 2)}
-                           </span>
-                         </div>
-                       </div>
-                       {/* </a> */}
-                     </div>
-                   </li>
-                 </a>
+                    <a
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
+
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                40% locked
+                              </button>
+                            )}
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                              <span className="slashed_price">
+                                ₦{numberWithCommas(asset.roundedAmount * 2)}
+                              </span>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
                   ))}
                 </Carousel>
                 {/* Carousel end==============================
@@ -382,11 +394,8 @@ const numberWithCommas = (x) => {
           </section>
           {/*  Projects Section end*/}
 
-
-
-                
-  {/*  Projects Section start*/}
-  <section className="projectsSection savvvvv" id="projects">
+          {/*  Projects Section start*/}
+          <section className="projectsSection savvvvv" id="projects">
             <div className="container">
               <div className="projectsArea">
                 <div className="projectsLinea"></div>
@@ -421,64 +430,65 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
-                    <li className="carous_list no_marg">
-                      <div
-                        className="storeTiles_storeTileContainer__HoGEa"
-                        style={{
-                          backgroundImage: `url(${
-                            api_url2 + "/" + asset.product_image
-                          })`,
-                          //           height: "200px",
-                          //           width: "100%",
-                          //           backgroundRepeat: "no-repeat",
-                          //           backgroundSize: "cover",
-                          //           borderRadius: "8px",
-                          //           borderBottomLeftRadius: "0px",
-                          //           borderBottomRightRadius: "0px",
-                          //   backgroundPositionY: "center",
-                        }}
-                      >
-                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                          <button className="items_remaining_btn">
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <p className="no_margg"> Buy now</p>
-                            ) : (
-                              <p className="no_margg"> Save now</p>
-                            )}
-                          </button>
-  
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <div></div>
-                          ) : (
-                            <button className="items_remaining_btn2">
-                              {" "}
-                              {asset.percentage}% to be locked
-                            </button>
-                          )}
-                        </div>
-                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.product_name}</div>
-                          <div className="asset_prices_div">
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
-                            </div>
-                            <div className="amount_per_day_div">
-                              ₦
-                              {numberWithCommas(
-                                (asset.amount / asset.product_duration).toFixed()
+                    <a
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
                               )}
-                              <span className="per_day_symbol"> / perday</span>
+                            </button>
+
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
+                            )}
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.roundedAmount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
                             </div>
                           </div>
+                          {/* </a> */}
                         </div>
-                        {/* </a> */}
-                      </div>
-                    </li>
-                  </a>
+                      </li>
+                    </a>
                   ))}
                 </Carousel>
                 {/* Carousel end==============================
@@ -497,7 +507,9 @@ const numberWithCommas = (x) => {
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Top Products / Outright sell-off</h1>
+                    <h1 className="gttitle TITE">
+                      Top Products / Outright sell-off
+                    </h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -525,55 +537,59 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
-                     <li className="carous_list no_marg">
-                       <div
-                         className="storeTiles_storeTileContainer__HoGEa"
-                         style={{
-                           backgroundImage: `url(${
-                             api_url2 + "/" + asset.product_image
-                           })`,
-                           //           height: "200px",
-                           //           width: "100%",
-                           //           backgroundRepeat: "no-repeat",
-                           //           backgroundSize: "cover",
-                           //           borderRadius: "8px",
-                           //           borderBottomLeftRadius: "0px",
-                           //           borderBottomRightRadius: "0px",
-                           //   backgroundPositionY: "center",
-                         }}
-                       >
-                         <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                           <button className="items_remaining_btn">
-                             {asset.payment_type == "OUTRIGHT" ? (
-                               <p className="no_margg"> Buy now</p>
-                             ) : (
-                               <p className="no_margg"> Save now</p>
-                             )}
-                           </button>
-   
-                           {asset.payment_type == "OUTRIGHT" ? (
-                             <div></div>
-                           ) : (
-                             <button className="items_remaining_btn2">
-                               {" "}
-                               40% locked
-                             </button>
-                           )}
-                         </div>
-                         <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                           <div className="asset_name">{asset.product_name}</div>
-                           <div className="asset_title">
-                             ₦{numberWithCommas(asset.amount)}{" "}
-                             <span className="slashed_price">
-                               ₦{numberWithCommas(asset.amount * 2)}
-                             </span>
-                           </div>
-                         </div>
-                         {/* </a> */}
-                       </div>
-                     </li>
-                   </a>
+                    <a
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
+
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                40% locked
+                              </button>
+                            )}
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                              <span className="slashed_price">
+                                ₦{numberWithCommas(asset.roundedAmount * 2)}
+                              </span>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
                   ))}
                 </Carousel>
                 {/* Carousel end==============================
@@ -584,9 +600,8 @@ const numberWithCommas = (x) => {
           </section>
           {/*  Projects Section end*/}
 
-
-        {/*  Projects Section start*/}
-        <section className="projectsSection savvvvv" id="projects">
+          {/*  Projects Section start*/}
+          <section className="projectsSection savvvvv" id="projects">
             <div className="container">
               <div className="projectsArea">
                 <div className="projectsLinea"></div>
@@ -620,64 +635,73 @@ const numberWithCommas = (x) => {
                   style={{ height: "25em" }}
                 >
                   {itemGalleryShow.map((asset) => (
-                   <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
-                   <li className="carous_list no_marg">
-                     <div
-                       className="storeTiles_storeTileContainer__HoGEa"
-                       style={{
-                         backgroundImage: `url(${
-                           api_url2 + "/" + asset.product_image
-                         })`,
-                         //           height: "200px",
-                         //           width: "100%",
-                         //           backgroundRepeat: "no-repeat",
-                         //           backgroundSize: "cover",
-                         //           borderRadius: "8px",
-                         //           borderBottomLeftRadius: "0px",
-                         //           borderBottomRightRadius: "0px",
-                         //   backgroundPositionY: "center",
-                       }}
-                     >
-                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                         <button className="items_remaining_btn">
-                           {asset.payment_type == "OUTRIGHT" ? (
-                             <p className="no_margg"> Buy now</p>
-                           ) : (
-                             <p className="no_margg"> Save now</p>
-                           )}
-                         </button>
- 
-                         {asset.payment_type == "OUTRIGHT" ? (
-                           <div></div>
-                         ) : (
-                           <button className="items_remaining_btn2">
-                             {" "}
-                             {asset.percentage}% to be locked
-                           </button>
-                         )}
-                       </div>
-                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                         <div className="asset_name">{asset.product_name}</div>
-                         <div className="asset_prices_div">
-                           <div className="asset_title">
-                             ₦{numberWithCommas(asset.amount)}{" "}
-                             <span className="slashed_price">
-                               ₦{numberWithCommas(asset.amount * 2)}
-                             </span>
-                           </div>
-                           <div className="amount_per_day_div">
-                             ₦
-                             {numberWithCommas(
-                               (asset.amount / asset.product_duration).toFixed()
-                             )}
-                             <span className="per_day_symbol"> / perday</span>
-                           </div>
-                         </div>
-                       </div>
-                       {/* </a> */}
-                     </div>
-                   </li>
-                 </a>
+                    <a
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                    >
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            <button className="items_remaining_btn">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <p className="no_margg"> Buy now</p>
+                              ) : (
+                                <p className="no_margg"> Save now</p>
+                              )}
+                            </button>
+
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div></div>
+                            ) : (
+                              <button className="items_remaining_btn2">
+                                {" "}
+                                {asset.percentage}% to be locked
+                              </button>
+                            )}
+                          </div>
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.roundedAmount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
                   ))}
                 </Carousel>
                 {/* Carousel end==============================
@@ -687,7 +711,6 @@ const numberWithCommas = (x) => {
             </div>
           </section>
           {/*  Projects Section end*/}
-          
 
           {/* =================================================================================================================================================================================================================================================================== */}
         </div>
