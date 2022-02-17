@@ -517,7 +517,7 @@ const Wallet = () => {
                         <button
                           className="depositButton"
                           id="success"
-                          onClick={changePage}
+                          onClick={changePage3}
                         >
                           Deposit
                         </button>
@@ -557,7 +557,7 @@ const Wallet = () => {
                   </div>
                    ))}
                   {/* <hr /> */}
-                  {/* <div className="divConcept2">
+                  <div className="divConcept2">
                     <div>
                       <img
                         src="egoras-favicon.svg"
@@ -612,8 +612,8 @@ const Wallet = () => {
                       </div>
                     </div>
                   </div>
-                  <hr /> */}
-                  {/* <div className="divConcept2">
+                  <hr />
+                  <div className="divConcept2">
                     <div>
                       <img
                         src="token-right.svg"
@@ -666,7 +666,7 @@ const Wallet = () => {
                         </button>
                       </div>
                     </div>
-                  </div> */}
+                  </div>
                 </div>
 
                 <div className="buyAndSellDiv" id="weed">

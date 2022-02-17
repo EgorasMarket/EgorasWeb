@@ -174,7 +174,6 @@ const DashboardHomePage = ({ auth, match }) => {
 
   // useEffect(() => {
 
-
   // console.log(body);
 
   //     axios.post(
@@ -256,7 +255,6 @@ const DashboardHomePage = ({ auth, match }) => {
                   Total Number of Locked Items{" "}
                   <span className="saved_figure">{savedNum}</span>
                 </div>
-                <NoDataFoundComponent nodataTxt="Sorry nothing here yet." />
                 <div className="savings_overview_body_cont2">
                   {itemDetails2.map((item) => (
                     <div className="savings_overview_body_cont2_1a">
@@ -301,7 +299,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
                     <h1 className="gttitle TITE">
-                      Recent Products / Outright sell-off
+                      Similar Products / Outright Buy
                     </h1>
                   </div>
                   {/* 
@@ -374,9 +372,9 @@ const DashboardHomePage = ({ auth, match }) => {
                               {asset.product_name}
                             </div>
                             <div className="asset_title">
-                              ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                              ₦{numberWithCommas(asset.amount)}{" "}
                               <span className="slashed_price">
-                                ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                ₦{numberWithCommas(asset.amount * 2)}
                               </span>
                             </div>
                           </div>
@@ -401,7 +399,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Recent Products / Esusu</h1>
+                    <h1 className="gttitle TITE">Similar Products </h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -440,6 +438,14 @@ const DashboardHomePage = ({ auth, match }) => {
                             backgroundImage: `url(${
                               api_url2 + "/" + asset.product_image
                             })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
                           }}
                         >
                           <div className="storeTiles_storeTileOffersContainer__3v8lC">
@@ -466,16 +472,16 @@ const DashboardHomePage = ({ auth, match }) => {
                             </div>
                             <div className="asset_prices_div">
                               <div className="asset_title">
-                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                ₦{numberWithCommas(asset.amount)}{" "}
                                 <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                  ₦{numberWithCommas(asset.amount * 2)}
                                 </span>
                               </div>
                               <div className="amount_per_day_div">
                                 ₦
                                 {numberWithCommas(
                                   (
-                                    asset.roundedAmount / asset.product_duration
+                                    asset.amount / asset.product_duration
                                   ).toFixed()
                                 )}
                                 <span className="per_day_symbol">
@@ -508,7 +514,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
                     <h1 className="gttitle TITE">
-                      Top Products / Outright sell-off
+                      Top Products / Outright Buy
                     </h1>
                   </div>
                   {/* 
@@ -580,9 +586,9 @@ const DashboardHomePage = ({ auth, match }) => {
                               {asset.product_name}
                             </div>
                             <div className="asset_title">
-                              ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                              ₦{numberWithCommas(asset.amount)}{" "}
                               <span className="slashed_price">
-                                ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                ₦{numberWithCommas(asset.amount * 2)}
                               </span>
                             </div>
                           </div>
@@ -607,7 +613,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 <div className="projectsLinea"></div>
                 <div className="projectsTitleContentsa">
                   <div className="projectTitle">
-                    <h1 className="gttitle TITE">Top Products / Esusu</h1>
+                    <h1 className="gttitle TITE">Top Products </h1>
                   </div>
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -679,16 +685,16 @@ const DashboardHomePage = ({ auth, match }) => {
                             </div>
                             <div className="asset_prices_div">
                               <div className="asset_title">
-                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                ₦{numberWithCommas(asset.amount)}{" "}
                                 <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                  ₦{numberWithCommas(asset.amount * 2)}
                                 </span>
                               </div>
                               <div className="amount_per_day_div">
                                 ₦
                                 {numberWithCommas(
                                   (
-                                    asset.roundedAmount / asset.product_duration
+                                    asset.amount / asset.product_duration
                                   ).toFixed()
                                 )}
                                 <span className="per_day_symbol">
@@ -724,4 +730,4 @@ const mapStateToProps = (state) => ({
   // cart: state.shop.cart,
 });
 
-export default connect(mapStateToProps, {  })(DashboardHomePage);
+export default connect(mapStateToProps, {})(DashboardHomePage);
