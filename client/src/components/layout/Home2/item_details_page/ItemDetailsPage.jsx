@@ -38,6 +38,7 @@ function ItemDetailsPage({ auth, match }) {
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
   const [card, setSpec] = useState([]);
+  const [deScript, setDeScript] = useState([]);
   const [isAuthenticated, setIsAuthenticated ]  = useState(null)
 
   
@@ -183,11 +184,14 @@ function ItemDetailsPage({ auth, match }) {
           no_of_days,
         });
         const getSlid = data.data.data.product_specifications;
+        const getSpecs = data.data.data.product_details;
         // const myArray = getSlid.split(",");
 
         console.log(getSlid);
+        console.log(getSpecs);
 
         setSpec(getSlid);
+        setDeScript(getSpecs);
 
         // //  const slipVar = getSlid.split(',');
         // console.log("====================================");
@@ -228,11 +232,12 @@ function ItemDetailsPage({ auth, match }) {
             ) : (
               <ItemDetailComponent
                 payload={payload}
+                specification={deScript}
                 // numberWithCommas={numberWithCommas}
                 card={card}
                 openCheckoutModal={() => {
                   // openDetailsModal();
-                  OpenLoginModal()
+                  OpenLoginModal();
                   // console.log('gggg');
                 }}
               />
