@@ -102,6 +102,9 @@ const ItemDetailComponent = ({
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
   const [activeBg, setActiveBg] = useState("features");
+  const [outrightProducts, setOutrightProducts] = useState([]);
+  const [categ,setcate]=useState([])
+  const [food,setFood]=useState([])
   //destructure the payload and return values
   const {
     amount,
@@ -173,6 +176,51 @@ const ItemDetailComponent = ({
   };
 
   useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "phlip22278");
+
+        setOutrightProducts(data.data.data);
+        // setCaping({
+        //   code3:data.data.data.product_category_desc
+        // })
+        
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .then((data) => {
+        console.log(data.data.data, "Anthonia");
+
+        // const pad = data.data.data[0].product_category_code;
+
+        setcate(data.data.data)
+
+      
+          setFood(data.data.data.product_category_code)
+       
+     console.log(food," water is good for cooking")
+
+        // setOutrightProducts(data.data.data);
+        // setCaping({
+        //   code3:data.data.data.product_category_desc
+        // })
+        
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+
+  useEffect(() => {
     checkProductType(product_type);
 
     axios
@@ -220,6 +268,9 @@ const ItemDetailComponent = ({
   };
   console.log(product_id);
 
+
+
+
   return (
     <>
       {modal == false ? null : (
@@ -240,6 +291,9 @@ const ItemDetailComponent = ({
         {/* <div className="wrapper"> */}
         {/* <ImageGallery items={images} /> */}
         {/* </div> */}
+
+
+      
 
         <div className="product_details_area1">
           <div className="details_area1_cont1">
@@ -421,7 +475,8 @@ const ItemDetailComponent = ({
                 swipeable={true}
                 style={{ height: "25em" }}
               >
-                {term.map((asset) => (
+                {term.map((asset) => { if(product_category_code === asset.product_category_code){return(
+
                   <a
                     href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
                   >
@@ -473,7 +528,7 @@ const ItemDetailComponent = ({
                       </div>
                     </li>
                   </a>
-                ))}
+               )} })}
               </Carousel>
               {/* Carousel end==============================
 ==============================================
@@ -487,99 +542,7 @@ const ItemDetailComponent = ({
         {/* ============= */}
         {/* =================================================================================================================================================================================================================================================================== */}
         {/*  Projects Section start*/}
-        <section className="projectsSection" id="projects">
-          <div className="container">
-            <div className="projectsArea">
-              <div className="projectsLinea"></div>
-              <div className="projectsTitleContentsa">
-                <div className="projectTitle">
-                  <h1 className="gttitle TITE">Recent Products</h1>
-                </div>
-                {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-              </div>
-
-              {/* Carousel start==============================
-==============================================
-============================= */}
-
-              <Carousel
-                responsive={responsive6}
-                className="partnerCards LEFTARROW"
-                showDots={false}
-                //   infinite={false}
-                autoPlay={true}
-                autoPlaySpeed={6000}
-                transitionDelay={"2s"}
-                infinite={true}
-                draggable={true}
-                // transitionDuration={500}
-                swipeable={true}
-                style={{ height: "25em" }}
-              >
-                {term.map((asset) => (
-                  <a
-                    href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                  >
-                    <li className="carous_list">
-                      <div
-                        className="storeTiles_storeTileContainer__HoGEa"
-                        style={{
-                          backgroundImage: `url(${
-                            api_url2 + "/" + asset.product_image
-                          })`,
-                          //           height: "200px",
-                          //           width: "100%",
-                          //           backgroundRepeat: "no-repeat",
-                          //           backgroundSize: "cover",
-                          //           borderRadius: "8px",
-                          //           borderBottomLeftRadius: "0px",
-                          //           borderBottomRightRadius: "0px",
-                          //   backgroundPositionY: "center",
-                        }}
-                      >
-                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                          <button className="items_remaining_btn">
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <p className="no_margg"> Buy now</p>
-                            ) : (
-                              <p className="no_margg"> Save now</p>
-                            )}
-                          </button>
-
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <div></div>
-                          ) : (
-                            <button className="items_remaining_btn2">
-                              {" "}
-                              40% locked
-                            </button>
-                          )}
-                        </div>
-                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.product_name}</div>
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.roundedAmount * 2)}
-                            </span>
-                          </div>
-                        </div>
-                        {/* </a> */}
-                      </div>
-                    </li>
-                  </a>
-                ))}
-              </Carousel>
-              {/* Carousel end==============================
-==============================================
-============================= */}
-            </div>
-          </div>
-        </section>
+        
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}

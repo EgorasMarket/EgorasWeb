@@ -7,6 +7,7 @@ import Wallet from "../../Wallet/Wallet";
 
 import DashboardSidebar from "./DashboardSidebar";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
+// import ItemDetailsPage1 from "../item_details_page/detail";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
 import CheckoutModalComponent from "../item_details_page/CheckoutModalComponent"
 // import DashboardCart from "./DashboardPages/DashboardCart";
@@ -101,6 +102,11 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 path="/dashboard/products/details/:id/:name"
                 component={ItemDetailsPage}
               />
+                {/* <Route
+                exact
+                path="/products/details/:id/:name"
+                component={ItemDetailsPage1}
+              /> */}
                 <Route
                 exact
                 path="/dashboard/products/checkout"

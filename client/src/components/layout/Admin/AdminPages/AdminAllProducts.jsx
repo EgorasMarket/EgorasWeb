@@ -69,29 +69,6 @@ const AdminAllProducts = () => {
   }, []);
 
 
-//   const submitCallCheck = async (product_id) => {
-
-//     console.log(product_id, 'I feel it');
-
-//     const body = JSON.stringify({
-//       product_id
-//     });
-    
-//     axios.post(
-//       api_url2 + "/v1/product/approve/product",
-//       body,
-//       config
-//       ).then((data) => {
-//         document.getElementById(product_id).remove();
-        
-//           console.log(data.data);
-    
-//         })
-//         .catch((err) => {
-//           console.log(err.response); // "oh, no!"
-//         });
-
-// }
 
   return (
     <>
