@@ -284,30 +284,28 @@ const CheckoutModalComponent = ({
             {/* ======================= */}
 
             <div className="cart_area2_heading">Payment Options</div>
-            <div className="cart_area2_select">
-              <div className="wit_card">
-                Pay via card{" "}
-                <input type="checkbox" name="" id="" classNam="checkBox" />
-              </div>
-            </div>
             {/* ===================== */}
             <div className="cart_area2_select">
               <div className="wit_card">
-                Pay via card{" "}
+                Pay via wallet{" "}
                 <input type="checkbox" name="" id="" classNam="checkBox" />
               </div>
             </div>
-
-            <FlutterButton
-              amount={1}
-              payment_title={"Payment From Egoras savings "}
-              //  payment_options={"ussd"}
-              customer={{
-                email: "goodluckcanhelp@gmail.com",
-                phonenumber: "08165226413",
-                name: "Kingsley goodluck",
-              }}
-            />
+      
+              <FlutterButton
+                amount={1}
+                payment_title={"Payment From Egoras savings "}
+                //  payment_options={"ussd"}
+                customer={{
+                  email: "goodluckcanhelp@gmail.com",
+                  phonenumber: "08165226413",
+                  name: "Kingsley goodluck",
+                }}
+                select={
+                  <input type="checkbox" name="" id="" classNam="checkBox" />
+                }
+              />
+      
 
             {/* <div className="cart_area2_select border_down">
               <div className="wit_card">

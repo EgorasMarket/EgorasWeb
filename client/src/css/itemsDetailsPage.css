@@ -304,7 +304,13 @@ span.per_day {
   background: #00000063 !important;
   border-radius: 5px !important;
 }
-
+.specification_div {
+  display: flex;
+  flex-direction: column;
+  color: #828282;
+  font-size: 14px;
+  font-weight: 600;
+}
 .carousel .slider {
   margin: 0;
   padding: 0;
