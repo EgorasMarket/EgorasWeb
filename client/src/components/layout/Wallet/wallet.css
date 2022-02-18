@@ -31,6 +31,27 @@
 .walletClass3 {
   padding: 40px 15px 5px 15px;
 }
+.create_wallet_div {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+}
+.create_icon:hover {
+  color: #41ba71;
+}
+.create_icon {
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+}
+.wallet_heading {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 4%;
+}
 .walletSubClass3ng {
   background-color: #41ba71;
   padding: 15px;
@@ -38,20 +59,41 @@
   border-radius: 5px;
   border-color: #41ba71;
   border-width: 1px;
-  height: 8em;
+  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
 .spanEstimated {
-  font-weight: 300;
+  font-weight: 500;
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .arrowSpan {
   font-weight: 700;
-  font-size: 32px;
+  font-size: 24px;
 }
+.eye-visibility {
+  font-size: 18px !important;
+  background: #2f764b !important;
+  padding: 1px 0px !important;
+  border-radius: 7px !important;
+  width: 24px !important;
+  cursor: pointer !important;
+}
+.eye-visibility:hover {
 
+  background: #173f27 !important;
+
+}
+.usd_val {
+  font-size: 20px;
+  font-weight: 500;
+  color: #ddffeb;
+}
 .formCheckUp {
   padding: 15px 0px;
 }
