@@ -75,6 +75,9 @@
 .arrowSpan {
   font-weight: 700;
   font-size: 24px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
 }
 .eye-visibility {
   font-size: 18px !important;
@@ -85,14 +88,12 @@
   cursor: pointer !important;
 }
 .eye-visibility:hover {
-
   background: #173f27 !important;
-
 }
 .usd_val {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 500;
-  color: #ddffeb;
+  color: #beffd8;
 }
 .formCheckUp {
   padding: 15px 0px;
@@ -103,13 +104,93 @@
 .formConcept {
   border: 1px solid #e7e7e8;
   border-radius: 4px;
+  width: 100%;
+}
+.deposit_div {
+  border-radius: 5px;
+  width: 100%;
+  /* padding: 2em; */
+  border: solid 1px #e5e5e5;
 }
 .formConcept1 {
-  padding: 18px 15px;
+  padding: 5px 15px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #ebecf0;
+}
+
+.deposit_div_heading {
+  padding: 1em 2em;
+  background: #defdea;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.deposit_div_body1_input1 {
+  padding: 1em 1em;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  font-size: 14px;
+  font-weight: 700;
+  border-bottom: 1px solid #f2f2f2;
+}
+.token_symbol {
+  color: #000;
+  font-weight: 700;
+}
+.deposit_div_body1_input_asset {
+  color: grey;
+  border: solid 1px #e5e5e5;
+  padding: 1em 1em;
+  border-radius: 5px;
+  font-weight: 400;
+}
+.deposit_div_body1_input1_qr_code_title {
+  font-size: 12px;
+  font-weight: 500;
+  color: #3c3c3c;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.qr_img {
+  width: 35%;
+  padding: 0.3em;
+  border: solid 1px #000000;
+  border-radius: 5px;
+}
+.deposit_div_body1_input1_qr_code_img_div {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-bottom: 1em;
+  border-bottom: solid 1px #e3e3e3;
+}
+.deposit_div_body1_input1_qr_code {
+  padding: 1em 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+}
+li.deposit_qr_not {
+  list-style: disc;
+}
+.copy_address_div {
+  font-size: 14px;
+  font-weight: 400;
+  color: #484848;
+}
+.copy_address_div_txt {
+  display: flex;
+  align-items: center;
+  font-weight: 800;
+  color: #000;
+  gap: 10px;
 }
 .formConceptSup {
   background-color: #239e54;
@@ -119,6 +200,15 @@
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+}
+.noticeable_txt {
+  font-size: 13px;
+  font-weight: 700;
+  color: #239e54;
+}
+.file_icon_copy {
+  font-size: 16px !important;
+  cursor: pointer;
 }
 .formConceptWallet {
   font-size: 18px;
@@ -225,6 +315,8 @@
 }
 .DivCap {
   display: flex;
+  justify-content: space-between;
+  gap: 10px;
 }
 /* .buyAndSellDiv{
    display: none;
@@ -781,7 +873,6 @@
 
   .formCheckUp,
   .formConcept {
-    max-width: 640px;
     margin: 0px auto;
   }
 }
@@ -820,7 +911,6 @@
     margin: 0px;
   }
   .formConcept {
-    flex: 1;
     margin: 0px;
     align-self: start;
     padding-bottom: 20px;
