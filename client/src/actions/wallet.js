@@ -15,7 +15,7 @@ import setAuthToken from "../utils/setAuthToken";
 
 
 
-export const createWallet = (customer_id) => async (dispatch) => {
+export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
 //   console.log(payload1, pin);
   const config = {
     headers: {
@@ -25,7 +25,7 @@ export const createWallet = (customer_id) => async (dispatch) => {
 
     try {
 
-        const payload = JSON.stringify({customer_id});
+        const payload = JSON.stringify({customer_id, tokenSymbol});
   
         // console.log(payload);
 
