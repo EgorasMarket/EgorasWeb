@@ -31,6 +31,23 @@
 .walletClass3 {
   padding: 40px 15px 5px 15px;
 }
+.create_wallet_div{
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+  align-items: center;
+  font-size: 16px;
+  font-weight: 700;
+
+}
+.create_icon:hover {
+  color: #41ba71;
+}
+.create_icon {
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+}
 .walletSubClass3ng {
   background-color: #41ba71;
   padding: 15px;

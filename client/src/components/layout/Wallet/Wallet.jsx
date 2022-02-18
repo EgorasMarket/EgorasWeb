@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { createWallet } from "../../../actions/wallet";
 
 import IconButton from "@mui/material/IconButton";
 
@@ -25,12 +27,21 @@ const options = [
 ];
 
 
+
 const ITEM_HEIGHT = 48;
 
-const Wallet = () => {
+const Wallet = ({auth, createWallet}) => {
   const [age, setAge] = React.useState("");
   const [assetVal, setAssetVal] = useState("200,000.00");
+  const [adminId, setAdminId] = useState("");
   const [allTokens, setAllTokens] = useState([]);
+  const [currentToken, setCurrentToken] = useState();
+  const [tokenName, setTokenName] = useState();
+  const [accountExists, setAccountExists] = useState();
+  const [createWalletModal, setCreateWalletModal] = useState(false);
+  const [walletAddr, setWalletAddr] = useState('')
+
+
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -43,6 +54,12 @@ const Wallet = () => {
     },
   };
 
+  const openCreateWalletModal=()=>{
+    setCreateWalletModal(true)
+  }
+  const closeCreateWalletModal=()=>{
+    setCreateWalletModal(false)
+  }
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
@@ -58,6 +75,52 @@ const Wallet = () => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
+
+  useEffect(() => {
+  
+    console.log(auth);
+    if (auth.user !== null) {
+     
+      var todecoded = auth.user;
+
+      // const getName = todecoded.user.fullname;
+      // const splitName = getName.split(" ");
+      // console.log(todecoded.user.id)
+      setAdminId(todecoded.user.id);
+
+      axios
+      .get(api_url2 + "/v1/wallet/check/wallet/"+todecoded.user.id, null, config)
+      .then((data) => {
+        console.log(data.data, "powerful");
+        setAccountExists(data.data.accountExists )
+
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+
+    
+    }
+  }, [auth]);
+
+  // useEffect(() => {
+
+  //   console.log(adminId);
+  //   axios
+  //     .get(api_url2 + "/v1/wallet/check/"+adminId, null, config)
+  //     .then((data) => {
+  //       console.log(data.data.data, "powerful");
+
+  //       // setAllTokens(data.data.data);
+  //       // setWrap({
+  //       //   code: data.data.data.product_category_code,
+  //       // });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response); // "oh, no!"
+  //     });
+  // }, []);
+  
   //  const [anchorE2, setAnchorE2] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -232,19 +295,29 @@ const Wallet = () => {
     window.history.pushState("kinggdsakk", "Title", "/wallet/deposit/egr");
     document.getElementById("thanks2Plus50").style.display = "none";
     document.getElementById("makingSense").style.display = "none";
-    document.getElementById("makingSense2").style.display = "none";
-    document.getElementById("makingSense3").style.display = "none";
+    // document.getElementById("makingSense2").style.display = "none";
+    // document.getElementById("makingSense3").style.display = "none";
   };
 
-  const changePage3 = () => {
-    document.getElementById("weed").style.display = "none";
-    document.getElementById("thanks2Plus").style.display = "none";
-    document.getElementById("thanks").style.display = "none";
-    document.getElementById("weed1").style.display = "none";
-    document.getElementById("thanks2Plus50").style.display = "block";
-    document.getElementById("makingSense").style.display = "none";
-    document.getElementById("makingSense2").style.display = "none";
-    document.getElementById("makingSense3").style.display = "none";
+  const changePage3 = async (tokenName, tokenSymbol) => {
+    console.log(tokenName, tokenSymbol)
+    setCurrentToken(tokenSymbol)
+ 
+    setTokenName(tokenName);
+    console.log(adminId);
+    let act_2 = document.getElementById("success2");
+    let act_3 = document.getElementById("success3");
+
+    
+    changePage2();
+    let res3 = await createWallet(adminId);
+    console.log(res3);
+
+    if (res3.success === true) {
+      setWalletAddr(res3.address)
+    }
+
+
   };
   const changePage4 = () => {
     document.getElementById("weed").style.display = "none";
@@ -505,73 +578,18 @@ const Wallet = () => {
                       Contact Support
                     </div>
                   </div>
-                  {allTokens.map((data) => (
-                  <div className="divConcept2 border-bottom">
-                    <div>
-                      <StarRateIcon className="starRateIcon" />
-                    </div>
-                    <div>
-                      <div className="nigeriaCurrency">{data.tokenName}</div>
-                      <div style={{ marginBottom: "5px" }}>0.00</div>
-                      <div style={{ display: "flex" }}>
-                        <button
-                          className="depositButton"
-                          id="success"
-                          onClick={changePage3}
-                        >
-                          Deposit
-                        </button>
-                        <button
-                          className="depositButton1"
-                          id="success1"
-                          onClick={changePage1}
-                        >
-                          Withdraw
-                        </button>
-
-                        <button className="buttonMenu_drop">
-                          <MoreVertIcon
-                            className="divVan"
-                            onClick={works2}
-                            id="tab1"
-                          />
-                          <MoreVertIcon
-                            className="divVan"
-                            onClick={works}
-                            id="tab2"
-                          />
-                          <div className="downContent" id="downContent1">
-                            <div className="depo" onClick={changePage5}>
-                              Deposit History
-                            </div>
-                            <div className="depo" onClick={changePage6}>
-                              Transaction History
-                            </div>
-                            <div className="depo" onClick={changePage4}>
-                              Withdrawal History
-                            </div>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                   ))}
-                  {/* <hr /> */}
                   <div className="divConcept2">
                     <div>
-                      <img
-                        src="egoras-favicon.svg"
-                        width="28"
-                        style={{ marginRight: "10px" }}
-                      />{" "}
+                      <StarRateIcon className="starRateIcon"/>
+                  
                     </div>
                     <div>
-                      <div className="nigeriaCurrency">EGR</div>
+                      <div className="nigeriaCurrency">Nigerian Naira</div>
                       <div style={{ marginBottom: "5px" }}>0.00</div>
                       <div style={{ display: "flex" }}>
                         <button
                           className="depositButton"
-                          onClick={changeBg3}
+                          // onClick={changeBg3}
                           id="success2"
                         >
                           Deposit
@@ -612,61 +630,68 @@ const Wallet = () => {
                       </div>
                     </div>
                   </div>
-                  <hr />
-                  <div className="divConcept2">
-                    <div>
-                      <img
-                        src="token-right.svg"
-                        width="30"
-                        style={{ marginRight: "10px" }}
-                      />
-                    </div>
-                    <div>
-                      <div className="nigeriaCurrency">EUSD</div>
-                      <div style={{ marginBottom: "5px" }}>0.00</div>
-                      <div style={{ display: "flex" }}>
-                        <button
-                          className="depositButton"
-                          onClick={changeBg5}
-                          id="success4"
-                        >
-                          Deposit
-                        </button>
-                        <Link to="/dashboard/wallet/withdrawal">
-                          <button
-                            className="depositButton1"
-                            onClick={changeBg6}
-                            id="success5"
-                          >
-                            Withdraw
-                          </button>
-                        </Link>
-                        <button className="buttonMenu_drop">
-                          <MoreVertIcon
-                            className="divVan"
-                            onClick={works10}
-                            id="tab5"
-                          />
-                          <MoreVertIcon
-                            className="divVan"
-                            onClick={works8}
-                            id="tab6"
-                          />
-                          <div className="downContent" id="downContent3">
-                            <div className="depo" onClick={changePage5}>
-                              Deposit History
-                            </div>
-                            <div className="depo" onClick={changePage6}>
-                              Transaction History
-                            </div>
-                            <div className="depo" onClick={changePage4}>
-                              Withdrawal History
+                  <hr/>
+
+
+    
+                   
+                      {allTokens.map((data) => (
+                        <div className="divConcept2 border-bottom">
+                          <div>
+                            <StarRateIcon className="starRateIcon" />
+                          </div>
+                          <div>
+                            <div className="nigeriaCurrency">{data.tokenName}</div>
+                            <div style={{ marginBottom: "5px" }}>0.00</div>
+                            <div style={{ display: "flex" }}>
+                              <button
+                                className="depositButton"
+                                id={data.tokenSymbol}
+                                onClick={() => changePage3(data.tokenName, data.tokenSymbol)}
+                              >
+                                Deposit
+                              </button>
+                              <button
+                                className="depositButton1"
+                                id="success1"
+                                onClick={changePage1}
+                              >
+                                Withdraw
+                              </button>
+      
+                              <button className="buttonMenu_drop">
+                                <MoreVertIcon
+                                  className="divVan"
+                                  onClick={works2}
+                                  id="tab1"
+                                />
+                                <MoreVertIcon
+                                  className="divVan"
+                                  onClick={works}
+                                  id="tab2"
+                                />
+                                <div className="downContent" id="downContent1">
+                                  <div className="depo" onClick={changePage5}>
+                                    Deposit History
+                                  </div>
+                                  <div className="depo" onClick={changePage6}>
+                                    Transaction History
+                                  </div>
+                                  <div className="depo" onClick={changePage4}>
+                                    Withdrawal History
+                                  </div>
+                                </div>
+                              </button>
                             </div>
                           </div>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
+                        </div>
+                     
+                         ))}
+                       
+                
+
+                  {/* <hr /> */}
+                
                 </div>
 
                 <div className="buyAndSellDiv" id="weed">
@@ -895,7 +920,7 @@ const Wallet = () => {
 
                 <div className="thanks2Plus" id="thanks2Plus">
                   <div className="thanks2Plus1">
-                    <div className="thanks2Plus2">Deposit EGORAS EGR</div>
+                    <div className="thanks2Plus2">Deposit {tokenName}</div>
                     <div className="thanks2Plus3">
                       <div className="thanks2Plus4">Address format:</div>
                       <div style={{ display: "flex", marginBottom: "10px" }}>
@@ -906,15 +931,15 @@ const Wallet = () => {
                           EUSD20
                         </div>
                       </div>
-                      <div className="thanks2Plus5">EGORAS EGR Address</div>
+                      <div className="thanks2Plus5">{tokenName} Address</div>
                       <div style={{ display: "flex", marginBottom: "10px" }}>
                         <div className="thanks2Plus6">
                           {" "}
                           <img
-                            src="qr-code.png"
+                            src={"https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl="+walletAddr}
                             alt=""
-                            width="160"
-                            height="160"
+                            width="200"
+                            height="200"
                             id="myImage"
                           />
                         </div>
@@ -930,7 +955,7 @@ const Wallet = () => {
                         />
                       </div>
                       <p className="thanks2Plus7" id="p_Text">
-                        hhjhdgtrunkwqedloingds
+                        {walletAddr}
                       </p>
                       <button className="thanks2Plus8" onClick={copied}>
                         Copy to Clipboard
@@ -940,7 +965,7 @@ const Wallet = () => {
 
                       <div className="thanks2Plus9">
                         Deposit fee: <span className="Aba1">0.00</span>{" "}
-                        <span className="Aba">EGR</span>
+                        <span className="Aba">{currentToken}</span>
                       </div>
                       <div
                         className="thanks2Plus10"
@@ -952,11 +977,11 @@ const Wallet = () => {
                         <div>
                           You have to deposit at least{" "}
                           <span style={{ fontWeight: "bold" }}>
-                            25 <span style={{ color: "#229e54" }}>EGR</span>
+                            25 <span style={{ color: "#229e54" }}>{currentToken}</span>
                           </span>{" "}
                           to be credited.Any deposit that is less than{" "}
                           <span style={{ fontWeight: "bold" }}>
-                            25 <span style={{ color: "#229e54" }}> EGR</span>
+                            25 <span style={{ color: "#229e54" }}> {currentToken}</span>
                           </span>{" "}
                           will not be refunded
                         </div>
@@ -974,13 +999,193 @@ const Wallet = () => {
                             style={{ fontWeight: "bold", color: "#229e54" }}
                           >
                             {" "}
-                            EGR
+                            {currentToken}
                           </span>
                           . Do not send other coins to it.
                         </div>
                       </div>
                     </div>
                   </div>
+                  
+                  {/* {
+                    currentToken === 'EGR' ? (
+                      <div className="thanks2Plus1">
+                        <div className="thanks2Plus2">Deposit {tokenName}</div>
+                        <div className="thanks2Plus3">
+                          <div className="thanks2Plus4">Address format:</div>
+                          <div style={{ display: "flex", marginBottom: "10px" }}>
+                            <div className="TRCN add" onClick={changeImage}>
+                              EGR20
+                            </div>
+                            <div className="TRCN" onClick={changeImage1}>
+                              EUSD20
+                            </div>
+                          </div>
+                          <div className="thanks2Plus5">{tokenName} Address</div>
+                          <div style={{ display: "flex", marginBottom: "10px" }}>
+                            <div className="thanks2Plus6">
+                              {" "}
+                              <img
+                                src="https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=iuhnhjn"
+                                alt=""
+                                width="160"
+                                height="160"
+                                id="myImage"
+                              />
+                            </div>
+                            <ReplayIcon
+                              style={{
+                                width: "30px",
+                                height: "25px",
+                                padding: "4px",
+                                backgroundColor: "#a1ecbf5c",
+                                borderRadius: "3px",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </div>
+                          <p className="thanks2Plus7" id="p_Text">
+                            hhjhdgtrunkwqedloingds
+                          </p>
+                          <button className="thanks2Plus8" onClick={copied}>
+                            Copy to Clipboard
+                          </button>
+
+                          <hr />
+
+                          <div className="thanks2Plus9">
+                            Deposit fee: <span className="Aba1">0.00</span>{" "}
+                            <span className="Aba">{currentToken}</span>
+                          </div>
+                          <div
+                            className="thanks2Plus10"
+                            style={{ display: "flex", marginBottom: "10px" }}
+                          >
+                            <InfoIcon
+                              style={{ color: "#229e54", marginRight: "10px" }}
+                            />
+                            <div>
+                              You have to deposit at least{" "}
+                              <span style={{ fontWeight: "bold" }}>
+                                25 <span style={{ color: "#229e54" }}>{currentToken}</span>
+                              </span>{" "}
+                              to be credited.Any deposit that is less than{" "}
+                              <span style={{ fontWeight: "bold" }}>
+                                25 <span style={{ color: "#229e54" }}> {currentToken}</span>
+                              </span>{" "}
+                              will not be refunded
+                            </div>
+                          </div>
+                          <div
+                            className="thanks2Plus10"
+                            style={{ display: "flex" }}
+                          >
+                            <InfoIcon
+                              style={{ color: "#229e54", marginRight: "10px" }}
+                            />
+                            <div>
+                              This deposit address only accepts{" "}
+                              <span
+                                style={{ fontWeight: "bold", color: "#229e54" }}
+                              >
+                                {" "}
+                                {currentToken}
+                              </span>
+                              . Do not send other coins to it.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    ) : (
+                      <div className="thanks2Plus1">
+                        <div className="thanks2Plus2">Deposit {tokenName}</div>
+                        <div className="thanks2Plus3">
+                          <div className="thanks2Plus4">Address format:</div>
+                          <div style={{ display: "flex", marginBottom: "10px" }}>
+                            <div className="TRCN add" onClick={changeImage}>
+                              EGR20
+                            </div>
+                            <div className="TRCN" onClick={changeImage1}>
+                              EUSD20
+                            </div>
+                          </div>
+                          <div className="thanks2Plus5">{tokenName} Address</div>
+                          <div style={{ display: "flex", marginBottom: "10px" }}>
+                            <div className="thanks2Plus6">
+                              {" "}
+                              <img
+                                src="https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=iuhnhjn"
+                                alt=""
+                                width="160"
+                                height="160"
+                                id="myImage"
+                              />
+                            </div>
+                            <ReplayIcon
+                              style={{
+                                width: "30px",
+                                height: "25px",
+                                padding: "4px",
+                                backgroundColor: "#a1ecbf5c",
+                                borderRadius: "3px",
+                                cursor: "pointer",
+                              }}
+                            />
+                          </div>
+                          <p className="thanks2Plus7" id="p_Text">
+                            hhjhdgtrunkwqedloingds
+                          </p>
+                          <button className="thanks2Plus8" onClick={copied}>
+                            Copy to Clipboard
+                          </button>
+
+                          <hr />
+
+                          <div className="thanks2Plus9">
+                            Deposit fee: <span className="Aba1">0.00</span>{" "}
+                            <span className="Aba">{currentToken}</span>
+                          </div>
+                          <div
+                            className="thanks2Plus10"
+                            style={{ display: "flex", marginBottom: "10px" }}
+                          >
+                            <InfoIcon
+                              style={{ color: "#229e54", marginRight: "10px" }}
+                            />
+                            <div>
+                              You have to deposit at least{" "}
+                              <span style={{ fontWeight: "bold" }}>
+                                25 <span style={{ color: "#229e54" }}>{currentToken}</span>
+                              </span>{" "}
+                              to be credited.Any deposit that is less than{" "}
+                              <span style={{ fontWeight: "bold" }}>
+                                25 <span style={{ color: "#229e54" }}> {currentToken}</span>
+                              </span>{" "}
+                              will not be refunded
+                            </div>
+                          </div>
+                          <div
+                            className="thanks2Plus10"
+                            style={{ display: "flex" }}
+                          >
+                            <InfoIcon
+                              style={{ color: "#229e54", marginRight: "10px" }}
+                            />
+                            <div>
+                              This deposit address only accepts{" "}
+                              <span
+                                style={{ fontWeight: "bold", color: "#229e54" }}
+                              >
+                                {" "}
+                                {currentToken}
+                              </span>
+                              . Do not send other coins to it.
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )
+                  } */}
 
                   <div className="thanks2Plus11">
                     <div className="thanks2Plus12">EGR deposit History</div>
@@ -1008,7 +1213,7 @@ const Wallet = () => {
                         <div className="thanks2Plus6">
                           {" "}
                           <img
-                            src="qr-code.png"
+                            src="https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=iuiiihnhjn"
                             alt=""
                             width="160"
                             height="160"
@@ -1175,8 +1380,21 @@ const Wallet = () => {
           </div>
         </div>
       </div>
+      {/* {
+        createWalletModal==true?(
+          <div>Creating Your wallet please hold on</div>
+        ):null
+        
+      } */}
     </div>
   );
 };
 
-export default Wallet;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart,
+});
+
+// export default Wallet;
+export default connect(mapStateToProps, {createWallet})(Wallet);
