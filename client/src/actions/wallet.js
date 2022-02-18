@@ -40,7 +40,7 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
           };
    
     } catch (error) {
-        console.log(error);
+        console.log(error.response);
         return {
             success: false,
             data: error.response,
