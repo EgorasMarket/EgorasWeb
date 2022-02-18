@@ -6,6 +6,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { Link } from "react-router-dom";
 
 import { API_URL2 as api_url2 } from "../../../actions/types";
@@ -25,12 +26,15 @@ const Wallet = ({ auth, createWallet }) => {
   const [assetVal, setAssetVal] = useState("200,000.00");
   const [adminId, setAdminId] = useState("");
   const [visible, settVisible] = useState(false);
+  const [secureNumb, setSecureNumb] = useState(false);
   const [allTokens, setAllTokens] = useState([]);
   const [currentToken, setCurrentToken] = useState();
   const [tokenName, setTokenName] = useState();
   const [accountExists, setAccountExists] = useState();
   const [createWalletModal, setCreateWalletModal] = useState(false);
   const [walletAddr, setWalletAddr] = useState("");
+  const [assetName, setAssetName] = useState([]);
+  const [tokenSymbol, setTokenSymbol] = useState([]);
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -56,6 +60,10 @@ const Wallet = ({ auth, createWallet }) => {
         console.log(data.data.data, "powerful");
 
         setAllTokens(data.data.data);
+        setAssetName(data.data.data[0].tokenName);
+        setTokenSymbol(data.data.data[0].tokenSymbol);
+        console.log(data.data.data[0].tokenName);
+
         // setWrap({
         //   code: data.data.data.product_category_code,
         // });
@@ -83,7 +91,6 @@ const Wallet = ({ auth, createWallet }) => {
         )
         .then((data) => {
           console.log(data.data, "powerful");
-          setAccountExists(data.data.accountExists);
         })
         .catch((err) => {
           console.log(err.response); // "oh, no!"
@@ -93,9 +100,11 @@ const Wallet = ({ auth, createWallet }) => {
 
   const openVisibility = () => {
     settVisible(true);
+    setSecureNumb(true);
   };
   const closeVisibility = () => {
     settVisible(false);
+    setSecureNumb(false);
   };
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -126,9 +135,15 @@ const Wallet = ({ auth, createWallet }) => {
                   />
                 )}
               </div>
-              <div className="arrowSpan">
-                ₦{assetVal} <span className="usd_val">≈ ${200000 / 560}</span>
-              </div>
+              {secureNumb == true ? (
+                <div className="arrowSpan">
+                  *********** <div className="usd_val">*********</div>
+                </div>
+              ) : (
+                <div className="arrowSpan">
+                  ₦{assetVal} <div className="usd_val">≈ ${200000 / 560}</div>
+                </div>
+              )}
             </div>
 
             <div className="walletDrive">
@@ -264,6 +279,72 @@ const Wallet = ({ auth, createWallet }) => {
                       </div>
                     </div>
                   ))}
+                </div>
+                <div className="deposit_div">
+                  <div className="deposit_div_heading">Deposit {assetName}</div>
+                  <div className="deposit_div_body">
+                    <div className="deposit_div_body1">
+                      <div className="deposit_div_body1_input1">
+                        <div className="deposit_div_body1_input_title">
+                          Coin:
+                        </div>
+                        <div className="deposit_div_body1_input_asset">
+                          <span className="token_symbol">{tokenSymbol} </span>
+                          {assetName}
+                        </div>
+                      </div>
+                      <div className="deposit_div_body1_input1">
+                        <div className="deposit_div_body1_input_title">
+                          Network:
+                        </div>
+                        <div className="deposit_div_body1_input_asset">
+                          <span className="network_symbol">
+                            <span className="token_symbol">BSC</span>
+                          </span>{" "}
+                          BNB Smart Chain (BEP20)
+                        </div>
+                      </div>
+                      <div className="deposit_div_body1_input1_qr_code">
+                        <div className="deposit_div_body1_input1_qr_code_title">
+                          Scan the code on the deposit page to deposit{" "}
+                          {assetName}
+                        </div>
+                        <div className="deposit_div_body1_input1_qr_code_img_div">
+                          <img
+                            src="/img/qr_code_img.png"
+                            alt=""
+                            className="qr_img"
+                          />
+                          <div className="copy_address_div">
+                            <div className="copy_address_div_title">
+                              Address
+                            </div>
+                            <div className="copy_address_div_txt">
+                              0x360ba97e2a8f0deb200e34846092a3b8110283b1
+                              <FileCopyIcon className="file_icon_copy" />
+                            </div>
+                          </div>
+                        </div>
+                        <div className="deposit_div_body1_input1_qr_code_title">
+                          <li className="deposit_qr_not">
+                            Send only
+                            <span className="noticeable_txt">
+                              {" "}
+                              {tokenSymbol}
+                            </span>{" "}
+                            to this deposit address.
+                          </li>
+                          <li className="deposit_qr_not">
+                            Ensure the network is
+                            <span className="noticeable_txt">
+                              {" "}
+                              BNB Smart Chain (BEP20).
+                            </span>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>

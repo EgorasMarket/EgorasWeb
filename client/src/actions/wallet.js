@@ -47,4 +47,3 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
         };
   }
 };
-
