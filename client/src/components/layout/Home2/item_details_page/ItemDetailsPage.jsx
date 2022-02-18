@@ -36,7 +36,7 @@ function ItemDetailsPage({ auth, match }) {
   const [showCheckout, setCheckoutStatus] = useState(false);
   const [spec, setSpec] = useState([]);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-
+  const [userPayload,setUserPayload] = useState({})
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -66,6 +66,11 @@ function ItemDetailsPage({ auth, match }) {
     });
     if (auth) {
       set_user_id(auth.user.user.id);
+      const {email, } = auth.user.user; 
+      setUserPayload({
+        email, 
+        
+      })
     }
 
     axios
@@ -87,7 +92,7 @@ function ItemDetailsPage({ auth, match }) {
           product_type,
           initial_deposit,
           dailyAmount,
-          amount_per_day,
+          paymentPerday,
           days_left,
           rounded,
           total_amount,
@@ -111,27 +116,18 @@ function ItemDetailsPage({ auth, match }) {
           product_type,
           initial_deposit,
           dailyAmount,
-          amount_per_day,
+          paymentPerday,
           days_left,
           rounded,
           total_amount,
           no_of_days,
         });
-        const getSlid = data.data.data.product_specifications;
 
-        setSpec(getSlid);
-
-        //  const slipVar = getSlid.split(',');
-        console.log("====================================");
-        console.log(getSlid);
-        console.log("====================================");
-
-        console.log("====================================");
       })
       .catch((err) => {
         console.log(err.response); // "oh, no!"
       });
-  }, []); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
+  }, [auth]); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
 
   return (
     <>
@@ -144,10 +140,13 @@ function ItemDetailsPage({ auth, match }) {
                 product_id={product_id}
                 customer_id={user_id}
                 closeCheckoutOptions={closeDetailModal}
+                userPayload={userPayload}
+                
               />
             ) : (
               <ItemDetailComponent
                 payload={payload}
+                
                 // numberWithCommas={numberWithCommas}
                 card={spec}
                 openCheckoutModal={() => {

@@ -135,7 +135,7 @@ const ItemDetailComponent = ({
     product_type,
     initial_deposit,
     dailyAmount,
-    amount_per_day,
+    paymentPerday,
     days_left,
     rounded,
     total_amount,
@@ -264,7 +264,7 @@ const ItemDetailComponent = ({
                   rounded={rounded}
                   percentage={percentage}
                   amount={amount}
-                  amount_per_day={amount_per_day}
+                  amount_per_day={paymentPerday}
                   numberWithCommas={numberWithCommas}
                 />
               </>
