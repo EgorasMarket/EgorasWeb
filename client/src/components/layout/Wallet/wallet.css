@@ -104,7 +104,7 @@
 .formConcept {
   border: 1px solid #e7e7e8;
   border-radius: 4px;
-  width: 100%;
+  width: 70%;
 }
 .deposit_div {
   border-radius: 5px;
@@ -121,12 +121,27 @@
 }
 
 .deposit_div_heading {
-  padding: 1em 2em;
+  padding: 1em 1em;
   background: #defdea;
   font-size: 14px;
   font-weight: 700;
 }
-
+.deposit_history {
+  /* padding: 1em; */
+  margin-top: 2em;
+}
+.deposit_history_title {
+  padding: 1em;
+  background: #defdea;
+  font-size: 18px;
+  font-weight: 700;
+}
+.deposit_history_body {
+  margin-top: 20px;
+}
+.deposit_history_body_area1 {
+  padding: 24px 16px;
+}
 .deposit_div_body1_input1 {
   padding: 1em 1em;
   display: flex;
@@ -162,6 +177,45 @@
   border: solid 1px #000000;
   border-radius: 5px;
 }
+
+
+.file_icon_copy {
+  position: relative;
+}
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+}
+
+.file_icon_copy .tooltiptext {
+  display: none;
+  width: 140px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 205%;
+  left: 50%;
+  margin-left: -75px;
+  opacity: 1;
+  transition: opacity 0.3s;
+}
+
+.tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
 .deposit_div_body1_input1_qr_code_img_div {
   width: 100%;
   display: flex;
@@ -171,7 +225,7 @@
   border-bottom: solid 1px #e3e3e3;
 }
 .deposit_div_body1_input1_qr_code {
-  padding: 1em 2em;
+  padding: 1em 1em;
   display: flex;
   flex-direction: column;
   gap: 10px;

@@ -12,7 +12,6 @@ import {
 } from "./types";
 // import setAuthToken from "../utils/setAuthToken";
 import setAuthToken from "../utils/setAuthToken";
-
 export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
   //   console.log(payload1, pin);
   const config = {
@@ -21,22 +20,7 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
     },
   };
 
-  //   "customer_id": "string",
-  //   "walletAddress": "string",
-  //   "secKey": "string",
-  //   "mnemonic": "string"
-
   try {
-    //     address: "0xdd8E233F2c7Ec65e480A3AeC2315a5C13Dcd1ba6"
-    // key: "0xff11c7691a7cf12f3a1944ce57fb4a3fc50cb23a53d607ea489c4dc38d6524e4"
-    // mnemonic: "brief theme connect fish order point unusual family edit off purity ill"
-
-    const res = await axios.get(
-      api_url3 + "/api/transactions/create/wallet",
-      null,
-      config
-    );
-    // console.log(res.data);
     const payload = JSON.stringify({ customer_id, tokenSymbol });
 
     // console.log(payload);
@@ -52,10 +36,10 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
     return {
       success: true,
       data: res6.data,
-      // address: walletAddress,
+      // address: walletAddress
     };
   } catch (error) {
-    console.log(error);
+    console.log(error.response);
     return {
       success: false,
       data: error.response,

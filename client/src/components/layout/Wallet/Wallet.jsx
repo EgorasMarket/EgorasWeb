@@ -28,13 +28,15 @@ const Wallet = ({ auth, createWallet }) => {
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
   const [allTokens, setAllTokens] = useState([]);
-  const [currentToken, setCurrentToken] = useState();
-  const [tokenName, setTokenName] = useState();
+  // const [currentToken, setCurrentToken] = useState();
+  // const [tokenName, setTokenName] = useState();
+  const [tokenSymbol, setTokenSymbol] = useState();
   const [accountExists, setAccountExists] = useState();
   const [createWalletModal, setCreateWalletModal] = useState(false);
   const [walletAddr, setWalletAddr] = useState("");
-  const [assetName, setAssetName] = useState([]);
-  const [tokenSymbol, setTokenSymbol] = useState([]);
+  const [assetName, setAssetName] = useState();
+  const [showDeposit, setShowDeposit] = useState(false);
+  const [tokenSign, setTokenSign] = useState();
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -53,17 +55,34 @@ const Wallet = ({ auth, createWallet }) => {
   const closeCreateWalletModal = () => {
     setCreateWalletModal(false);
   };
+  // useEffect(() => {
+  //   axios
+  //     .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
+  //     .then((data) => {
+  //       console.log(data.data.data, "powerful");
+
+  //       setAllTokens(data.data.data);
+  //       setAssetName(data.data.data[0].tokenName);
+  //       setTokenSign(data.data.data[0].tokenSymbol);
+  //       setTokenSymbol(data.data.data[0].tokenSymbol);
+  //       console.log(data.data.data[0].tokenName);
+
+  //       // setWrap({
+  //       //   code: data.data.data.product_category_code,
+  //       // });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response); // "oh, no!"
+  //     });
+  // }, []);
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
       .then((data) => {
         console.log(data.data.data, "powerful");
-
-        setAllTokens(data.data.data);
         setAssetName(data.data.data[0].tokenName);
-        setTokenSymbol(data.data.data[0].tokenSymbol);
-        console.log(data.data.data[0].tokenName);
-
+        setTokenSign(data.data.data[0].tokenSymbol);
+        setAllTokens(data.data.data);
         // setWrap({
         //   code: data.data.data.product_category_code,
         // });
@@ -72,7 +91,6 @@ const Wallet = ({ auth, createWallet }) => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
-
   useEffect(() => {
     console.log(auth);
     if (auth.user !== null) {
@@ -91,6 +109,7 @@ const Wallet = ({ auth, createWallet }) => {
         )
         .then((data) => {
           console.log(data.data, "powerful");
+          setAccountExists(data.data.accountExists);
         })
         .catch((err) => {
           console.log(err.response); // "oh, no!"
@@ -106,14 +125,45 @@ const Wallet = ({ auth, createWallet }) => {
     settVisible(false);
     setSecureNumb(false);
   };
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  // const open = Boolean(anchorEl);
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
+  const openDepositDiv = async (tokenName, tokenSymbol) => {
+    // setCurrentToken(tokenSymbol);
+    // setTokenName(tokenName);
+    setShowDeposit(true);
+    console.log(adminId);
+    let res3 = await createWallet(adminId, tokenSymbol);
+    console.log(res3);
+
+    if (res3.success === true) {
+      setWalletAddr(res3.data.address);
+    }
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const closeDepositDiv = () => {
+    setShowDeposit(false);
   };
 
+  const copyText = () => {
+    var copyText = document.getElementById("myInput");
+    copyText.select();
+    copyText.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(copyText.value);
+
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copied Address ";
+    tooltip.style.display = "block";
+  };
+
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+    tooltip.style.display = "none";
+  }
   return (
     <div className="other2">
       <section className="no-bg">
@@ -164,13 +214,14 @@ const Wallet = ({ auth, createWallet }) => {
                     </div>
                     <div>
                       <div className="nigeriaCurrency">Nigerian Naira</div>
-                      <div style={{ marginBottom: "5px" }}>0.00</div>
+                      {secureNumb == true ? (
+                        <div style={{ marginBottom: "5px" }}>*******</div>
+                      ) : (
+                        <div style={{ marginBottom: "5px" }}>0.00</div>
+                      )}
+
                       <div style={{ display: "flex" }}>
-                        <button
-                          className="depositButton"
-                          // onClick={changeBg3}
-                          id="success2"
-                        >
+                        <button className="depositButton" id="success2">
                           Deposit
                         </button>
 
@@ -226,12 +277,19 @@ const Wallet = ({ auth, createWallet }) => {
                       </div>
                       <div>
                         <div className="nigeriaCurrency">{data.tokenName}</div>
-                        <div style={{ marginBottom: "5px" }}>0.00</div>
+                        {secureNumb == true ? (
+                          <div style={{ marginBottom: "5px" }}>*******</div>
+                        ) : (
+                          <div style={{ marginBottom: "5px" }}>0.00</div>
+                        )}
+
                         <div style={{ display: "flex" }}>
                           <button
                             className="depositButton"
-                            id={data.tokenSymbol}
-                            // onClick={() => changePage3(data.tokenName, data.tokenSymbol)}
+                            // id={data.tokenSymbol}
+                            onClick={() =>
+                              openDepositDiv(data.tokenName, data.tokenSymbol)
+                            }
                           >
                             Deposit
                           </button>
@@ -280,72 +338,111 @@ const Wallet = ({ auth, createWallet }) => {
                     </div>
                   ))}
                 </div>
-                <div className="deposit_div">
-                  <div className="deposit_div_heading">Deposit {assetName}</div>
-                  <div className="deposit_div_body">
-                    <div className="deposit_div_body1">
-                      <div className="deposit_div_body1_input1">
-                        <div className="deposit_div_body1_input_title">
-                          Coin:
-                        </div>
-                        <div className="deposit_div_body1_input_asset">
-                          <span className="token_symbol">{tokenSymbol} </span>
-                          {assetName}
-                        </div>
-                      </div>
-                      <div className="deposit_div_body1_input1">
-                        <div className="deposit_div_body1_input_title">
-                          Network:
-                        </div>
-                        <div className="deposit_div_body1_input_asset">
-                          <span className="network_symbol">
-                            <span className="token_symbol">BSC</span>
-                          </span>{" "}
-                          BNB Smart Chain (BEP20)
-                        </div>
-                      </div>
-                      <div className="deposit_div_body1_input1_qr_code">
-                        <div className="deposit_div_body1_input1_qr_code_title">
-                          Scan the code on the deposit page to deposit{" "}
-                          {assetName}
-                        </div>
-                        <div className="deposit_div_body1_input1_qr_code_img_div">
-                          <img
-                            src="/img/qr_code_img.png"
-                            alt=""
-                            className="qr_img"
-                          />
-                          <div className="copy_address_div">
-                            <div className="copy_address_div_title">
-                              Address
-                            </div>
-                            <div className="copy_address_div_txt">
-                              0x360ba97e2a8f0deb200e34846092a3b8110283b1
-                              <FileCopyIcon className="file_icon_copy" />
-                            </div>
+                {showDeposit == true ? (
+                  <div className="deposit_div">
+                    <div className="deposit_div_heading">
+                      Deposit {assetName}
+                    </div>
+                    <div className="deposit_div_body">
+                      <div className="deposit_div_body1">
+                        <div className="deposit_div_body1_input1">
+                          <div className="deposit_div_body1_input_title">
+                            Coin:
+                          </div>
+                          <div className="deposit_div_body1_input_asset">
+                            <span className="token_symbol">
+                              {" "}
+                              <StarRateIcon className="starRateIcon" />
+                              {tokenSign}{" "}
+                            </span>
+                            {assetName}
                           </div>
                         </div>
-                        <div className="deposit_div_body1_input1_qr_code_title">
-                          <li className="deposit_qr_not">
-                            Send only
-                            <span className="noticeable_txt">
-                              {" "}
-                              {tokenSymbol}
+                        <div className="deposit_div_body1_input1">
+                          <div className="deposit_div_body1_input_title">
+                            Network:
+                          </div>
+                          <div className="deposit_div_body1_input_asset">
+                            <span className="network_symbol">
+                              <span className="token_symbol">BSC</span>
                             </span>{" "}
-                            to this deposit address.
-                          </li>
-                          <li className="deposit_qr_not">
-                            Ensure the network is
-                            <span className="noticeable_txt">
-                              {" "}
-                              BNB Smart Chain (BEP20).
-                            </span>
-                          </li>
+                            BNB Smart Chain (BEP20)
+                          </div>
+                        </div>
+                        <div className="deposit_div_body1_input1_qr_code">
+                          <div className="deposit_div_body1_input1_qr_code_title">
+                            Scan the code on the deposit page to deposit{" "}
+                            {assetName}
+                          </div>
+                          <div className="deposit_div_body1_input1_qr_code_img_div">
+                            <img
+                              src={
+                                "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
+                                walletAddr
+                              }
+                              alt=""
+                              className="qr_img"
+                            />
+                            <div className="copy_address_div">
+                              <div className="copy_address_div_title">
+                                Address
+                              </div>
+                              <div
+                                className="copy_address_div_txt"
+                                id="myInput"
+                              >
+                                {walletAddr}
+                                <FileCopyIcon
+                                  className="file_icon_copy"
+                                  // onClick={copyText}
+                                  // onMouseOut={outFunc}
+                                />
+                              </div>
+                            </div>
+                          </div>
+                          <div className="deposit_div_body1_input1_qr_code_title">
+                            <li className="deposit_qr_not">
+                              Send only
+                              <span className="noticeable_txt">
+                                {" "}
+                                {tokenSign}
+                              </span>{" "}
+                              to this deposit address.
+                            </li>
+                            <li className="deposit_qr_not">
+                              Ensure the network is
+                              <span className="noticeable_txt">
+                                {" "}
+                                BNB Smart Chain (BEP20).
+                              </span>
+                            </li>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="deposit_history">
+                      <div className="deposit_history_title">
+                        Recent Deposits
+                      </div>
+                      <div className="deposit_history_body">
+                        <div className="deposit_history_body_area1">
+                          <div className="deposit_history_body_area1_cont">
+                            <div className="deposit_history_body_area1_cont_area1">
+                              <div className="deposit_div_body1_input_asset">
+                                <span className="token_symbol">
+                                  {" "}
+                                  <StarRateIcon className="starRateIcon" />
+                                  {tokenSign}{" "}
+                                </span>
+                                {assetName}
+                              </div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                </div>
+                ) : null}
               </div>
             </div>
           </div>
