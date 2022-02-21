@@ -71,6 +71,23 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
+
+
+  useEffect(() => { 
+    axios
+      .get(api_url2 + `/v1/product/retrieve/locked/${match.params.product_id}`, null, config)
+      .then((data) => {
+        console.log(data.data.data, "Ebuka");
+
+        // setItemDisplay(data.data.data);
+
+        
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
   useEffect(async() => {
 
     console.log(auth.user.user.id);

@@ -11,17 +11,15 @@ import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
 import ViewListIcon from "@mui/icons-material/ViewList";
 import "./AdminStyles/adminUploadProducts.css";
+import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import {
-  PRODUCT_LOADED,
-  API_URL2 as api_url2,
-} from "../../../actions/types";
+import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
 
-const AdminSideBar = ({auth}) => {
+const AdminSideBar = ({ auth }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
   const [activeBg, setActiveBg] = useState("Home");
@@ -29,7 +27,6 @@ const AdminSideBar = ({auth}) => {
   const [smallSide, setSmallSide] = useState(dddd);
   const [cartNum, setCartNum] = useState(5);
   const linksActive = window.location.pathname;
-
 
   const [userInfo, setUserInfo] = useState({
     userbranch: "",
@@ -42,7 +39,7 @@ const AdminSideBar = ({auth}) => {
     userrole: "",
   });
 
-  const { 
+  const {
     userbranch,
     usercreatedAt,
     useremail,
@@ -51,53 +48,47 @@ const AdminSideBar = ({auth}) => {
     userid,
     usermobile,
     userrole,
-} =
-userInfo;
+  } = userInfo;
 
-useEffect(() => {
+  useEffect(() => {
+    // setCartNum(cart.length)
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
 
-  // setCartNum(cart.length)
-  // fetchDepositLinks();
-  console.log(auth);
-  if (auth.user !== null) {
-    // let dataa = 'stackabuse.com';
-    // console.log( new Buffer(dataa));
-    var todecoded = auth.user;
-    var todecodedn = todecoded.user.userImage;
-    
-    // console.log('====================================');
-    console.log(todecodedn);
-    // console.log('====================================');
-    
-    
-    const getName = todecoded.user.fullname
-    const splitName = getName.split(' ');
-    
-    setUserInfo({
-      userbranch: todecoded.user.branch,
-      usercreatedAt: todecoded.user.createdAt,
-      useremail: todecoded.user.email,
-      userfullname: todecoded.user.fullname,
-      usergender: todecoded.user.gender,
-      userid: todecoded.user.id,
-      usermobile: todecoded.user.mobile,
-      userrole: todecoded.user.role,
-    })
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
 
-  }
-}, [auth]);
-  const [notEqual,setNotEqual] = useState(true);
-  const [notEqual1,setNotEqual1] = useState(true);
-  const [notEqual2,setNotEqual2] = useState(false);
-  const [notEqual3,setNotEqual3] = useState(false);
-  const [notEqual4,setNotEqual4] = useState(false);
-  const [notEqual5,setNotEqual5] = useState(false);
+      const getName = todecoded.user.fullname;
+      const splitName = getName.split(" ");
 
-  const [roles,setRoles]=useState({role1:"",role2
-:"",role3:""});
+      setUserInfo({
+        userbranch: todecoded.user.branch,
+        usercreatedAt: todecoded.user.createdAt,
+        useremail: todecoded.user.email,
+        userfullname: todecoded.user.fullname,
+        usergender: todecoded.user.gender,
+        userid: todecoded.user.id,
+        usermobile: todecoded.user.mobile,
+        userrole: todecoded.user.role,
+      });
+    }
+  }, [auth]);
+  const [notEqual, setNotEqual] = useState(true);
+  const [notEqual1, setNotEqual1] = useState(true);
+  const [notEqual2, setNotEqual2] = useState(false);
+  const [notEqual3, setNotEqual3] = useState(false);
+  const [notEqual4, setNotEqual4] = useState(false);
+  const [notEqual5, setNotEqual5] = useState(false);
 
+  const [roles, setRoles] = useState({ role1: "", role2: "", role3: "" });
 
-const {role1,role2,role3}= roles;
+  const { role1, role2, role3 } = roles;
 
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
@@ -141,7 +132,6 @@ const {role1,role2,role3}= roles;
     }
   }, []);
 
-
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -152,33 +142,24 @@ const {role1,role2,role3}= roles;
     }
   };
 
-
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-
-
   useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/admin/info",
-        null,
-        config
-    ).then((data) => {
-       
+    axios
+      .get(api_url2 + "/v1/admin/info", null, config)
+      .then((data) => {
         console.log(data.data.user, "line_ful");
         setRoles({
-          role1:data.data.user.role,
-        })
-       
-    
+          role1: data.data.user.role,
+        });
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
-      }); 
+      });
   }, []);
 
   return (
@@ -281,106 +262,129 @@ const {role1,role2,role3}= roles;
                 {/* =================== */}
                 {/* =================== */}
 
-                 
-                {role1 === "MEDIA"?
-                <a
-                  href="/super_admin"
-                  id="Home"
-                  className="link"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      ((activeBg == "Home") && (role1 === "MEDIA"))
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
+                {role1 === "MEDIA" ? (
+                  <a
+                    href="/super_admin"
+                    id="Home"
+                    className="link"
+                    onClick={changeBg}
                   >
-                    <Inventory2Icon className="sidebarIcon" />
-                    Add Product
-                  </li>
-                </a>: null}
+                    <li
+                      className={
+                        activeBg == "Home" && role1 === "MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <Inventory2Icon className="sidebarIcon" />
+                      Add Product
+                    </li>
+                  </a>
+                ) : null}
 
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
-               
-                {role1 === "HOD_MEDIA" ?
-                <a
-                  href="/super_admin/all_products"
-                  className="link"
-                  id="allProd"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      ((activeBg == "allProd") && (role1 === "HOD_MEDIA"))
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
+
+                {role1 === "HOD_MEDIA" ? (
+                  <a
+                    href="/super_admin/all_products"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
                   >
-                    <ViewListIcon className="sidebarIcon" />
-                    All Prod
-                  </li>
-                </a>: null}
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <ViewListIcon className="sidebarIcon" />
+                      All Prod
+                    </li>
+                  </a>
+                ) : null}
 
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
-             
 
-                {((role1 === "CASHIER") || (role1 === "CUSTOMER_SERVICE" ))?
-                <a
-                  href="/super_admin/all_user"
-                  className="link"
-                  id="products"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == (("products") && ((role1 === "CASHIER" )|| ( role1 ==="CUSTOMER_SERVICE" )))
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
+                {role1 === "CASHIER" || role1 === "CUSTOMER_SERVICE" ? (
+                  <>
+                    <a
+                      href="/super_admin/all_user"
+                      className="link"
+                      id="products"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg ==
+                          ("products" &&
+                            (role1 === "CASHIER" ||
+                              role1 === "CUSTOMER_SERVICE"))
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupsIcon className="sidebarIcon" />
+                        Customer
+                      </li>
+                    </a>
+
+                    <a
+                      href="/super_admin/user_wallet"
+                      className="link"
+                      id="wallet"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "wallet"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        Wallet
+                      </li>
+                    </a>
+                  </>
+                ) : null}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                {role1 === "BUSINESS_ADMIN" ? (
+                  <a
+                    href="/super_admin/register_user"
+                    className="link"
+                    id="register"
+                    onClick={changeBg}
                   >
-                    <GroupsIcon className="sidebarIcon" />
-                    Customer
-                  </li>
-                </a> 
-                : null}
+                    <li
+                      className={
+                        activeBg == "register" && role1 === "BUSINESS_ADMIN"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      {/* { role1} */}
+                      Register
+                    </li>
+                  </a>
+                ) : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-
-                { role1 === "BUSINESS_ADMIN" ?
-                <a
-                  href="/super_admin/register_user"
-                  className="link"
-                  id="register"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      ((activeBg == "register") && (role1 === "BUSINESS_ADMIN"))
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
-                  >
-                    <GroupAddIcon className="sidebarIcon" />
-                    {/* { role1} */}
-                    Register
-                  </li>
-                </a> : null}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                
-{/* 
+                {/* 
                 {role1 === "BUSINESS_ADMIN"  ?
                 <a
                   href="/super_admin/user_overview"
@@ -405,22 +409,20 @@ const {role1,role2,role3}= roles;
                 {/* ===================== */}
                 {/* ===================== */}
 
-                {role1 === "CASHIER" ?
-
-                <a href="#" className="link" id="accounts" onClick={changeBg}>
-                  <li
-                    className={
-                      ((activeBg == "accounts") && (role1 === "CASHIER"))
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
-                  >
-                    <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
-                  </li>
-                </a>
-
-                : null}              
+                {role1 === "CASHIER" ? (
+                  <a href="/super_admin/overview" className="link" id="accounts" onClick={changeBg}>
+                    <li
+                      className={
+                        activeBg == "accounts" && role1 === "CASHIER"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <AccountCircleIcon className="sidebarIcon" />
+                      Accounts
+                    </li>
+                  </a>
+                ) : null}
 
                 {/* ===================== */}
                 {/* ===================== */}
@@ -435,122 +437,116 @@ const {role1,role2,role3}= roles;
                 {/* =================== */}
                 {/* =================== */}
 
-                {role1 === "MEDIA"?
-                <a
-                  href="/super_admin"
-                  id="Home"
-                  className="link"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "Home"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                {role1 === "MEDIA" ? (
+                  <a
+                    href="/super_admin"
+                    id="Home"
+                    className="link"
+                    onClick={changeBg}
                   >
-                    <Inventory2Icon className="sidebarIcon" />
-                    Products
-                  </li>
-                </a>
-                 : null}
+                    <li
+                      className={
+                        activeBg == "Home"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <Inventory2Icon className="sidebarIcon" />
+                      Products
+                    </li>
+                  </a>
+                ) : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                {role1 === "HOD_MEDIA" ?
-
-                <a
-                  href="/super_admin/all_products"
-                  className="link"
-                  id="allProd"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "allProd"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                {role1 === "HOD_MEDIA" ? (
+                  <a
+                    href="/super_admin/all_products"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
                   >
-                    <ViewListIcon className="sidebarIcon" />
-                    {/* <GroupIcon className="sidebarIcon" /> */}
-                    All Prod
-                  </li>
-                </a>
+                    <li
+                      className={
+                        activeBg == "allProd"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <ViewListIcon className="sidebarIcon" />
+                      {/* <GroupIcon className="sidebarIcon" /> */}
+                      All Prod
+                    </li>
+                  </a>
+                ) : null}
 
-                  : null}
-
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
 
-                
-                {((role1 === "CASHIER") || (role1 === "CUSTOMER_SERVICE" ))?
-                <a href="#" className="link" id="products" onClick={changeBg}>
-                  <li
-                    className={
-                      activeBg == "products"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                {role1 === "CASHIER" || role1 === "CUSTOMER_SERVICE" ? (
+                  <a href="#" className="link" id="products" onClick={changeBg}>
+                    <li
+                      className={
+                        activeBg == "products"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupsIcon className="sidebarIcon" />
+                      {/* <GroupIcon className="sidebarIcon" /> */}
+                      Customer
+                    </li>
+                  </a>
+                ) : null}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                {role1 === "BUSINESS_ADMIN" ? (
+                  <a
+                    href="/super_admin/register_user"
+                    className="link"
+                    id="register"
+                    onClick={changeBg}
                   >
-                    <GroupsIcon className="sidebarIcon" />
-                    {/* <GroupIcon className="sidebarIcon" /> */}
-                    Customer
-                  </li>
-                </a>
-                   : null}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-
-
-                { role1 === "BUSINESS_ADMIN" ?
-                <a
-                  href="/super_admin/register_user"
-                  className="link"
-                  id="register"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "register"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
-                  >
-                    <GroupAddIcon className="sidebarIcon" />
-                    {/* <GroupIcon className="sidebarIcon" /> */}
-
-                     {/* { role1} */}
-
-                    Register
-                  </li>
-                </a>
-                : null}
+                    <li
+                      className={
+                        activeBg == "register"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      {/* <GroupIcon className="sidebarIcon" /> */}
+                      {/* { role1} */}
+                      Register
+                    </li>
+                  </a>
+                ) : null}
 
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
-                {role1 === "CASHIER" ?
-                <a href="#" className="link" id="accounts" onClick={changeBg}>
-                  <li
-                    className={
-                      activeBg == "accounts"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
-                  >
-                    <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
-                  </li>
-                </a>
-                  : null}
+                {role1 === "CASHIER" ? (
+                  <a href="#" className="link" id="accounts" onClick={changeBg}>
+                    <li
+                      className={
+                        activeBg == "accounts"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <AccountCircleIcon className="sidebarIcon" />
+                      Accounts
+                    </li>
+                  </a>
+                ) : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
@@ -593,7 +589,7 @@ const {role1,role2,role3}= roles;
 const mapStateToProps = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
-  cart: state.shop.cart
+  cart: state.shop.cart,
 });
 
 // export default DashboardSidebar;

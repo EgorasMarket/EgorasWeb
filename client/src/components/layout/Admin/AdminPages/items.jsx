@@ -4,12 +4,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
+import "../../Home2/Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import Checkout from "./CheckoutModalComponent";
+import Dashboard_Checkout_Page from "../../Home2/Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import Checkout from "./check";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
@@ -18,8 +18,8 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-import ItemDetailComponent from "./ItemDetailCompnent";
-import LoginComp from "../Login/LoginComp";
+import ItemDetailComponent from "./items2";
+import LoginComp from "../../Home2/Login/LoginComp";
 
 function ItemDetailsPage({ auth, match }) {
   const config = {

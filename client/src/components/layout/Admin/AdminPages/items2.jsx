@@ -3,18 +3,18 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import { ProductImageCarousel } from "./ProductImageCarousel";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
+import { ProductImageCarousel } from "./productCarousel";
+import "../../Home2/Dashboard/DashboardStyles/dashboardCart.css";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import CallIcon from "@mui/icons-material/Call";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { ProductDescription } from "./ProductDescription";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import { ProductDescription } from "./productDest";
+import Dashboard_Checkout_Page from "../../Home2/Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 // import CheckoutModalComponent from "./CheckoutModalComponent";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import Accordion from "./Accordion";
+import Accordion from "./accord";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
