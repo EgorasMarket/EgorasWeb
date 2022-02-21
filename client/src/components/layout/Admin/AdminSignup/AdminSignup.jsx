@@ -201,9 +201,12 @@ const AdminSignup = ({ getAuthentication }) => {
                             <MenuItem value={1}>MANAGER</MenuItem>
                             <MenuItem value={2}>BUSINESS_ADMIN</MenuItem>
                             <MenuItem value={3}>MEDIA</MenuItem>
-                            <MenuItem value={6}>HOD_MEDIA</MenuItem>
                             <MenuItem value={4}>CASHIER</MenuItem>
                             <MenuItem value={5}>CUSTOMER_SERVICE</MenuItem>
+                            <MenuItem value={6}>LOGISTICS</MenuItem>
+                            <MenuItem value={7}>HOD_MEDIA</MenuItem>
+                            <MenuItem value={8}>TECH</MenuItem>
+                            <MenuItem value={9}>WAREHOUSE</MenuItem>
                           </Select>
                         </FormControl>
                       </div>
@@ -314,7 +317,7 @@ const AdminSignup = ({ getAuthentication }) => {
                   </div>
 
                   <div className="sign_up_btns">
-                    <a href="/login" className="login2">
+                    <a href="/login/super_admin" className="login2">
                       {" "}
                       <button
                         className="sign_up_btn"
