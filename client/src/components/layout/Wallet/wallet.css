@@ -9,7 +9,15 @@
 .walletSubClass2 {
   padding: 15px;
 }
-
+.copiedToClipBoardDiv {
+  position: absolute;
+  background: grey;
+  color: #fff;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  bottom: 100%;
+  left: 5%;
+}
 .walletSubClass4 {
   border: none;
   margin-top: 10px;
@@ -20,7 +28,17 @@
   font-size: 17px;
   font-weight: 300;
 }
-
+.depositButton_active {
+  background: #229e54;
+  color: #fff;
+  border: 1px solid #229e54;
+  padding: 8px 10px;
+  border-radius: 5px;
+  margin-right: 10px;
+  font-size: 15px;
+}
+.starRateIcon_2 {
+}
 .walletClass2 {
   background-color: #000000;
   color: white;
@@ -29,7 +47,10 @@
   font-weight: 800;
 }
 .walletClass3 {
-  padding: 40px 15px 5px 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 100%;
 }
 .create_wallet_div {
   display: flex;
@@ -63,6 +84,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  width: 100%;
 }
 .spanEstimated {
   font-weight: 500;
@@ -104,7 +126,7 @@
 .formConcept {
   border: 1px solid #e7e7e8;
   border-radius: 4px;
-  width: 70%;
+  width: 50%;
 }
 .deposit_div {
   border-radius: 5px;
@@ -126,6 +148,16 @@
   font-size: 14px;
   font-weight: 700;
 }
+.DivCap {
+  display: flex;
+  width: 100%;
+  grid-gap: 20px;
+  gap: 20px;
+  background: #fff;
+  padding: 2em;
+  border-radius: 5px;
+  box-shadow: 0px 0px 15px #c6e3d2;
+}
 .deposit_history {
   /* padding: 1em; */
   margin-top: 2em;
@@ -141,6 +173,8 @@
 }
 .deposit_history_body_area1 {
   padding: 24px 16px;
+  border-bottom: 1px solid #e7e7e8;
+  cursor: pointer;
 }
 .deposit_div_body1_input1 {
   padding: 1em 1em;
@@ -162,6 +196,14 @@
   border-radius: 5px;
   font-weight: 400;
 }
+.view_all_btn {
+  padding: 1em;
+  font-size: 14px;
+}
+.view_all_link {
+  color: black;
+  text-decoration: underline !important;
+}
 .deposit_div_body1_input1_qr_code_title {
   font-size: 12px;
   font-weight: 500;
@@ -174,20 +216,88 @@
 .qr_img {
   width: 35%;
   padding: 0.3em;
-  border: solid 1px #000000;
+  border: solid 2px #e9e9e9;
   border-radius: 5px;
 }
-
-
+.starRateIcon_2 {
+  font-size: 16px !important;
+  padding: 3px !important;
+  margin-right: 5px !important;
+}
 .file_icon_copy {
   position: relative;
 }
-
+.deposit_history_div1 {
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  font-weight: 600;
+}
+.completed_div {
+  background: #defdea;
+  color: #41ba71;
+  padding: 5px 10px;
+  font-size: 11px;
+  margin-left: 10px;
+  border-radius: 5px;
+}
 .tooltip {
   position: relative;
   display: inline-block;
 }
-
+.deposit_history_div2 {
+  font-size: 12px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  grid-gap: 10px;
+  gap: 10px;
+  justify-content: space-between;
+  margin-top: 15px;
+}
+.deposit_history_div2_address {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  position: relative;
+}
+.deposit_history_div2_address:hover .hover_txn_address_cont {
+  display: block;
+}
+.hover_txn_address_cont {
+  position: absolute;
+  bottom: 120%;
+  background: #7daf91;
+  color: #ffff;
+  padding: 1em;
+  border-radius: 5px;
+  width: 100%;
+  left: 0;
+  overflow-wrap: break-word;
+  text-align: center;
+  box-shadow: 0px 4px 10px #96cbab;
+  display: none;
+}
+.deposit_history_div2_date {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.deposit_history_div2_network {
+  display: flex;
+  gap: 5px;
+}
+.deposit_history_address_copy_icon {
+  font-size: 14px !important;
+  /* margin-left: 2px; */
+}
+.deposit_history_address_copy_icon:hover {
+  color: #229e54;
+  /* margin-left: 2px; */
+}
+.deposit_history_div2_network_title {
+  color: #90aa9a;
+}
 .file_icon_copy .tooltiptext {
   display: none;
   width: 140px;
@@ -367,11 +477,7 @@ li.deposit_qr_not {
   border-radius: 5px;
   background-color: #e4a788;
 }
-.DivCap {
-  display: flex;
-  justify-content: space-between;
-  gap: 10px;
-}
+
 /* .buyAndSellDiv{
    display: none;
 }  */
@@ -935,9 +1041,7 @@ li.deposit_qr_not {
   .buyAndSellDiv {
     display: none;
   }
-  .DivCap {
-    display: block;
-  }
+
   .mena {
     display: none;
   }

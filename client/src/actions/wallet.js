@@ -12,6 +12,9 @@ import {
 } from "./types";
 // import setAuthToken from "../utils/setAuthToken";
 import setAuthToken from "../utils/setAuthToken";
+
+
+
 export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
 //   console.log(payload1, pin);
   const config = {
