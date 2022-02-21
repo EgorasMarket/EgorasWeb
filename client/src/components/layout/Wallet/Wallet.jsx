@@ -8,7 +8,7 @@ import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { Link } from "react-router-dom";
-
+import data from "../MockData";
 import { API_URL2 as api_url2 } from "../../../actions/types";
 import axios from "axios";
 
@@ -28,6 +28,8 @@ const Wallet = ({ auth, createWallet }) => {
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
   const [allTokens, setAllTokens] = useState([]);
+  const [copiedTxt, setCopiedTxt] = useState(false);
+  const [copiedTxt1, setCopiedTxt1] = useState(false);
   // const [currentToken, setCurrentToken] = useState();
   // const [tokenName, setTokenName] = useState();
   const [tokenSymbol, setTokenSymbol] = useState();
@@ -39,10 +41,10 @@ const Wallet = ({ auth, createWallet }) => {
   const [tokenSign, setTokenSign] = useState();
   const [activeBg, setActiveBg] = useState("Home");
   const [txId, setTxId] = useState(
-    "   0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
+    "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
   );
   const [txId2, setTxId2] = useState(
-    " 0x360ba97e2a8f0deb200e34846092a3b8110283b1"
+    "0x360ba97e2a8f0deb200e34846092a3b8110283b1"
   );
 
   const handleChange = (event) => {
@@ -135,6 +137,26 @@ const Wallet = ({ auth, createWallet }) => {
     settVisible(false);
     setSecureNumb(false);
   };
+  // const timer = () => {
+  //   if (timeOut == false) {
+  //     setTimeout(() => {
+  //       setTimeOuut(false);
+  //     }, 1000);
+  //   } else {
+  //     setTimeOuut(true);
+  //   }
+  // };
+
+  const copyTextText = (e) => {
+    navigator.clipboard.writeText(e);
+    // let currentId = e.currentTarget.id;
+    // setActiveBg(currentId);
+    setCopiedTxt(true);
+  };
+  const copyTextText2 = (e) => {
+    navigator.clipboard.writeText(e);
+    setCopiedTxt1(true);
+  };
   // const open = Boolean(anchorEl);
   // const handleClick = (event) => {
   //   setAnchorEl(event.currentTarget);
@@ -142,6 +164,11 @@ const Wallet = ({ auth, createWallet }) => {
   // const handleClose = () => {
   //   setAnchorEl(null);
   // };
+  const timer = setTimeout(() => {
+    setCopiedTxt(false);
+    setCopiedTxt1(false);
+  }, 1000);
+
   const openDepositDiv = async (tokenName, tokenSymbol) => {
     setActiveBg("deposit_btn");
     // setCurrentToken(tokenSymbol);
@@ -159,22 +186,6 @@ const Wallet = ({ auth, createWallet }) => {
     setShowDeposit(false);
   };
 
-  const copyText = () => {
-    var copyText = document.getElementById("myInput");
-    copyText.select();
-    copyText.setSelectionRange(0, 99999);
-    navigator.clipboard.writeText(copyText.value);
-
-    var tooltip = document.getElementById("myTooltip");
-    tooltip.innerHTML = "Copied Address ";
-    tooltip.style.display = "block";
-  };
-
-  function outFunc() {
-    var tooltip = document.getElementById("myTooltip");
-    tooltip.innerHTML = "Copy to clipboard";
-    tooltip.style.display = "none";
-  }
   return (
     <div className="other2">
       <section className="no-bg">
@@ -450,203 +461,100 @@ const Wallet = ({ auth, createWallet }) => {
                   <div className="deposit_history">
                     <div className="deposit_history_title">Recent Deposits</div>
                     <div className="deposit_history_body">
-                
-                      <div className="deposit_history_body_area1">
-                        <div className="deposit_history_body_area1_cont">
-                          <div className="deposit_history_body_area1_cont_area1">
-                            <div className="deposit_history_div1">
-                              <span className="token_symbol">
-                                {" "}
-                                <StarRateIcon className="starRateIcon starRateIcon_2" />
-                              </span>
-                              <div className="token_deposit_amnt">
-                                131.3504 {tokenSign}
-                                <span className="completed_div">Completed</span>
+                      {data.depositTransactions.map((data) => (
+                        <div className="deposit_history_body_area1">
+                          <div className="deposit_history_body_area1_cont">
+                            <div className="deposit_history_body_area1_cont_area1">
+                              <div className="deposit_history_div1">
+                                <span className="token_symbol">
+                                  {" "}
+                                  <StarRateIcon className="starRateIcon starRateIcon_2" />
+                                </span>
+                                <div className="token_deposit_amnt">
+                                  131.3504 {tokenSign}
+                                  <span className="completed_div">
+                                    Completed
+                                  </span>
+                                </div>
                               </div>
-                            </div>
-                            <div className="deposit_history_div2">
-                              <div className="deposit_history_div2_date">
-                                2022-02-20{" "}
-                                <span className="deposit_history_div2_time">
-                                  12:28
-                                </span>
-                              </div>
-                              <div className="deposit_history_div2_network">
-                                <span className="deposit_history_div2_network_title">
-                                  Network
-                                </span>
-                                BSC
-                              </div>
-                              <div className="deposit_history_div2_address">
-                                <span className="deposit_history_div2_network_title">
-                                  Address
-                                </span>
-                                {txId2.substring(0, 10) +
-                                  "..." +
-                                  txId2.substr(txId2.length - 10)}
-                                {/* {txId2} */}
-                                <FileCopyIcon
-                                  className="deposit_history_address_copy_icon"
-                                  // onClick={copyText}
-                                  // onMouseOut={outFunc}
-                                />
-                                <span className="hover_txn_address_cont">
-                                  {txId2}
-                                </span>
-                              </div>
-                              <div className="deposit_history_div2_address">
-                                <span className="deposit_history_div2_network_title">
-                                  TXID
-                                </span>
+                              <div className="deposit_history_div2">
+                                <div className="deposit_history_div2_date">
+                                  2022-02-20{" "}
+                                  <span className="deposit_history_div2_time">
+                                    12:28
+                                  </span>
+                                </div>
+                                <div className="deposit_history_div2_network">
+                                  <span className="deposit_history_div2_network_title">
+                                    Network
+                                  </span>
+                                  {data.network}
+                                </div>
+                                <div className="deposit_history_div2_address">
+                                  <span className="deposit_history_div2_network_title">
+                                    Address
+                                  </span>
+                                  {data.fromAddress.substring(0, 10) +
+                                    "..." +
+                                    data.fromAddress.substr(
+                                      data.fromAddress.length - 10
+                                    )}
+                                  {/* {txId2} */}
+                                  <FileCopyIcon
+                                    className="deposit_history_address_copy_icon"
+                                    onClick={() =>
+                                      copyTextText2(data.fromAddress)
+                                    }
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
+                                  />
+                                  <span className="hover_txn_address_cont">
+                                    {data.fromAddress}
+                                  </span>
+                                  {copiedTxt1 == true ? (
+                                    <div
+                                      className="copiedToClipBoardDiv"
+                                      onChange={timer}
+                                    >
+                                      Text copied to clipboard
+                                    </div>
+                                  ) : null}
+                                </div>
+                                <div className="deposit_history_div2_address">
+                                  <span className="deposit_history_div2_network_title">
+                                    TXID
+                                  </span>
 
-                                {txId.substring(0, 10) +
-                                  "..." +
-                                  txId.substr(txId.length - 7)}
-                                {/* {txId} */}
-                                <FileCopyIcon
-                                  className="deposit_history_address_copy_icon"
-                                  // onClick={copyText}
-                                  // onMouseOut={outFunc}
-                                />
-                                            <span className="hover_txn_address_cont">
-                                  {txId}
-                                </span>
+                                  {data.txnId.substring(0, 10) +
+                                    "..." +
+                                    data.txnId.substr(data.txnId.length - 7)}
+                                  {/* {txId} */}
+                                  <FileCopyIcon
+                                    onClick={() => copyTextText(data.txnId)}
+                                    className="deposit_history_address_copy_icon"
+
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
+                                  />
+                                  <span className="hover_txn_address_cont">
+                                    {data.txnId}
+                                  </span>
+                                  {copiedTxt == true ? (
+                                    <div
+                                      className="copiedToClipBoardDiv"
+                                      onChange={timer}
+                                    >
+                                      Text copied to clipboard
+                                    </div>
+                                  ) : null}
+                                </div>
                               </div>
                             </div>
                           </div>
                         </div>
-                      </div>
-                      <div className="deposit_history_body_area1">
-                        <div className="deposit_history_body_area1_cont">
-                          <div className="deposit_history_body_area1_cont_area1">
-                            <div className="deposit_history_div1">
-                              <span className="token_symbol">
-                                {" "}
-                                <StarRateIcon className="starRateIcon starRateIcon_2" />
-                              </span>
-                              <div className="token_deposit_amnt">
-                                131.3504 {tokenSign}
-                                <span className="completed_div">Completed</span>
-                              </div>
-                            </div>
-                            <div className="deposit_history_div2">
-                              <div className="deposit_history_div2_date">
-                                2022-02-20{" "}
-                                <span className="deposit_history_div2_time">
-                                  12:28
-                                </span>
-                              </div>
-                              <div className="deposit_history_div2_network">
-                                <span className="deposit_history_div2_network_title">
-                                  Network
-                                </span>
-                                BSC
-                              </div>
-                              <div className="deposit_history_div2_address">
-                                <span className="deposit_history_div2_network_title">
-                                  Address
-                                </span>
-                                {txId2.substring(0, 10) +
-                                  "..." +
-                                  txId2.substr(txId2.length - 10)}
-                                {/* {txId2} */}
-                                <FileCopyIcon
-                                  className="deposit_history_address_copy_icon"
-                                  // onClick={copyText}
-                                  // onMouseOut={outFunc}
-                                />
-                                <span className="hover_txn_address_cont">
-                                  {txId2}
-                                </span>
-                              </div>
-                              <div className="deposit_history_div2_address">
-                                <span className="deposit_history_div2_network_title">
-                                  TXID
-                                </span>
+                      ))}
 
-                                {txId.substring(0, 10) +
-                                  "..." +
-                                  txId.substr(txId.length - 7)}
-                                {/* {txId} */}
-                                <FileCopyIcon
-                                  className="deposit_history_address_copy_icon"
-                                  // onClick={copyText}
-                                  // onMouseOut={outFunc}
-                                />
-                                            <span className="hover_txn_address_cont">
-                                  {txId}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="deposit_history_body_area1">
-                        <div className="deposit_history_body_area1_cont">
-                          <div className="deposit_history_body_area1_cont_area1">
-                            <div className="deposit_history_div1">
-                              <span className="token_symbol">
-                                {" "}
-                                <StarRateIcon className="starRateIcon starRateIcon_2" />
-                              </span>
-                              <div className="token_deposit_amnt">
-                                131.3504 {tokenSign}
-                                <span className="completed_div">Completed</span>
-                              </div>
-                            </div>
-                            <div className="deposit_history_div2">
-                              <div className="deposit_history_div2_date">
-                                2022-02-20{" "}
-                                <span className="deposit_history_div2_time">
-                                  12:28
-                                </span>
-                              </div>
-                              <div className="deposit_history_div2_network">
-                                <span className="deposit_history_div2_network_title">
-                                  Network
-                                </span>
-                                BSC
-                              </div>
-                              <div className="deposit_history_div2_address">
-                                <span className="deposit_history_div2_network_title">
-                                  Address
-                                </span>
-                                {txId2.substring(0, 10) +
-                                  "..." +
-                                  txId2.substr(txId2.length - 10)}
-                                {/* {txId2} */}
-                                <FileCopyIcon
-                                  className="deposit_history_address_copy_icon"
-                                  // onClick={copyText}
-                                  // onMouseOut={outFunc}
-                                />
-                                <span className="hover_txn_address_cont">
-                                  {txId2}
-                                </span>
-                              </div>
-                              <div className="deposit_history_div2_address">
-                                <span className="deposit_history_div2_network_title">
-                                  TXID
-                                </span>
-
-                                {txId.substring(0, 10) +
-                                  "..." +
-                                  txId.substr(txId.length - 7)}
-                                {/* {txId} */}
-                                <FileCopyIcon
-                                  className="deposit_history_address_copy_icon"
-                                  // onClick={copyText}
-                                  // onMouseOut={outFunc}
-                                />
-                                            <span className="hover_txn_address_cont">
-                                  {txId}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="view_all_btn">
+                      <div className="view_all_btn" key={data.id}>
                         <a href="#" className="view_all_link">
                           {" "}
                           View all
