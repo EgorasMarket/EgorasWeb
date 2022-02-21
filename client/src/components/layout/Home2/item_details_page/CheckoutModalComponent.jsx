@@ -5,7 +5,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+// import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import FlutterButton from "../../../../flutterwave/FlutterButton";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
@@ -138,7 +138,7 @@ const CheckoutModalComponent = ({
     headers: { Accept: "application/json", "Content-Type": "application/json" },
   };
 
-  const handleFlutterPayment = useFlutterwave(flutterConfig);
+  // const handleFlutterPayment = useFlutterwave(flutterConfig);
 
   useEffect(() => {
     checkout(customer_id, product_id, installation_days, startDate, endDate);
@@ -292,7 +292,7 @@ const CheckoutModalComponent = ({
               </div>
             </div>
       
-              <FlutterButton
+              {/* <FlutterButton
                 amount={1}
                 payment_title={"Payment From Egoras savings "}
                 //  payment_options={"ussd"}
@@ -305,7 +305,7 @@ const CheckoutModalComponent = ({
                   <input type="checkbox" name="" id="" classNam="checkBox" />
                 }
               />
-      
+       */}
 
             {/* <div className="cart_area2_select border_down">
               <div className="wit_card">
