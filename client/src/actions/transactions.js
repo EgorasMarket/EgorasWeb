@@ -22,7 +22,8 @@ export const proceedToCheckout =
     fullname,
     email,
     phone_number,
-    amount
+    amount,
+    // product_id
   ) =>
   async (dispatch) => {
     console.log(
@@ -33,8 +34,10 @@ export const proceedToCheckout =
       fullname,
       email,
       phone_number,
-      amount
+      // amount,
+      // product_id
     );
+    const amount = 100
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -50,6 +53,7 @@ export const proceedToCheckout =
       email,
       phone_number,
       amount,
+      // product_id
     });
 
     console.log(body);
@@ -138,8 +142,8 @@ export const sendPin = (payload1, pin) => async (dispatch) => {
   }
 };
 
-export const sendOtp = (payload1, otp, customer_id) => async (dispatch) => {
-  console.log(payload1, otp, customer_id);
+export const sendOtp = (payload1, otp, customer_id, product_id) => async (dispatch) => {
+  console.log(payload1, otp, customer_id, product_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -147,7 +151,7 @@ export const sendOtp = (payload1, otp, customer_id) => async (dispatch) => {
   };
 
   const payload = JSON.stringify(payload1);
-  const body = { payload, otp, customer_id};
+  const body = { payload, otp, customer_id, product_id};
 
   console.log(body);
   try {

@@ -17,16 +17,14 @@ const FlutterButton = ({ amount, customer, payment_title, payment_options, payme
     customer: customer,
     customizations: {
       title: payment_title,
-      description: 'Payment for items in cart',
-      logo: 'https://egoras.com/img/egoras-logo.svg',
+      description: "Payment for items in cart",
+      logo: "https://egoras.com/img/egoras-logo.svg",
     },
   };
 
   const handleFlutterPayment = useFlutterwave(flutterConfig)
 
   return (
-
-
     <div className="cart_area2_select">
       <div className="wit_card" onClick={() => {
         handleFlutterPayment({
@@ -39,7 +37,7 @@ const FlutterButton = ({ amount, customer, payment_title, payment_options, payme
               if (success !== "succcessful ") {
                 return;
               }
-              
+
 
               console.log(verification.data.data.data.amount, 'from me  ')
               closePaymentModal()
