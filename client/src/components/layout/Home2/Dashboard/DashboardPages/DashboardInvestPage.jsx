@@ -21,7 +21,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
-import { index } from "d3-array";
+// import { index } from "d3-array";
 
 const responsive7 = {
   superLargeDesktop: {
@@ -553,7 +553,7 @@ function DashboardInvestPage({ auth }) {
 
                 <a
                   href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                  key={index.toString()}
+                  // key={index.toString()}
                 >
                   <li className="carous_list no_marg">
                     <div
@@ -733,7 +733,7 @@ function DashboardInvestPage({ auth }) {
                     return (
                       <a
                         href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                        key={index.toString()}
+                        // key={index.toString()}
                       >
                         <li className="carous_list no_marg">
                           <div
