@@ -1,31 +1,14 @@
 import React, { useState, useEffect, useMemo } from "react";
 // import data from "../../../../Data/AllUsersData.json";
-import Paper from "@mui/material/Paper";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TablePagination from "@mui/material/TablePagination";
-import TableRow from "@mui/material/TableRow";
+
 import axios from "axios";
 import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import "../AdminStyles/admin_all_products.css";
-const data = [
-  {
-    id: 1,
-    first_name: "Isac",
-    last_name: "Tooher",
-    email: "itooher1@psu.edu",
-    phone: "655-567-3619",
-  },
-];
 
 const way = window.location.pathname;
 
-let PageSize = 10;
 const AdminAllProducts = () => {
   const [itemdisplay,setItemDisplay] = useState([]);
   const [rolesInfo,setRolesInfo]= useState({
@@ -86,47 +69,6 @@ const AdminAllProducts = () => {
   }, []);
 
 
-  const submitCallCheck = async (product_id) => {
-
-    console.log(product_id, 'I feel it');
-
-    const body = JSON.stringify({
-      product_id
-    });
-    
-    axios.post(
-      api_url2 + "/v1/product/approve/product",
-      body,
-      config
-      ).then((data) => {
-        document.getElementById(product_id).remove();
-        
-          console.log(data.data);
-    
-        })
-        .catch((err) => {
-          console.log(err.response); // "oh, no!"
-        });
-
-
-    // var elem = document.getElementById('btn_' + loanId);
-
-    // elem.innerHTML = "Sending...";
-
-    // let res = await sendCustomerResponse({ feedback, loanId })
-    // console.log(res);
-
-    // if (res === undefined) {
-      
-    // } else {
-    //     if (res.success == true) {
-           
-    //         document.getElementById('yes_'+productID).remove();
-
-    //     }
-    // }
-
-}
 
   return (
     <>

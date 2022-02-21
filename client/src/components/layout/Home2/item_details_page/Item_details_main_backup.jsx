@@ -4,12 +4,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-// import "../Dashboard/DashboardStyles/dashboardCart.css";
+import "../Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
-// import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-
+import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import CheckoutModalComponent from "./CheckoutModalComponent";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
@@ -18,29 +18,18 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-import { fontSize } from "@mui/system";
-const Accordion = ({ title, children }) => {
-  const [isOpen, setOpen] = React.useState(false);
-  return (
-    <div className="accordion-wrapper">
-      <div
-        className={`accordion-title ${isOpen ? "open" : ""}`}
-        onClick={() => setOpen(!isOpen)}
-      >
-        {title}
-      </div>
-      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
-        <div className="accordion-content">{children}</div>
-      </div>
-    </div>
-  );
-};
-function ItemDetailsPage({ auth, match }) {
+import LoginComp from "../Login/LoginComp";
+const Item_details_main = ({ match, auth }) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
+  console.log(match.params.id);
+  console.log(auth);
+
+  const [loginSuccess,setLoginSuccess]= useState(false);
 
   // const handleSelect = (ranges) => {
   //   console.log(ranges);
@@ -55,6 +44,7 @@ function ItemDetailsPage({ auth, match }) {
     // }
   };
 
+  const [loginModal, setLoginModal] = useState(false);
   const [spec, setSpec] = useState([]);
   const [displayDays, setDisplayDays] = useState([]);
   const [modal, setModal] = useState(false);
@@ -79,10 +69,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
-  const [ dailyAmount , setDailyAmount ] = useState()
-  const [ initialDeposit , setInitialDeposit ] = useState()
-
-  const [itemDisplay,setItemDisplay]=useState([])
+  const [dailyAmount, setDailyAmount] = useState();
+  const [initialDeposit, setInitialDeposit] = useState();
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -96,11 +84,14 @@ function ItemDetailsPage({ auth, match }) {
     product_details: "",
     productSpecification: "",
     percentage: "",
-    productId:""
+    payment_type: "",
+    amount_per_day: "",
   });
 
   var addedDays = 0;
-
+  const numberWithCommas = (x) => {
+    // return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  };
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -120,7 +111,6 @@ function ItemDetailsPage({ auth, match }) {
   const {
     product_image,
     product_name,
-    productId,
 
     product_brand,
     product_type,
@@ -131,15 +121,17 @@ function ItemDetailsPage({ auth, match }) {
     productSpecification,
     product_details,
     percentage,
+    amount_per_day,
+    payment_type,
   } = productDetails;
 
   useEffect(() => {
     const body = JSON.stringify({
       product_id,
     });
-    if (auth) {
-      set_user_id(auth.user.user.id);
-    }
+    // if (auth) {
+    //   set_user_id(auth.user.user.id);
+    // }
 
     console.log(body);
 
@@ -167,7 +159,8 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          productId: data.data.data.product_id
+          payment_type: data.data.data.payment_type,
+          amount_per_day: data.data.data.amount_per_day,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -183,81 +176,31 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
+  useEffect(() => {
 
-      // const deletebro =()=>{
-      //   const body = JSON.stringify({
-      //     product_id,
-      //   });
-      //   axios
-      //   .post(api_url2 + "/v1/product/retrieve/specific", body, config)
-      //   .then((data) => {
-      //     console.log(data.data.data, "king");
+    // setCartNum(cart.length)
+    // fetchDepositLinks();
+    console.log(auth);
+    if (auth.user !== null) {
+      // let dataa = 'stackabuse.com';
+      // console.log( new Buffer(dataa));
+      var todecoded = auth.user;
+      var todecodedn = todecoded.user.userImage;
+      
+      // console.log('====================================');
+      console.log(todecodedn);
+      // console.log('====================================');
+      
+      
+      const getName = todecoded.user.fullname
+      const splitName = getName.split(' ');
+      
+      
   
-      //     const getSlid = data.data.data.product_specifications;
-      //     //  const slipVar = getSlid.split(',');
-      //     console.log("====================================");
-      //     console.log(getSlid);
-      //     console.log("====================================");
-         
-  
-      //     setProductDetails({
-      //       product_image: data.data.data.product_image,
-      //       product_name: data.data.data.product_name,
-      //       product_brand: data.data.data.product_brand,
-      //       product_type: data.data.data.product_type,
-      //       unitCount: data.data.data.unitCount,
-      //       amount: data.data.data.amount,
-      //       product_duration: data.data.data.product_duration,
-      //       product_category_code: data.data.data.product_category_code,
-      //       product_details: data.data.data.product_detail,
-      //       percentage: data.data.data.percentage,
-      //       productId: data.data.data.product_id
-      //       // productSpecification:slipVar[0]
-      //     });
-      //     // setLowNumS({prod_dur:"8"});
-  
-      //     console.log("====================================");
-      //     // const NumbsAr =
-      //     // setLowNumS(NumbLow);
-      //     // console.log(NumbLow);
-      //     console.log(lowOutCome);
-      //   })
-      //   .catch((err) => {
-      //     console.log(err.response); // "oh, no!"
-      //   });
-    
-  
-        
-      // }
-
-  const submitCallCheck = async (product_id) => {
-
-    console.log(product_id, 'I feel it');
-
-    const body = JSON.stringify({
-      product_id
-    });
-    
-    axios.post(
-      api_url2 + "/v1/product/approve/product",
-      body,
-      config
-      ).then((data) => {
-        // document.getElementById(product_id).remove();
-        
-          console.log(data.data);
-
-          if (data.data.success === true) {
-
-            return window.location.replace("/super_admin/all_products");
-          }
-
-    
-        })
-        .catch((err) => {
-          console.log(err.response); // "oh, no!"
-        });}
-
+      set_user_id(todecoded.user.id)
+      
+    }
+  }, [auth]);
 
   const LowCalc = Array(product_duration)
     .fill(0)
@@ -310,14 +253,12 @@ function ItemDetailsPage({ auth, match }) {
 
         console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit)
+        setInitialDeposit(response.data.details.initial_deposit);
       })
       .catch((err) => {
-        alert(err.response.data.message);
+        // alert(err.response.data.message);
         console.log("error reported", err.response);
       });
-
-    console.log(call, "chukwubuike kingsley");
   };
   // const food = spec[0].split('');
   // console.log(food[0])
@@ -326,12 +267,7 @@ function ItemDetailsPage({ auth, match }) {
   const [daysAdded, setDaysAdded] = useState(0);
   const [moneyAdded, setMoneyAdded] = useState(0);
   const [date, setDate] = useState(null);
-  const [itemDisplay2, setItemDisplay2] = useState([]);
-
-  const [workss,setWorkss]=useState([]);
   // const iteming = unitCount;
-
-
 
   console.log("====================================");
   console.log(spec);
@@ -414,30 +350,9 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-
- 
-
-  const delete2 =(id)=>{
-    
-    
-
-        axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
-          (response)=>{
-            console.log(response.data);
-
-            // deletebro()
-          }
-        )
-  }
-
-
-  
-
-
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
-
 
     setAsset(assetVal);
     setBase(baseVal);
@@ -464,44 +379,19 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
-
-
-
-  useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/new/products",
-        null,
-        config
-    ).then((data) => {
-       
-        console.log(data.data.data, "chukwubuike");
-     
-       
-        setItemDisplay(data.data.data);
-
-      })
-      .catch((err) => {
-        console.log(err); // "oh, no!"
-      });
-
-    
-  }, []);
-
-
   const ID = match.params.id;
 
   const CalcDaysConvert = (x) => {
     x = parseInt(x);
     let result = 0;
     if (x === 5) {
-      result = 12 * 30;
+      result = 12 * 31;
     } else if (x === 4) {
-      result = 6 * 30;
+      result = 6 * 31;
     } else if (x === 3) {
-      result = 4 * 30;
+      result = 4 * 31;
     } else if (x === 2) {
-      result = 2 * 30;
+      result = 2 * 31;
     }
     return result;
   };
@@ -531,14 +421,82 @@ function ItemDetailsPage({ auth, match }) {
   const CloseModal = () => {
     setModal(false);
   };
+
+  const OpenLoginModal = () => {
+    
+    if (auth.user !== null) {
+      openDetailsModal();
+      checkout(
+        user_id,
+        product_id,
+        daysAdded,
+        startDate,
+        endDate
+        );
+      } else {
+      setLoginModal(true);
+      
+    }
+  };
+
+  const CloseLoginModal = () => {
+    setLoginModal(false);
+  };
+
+  const callback = useCallback((loginSuccess) => {
+    setLoginSuccess(loginSuccess);
+
+    if (loginSuccess === true) {
+      CloseLoginModal()
+      window.location.reload()
+      // openDetailsModal();
+      // checkout(
+      //   user_id,
+      //   product_id,
+      //   daysAdded,
+      //   startDate,
+      //   endDate
+      // );
+    } else {
+      
+    }
+
+  }, []);
+  console.log(loginSuccess);
   return (
     <div className="other2">
-      {modal == false ? null : (
+
+      {loginModal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          {/* <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} /> */}
+          {/* <div>Login</div> */}
+          {/* <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          /> */}
+          <LoginComp parentCallback={callback} />
         </div>
       )}
+
+      {modal  ?  (
+         <div className="checkout_main">
+         <div className="checkout_modal_out" onClick={CloseModal}></div>
+         <Dashboard_Checkout_Page
+           cAmount={parseInt(productDetails.amount)}
+           click={CloseModal}
+         />
+       </div>
+      ): null}
+
+      {/* {modal == false ? null : (
+        <div className="checkout_main">
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          />
+        </div>
+      )} */}
       {/* {dataFlow.map((item)=>{return( */}
       <section className="no-bg">
         <div className="container">
@@ -565,114 +523,100 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 <div
                   className="product_details_code"
-                  style={{ color: "#239e54" }}
+                  style={{ color: "#000000" }}
                 >
                   <span className="product_code_title">Brand: </span>
                   {product_brand}
                   {/* {props.Brand} */}
                 </div>
                 {/* ----------------- */}
+                {payment_type == "OUTRIGHT" ? null : (
+                  <div className="amount_item_div">
+                    ₦{numberWithCommas(amount_per_day)}{" "}
+                    <span className="per_day"> / per-day</span>
+                  </div>
+                )}
+                {/* // =========================== */}
+                <div className="amount_item_div total_amount">
+                  <span className="sub_total_txt">Total: </span> ₦
+                  {numberWithCommas(numberWithCommas(amount))}{" "}
+                  <span className="per_day"></span>
+                </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* -------------- */}
                 <div className="lll">
                   <div className="max_dura">
-                    Savings max-duration:{" "}
+                    {payment_type == "OUTRIGHT" ? null : (
+                      <p className="no_margg">Savings Max Duration:</p>
+                    )}
                     <div className="days_left_numb">
-                      {product_duration == 1 ? (
-                        <p className="left_num_nu">Out Right Buy</p>
-                      ) : null}
-                      {product_duration == 2 ? (
-                        <p className="left_num_nu">2</p>
-                      ) : null}
-                      {product_duration == 3 ? (
-                        <p className="left_num_nu">4</p>
-                      ) : null}
-                      {product_duration == 4 ? (
-                        <p className="left_num_nu">6</p>
-                      ) : null}
-                      {product_duration == 5 ? (
-                        <p className="left_num_nu">12</p>
-                      ) : null}
-                      {product_duration == 1 ? null : (
-                        <p className="months_class">months</p>
+                      {payment_type == "OUTRIGHT" ? (
+                        <p className="no_margg">Outright Buy</p>
+                      ) : (
+                        <p className="no_margg">{product_duration}day(s)</p>
                       )}
                     </div>
                   </div>
-
-                  {product_duration == 1 ? (
-                    <span>₦{amount}</span>
-                  ) : (
-                    <p className="amnt_per_day">
-                      Savings Amount to be paid per day:{""}
-                      <span className={["calc_amnt_div"]}>
-                        ₦{CalcAmtPerDay.toFixed()}
-                      </span>
-                    </p>
-                  )}
                 </div>
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                {/* <div className="quantity_div">
-                  <div className="items_left_div">
-                    Items Left:{" "}
-                    <span className="items_left_numb">
-                      {unitCount}{" "}
-                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
-                    </span>
-                  </div>
-                </div> */}
-                {product_duration !== 1 ? (
+                {payment_type !== "OUTRIGHT" ? (
                   <div className="quantity_div">
                     <div className="items_left_div">
                       This item has an upfront payment of : {percentage}%
                     </div>
-                    {/* <span className="upfront_para">
-                      That means you are to pay #{percentMoney} before this item
-                      can be locked by you.
-                    </span> */}
+                    <span className="upfront_para">
+                      That means you are to pay #
+                      {numberWithCommas(percentMoney)} before this item can be
+                      locked by you.
+                    </span>
                   </div>
                 ) : null}
                 {/* ======= */}
                 {/* ======= */}
-                
+                {/* {product_duration !== 1 ? (
+                  <div className="date_picky">
+                    <div className="date_picky_note">
+                      Note: the below calendar shows the total amount of days to
+                      complete payment for this item
+                      <br />
+                      the grey color shows the total days that has been
+                      initially locked for this item
+                      <br />
+                      while the green color shows the total amount of days that
+                      is left for payment .
+                    </div>
+                  </div>
+                ) : null} */}
                 {/* ======= */}
                 {/* ======= */}
                 {/* <hr className="horizontal_rule" /> */}
                 {/* ------- */}
-                <div className="buy_now_btn_div" style={{justifyContent:"space-between",display:"flex"}}>
-
-                <button
-
-                 style={{width:"48%",backgroundColor:'#e4a788'}}
-                    className="buy_now_button"
-                // {/* id={productId}  */}
-                    // onClick={e => submitCallCheck(asset.id)} 
-                    onClick={()=>delete2(productId)}
-                  >
-                    {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
-                  </button>
-               
-                  
+                <div className="buy_now_btn_div">
                   <button
-
-                    style={{width:"48%"}}
                     className="buy_now_button"
-                    // onClick={() => {
-                    //   openDetailsModal();
-                    //   //call  the checkout api here
-                    //   checkout(
-                    //     user_id,
-                    //     product_id,
-                    //     daysAdded,
-                    //     startDate,
-                    //     endDate
-                    //   );
-                    // }}
-                    onClick={e => submitCallCheck(product_id)} 
+                    onClick={() => {
+                      // openDetailsModal();
+                      OpenLoginModal()
+                      //call  the checkout api here
+                      // checkout(
+                      //   user_id,
+                      //   product_id,
+                      //   daysAdded,
+                      //   startDate,
+                      //   endDate
+                      // );
+                    }}
                   >
-                    {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
+                    {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
                   </button>
-               
+
+                  {/* <div className="save_later">
+                    <button className="save_later_btn">
+                      <FavoriteIcon className="favorite_icon" />
+                    </button>
+                    <div className="save_later_txt">Add to favorites.</div>
+                  </div> */}
                 </div>
               </div>
             </div>
@@ -710,36 +654,35 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                    {spec.map((apple)=>(  <tr>
+                      <tr>
                         {/* <td>Colour</td> */}
-                        <td>{apple}</td>
-                        
-                      </tr>))}
-                      {/* <tr> */}
+                        <td>{spec[0]}</td>
+                      </tr>
+                      <tr>
                         {/* <td>Warranty Period</td> */}
-                        {/* <td>{spec[1]}</td> */}
-                      {/* </tr> */}
+                        <td>{spec[1]}</td>
+                      </tr>
                       {/* <tr>
                        <td>
                        {tree[0]}
                        </td>
                       </tr> */}
-                      {/* <tr> */}
+                      <tr>
                         {/* <td>Brand</td> */}
-                        {/* <td>{spec[2]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
+                        <td>{spec[2]}</td>
+                      </tr>
+                      <tr>
                         {/* <td>Display Features</td> */}
-                        {/* <td>{spec[3]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
+                        <td>{spec[3]}</td>
+                      </tr>
+                      <tr>
                         {/* <td>Display Technology</td> */}
-                        {/* <td>{spec[4]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
+                        <td>{spec[4]}</td>
+                      </tr>
+                      <tr>
                         {/* <td>TV Screen Size</td> */}
-                        {/* <td>{spec[5]}</td> */}
-                      {/* </tr> */}
+                        <td>{spec[5]}</td>
+                      </tr>
                       {/* <tr> */}
                       {/* <td>Television 3D Technology</td> */}
                       {/* <td>{spec[6]}</td> */}
@@ -1125,7 +1068,7 @@ function ItemDetailsPage({ auth, match }) {
                               </td> */}
                               <td className="save_item_data1b">
                                 <div className="assets-data-name_last">
-                                  #{amount * unitCount}
+                                  #{amount}
                                 </div>
                               </td>
                             </tr>
@@ -1176,7 +1119,9 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">{amount * unitCount}</span>
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1195,7 +1140,10 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
+                      Total{" "}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1213,12 +1161,12 @@ function ItemDetailsPage({ auth, match }) {
       {/* )})} */}
     </div>
   );
-}
-
+};
 const mapStateToProps1 = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
+  //   isAuthenticated: state.auth.isAuthenticated,
   cart: state.shop.cart,
 });
 
-export default connect(mapStateToProps1)(ItemDetailsPage);
+export default connect(mapStateToProps1)(Item_details_main);
+// export default Item_details_main;

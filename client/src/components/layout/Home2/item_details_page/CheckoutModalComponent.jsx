@@ -7,8 +7,8 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
-import {useFlutterwave, closePaymentModal} from 'flutterwave-react-v3'
-import FlutterButton from '../../../../flutterwave/FlutterButton'
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import FlutterButton from "../../../../flutterwave/FlutterButton";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 import PaymentPlan from '../../../../flutterwave/API/PaymentPlan'
 import verifyTransaction from '../../../../flutterwave/API/Verify'
@@ -74,7 +74,7 @@ const CheckoutModalComponent = ({
     currency: 'NGN',
     // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
     payment_options: "card",
-    payment_plan:63558,
+    // payment_plan:63558,
     customer: {
       phonenumber: phone_no,
       email:email, 
@@ -106,6 +106,8 @@ const CheckoutModalComponent = ({
       endDate,
       // spread_balance,
     };
+
+    console.log(payload_data);
 
     let call = await axios
       .post(api_url2 + "/v1/checkout/add", payload_data, config)
@@ -140,7 +142,7 @@ const CheckoutModalComponent = ({
         setProductDuration(product_duration);
         setProductImage(response.data.items.product_image);
         setAmount(response.data.items.amount);
-        setTotal(parseInt(response.data.items.amount)+ parseInt(deliveryFee))
+        setTotal(parseInt(response.data.items.amount) + parseInt(deliveryFee));
         setUnitCount(response.data.items.unitCount);
       })
       .catch((err) => {
@@ -190,11 +192,10 @@ const CheckoutModalComponent = ({
     },
   };
 
-
   const options = {
-  method: 'GET',
-  headers: {Accept: 'application/json', 'Content-Type': 'application/json'}
-};
+    method: "GET",
+    headers: { Accept: "application/json", "Content-Type": "application/json" },
+  };
 
 
   useEffect(() => {
@@ -248,7 +249,7 @@ const CheckoutModalComponent = ({
                   <button className="button_change_delivery_address pickup_btn">
                     Select Pickup Location
                   </button>
-                </div>flutter
+                </div>
                 <div className="delivery_card_body">
                   <div className="delivery_card_body_cont1">
                     Select a pickup location in your area from our 32 locations
@@ -352,6 +353,7 @@ const CheckoutModalComponent = ({
             {/* ======================= */}
 
             <div className="cart_area2_heading">Payment Options</div>
+            {/* ===================== */}
             <div className="cart_area2_select">
               <div className="wit_card" onClick={() => {
                   setOption(0)
