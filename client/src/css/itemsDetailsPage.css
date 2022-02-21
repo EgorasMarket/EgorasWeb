@@ -71,7 +71,7 @@
 .carousel.carousel-slider .control-arrow {
   top: 0;
   color: #fff;
-  font-size: 15px !important;
+  font-size: 14px !important;
   bottom: 0;
   margin-top: 0;
   padding: 5px;
@@ -301,7 +301,7 @@ span.per_day {
   font-size: 10px;
   text-shadow: 1px 1px 1px rgb(17 76 41) !important;
   color: #fff;
-  background: #239e54 !important;
+  background: #00000063 !important;
   border-radius: 5px !important;
 }
 

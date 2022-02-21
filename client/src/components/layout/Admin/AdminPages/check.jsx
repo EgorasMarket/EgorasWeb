@@ -7,7 +7,7 @@ import {
 } from "../../../../actions/types";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import FlutterButton from "../../../../flutterwave/FlutterButton";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import Dashboard_Checkout_Page from "../../Home2/Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 const CheckoutModalComponent = ({
   startDate,
