@@ -31,6 +31,8 @@ export const API_URL = "https://tea.egoras.com";
 // export const API_URL3 = "http://localhost:7976";
 export const API_URL3 = "http://192.168.43.179:7976";
 export const API_URL2 = "http://192.168.43.179:4000";
+// export const API_URL2 = "http://192.168.1.12:4000";
+// export const API_URL3 = "http://192.168.1.12:7976";
 // export const API_URL2 = "http://192.168.1.63:4000";
 
 // token Symbol
