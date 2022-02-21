@@ -9,7 +9,15 @@
 .walletSubClass2 {
   padding: 15px;
 }
-
+.copiedToClipBoardDiv {
+  position: absolute;
+  background: grey;
+  color: #fff;
+  padding: 0.5em 1em;
+  border-radius: 4px;
+  bottom: 100%;
+  left: 5%;
+}
 .walletSubClass4 {
   border: none;
   margin-top: 10px;
@@ -253,9 +261,8 @@
   gap: 5px;
   position: relative;
 }
-.deposit_history_div2_address:hover .hover_txn_address_cont{
+.deposit_history_div2_address:hover .hover_txn_address_cont {
   display: block;
-
 }
 .hover_txn_address_cont {
   position: absolute;
@@ -282,6 +289,10 @@
 }
 .deposit_history_address_copy_icon {
   font-size: 14px !important;
+  /* margin-left: 2px; */
+}
+.deposit_history_address_copy_icon:hover {
+  color: #229e54;
   /* margin-left: 2px; */
 }
 .deposit_history_div2_network_title {
