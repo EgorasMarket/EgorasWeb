@@ -1,6 +1,8 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "proxy": "http://localhost:4000",
+  "homepage": "http://localhost:3000",
   "private": true,
   "dependencies": {
     "@emotion/react": "^11.4.1",
@@ -96,5 +98,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "http-proxy-middleware": "^2.0.3"
   }
 }
