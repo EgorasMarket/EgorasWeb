@@ -320,8 +320,8 @@ const ItemDetailComponent = ({
                   product_duration={product_duration}
                   rounded={rounded}
                   percentage={percentage}
-                  roundedAmount={roundedAmount}
-                  paymentPerday={paymentPerday}
+                  amount={amount}
+                  amount_per_day={paymentPerday}
                   numberWithCommas={numberWithCommas}
                 />
               </>

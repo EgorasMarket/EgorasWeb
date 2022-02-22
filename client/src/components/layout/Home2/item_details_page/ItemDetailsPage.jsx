@@ -37,9 +37,10 @@ function ItemDetailsPage({ auth, match }) {
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [userPayload,setUserPayload] = useState({})
   const [card, setSpec] = useState([]);
   const [deScript, setDeScript] = useState([]);
-  const [isAuthenticated, setIsAuthenticated ]  = useState(null)
 
   
   useEffect(() => {
@@ -228,6 +229,8 @@ function ItemDetailsPage({ auth, match }) {
                 product_id={product_id}
                 customer_id={user_id}
                 closeCheckoutOptions={closeDetailModal}
+                userPayload={userPayload}
+                
               />
             ) : (
               <ItemDetailComponent
