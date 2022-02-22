@@ -126,19 +126,19 @@ function ItemDetailsPage({ auth, match }) {
   }, []);
 
 
-  useEffect(()=>{
-    axios.get(api_url2 + "/v1/user/address/info", null,
-     config).then((response)=>{
- console.log(response , "wewter kings")
-//  console.log(response.data.cusAddress. address,"market")
+//   useEffect(()=>{
+//     axios.get(api_url2 + "/v1/user/address/info", null,
+//      config).then((response)=>{
+//  console.log(response , "wewter kings")
+// //  console.log(response.data.cusAddress. address,"market")
 
- setAddressName({contactAddress:response.data.cusAddress. address
+//  setAddressName({contactAddress:response.data.cusAddress. address
 
- })
- console.log(addressName,"Bk is good for development")
-     })
+//  })
+//  console.log(addressName,"Bk is good for development")
+//      })
 
-  })
+//   })
 
   useEffect(() => {
     console.log(auth.isAuthenticated);
