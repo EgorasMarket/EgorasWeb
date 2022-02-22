@@ -250,7 +250,7 @@ const Dashboard_Checkout_Page = ({
                     <img
                       src="/img/egoras-logo.svg"
                       alt=""
-                      className="egoras_logo_checkout"
+                      className="egorasconfig_logo_checkout"
                     />
                   </div>
                   <div className="checkout_header_btn">
