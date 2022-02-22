@@ -70,6 +70,7 @@ const Savings = () => {
     "Computer & Accessories"
   );
   const [homeAppliances, setHomeAppliances] = useState("Home Appliances");
+  // const [electronics, setElectronics] = useState("Electronics1");
   const [electronics, setElectronics] = useState("Electronics");
   const [nfts, setNfts] = useState("Nfts");
   const [phonesTablets, setPhoneTablets] = useState("Phones & Tablet");
@@ -511,6 +512,10 @@ const Savings = () => {
       {/* =================================================================================================================================================================================================================================================================== */}
       {/* =================================================================================================================================================================================================================================================================== */}
       {/*  Projects Section start*/}
+
+      {
+
+      }
       <section className="projectsSection" id="projects">
         <div className="container">
           <div
@@ -552,8 +557,16 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {item.map((asset) => {
+              {
+              item.map((asset) => {
+                // console.log(item);
                 if (electronics === asset.product_category_desc) {
+                  // console.log(asset.count);
+                  // if (condition) {
+                    
+                  // } else {
+
+                  // }
                   return (
                     <a
                       href={`/products/details/${asset.id}/${asset.product_name}`}
