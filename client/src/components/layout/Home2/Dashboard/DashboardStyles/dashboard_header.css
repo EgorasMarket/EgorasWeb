@@ -1,0 +1,224 @@
+.DashBoardHeaderSection {
+  padding: 1em 1.5em;
+  background-color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 10000;
+  /* box-shadow: 0px 0px 15px #efefef; */
+  position: fixed;
+  width: 100%;
+}
+
+.DashboardHeaderArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.together {
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+.account_numb_div {
+  font-weight: 700;
+  font-size: 14px;
+  color: grey;
+}
+.copy_icon {
+  font-size: 14px !important;
+}
+.dashboard-area {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.user_profile_icon_cont {
+  display: flex;
+  width: 82%;
+  /* flex-direction: column; */
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row-reverse;
+  border: none;
+  padding: 0.3em 1em;
+  border-width: 1px;
+  /* border-color: #cdcdcd; */
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.welcome_user {
+  display: flex;
+  margin: 0;
+  align-items: flex-start;
+  font-size: 14px;
+  flex-direction: column-reverse;
+}
+.cart_num {
+  background: #41ba71;
+  border-radius: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 10px;
+  width: 15px;
+  height: 15px;
+  line-height: 16px;
+  position: absolute;
+  top: -5px;
+  font-weight: 700;
+  right: 6px;
+}
+.save_numb_div {
+  border-right: solid 1px #c8c8c8;
+  margin-right: 9px;
+  padding-right: 8px;
+  position: relative;
+}
+
+.userName_name {
+  color: #41ba71;
+  font-weight: 800;
+  font-size: 24px;
+}
+.user_profile {
+  width: 40px;
+  height: 40px;
+  box-shadow: -1px 0px 10px #85ad95;
+  border-radius: 100%;
+  margin-left: 8px;
+  cursor: pointer;
+  object-fit: cover;
+  padding: 3px;
+  background: #42a66c;
+}
+.user_profile2 {
+  width: 40px;
+  box-shadow: -1px 0px 10px #85ad95;
+  border-radius: 100%;
+  margin-right: 20px;
+  cursor: pointer;
+  display: none;
+}
+button.logout-btn {
+  padding: 0.4em 2em;
+  border: none;
+  border-radius: 50px;
+  background: #229e54;
+  color: #ffff;
+  font-weight: 700;
+  box-shadow: 0px 5px 13px #cbcbcb;
+}
+
+.not_logout_div {
+  display: none;
+}
+
+.logout_div {
+  display: block;
+  margin-right: 14px;
+}
+.logout_sec_btn {
+  background: #41ba71;
+  color: #ffff;
+  padding: 0.3em 1em;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  box-shadow: 0px 4px 10px #72ad89;
+}
+@media screen and (max-width: 991px) {
+  /* .drop-open-icon {
+    display: inline-block;
+    width: 20px;
+    margin-right: 10px;
+  } */
+  /* .drop-close-icon {
+    width: 20px;
+  } */
+  .DashBoardHeaderSection {
+    padding: 0.5em 0em;
+    /* background-image: linear-gradient(45deg, #2a7c4b, #41ba71); */
+    background: #fff;
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+    box-shadow: 0px 0px 15px #c5dfcf;
+    position: fixed;
+    width: 100%;
+    margin: auto;
+    left: 0;
+    right: 0;
+    border-radius: 0;
+  }
+  .user_profile {
+    width: 30px;
+    box-shadow: -1px 0px 10px #1d5031;
+    border-radius: 100%;
+    margin-right: 0px;
+    cursor: pointer;
+    display: none;
+  }
+  .user_profile2 {
+    width: 25px;
+    box-shadow: -1px 0px 10px #1d5031;
+    border-radius: 100%;
+    margin-right: 0px;
+    cursor: pointer;
+    display: block;
+  }
+  .welcome_user {
+    display: flex;
+    margin: 0;
+    font-size: 12px;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .userName_name {
+    color: #ffffff;
+    font-weight: 800;
+    font-size: 14px;
+    margin-right: 7px;
+  }
+  .egr-logo3 {
+    width: 100px;
+  }
+
+  .user_profile_icon_cont {
+    display: flex;
+    /* width: 6.5%; */
+    /* flex-direction: column; */
+    justify-content: space-between;
+    align-items: center;
+    border: solid;
+    padding: 0em 1em;
+    border-width: 1px;
+    border-color: #ffffff78;
+    border-radius: 10px;
+    width: 100%;
+    cursor: pointer;
+    flex-direction: row-reverse;
+  }
+
+  .logout_sec_btn {
+    background: #ffffff;
+    color: #329058;
+    padding: 0.3em 1em;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0px 4px 7px #53916c;
+    font-size: 12px;
+  }
+
+  .welcome_user {
+    display: flex;
+    margin: 0;
+    font-size: 12px;
+    flex-direction: column;
+    color: #6af7a3;
+    font-weight: 800;
+    align-items: flex-start;
+  }
+}
