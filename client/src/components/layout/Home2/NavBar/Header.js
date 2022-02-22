@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 // import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -118,8 +119,9 @@ const useStyles2 = makeStyles((theme) => ({
 
 // }));
 
-const Header = () => {
+const Header = ({ isAuthenticated, auth }) => {
   const [showHeader, setshowHeader] = useState("/");
+  const [isAuth, setIsAuth] = useState(false);
   // const [showHeader, setshowHeader] = useState("/");
 
   const currentPage = window.location.pathname;
@@ -251,6 +253,8 @@ const Header = () => {
     // document.getElementById("app_icon").style.display = "none";
   });
 
+  // console.log(auth);
+
   // page hide element
 
   // class change on click functions
@@ -271,9 +275,15 @@ const Header = () => {
       setPage1("/savings");
     }
   });
-  // {
-  //   page === "change" ? (
-  //   ) : ()}
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+
+    }
+  });
 
   const classes = useStyles();
   const theme = useTheme();
@@ -651,13 +661,23 @@ const Header = () => {
                   </a>
                 </div>
               ) : null}
-              {currentPage == "/savings" ? (
+              {currentPage == "/savings" && isAuth === true ? (
                 <div style={{ display: "flex" }}>
                   <a href="/dashboard" className="connectb">
                     Dashboard
                   </a>
                 </div>
-              ) : null}
+              ) : (
+                <div style={{ display: "flex" }}>
+                  <a href="/login" className="getLoan">
+                    {" "}
+                    Login
+                  </a>
+                  <a href="/signup" className="connectb">
+                    Signup
+                  </a>
+                </div>
+              )}
             </ul>
             {/* <img
               src="/img/hamburger-open.svg"
@@ -804,4 +824,12 @@ const Header = () => {
   );
 };
 
-export default Header;
+// export default Header;
+
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {  })(Header);
