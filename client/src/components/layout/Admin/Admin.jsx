@@ -12,10 +12,11 @@ import { SplashScreen } from "../SplashScreen/SplashScreen";
 import Wallet from "../Wallet/Wallet";
 import axios from "axios";
 import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
+import Item_details_main2 from "./AdminPages/items";
 
 import "./AdminStyles/admin.css";
 import Page from "./AdminPages/dashboardIn";
-import ItemPage2 from "../Home2/item_details_page/Item_details_main";
+import ItemsPage2 from "./AdminPages/items";
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
@@ -83,11 +84,11 @@ const Admin = ({ isAuthenticated, loading }) => {
                   path="/super_admin"
                   component={AdminUploadProducts}
                 />
-                <Route
+                {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
-                component={ItemPage2}
-              />
+                component={ItemsPage2}
+              /> */}
               </>
               ) : Role === "BUSINESS_ADMIN" ? (
               <>
@@ -96,11 +97,12 @@ const Admin = ({ isAuthenticated, loading }) => {
                   path="/super_admin/register_user"
                   component={RegisterCustomer}
                 />
-                <Route
+                {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
-                component={ItemPage2}
-              /></>
+                component={ItemsPage2}
+              /> */}
+              </>
               ) : Role === "CASHIER" || Role === "CUSTOMER_SERVICE" ? (
                 <>
                   <Route
@@ -117,15 +119,21 @@ const Admin = ({ isAuthenticated, loading }) => {
                 component={Page}
               />
 
-               <Route
+               {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
-                component={ItemPage2}
-              />
+                component={ItemsPage2}
+              /> */}
                   <Route
                     exact
                     path="/super_admin/user_wallet"
                     component={Wallet}
+                  />
+
+                  <Route
+                    exact
+                    path="/super_admin/details/:id/:name"
+                    component={Item_details_main2}
                   />
                 </>
               ) : Role === "HOD_MEDIA" ? (
@@ -134,20 +142,23 @@ const Admin = ({ isAuthenticated, loading }) => {
                   path="/super_admin/all_products"
                   component={AdminAllProducts}
                 />
-                <Route
+                {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
-                component={ItemPage2}
-              /></>
-              ) : dapp === "/super_admin/all_products_view/:id/:name"? <Route
+                component={ItemsPage2}
+              /> */}
+              </>
+              ) :  <Route
               exact
               path="/super_admin/all_products_view/:id/:name"
               // path="/dashboard/products/details/:id/:name"
               // / dashboard/products/details/:id/:name
               component={AdminAllView}
-            />:null
+            />
 
                 }
+
+                  
 
               
 

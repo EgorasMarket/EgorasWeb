@@ -367,7 +367,9 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_conts">
               {item.slice(0, 12).map((asset, index) => (
                 <a
-                  href={`/admin/products/details/${asset.id}/${asset.product_name}`}
+                  // href={`/admin/products/details/${asset.id}/${asset.product_name}`}
+                  // href={`/products/details/${asset.id}/${asset.product_name}`}
+                  href={`/super_admin/details/${asset.id}/${asset.product_name}`}
                   key={index.toString()}
                 >
                   <li className="carous_list no_marg">

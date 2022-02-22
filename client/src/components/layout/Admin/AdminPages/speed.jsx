@@ -1,43 +1,10 @@
 import React from "react";
+import Item from "./item";
 
 const week3 =()=>{
     return(
         <div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
-            <div>Mr kingsley Chukwubuike Samuel</div>
+           <Item/> 
         </div>
     )
 

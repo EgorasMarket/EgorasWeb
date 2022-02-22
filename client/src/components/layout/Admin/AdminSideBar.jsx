@@ -410,7 +410,7 @@ const AdminSideBar = ({ auth }) => {
                 {/* ===================== */}
 
                 {role1 === "CASHIER" ? (
-                  <a href="/super_admin/overview" className="link" id="accounts" onClick={changeBg}>
+                  <a href="#" className="link" id="accounts" onClick={changeBg}>
                     <li
                       className={
                         activeBg == "accounts" && role1 === "CASHIER"
