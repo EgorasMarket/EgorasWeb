@@ -131,7 +131,7 @@ function ItemDetailsPage({ auth, match }) {
       console.log(auth.user.user);
     } else {
       set_user_id('')
-      console.log('rrrrr');
+      // console.log('rrrrr');
     }
 
     axios
