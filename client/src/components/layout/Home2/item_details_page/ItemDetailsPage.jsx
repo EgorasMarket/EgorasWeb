@@ -27,7 +27,7 @@ function ItemDetailsPage({ auth, match }) {
       "Content-Type": "application/json",
     },
   };
-  console.log(window.location.pathname.split("/"));
+  // console.log(window.location.pathname.split("/"));
   // console.log(match.params.id);
   const [loginModal, setLoginModal] = useState(false);
   const [loginSuccess,setLoginSuccess]= useState(false);
@@ -38,7 +38,7 @@ function ItemDetailsPage({ auth, match }) {
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [userPayload,setUserPayload] = useState({})
+  const [userPayload,setUserPayload] = useState({})   
   const [card, setSpec] = useState([]);
   const [deScript, setDeScript] = useState([]);
 
@@ -139,7 +139,7 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       .then((data) => {
         const {
-          roundedAmount,
+          amount,
           percentage,
           product_brand,
           product_category_code,
@@ -149,21 +149,21 @@ function ItemDetailsPage({ auth, match }) {
           product_image,
           product_name,
           product_specifications,
-          unitCount,
-          payment_type,
           product_type,
           initial_deposit,
-          dailyAmount,
           paymentPerday,
+          payment_type, 
           days_left,
-          rounded,
-          total_amount,
           no_of_days,
+          no_of_days_paid, 
+          startDate, 
+          endDate
+
         } = data.data.data;
 
         console.log(data.data.data, "king");
         setPayload({
-          roundedAmount,
+          amount,
           percentage,
           product_brand,
           product_category_code,
@@ -173,16 +173,15 @@ function ItemDetailsPage({ auth, match }) {
           product_image,
           product_name,
           product_specifications,
-          unitCount,
-          payment_type,
           product_type,
           initial_deposit,
-          dailyAmount,
           paymentPerday,
+          payment_type,
           days_left,
-          rounded,
-          total_amount,
           no_of_days,
+          no_of_days_paid, 
+          startDate, 
+          endDate
         });
         const getSlid = data.data.data.product_specifications;
         const getSpecs = data.data.data.product_details;
@@ -209,7 +208,7 @@ function ItemDetailsPage({ auth, match }) {
   console.log(product_id);
   return (
     <>
-      {loginModal == false ? null : (
+      {loginModal === false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           {/* <div>Login</div> */}
@@ -225,11 +224,9 @@ function ItemDetailsPage({ auth, match }) {
           <div className="container">
             {detailsModal === true ? (
               <Checkout
-                installation_days={payload.product_duration}
-                product_id={product_id}
-                customer_id={user_id}
-                closeCheckoutOptions={closeDetailModal}
-                userPayload={userPayload}
+               payload={payload}
+               closeCheckoutOptions={closeDetailModal}
+
                 
               />
             ) : (

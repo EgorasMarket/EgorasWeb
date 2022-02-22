@@ -15,58 +15,57 @@ import verifyTransaction from '../../../../flutterwave/API/Verify'
 import {createOrder} from '../../../../actions/shop'
 import { connect } from "react-redux";
 import initPayment from '../../../../flutterwave/initPayment'
+import initializePayment from "../../../../flutterwave/API/initializePayment";
 
 const CheckoutModalComponent = ({
-  startDate,
-  endDate,
-  product_id,
-  customer_id,
-  installation_days,
+  payload, 
   closeCheckoutOptions,
-  previousBtn,
-  CheckBtn,
-  userPayload,
-  createOrder, 
   auth
 }) => {
-  //use states
+
+  //destructure the payload and return values
+  const {
+    amount,
+    percentage,
+    product_brand,
+    product_category_code,
+    product_details,
+    product_duration,
+    product_id,
+    product_image,
+    product_name,
+    product_specifications,
+    product_type,
+    initial_deposit,
+    paymentPerday,
+    payment_type,
+    days_left,
+    no_of_days,
+    no_of_days_paid, 
+    startDate, 
+    endDate
+  } = payload;
+
   const [user_id , setUserId]  = useState('')
   const [isloading, setIsLoading] = useState(true);
-  const [dailyAmount, setDailyAmount] = useState();
-  const [payload, setPayload] = useState({});
-  const [amount_per_day, setAmountPerDay] = useState("");
-  const [days_left, setDaysLeft] = useState("");
-  const [initial_deposit, setInitialDeposit] = useState("");
-  const [installemnt_days, setInstallmentDays] = useState("");
-  const [no_of_days, setNoOfDays] = useState("");
-  const [product_name, setProductName] = useState("");
-  const [product_brand, setProductBrand] = useState("");
-  const [product_details, setProductDetails] = useState("");
-  const [product_duration, setProductDuration] = useState("");
-  const [product_image, setProductImage] = useState("");
-  const [amount, setAmount] = useState("");
-  const [total, setTotal] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(0);
-  const [unitCount, setUnitCount] = useState("");
-  const [optionId, setPaymentOptionId] = useState(0)
-  const [userPaylod, setUserPayload ] = useState(userPayload)
-  const [option, setOption] = useState(0)
- const [email, setEmail] = useState("")
- const [phone_no, setPhoneNo] = useState("")
- const [name, setName] = useState("")
-  const sub_total = 0;
+  const [email, setEmail] = useState("")
+  const [phone_no, setPhoneNo] = useState("")
+  const [name, setName] = useState("")
+  const [option, setOption] = useState(-1)
+  console.log(phone_no, name, option)
 
-  const [showPayment, setShowPayment] = useState(false);
 
-  const openPayment = () => {
-    setShowPayment(true);
-  };
+  useEffect(() => {
+    if (auth.user !== null){
+      console.log(auth.user, 'user  exist ')
+      setEmail(auth.user.user.email);
+        setPhoneNo( auth.user.user.phoneNumber);
+        setName( auth.user.user.fullname)
+    }
 
-  const closePayment = () => {
-    setShowPayment(false);
-  };
+  }, []);
 
-   const flutterConfig = {
+  const flutterConfig = {
     public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
     tx_ref: Date.now(),
     amount: 1,
@@ -86,136 +85,57 @@ const CheckoutModalComponent = ({
       logo: 'https://egoras.com/img/egoras-logo.svg',
     },
   };
+    // const handleFlutterPayment= useFlutterwave(flutterConfig);
 
-  console.log("this are the items ", phone_no )
-  const handleFlutterPayment = useFlutterwave(flutterConfig);
 
-  const checkout = async (
-    customer_id,
-    product_id,
-    installment_days,
-    startDate,
-    endDate
-  ) => {
-    
-    const payload_data = {
-      customer_id,
-      product_id,
-      installment_days,
-      startDate,
-      endDate,
-      // spread_balance,
-    };
-
-    console.log(payload_data);
-
-    let call = await axios
-      .post(api_url2 + "/v1/checkout/add", payload_data, config)
-      .then((response) => {
-        console.log(response.data);
-        setDailyAmount(response.data.details.rounded);
-
-        const {
-          amount_per_day,
-          days_left,
-          initial_deposit,
-          installment_days,
-          no_of_days,
-        } = response.data.details;
-        const {
-          product_name,
-          product_brand,
-          product_details,
-          product_duration,
-          product_image,
-          amount,
-        } = response.data.details.payloads;
-
-        setAmountPerDay(amount_per_day);
-        setDaysLeft(days_left);
-        setInitialDeposit(initial_deposit);
-        setInstallmentDays(installment_days);
-        setNoOfDays(no_of_days);
-        setProductName(response.data.items.product_name);
-        setProductBrand(product_brand);
-        setProductDetails(product_details);
-        setProductDuration(product_duration);
-        setProductImage(response.data.items.product_image);
-        setAmount(response.data.items.amount);
-        setTotal(parseInt(response.data.items.amount) + parseInt(deliveryFee));
-        setUnitCount(response.data.items.unitCount);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-        console.log("error reported", err.response);
-      });
-  };
   const selectOption = (value) => {
-    switch (value){
+    switch(value ){
       case 0: 
-
-        alert('payment set as card', product_id)
-        handleFlutterPayment({
-          callback: async (response) => {
-            console.log(response)
-            try {
-              const verification = await verify(response.transaction_id, product_id)
-     
-              console.log(verification.data.data.data.amount, 'from me  ')
-              closePaymentModal()
-            } catch (error) {
-              console.log(error.response)
-            }
-
-          },
-          onClose: (response) => {
-            console.log(response, "response from onclose ")
-
-          }
-        })
-        
-        break;
-
-      case 1: (
-        alert('wallet method selected')
-      )
-        break
-    
+        initializePayment(1)
+        // handleFlutterPayment({callback: ()=> {
+        //   alert('here')
+        // }})
     }
+    // switch (value){
+    //   case 0:   () => {
+    //     // alert('payment set as card', product_id)
+    //       handleFlutterPayment({
+    //         callback: async (response) => {
+    //           console.log(response)
+    //           try {
+    //             const verification = await verify(response.transaction_id, product_id)
+       
+    //             console.log(verification.data.data.data.amount, 'from me  ')
+    //             closePaymentModal()
+    //           } catch (error) {
+    //             console.log(error.response)
+    //           }
+  
+    //         },
+    //         onClose: (response) => {
+    //           console.log(response, "response from onclose ")
+  
+    //         }
+    //       })
+    //     }
+  
+        
+    //     break;
+
+    //   case 1: (
+    //     alert('wallet method selected')
+    //   )
+    //     break
+    
+    // }
 
   }
 
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  const options = {
-    method: "GET",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
-  };
-
-
-  useEffect(() => {
-    checkout(customer_id, product_id, installation_days, startDate, endDate);
-
-  }, []);
-
-  useEffect(() => {
-    if (auth.user !== null){
-      console.log(auth.user, 'user  exist ')
-      setEmail(auth.user.user.email);
-        setPhoneNo( auth.user.user.phoneNumber);
-        setName( auth.user.user.fullname)
-    }
-
-  }, []);
+ 
 
   return (
     <>
-      <div className="detailsModal">
+       <div className="detailsModal">
         <div className="detailsModalSection1">
           <div className="bacKbutton" onClick={closeCheckoutOptions}>
             Previous
@@ -330,7 +250,7 @@ const CheckoutModalComponent = ({
                       </td>
                       <td className="save_item_data1b">
                         <div className="assets-data-name_last">
-                          ₦{dailyAmount}
+                          ₦{paymentPerday}
                         </div>
                       </td>
                       {/* <td className="save_item_data1b">
@@ -408,7 +328,7 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             <div className="sub_total_div">
               Sub Total:{" "}
-              <span className="sub_total_div_span">₦{sub_total}</span>
+              <span className="sub_total_div_span">₦{amount}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -444,13 +364,7 @@ const CheckoutModalComponent = ({
         </div>
       </div>
 
-      {showPayment ? (
-        <Dashboard_Checkout_Page
-          cAmount={1}
-          getProductId={product_id}
-          closePaymentModal={closePayment}
-        />
-      ) : null}
+     
     </>
   );
 };
