@@ -5,13 +5,13 @@ import WidgetsIcon from "@mui/icons-material/Widgets";
 import SearchIcon from "@mui/icons-material/Search";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 
-import "../../DashboardStyles/category.css";
+import "../Dashboard/DashboardStyles/category.css";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import axios from "axios";
 import { connect } from "react-redux";
 import {
   API_URL2 as api_url2,
-} from "../../../../../../actions/types";
+} from "../../../../actions/types";
 
 const assetBrand = [
   {

@@ -86,6 +86,7 @@ import Companies from "./components/layout/companies/Companies";
 import Details from "./components/layout/companies/Details";
 import Request from "./components/layout/requests/Request";
 // import Login from "./components/auth/Login";
+import PhonesCatPage from "./components/layout/Home2/Dashboard/DashboardPages/CategoryPages/PhonesCatPage";
 import Categories from "./components/layout/categories/Categories";
 import Status from "./components/layout/status/Status";
 import TermsAndConditions from "./components/layout/Home2/Terms&Condition/TermsAndConditions";
@@ -144,6 +145,7 @@ import EGC from "./components/layout/EGC/egc";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
 import Item_details_main from "./components/layout/Home2/item_details_page/Item_details_main";
+import See_ALL_Category from "./components/layout/Home2/item_details_page/seeAllCate";
 import AdminLogin from "./components/layout/Admin/AdminSignup/AdminLogin";
 import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
@@ -261,7 +263,11 @@ const App = () => {
                 <Switch>
                   <Route exact path="/" component={HomeUpdate} />
                   <Route exact path="/activation/:id" component={Activation} />
-                  <Route exact path="/password/reset/:id" component={ResetPassword} />
+                  <Route
+                    exact
+                    path="/password/reset/:id"
+                    component={ResetPassword}
+                  />
                   <Route exact path="/savings" component={Savings} />
                   {/* <Route
                     exact
@@ -276,6 +282,11 @@ const App = () => {
                     path="/loan-details/:id"
                     component={LoanDetails}
                   />
+                       <Route
+                exact
+                path="/products/categories/:category"
+                component={PhonesCatPage}
+              />
                   <Route
                     exact
                     path="/companies/details/:id"
@@ -338,8 +349,13 @@ const App = () => {
                   /> */}
                   <Route
                     exact
-                    path="/products/details/:id"
+                    path="/products/details/:id/:name"
                     component={Item_details_main}
+                  />
+                     <Route
+                    exact
+                    path="/products/categories/:category"
+                    component={See_ALL_Category}
                   />
                   <Route
                     exact

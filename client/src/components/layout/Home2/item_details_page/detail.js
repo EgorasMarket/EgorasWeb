@@ -37,24 +37,22 @@ function ItemDetailsPage({ auth, match }) {
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [userPayload,setUserPayload] = useState({})
   const [card, setSpec] = useState([]);
-  const [deScript, setDeScript] = useState([]);
+  const [isAuthenticated, setIsAuthenticated ]  = useState(null)
 
   
-  useEffect(() => {
-    console.log(auth);
-    if (window.location.pathname.split("/")[1] === 'dashboard') {
-      setProductId(match.params.id)
-      setIsAuthenticated(true)
-    } else {
-      setProductId(window.location.pathname.split("/")[3])
-      setIsAuthenticated(false)
-    }
+//   useEffect(() => {
+//     console.log(auth);
+//     if (window.location.pathname.split("/")[1] === 'dashboard') {
+//       setProductId(match.params.id)
+//       setIsAuthenticated(true)
+//     } else {
+//       setProductId(window.location.pathname.split("/")[3])
+//       setIsAuthenticated(false)
+//     }
 
 
-  }, [auth]);
+//   }, [auth]);
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -139,7 +137,7 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       .then((data) => {
         const {
-          roundedAmount,
+          amount,
           percentage,
           product_brand,
           product_category_code,
@@ -154,7 +152,7 @@ function ItemDetailsPage({ auth, match }) {
           product_type,
           initial_deposit,
           dailyAmount,
-          paymentPerday,
+          amount_per_day,
           days_left,
           rounded,
           total_amount,
@@ -163,7 +161,7 @@ function ItemDetailsPage({ auth, match }) {
 
         console.log(data.data.data, "king");
         setPayload({
-          roundedAmount,
+          amount,
           percentage,
           product_brand,
           product_category_code,
@@ -178,21 +176,18 @@ function ItemDetailsPage({ auth, match }) {
           product_type,
           initial_deposit,
           dailyAmount,
-          paymentPerday,
+          amount_per_day,
           days_left,
           rounded,
           total_amount,
           no_of_days,
         });
         const getSlid = data.data.data.product_specifications;
-        const getSpecs = data.data.data.product_details;
         // const myArray = getSlid.split(",");
 
         console.log(getSlid);
-        console.log(getSpecs);
 
         setSpec(getSlid);
-        setDeScript(getSpecs);
 
         // //  const slipVar = getSlid.split(',');
         // console.log("====================================");
@@ -229,18 +224,15 @@ function ItemDetailsPage({ auth, match }) {
                 product_id={product_id}
                 customer_id={user_id}
                 closeCheckoutOptions={closeDetailModal}
-                userPayload={userPayload}
-                
               />
             ) : (
               <ItemDetailComponent
                 payload={payload}
-                specification={deScript}
                 // numberWithCommas={numberWithCommas}
                 card={card}
                 openCheckoutModal={() => {
                   // openDetailsModal();
-                  OpenLoginModal();
+                  OpenLoginModal()
                   // console.log('gggg');
                 }}
               />

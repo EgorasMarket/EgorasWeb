@@ -28,7 +28,7 @@ const AdminCustomer = () => {
   };
  
   useEffect(() => {
-    console.log('ttttrr');
+    // console.log('ttttrr');
     axios
       .get(api_url2 + "/v1/admin/retrieve/customers/byBranch/", null, config)
       .then((data) => {
@@ -103,8 +103,14 @@ const AdminCustomer = () => {
 
   // =========
   // =========
+
   // =========
   // =========
+
+  const saveCustomerId = (event) => {
+    console.log(event.target.id);
+    localStorage.setItem("adminCusId", event.target.id);
+  }
   return (
     <>
        {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
@@ -172,12 +178,21 @@ const AdminCustomer = () => {
                       </td>
                       <td className="assets-category-data-last">
                         <div className="assets-data-name-last">
-                          <a href={`/super_admin/user_overview/${user.id}`}>
+                          <a href={`/super_admin/user_overview/${user.id}`} className='mr-2'>
                             <button
                               // id={user.id}
                               className="btn btn-primary"
                             >
                               View
+                            </button>
+                          </a>
+                          <a href={`/super_admin/user_overview`}>
+                            <button
+                              id={user.id}
+                              onClick={saveCustomerId}
+                              className="btn btn-success"
+                            >
+                              Book
                             </button>
                           </a>
                         </div>
