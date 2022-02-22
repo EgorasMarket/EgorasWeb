@@ -494,12 +494,15 @@ const Wallet = ({ auth, createWallet }) => {
                                   <span className="deposit_history_div2_network_title">
                                     Address
                                   </span>
-                                  {data.fromAddress.substring(0, 10) +
+                                  <div className="address_cont">
+                                    {/* {data.fromAddress.substring(0, 10) +
                                     "..." +
                                     data.fromAddress.substr(
                                       data.fromAddress.length - 10
-                                    )}
-                                  {/* {txId2} */}
+                                    )} */}
+                                    {data.fromAddress}
+                                  </div>
+
                                   <FileCopyIcon
                                     className="deposit_history_address_copy_icon"
                                     onClick={() =>
@@ -524,11 +527,13 @@ const Wallet = ({ auth, createWallet }) => {
                                   <span className="deposit_history_div2_network_title">
                                     TXID
                                   </span>
+                                  <div className="address_cont">
+                                    {data.txnId.substring(0, 10) +
+                                      "..." +
+                                      data.txnId.substr(data.txnId.length - 7)}
+                                    {/* {txId} */}
+                                  </div>
 
-                                  {data.txnId.substring(0, 10) +
-                                    "..." +
-                                    data.txnId.substr(data.txnId.length - 7)}
-                                  {/* {txId} */}
                                   <FileCopyIcon
                                     onClick={() => copyTextText(data.txnId)}
                                     className="deposit_history_address_copy_icon"
