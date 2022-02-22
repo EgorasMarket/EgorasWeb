@@ -22,7 +22,7 @@ import {
 
 const InstallmentComponent = ({
   product_duration,
-  rounded,
+  amount,
   percentage,
   initial_deposit,
   roundedAmount,
@@ -38,7 +38,7 @@ const InstallmentComponent = ({
 
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(parseInt(roundedAmount).toFixed())}
+        {numberWithCommas(amount)}
         <span className="per_day"></span>
       </div>
 
@@ -117,18 +117,17 @@ const ItemDetailComponent = ({
     product_image,
     product_name,
     product_specifications,
-    unitCount,
-    payment_type,
     product_type,
     initial_deposit,
-    dailyAmount,
     paymentPerday,
+    payment_type,
     days_left,
-    roundedAmount,
-    rounded,
-    total_amount,
     no_of_days,
+    no_of_days_paid, 
+    startDate, 
+    endDate
   } = payload;
+  console.log(initial_deposit)
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -318,9 +317,9 @@ const ItemDetailComponent = ({
                 <InstallmentComponent
                   initial_deposit={initial_deposit}
                   product_duration={product_duration}
-                  rounded={rounded}
+                  amount={amount}
                   percentage={percentage}
-                  roundedAmount={roundedAmount}
+                  amount={amount}
                   paymentPerday={paymentPerday}
                   numberWithCommas={numberWithCommas}
                 />
@@ -328,7 +327,7 @@ const ItemDetailComponent = ({
             ) : (
               <>
                 <OutrightComponent
-                  roundedAmount={roundedAmount}
+                  roundedAmount={amount}
                   numberWithCommas={numberWithCommas}
                 />
               </>
