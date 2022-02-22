@@ -1,7 +1,7 @@
 import React from 'react'
 import ItemDetailsPage from './ItemDetailsPage';
 
-const Item_details_main = ({match}) => {
+const AdminProductDetails = ({match}) => {
     // console.log(match.params.id);
   return (
     <div>
@@ -10,4 +10,4 @@ const Item_details_main = ({match}) => {
   )
 }
 
-export default Item_details_main
+export default AdminProductDetails;

@@ -244,7 +244,7 @@ const AdminUploadProducts = () => {
 
     const formData = new FormData();
 
-    if (product_image === "") {
+    if (product_image === "../../img/profile_img.jpeg") {
       console.log("empty passport");
       setAlert("Please provide product image");
       setAlertType('danger')
@@ -264,6 +264,9 @@ const AdminUploadProducts = () => {
         console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
+          setAlert("Product image uploaded successfully");
+          setAlertType('success');
+          setproduct_image('../../img/profile_img.jpeg')
           setLSExist(true);
           console.log(res.data.data[0].productId, "undefined");
           setProductId(res.data.data[0].productId);
@@ -462,6 +465,8 @@ const AdminUploadProducts = () => {
     }
 
   };
+
+  
 
   return (
 
