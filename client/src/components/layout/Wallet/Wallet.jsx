@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createWallet } from "../../../actions/wallet";
+import { depositToken } from "../../../actions/wallet";
 
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
@@ -21,7 +22,7 @@ const options = [
 
 const ITEM_HEIGHT = 48;
 
-const Wallet = ({ auth, createWallet }) => {
+const Wallet = ({ auth, createWallet, depositToken }) => {
   const [age, setAge] = React.useState("");
   const [assetVal, setAssetVal] = useState("200,000.00");
   const [adminId, setAdminId] = useState("");
@@ -103,7 +104,7 @@ const Wallet = ({ auth, createWallet }) => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
-  useEffect(() => {
+  useEffect(async() => {
     console.log(auth);
     if (auth.user !== null) {
       var todecoded = auth.user;
@@ -113,7 +114,7 @@ const Wallet = ({ auth, createWallet }) => {
       // console.log(todecoded.user.id)
       setAdminId(todecoded.user.id);
 
-      axios
+      await axios
         .get(
           api_url2 + "/v1/wallet/check/wallet/" + todecoded.user.id,
           null,
@@ -173,14 +174,29 @@ const Wallet = ({ auth, createWallet }) => {
     setActiveBg("deposit_btn");
     // setCurrentToken(tokenSymbol);
     // setTokenName(tokenName);
-    setShowDeposit(true);
-    console.log(adminId);
-    let res3 = await createWallet(adminId, tokenSymbol);
-    console.log(res3);
 
-    if (res3.success === true) {
-      setWalletAddr(res3.data.address);
+    if (accountExists) {
+      console.log('accountExists');
+      setShowDeposit(true);
+      // console.log(adminId);
+      let res3 = await depositToken(adminId, tokenSymbol);
+      console.log(res3);
+
+      if (res3.success === true) {
+        setWalletAddr(res3.data.address);
+      }
+    } else {
+      console.log('not accountExists');
+      setShowDeposit(true);
+      // console.log(adminId);
+      let res3 = await createWallet(adminId, tokenSymbol);
+      console.log(res3);
+
+      if (res3.success === true) {
+        setWalletAddr(res3.data.address);
+      }
     }
+
   };
   const closeDepositDiv = () => {
     setShowDeposit(false);
@@ -579,4 +595,4 @@ const mapStateToProps = (state) => ({
 });
 
 // export default Wallet;
-export default connect(mapStateToProps, { createWallet })(Wallet);
+export default connect(mapStateToProps, { createWallet, depositToken })(Wallet);
