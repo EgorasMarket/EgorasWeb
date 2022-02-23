@@ -3,18 +3,18 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import { ProductImageCarousel } from "./ProductImageCarousel";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
+import { ProductImageCarousel } from "./productCarousel";
+import "../../Home2/Dashboard/DashboardStyles/dashboardCart.css";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import CallIcon from "@mui/icons-material/Call";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-// import { ProductDescription } from "./ProductDescription";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import { ProductDescription } from "./productDest";
+import Dashboard_Checkout_Page from "../../Home2/Dashboard/DashboardPages/Dashboard_Checkout_Page";
 
 // import CheckoutModalComponent from "./CheckoutModalComponent";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
-import Accordion from "./Accordion";
+import Accordion from "./accord";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -22,7 +22,7 @@ import {
 
 const InstallmentComponent = ({
   product_duration,
-  amount,
+  rounded,
   percentage,
   initial_deposit,
   roundedAmount,
@@ -38,7 +38,7 @@ const InstallmentComponent = ({
 
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(amount)}
+        {numberWithCommas(parseInt(roundedAmount).toFixed())}
         <span className="per_day"></span>
       </div>
 
@@ -82,12 +82,12 @@ const OutrightComponent = ({
   );
 };
 
+
 const ItemDetailComponent = ({
   payload,
   card,
   user_id,
   CloseModal,
-  specification,
   OpenModal,
   openCheckoutModal,
 }) => {
@@ -103,8 +103,8 @@ const ItemDetailComponent = ({
   const [term, setTerm] = useState([]);
   const [activeBg, setActiveBg] = useState("features");
   const [outrightProducts, setOutrightProducts] = useState([]);
-  const [categ, setcate] = useState([]);
-  const [food, setFood] = useState([]);
+  const [categ,setcate]=useState([])
+  const [food,setFood]=useState([])
   //destructure the payload and return values
   const {
     amount,
@@ -117,17 +117,18 @@ const ItemDetailComponent = ({
     product_image,
     product_name,
     product_specifications,
+    unitCount,
+    payment_type,
     product_type,
     initial_deposit,
+    dailyAmount,
     paymentPerday,
-    payment_type,
     days_left,
+    roundedAmount,
+    rounded,
+    total_amount,
     no_of_days,
-    no_of_days_paid, 
-    startDate, 
-    endDate
   } = payload;
-  // console.log(initial_deposit)
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -184,11 +185,13 @@ const ItemDetailComponent = ({
         // setCaping({
         //   code3:data.data.data.product_category_desc
         // })
+        
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
   }, []);
+
 
   useEffect(() => {
     axios
@@ -198,21 +201,24 @@ const ItemDetailComponent = ({
 
         // const pad = data.data.data[0].product_category_code;
 
-        setcate(data.data.data);
+        setcate(data.data.data)
 
-        setFood(data.data.data.product_category_code);
-
-        console.log(food, " water is good for cooking");
+      
+          setFood(data.data.data.product_category_code)
+       
+     console.log(food," water is good for cooking")
 
         // setOutrightProducts(data.data.data);
         // setCaping({
         //   code3:data.data.data.product_category_desc
         // })
+        
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
       });
   }, []);
+
 
   useEffect(() => {
     checkProductType(product_type);
@@ -260,7 +266,10 @@ const ItemDetailComponent = ({
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   };
-  // console.log(product_id);
+  console.log(product_id);
+
+
+
 
   return (
     <>
@@ -282,6 +291,9 @@ const ItemDetailComponent = ({
         {/* <div className="wrapper"> */}
         {/* <ImageGallery items={images} /> */}
         {/* </div> */}
+
+
+      
 
         <div className="product_details_area1">
           <div className="details_area1_cont1">
@@ -317,9 +329,9 @@ const ItemDetailComponent = ({
                 <InstallmentComponent
                   initial_deposit={initial_deposit}
                   product_duration={product_duration}
-                  amount={amount}
+                  rounded={rounded}
                   percentage={percentage}
-                  amount={amount}
+                  roundedAmount={roundedAmount}
                   paymentPerday={paymentPerday}
                   numberWithCommas={numberWithCommas}
                 />
@@ -327,7 +339,7 @@ const ItemDetailComponent = ({
             ) : (
               <>
                 <OutrightComponent
-                  roundedAmount={amount}
+                  roundedAmount={roundedAmount}
                   numberWithCommas={numberWithCommas}
                 />
               </>
@@ -416,14 +428,7 @@ const ItemDetailComponent = ({
                 </table>
               </div>
             ) : (
-              <div className="specification_div">
-                {/* {specification.map((desc) => (
-                      <tr>
-                        <td>{desc}</td>
-                      </tr>
-                    ))} */}
-                {specification}
-              </div>
+              <ProductDescription />
             )}
           </div>
         </div>
@@ -470,65 +475,60 @@ const ItemDetailComponent = ({
                 swipeable={true}
                 style={{ height: "25em" }}
               >
-                {term.map((asset) => {
-                  if (product_category_code === asset.product_category_code) {
-                    return (
-                      <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                      >
-                        <li className="carous_list">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                {asset.payment_type == "OUTRIGHT" ? (
-                                  <p className="no_margg"> Buy now</p>
-                                ) : (
-                                  <p className="no_margg"> Save now</p>
-                                )}
-                              </button>
+                {term.map((asset) => { if(product_category_code === asset.product_category_code){return(
 
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div></div>
-                              ) : (
-                                <button className="items_remaining_btn2">
-                                  {" "}
-                                  40% locked
-                                </button>
-                              )}
-                            </div>
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
-                                </span>
-                              </div>
-                            </div>
-                            {/* </a> */}
+                  <a
+                    href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                  >
+                    <li className="carous_list">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${
+                            api_url2 + "/" + asset.product_image
+                          })`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <p className="no_margg"> Buy now</p>
+                            ) : (
+                              <p className="no_margg"> Save now</p>
+                            )}
+                          </button>
+
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <div></div>
+                          ) : (
+                            <button className="items_remaining_btn2">
+                              {" "}
+                              40% locked
+                            </button>
+                          )}
+                        </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.product_name}</div>
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.roundedAmount * 2)}
+                            </span>
                           </div>
-                        </li>
-                      </a>
-                    );
-                  }
-                })}
+                        </div>
+                        {/* </a> */}
+                      </div>
+                    </li>
+                  </a>
+               )} })}
               </Carousel>
               {/* Carousel end==============================
 ==============================================
@@ -542,6 +542,7 @@ const ItemDetailComponent = ({
         {/* ============= */}
         {/* =================================================================================================================================================================================================================================================================== */}
         {/*  Projects Section start*/}
+        
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}

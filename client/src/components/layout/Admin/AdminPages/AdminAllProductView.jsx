@@ -424,6 +424,12 @@ function ItemDetailsPage({ auth, match }) {
         axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
           (response)=>{
             console.log(response.data);
+            // if (data.data.data.success === true) {
+
+            //   return window.location.replace("/super_admin/all_products");
+            // }
+  
+      
 
             // deletebro()
           }

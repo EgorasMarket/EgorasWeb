@@ -13,9 +13,12 @@ import { SplashScreen } from "../SplashScreen/SplashScreen";
 import Wallet from "../Wallet/Wallet";
 import axios from "axios";
 import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
+import Item_details_main2 from "./AdminPages/items";
 
 import "./AdminStyles/admin.css";
-import DashboardInvestPage from "../Home2/Dashboard/DashboardPages/DashboardInvestPage";
+import Page from "./AdminPages/dashboardIn";
+import ItemsPage2 from "./AdminPages/items";
+
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
   const [roleDisplay, setRoleDisplay] = useState({
@@ -45,6 +48,10 @@ const Admin = ({ isAuthenticated, loading }) => {
     // setSplashScreen(true);
   }, [isAuthenticated]);
 
+
+  const dapp =  window.location.pathname;
+  const dapp2 = window.location.pathname;
+
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/admin/info", null, config)
@@ -68,25 +75,35 @@ const Admin = ({ isAuthenticated, loading }) => {
           <div className="admin">
             <AdminSideBar />
             <Switch>
-            <Route
-                exact
-                path="/super_admin"
-                component={Admin_homePage}
-              />
+
+           
+
               {Role === "MEDIA" ? (
-                <Route
+               <> 
+               <Route
                   exact
                   path="/super_admin/upload_products"
                   component={AdminUploadProducts}
                 />
-        
-                
+                {/* <Route
+                exact
+                path="/admin/products/details/:id/:name"
+                component={ItemsPage2}
+              /> */}
+              </>
               ) : Role === "BUSINESS_ADMIN" ? (
+              <>
                 <Route
                   exact
                   path="/super_admin/register_user"
                   component={RegisterCustomer}
                 />
+                {/* <Route
+                exact
+                path="/admin/products/details/:id/:name"
+                component={ItemsPage2}
+              /> */}
+              </>
               ) : Role === "CASHIER" || Role === "CUSTOMER_SERVICE" ? (
                 <>
                   <Route
@@ -94,27 +111,45 @@ const Admin = ({ isAuthenticated, loading }) => {
                     path="/super_admin/all_user"
                     component={AdminCustomer}
                   />
+
+                <Route
+                exact
+                path="/super_admin/overview"
+                // path="/dashboard/products/details/:id/:name"
+                // / dashboard/products/details/:id/:name
+                component={Page}
+              />
+
+               {/* <Route
+                exact
+                path="/admin/products/details/:id/:name"
+                component={ItemsPage2}
+              /> */}
                   <Route
                     exact
                     path="/super_admin/user_wallet"
                     component={Wallet}
                   />
+
                   <Route
                     exact
-                    path="/super_admin/user_overview"
-                    // path="/dashboard/products/details/:id/:name"
-                    // / dashboard/products/details/:id/:name
-                    component={DashboardInvestPage}
+                    path="/super_admin/details/:id/:name"
+                    component={Item_details_main2}
                   />
                 </>
               ) : Role === "HOD_MEDIA" ? (
-                <Route
+                <><Route
                   exact
                   path="/super_admin/all_products"
                   component={AdminAllProducts}
                 />
-              ) : null}
-
+                {/* <Route
+                exact
+                path="/admin/products/details/:id/:name"
+                component={ItemsPage2}
+              /> */}
+              </>
+              ) :  
               <Route
                 exact
                 path="/super_admin/all_products_view/:id/:name"
@@ -123,7 +158,13 @@ const Admin = ({ isAuthenticated, loading }) => {
                 component={AdminAllView}
               />
 
+                }
+
+                  
+
               
+
+             
             </Switch>
           </div>
         )}

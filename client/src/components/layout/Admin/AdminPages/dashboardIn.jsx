@@ -7,20 +7,20 @@ import Slider from "react-slick";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Carousel from "react-multi-carousel";
 import DvrIcon from "@mui/icons-material/Dvr";
-import "../DashboardStyles/dashboard_side.css";
-import "../DashboardStyles/dashboard_products.css";
+import "../../Home2/Dashboard/DashboardStyles/dashboard_side.css";
+import "../../Home2/Dashboard/DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
 // import {Link} from 'react-router-dom';
-import "../DashboardStyles/dashboard_side.css";
-import "../DashboardStyles/dashboard_header.css";
+import "../../Home2/Dashboard/DashboardStyles/dashboard_side.css";
+import "../../Home2/Dashboard/DashboardStyles/dashboard_header.css";
 // import { Link, animateScroll as scroll } from "react-scroll";
 
 import axios from "axios";
-import setAuthToken from "../../../../../utils/setAuthToken";
+import setAuthToken from "../../../../utils/setAuthToken";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from "../../../../../actions/types";
+} from "../../../../actions/types";
 import { index } from "d3-array";
 
 const responsive7 = {
@@ -367,7 +367,9 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_conts">
               {item.slice(0, 12).map((asset, index) => (
                 <a
-                  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                  // href={`/admin/products/details/${asset.id}/${asset.product_name}`}
+                  // href={`/products/details/${asset.id}/${asset.product_name}`}
+                  href={`/super_admin/details/${asset.id}/${asset.product_name}`}
                   key={index.toString()}
                 >
                   <li className="carous_list no_marg">
@@ -486,27 +488,23 @@ function DashboardInvestPage({ auth }) {
                           )}
                         </button>
 
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div></div>
-                              ) : (
-                                <button className="items_remaining_btn2">
-                                  {" "}
-                                  {asset.percentage}% locked
-                                </button>
-                              )}
-                            </div>
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
-                                </span>
-                              </div>
-                            </div>
-                            {/* </a> */}
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <div></div>
+                        ) : (
+                          <button className="items_remaining_btn2">
+                            {" "}
+                            {asset.percentage}% locked
+                          </button>
+                        )}
+                      </div>
+                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                        <div className="asset_name">{asset.product_name}</div>
+                        <div className="asset_prices_div">
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.amount * 2)}
+                            </span>
                           </div>
                           <div className="amount_per_day_div">
                             ₦
@@ -515,8 +513,12 @@ function DashboardInvestPage({ auth }) {
                             )}
                             <span className="per_day_symbol"> / perday</span>
                           </div>
-                        </li>
-                      </a>
+                        </div>
+                      </div>
+                      {/* </a> */}
+                    </div>
+                  </li>
+                </a>
                     );
                 })}
               </div>
