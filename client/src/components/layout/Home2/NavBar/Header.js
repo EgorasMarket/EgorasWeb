@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { connect } from "react-redux";
 import { makeStyles, useTheme } from "@material-ui/core/styles";
 // import ClickAwayListener from "@material-ui/core/ClickAwayListener";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
@@ -22,7 +23,7 @@ import Divider from "@material-ui/core/Divider";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
-import Login from "../Login/Login"
+import Login from "../Login/Login";
 
 // styles
 import "../../../../css/header.css";
@@ -118,8 +119,9 @@ const useStyles2 = makeStyles((theme) => ({
 
 // }));
 
-const Header = () => {
+const Header = ({ isAuthenticated, auth }) => {
   const [showHeader, setshowHeader] = useState("/");
+  const [isAuth, setIsAuth] = useState(false);
   // const [showHeader, setshowHeader] = useState("/");
 
   const currentPage = window.location.pathname;
@@ -251,6 +253,8 @@ const Header = () => {
     // document.getElementById("app_icon").style.display = "none";
   });
 
+  // console.log(auth);
+
   // page hide element
 
   // class change on click functions
@@ -271,9 +275,14 @@ const Header = () => {
       setPage1("/savings");
     }
   });
-  // {
-  //   page === "change" ? (
-  //   ) : ()}
+
+  useEffect(() => {
+    if (isAuthenticated === true) {
+      setIsAuth(true);
+    } else {
+      setIsAuth(false);
+    }
+  });
 
   const classes = useStyles();
   const theme = useTheme();
@@ -425,95 +434,7 @@ const Header = () => {
               <img src="/img/egoras-logo.svg" alt="..." className="egr-logo2" />
             </a>
 
-            {/* <ul className="headerLinks2">
-            <a href="/documents" className="docs">
-              Products
-            </a>
-            <a href="about" className="about">
-              Company
-              <ArrowDropDownIcon />
-            </a>
-          </ul> */}
-
             <ul className="headerButtons">
-              {/* <AppsIcon className="app_icon" id="app_icon" /> */}
-
-              {/* <div className="hide_menu" id="hide_menu"> */}
-              {/* <a
-                  href="/validator"
-                  className={
-                    page1 === "/validator" ? "docs activeLink" : "about"
-                  }
-                  // onClick={clickMe2}
-                >
-                  Validator
-                  {page1 === "/validator" ? (
-                    <span className="Line"></span>
-                  ) : null}
-                </a>
-                <div
-                  style={{ cursor: "pointer" }}
-                  onMouseOver={dropDownOpen1}
-                  onMouseOut={dropDownClose1}
-                  className="product"
-                  id="product"
-                >
-                  Products
-                  <img
-                    src="/img/arrow-down-icon.svg"
-                    alt="..."
-                    id="ArrowDownIcon"
-                    className="ArrowDownIcon"
-                  />
-                  <div className="products-menu " id="products-menu">
-                    <h6 className="drop-borrow">Borrower</h6>
-                    <a
-                      href="https://egoras.ng/appointment"
-                      className="drop-borrow-link"
-                    >
-                      Get loan
-                    </a>
-                    <hr />
-                    <h6 className="drop-borrow">Validator</h6>
-                    <a href="/explore_collaterals" className="drop-borrow-link">
-                      Explore Collaterals
-                    </a>
-                  </div>
-                </div> */}
-
-              {/* <div
-                  style={{ cursor: "pointer" }}
-                  className="company"
-                  id="company"
-                  onMouseOver={dropDownOpen2}
-                  onMouseOut={dropDownClose2}
-                >
-                  Company
-                  <img
-                    src="/img/arrow-down-icon.svg"
-                    alt="..."
-                    id="ArrowDownIcon2"
-                    className="ArrowDownIcon2"
-                  />
-                  {/* <ArrowDropUpIcon id="ArrowUpIcon2" className="ArrowUpIcon2" /> */}
-              {/* <div className="products-menu menu2" id="products-menu2">
-                    <a href="/about" className="drop-borrow-link">
-                      About Us
-                    </a>
-                    <hr />
-                    <a
-                      href="https://egoras.medium.com/"
-                      className="drop-borrow-link"
-                    >
-                      Blog
-                    </a>
-                    <hr />
-                    <a href="/whitepaper" className="drop-borrow-link">
-                      White Paper
-                    </a>
-                  </div>
-                </div> */}
-              {/* </div> */}
               {/* ========== */}
               {/* ========== */}
               {/* ========== */}
@@ -549,35 +470,6 @@ const Header = () => {
                 Validator
                 {page1 === "/validator" ? <span className="Line"></span> : null}
               </a>
-              {/* <div
-                style={{ cursor: "pointer" }}
-                onMouseOver={dropDownOpen1}
-                onMouseOut={dropDownClose1}
-                className="product"
-                id="product1"
-              >
-                Products
-                <img
-                  src="/img/arrow-down-icon.svg"
-                  alt="..."
-                  id="ArrowDownIcon"
-                  className="ArrowDownIcon"
-                />
-                <div className="products-menu " id="products-menu">
-                  <h6 className="drop-borrow">Borrower</h6>
-                  <a
-                    href="https://egoras.ng/appointment"
-                    className="drop-borrow-link"
-                  >
-                    Get loan
-                  </a>
-                  <hr />
-                  <h6 className="drop-borrow">Validator</h6>
-                  <a href="/explore_collaterals" className="drop-borrow-link">
-                    Explore Collaterals
-                  </a>
-                </div>
-              </div> */}
 
               <div
                 style={{ cursor: "pointer" }}
@@ -651,10 +543,20 @@ const Header = () => {
                   </a>
                 </div>
               ) : null}
-              {currentPage == "/savings" ? (
+              {currentPage == "/savings" && isAuth === true ? (
                 <div style={{ display: "flex" }}>
                   <a href="/dashboard" className="connectb">
                     Dashboard
+                  </a>
+                </div>
+              ) : currentPage == "/savings" && isAuth === false ? (
+                <div style={{ display: "flex" }}>
+                  <a href="/login" className="getLoan">
+                    {" "}
+                    Login
+                  </a>
+                  <a href="/signup" className="connectb">
+                    Signup
                   </a>
                 </div>
               ) : null}
@@ -798,10 +700,15 @@ const Header = () => {
           </div>
         </div>
       </section>
- 
-      
     </div>
   );
 };
 
-export default Header;
+// export default Header;
+
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, {})(Header);

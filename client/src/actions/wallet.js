@@ -16,6 +16,39 @@ import setAuthToken from "../utils/setAuthToken";
 
 
 export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
+  //   console.log(payload1, pin);
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
+  
+      try {
+  
+          const payload = JSON.stringify({customer_id, tokenSymbol});
+    
+          // console.log(payload);
+  
+          let res6 = await axios.post(api_url2+"/v1/wallet/create/wallet", payload, config)
+  
+          // console.log(res6);
+  
+          return {
+              success: true,
+              data: res6.data,
+              // address: walletAddress
+            };
+     
+      } catch (error) {
+          console.log(error.response);
+          return {
+              success: false,
+              data: error.response,
+          };
+    }
+  };
+
+export const depositToken = (customer_id, tokenSymbol) => async (dispatch) => {
 //   console.log(payload1, pin);
   const config = {
     headers: {
@@ -29,7 +62,7 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
   
         // console.log(payload);
 
-        let res6 = await axios.post(api_url2+"/v1/wallet/create/wallet", payload, config)
+        let res6 = await axios.post(api_url2+"/v1/wallet/deposit/token", payload, config)
 
         // console.log(res6);
 
@@ -38,7 +71,7 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
             data: res6.data,
             // address: walletAddress
           };
-   
+    
     } catch (error) {
         console.log(error.response);
         return {
