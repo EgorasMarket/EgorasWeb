@@ -84,7 +84,7 @@ const responsive6 = {
   },
 };
 
-const PhonesCatPage = ({match}) => {
+const PhonesCatPagDuplicate = ({match}) => {
   const [totalProducts, setTotalProducts] = useState("200 ");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
@@ -240,7 +240,7 @@ const PhonesCatPage = ({match}) => {
               <img
                  key={rd.toString}
                 // src="/img/fake_assets/refurb_img.jpeg"
-                src ={`${api_url2 + '/'+ asset.product_image[0]}`}
+                src ={`url(${api_url2 + '/'+ asset.product_image[0]})`}
                 alt=""
                 className="refurb_img_bann"
               />
@@ -331,7 +331,7 @@ const PhonesCatPage = ({match}) => {
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
                 <h1 className="gttitle TITE">
-                {match.params.category}  <span className="ouright_sell">/ Outright sell-off</span>
+                {match.params.category}  <span className="ouright_sell">/ Outright Buy</span>
                 </h1>
               </div>
               {/* <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
@@ -616,6 +616,7 @@ const PhonesCatPage = ({match}) => {
                             key={brand.product_id}
                           />
                           <span class="checkmark"></span>
+                     
                         </label>
                       </div>
                     ))}
@@ -634,16 +635,17 @@ const PhonesCatPage = ({match}) => {
                   </span>
                 </div>
                 <div className="items_all_list_body_cont_head2">
-                  {searchResults.length} {seeAll.length <= 1?"prodcut Found":"products Found"}
+                  {seeAll.length} {seeAll.length <= 1?"prodcut Found":"products Found"}
                   <span className="sort_cont">
                     <WidgetsIcon className="widgi_widgi" />
                   </span>
                 </div>
                 <div className="items_all_list_body">
-                  {seeAll.slice(0,100).map((asset,index11) => (
+                  {/* {seeAll.slice(0,100).map((asset,index11) => ( */}
+                       {searchResults.slice(0,100).map((asset,index11) => (
 
 
-<a href={`/products/details/${asset.id}`}>
+<a href={`/products/details/${asset.id}`} key={index11.toString()}>
 <li className="carous_list">
   <div
     className="storeTiles_storeTileContainer__HoGEa"
@@ -715,7 +717,7 @@ const PhonesCatPage = ({match}) => {
 };
 
 
-PhonesCatPage.propsTypes = {}
+PhonesCatPagDuplicate.propsTypes = {}
 
 
 const mapStateToProps1 = (state) => ({
@@ -723,4 +725,4 @@ const mapStateToProps1 = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default  connect(mapStateToProps1)(PhonesCatPage);
+export default  connect(mapStateToProps1)(PhonesCatPagDuplicate);

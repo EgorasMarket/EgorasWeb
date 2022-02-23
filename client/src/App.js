@@ -86,7 +86,7 @@ import Companies from "./components/layout/companies/Companies";
 import Details from "./components/layout/companies/Details";
 import Request from "./components/layout/requests/Request";
 // import Login from "./components/auth/Login";
-import PhonesCatPage from "./components/layout/Home2/Dashboard/DashboardPages/CategoryPages/PhonesCatPage";
+import PhonesCatPagDuplicate from "./components/layout/Home2/Dashboard/DashboardPages/CategoryPages/PhonesCatPagDuplicate";
 import Categories from "./components/layout/categories/Categories";
 import Status from "./components/layout/status/Status";
 import TermsAndConditions from "./components/layout/Home2/Terms&Condition/TermsAndConditions";
@@ -289,7 +289,7 @@ const App = () => {
                        <Route
                 exact
                 path="/products/categories/:category"
-                component={PhonesCatPage}
+                component={PhonesCatPagDuplicate}
               />
                   <Route
                     exact
@@ -356,11 +356,11 @@ const App = () => {
                     path="/products/details/:id/:name"
                     component={Item_details_main}
                   />
-                     <Route
+                     {/* <Route
                     exact
                     path="/products/categories/:category"
                     component={See_ALL_Category}
-                  />
+                  /> */}
                   <Route
                     exact
                     path="/egoras-decentralized-autonomous-organization"

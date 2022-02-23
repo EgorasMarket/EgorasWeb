@@ -186,7 +186,7 @@ const AdminCustomer = () => {
                               View
                             </button>
                           </a>
-                          <a href={`/super_admin/user_overview`}>
+                          <a href={`/super_admin/overview`}>
                             <button
                               id={user.id}
                               onClick={saveCustomerId}

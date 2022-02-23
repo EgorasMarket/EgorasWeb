@@ -282,15 +282,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Top Deals / Outright Buy.
-                  {/* <span className="ouright_sell">/ Outright sell-off.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Top Deals </h1>
               </div>
               <a
-                // href={`/products/categories/Outright `}
-
-                href={`/dashboard/products/categories/${code3}`}
+                href={`/products/categories/Outright `}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -394,14 +389,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Phone & Tablets
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Phone & Tablets</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/${code2}`}
-                // href={`/products/categories/Phones & Tablet`}
+                href={`/products/categories/Phones & Tablet`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -525,14 +516,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Electronics
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Electronics</h1>
               </div>
               <a
-                // href={`/products/categories/Electronics`}
-                href={`/dashboard/products/categories/${code2}`}
+                href={`/products/categories/Electronics`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -557,9 +544,7 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-              {
-              item.map((asset) => {
-                // console.log(item);
+              {item.map((asset) => {
                 if (electronics === asset.product_category_desc) {
                   // console.log(asset.count);
                   // if (condition) {
@@ -660,14 +645,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Musical Equipments
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Musical Equipments</h1>
               </div>
               <a
-                // href={`/products/categories/Musical Equipments`}
-                href={`/dashboard/products/categories/${code2}`}
+                href={`/products/categories/Musical Equipments`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -785,15 +766,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Computer & Accessories
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Computer & Accessories</h1>
               </div>
               <a
-                href={`/dashboard/products/categories/${code2}`}
-                // href={`/products/categories/Computer & Accessories`}
-
+                href={`/products/categories/Computer & Accessories`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -910,15 +886,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Furniture
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Furniture</h1>
               </div>
-
               <a
-                // href={`/products/categories/Furnitures`}
-                href={`/dashboard/products/categories/${code2}`}
+                href={`/products/categories/Furnitures`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1037,14 +1008,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Groceries
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Groceries</h1>
               </div>
               <a
-                // href={`/products/categories/Home Appliances`}
-                href={`/dashboard/products/categories/${code2}`}
+                href={`/products/categories/Home Appliances`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1148,14 +1115,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Home Appliances
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Home Appliances</h1>
               </div>
               <a
-                // href={`/dashboard/products/categories/Home Appliances`}
-
+                href={`/products/categories/Home Appliances`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1271,14 +1234,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Nfts
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Nfts</h1>
               </div>
               <a
-                // href={`/products/categories/Nfts`}
-                href={`/dashboard/products/categories/${code2}`}
+                href={`/products/categories/Nfts`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
@@ -1394,14 +1353,10 @@ const Savings = () => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Industrial Equipments
-                  {/* <span className="ouright_sell">/ Esusu.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Industrial Equipments</h1>
               </div>
               <a
-                // href={`/products/categories/Industral Equipments`}
-                href={`/dashboard/products/categories/${code2}`}
+                href={`/products/categories/Industral Equipments`}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />
