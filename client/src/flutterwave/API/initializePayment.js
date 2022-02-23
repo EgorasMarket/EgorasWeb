@@ -1,4 +1,5 @@
 // import axios from '../Axios'
+import { WindowSharp } from '@mui/icons-material';
 import axios from 'axios';
 import { API_URL2 } from '../../actions/types';
 const initializePayment = async (amount, customer_data) => {
@@ -24,6 +25,9 @@ const initializePayment = async (amount, customer_data) => {
             return; 
         }
         console.log(call, "from the anonymous")
+        const {link} = call.data.data.data;
+        console.log(link, 'from me ')
+        window.open(link, "_self")
        return call; 
        
     } catch (err) {
