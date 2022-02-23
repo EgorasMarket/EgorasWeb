@@ -216,6 +216,7 @@ const Savings = ({ getProductByCat }) => {
         console.log(err); // "oh, no!"
       });
   }, []);
+  
 
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");

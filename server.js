@@ -79,6 +79,4 @@ app.use('/api/loans', require('./routes/api/loans'));
 
 const PORT = process.env.PORT || 7801;
 
-app.listen(PORT, () =>
-  console.log(`Server started on ${PORT}`)
-);
+app.listen(PORT, () => console.log(`Server started on ${PORT}`));

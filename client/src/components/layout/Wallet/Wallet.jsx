@@ -445,7 +445,11 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             </div>
                             <div className="copy_address_div_txt" id="myInput">
                               {walletAddr}
-                              <FileCopyIcon className="file_icon_copy" />
+                              <FileCopyIcon
+                                className="file_icon_copy"
+                                // onClick={copyText}
+                                // onMouseOut={outFunc}
+                              />
                             </div>
                           </div>
                         </div>
@@ -506,6 +510,11 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     Address
                                   </span>
                                   <div className="address_cont">
+                                    {/* {data.fromAddress.substring(0, 10) +
+                                    "..." +
+                                    data.fromAddress.substr(
+                                      data.fromAddress.length - 10
+                                    )} */}
                                     {data.fromAddress}
                                   </div>
 
@@ -514,6 +523,8 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     onClick={() =>
                                       copyTextText2(data.fromAddress)
                                     }
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
                                   />
                                   <span className="hover_txn_address_cont">
                                     {data.fromAddress}
@@ -535,11 +546,15 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     {data.txnId.substring(0, 10) +
                                       "..." +
                                       data.txnId.substr(data.txnId.length - 7)}
+                                    {/* {txId} */}
                                   </div>
 
                                   <FileCopyIcon
                                     onClick={() => copyTextText(data.txnId)}
                                     className="deposit_history_address_copy_icon"
+
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
                                   />
                                   <span className="hover_txn_address_cont">
                                     {data.txnId}
