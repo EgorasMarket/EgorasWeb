@@ -20,10 +20,7 @@ import initializePayment from "../../../../flutterwave/API/initializePayment";
 const CheckoutModalComponent = ({
   payload, 
   closeCheckoutOptions,
-  auth,
-  previousBtn,
-  CheckBtn,
-  apps
+  auth
 }) => {
 
   //destructure the payload and return values
@@ -55,7 +52,8 @@ const CheckoutModalComponent = ({
   const [phone_no, setPhoneNo] = useState("")
   const [name, setName] = useState("")
   const [option, setOption] = useState(-1)
-  // console.log(phone_no, name, option)
+  const [customer_data, setCustomerData] = useState({})
+  console.log(phone_no, name, option)
 
 
   useEffect(() => {
@@ -64,6 +62,12 @@ const CheckoutModalComponent = ({
       setEmail(auth.user.user.email);
         setPhoneNo( auth.user.user.phoneNumber);
         setName( auth.user.user.fullname)
+        const { fullname, email, phoneNumber} = auth.user.user;
+        setCustomerData(
+         { name: fullname, 
+          email, 
+          phonenumber:phoneNumber}
+        )
     }
 
   }, []);
@@ -88,49 +92,51 @@ const CheckoutModalComponent = ({
       logo: 'https://egoras.com/img/egoras-logo.svg',
     },
   };
-    // const handleFlutterPayment= useFlutterwave(flutterConfig);
+    const handleFlutterPayment= useFlutterwave(flutterConfig);
 
 
-  const selectOption = (value) => {
-    switch(value ){
-      case 0: 
-        initializePayment(1)
-        // handleFlutterPayment({callback: ()=> {
-        //   alert('here')
-        // }})
-    }
-    // switch (value){
-    //   case 0:   () => {
-    //     // alert('payment set as card', product_id)
-    //       handleFlutterPayment({
-    //         callback: async (response) => {
-    //           console.log(response)
-    //           try {
-    //             const verification = await verify(response.transaction_id, product_id)
+  const selectOption =async (value) => {
+    // switch(value ){
+    //   case 0: 
+    //     // const call = await initializePayment(1, customer_data)
+    //     // console.log(call)
+
+    //     // handleFlutterPayment({callback: ()=> {
+    //     //   alert('here')
+    //     // }})
+    // }
+    switch (value){
+      case 0:   
+             // alert('payment set as card', product_id)
+          handleFlutterPayment({
+            callback: async (response) => {
+              console.log(response)
+              try {
+                const verification = await verify(response.transaction_id, product_id)
        
-    //             console.log(verification.data.data.data.amount, 'from me  ')
-    //             closePaymentModal()
-    //           } catch (error) {
-    //             console.log(error.response)
-    //           }
+                console.log(verification.data.data.data.amount, 'from me  ')
+                closePaymentModal()
+              } catch (error) {
+                console.log(error.response)
+              }
   
-    //         },
-    //         onClose: (response) => {
-    //           console.log(response, "response from onclose ")
+            },
+            onClose: (response) => {
+              console.log(response, "response from onclose ")
   
-    //         }
-    //       })
-    //     }
+            }
+          })
+        
   
         
-    //     break;
+        break;
 
-    //   case 1: (
-    //     alert('wallet method selected')
-    //   )
-    //     break
+      case 1: (
+        alert('wallet method selected')
+      )
+        break
     
-    // }
+    }
 
   }
 
@@ -157,8 +163,7 @@ const CheckoutModalComponent = ({
                 <div className="delivery_card_body">
                   <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
                   <div className="delivery_card_body_cont1">
-                 {/* props.apps */}
-                 {apps}
+                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
                   </div>
                   <div className="delivery_card_body_cont1">08164020234</div>
                 </div>
