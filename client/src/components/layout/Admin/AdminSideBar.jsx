@@ -96,7 +96,7 @@ const AdminSideBar = ({ auth }) => {
   };
 
   useEffect(() => {
-    if (linksActive === "/super_admin") {
+    if (linksActive === "/super_admin/upload_products") {
       setActiveBg("Home");
     }
     if (linksActive === "/super_admin/user_overview") {
@@ -264,7 +264,7 @@ const AdminSideBar = ({ auth }) => {
 
                 {role1 === "MEDIA" ? (
                   <a
-                    href="/super_admin"
+                    href="/super_admin/upload_products"
                     id="Home"
                     className="link"
                     onClick={changeBg}

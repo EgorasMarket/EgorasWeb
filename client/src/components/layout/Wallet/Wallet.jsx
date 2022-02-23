@@ -1,24 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createWallet } from "../../../actions/wallet";
+import { depositToken } from "../../../actions/wallet";
 
-import IconButton from "@mui/material/IconButton";
-
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
 import { Link } from "react-router-dom";
-import InputLabel from "@mui/material/InputLabel";
-import CloseIcon from "@mui/icons-material/Close";
+import data from "../MockData";
 import { API_URL2 as api_url2 } from "../../../actions/types";
 import axios from "axios";
-import FormHelperText from "@mui/material/FormHelperText";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
-import ReplayIcon from "@mui/icons-material/Replay";
-import InfoIcon from "@mui/icons-material/Info";
-import { flexbox } from "@mui/system";
+
 import "./wallet.css";
 const options = [
   "Deposit History",
@@ -26,27 +20,42 @@ const options = [
   "Transaction History",
 ];
 
-
-
 const ITEM_HEIGHT = 48;
 
-const Wallet = ({auth, createWallet}) => {
+const Wallet = ({ auth, createWallet, depositToken }) => {
   const [age, setAge] = React.useState("");
   const [assetVal, setAssetVal] = useState("200,000.00");
   const [adminId, setAdminId] = useState("");
+  const [visible, settVisible] = useState(false);
+  const [secureNumb, setSecureNumb] = useState(false);
   const [allTokens, setAllTokens] = useState([]);
-  const [currentToken, setCurrentToken] = useState();
-  const [tokenName, setTokenName] = useState();
+  const [copiedTxt, setCopiedTxt] = useState(false);
+  const [copiedTxt1, setCopiedTxt1] = useState(false);
+  // const [currentToken, setCurrentToken] = useState();
+  // const [tokenName, setTokenName] = useState();
+  const [tokenSymbol, setTokenSymbol] = useState();
   const [accountExists, setAccountExists] = useState();
   const [createWalletModal, setCreateWalletModal] = useState(false);
-  const [walletAddr, setWalletAddr] = useState('')
-
-
+  const [walletAddr, setWalletAddr] = useState("");
+  const [assetName, setAssetName] = useState();
+  const [showDeposit, setShowDeposit] = useState(false);
+  const [tokenSign, setTokenSign] = useState();
+  const [activeBg, setActiveBg] = useState("Home");
+  const [txId, setTxId] = useState(
+    "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
+  );
+  const [txId2, setTxId2] = useState(
+    "0x360ba97e2a8f0deb200e34846092a3b8110283b1"
+  );
+  
 
   const handleChange = (event) => {
     setAge(event.target.value);
   };
-
+  const changeBg = (e) => {
+    let currentId = e.currentTarget.id;
+    setActiveBg(currentId);
+  };
   const [anchorEl, setAnchorEl] = React.useState(null);
   const config = {
     headers: {
@@ -54,18 +63,39 @@ const Wallet = ({auth, createWallet}) => {
     },
   };
 
-  const openCreateWalletModal=()=>{
-    setCreateWalletModal(true)
-  }
-  const closeCreateWalletModal=()=>{
-    setCreateWalletModal(false)
-  }
+  const openCreateWalletModal = () => {
+    setCreateWalletModal(true);
+  };
+  const closeCreateWalletModal = () => {
+    setCreateWalletModal(false);
+  };
+  // useEffect(() => {
+  //   axios
+  //     .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
+  //     .then((data) => {
+  //       console.log(data.data.data, "powerful");
+
+  //       setAllTokens(data.data.data);
+  //       setAssetName(data.data.data[0].tokenName);
+  //       setTokenSign(data.data.data[0].tokenSymbol);
+  //       setTokenSymbol(data.data.data[0].tokenSymbol);
+  //       console.log(data.data.data[0].tokenName);
+
+  //       // setWrap({
+  //       //   code: data.data.data.product_category_code,
+  //       // });
+  //     })
+  //     .catch((err) => {
+  //       console.log(err.response); // "oh, no!"
+  //     });
+  // }, []);
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
       .then((data) => {
         console.log(data.data.data, "powerful");
-
+        setAssetName(data.data.data[0].tokenName);
+        setTokenSign(data.data.data[0].tokenSymbol);
         setAllTokens(data.data.data);
         // setWrap({
         //   code: data.data.data.product_category_code,
@@ -75,12 +105,9 @@ const Wallet = ({auth, createWallet}) => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
-
-  useEffect(() => {
-  
+  useEffect(async () => {
     console.log(auth);
     if (auth.user !== null) {
-     
       var todecoded = auth.user;
 
       // const getName = todecoded.user.fullname;
@@ -88,541 +115,279 @@ const Wallet = ({auth, createWallet}) => {
       // console.log(todecoded.user.id)
       setAdminId(todecoded.user.id);
 
-      axios
-      .get(api_url2 + "/v1/wallet/check/wallet/"+todecoded.user.id, null, config)
-      .then((data) => {
-        console.log(data.data, "powerful");
-        setAccountExists(data.data.accountExists )
-
-      })
-      .catch((err) => {
-        console.log(err.response); // "oh, no!"
-      });
-
-    
+      await axios
+        .get(
+          api_url2 + "/v1/wallet/check/wallet/" + todecoded.user.id,
+          null,
+          config
+        )
+        .then((data) => {
+          console.log(data.data, "powerful");
+          setAccountExists(data.data.accountExists);
+        })
+        .catch((err) => {
+          console.log(err.response); // "oh, no!"
+        });
     }
   }, [auth]);
 
-  // useEffect(() => {
-
-  //   console.log(adminId);
-  //   axios
-  //     .get(api_url2 + "/v1/wallet/check/"+adminId, null, config)
-  //     .then((data) => {
-  //       console.log(data.data.data, "powerful");
-
-  //       // setAllTokens(data.data.data);
-  //       // setWrap({
-  //       //   code: data.data.data.product_category_code,
-  //       // });
-  //     })
-  //     .catch((err) => {
-  //       console.log(err.response); // "oh, no!"
-  //     });
-  // }, []);
-  
-  //  const [anchorE2, setAnchorE2] = React.useState(null);
-  const open = Boolean(anchorEl);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
+  const openVisibility = () => {
+    settVisible(true);
+    setSecureNumb(true);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
+  const closeVisibility = () => {
+    settVisible(false);
+    setSecureNumb(false);
   };
-  // const handleClose2 = () => {
-  //   setAnchorE2(null);
-  //   swap()
+  // const timer = () => {
+  //   if (timeOut == false) {
+  //     setTimeout(() => {
+  //       setTimeOuut(false);
+  //     }, 1000);
+  //   } else {
+  //     setTimeOuut(true);
+  //   }
   // };
 
-  const deposit = () => {
-    let feed = document.getElementById("weed");
-    feed.style.display = "none";
+  const copyTextText = (e) => {
+    navigator.clipboard.writeText(e);
+    // let currentId = e.currentTarget.id;
+    // setActiveBg(currentId);
+    setCopiedTxt(true);
   };
-  const hid2 = () => {
-    document.getElementById("dialog").style.display = "block";
-    document.body.classList.add("adding");
+  const copyTextText2 = (e) => {
+    navigator.clipboard.writeText(e);
+    setCopiedTxt1(true);
   };
-  const hid = () => {
-    document.getElementById("dialog").style.display = "none";
-    document.body.classList.remove("adding");
-  };
+  // const open = Boolean(anchorEl);
+  // const handleClick = (event) => {
+  //   setAnchorEl(event.currentTarget);
+  // };
+  // const handleClose = () => {
+  //   setAnchorEl(null);
+  // };
+  const timer = setTimeout(() => {
+    setCopiedTxt(false);
+    setCopiedTxt1(false);
+  }, 1000);
 
-  // const inputEnter=()=>{
-  //   let car = document.getElementById('numbering');
-  //   if (car.value.length > 11){
-  //        console.log('value is greater than Eleven')
-  //   }
-  //    if (car.value.length < 11){
-  //        console.log('value is greater than Eleven')
-  //   }
-  // }
+  const openDepositDiv = async (tokenName, tokenSymbol) => {
+    setActiveBg("deposit_btn");
+    // setCurrentToken(tokenSymbol);
+    // setTokenName(tokenName);
 
-  const phoneNumber = (inputText) => {
-    let phoneNo = /^\(?([0-9]{4})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+    if (accountExists) {
+      console.log("accountExists");
+      setShowDeposit(true);
+      // console.log(adminId);
+      let res3 = await depositToken(adminId, tokenSymbol);
+      console.log(res3);
 
-    if (inputText.target.value.match(phoneNo) > 12) {
-      document
-        .getElementById("inputCorrect")
-        .classList.add("invalidConfirmationNumber");
-      document.getElementById("inputCorrect").style.display = "block";
-    }
-    if (inputText.target.value.match(phoneNo) <= 11) {
-      document
-        .getElementById("inputCorrect")
-        .classList.add("invalidConfirmationNumber");
-      document.getElementById("inputCorrect").style.display = "block";
-      // document.getElementById('inputCorrect').classList.remove('invalidConfirmationNumber');
+      if (res3.success === true) {
+        setWalletAddr(res3.data.address);
+      }
     } else {
-      document
-        .getElementById("inputCorrect")
-        .classList.remove("invalidConfirmationNumber");
-      document.getElementById("inputCorrect").style.display = "none";
-    }
-  };
+      console.log("not accountExists");
+      setShowDeposit(true);
+      // console.log(adminId);
+      let res3 = await createWallet(adminId, tokenSymbol);
+      console.log(res3);
 
-  const changeBg3 = () => {
-    // let act =document.getElementById('success');
-    // let act_1 =document.getElementById('success1');
-    let act_2 = document.getElementById("success2");
-    let act_3 = document.getElementById("success3");
-
-    act_2.style.background = "#229e54";
-    act_2.style.color = "#fff";
-    act_3.style.background = "#fff";
-    act_3.style.border = "1px solid #229e54";
-    act_3.style.color = "black";
-    changePage2();
-  };
-
-  const changeBg4 = () => {
-    let act_2 = document.getElementById("success2");
-    let act_3 = document.getElementById("success3");
-
-    act_3.style.background = "#229e54";
-    act_3.style.color = "#fff";
-    act_2.style.background = "#fff";
-    act_2.style.border = "1px solid #229e54";
-    act_2.style.color = "black";
-  };
-
-  const changeBg5 = () => {
-    let act_4 = document.getElementById("success4");
-    let act_5 = document.getElementById("success5");
-
-    act_4.style.background = "#229e54";
-    act_4.style.color = "#fff";
-    act_5.style.background = "#fff";
-    act_5.style.border = "1px solid #229e54";
-    act_5.style.color = "black";
-    changePage3();
-  };
-  const changeBg6 = () => {
-    // let act =document.getElementById('success');
-    // let act_1 =document.getElementById('success1');
-    let act_4 = document.getElementById("success4");
-    let act_5 = document.getElementById("success5");
-
-    act_5.style.background = "#229e54";
-    act_5.style.color = "#fff";
-    act_4.style.background = "#fff";
-    act_4.style.border = "1px solid #229e54";
-    act_4.style.color = "black";
-  };
-
-  const changePage = () => {
-    let good = document.getElementById("weed");
-    let good_1 = document.getElementById("weed1");
-    let good_2 = document.getElementById("thanks");
-    good.style.display = "none";
-    good_2.style.display = "none";
-    good_1.style.display = "block";
-    document.getElementById("makingSense").style.display = "none";
-    document.getElementById("makingSense2").style.display = "none";
-    document.getElementById("makingSense3").style.display = "none";
-    document.getElementById("thanks2Plus").style.display = "none";
-    document.getElementById("thanks2Plus50").style.display = "none";
-    document.getElementById("downContent1").style.display = "none";
-
-    let act = document.getElementById("success");
-    let act_1 = document.getElementById("success1");
-
-    act.style.background = "#229e54";
-    act.style.color = "#fff";
-    act_1.style.background = "#fff";
-    act_1.style.border = "1px solid #229e54";
-    act_1.style.color = "black";
-    window.history.pushState(
-      "kinggdsakk",
-      "Title",
-      "/wallet/deposit/nigeria-naira"
-    );
-  };
-
-  const changePage1 = () => {
-    let Product = document.getElementById("weed");
-    let product1 = document.getElementById("thanks");
-    let Product2 = document.getElementById("weed1");
-    Product.style.display = "none";
-    Product2.style.display = "none";
-    product1.style.display = "block";
-    document.getElementById("makingSense").style.display = "none";
-    document.getElementById("makingSense2").style.display = "none";
-    document.getElementById("makingSense3").style.display = "none";
-    document.getElementById("thanks2Plus").style.display = "none";
-    document.getElementById("thanks2Plus50").style.display = "none";
-
-    let act = document.getElementById("success");
-    let act_1 = document.getElementById("success1");
-    document.getElementById("downContent1").style.display = "none";
-
-    act_1.style.background = "#229e54";
-    act_1.style.color = "#fff";
-    act.style.background = "#fff";
-    act.style.border = "1px solid #229e54";
-    act.style.color = "black";
-    window.history.pushState(
-      "kinggdsakk",
-      "Title"
-      //   "dashboard/wallet/dashboard/wallet/withdrawal/nigeria-naira"
-    );
-  };
-
-  const changePage2 = () => {
-    document.getElementById("weed").style.display = "none";
-    document.getElementById("thanks").style.display = "none";
-    document.getElementById("weed1").style.display = "none";
-    document.getElementById("thanks2Plus").style.display = "block";
-    window.history.pushState("kinggdsakk", "Title", "/wallet/deposit/egr");
-    document.getElementById("thanks2Plus50").style.display = "none";
-    document.getElementById("makingSense").style.display = "none";
-    // document.getElementById("makingSense2").style.display = "none";
-    // document.getElementById("makingSense3").style.display = "none";
-  };
-
-  const changePage3 = async (tokenName, tokenSymbol) => {
-    console.log(tokenName, tokenSymbol)
-    setCurrentToken(tokenSymbol)
- 
-    setTokenName(tokenName);
-    console.log(adminId);
-    let act_2 = document.getElementById("success2");
-    let act_3 = document.getElementById("success3");
-
-    
-    changePage2();
-    let res3 = await createWallet(adminId, tokenSymbol);
-    console.log(res3);
-
-    if (res3.success === true) {
-      setWalletAddr(res3.data.address)
-    }
-
-
-  };
-  const changePage4 = () => {
-    document.getElementById("weed").style.display = "none";
-    document.getElementById("thanks2Plus").style.display = "none";
-    document.getElementById("thanks").style.display = "none";
-    document.getElementById("weed1").style.display = "none";
-    document.getElementById("thanks2Plus50").style.display = "none";
-    document.getElementById("makingSense").style.display = "block";
-    document.getElementById("makingSense2").style.display = "none";
-    document.getElementById("makingSense3").style.display = "none";
-    document.getElementById("DepositShift1").classList.add("createDiv");
-    document.getElementById("DepositShift").classList.remove("createDiv");
-    document.getElementById("DepositShift2").classList.remove("createDiv");
-    document.getElementById("farm2").innerHTML = "Withdrawal NGN History";
-  };
-
-  const changePage5 = () => {
-    document.getElementById("weed").style.display = "none";
-    document.getElementById("thanks2Plus").style.display = "none";
-    document.getElementById("thanks").style.display = "none";
-    document.getElementById("weed1").style.display = "none";
-    document.getElementById("thanks2Plus50").style.display = "none";
-    document.getElementById("makingSense").style.display = "none";
-    document.getElementById("makingSense2").style.display = "block";
-    document.getElementById("makingSense3").style.display = "none";
-    document.getElementById("DepositShift3").classList.add("createDiv");
-    document.getElementById("DepositShift4").classList.remove("createDiv");
-    document.getElementById("DepositShift5").classList.remove("createDiv");
-    document.getElementById("farm").innerHTML = "Deposit NGN History";
-  };
-  const changePage6 = () => {
-    document.getElementById("weed").style.display = "none";
-    document.getElementById("thanks2Plus").style.display = "none";
-    document.getElementById("thanks").style.display = "none";
-    document.getElementById("weed1").style.display = "none";
-    document.getElementById("thanks2Plus50").style.display = "none";
-    document.getElementById("makingSense").style.display = "none";
-    document.getElementById("makingSense2").style.display = "none";
-    document.getElementById("makingSense3").style.display = "block";
-    document.getElementById("DepositShift8").classList.add("createDiv");
-    document.getElementById("DepositShift7").classList.remove("createDiv");
-    document.getElementById("DepositShift6").classList.remove("createDiv");
-    document.getElementById("farm1").innerHTML = "Transactions History";
-  };
-
-  // options[0] = changePage4();
-  // options[1] = changePage5();
-  // options[2] = changePage6();
-
-  const swap1 = (event) => {
-    if (event.target.value[0] === options[0]) {
-      changePage4();
-    }
-    if (event.target.value[1] === options[1]) {
-      changePage5();
-      // changePage5()
-    }
-    if (event.target.value[2] === options[2]) {
-      changePage6();
-    }
-  };
-  const buttonColor = () => {
-    document.getElementById("backFor").classList.add("verify3");
-    document.getElementById("verify3").classList.remove("verify3");
-    backWard();
-  };
-  const buttonColor1 = () => {
-    document.getElementById("backFor").classList.remove("verify3");
-    document.getElementById("verify3").classList.add("verify3");
-  };
-
-  const displayInvalid = () => {
-    let kind = document.getElementById("BankAccount");
-    if (kind.value === null) {
-      document.getElementById("show12").style.display = "block";
-      document.getElementById("show13").style.display = "none";
-    } else if (kind.value.length > 10 || kind.value.length < 10) {
-      document.getElementById("show13").style.display = "block";
-      document.getElementById("show12").style.display = "none";
-    } else {
-      document.getElementById("show12").style.display = "none";
-      document.getElementById("show13").style.display = "none";
-    }
-  };
-
-  const speedMe = () => {
-    document.getElementById("verifyWithMe").style.display = "block";
-    document.getElementById("numbering").style.display = "none";
-    document.getElementById("submitAbove4").style.display = "none";
-  };
-  const displayInvalid2 = () => {
-    document.getElementById("show12").style.display = "none";
-  };
-
-  const changeImage = () => {
-    document.getElementById("myImage").src = "/img/qr-code1.png";
-    document.getElementById("p_Text").innerHTML = "/ytunhgbvfredwsaqopmnbvxc";
-    document.getElementById("myImage1").src = "/img/qr-code.png";
-    document.getElementById("p_Text1").innerHTML = "/ytunh567ujhgbvr432opklji";
-  };
-  const changeImage1 = () => {
-    document.getElementById("myImage").src = "/img/qr-code.png";
-    document.getElementById("p_Text").innerHTML = "/vfcgbxnjsazmkiouytrewqml";
-    document.getElementById("myImage1").src = "/img/qr-code1.png";
-    document.getElementById("p_Text1").innerHTML = "/vfcgbcxzvbnmklopiuytrew";
-  };
-
-  const backWard = () => {
-    document.getElementById("verifyWithMe").style.display = "none";
-    document.getElementById("submitAbove4").style.display = "block";
-    document.getElementById("numbering").style.display = "block";
-  };
-
-  const copied = () => {
-    let copySelect = document.getElementById("myImage");
-    let copySelect1 = document.getElementById("p_Text");
-    copySelect.select();
-    copySelect1.select();
-
-    document.execCommand("copy");
-  };
-  const sending = () => {
-    document.getElementById("contactSupport").style.display = "block";
-    document.body.classList.add("adding");
-  };
-  const sending1 = () => {
-    document.getElementById("contactSupport").style.display = "none";
-    document.body.classList.remove("adding");
-  };
-
-  const add12 = () => {
-    document.getElementById("DepositShift1").classList.add("createDiv");
-    document.getElementById("DepositShift").classList.remove("createDiv");
-    document.getElementById("DepositShift2").classList.remove("createDiv");
-    document.getElementById("DepositShift3").classList.remove("createDiv");
-    document.getElementById("DepositShift6").classList.remove("createDiv");
-    document.getElementById("DepositShift5").classList.remove("createDiv");
-    document.getElementById("DepositShift8").classList.remove("createDiv");
-    document.getElementById("DepositShift4").classList.add("createDiv");
-    document.getElementById("DepositShift7").classList.add("createDiv");
-    document.getElementById("withdrawNGN7").innerHTML =
-      "Withdrawal history on Process";
-    document.getElementById("withdrawNGN8").innerHTML =
-      "Withdrawal history on Process";
-    document.getElementById("withdrawNGN9").innerHTML =
-      "Withdrawal history on Process";
-    document.getElementById("farm").innerHTML = "Withdrawal NGN History";
-    document.getElementById("farm1").innerHTML = "Withdrawal NGN History";
-    document.getElementById("farm2").innerHTML = "Withdrawal NGN History";
-  };
-  const add13 = () => {
-    document.getElementById("DepositShift2").classList.add("createDiv");
-    document.getElementById("DepositShift").classList.remove("createDiv");
-    document.getElementById("DepositShift1").classList.remove("createDiv");
-    document.getElementById("DepositShift4").classList.remove("createDiv");
-    document.getElementById("DepositShift7").classList.remove("createDiv");
-    document.getElementById("DepositShift3").classList.remove("createDiv");
-    document.getElementById("DepositShift6").classList.remove("createDiv");
-    document.getElementById("DepositShift5").classList.add("createDiv");
-    document.getElementById("DepositShift8").classList.add("createDiv");
-    document.getElementById("withdrawNGN7").innerHTML =
-      "Transaction history on Process";
-    document.getElementById("withdrawNGN8").innerHTML =
-      "Transaction history on Process";
-    document.getElementById("withdrawNGN9").innerHTML =
-      "Transaction history on Process";
-    document.getElementById("farm").innerHTML = "Transactions History";
-    document.getElementById("farm1").innerHTML = "Transactions History";
-    document.getElementById("farm2").innerHTML = "Transactions History";
-  };
-  const add14 = () => {
-    document.getElementById("DepositShift").classList.add("createDiv");
-    document.getElementById("DepositShift1").classList.remove("createDiv");
-    document.getElementById("DepositShift2").classList.remove("createDiv");
-    document.getElementById("DepositShift3").classList.add("createDiv");
-    document.getElementById("DepositShift6").classList.add("createDiv");
-    document.getElementById("DepositShift4").classList.remove("createDiv");
-    document.getElementById("DepositShift7").classList.remove("createDiv");
-    document.getElementById("DepositShift5").classList.remove("createDiv");
-    document.getElementById("DepositShift8").classList.remove("createDiv");
-    document.getElementById("withdrawNGN7").innerHTML =
-      "Deposit History on Process";
-    document.getElementById("withdrawNGN8").innerHTML =
-      "Deposit History on Process";
-    document.getElementById("withdrawNGN9").innerHTML =
-      "Deposit History on Process";
-    document.getElementById("farm1").innerHTML = "Deposit NGN History";
-    document.getElementById("farm").innerHTML = "Deposit NGN History";
-    document.getElementById("farm2").innerHTML = "Deposit NGN History";
-  };
-
-  const works = () => {
-    document.getElementById("downContent1").style.display = "block";
-
-    document.getElementById("tab1").style.display = "block";
-    document.getElementById("tab2").style.display = "none";
-  };
-
-  const works4 = () => {
-    document.getElementById("downContent2").style.display = "block";
-    document.getElementById("tab3").style.display = "block";
-    document.getElementById("tab4").style.display = "none";
-  };
-  const works8 = () => {
-    document.getElementById("downContent3").style.display = "block";
-    document.getElementById("tab5").style.display = "block";
-    document.getElementById("tab6").style.display = "none";
-  };
-  const works2 = () => {
-    document.getElementById("downContent1").style.display = "none";
-    document.getElementById("tab2").style.display = "block";
-    document.getElementById("tab1").style.display = "none";
-  };
-  const works6 = () => {
-    document.getElementById("downContent2").style.display = "none";
-    document.getElementById("tab4").style.display = "block";
-    document.getElementById("tab3").style.display = "none";
-  };
-  const works10 = () => {
-    document.getElementById("downContent3").style.display = "none";
-    document.getElementById("tab6").style.display = "block";
-    document.getElementById("tab5").style.display = "none";
-  };
-
-  //    const works=()=>{
-  //     document.getElementById("downContent1").classList.toggle("show");
-  //    }
-
-  document.body.onClick = function (event) {
-    if (!event.target.matches(".divVan")) {
-      var dropdowns = document.getElementsByClassName("downContent");
-      var i;
-      for (i = 0; i < dropdowns.length; i++) {
-        var openDropdown = dropdowns[i];
-        if (openDropdown.classList.contains("show")) {
-          openDropdown.classList.remove("show");
-        }
+      if (res3.success === true) {
+        setWalletAddr(res3.data.address);
       }
     }
+  };
+  const closeDepositDiv = () => {
+    setShowDeposit(false);
   };
 
   return (
     <div className="other2">
       <section className="no-bg">
-        <div className="container" >
+        <div className="container">
           <div className="walletClass3">
             <div className="walletSubClass3ng">
-              <span className="spanEstimated">Estimated assets value:</span>
-              <div className="arrowSpan">₦{assetVal}</div>
+              <div className="wallet_heading">Wallet Overview</div>
+              <div className="spanEstimated">
+                Estimated balance
+                {visible == false ? (
+                  <VisibilityIcon
+                    className="eye-visibility"
+                    onClick={openVisibility}
+                  />
+                ) : (
+                  <VisibilityOffIcon
+                    className="eye-visibility"
+                    onClick={closeVisibility}
+                  />
+                )}
+              </div>
+              {secureNumb == true ? (
+                <div className="arrowSpan">
+                  *********** <div className="usd_val">*********</div>
+                </div>
+              ) : (
+                <div className="arrowSpan">
+                  ₦{assetVal} <div className="usd_val">≈ ${200000 / 560}</div>
+                </div>
+              )}
             </div>
 
-            <div className="walletDrive">
-              <div className="DivCap">
-                <div className="formConcept">
-                  <div className="formConcept1">
-                    <span className="formConceptWallet">Wallets</span>
-                    <div className="formConceptSup" onClick={sending}>
-                      Contact Support
+            <div className="DivCap">
+              <div className="formConcept">
+                <div className="formConcept1">
+                  <span className="formConceptWallet">My Assets</span>
+                  <div
+                    className="formConceptSup"
+                    // onClick={sending}
+                  >
+                    Contact Support
+                  </div>
+                </div>
+                <div className="divConcept2">
+                  <div>
+                    <StarRateIcon className="starRateIcon" />
+                  </div>
+                  <div>
+                    <div className="nigeriaCurrency">Nigerian Naira</div>
+                    {secureNumb == true ? (
+                      <div style={{ marginBottom: "5px" }}>*******</div>
+                    ) : (
+                      <div style={{ marginBottom: "5px" }}>0.00</div>
+                    )}
+
+                    <div style={{ display: "flex" }}>
+                      <button
+                        id="deposit"
+                        className={
+                          activeBg == "deposit"
+                            ? "depositButton_active"
+                            : "depositButton"
+                        }
+                        onClick={changeBg}
+                      >
+                        Deposit
+                      </button>
+
+                      <button
+                        id="withdraw"
+                        className={
+                          activeBg == "withdraw"
+                            ? "depositButton_active"
+                            : "depositButton"
+                        }
+                        onClick={changeBg}
+                      >
+                        Withdraw
+                      </button>
+
+                      <button className="buttonMenu_drop">
+                        <MoreVertIcon
+                          className="divVan"
+                          // onClick={works6}
+                          id="tab3"
+                        />
+                        <MoreVertIcon
+                          className="divVan"
+                          // onClick={works4}
+                          id="tab4"
+                        />
+                        <div className="downContent" id="downContent2">
+                          <div
+                            className="depo"
+                            // onClick={changePage5}
+                          >
+                            Deposit History
+                          </div>
+                          <div
+                            className="depo"
+                            // onClick={changePage6}
+                          >
+                            Transaction History
+                          </div>
+                          <div
+                            className="depo"
+                            // onClick={changePage4}
+                          >
+                            Withdrawal History
+                          </div>
+                        </div>
+                      </button>
                     </div>
                   </div>
-                  <div className="divConcept2">
+                </div>
+                <hr />
+
+                {allTokens.map((data) => (
+                  <div className="divConcept2 ">
                     <div>
-                      <StarRateIcon className="starRateIcon"/>
-                  
+                      <StarRateIcon className="starRateIcon" />
                     </div>
                     <div>
-                      <div className="nigeriaCurrency">Nigerian Naira</div>
-                      <div style={{ marginBottom: "5px" }}>0.00</div>
+                      <div className="nigeriaCurrency">{data.tokenName}</div>
+                      {secureNumb == true ? (
+                        <div style={{ marginBottom: "5px" }}>*******</div>
+                      ) : (
+                        <div style={{ marginBottom: "5px" }}>0.00</div>
+                      )}
+
                       <div style={{ display: "flex" }}>
                         <button
-                          className="depositButton"
-                          // onClick={changeBg3}
-                          id="success2"
+                          id="withdraw"
+                          className={
+                            activeBg == "deposit_btn"
+                              ? "depositButton_active"
+                              : "depositButton"
+                          }
+                          // id={data.tokenSymbol}
+                          onClick={() =>
+                            openDepositDiv(data.tokenName, data.tokenSymbol)
+                          }
                         >
                           Deposit
                         </button>
-                        <Link to="/dashboard/wallet/withdrawal">
+                        <button
+                          id="withdraw_btn"
+                          className={
+                            activeBg == "withdraw_btn"
+                              ? "depositButton_active"
+                              : "depositButton"
+                          }
+                          onClick={changeBg}
+                        >
                           {" "}
-                          <button
-                            className="depositButton1"
-                            id="success3"
-                            onClick={changeBg4}
-                          >
-                            Withdraw
-                          </button>
-                        </Link>
+                          Withdraw
+                        </button>
+
                         <button className="buttonMenu_drop">
                           <MoreVertIcon
                             className="divVan"
-                            onClick={works6}
-                            id="tab3"
+                            // onClick={works2}
+                            id="tab1"
                           />
                           <MoreVertIcon
                             className="divVan"
-                            onClick={works4}
-                            id="tab4"
+                            // onClick={works}
+                            id="tab2"
                           />
-                          <div className="downContent" id="downContent2">
-                            <div className="depo" onClick={changePage5}>
+                          <div className="downContent" id="downContent1">
+                            <div
+                              className="depo"
+                              // onClick={changePage5}
+                            >
                               Deposit History
                             </div>
-                            <div className="depo" onClick={changePage6}>
+                            <div
+                              className="depo"
+                              // onClick={changePage6}
+                            >
                               Transaction History
                             </div>
-                            <div className="depo" onClick={changePage4}>
+                            <div
+                              className="depo"
+                              // onClick={changePage4}
+                            >
                               Withdrawal History
                             </div>
                           </div>
@@ -630,762 +395,200 @@ const Wallet = ({auth, createWallet}) => {
                       </div>
                     </div>
                   </div>
-                  <hr/>
-
-
-    
-                   
-                      {allTokens.map((data) => (
-                        <div className="divConcept2 border-bottom">
-                          <div>
+                ))}
+              </div>
+              {showDeposit == true ? (
+                <div className="deposit_div">
+                  <div className="deposit_div_heading">Deposit {assetName}</div>
+                  <div className="deposit_div_body">
+                    <div className="deposit_div_body1">
+                      <div className="deposit_div_body1_input1">
+                        <div className="deposit_div_body1_input_title">
+                          Coin:
+                        </div>
+                        <div className="deposit_div_body1_input_asset">
+                          <span className="token_symbol">
+                            {" "}
                             <StarRateIcon className="starRateIcon" />
+                            {tokenSign}{" "}
+                          </span>
+                          {assetName}
+                        </div>
+                      </div>
+                      <div className="deposit_div_body1_input1">
+                        <div className="deposit_div_body1_input_title">
+                          Network:
+                        </div>
+                        <div className="deposit_div_body1_input_asset">
+                          <span className="network_symbol">
+                            <span className="token_symbol">BSC</span>
+                          </span>{" "}
+                          BNB Smart Chain (BEP20)
+                        </div>
+                      </div>
+                      <div className="deposit_div_body1_input1_qr_code">
+                        <div className="deposit_div_body1_input1_qr_code_title">
+                          Scan the code on the deposit page to deposit{" "}
+                          {assetName}
+                        </div>
+                        <div className="deposit_div_body1_input1_qr_code_img_div">
+                          <img
+                            src={
+                              "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
+                              walletAddr
+                            }
+                            alt=""
+                            className="qr_img"
+                          />
+                          <div className="copy_address_div">
+                            <div className="copy_address_div_title">
+                              Address
+                            </div>
+                            <div className="copy_address_div_txt" id="myInput">
+                              {walletAddr}
+                              <FileCopyIcon
+                                className="file_icon_copy"
+                                // onClick={copyText}
+                                // onMouseOut={outFunc}
+                              />
+                            </div>
                           </div>
-                          <div>
-                            <div className="nigeriaCurrency">{data.tokenName}</div>
-                            <div style={{ marginBottom: "5px" }}>0.00</div>
-                            <div style={{ display: "flex" }}>
-                              <button
-                                className="depositButton"
-                                id={data.tokenSymbol}
-                                onClick={() => changePage3(data.tokenName, data.tokenSymbol)}
-                              >
-                                Deposit
-                              </button>
-                              <button
-                                className="depositButton1"
-                                id="success1"
-                                onClick={changePage1}
-                              >
-                                Withdraw
-                              </button>
-      
-                              <button className="buttonMenu_drop">
-                                <MoreVertIcon
-                                  className="divVan"
-                                  onClick={works2}
-                                  id="tab1"
-                                />
-                                <MoreVertIcon
-                                  className="divVan"
-                                  onClick={works}
-                                  id="tab2"
-                                />
-                                <div className="downContent" id="downContent1">
-                                  <div className="depo" onClick={changePage5}>
-                                    Deposit History
-                                  </div>
-                                  <div className="depo" onClick={changePage6}>
-                                    Transaction History
-                                  </div>
-                                  <div className="depo" onClick={changePage4}>
-                                    Withdrawal History
-                                  </div>
+                        </div>
+                        <div className="deposit_div_body1_input1_qr_code_title">
+                          <li className="deposit_qr_not">
+                            Send only
+                            <span className="noticeable_txt">
+                              {" "}
+                              {tokenSign}
+                            </span>{" "}
+                            to this deposit address.
+                          </li>
+                          <li className="deposit_qr_not">
+                            Ensure the network is
+                            <span className="noticeable_txt">
+                              {" "}
+                              BNB Smart Chain (BEP20).
+                            </span>
+                          </li>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className="deposit_history">
+                    <div className="deposit_history_title">Recent Deposits</div>
+                    <div className="deposit_history_body">
+                      {data.depositTransactions.map((data) => (
+                        <div className="deposit_history_body_area1">
+                          <div className="deposit_history_body_area1_cont">
+                            <div className="deposit_history_body_area1_cont_area1">
+                              <div className="deposit_history_div1">
+                                <span className="token_symbol">
+                                  {" "}
+                                  <StarRateIcon className="starRateIcon starRateIcon_2" />
+                                </span>
+                                <div className="token_deposit_amnt">
+                                  131.3504 {tokenSign}
+                                  <span className="completed_div">
+                                    Completed
+                                  </span>
                                 </div>
-                              </button>
+                              </div>
+                              <div className="deposit_history_div2">
+                                <div className="deposit_history_div2_date">
+                                  2022-02-20{" "}
+                                  <span className="deposit_history_div2_time">
+                                    12:28
+                                  </span>
+                                </div>
+                                <div className="deposit_history_div2_network">
+                                  <span className="deposit_history_div2_network_title">
+                                    Network
+                                  </span>
+                                  {data.network}
+                                </div>
+                                <div className="deposit_history_div2_address">
+                                  <span className="deposit_history_div2_network_title">
+                                    Address
+                                  </span>
+                                  <div className="address_cont">
+                                    {/* {data.fromAddress.substring(0, 10) +
+                                    "..." +
+                                    data.fromAddress.substr(
+                                      data.fromAddress.length - 10
+                                    )} */}
+                                    {data.fromAddress}
+                                  </div>
+
+                                  <FileCopyIcon
+                                    className="deposit_history_address_copy_icon"
+                                    onClick={() =>
+                                      copyTextText2(data.fromAddress)
+                                    }
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
+                                  />
+                                  <span className="hover_txn_address_cont">
+                                    {data.fromAddress}
+                                  </span>
+                                  {copiedTxt1 == true ? (
+                                    <div
+                                      className="copiedToClipBoardDiv"
+                                      onChange={timer}
+                                    >
+                                      Text copied to clipboard
+                                    </div>
+                                  ) : null}
+                                </div>
+                                <div className="deposit_history_div2_address">
+                                  <span className="deposit_history_div2_network_title">
+                                    TXID
+                                  </span>
+                                  <div className="address_cont">
+                                    {data.txnId.substring(0, 10) +
+                                      "..." +
+                                      data.txnId.substr(data.txnId.length - 7)}
+                                    {/* {txId} */}
+                                  </div>
+
+                                  <FileCopyIcon
+                                    onClick={() => copyTextText(data.txnId)}
+                                    className="deposit_history_address_copy_icon"
+
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
+                                  />
+                                  <span className="hover_txn_address_cont">
+                                    {data.txnId}
+                                  </span>
+                                  {copiedTxt == true ? (
+                                    <div
+                                      className="copiedToClipBoardDiv"
+                                      onChange={timer}
+                                    >
+                                      Text copied to clipboard
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </div>
                             </div>
                           </div>
                         </div>
-                     
-                         ))}
-                       
-                
+                      ))}
 
-                  {/* <hr /> */}
-                
-                </div>
-
-                <div className="buyAndSellDiv" id="weed">
-                  <div className="buyAndSellDivP">
-                    Get started to buy and sell crypto
-                  </div>
-                  <div className="buyAndSellDivP1">Buy and sell crypto now</div>
-                  <p className="buyAndSellDivP2">
-                    <span>Egoras</span>{" "}
-                    <span> is the easiest place to buy & earn crypto.</span>
-                  </p>
-                  <div className="buyAndSellDivButton">
-                    <Link to="/egr">
-                      <button className="buyButton1">Buy</button>
-                    </Link>
-                    <Link to="/egr">
-                      <button className="sellButton2">Sell</button>
-                    </Link>
-                  </div>
-                </div>
-
-                <div className="mena" id="weed1">
-                  <div className="mena1">Phone number is required.</div>
-                  <div>
-                    <input
-                      type="number"
-                      placeholder="Enter your number"
-                      className="numbering"
-                      required
-                      id="numbering"
-                      onChange={phoneNumber}
-                    />
-                  </div>
-                  <div className="invalidConfirmationNumber" id="inputCorrect">
-                    please input a correct number
-                  </div>
-                  <div
-                    className="submitAbove aboveSubmit"
-                    id="submitAbove4"
-                    onClick={speedMe}
-                  >
-                    continue
-                  </div>
-                  <div className="verifyWithMe" id="verifyWithMe">
-                    <div className="verifyCode">
-                      {" "}
-                      A confirmation code has been sent to your number. Please
-                      enter it below to verify your phone number.
-                    </div>
-                    <div>
-                      <form>
-                        <div>
-                          <input
-                            type="text"
-                            placeholder="Verification code"
-                            className="verifyCode1"
-                          />
-                        </div>
-                        <div className="invalidConfirmationCode">
+                      <div className="view_all_btn" key={data.id}>
+                        <a href="#" className="view_all_link">
                           {" "}
-                          invalid confirmation code
-                        </div>
-                        <div className="verifyCode2">
-                          <div
-                            className="verifyCode3"
-                            id="backFor"
-                            onClick={buttonColor}
-                          >
-                            Back
-                          </div>
-                          <div
-                            className="verifyCode3 verify3"
-                            id="verify3"
-                            onClick={buttonColor1}
-                          >
-                            Verify
-                          </div>
-                        </div>
-                        <div className="verifyCode4">Resend OTP via call</div>
-                      </form>
+                          View all
+                        </a>
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div className="thanks" id="thanks">
-                  <div className="thanks1">
-                    <div className="NGNWithdraw">
-                      Withdraw <span className="nigeria">NGN</span>
-                    </div>
-                    <div className="Fax_T">
-                      <div className=" "> Withdrawal with a fast support</div>
-                      <div className="newAccount_PLUS">
-                        <div onClick={hid2} className="newAccount1">
-                          <span className="plusGo">+</span>{" "}
-                          <span className="freeFastAccount">
-                            Add new account
-                          </span>
-                        </div>
-                      </div>
-                      <div className="submitAbove">continue</div>
-                    </div>
-                  </div>
-
-                  <div className="historyNGN1">
-                    <div className="historyNGN2">
-                      <span className="nigeria">NGN</span> withdrawal history
-                    </div>
-                    <div className="thereAreNo">No Transactions for Now.</div>
-                  </div>
-                </div>
-
-                <div className="NGNHistoryWithdrawal" id="makingSense">
-                  <div className="withdrawNGN" id="farm2">
-                    Withdraw NGN History
-                  </div>
-                  <div className="withdrawNGN24">
-                    <div className="withdrawNGN2">
-                      <div
-                        className="DepositShift"
-                        value="0.1"
-                        id="DepositShift"
-                        onClick={add14}
-                      >
-                        Deposit
-                      </div>
-                      <div
-                        className="DepositShift"
-                        value="0.2"
-                        id="DepositShift1"
-                        onClick={add12}
-                      >
-                        Withdrawal
-                      </div>
-                      <div
-                        className="DepositShift"
-                        value="0.3"
-                        id="DepositShift2"
-                        onClick={add13}
-                      >
-                        Transactions
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="withdrawNGN7" id="withdrawNGN7">
-                      {" "}
-                      There are no transactions yet
-                    </div>
-                  </div>
-                </div>
-                <div className="NGNHistoryWithdrawal" id="makingSense2">
-                  <div className="withdrawNGN" id="farm">
-                    Deposit NGN History
-                  </div>
-                  <div className="withdrawNGN24">
-                    <div className="withdrawNGN2">
-                      <div
-                        className="DepositShift"
-                        value="0.1"
-                        id="DepositShift3"
-                        onClick={add14}
-                      >
-                        Deposit
-                      </div>
-                      <div
-                        className="DepositShift"
-                        value="0.2"
-                        id="DepositShift4"
-                        onClick={add12}
-                      >
-                        Withdrawal
-                      </div>
-                      <div
-                        className="DepositShift"
-                        value="0.3"
-                        id="DepositShift5"
-                        onClick={add13}
-                      >
-                        Transactions
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="withdrawNGN7" id="withdrawNGN8">
-                      {" "}
-                      There are no transactions yet
-                    </div>
-                  </div>
-                </div>
-                <div className="NGNHistoryWithdrawal" id="makingSense3">
-                  <div className="withdrawNGN" id="farm1">
-                    Transactions History
-                  </div>
-                  <div className="withdrawNGN24">
-                    <div className="withdrawNGN2">
-                      <div
-                        className="DepositShift"
-                        value="0.1"
-                        id="DepositShift6"
-                        onClick={add14}
-                      >
-                        Deposit
-                      </div>
-                      <div
-                        className="DepositShift"
-                        value="0.2"
-                        id="DepositShift7"
-                        onClick={add12}
-                      >
-                        Withdrawal
-                      </div>
-                      <div
-                        className="DepositShift"
-                        value="0.3"
-                        id="DepositShift8"
-                        onClick={add13}
-                      >
-                        Transactions
-                      </div>
-                    </div>
-                    <hr />
-                    <div className="withdrawNGN7" id="withdrawNGN9">
-                      {" "}
-                      There are no transactions yet
-                    </div>
-                  </div>
-                </div>
-
-                <div className="thanks2Plus" id="thanks2Plus">
-                  <div className="thanks2Plus1">
-                    <div className="thanks2Plus2">Deposit {tokenName}</div>
-                    <div className="thanks2Plus3">
-                      <div className="thanks2Plus4">Address format:</div>
-                      <div style={{ display: "flex", marginBottom: "10px" }}>
-                        <div className="TRCN add" onClick={changeImage}>
-                          EGR20
-                        </div>
-                        <div className="TRCN" onClick={changeImage1}>
-                          EUSD20
-                        </div>
-                      </div>
-                      <div className="thanks2Plus5">{tokenName} Address</div>
-                      <div style={{ display: "flex", marginBottom: "10px" }}>
-                        <div className="thanks2Plus6">
-                          {" "}
-                          <img
-                            src={"https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl="+walletAddr}
-                            alt=""
-                            width="200"
-                            height="200"
-                            id="myImage"
-                          />
-                        </div>
-                        <ReplayIcon
-                          style={{
-                            width: "30px",
-                            height: "25px",
-                            padding: "4px",
-                            backgroundColor: "#a1ecbf5c",
-                            borderRadius: "3px",
-                            cursor: "pointer",
-                          }}
-                        />
-                      </div>
-                      <p className="thanks2Plus7" id="p_Text">
-                        {walletAddr}
-                      </p>
-                      <button className="thanks2Plus8" onClick={copied}>
-                        Copy to Clipboard
-                      </button>
-
-                      <hr />
-
-                      <div className="thanks2Plus9">
-                        Deposit fee: <span className="Aba1">0.00</span>{" "}
-                        <span className="Aba">{currentToken}</span>
-                      </div>
-                      <div
-                        className="thanks2Plus10"
-                        style={{ display: "flex", marginBottom: "10px" }}
-                      >
-                        <InfoIcon
-                          style={{ color: "#229e54", marginRight: "10px" }}
-                        />
-                        <div>
-                          You have to deposit at least{" "}
-                          <span style={{ fontWeight: "bold" }}>
-                            25 <span style={{ color: "#229e54" }}>{currentToken}</span>
-                          </span>{" "}
-                          to be credited.Any deposit that is less than{" "}
-                          <span style={{ fontWeight: "bold" }}>
-                            25 <span style={{ color: "#229e54" }}> {currentToken}</span>
-                          </span>{" "}
-                          will not be refunded
-                        </div>
-                      </div>
-                      <div
-                        className="thanks2Plus10"
-                        style={{ display: "flex" }}
-                      >
-                        <InfoIcon
-                          style={{ color: "#229e54", marginRight: "10px" }}
-                        />
-                        <div>
-                          This deposit address only accepts{" "}
-                          <span
-                            style={{ fontWeight: "bold", color: "#229e54" }}
-                          >
-                            {" "}
-                            {currentToken}
-                          </span>
-                          . Do not send other coins to it.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* {
-                    currentToken === 'EGR' ? (
-                      <div className="thanks2Plus1">
-                        <div className="thanks2Plus2">Deposit {tokenName}</div>
-                        <div className="thanks2Plus3">
-                          <div className="thanks2Plus4">Address format:</div>
-                          <div style={{ display: "flex", marginBottom: "10px" }}>
-                            <div className="TRCN add" onClick={changeImage}>
-                              EGR20
-                            </div>
-                            <div className="TRCN" onClick={changeImage1}>
-                              EUSD20
-                            </div>
-                          </div>
-                          <div className="thanks2Plus5">{tokenName} Address</div>
-                          <div style={{ display: "flex", marginBottom: "10px" }}>
-                            <div className="thanks2Plus6">
-                              {" "}
-                              <img
-                                src="https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=iuhnhjn"
-                                alt=""
-                                width="160"
-                                height="160"
-                                id="myImage"
-                              />
-                            </div>
-                            <ReplayIcon
-                              style={{
-                                width: "30px",
-                                height: "25px",
-                                padding: "4px",
-                                backgroundColor: "#a1ecbf5c",
-                                borderRadius: "3px",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </div>
-                          <p className="thanks2Plus7" id="p_Text">
-                            hhjhdgtrunkwqedloingds
-                          </p>
-                          <button className="thanks2Plus8" onClick={copied}>
-                            Copy to Clipboard
-                          </button>
-
-                          <hr />
-
-                          <div className="thanks2Plus9">
-                            Deposit fee: <span className="Aba1">0.00</span>{" "}
-                            <span className="Aba">{currentToken}</span>
-                          </div>
-                          <div
-                            className="thanks2Plus10"
-                            style={{ display: "flex", marginBottom: "10px" }}
-                          >
-                            <InfoIcon
-                              style={{ color: "#229e54", marginRight: "10px" }}
-                            />
-                            <div>
-                              You have to deposit at least{" "}
-                              <span style={{ fontWeight: "bold" }}>
-                                25 <span style={{ color: "#229e54" }}>{currentToken}</span>
-                              </span>{" "}
-                              to be credited.Any deposit that is less than{" "}
-                              <span style={{ fontWeight: "bold" }}>
-                                25 <span style={{ color: "#229e54" }}> {currentToken}</span>
-                              </span>{" "}
-                              will not be refunded
-                            </div>
-                          </div>
-                          <div
-                            className="thanks2Plus10"
-                            style={{ display: "flex" }}
-                          >
-                            <InfoIcon
-                              style={{ color: "#229e54", marginRight: "10px" }}
-                            />
-                            <div>
-                              This deposit address only accepts{" "}
-                              <span
-                                style={{ fontWeight: "bold", color: "#229e54" }}
-                              >
-                                {" "}
-                                {currentToken}
-                              </span>
-                              . Do not send other coins to it.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    ) : (
-                      <div className="thanks2Plus1">
-                        <div className="thanks2Plus2">Deposit {tokenName}</div>
-                        <div className="thanks2Plus3">
-                          <div className="thanks2Plus4">Address format:</div>
-                          <div style={{ display: "flex", marginBottom: "10px" }}>
-                            <div className="TRCN add" onClick={changeImage}>
-                              EGR20
-                            </div>
-                            <div className="TRCN" onClick={changeImage1}>
-                              EUSD20
-                            </div>
-                          </div>
-                          <div className="thanks2Plus5">{tokenName} Address</div>
-                          <div style={{ display: "flex", marginBottom: "10px" }}>
-                            <div className="thanks2Plus6">
-                              {" "}
-                              <img
-                                src="https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=iuhnhjn"
-                                alt=""
-                                width="160"
-                                height="160"
-                                id="myImage"
-                              />
-                            </div>
-                            <ReplayIcon
-                              style={{
-                                width: "30px",
-                                height: "25px",
-                                padding: "4px",
-                                backgroundColor: "#a1ecbf5c",
-                                borderRadius: "3px",
-                                cursor: "pointer",
-                              }}
-                            />
-                          </div>
-                          <p className="thanks2Plus7" id="p_Text">
-                            hhjhdgtrunkwqedloingds
-                          </p>
-                          <button className="thanks2Plus8" onClick={copied}>
-                            Copy to Clipboard
-                          </button>
-
-                          <hr />
-
-                          <div className="thanks2Plus9">
-                            Deposit fee: <span className="Aba1">0.00</span>{" "}
-                            <span className="Aba">{currentToken}</span>
-                          </div>
-                          <div
-                            className="thanks2Plus10"
-                            style={{ display: "flex", marginBottom: "10px" }}
-                          >
-                            <InfoIcon
-                              style={{ color: "#229e54", marginRight: "10px" }}
-                            />
-                            <div>
-                              You have to deposit at least{" "}
-                              <span style={{ fontWeight: "bold" }}>
-                                25 <span style={{ color: "#229e54" }}>{currentToken}</span>
-                              </span>{" "}
-                              to be credited.Any deposit that is less than{" "}
-                              <span style={{ fontWeight: "bold" }}>
-                                25 <span style={{ color: "#229e54" }}> {currentToken}</span>
-                              </span>{" "}
-                              will not be refunded
-                            </div>
-                          </div>
-                          <div
-                            className="thanks2Plus10"
-                            style={{ display: "flex" }}
-                          >
-                            <InfoIcon
-                              style={{ color: "#229e54", marginRight: "10px" }}
-                            />
-                            <div>
-                              This deposit address only accepts{" "}
-                              <span
-                                style={{ fontWeight: "bold", color: "#229e54" }}
-                              >
-                                {" "}
-                                {currentToken}
-                              </span>
-                              . Do not send other coins to it.
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    )
-                  } */}
-
-                  <div className="thanks2Plus11">
-                    <div className="thanks2Plus12">EGR deposit History</div>
-                    <div className="thanks2Plus13">
-                      There is no deposit yet.
-                    </div>
-                  </div>
-                </div>
-
-                <div className="thanks2Plus" id="thanks2Plus50">
-                  <div className="thanks2Plus1">
-                    <div className="thanks2Plus2">Deposit EGORAS EUSD</div>
-                    <div className="thanks2Plus3">
-                      <div className="thanks2Plus4">Address format:</div>
-                      <div style={{ display: "flex", marginBottom: "10px" }}>
-                        <div className="TRCN add" onClick={changeImage}>
-                          EUSD20
-                        </div>
-                        <div className="TRCN" onClick={changeImage1}>
-                          EGR20
-                        </div>
-                      </div>
-                      <div className="thanks2Plus5">EGORAS EUSD Address</div>
-                      <div style={{ display: "flex", marginBottom: "10px" }}>
-                        <div className="thanks2Plus6">
-                          {" "}
-                          <img
-                            src="https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=iuiiihnhjn"
-                            alt=""
-                            width="160"
-                            height="160"
-                            id="myImage1"
-                          />
-                        </div>
-                        <ReplayIcon
-                          style={{
-                            width: "30px",
-                            height: "25px",
-                            padding: "4px",
-                            backgroundColor: "#a1ecbf5c",
-                            borderRadius: "3px",
-                            cursor: "pointer",
-                          }}
-                        />
-                      </div>
-                      <p className="thanks2Plus7" id="p_Text1">
-                        hhjhdgtrunkwqedloingds
-                      </p>
-                      <button className="thanks2Plus8" onClick={copied}>
-                        Copy to Clipboard
-                      </button>
-
-                      <hr />
-
-                      <div className="thanks2Plus9">
-                        Deposit fee: <span className="Aba1">0.00</span>{" "}
-                        <span className="Aba">EUSD</span>
-                      </div>
-                      <div
-                        className="thanks2Plus10"
-                        style={{ display: "flex", marginBottom: "10px" }}
-                      >
-                        <InfoIcon
-                          style={{ color: "#229e54", marginRight: "10px" }}
-                        />
-                        <div>
-                          You have to deposit at least{" "}
-                          <span style={{ fontWeight: "bold" }}>
-                            25 <span style={{ color: "#229e54" }}>EUSD</span>
-                          </span>{" "}
-                          to be credited.Any deposit that is less than{" "}
-                          <span style={{ fontWeight: "bold" }}>
-                            25 <span style={{ color: "#229e54" }}> EUSD</span>
-                          </span>{" "}
-                          will not be refunded
-                        </div>
-                      </div>
-                      <div
-                        className="thanks2Plus10"
-                        style={{ display: "flex" }}
-                      >
-                        <InfoIcon
-                          style={{ color: "#229e54", marginRight: "10px" }}
-                        />
-                        <div>
-                          This deposit address only accepts{" "}
-                          <span
-                            style={{ fontWeight: "bold", color: "#229e54" }}
-                          >
-                            {" "}
-                            EUSD
-                          </span>
-                          . Do not send other coins to it.
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="thanks2Plus11">
-                    <div className="thanks2Plus12">EUSD deposit History</div>
-                    <div className="thanks2Plus13">
-                      There is no deposit yet.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="addBag" id="dialog">
-            <div className="addBag1">
-              <div
-                className="addnewAccountDivP"
-                style={{ display: "flex", justifyContent: "space-between" }}
-              >
-                Add new account{" "}
-                <CloseIcon onClick={hid} style={{ cursor: "pointer" }} />{" "}
-              </div>
-              <div className="formDivDialog">
-                <div className="formDivDialogBankName">Bank name</div>
-                <div>
-                  {" "}
-                  <FormControl sx={{ m: 1, minWidth: "98%" }}>
-                    <Select
-                      value={age}
-                      onChange={handleChange}
-                      displayEmpty
-                      inputProps={{ "aria-label": "Without label" }}
-                      style={{ outline: "0px", border: "none" }}
-                    >
-                      <MenuItem value="">
-                        <em>EGORAS Micro Bank</em>
-                      </MenuItem>
-                      <MenuItem value={10}>First Bank </MenuItem>
-                      <MenuItem value={20}>Access Bank</MenuItem>
-                      <MenuItem value={30}>FCMB</MenuItem>
-                      <MenuItem value={40}>Zenith Bank </MenuItem>
-                      <MenuItem value={50}>Kuda Bank</MenuItem>
-                      <MenuItem value={60}>UBA</MenuItem>
-                    </Select>
-                  </FormControl>
-                </div>
-                <div className="BankAccountNumber1">Bank Account Number</div>
-                <div className="styleDiv">
-                  <input
-                    type="number"
-                    placeholder="Ur Account number"
-                    max="11"
-                    className="BankAccountNumber2"
-                    required
-                    id="BankAccount"
-                    onChange={displayInvalid}
-                  />{" "}
-                </div>
-                <div className="hiddenShow12" id="show12">
-                  <span>Account number is required </span>
-                </div>
-                <div className="hiddenShow13" id="show13">
-                  <span>Bank account number is invalid</span>
-                </div>
-                <div className="BankAccountNumber1">Bank Account Name</div>
-                <div className="styleDiv">
-                  <input
-                    type="text"
-                    placeholder="Ur Account name"
-                    className="BankAccountNumber2"
-                    required
-                  />
-                </div>
-                <div className="SupportWithdrawal">Support fast withdrawal</div>
-                <div className="CancelAndCreate">
-                  <div className="create14 cancel" onClick={hid}>
-                    Cancel
-                  </div>
-                  <div className="create14 createWeek">Create</div>
-                </div>
-              </div>
+              ) : null}
             </div>
           </div>
         </div>
       </section>
-      <div className="contactSupport" id="contactSupport">
-        <div className="contactSupport1">
-          <div className="contactSupport2">
-            Contact Support{" "}
-            <CloseIcon onClick={sending1} style={{ cursor: "pointer" }} />
-          </div>
-          <div className="contactSupport21">
-            <div className="contactSupport3">Open Telegram</div>
-            <div className="contactSupport3">Open WhatsApp</div>
-            <div className="contactSupport3">Open Messenger</div>
-          </div>
-        </div>
-      </div>
-      {/* {
-        createWalletModal==true?(
-          <div>Creating Your wallet please hold on</div>
-        ):null
-        
-      } */}
     </div>
   );
 };
@@ -1397,4 +600,4 @@ const mapStateToProps = (state) => ({
 });
 
 // export default Wallet;
-export default connect(mapStateToProps, {createWallet})(Wallet);
+export default connect(mapStateToProps, { createWallet, depositToken })(Wallet);
