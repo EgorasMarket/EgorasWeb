@@ -4,12 +4,12 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
+import "../../Home2/Dashboard/DashboardStyles/dashboardCart.css";
 import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import Checkout from "./CheckoutModalComponent";
+import Dashboard_Checkout_Page from "../../Home2/Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import Checkout from "./check";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
@@ -18,8 +18,8 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-import ItemDetailComponent from "./ItemDetailCompnent";
-import LoginComp from "../Login/LoginComp";
+import ItemDetailComponent from "./items2";
+import LoginComp from "../../Home2/Login/LoginComp";
 
 function ItemDetailsPage({ auth, match }) {
   const config = {
@@ -27,7 +27,7 @@ function ItemDetailsPage({ auth, match }) {
       "Content-Type": "application/json",
     },
   };
-  // console.log(window.location.pathname.split("/"));
+  console.log(window.location.pathname.split("/"));
   // console.log(match.params.id);
   const [loginModal, setLoginModal] = useState(false);
   const [loginSuccess,setLoginSuccess]= useState(false);
@@ -37,10 +37,8 @@ function ItemDetailsPage({ auth, match }) {
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
-  const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [userPayload,setUserPayload] = useState({})   
   const [card, setSpec] = useState([]);
-  const [deScript, setDeScript] = useState([]);
+  const [isAuthenticated, setIsAuthenticated ]  = useState(null)
 
   const [addressName,setAddressName]=useState({contactAddress:""})
 
@@ -128,19 +126,19 @@ function ItemDetailsPage({ auth, match }) {
   }, []);
 
 
-  useEffect(()=>{
-    axios.get(api_url2 + "/v1/user/address/info", null,
-     config).then((response)=>{
+//   useEffect(()=>{
+//     axios.get(api_url2 + "/v1/user/address/info", null,
+//      config).then((response)=>{
 //  console.log(response , "wewter kings")
-//  console.log(response.data.cusAddress. address,"market")
+// //  console.log(response.data.cusAddress. address,"market")
 
- setAddressName({contactAddress:response.data.cusAddress. address
+//  setAddressName({contactAddress:response.data.cusAddress. address
 
- })
+//  })
 //  console.log(addressName,"Bk is good for development")
-     })
+//      })
 
-  }, [])
+//   })
 
   useEffect(() => {
     console.log(auth.isAuthenticated);
@@ -159,7 +157,7 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       .then((data) => {
         const {
-          amount,
+          roundedAmount,
           percentage,
           product_brand,
           product_category_code,
@@ -169,21 +167,21 @@ function ItemDetailsPage({ auth, match }) {
           product_image,
           product_name,
           product_specifications,
+          unitCount,
+          payment_type,
           product_type,
           initial_deposit,
+          dailyAmount,
           paymentPerday,
-          payment_type, 
           days_left,
+          rounded,
+          total_amount,
           no_of_days,
-          no_of_days_paid, 
-          startDate, 
-          endDate
-
         } = data.data.data;
 
         console.log(data.data.data, "king");
         setPayload({
-          amount,
+          roundedAmount,
           percentage,
           product_brand,
           product_category_code,
@@ -193,25 +191,23 @@ function ItemDetailsPage({ auth, match }) {
           product_image,
           product_name,
           product_specifications,
+          unitCount,
+          payment_type,
           product_type,
           initial_deposit,
+          dailyAmount,
           paymentPerday,
-          payment_type,
           days_left,
+          rounded,
+          total_amount,
           no_of_days,
-          no_of_days_paid, 
-          startDate, 
-          endDate
         });
         const getSlid = data.data.data.product_specifications;
-        const getSpecs = data.data.data.product_details;
         // const myArray = getSlid.split(",");
 
         console.log(getSlid);
-        console.log(getSpecs);
 
         setSpec(getSlid);
-        setDeScript(getSpecs);
 
         // //  const slipVar = getSlid.split(',');
         // console.log("====================================");
@@ -228,7 +224,7 @@ function ItemDetailsPage({ auth, match }) {
   console.log(product_id);
   return (
     <>
-      {loginModal === false ? null : (
+      {loginModal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           {/* <div>Login</div> */}
@@ -244,20 +240,20 @@ function ItemDetailsPage({ auth, match }) {
           <div className="container">
             {detailsModal === true ? (
               <Checkout
-               payload={payload}
-               closeCheckoutOptions={closeDetailModal}
-
-                
+                installation_days={payload.product_duration}
+                product_id={product_id}
+                customer_id={user_id}
+                closeCheckoutOptions={closeDetailModal}
+                apps={contactAddress}
               />
             ) : (
               <ItemDetailComponent
                 payload={payload}
-                specification={deScript}
                 // numberWithCommas={numberWithCommas}
                 card={card}
                 openCheckoutModal={() => {
                   // openDetailsModal();
-                  OpenLoginModal();
+                  OpenLoginModal()
                   // console.log('gggg');
                 }}
               />
