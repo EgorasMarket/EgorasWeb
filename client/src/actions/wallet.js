@@ -78,5 +78,5 @@ export const depositToken = (customer_id, tokenSymbol) => async (dispatch) => {
             success: false,
             data: error.response,
         };
-  }
+    }
 };
