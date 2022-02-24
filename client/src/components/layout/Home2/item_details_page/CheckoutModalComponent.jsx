@@ -82,11 +82,13 @@ const CheckoutModalComponent = ({
       setEmail(auth.user.user.email);
         setPhoneNo( auth.user.user.phoneNumber);
         setName( auth.user.user.fullname)
-        const { fullname, email, phoneNumber} = auth.user.user;
+        const { fullname, email, phoneNumber, id} = auth.user.user;
         setCustomerData(
          { name: fullname, 
           email, 
-          phonenumber:phoneNumber}
+          phonenumber:phoneNumber, 
+          customer_id: id, 
+        }
         )
     }
 
@@ -94,7 +96,7 @@ const CheckoutModalComponent = ({
 
   const flutterConfig = {
     public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
-    tx_ref: Date.now(),
+    tx_ref: "EGC-" +  Date.now(),
     amount: 1,
   
     currency: 'NGN',
@@ -106,6 +108,10 @@ const CheckoutModalComponent = ({
       email:email, 
       name: name, 
     },
+    meta:{
+       customer_id: customer_data.customer_id, 
+       info: 'this is an addtional information',
+    }, 
     customizations: {
       title: "Payment from Egoras savings",
       description: 'Payment for items in cart',
@@ -132,7 +138,7 @@ const CheckoutModalComponent = ({
             callback: async (response) => {
               console.log(response)
               try {
-                const verification = await verify(response.transaction_id, product_id)
+                const verification = await verify(response.transaction_id, product_id, startDate, endDate)
        
                 console.log(verification.data.data.data.amount, 'from me  ')
                 closePaymentModal()
@@ -153,6 +159,7 @@ const CheckoutModalComponent = ({
 
       case 1: (
         alert('wallet method selected')
+
       )
         break
     
@@ -181,7 +188,7 @@ const CheckoutModalComponent = ({
                   </button>
                 </div>
                 <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">{customer_data.fullname}</div>
+                  <div className="delivery_card_body_cont1">{customer_data.name}</div>
                   <div className="delivery_card_body_cont1">
                     {addressName}
                   </div>
