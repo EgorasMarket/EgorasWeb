@@ -121,7 +121,7 @@ const CheckoutModalComponent = ({
                 if (!response.transaction_id){
                     alert("We couldn't return any information from this payment please try again.")
                 }
-                const verification = await verify(response.transaction_id, product_id, startDate, endDate)
+                const verification = await verify(response.transaction_id, product_id, startDate, endDate, days_left)
                 closePaymentModal()
               } catch (error) {
                 console.log(error.response)
