@@ -76,7 +76,7 @@ const CheckoutModalComponent = ({
 
   const flutterConfig = {
     public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
-    tx_ref: Date.now(),
+    tx_ref: "EGC-" +  Date.now(),
     amount: 1,
   
     currency: 'NGN',
@@ -118,7 +118,7 @@ const CheckoutModalComponent = ({
             callback: async (response) => {
               console.log(response)
               try {
-                const verification = await verify(response.transaction_id, product_id)
+                const verification = await verify(response.transaction_id, product_id, startDate, endDate)
        
                 console.log(verification.data.data.data.amount, 'from me  ')
                 closePaymentModal()
@@ -139,6 +139,7 @@ const CheckoutModalComponent = ({
 
       case 1: (
         alert('wallet method selected')
+
       )
         break
     
