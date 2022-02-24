@@ -53,7 +53,27 @@ const CheckoutModalComponent = ({
   const [name, setName] = useState("")
   const [option, setOption] = useState(-1)
   const [customer_data, setCustomerData] = useState({})
-  console.log(phone_no, name, option)
+  // console.log(phone_no, name, option)
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const [addressName, setAddressName] = useState("")
+
+  useEffect( async ()=>{
+    await axios.get(api_url2 + "/v1/user/address/info", null,
+     config).then((response)=>{
+    console.log(response , "wewter kings")
+ console.log(response.data.cusAddress. address,"market")
+
+ setAddressName(response.data.cusAddress.address)
+//  console.log(addressName,"Bk is good for development")
+     })
+
+  }, [])
 
 
   useEffect(() => {
@@ -161,11 +181,11 @@ const CheckoutModalComponent = ({
                   </button>
                 </div>
                 <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
+                  <div className="delivery_card_body_cont1">{customer_data.fullname}</div>
                   <div className="delivery_card_body_cont1">
-                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
+                    {addressName}
                   </div>
-                  <div className="delivery_card_body_cont1">08164020234</div>
+                  <div className="delivery_card_body_cont1">{customer_data.phonenumber}</div>
                 </div>
               </div>
               {/* ============= */}
