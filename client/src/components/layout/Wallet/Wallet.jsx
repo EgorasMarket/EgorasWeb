@@ -277,14 +277,26 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                   />
                 )}
               </div>
-              {secureNumb == true ? (
-                <div className="arrowSpan">
-                  *********** <div className="usd_val">*********</div>
+              {isLoading2 == true ? (
+                <div className="loading_icon_div_amnt">
+                  <LoadingIcons.ThreeDots
+                    fill="#fff"
+                    className="loading_iconnn"
+                  />
                 </div>
               ) : (
-                <div className="arrowSpan">
-                  ₦{assetVal} <div className="usd_val">≈ ${assetVal / 560}</div>
-                </div>
+                <>
+                  {secureNumb == true ? (
+                    <div className="arrowSpan">
+                      *********** <div className="usd_val">*********</div>
+                    </div>
+                  ) : (
+                    <div className="arrowSpan">
+                      ₦{assetVal}{" "}
+                      <div className="usd_val">≈ ${assetVal / 560}</div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -378,6 +390,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                       fill="#229e54"
                       className="loading_iconnn"
                     />
+                    <p className="loading_txt">Loading...</p>
                   </div>
                 ) : (
                   <>
@@ -503,6 +516,14 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                           {assetName}
                         </div>
                         <div className="deposit_div_body1_input1_qr_code_img_div">
+                          {/* {isLoading == true ? ( */}
+                          {/* <div className="wallet_loading_c">
+                            <LoadingIcons.ThreeDots
+                              fill="#229e54"
+                              className="loading_iconnn"
+                            />
+                          </div> */}
+                          {/* ) : ( */}
                           <img
                             src={
                               "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
@@ -511,36 +532,37 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             alt=""
                             className="qr_img"
                           />
-                          <div className="copy_address_div">
-                            <div className="copy_address_div_title">
-                              Address
-                            </div>
-                            {isLoading == true ? (
-                              <LoadingIcons.ThreeDots
-                                fill="#229e54"
-                                className="loading_iconnn"
-                              />
-                            ) : (
-                              <div
-                                className="copy_address_div_txt"
-                                id="myInput"
-                              >
-                                {walletAddr}
-                                <FileCopyIcon
-                                  className="file_icon_copy"
-                                  onClick={() => copyWalletAddress(walletAddr)}
-                                  // onMouseOut={outFunc}
-                                />
+                          {/* )} */}
 
-                                {copiedTxt == true ? (
-                                  <div
-                                    className="copiedToClipBoardDiv"
-                                    onChange={timer}
-                                  >
-                                    Wallet Address copied to clipboard
-                                  </div>
-                                ) : null}
-                              </div>
+                          <div className="copy_address_div">
+                            {isLoading == true ? null : (
+                              <>
+                                <div className="copy_address_div_title">
+                                  Address
+                                </div>
+                                <div
+                                  className="copy_address_div_txt"
+                                  id="myInput"
+                                >
+                                  {walletAddr}
+                                  <FileCopyIcon
+                                    className="file_icon_copy"
+                                    onClick={() =>
+                                      copyWalletAddress(walletAddr)
+                                    }
+                                    // onMouseOut={outFunc}
+                                  />
+
+                                  {copiedTxt == true ? (
+                                    <div
+                                      className="copiedToClipBoardDiv"
+                                      onChange={timer}
+                                    >
+                                      Wallet Address copied to clipboard
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </>
                             )}
                           </div>
                         </div>
