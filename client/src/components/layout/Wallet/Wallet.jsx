@@ -104,7 +104,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
-  useEffect(async() => {
+  useEffect(async () => {
     console.log(auth);
     if (auth.user !== null) {
       var todecoded = auth.user;
@@ -176,7 +176,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     // setTokenName(tokenName);
 
     if (accountExists) {
-      console.log('accountExists');
+      console.log("accountExists");
       setShowDeposit(true);
       // console.log(adminId);
       let res3 = await depositToken(adminId, tokenSymbol);
@@ -186,7 +186,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
         setWalletAddr(res3.data.address);
       }
     } else {
-      console.log('not accountExists');
+      console.log("not accountExists");
       setShowDeposit(true);
       // console.log(adminId);
       let res3 = await createWallet(adminId, tokenSymbol);
@@ -196,7 +196,6 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
         setWalletAddr(res3.data.address);
       }
     }
-
   };
   const closeDepositDiv = () => {
     setShowDeposit(false);
@@ -446,11 +445,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             </div>
                             <div className="copy_address_div_txt" id="myInput">
                               {walletAddr}
-                              <FileCopyIcon
-                                className="file_icon_copy"
-                                // onClick={copyText}
-                                // onMouseOut={outFunc}
-                              />
+                              <FileCopyIcon className="file_icon_copy" />
                             </div>
                           </div>
                         </div>
@@ -511,11 +506,6 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     Address
                                   </span>
                                   <div className="address_cont">
-                                    {/* {data.fromAddress.substring(0, 10) +
-                                    "..." +
-                                    data.fromAddress.substr(
-                                      data.fromAddress.length - 10
-                                    )} */}
                                     {data.fromAddress}
                                   </div>
 
@@ -524,8 +514,6 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     onClick={() =>
                                       copyTextText2(data.fromAddress)
                                     }
-                                    // onClick={copyText}
-                                    // onMouseOut={outFunc}
                                   />
                                   <span className="hover_txn_address_cont">
                                     {data.fromAddress}
@@ -547,15 +535,11 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     {data.txnId.substring(0, 10) +
                                       "..." +
                                       data.txnId.substr(data.txnId.length - 7)}
-                                    {/* {txId} */}
                                   </div>
 
                                   <FileCopyIcon
                                     onClick={() => copyTextText(data.txnId)}
                                     className="deposit_history_address_copy_icon"
-
-                                    // onClick={copyText}
-                                    // onMouseOut={outFunc}
                                   />
                                   <span className="hover_txn_address_cont">
                                     {data.txnId}

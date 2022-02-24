@@ -18,6 +18,7 @@ import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
+import Logout from "../Home2/Logout/Logout";
 
 const AdminSideBar = ({ auth }) => {
   const dddd = localStorage.getItem("smallSidetoken");
@@ -557,7 +558,7 @@ const AdminSideBar = ({ auth }) => {
 
             <hr className="hrr" />
             <ul className="social_icons">
-              <div
+              {/* <div
                 to="/dashboard/accounts"
                 className="link"
                 id="logout"
@@ -575,7 +576,8 @@ const AdminSideBar = ({ auth }) => {
                   <PowerSettingsNewIcon className="sidebarIcon" />
                   Logout
                 </span>
-              </div>
+              </div> */}
+              <Logout />
             </ul>
           </div>
         </div>
