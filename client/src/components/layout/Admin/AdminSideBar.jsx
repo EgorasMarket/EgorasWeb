@@ -87,6 +87,8 @@ const AdminSideBar = ({ auth }) => {
   const [notEqual4, setNotEqual4] = useState(false);
   const [notEqual5, setNotEqual5] = useState(false);
 
+  const locate = window.location.pathname;
+
   const [roles, setRoles] = useState({ role1: "", role2: "", role3: "" });
 
   const { role1, role2, role3 } = roles;
@@ -113,6 +115,9 @@ const AdminSideBar = ({ auth }) => {
       setActiveBg("products");
     }
     if (linksActive === "/super_admin/register_user") {
+      setActiveBg("register");
+    }
+    if (linksActive === "/super_admin/cus_user_wallet") {
       setActiveBg("register");
     }
 
@@ -335,7 +340,9 @@ const AdminSideBar = ({ auth }) => {
                         Customer
                       </li>
                     </a>
+    
 
+               {/* {  locate === "/super_admin/overview" ? */}
                     <a
                       href="/super_admin/user_wallet"
                       className="link"
@@ -353,6 +360,7 @@ const AdminSideBar = ({ auth }) => {
                         Wallet
                       </li>
                     </a>
+                    {/* :null} */}
                   </>
                 ) : null}
                 {/* ===================== */}
@@ -411,6 +419,7 @@ const AdminSideBar = ({ auth }) => {
                 {/* ===================== */}
 
                 {role1 === "CASHIER" ? (
+                  <>
                   <a href="#" className="link" id="accounts" onClick={changeBg}>
                     <li
                       className={
@@ -422,7 +431,29 @@ const AdminSideBar = ({ auth }) => {
                       <AccountCircleIcon className="sidebarIcon" />
                       Accounts
                     </li>
-                  </a>
+                    </a>
+                 
+                  {((locate  ===  "/super_admin/overview") || (locate  ===  "/super_admin/cus_user_wallet")) ?
+                    <a
+                      href="/super_admin/cus_user_wallet"
+                      className="link"
+                      id="wallet1"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "wallet1"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                       Customer Wallet
+                      </li>
+                    </a> : null}
+
+                
+                  </>
                 ) : null}
 
                 {/* ===================== */}
@@ -489,6 +520,7 @@ const AdminSideBar = ({ auth }) => {
                 {/* ===================== */}
 
                 {role1 === "CASHIER" || role1 === "CUSTOMER_SERVICE" ? (
+                  <>
                   <a href="#" className="link" id="products" onClick={changeBg}>
                     <li
                       className={
@@ -502,7 +534,31 @@ const AdminSideBar = ({ auth }) => {
                       Customer
                     </li>
                   </a>
+                  
+                  
+                  <a
+                      href="/super_admin/user_wallet"
+                      className="link"
+                      id="wallet"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "wallet"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        Wallet
+                      </li>
+                    </a>
+                  </>
                 ) : null}
+
+
+
+                
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
