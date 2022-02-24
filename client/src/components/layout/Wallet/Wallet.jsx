@@ -157,6 +157,8 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       // console.log(todecoded.user.id)
       setAdminId(todecoded.user.id);
 
+      console.log(adminId)
+
       await axios
         .get(
           api_url2 + "/v1/wallet/check/wallet/" + todecoded.user.id,
