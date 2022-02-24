@@ -264,3 +264,6 @@ input:-internal-autofill-selected {
   top: 45%;
   width: 10px !important;
 }
+.react-multi-carousel-track {
+  gap: 0px;
+}

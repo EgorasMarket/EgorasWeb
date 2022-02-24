@@ -37,8 +37,11 @@
 }
 .account_toggle_body_area {
   height: 100%;
-  overflow: scroll;
+  overflow-y: scroll;
   padding: 1em 0em;
+}
+.account_toggle_body_area::-webkit-scrollbar {
+  display: none;
 }
 .account_toggle_body_area1_title {
   font-size: 26px;
