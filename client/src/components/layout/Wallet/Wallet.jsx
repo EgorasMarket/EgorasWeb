@@ -157,7 +157,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       // console.log(todecoded.user.id)
       setAdminId(todecoded.user.id);
 
-      console.log(adminId)
+      console.log(adminId);
 
       await axios
         .get(
@@ -429,9 +429,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                 openDepositDiv(data.tokenName, data.tokenSymbol)
                               }
                             >
-                              Deposit
+                              Fund Wallet
                             </button>
-                            <button
+                            {/* <button
                               id="withdraw_btn"
                               className={
                                 activeBg == "withdraw_btn"
@@ -442,7 +442,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             >
                               {" "}
                               Withdraw
-                            </button>
+                            </button> */}
 
                             <button className="buttonMenu_drop">
                               <MoreVertIcon
