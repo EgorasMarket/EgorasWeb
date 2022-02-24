@@ -38,6 +38,10 @@ function DashboardSavingsPage({ match, auth }) {
     product_duration: "",
   });
 
+  const [userLockId,setUserLockId] = useState([])
+  const [lockedItem,setLockedItem]=useState({itemsLock:''})
+  const {itemslock}= lockedItem;
+
   const { product_image, product_name, amount, product_duration } =
     productDetail;
 
@@ -74,12 +78,18 @@ function DashboardSavingsPage({ match, auth }) {
 
 
   useEffect(() => { 
-    axios
-      .get(api_url2 + `/v1/product/retrieve/locked/${match.params.product_id}`, null, config)
+    console.log(match.params.prduct_id,"play every day")
+    console.log(auth.user.user.id)
+    axios.get(api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`, null, config)
       .then((data) => {
-        console.log(data.data.data, "Ebuka");
 
-        // setItemDisplay(data.data.data);
+        console.log(data.data,"Ewwooo oh")
+
+       setUserLockId(data.data.data)
+
+     
+
+       
 
         
       })
@@ -184,9 +194,10 @@ function DashboardSavingsPage({ match, auth }) {
                 <div className="savings_overview_card1  over_third_card"></div>
                 <div className="savings_overview_card1 over_fourth_card"></div> */}
               </div>
+              {/* {userLockId.length <= 0 ? null:  } */}
               <div className="savings_overview_body_cont1">
-                Total Number of Locked Items{" "}
-                <span className="saved_figure">{savedNum}</span>
+                Total Number of Locked {userLockId.length >= 2 ? "items":'item'}{" "}
+               <span className="saved_figure">{userLockId.length}</span>
               </div>
               <div className="locked_items">
                 <div class="save_prod_deta">
@@ -199,19 +210,20 @@ function DashboardSavingsPage({ match, auth }) {
                         <th className="assets-category-titles-heading1">
                           Item Details
                         </th>
+                     
                         <th className="assets-category-titles-heading1 quant">
-                          Quantity
+                       Order_id
                         </th>
                         <th className="assets-category-titles-heading1 quant">
-                          Unit Price
+                          Paid Sum
                         </th>
                         <th className="assets-category-titles-heading1_last">
-                          Sub Total
+                          Total
                         </th>
                       </tr>
                     </thead>
 
-                    {itemdisplay.slice(0, 5).map((asset) => (
+                    {userLockId.slice(0, 5).map((asset) => (
                       <tbody
                         className="save_items_cat popular-categories"
                         id="popular-categories"
@@ -221,7 +233,7 @@ function DashboardSavingsPage({ match, auth }) {
                           <td className="save_item_data">
                             <div className="assets-data height_data">
                               <img
-                                src={api_url2 + "/" + asset.product_image}
+                                src={api_url2 + "/" + asset.product_img}
                                 alt=""
                                 className="save_item_img_img"
                               />
@@ -237,8 +249,8 @@ function DashboardSavingsPage({ match, auth }) {
                                 {asset.product_name}
                               </div>
                               <div className="save_item_days_left">
-                                {asset.unitCount} days left
-                                <div className="days_left_percentage_cont">
+                                {asset.order_id} 
+                                {/* <div className="days_left_percentage_cont">
                                   <span
                                     className="days_left_percentage"
                                     style={{
@@ -250,29 +262,35 @@ function DashboardSavingsPage({ match, auth }) {
                                         ),
                                     }}
                                   ></span>
-                                </div>
+                                </div> */}
+
+                                 <div>
+                                   Product duration :{" "}{asset.product_duration}{' '}
+                                   { 'days left'}
+                                 
+                                </div> 
                               </div>
-                              <div className="save_total_locked_amount">
+                              {/* <div className="save_total_locked_amount">
                                 <span className="items_left_amount">
                                   Total Amount Locked on Item
                                 </span>
-                                #{asset.total_locked_amount}
-                              </div>
+                                ₦{asset.total_locked_amount}
+                              </div> */}
                             </div>
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
-                              {asset.unitCount}
+                              {asset.order_id}
                             </div>
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
-                              #{asset.amount}
+                               ₦{asset.paidSum}
                             </div>
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name_last">
-                              #{asset.amount * asset.unitCount}
+                            ₦{asset.sum}
                             </div>
                           </td>
                         </tr>
@@ -281,6 +299,7 @@ function DashboardSavingsPage({ match, auth }) {
                   </table>
                 </div>
               </div>
+           
             </div>
             <div className="dash_savings_area2">
               <div className="savings_transactions_divs"></div>
