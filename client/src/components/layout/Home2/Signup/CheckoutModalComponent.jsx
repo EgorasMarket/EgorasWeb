@@ -62,13 +62,11 @@ const CheckoutModalComponent = ({
       setEmail(auth.user.user.email);
         setPhoneNo( auth.user.user.phoneNumber);
         setName( auth.user.user.fullname)
-        const { fullname, email, phoneNumber, id} = auth.user.user;
+        const { fullname, email, phoneNumber} = auth.user.user;
         setCustomerData(
          { name: fullname, 
           email, 
-          phonenumber:phoneNumber, 
-          customer_id: id, 
-        }
+          phonenumber:phoneNumber}
         )
     }
 
@@ -88,10 +86,6 @@ const CheckoutModalComponent = ({
       email:email, 
       name: name, 
     },
-    meta:{
-       customer_id: customer_data.customer_id, 
-       info: 'this is an addtional information',
-    }, 
     customizations: {
       title: "Payment from Egoras savings",
       description: 'Payment for items in cart',
