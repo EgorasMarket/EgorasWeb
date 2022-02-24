@@ -91,6 +91,7 @@ const responsive7 = {
 const DashboardHomePage = ({ auth, match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
+  const [userLockId,setUserLockId]=useState([])
 
   // const fetchFromCart = async (customer_id) => {
   //   console.log('fetchfromCart', customer_id);
@@ -142,6 +143,28 @@ const DashboardHomePage = ({ auth, match }) => {
         console.log(data.data.data, "phlip");
 
         setItemGalleryShow(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  }, []);
+
+
+  useEffect(() => { 
+    // console.log(match.params.prduct_id,"play every day")
+    console.log(auth.user.user.id)
+    axios.get(api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`, null, config)
+      .then((data) => {
+
+        console.log(data.data,"Ewwooo oh")
+
+       setUserLockId(data.data.data)
+
+     
+
+       
+
+        
       })
       .catch((err) => {
         console.log(err); // "oh, no!"
@@ -248,19 +271,21 @@ const DashboardHomePage = ({ auth, match }) => {
             {/* [===================] */}
             {/* [===================] */}
             {/* [===================] */}
+
+            {userLockId.length <= 0 ? null: 
             <div className="savings_overview">
               <div className="savings_overview_title">Savings Overview</div>
               <div className="savings_overview_body">
                 <div className="savings_overview_body_cont1">
-                  Total Number of Locked Items{" "}
-                  <span className="saved_figure">{savedNum}</span>
+                  Total Number of Locked {userLockId.length > 1 ? "items":"item"}{" "}
+                  <span className="saved_figure">{userLockId.length}</span>
                 </div>
                 <div className="savings_overview_body_cont2">
-                  {itemDetails2.map((item) => (
+                  {userLockId.slice(0, 3).map((item) => (
                     <div className="savings_overview_body_cont2_1a">
                       <div className="save_overview_cont_img">
                         <img
-                          src={item.img}
+                         src={api_url2 + "/" + item.product_img}
                           alt=""
                           className="save_overview_cont_img_imgg"
                         />
@@ -268,15 +293,15 @@ const DashboardHomePage = ({ auth, match }) => {
                       <div className="save_item_details">
                         <div className="save_item_details_titles">
                           <div className="save_overview_cont_title">
-                            {item.name}
+                            {item.product_name}
                           </div>
                           <div className="save_overview_cont_amount">
-                            ₦{item.amount}
+                           Total   ₦{item.sum}
                           </div>
                         </div>
                         <div className="save_item_details_btn">
                           <div className="save_overview_cont_items_left">
-                            {item.items_remainings}
+                          Paid Sum ₦{item.paidSum}
                           </div>
                           <button className="save_overview_cont_items_top_up">
                             Top up
@@ -287,7 +312,9 @@ const DashboardHomePage = ({ auth, match }) => {
                   ))}
                 </div>
               </div>
-            </div>
+            </div>}
+
+
           </div>
           {/* =================================================================================================================================================================================================================================================================== */}
 

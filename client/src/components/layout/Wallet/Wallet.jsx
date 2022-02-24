@@ -157,6 +157,8 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       // console.log(todecoded.user.id)
       setAdminId(todecoded.user.id);
 
+      console.log(adminId);
+
       await axios
         .get(
           api_url2 + "/v1/wallet/check/wallet/" + todecoded.user.id,
@@ -311,7 +313,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                     Contact Support
                   </div>
                 </div>
-                <div className="divConcept2">
+                {/* <div className="divConcept2">
                   <div>
                     <StarRateIcon className="starRateIcon" />
                   </div>
@@ -382,7 +384,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                       </button>
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <hr />
                 {isLoading2 == true ? (
                   <div className="loading_icon_d">
@@ -427,9 +429,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                 openDepositDiv(data.tokenName, data.tokenSymbol)
                               }
                             >
-                              Deposit
+                              Fund Wallet
                             </button>
-                            <button
+                            {/* <button
                               id="withdraw_btn"
                               className={
                                 activeBg == "withdraw_btn"
@@ -440,7 +442,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             >
                               {" "}
                               Withdraw
-                            </button>
+                            </button> */}
 
                             <button className="buttonMenu_drop">
                               <MoreVertIcon
@@ -516,23 +518,35 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                           {assetName}
                         </div>
                         <div className="deposit_div_body1_input1_qr_code_img_div">
-                          {/* {isLoading == true ? ( */}
-                          {/* <div className="wallet_loading_c">
-                            <LoadingIcons.ThreeDots
-                              fill="#229e54"
-                              className="loading_iconnn"
-                            />
-                          </div> */}
-                          {/* ) : ( */}
-                          <img
-                            src={
-                              "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
-                              walletAddr
-                            }
-                            alt=""
-                            className="qr_img"
-                          />
-                          {/* )} */}
+                          {isLoading == true ? (
+                            <div className="qr_code_divv_check">
+                              <img
+                                src={
+                                  "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
+                                  walletAddr
+                                }
+                                alt=""
+                                className="qr_img"
+                              />
+                              <span className="load_qr_code_">
+                                <LoadingIcons.ThreeDots
+                                  fill="#229e54"
+                                  className="loading_iconnn_wallet"
+                                />
+                              </span>
+                            </div>
+                          ) : (
+                            <div className="qr_code_divv_check">
+                              <img
+                                src={
+                                  "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
+                                  walletAddr
+                                }
+                                alt=""
+                                className="qr_img"
+                              />
+                            </div>
+                          )}
 
                           <div className="copy_address_div">
                             {isLoading == true ? null : (
