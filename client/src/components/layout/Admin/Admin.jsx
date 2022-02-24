@@ -11,6 +11,7 @@ import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
 import Wallet from "../Wallet/Wallet";
+import Wallet4 from "../Wallet/Wallet1";
 import axios from "axios";
 import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
 import Item_details_main2 from "./AdminPages/items";
@@ -130,6 +131,12 @@ const Admin = ({ isAuthenticated, loading }) => {
                     path="/super_admin/user_wallet"
                     component={Wallet}
                   />
+
+                  <Route
+                    exact
+                    path="/super_admin/cus_user_wallet"
+                    component={Wallet4}
+                  /> 
 
                   <Route
                     exact
