@@ -350,15 +350,10 @@ const Savings = ({ getProductByCat }) => {
           >
             <div className="projectsTitleContentsa bg_a">
               <div className="projectTitle">
-                <h1 className="gttitle TITE">
-                  Top Deals / Outright Buy.
-                  {/* <span className="ouright_sell">/ Outright sell-off.</span> */}
-                </h1>
+                <h1 className="gttitle TITE">Top Deals </h1>
               </div>
               <a
-                // href={`/products/categories/Outright `}
-
-                href={`/dashboard/products/categories/${code3}`}
+                href={`/products/categories/Outright `}
                 className="see_all_cat"
               >
                 See all <ArrowForwardIosIcon className="forward_icons" />

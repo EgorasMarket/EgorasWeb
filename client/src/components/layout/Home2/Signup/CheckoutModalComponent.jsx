@@ -62,13 +62,11 @@ const CheckoutModalComponent = ({
       setEmail(auth.user.user.email);
         setPhoneNo( auth.user.user.phoneNumber);
         setName( auth.user.user.fullname)
-        const { fullname, email, phoneNumber, id} = auth.user.user;
+        const { fullname, email, phoneNumber} = auth.user.user;
         setCustomerData(
          { name: fullname, 
           email, 
-          phonenumber:phoneNumber, 
-          customer_id: id, 
-        }
+          phonenumber:phoneNumber}
         )
     }
 
@@ -76,7 +74,7 @@ const CheckoutModalComponent = ({
 
   const flutterConfig = {
     public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
-    tx_ref: "EGC-" +  Date.now(),
+    tx_ref: Date.now(),
     amount: 1,
   
     currency: 'NGN',
@@ -88,10 +86,6 @@ const CheckoutModalComponent = ({
       email:email, 
       name: name, 
     },
-    meta:{
-       customer_id: customer_data.customer_id, 
-       eventType: "1"
-    }, 
     customizations: {
       title: "Payment from Egoras savings",
       description: 'Payment for items in cart',
@@ -118,10 +112,9 @@ const CheckoutModalComponent = ({
             callback: async (response) => {
               console.log(response)
               try {
-                if (!response.transaction_id){
-                    alert("We couldn't return any information from this payment please try again.")
-                }
-                const verification = await verify(response.transaction_id, product_id, startDate, endDate)
+                const verification = await verify(response.transaction_id, product_id)
+       
+                console.log(verification.data.data.data.amount, 'from me  ')
                 closePaymentModal()
               } catch (error) {
                 console.log(error.response)
@@ -140,7 +133,6 @@ const CheckoutModalComponent = ({
 
       case 1: (
         alert('wallet method selected')
-
       )
         break
     
