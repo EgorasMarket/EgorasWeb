@@ -1,8 +1,8 @@
 import React, { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import verify from '../../../../flutterwave/API/Verify'
-
+import verify from "../../../../flutterwave/API/Verify";
+import Wallet1 from "../../Wallet/Wallet1";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -10,19 +10,15 @@ import {
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import FlutterButton from "../../../../flutterwave/FlutterButton";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import PaymentPlan from '../../../../flutterwave/API/PaymentPlan'
-import verifyTransaction from '../../../../flutterwave/API/Verify'
-import {createOrder} from '../../../../actions/shop'
+import LoadingIcons from "react-loading-icons";
+import PaymentPlan from "../../../../flutterwave/API/PaymentPlan";
+import verifyTransaction from "../../../../flutterwave/API/Verify";
+import { createOrder } from "../../../../actions/shop";
 import { connect } from "react-redux";
-import initPayment from '../../../../flutterwave/initPayment'
+import initPayment from "../../../../flutterwave/initPayment";
 import initializePayment from "../../../../flutterwave/API/initializePayment";
 
-const CheckoutModalComponent = ({
-  payload, 
-  closeCheckoutOptions,
-  auth
-}) => {
-
+const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   //destructure the payload and return values
   const {
     amount,
@@ -41,69 +37,69 @@ const CheckoutModalComponent = ({
     payment_type,
     days_left,
     no_of_days,
-    no_of_days_paid, 
-    startDate, 
-    endDate
+    no_of_days_paid,
+    startDate,
+    endDate,
   } = payload;
 
-  const [user_id , setUserId]  = useState('')
+  const [user_id, setUserId] = useState("");
   const [isloading, setIsLoading] = useState(true);
-  const [email, setEmail] = useState("")
-  const [phone_no, setPhoneNo] = useState("")
-  const [name, setName] = useState("")
-  const [option, setOption] = useState(-1)
-  const [customer_data, setCustomerData] = useState({})
-  console.log(phone_no, name, option)
-
+  const [email, setEmail] = useState("");
+  const [phone_no, setPhoneNo] = useState("");
+  const [walletModal, setWalletModal] = useState(false);
+  const [ProcessingDiv, setProcessingDiv] = useState(false);
+  const [name, setName] = useState("");
+  const [option, setOption] = useState(-1);
+  const [customer_data, setCustomerData] = useState({});
+  console.log(phone_no, name, option);
 
   useEffect(() => {
-    if (auth.user !== null){
-      console.log(auth.user, 'user  exist ')
+    if (auth.user !== null) {
+      console.log(auth.user, "user  exist ");
       setEmail(auth.user.user.email);
-        setPhoneNo( auth.user.user.phoneNumber);
-        setName( auth.user.user.fullname)
-        const { fullname, email, phoneNumber, id} = auth.user.user;
-        setCustomerData(
-         { name: fullname, 
-          email, 
-          phonenumber:phoneNumber, 
-          customer_id: id, 
-        }
-        )
+      setPhoneNo(auth.user.user.phoneNumber);
+      setName(auth.user.user.fullname);
+      const { fullname, email, phoneNumber, id } = auth.user.user;
+      setCustomerData({
+        name: fullname,
+        email,
+        phonenumber: phoneNumber,
+        customer_id: id,
+      });
     }
-
   }, []);
 
   const flutterConfig = {
-    public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
-    tx_ref: "EGC-" +  Date.now(),
+    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
+    tx_ref: "EGC-" + Date.now(),
     amount: 1,
-  
-    currency: 'NGN',
+
+    currency: "NGN",
     // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
     payment_options: "card",
     // payment_plan:63558,
     customer: {
       phonenumber: phone_no,
-      email:email, 
-      name: name, 
+      email: email,
+      name: name,
     },
-    meta:{
-       customer_id: customer_data.customer_id, 
-       eventType: "1"
-    }, 
+    meta: {
+      customer_id: customer_data.customer_id,
+      eventType: "1",
+    },
     customizations: {
       title: "Payment from Egoras savings",
-      description: 'Payment for items in cart',
-      logo: 'https://egoras.com/img/egoras-logo.svg',
+      description: "Payment for items in cart",
+      logo: "https://egoras.com/img/egoras-logo.svg",
     },
   };
-    const handleFlutterPayment= useFlutterwave(flutterConfig);
-
-
-  const selectOption =async (value) => {
+  const handleFlutterPayment = useFlutterwave(flutterConfig);
+  const openProcessingDiv = () => {
+    setProcessingDiv(true);
+  };
+  const selectOption = async (value) => {
     // switch(value ){
-    //   case 0: 
+    //   case 0:
     //     // const call = await initializePayment(1, customer_data)
     //     // console.log(call)
 
@@ -111,48 +107,46 @@ const CheckoutModalComponent = ({
     //     //   alert('here')
     //     // }})
     // }
-    switch (value){
-      case 0:   
-             // alert('payment set as card', product_id)
-          handleFlutterPayment({
-            callback: async (response) => {
-              console.log(response)
-              try {
-                if (!response.transaction_id){
-                    alert("We couldn't return any information from this payment please try again.")
-                }
-                const verification = await verify(response.transaction_id, product_id, startDate, endDate)
-                closePaymentModal()
-              } catch (error) {
-                console.log(error.response)
+    switch (value) {
+      case 0:
+        // alert('payment set as card', product_id)
+        handleFlutterPayment({
+          callback: async (response) => {
+            console.log(response);
+            try {
+              if (!response.transaction_id) {
+                alert(
+                  "We couldn't return any information from this payment please try again."
+                );
               }
-  
-            },
-            onClose: (response) => {
-              console.log(response, "response from onclose ")
-  
+              const verification = await verify(
+                response.transaction_id,
+                product_id,
+                startDate,
+                endDate
+              );
+              closePaymentModal();
+            } catch (error) {
+              console.log(error.response);
             }
-          })
-        
-  
-        
+          },
+          onClose: (response) => {
+            console.log(response, "response from onclose ");
+          },
+        });
+
         break;
 
-      case 1: (
-        alert('wallet method selected')
-
-      )
-        break
-    
+      case 1:
+        // alert("wallet method selected");
+        setWalletModal(true);
+        break;
     }
-
-  }
-
- 
+  };
 
   return (
     <>
-       <div className="detailsModal">
+      <div className="detailsModal" style={{ position: "relative" }}>
         <div className="detailsModalSection1">
           <div className="bacKbutton" onClick={closeCheckoutOptions}>
             Previous
@@ -292,24 +286,40 @@ const CheckoutModalComponent = ({
             <div className="cart_area2_heading">Payment Options</div>
             {/* ===================== */}
             <div className="cart_area2_select">
-              <div className="wit_card" onClick={() => {
-                  setOption(0)
-              }}>
+              <div
+                className="wit_card"
+                onClick={() => {
+                  setOption(0);
+                }}
+              >
                 Pay via card{" "}
-                <input type="checkbox" name="payment" id="" className="checkBox" />
+                <input
+                  type="checkbox"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                />
               </div>
             </div>
             {/* ===================== */}
-              <div className="cart_area2_select" onClick={()  => {
-                  setOption(1)
-                 }}>
+            <div
+              className="cart_area2_select"
+              onClick={() => {
+                setOption(1);
+              }}
+            >
               <div className="wit_card">
-                Pay via wallet {" "}
-                <input type="checkbox" name="payment" id="" className="checkBox"  />
+                Pay via wallet{" "}
+                <input
+                  type="checkbox"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                />
               </div>
             </div>
 
-             {/* <FlutterButton 
+            {/* <FlutterButton 
              payment_plan={showPayment}
              user_id ={user_id}
              amount={1}
@@ -344,8 +354,7 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
-              Sub Total:{" "}
-              <span className="sub_total_div_span">₦{amount}</span>
+              Sub Total: <span className="sub_total_div_span">₦{amount}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -372,26 +381,35 @@ const CheckoutModalComponent = ({
               className="checkout_btn1a"
               onClick={() => {
                 // openPayment();
-                selectOption(option)
+                selectOption(option);
               }}
             >
               Proceed to Checkout
             </button>
           </div>
         </div>
+        {walletModal == false ? null : (
+          <div className="wallet_component">
+            <Wallet1 openProcessingDiv={openProcessingDiv} />
+          </div>
+        )}
       </div>
-
-     
+      {ProcessingDiv == false ? (
+        <div></div>
+      ) : (
+        <div className="processing_transac_div">
+          <LoadingIcons.Bars fill="#229e54" />
+          Processing Transaction...
+        </div>
+      )}
     </>
   );
 };
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
-
-})
+});
 
 export default connect(mapStateToProps, {
   createOrder,
-})
-(CheckoutModalComponent);
+})(CheckoutModalComponent);
