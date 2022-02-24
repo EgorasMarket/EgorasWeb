@@ -62,7 +62,7 @@
 
 .dark-mode .home-body {
     background: #030d1d !important;
-    /* background-image: url(/Mask_Group_1.svg) !important; */
+    background-image: url(/Mask_Group_1.svg) !important;
     background-repeat: no-repeat !important;
     background-position: right top !important;
 }
@@ -92,7 +92,7 @@
 
 .dark-mode .multiple-bg {
     background-color: #030d1d !important;
-    /* background: url(/image2.svg) left -40px top 300px no-repeat; */
+    background: url(/image2.svg) left -40px top 300px no-repeat;
 
 }
 
@@ -194,6 +194,6 @@
 
 
 .dark-mode #footer {
-    /* background: url(/down-line.svg) left -195px top -100px no-repeat, #0f1734 !important; */
+    background: url(/down-line.svg) left -195px top -100px no-repeat, #0f1734 !important;
     opacity: unset !important;
 }

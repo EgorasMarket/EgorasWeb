@@ -185,9 +185,15 @@
   font-weight: 700;
   border-bottom: 1px solid #f2f2f2;
 }
-.token_symbol {
-  color: #000;
+.loading_iconnn {
+  width: 70px !important;
+  height: 100% !important;
+}
+.token_symbolism {
+  color: #229e54;
   font-weight: 700;
+  font-size: 14px;
+  margin-left: 5px;
 }
 .deposit_div_body1_input_asset {
   color: grey;
@@ -355,6 +361,7 @@ li.deposit_qr_not {
   font-weight: 800;
   color: #000;
   gap: 10px;
+  position: relative;
 }
 .formConceptSup {
   background-color: #239e54;
