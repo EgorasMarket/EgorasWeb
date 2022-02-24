@@ -90,7 +90,7 @@ const CheckoutModalComponent = ({
     },
     meta:{
        customer_id: customer_data.customer_id, 
-       info: 'this is an addtional information',
+       eventType: "1"
     }, 
     customizations: {
       title: "Payment from Egoras savings",
@@ -118,9 +118,10 @@ const CheckoutModalComponent = ({
             callback: async (response) => {
               console.log(response)
               try {
+                if (!response.transaction_id){
+                    alert("We couldn't return any information from this payment please try again.")
+                }
                 const verification = await verify(response.transaction_id, product_id, startDate, endDate)
-       
-                console.log(verification.data.data.data.amount, 'from me  ')
                 closePaymentModal()
               } catch (error) {
                 console.log(error.response)
