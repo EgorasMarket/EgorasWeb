@@ -7,9 +7,11 @@ import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminAllView from "./AdminPages/AdminAllProductView";
+import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
 import Wallet from "../Wallet/Wallet";
+import Wallet4 from "../Wallet/Wallet1";
 import axios from "axios";
 import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
 import Item_details_main2 from "./AdminPages/items";
@@ -81,7 +83,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                <> 
                <Route
                   exact
-                  path="/super_admin"
+                  path="/super_admin/upload_products"
                   component={AdminUploadProducts}
                 />
                 {/* <Route
@@ -132,6 +134,12 @@ const Admin = ({ isAuthenticated, loading }) => {
 
                   <Route
                     exact
+                    path="/super_admin/cus_user_wallet"
+                    component={Wallet4}
+                  /> 
+
+                  <Route
+                    exact
                     path="/super_admin/details/:id/:name"
                     component={Item_details_main2}
                   />
@@ -148,13 +156,14 @@ const Admin = ({ isAuthenticated, loading }) => {
                 component={ItemsPage2}
               /> */}
               </>
-              ) :  <Route
-              exact
-              path="/super_admin/all_products_view/:id/:name"
-              // path="/dashboard/products/details/:id/:name"
-              // / dashboard/products/details/:id/:name
-              component={AdminAllView}
-            />
+              ) :  
+              <Route
+                exact
+                path="/super_admin/all_products_view/:id/:name"
+                // path="/dashboard/products/details/:id/:name"
+                // / dashboard/products/details/:id/:name
+                component={AdminAllView}
+              />
 
                 }
 

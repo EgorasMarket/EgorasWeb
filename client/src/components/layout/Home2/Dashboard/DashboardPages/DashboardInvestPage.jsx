@@ -486,23 +486,27 @@ function DashboardInvestPage({ auth }) {
                           )}
                         </button>
 
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <div></div>
+                              ) : (
+                                <button className="items_remaining_btn2">
+                                  {" "}
+                                  {asset.percentage}% locked
+                                </button>
+                              )}
+                            </div>
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                </span>
+                              </div>
+                            </div>
+                            {/* </a> */}
                           </div>
                           <div className="amount_per_day_div">
                             ₦
@@ -511,12 +515,8 @@ function DashboardInvestPage({ auth }) {
                             )}
                             <span className="per_day_symbol"> / perday</span>
                           </div>
-                        </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
+                        </li>
+                      </a>
                     );
                 })}
               </div>

@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
 }));
-
+ 
 const Footer = () => {
   const FooterHide = window.location.pathname;
   const myArr = FooterHide.split("/");
@@ -47,7 +47,13 @@ const Footer = () => {
     if (FooterHide === "/dashboard") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/super_admin/signup") {
+ 
+    if (FooterHide === "/super_admin/user_wallet"
+    ) {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/dashboard/user_wallet"
+    ) {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/super_admin/login") {
@@ -63,7 +69,7 @@ const Footer = () => {
       document.getElementById("FooterId").style.display = "none";
     }
 
-    console.log(myArr[3], myArr[4]);
+    // console.log(myArr[3], myArr[4]);
     if (FooterHide === "/dashboard/") {
       document.getElementById("FooterId").style.display = "none";
     }
@@ -92,6 +98,10 @@ const Footer = () => {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/whitepaper") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    // console.log(myArr[1]);
+    if (myArr[1] === "super_admin") {
       document.getElementById("FooterId").style.display = "none";
     }
   });

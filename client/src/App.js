@@ -239,6 +239,10 @@ const App = () => {
       setAdminLocate("dashboard");
       // console.log("dashboard");
       store.dispatch(loadUser());
+    } else if (myArr[1] === "savings") {
+      setAdminLocate("dashboard");
+      // console.log("dashboard");
+      store.dispatch(loadUser());
     }
   });
 
