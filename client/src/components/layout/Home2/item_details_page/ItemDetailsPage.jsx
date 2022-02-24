@@ -42,7 +42,7 @@ function ItemDetailsPage({ auth, match }) {
   const [card, setSpec] = useState([]);
   const [deScript, setDeScript] = useState([]);
 
-  const [addressName,setAddressName]=useState({contactAddress:""})
+  const [addressName,setAddressName]=useState({})
 
   const {contactAddress}=addressName
 
@@ -132,11 +132,9 @@ function ItemDetailsPage({ auth, match }) {
     axios.get(api_url2 + "/v1/user/address/info", null,
      config).then((response)=>{
 //  console.log(response , "wewter kings")
-//  console.log(response.data.cusAddress. address,"market")
+ console.log(response,"market")
 
- setAddressName({contactAddress:response.data.cusAddress. address
-
- })
+//  setAddressName({contactAddress:response.data.cusAddress. address })
 //  console.log(addressName,"Bk is good for development")
      })
 
