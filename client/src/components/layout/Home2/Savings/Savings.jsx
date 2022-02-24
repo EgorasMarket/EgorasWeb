@@ -70,6 +70,7 @@ const Savings = () => {
     "Computer & Accessories"
   );
   const [homeAppliances, setHomeAppliances] = useState("Home Appliances");
+  // const [electronics, setElectronics] = useState("Electronics1");
   const [electronics, setElectronics] = useState("Electronics");
   const [nfts, setNfts] = useState("Nfts");
   const [phonesTablets, setPhoneTablets] = useState("Phones & Tablet");
@@ -309,60 +310,64 @@ const Savings = () => {
               swipeable={true}
               style={{ height: "25em" }}
             >
-{/* 
+              {/* 
               {outrightProducts.length <= 0 ? null: */}
 
-                 {outrightProducts.map((asset) => {return(
-                <a href={`/products/details/${asset.id}/${asset.product_name}`}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
-
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            40% locked
+              {outrightProducts.map((asset) => {
+                return (
+                  <a
+                    href={`/products/details/${asset.id}/${asset.product_name}`}
+                  >
+                    <li className="carous_list no_marg">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${
+                            api_url2 + "/" + asset.product_image
+                          })`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                          <button className="items_remaining_btn">
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <p className="no_margg"> Buy now</p>
+                            ) : (
+                              <p className="no_margg"> Save now</p>
+                            )}
                           </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_title">
-                          ₦{numberWithCommas(asset.amount)}{" "}
-                          <span className="slashed_price">
-                            ₦{numberWithCommas(asset.amount * 2)}
-                          </span>
+
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <div></div>
+                          ) : (
+                            <button className="items_remaining_btn2">
+                              {" "}
+                              40% locked
+                            </button>
+                          )}
                         </div>
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.product_name}</div>
+                          <div className="asset_title">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                            <span className="slashed_price">
+                              ₦{numberWithCommas(asset.amount * 2)}
+                            </span>
+                          </div>
+                        </div>
+                        {/* </a> */}
                       </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-             )} )  }
+                    </li>
+                  </a>
+                );
+              })}
             </Carousel>
             {/* Carousel end==============================
 ==============================================
@@ -498,6 +503,10 @@ const Savings = () => {
       {/* =================================================================================================================================================================================================================================================================== */}
       {/* =================================================================================================================================================================================================================================================================== */}
       {/*  Projects Section start*/}
+
+      {
+
+      }
       <section className="projectsSection" id="projects">
         <div className="container">
           <div
@@ -537,8 +546,16 @@ const Savings = () => {
             >
               {item.map((asset) => {
                 if (electronics === asset.product_category_desc) {
+                  // console.log(asset.count);
+                  // if (condition) {
+                    
+                  // } else {
+
+                  // }
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -659,7 +676,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (musicalEquipment === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -778,7 +797,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (ComputerAccessories === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -896,7 +917,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (furniture === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1123,7 +1146,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (homeAppliances === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1240,7 +1265,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (nfts === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1357,7 +1384,9 @@ const Savings = () => {
               {item.map((asset) => {
                 if (industrialEquipments === asset.product_category_desc) {
                   return (
-                    <a href={`/products/details/${asset.id}`}>
+                    <a
+                      href={`/products/details/${asset.id}/${asset.product_name}`}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"

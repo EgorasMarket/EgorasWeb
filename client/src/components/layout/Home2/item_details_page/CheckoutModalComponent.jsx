@@ -1,6 +1,8 @@
 import React, { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import verify from '../../../../flutterwave/API/Verify'
+
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -8,146 +10,141 @@ import {
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import FlutterButton from "../../../../flutterwave/FlutterButton";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import PaymentPlan from '../../../../flutterwave/API/PaymentPlan'
+import verifyTransaction from '../../../../flutterwave/API/Verify'
+import {createOrder} from '../../../../actions/shop'
+import { connect } from "react-redux";
+import initPayment from '../../../../flutterwave/initPayment'
+import initializePayment from "../../../../flutterwave/API/initializePayment";
 
 const CheckoutModalComponent = ({
-  startDate,
-  endDate,
-  product_id,
-  customer_id,
-  installation_days,
+  payload, 
   closeCheckoutOptions,
-  previousBtn,
-  CheckBtn,
-  apps
+  auth
 }) => {
-  //use states
-  const [isloading, setIsLoading] = useState(true);
-  const [dailyAmount, setDailyAmount] = useState();
-  const [payload, setPayload] = useState({});
-  const [amount_per_day, setAmountPerDay] = useState("");
-  const [days_left, setDaysLeft] = useState("");
-  const [initial_deposit, setInitialDeposit] = useState("");
-  const [installemnt_days, setInstallmentDays] = useState("");
-  const [no_of_days, setNoOfDays] = useState("");
-  const [product_name, setProductName] = useState("");
-  const [product_brand, setProductBrand] = useState("");
-  const [product_details, setProductDetails] = useState("");
-  const [product_duration, setProductDuration] = useState("");
-  const [product_image, setProductImage] = useState("");
-  const [amount, setAmount] = useState("");
-  const [total, setTotal] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(0);
-  const [unitCount, setUnitCount] = useState("");
 
-  const sub_total = 0;
-
-  const [showPayment, setShowPayment] = useState(false);
-
-  const openPayment = () => {
-    setShowPayment(true);
-  };
-
-  const closePayment = () => {
-    setShowPayment(false);
-  };
-
-  const checkout = async (
-    customer_id,
+  //destructure the payload and return values
+  const {
+    amount,
+    percentage,
+    product_brand,
+    product_category_code,
+    product_details,
+    product_duration,
     product_id,
-    installment_days,
-    startDate,
+    product_image,
+    product_name,
+    product_specifications,
+    product_type,
+    initial_deposit,
+    paymentPerday,
+    payment_type,
+    days_left,
+    no_of_days,
+    no_of_days_paid, 
+    startDate, 
     endDate
-  ) => {
-    const payload_data = {
-      customer_id,
-      product_id,
-      installment_days,
-      startDate,
-      endDate,
-      // spread_balance,
-    };
+  } = payload;
 
-    console.log(payload_data);
+  const [user_id , setUserId]  = useState('')
+  const [isloading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState("")
+  const [phone_no, setPhoneNo] = useState("")
+  const [name, setName] = useState("")
+  const [option, setOption] = useState(-1)
+  const [customer_data, setCustomerData] = useState({})
+  console.log(phone_no, name, option)
 
-    let call = await axios
-      .post(api_url2 + "/v1/checkout/add", payload_data, config)
-      .then((response) => {
-        console.log(response.data);
-        setDailyAmount(response.data.details.rounded);
-
-        const {
-          amount_per_day,
-          days_left,
-          initial_deposit,
-          installment_days,
-          no_of_days,
-        } = response.data.details;
-        const {
-          product_name,
-          product_brand,
-          product_details,
-          product_duration,
-          product_image,
-          amount,
-        } = response.data.details.payloads;
-
-        setAmountPerDay(amount_per_day);
-        setDaysLeft(days_left);
-        setInitialDeposit(initial_deposit);
-        setInstallmentDays(installment_days);
-        setNoOfDays(no_of_days);
-        setProductName(response.data.items.product_name);
-        setProductBrand(product_brand);
-        setProductDetails(product_details);
-        setProductDuration(product_duration);
-        setProductImage(response.data.items.product_image);
-        setAmount(response.data.items.amount);
-        setTotal(parseInt(response.data.items.amount) + parseInt(deliveryFee));
-        setUnitCount(response.data.items.unitCount);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-        console.log("error reported", err.response);
-      });
-  };
-
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  const flutterConfig = {
-    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
-    tx_ref: Date.now(),
-    amount: 100,
-    currency: "NGN",
-    payment_options: "card,mobilemoney,ussd",
-    customer: {
-      email: "user@gmail.com",
-      phonenumber: "07064586146",
-      name: "joel ugwumadu",
-    },
-    customizations: {
-      title: "my Payment Title",
-      description: "Payment for items in cart",
-      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
-    },
-  };
-
-  const options = {
-    method: "GET",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
-  };
-
-  const handleFlutterPayment = useFlutterwave(flutterConfig);
 
   useEffect(() => {
-    checkout(customer_id, product_id, installation_days, startDate, endDate);
+    if (auth.user !== null){
+      console.log(auth.user, 'user  exist ')
+      setEmail(auth.user.user.email);
+        setPhoneNo( auth.user.user.phoneNumber);
+        setName( auth.user.user.fullname)
+        const { fullname, email, phoneNumber} = auth.user.user;
+        setCustomerData(
+         { name: fullname, 
+          email, 
+          phonenumber:phoneNumber}
+        )
+    }
+
   }, []);
+
+  const flutterConfig = {
+    public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
+    tx_ref: Date.now(),
+    amount: 1,
+  
+    currency: 'NGN',
+    // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
+    payment_options: "card",
+    // payment_plan:63558,
+    customer: {
+      phonenumber: phone_no,
+      email:email, 
+      name: name, 
+    },
+    customizations: {
+      title: "Payment from Egoras savings",
+      description: 'Payment for items in cart',
+      logo: 'https://egoras.com/img/egoras-logo.svg',
+    },
+  };
+    const handleFlutterPayment= useFlutterwave(flutterConfig);
+
+
+  const selectOption =async (value) => {
+    // switch(value ){
+    //   case 0: 
+    //     // const call = await initializePayment(1, customer_data)
+    //     // console.log(call)
+
+    //     // handleFlutterPayment({callback: ()=> {
+    //     //   alert('here')
+    //     // }})
+    // }
+    switch (value){
+      case 0:   
+             // alert('payment set as card', product_id)
+          handleFlutterPayment({
+            callback: async (response) => {
+              console.log(response)
+              try {
+                const verification = await verify(response.transaction_id, product_id)
+       
+                console.log(verification.data.data.data.amount, 'from me  ')
+                closePaymentModal()
+              } catch (error) {
+                console.log(error.response)
+              }
+  
+            },
+            onClose: (response) => {
+              console.log(response, "response from onclose ")
+  
+            }
+          })
+        
+  
+        
+        break;
+
+      case 1: (
+        alert('wallet method selected')
+      )
+        break
+    
+    }
+
+  }
+
+ 
 
   return (
     <>
-      <div className="detailsModal">
+       <div className="detailsModal">
         <div className="detailsModalSection1">
           <div className="bacKbutton" onClick={closeCheckoutOptions}>
             Previous
@@ -166,8 +163,7 @@ const CheckoutModalComponent = ({
                 <div className="delivery_card_body">
                   <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
                   <div className="delivery_card_body_cont1">
-                 {/* props.apps */}
-                 {apps}
+                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
                   </div>
                   <div className="delivery_card_body_cont1">08164020234</div>
                 </div>
@@ -263,7 +259,7 @@ const CheckoutModalComponent = ({
                       </td>
                       <td className="save_item_data1b">
                         <div className="assets-data-name_last">
-                          ₦{dailyAmount}
+                          ₦{paymentPerday}
                         </div>
                       </td>
                       {/* <td className="save_item_data1b">
@@ -286,30 +282,38 @@ const CheckoutModalComponent = ({
             {/* ======================= */}
 
             <div className="cart_area2_heading">Payment Options</div>
+            {/* ===================== */}
             <div className="cart_area2_select">
-              <div className="wit_card">
+              <div className="wit_card" onClick={() => {
+                  setOption(0)
+              }}>
                 Pay via card{" "}
-                <input type="checkbox" name="" id="" classNam="checkBox" />
+                <input type="checkbox" name="payment" id="" className="checkBox" />
               </div>
             </div>
             {/* ===================== */}
-            <div className="cart_area2_select">
+              <div className="cart_area2_select" onClick={()  => {
+                  setOption(1)
+                 }}>
               <div className="wit_card">
-                Pay via card{" "}
-                <input type="checkbox" name="" id="" classNam="checkBox" />
+                Pay via wallet {" "}
+                <input type="checkbox" name="payment" id="" className="checkBox"  />
               </div>
             </div>
 
-            <FlutterButton
-              amount={1}
-              payment_title={"Payment From Egoras savings "}
-              //  payment_options={"ussd"}
-              customer={{
-                email: "goodluckcanhelp@gmail.com",
-                phonenumber: "08165226413",
-                name: "Kingsley goodluck",
-              }}
-            />
+             {/* <FlutterButton 
+             payment_plan={showPayment}
+             user_id ={user_id}
+             amount={1}
+             payload = {userPayload}
+             payment_title={"Payment From Egoras savings "}
+            //  payment_options={"ussd"}
+             customer={
+                 {
+               email:"gibbywise@gmail.com", 
+               phonenumber:"07026782437", 
+               name:"Chidoro  Ndubueze"}
+             } /> */}
 
             {/* <div className="cart_area2_select border_down">
               <div className="wit_card">
@@ -320,6 +324,7 @@ const CheckoutModalComponent = ({
             {/* ========= */}
             {/* ========= */}
             {/* ========= */}
+
             <div className="cart_area2_notes">
               . No minimum or maximum order.
               <br />
@@ -332,7 +337,7 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             <div className="sub_total_div">
               Sub Total:{" "}
-              <span className="sub_total_div_span">₦{sub_total}</span>
+              <span className="sub_total_div_span">₦{amount}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -358,7 +363,8 @@ const CheckoutModalComponent = ({
             <button
               className="checkout_btn1a"
               onClick={() => {
-                openPayment();
+                // openPayment();
+                selectOption(option)
               }}
             >
               Proceed to Checkout
@@ -367,15 +373,17 @@ const CheckoutModalComponent = ({
         </div>
       </div>
 
-      {showPayment ? (
-        <Dashboard_Checkout_Page
-          cAmount={1}
-          getProductId={product_id}
-          closePaymentModal={closePayment}
-        />
-      ) : null}
+     
     </>
   );
 };
 
-export default CheckoutModalComponent;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+
+})
+
+export default connect(mapStateToProps, {
+  createOrder,
+})
+(CheckoutModalComponent);
