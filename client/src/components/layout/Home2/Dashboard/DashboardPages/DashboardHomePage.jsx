@@ -277,7 +277,7 @@ const DashboardHomePage = ({ auth, match }) => {
               <div className="savings_overview_title">Savings Overview</div>
               <div className="savings_overview_body">
                 <div className="savings_overview_body_cont1">
-                  Total Number of Locked {userLockId >= 2 ? "items":"item"}{" "}
+                  Total Number of Locked {userLockId.length > 1 ? "items":"item"}{" "}
                   <span className="saved_figure">{userLockId.length}</span>
                 </div>
                 <div className="savings_overview_body_cont2">
