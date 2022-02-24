@@ -25,7 +25,7 @@ const ITEM_HEIGHT = 48;
 const Wallet = ({ auth, createWallet, depositToken }) => {
   const [age, setAge] = React.useState("");
   const [assetVal, setAssetVal] = useState("200,000.00");
-  const [adminId, setAdminId] = useState("");
+//   const [AdminCustId, setAdminId] = useState("");
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
   const [allTokens, setAllTokens] = useState([]);
@@ -42,11 +42,14 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   const [tokenSign, setTokenSign] = useState();
   const [activeBg, setActiveBg] = useState("Home");
   const [txId, setTxId] = useState(
-    "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
-  );
-  const [txId2, setTxId2] = useState(
-    "0x360ba97e2a8f0deb200e34846092a3b8110283b1"
-  );
+      "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
+      );
+      const [txId2, setTxId2] = useState(
+          "0x360ba97e2a8f0deb200e34846092a3b8110283b1"
+          );
+          
+const [AdminCustId, setAdminCustId] = useState(localStorage.getItem('adminCusId'));
+//   const AdminCustId = " 0f2fcd67-a605-4074-8d29-08a6bbfc8f9b"
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -104,7 +107,10 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
         console.log(err.response); // "oh, no!"
       });
   }, []);
-  useEffect(async () => {
+
+
+  useEffect(async() => {
+      console.log(AdminCustId);
     console.log(auth);
     if (auth.user !== null) {
       var todecoded = auth.user;
@@ -112,13 +118,12 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       // const getName = todecoded.user.fullname;
       // const splitName = getName.split(" ");
       // console.log(todecoded.user.id)
-      setAdminId(todecoded.user.id);
+    //   setAdminId(todecoded.user.id);
 
-      console.log(adminId)
 
       await axios
         .get(
-          api_url2 + "/v1/wallet/check/wallet/" + todecoded.user.id,
+          api_url2 + "/v1/wallet/check/wallet/" + AdminCustId,
           null,
           config
         )
@@ -178,26 +183,27 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     // setTokenName(tokenName);
 
     if (accountExists) {
-      console.log("accountExists");
+      console.log('accountExists');
       setShowDeposit(true);
-      // console.log(adminId);
-      let res3 = await depositToken(adminId, tokenSymbol);
+      // console.log(AdminCustId);
+      let res3 = await depositToken(AdminCustId, tokenSymbol);
       console.log(res3);
 
       if (res3.success === true) {
         setWalletAddr(res3.data.address);
       }
     } else {
-      console.log("not accountExists");
+      console.log('not accountExists');
       setShowDeposit(true);
-      // console.log(adminId);
-      let res3 = await createWallet(adminId, tokenSymbol);
+      // console.log(AdminCustId);
+      let res3 = await createWallet(AdminCustId, tokenSymbol);
       console.log(res3);
 
       if (res3.success === true) {
         setWalletAddr(res3.data.address);
       }
     }
+
   };
   const closeDepositDiv = () => {
     setShowDeposit(false);
@@ -447,7 +453,11 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             </div>
                             <div className="copy_address_div_txt" id="myInput">
                               {walletAddr}
-                              <FileCopyIcon className="file_icon_copy" />
+                              <FileCopyIcon
+                                className="file_icon_copy"
+                                // onClick={copyText}
+                                // onMouseOut={outFunc}
+                              />
                             </div>
                           </div>
                         </div>
@@ -508,6 +518,11 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     Address
                                   </span>
                                   <div className="address_cont">
+                                    {/* {data.fromAddress.substring(0, 10) +
+                                    "..." +
+                                    data.fromAddress.substr(
+                                      data.fromAddress.length - 10
+                                    )} */}
                                     {data.fromAddress}
                                   </div>
 
@@ -516,6 +531,8 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     onClick={() =>
                                       copyTextText2(data.fromAddress)
                                     }
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
                                   />
                                   <span className="hover_txn_address_cont">
                                     {data.fromAddress}
@@ -537,11 +554,15 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     {data.txnId.substring(0, 10) +
                                       "..." +
                                       data.txnId.substr(data.txnId.length - 7)}
+                                    {/* {txId} */}
                                   </div>
 
                                   <FileCopyIcon
                                     onClick={() => copyTextText(data.txnId)}
                                     className="deposit_history_address_copy_icon"
+
+                                    // onClick={copyText}
+                                    // onMouseOut={outFunc}
                                   />
                                   <span className="hover_txn_address_cont">
                                     {data.txnId}

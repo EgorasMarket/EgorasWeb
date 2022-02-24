@@ -549,17 +549,19 @@ const Header = ({ isAuthenticated, auth }) => {
                     Dashboard
                   </a>
                 </div>
-              ) : currentPage == "/savings" && isAuth === false ? (
-                <div style={{ display: "flex" }}>
-                  <a href="/login" className="getLoan">
-                    {" "}
-                    Login
-                  </a>
-                  <a href="/signup" className="connectb">
-                    Signup
-                  </a>
-                </div>
-              ) : null}
+              ) :null
+              //  (
+                // <div style={{ display: "flex" }}>
+                //   <a href="/login" className="getLoan">
+                //     {" "}
+                //     Login
+                //   </a>
+                //   <a href="/signup" className="connectb">
+                //     Signup
+                //   </a>
+                // </div>
+              // )
+              }
             </ul>
             {/* <img
               src="/img/hamburger-open.svg"
