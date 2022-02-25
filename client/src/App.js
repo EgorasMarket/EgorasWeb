@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/layout/home/Home";
 import Opd from "./components/layout/home/Opd";
 import Aos from "aos";
+import ScrollAnimation from "react-animate-on-scroll";
 import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
@@ -286,11 +287,11 @@ const App = () => {
                     path="/loan-details/:id"
                     component={LoanDetails}
                   />
-                       <Route
-                exact
-                path="/products/categories/:category"
-                component={PhonesCatPagDuplicate}
-              />
+                  <Route
+                    exact
+                    path="/products/categories/:category"
+                    component={PhonesCatPagDuplicate}
+                  />
                   <Route
                     exact
                     path="/companies/details/:id"
@@ -356,7 +357,7 @@ const App = () => {
                     path="/products/details/:id/:name"
                     component={Item_details_main}
                   />
-                     {/* <Route
+                  {/* <Route
                     exact
                     path="/products/categories/:category"
                     component={See_ALL_Category}

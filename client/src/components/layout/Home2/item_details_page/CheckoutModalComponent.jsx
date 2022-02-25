@@ -2,7 +2,7 @@ import React, { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import verify from "../../../../flutterwave/API/Verify";
-import Wallet1 from "../../Wallet/Wallet1";
+// import Wallet1 from "../../Wallet/Wallet1";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -60,20 +60,19 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     },
   };
 
-  const [addressName, setAddressName] = useState("")
+  const [addressName, setAddressName] = useState("");
 
-  useEffect( async ()=>{
-    await axios.get(api_url2 + "/v1/user/address/info", null,
-     config).then((response)=>{
-    //console.log(response , "wewter kings")
- //console.log(response.data.cusAddress. address,"market")
+  useEffect(async () => {
+    await axios
+      .get(api_url2 + "/v1/user/address/info", null, config)
+      .then((response) => {
+        //console.log(response , "wewter kings")
+        //console.log(response.data.cusAddress. address,"market")
 
- setAddressName(response.data.cusAddress.address)
-//  //console.log(addressName,"Bk is good for development")
-     })
-
-  }, [])
-
+        setAddressName(response.data.cusAddress.address);
+        //  //console.log(addressName,"Bk is good for development")
+      });
+  }, []);
 
   useEffect(() => {
     if (auth.user !== null) {
@@ -185,11 +184,13 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                   </button>
                 </div>
                 <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">{customer_data.name}</div>
                   <div className="delivery_card_body_cont1">
-                    {addressName}
+                    {customer_data.name}
                   </div>
-                  <div className="delivery_card_body_cont1">{customer_data.phonenumber}</div>
+                  <div className="delivery_card_body_cont1">{addressName}</div>
+                  <div className="delivery_card_body_cont1">
+                    {customer_data.phonenumber}
+                  </div>
                 </div>
               </div>
               {/* ============= */}
@@ -316,10 +317,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               >
                 Pay via card{" "}
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="payment"
                   id=""
                   className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
                 />
               </div>
             </div>
@@ -333,10 +335,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               <div className="wit_card">
                 Pay via wallet{" "}
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="payment"
                   id=""
                   className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
                 />
               </div>
             </div>
@@ -412,7 +415,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         </div>
         {walletModal == false ? null : (
           <div className="wallet_component">
-            <Wallet1 openProcessingDiv={openProcessingDiv} />
+            {/* <Wallet1 openProcessingDiv={openProcessingDiv} /> */}
           </div>
         )}
       </div>

@@ -7,13 +7,15 @@ import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 // import { allCart } from "../../../../../actions/shop";
 import DashBoardCard from "../DashBoardCard";
-import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
+// import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 import data from "../../../MockData";
 import { retrieveCart } from "../../../../../actions/shop";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
+// import Nodata from "../NodataFound/NoDataFoundComponent"
+import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 
 const responsive6 = {
   superLargeDesktop: {
@@ -91,7 +93,7 @@ const responsive7 = {
 const DashboardHomePage = ({ auth, match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
-  const [userLockId,setUserLockId]=useState([])
+  const [userLockId, setUserLockId] = useState([]);
 
   // const fetchFromCart = async (customer_id) => {
   //   //console.log('fetchfromCart', customer_id);
@@ -149,22 +151,19 @@ const DashboardHomePage = ({ auth, match }) => {
       });
   }, []);
 
-
-  useEffect(() => { 
+  useEffect(() => {
     // //console.log(match.params.prduct_id,"play every day")
     //console.log(auth.user.user.id)
-    axios.get(api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`, null, config)
+    axios
+      .get(
+        api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,
+        null,
+        config
+      )
       .then((data) => {
-
         //console.log(data.data,"Ewwooo oh")
 
-       setUserLockId(data.data.data)
-
-     
-
-       
-
-        
+        setUserLockId(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -194,6 +193,8 @@ const DashboardHomePage = ({ auth, match }) => {
         //console.log(err.response); // "oh, no!"
       });
   }, [auth]);
+
+  const text = "No item Locked yet";
 
   // useEffect(() => {
 
@@ -272,49 +273,51 @@ const DashboardHomePage = ({ auth, match }) => {
             {/* [===================] */}
             {/* [===================] */}
 
-            {userLockId.length <= 0 ? null: 
-            <div className="savings_overview">
-              <div className="savings_overview_title">Savings Overview</div>
-              <div className="savings_overview_body">
-                <div className="savings_overview_body_cont1">
-                  Total Number of Locked {userLockId.length > 1 ? "items":"item"}{" "}
-                  <span className="saved_figure">{userLockId.length}</span>
-                </div>
-                <div className="savings_overview_body_cont2">
-                  {userLockId.slice(0, 3).map((item) => (
-                    <div className="savings_overview_body_cont2_1a">
-                      <div className="save_overview_cont_img">
-                        <img
-                         src={api_url2 + "/" + item.product_img}
-                          alt=""
-                          className="save_overview_cont_img_imgg"
-                        />
-                      </div>
-                      <div className="save_item_details">
-                        <div className="save_item_details_titles">
-                          <div className="save_overview_cont_title">
-                            {item.product_name}
+            {userLockId.length <= 0 ? (
+              <NoDataFoundComponent text={text} />
+            ) : (
+              <div className="savings_overview">
+                <div className="savings_overview_title">Savings Overview</div>
+                <div className="savings_overview_body">
+                  <div className="savings_overview_body_cont1">
+                    Total Number of Locked{" "}
+                    {userLockId.length > 1 ? "items" : "item"}{" "}
+                    <span className="saved_figure">{userLockId.length}</span>
+                  </div>
+                  <div className="savings_overview_body_cont2">
+                    {userLockId.slice(0, 3).map((item) => (
+                      <div className="savings_overview_body_cont2_1a">
+                        <div className="save_overview_cont_img">
+                          <img
+                            src={api_url2 + "/" + item.product_img}
+                            alt=""
+                            className="save_overview_cont_img_imgg"
+                          />
+                        </div>
+                        <div className="save_item_details">
+                          <div className="save_item_details_titles">
+                            <div className="save_overview_cont_title">
+                              {item.product_name}
+                            </div>
+                            <div className="save_overview_cont_amount">
+                              Total ₦{item.sum}
+                            </div>
                           </div>
-                          <div className="save_overview_cont_amount">
-                           Total   ₦{item.sum}
+                          <div className="save_item_details_btn">
+                            <div className="save_overview_cont_items_left">
+                              Paid Sum ₦{item.paidSum}
+                            </div>
+                            <button className="save_overview_cont_items_top_up">
+                              Top up
+                            </button>
                           </div>
                         </div>
-                        <div className="save_item_details_btn">
-                          <div className="save_overview_cont_items_left">
-                          Paid Sum ₦{item.paidSum}
-                          </div>
-                          <button className="save_overview_cont_items_top_up">
-                            Top up
-                          </button>
-                        </div>
                       </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
               </div>
-            </div>}
-
-
+            )}
           </div>
           {/* =================================================================================================================================================================================================================================================================== */}
 

@@ -266,9 +266,9 @@ const Savings = ({ getProductByCat }) => {
               <div
                 className="savings_section2_area_box1"
                 data-aos="fade-up"
-                data-aos-anchor-placement="bottom-bottom"
-                data-aos-offset="300"
-                data-aos-easing="ease-in-sine"
+                // data-aos-anchor-placement="bottom-bottom"
+                // data-aos-offset="300"
+                // data-aos-easing="ease-in-sine"
               >
                 <AccountBalanceWalletIcon className="conts1_box1_contents_icon" />
                 <div className="build_savings_area2_conts1_box1_contents">

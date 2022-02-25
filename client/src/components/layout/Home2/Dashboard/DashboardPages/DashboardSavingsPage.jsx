@@ -2,11 +2,10 @@ import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import axios from "axios";
 import { connect } from "react-redux";
-import {
-  API_URL2 as api_url2,
-} from "../../../../../actions/types";
+import { API_URL2 as api_url2 } from "../../../../../actions/types";
 import "../DashboardStyles/dashboard_savings.css";
-
+// import { NodataFound } from "../NodataFound/NoDataFoundComponent";
+import {NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 
 const responsive7 = {
   superLargeDesktop: {
@@ -38,9 +37,9 @@ function DashboardSavingsPage({ match, auth }) {
     product_duration: "",
   });
 
-  const [userLockId,setUserLockId] = useState([])
-  const [lockedItem,setLockedItem]=useState({itemsLock:''})
-  const {itemslock}= lockedItem;
+  const [userLockId, setUserLockId] = useState([]);
+  const [lockedItem, setLockedItem] = useState({ itemsLock: "" });
+  const { itemslock } = lockedItem;
 
   const { product_image, product_name, amount, product_duration } =
     productDetail;
@@ -54,9 +53,9 @@ function DashboardSavingsPage({ match, auth }) {
   const [accountInfo, setAccountInfo] = useState({
     ledger: "",
     pending_sum: "",
-    total_sum: ""
-  })
-  const {ledger, pending_sum, total_sum} = accountInfo;
+    total_sum: "",
+  });
+  const { ledger, pending_sum, total_sum } = accountInfo;
 
   useEffect(() => {
     axios
@@ -75,33 +74,28 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
-
-
-  useEffect(() => { 
+  useEffect(() => {
     //console.log(match.params.prduct_id,"play every day")
     //console.log(auth.user.user.id)
-    axios.get(api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`, null, config)
+    axios
+      .get(
+        api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,
+        null,
+        config
+      )
       .then((data) => {
-
         //console.log(data.data,"Ewwooo oh")
 
-       setUserLockId(data.data.data)
-
-     
-
-       
-
-        
+        setUserLockId(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
       });
   }, []);
 
-  useEffect(async() => {
-
+  useEffect(async () => {
     //console.log(auth.user.user.id);
-    const customer_id = auth.user.user.id
+    const customer_id = auth.user.user.id;
     const body = JSON.stringify({
       customer_id,
     });
@@ -113,8 +107,8 @@ function DashboardSavingsPage({ match, auth }) {
         setAccountInfo({
           ledger: data.data.data.ledger,
           pending_sum: data.data.data.pending_sum,
-          total_sum: data.data.data.total_sum
-        })
+          total_sum: data.data.data.total_sum,
+        });
 
         // setItemGalleryShow(data.data.data);
       })
@@ -122,6 +116,8 @@ function DashboardSavingsPage({ match, auth }) {
         //console.log(err.response); // "oh, no!"
       });
   }, [auth]);
+
+  const text = "No item Locked yet";
 
   // useEffect(() => {
   //   const body = JSON.stringify({
@@ -189,68 +185,73 @@ function DashboardSavingsPage({ match, auth }) {
                     <div className="card_over_balance_button">Start Saving</div>
                   </div>
                 </div>
-                
+
                 {/* <div className="savings_overview_card1 over_second_card"></div>
                 <div className="savings_overview_card1  over_third_card"></div>
                 <div className="savings_overview_card1 over_fourth_card"></div> */}
               </div>
-              {/* {userLockId.length <= 0 ? null:  } */}
-              <div className="savings_overview_body_cont1">
-                Total Number of Locked {userLockId.length >= 2 ? "items":'item'}{" "}
-               <span className="saved_figure">{userLockId.length}</span>
-              </div>
-              <div className="locked_items">
-                <div class="save_prod_deta">
-                  <table className="save_item_table">
-                    <thead className="assets-category-titles">
-                      <tr className="assets">
-                        <th className="assets-category-titles-heading1">
-                          Item
-                        </th>
-                        <th className="assets-category-titles-heading1">
-                          Item Details
-                        </th>
-                     
-                        <th className="assets-category-titles-heading1 quant">
-                       Order_id
-                        </th>
-                        <th className="assets-category-titles-heading1 quant">
-                          Paid Sum
-                        </th>
-                        <th className="assets-category-titles-heading1_last">
-                          Total
-                        </th>
-                      </tr>
-                    </thead>
+              {userLockId.length <= 0 ? null : (
+                <div className="savings_overview_body_cont1">
+                  Total Number of Locked{" "}
+                  {userLockId.length >= 2 ? "items" : "item"}{" "}
+                  <span className="saved_figure">{userLockId.length}</span>
+                </div>
+              )}
+              {userLockId.length <= 0 ? (
+                <NoDataFoundComponent text={text} />
+              ) : (
+                <div className="locked_items">
+                  <div class="save_prod_deta">
+                    <table className="save_item_table">
+                      <thead className="assets-category-titles">
+                        <tr className="assets">
+                          <th className="assets-category-titles-heading1">
+                            Item
+                          </th>
+                          <th className="assets-category-titles-heading1">
+                            Item Details
+                          </th>
 
-                    {userLockId.slice(0, 5).map((asset) => (
-                      <tbody
-                        className="save_items_cat popular-categories"
-                        id="popular-categories"
-                      >
-                        {" "}
-                        <tr className="assets-category-row">
-                          <td className="save_item_data">
-                            <div className="assets-data height_data">
-                              <img
-                                src={api_url2 + "/" + asset.product_img}
-                                alt=""
-                                className="save_item_img_img"
-                              />
-                            </div>
-                          </td>
-                          {/* ======== */}
-                          {/* ======== */}
-                          {/* ======== */}
-                          {/* ======== */}
-                          <td className="save_item_data1">
-                            <div className="save_items_details">
-                              <div className="save_items_details1">
-                                {asset.product_name}
+                          <th className="assets-category-titles-heading1 quant">
+                            Order_id
+                          </th>
+                          <th className="assets-category-titles-heading1 quant">
+                            Paid Sum
+                          </th>
+                          <th className="assets-category-titles-heading1_last">
+                            Total
+                          </th>
+                        </tr>
+                      </thead>
+
+                      {userLockId.slice(0, 5).map((asset) => (
+                        <tbody
+                          className="save_items_cat popular-categories"
+                          id="popular-categories"
+                        >
+                          {" "}
+                          <tr className="assets-category-row">
+                            <td className="save_item_data">
+                              <div className="assets-data height_data">
+                                <img
+                                  src={api_url2 + "/" + asset.product_img}
+                                  alt=""
+                                  className="save_item_img_img"
+                                />
                               </div>
-                              <div className="save_item_days_left">
-                                {asset.order_id} 
-                                {/* <div className="days_left_percentage_cont">
+                            </td>
+                            {/* ======== */}
+                            {/* ======== */}
+                            {/* ======== */}
+                            {/* ======== */}
+                            <td className="save_item_data1">
+                              <div className="save_items_details">
+                                <div className="save_items_details1">
+                                  {asset.product_name}
+                                </div>
+                                <div className="save_item_days_left">
+                                  {asset.order_id}
+                                  {/* <div className="days_left_percentage_cont">
                                   <span
                                     className="days_left_percentage"
                                     style={{
@@ -264,42 +265,41 @@ function DashboardSavingsPage({ match, auth }) {
                                   ></span>
                                 </div> */}
 
-                                 <div>
-                                   Product duration :{" "}{asset.product_duration}{' '}
-                                   { 'days left'}
-                                 
-                                </div> 
-                              </div>
-                              {/* <div className="save_total_locked_amount">
+                                  <div>
+                                    Product duration : {asset.product_duration}{" "}
+                                    {"days left"}
+                                  </div>
+                                </div>
+                                {/* <div className="save_total_locked_amount">
                                 <span className="items_left_amount">
                                   Total Amount Locked on Item
                                 </span>
                                 ₦{asset.total_locked_amount}
                               </div> */}
-                            </div>
-                          </td>
-                          <td className="save_item_data1b">
-                            <div className="assets-data-name center_name">
-                              {asset.order_id}
-                            </div>
-                          </td>
-                          <td className="save_item_data1b">
-                            <div className="assets-data-name center_name">
-                               ₦{asset.paidSum}
-                            </div>
-                          </td>
-                          <td className="save_item_data1b">
-                            <div className="assets-data-name_last">
-                            ₦{asset.sum}
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    ))}
-                  </table>
+                              </div>
+                            </td>
+                            <td className="save_item_data1b">
+                              <div className="assets-data-name center_name">
+                                {asset.order_id}
+                              </div>
+                            </td>
+                            <td className="save_item_data1b">
+                              <div className="assets-data-name center_name">
+                                ₦{asset.paidSum}
+                              </div>
+                            </td>
+                            <td className="save_item_data1b">
+                              <div className="assets-data-name_last">
+                                ₦{asset.sum}
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      ))}
+                    </table>
+                  </div>
                 </div>
-              </div>
-           
+              )}
             </div>
             <div className="dash_savings_area2">
               <div className="savings_transactions_divs"></div>
@@ -316,7 +316,9 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products / Outright  Buy</h1>
+                      <h1 className="gttitle TITE">
+                        New Products / Outright Buy
+                      </h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -344,55 +346,59 @@ function DashboardSavingsPage({ match, auth }) {
                     style={{ height: "25em" }}
                   >
                     {itemdisplay.map((asset) => (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
-                      <li className="carous_list">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                40% locked
+                      <a
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      >
+                        <li className="carous_list">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                              <button className="items_remaining_btn">
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <p className="no_margg"> Buy now</p>
+                                ) : (
+                                  <p className="no_margg"> Save now</p>
+                                )}
                               </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
+
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <div></div>
+                              ) : (
+                                <button className="items_remaining_btn2">
+                                  {" "}
+                                  40% locked
+                                </button>
+                              )}
                             </div>
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                            </div>
+                            {/* </a> */}
                           </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
+                        </li>
+                      </a>
                     ))}
                   </Carousel>
                   {/* Carousel end==============================
@@ -403,9 +409,8 @@ function DashboardSavingsPage({ match, auth }) {
             </section>
             {/*  Projects Section end*/}
 
-
-          {/*  Projects Section start*/}
-          <section className="projectsSection savvvvv" id="projects">
+            {/*  Projects Section start*/}
+            <section className="projectsSection savvvvv" id="projects">
               <div className="container">
                 <div className="projectsArea">
                   <div className="projectsLinea"></div>
@@ -439,64 +444,73 @@ function DashboardSavingsPage({ match, auth }) {
                     style={{ height: "25em" }}
                   >
                     {itemdisplay.map((asset) => (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}>
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                {asset.percentage}% to be locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_prices_div">
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
-                                </span>
-                              </div>
-                              <div className="amount_per_day_div">
-                                ₦
-                                {numberWithCommas(
-                                  (asset.amount / asset.product_duration).toFixed()
+                      <a
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      >
+                        <li className="carous_list no_marg">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                              <button className="items_remaining_btn">
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <p className="no_margg"> Buy now</p>
+                                ) : (
+                                  <p className="no_margg"> Save now</p>
                                 )}
-                                <span className="per_day_symbol"> / perday</span>
+                              </button>
+
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <div></div>
+                              ) : (
+                                <button className="items_remaining_btn2">
+                                  {" "}
+                                  {asset.percentage}% to be locked
+                                </button>
+                              )}
+                            </div>
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div className="asset_prices_div">
+                                <div className="asset_title">
+                                  ₦{numberWithCommas(asset.amount)}{" "}
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.amount * 2)}
+                                  </span>
+                                </div>
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    (
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
                               </div>
                             </div>
+                            {/* </a> */}
                           </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
+                        </li>
+                      </a>
                     ))}
                   </Carousel>
                   {/* Carousel end==============================
@@ -505,8 +519,6 @@ function DashboardSavingsPage({ match, auth }) {
                 </div>
               </div>
             </section>
-
-
 
             {/* ====================================== */}
             {/* ====================================== */}
@@ -524,7 +536,6 @@ function DashboardSavingsPage({ match, auth }) {
 }
 
 // export default DashboardSavingsPage;
-
 
 const mapStateToProps = (state) => ({
   auth: state.auth,
