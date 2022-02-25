@@ -27,8 +27,8 @@ function ItemDetailsPage({ auth, match }) {
       "Content-Type": "application/json",
     },
   };
-  console.log(window.location.pathname.split("/"));
-  // console.log(match.params.id);
+  //console.log(window.location.pathname.split("/"));
+  // //console.log(match.params.id);
   const [loginModal, setLoginModal] = useState(false);
   const [loginSuccess,setLoginSuccess]= useState(false);
   const [product_id, setProductId] = useState();
@@ -46,7 +46,7 @@ function ItemDetailsPage({ auth, match }) {
 
   
   useEffect(() => {
-    console.log(auth);
+    //console.log(auth);
 
     if (window.location.pathname.split("/")[1] === 'dashboard') {
       setProductId(match.params.id)
@@ -83,9 +83,9 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const OpenLoginModal = () => {
-    // console.log(auth.user.user);
+    // //console.log(auth.user.user);
     if (auth.user !== null) {
-      console.log(auth.user.user);
+      //console.log(auth.user.user);
       // set_user_id(customer_id);
       openDetailsModal();
       // checkout(
@@ -129,28 +129,28 @@ function ItemDetailsPage({ auth, match }) {
 //   useEffect(()=>{
 //     axios.get(api_url2 + "/v1/user/address/info", null,
 //      config).then((response)=>{
-//  console.log(response , "wewter kings")
-// //  console.log(response.data.cusAddress. address,"market")
+//  //console.log(response , "wewter kings")
+// //  //console.log(response.data.cusAddress. address,"market")
 
 //  setAddressName({contactAddress:response.data.cusAddress. address
 
 //  })
-//  console.log(addressName,"Bk is good for development")
+//  //console.log(addressName,"Bk is good for development")
 //      })
 
 //   })
 
   useEffect(() => {
-    console.log(auth.isAuthenticated);
+    //console.log(auth.isAuthenticated);
     const body = JSON.stringify({
       product_id,
     });
     if (auth.user !== null) {
       set_user_id(auth.user.user.id);
-      console.log(auth.user.user);
+      //console.log(auth.user.user);
     } else {
       set_user_id('')
-      console.log('rrrrr');
+      //console.log('rrrrr');
     }
 
     axios
@@ -179,7 +179,7 @@ function ItemDetailsPage({ auth, match }) {
           no_of_days,
         } = data.data.data;
 
-        console.log(data.data.data, "king");
+        //console.log(data.data.data, "king");
         setPayload({
           roundedAmount,
           percentage,
@@ -205,23 +205,23 @@ function ItemDetailsPage({ auth, match }) {
         const getSlid = data.data.data.product_specifications;
         // const myArray = getSlid.split(",");
 
-        console.log(getSlid);
+        //console.log(getSlid);
 
         setSpec(getSlid);
 
         // //  const slipVar = getSlid.split(',');
-        // console.log("====================================");
-        // console.log(getSlid);
-        // console.log("====================================");
+        // //console.log("====================================");
+        // //console.log(getSlid);
+        // //console.log("====================================");
 
-        // console.log("====================================");
+        // //console.log("====================================");
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
   }, [product_id, auth]); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
 
-  console.log(product_id);
+  //console.log(product_id);
   return (
     <>
       {loginModal == false ? null : (
@@ -254,7 +254,7 @@ function ItemDetailsPage({ auth, match }) {
                 openCheckoutModal={() => {
                   // openDetailsModal();
                   OpenLoginModal()
-                  // console.log('gggg');
+                  // //console.log('gggg');
                 }}
               />
             )}

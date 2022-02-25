@@ -182,14 +182,14 @@ const Createloan2 = (props) => {
         // image = document.getElementById('output');
         var objectUrl = URL.createObjectURL(e.target.files[0]);
 
-        // console.log(e.target.files);
+        // //console.log(e.target.files);
 
         // image.src = objectUrl;
         var fileReader = new FileReader();
         fileReader.onload = function (fileLoadedEvent) {
           var srcData = fileLoadedEvent.target.result; // <--- data: base64
-          // console.log(fileLoadedEvent.target);
-          // console.log(srcData);
+          // //console.log(fileLoadedEvent.target);
+          // //console.log(srcData);
 
           setFormData({ ...formData, asset_img: srcData });
         };
@@ -203,14 +203,14 @@ const Createloan2 = (props) => {
         // image = document.getElementById('output');
         var objectUrl2 = URL.createObjectURL(e.target.files[0]);
 
-        // console.log(e.target.files);
+        // //console.log(e.target.files);
 
         // image.src = objectUrl;
         var fileReader2 = new FileReader();
         fileReader2.onload = function (fileLoadedEvent) {
           var srcData2 = fileLoadedEvent.target.result; // <--- data: base64
-          // console.log(fileLoadedEvent.target);
-          // console.log(srcData);
+          // //console.log(fileLoadedEvent.target);
+          // //console.log(srcData);
 
           setFormData({ ...formData, asset_img2: srcData2 });
         };
@@ -224,14 +224,14 @@ const Createloan2 = (props) => {
         // image = document.getElementById('output');
         var objectUrl3 = URL.createObjectURL(e.target.files[0]);
 
-        // console.log(e.target.files);
+        // //console.log(e.target.files);
 
         // image.src = objectUrl;
         var fileReader3 = new FileReader();
         fileReader3.onload = function (fileLoadedEvent) {
           var srcData3 = fileLoadedEvent.target.result; // <--- data: base64
-          // console.log(fileLoadedEvent.target);
-          // console.log(srcData);
+          // //console.log(fileLoadedEvent.target);
+          // //console.log(srcData);
 
           setFormData({ ...formData, asset_img3: srcData3 });
         };
@@ -245,14 +245,14 @@ const Createloan2 = (props) => {
         // image = document.getElementById('output');
         var objectUrl4 = URL.createObjectURL(e.target.files[0]);
 
-        // console.log(e.target.files);
+        // //console.log(e.target.files);
 
         // image.src = objectUrl;
         var fileReader4 = new FileReader();
         fileReader4.onload = function (fileLoadedEvent) {
           var srcData4 = fileLoadedEvent.target.result; // <--- data: base64
-          // console.log(fileLoadedEvent.target);
-          // console.log(srcData);
+          // //console.log(fileLoadedEvent.target);
+          // //console.log(srcData);
 
           setFormData({ ...formData, asset_img4: srcData4 });
         };
@@ -264,7 +264,7 @@ const Createloan2 = (props) => {
   const submitLoan = async (e) => {
     e.preventDefault();
     setIsLoading(true);
-    // console.log(loan_title, asset_img, loan_duration, branch_name, loan_fees, story, loan_amount);
+    // //console.log(loan_title, asset_img, loan_duration, branch_name, loan_fees, story, loan_amount);
 
     const body = JSON.stringify({
       loan_category,

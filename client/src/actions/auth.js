@@ -17,15 +17,15 @@ import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const loadUser = () => async (dispatch) => {
-  // console.log("okkkkkkk");
+  // //console.log("okkkkkkk");
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
   }
 
   // const res = await axios.get(api_url2 + "/v1/user/info");
-  // // console.log(res, 'lllll');
-  // // console.log("Yes I call You because i can", res.data);
+  // // //console.log(res, 'lllll');
+  // // //console.log("Yes I call You because i can", res.data);
   // dispatch({
   //   type: USER_LOADED,
   //   payload: res.data,
@@ -33,14 +33,14 @@ export const loadUser = () => async (dispatch) => {
 
   try {
     const res = await axios.get(api_url2 + "/v1/user/info");
-    console.log(res);
-    // console.log("Yes I call You because i can", res.data);
+    //console.log(res);
+    // //console.log("Yes I call You because i can", res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
   } catch (error) {
-    console.log("not registered");
+    //console.log("not registered");
     dispatch({
       type: AUTH_ERROR,
     });
@@ -49,15 +49,15 @@ export const loadUser = () => async (dispatch) => {
 
 // // Load User
 // export const loadProducts = () => async (dispatch) => {
-//   // console.log('okkkkkkk');
+//   // //console.log('okkkkkkk');
 
 //   if (localStorage.token) {
 //     setAuthToken(localStorage.token);
 //   }
 
 //   const res = await axios.get(api_url2 + "/v1/product/retrieve/products");
-//   console.log(res);
-//   // console.log("Yes I call You because i can", res.data);
+//   //console.log(res);
+//   // //console.log("Yes I call You because i can", res.data);
 //   dispatch({
 //     type: PRODUCT_LOADED,
 //     payload: res.data,
@@ -86,7 +86,7 @@ export const getAuthentication =
       InfoReason,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.post(
@@ -94,14 +94,14 @@ export const getAuthentication =
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
 
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,
@@ -122,21 +122,21 @@ export const getAuthentication =
       email_auth,
     });
   
-    console.log(body);
+    //console.log(body);
   
     try {
       const res = await axios.post(api_url2 + "/v1/user/activate", body, config);
-      console.log(res);
-      //console.log("yyyyy");
+      //console.log(res);
+      ////console.log("yyyyy");
   
       return res;
     } catch (err) {
-      //console.log(err);
+      ////console.log(err);
   
-      //console.log("ok");
+      ////console.log("ok");
   
       // const errors = err.response.data.errors;
-      // //console.log(errors);
+      // ////console.log(errors);
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
@@ -163,23 +163,23 @@ export const getLogin = (email, password) => async (dispatch) => {
     password,
   });
 
-  console.log(body);
+  //console.log(body);
 
   try {
     const res = await axios.post(api_url2 + "/v1/user/login", body, config);
-    console.log(res);
+    //console.log(res);
 
     if (res.data.success === false) {
-      //console.log(res.data);
+      ////console.log(res.data);
       const errors = res.data.errors;
-      //console.log(errors);
+      ////console.log(errors);
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: errors[0].msg,
-      });
+      // dispatch({
+      //   type: LOGIN_FAIL,
+      //   payload: errors[0].msg,
+      // });
 
       return {
         status: false,
@@ -196,7 +196,7 @@ export const getLogin = (email, password) => async (dispatch) => {
       };
     }
   } catch (err) {
-    console.log(err.response);
+    console.log(err);
 
     return {
       success: false,
@@ -221,23 +221,23 @@ export const reset =
       email_auth,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.put(api_url2 + "/v1/user/reset", body, config);
-      //console.log(res);
+      ////console.log(res);
 
       return {
         status: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
-      //console.log("ok");
+      ////console.log("ok");
 
       const errors = err.response.data.errors;
-      // //console.log(errors);
+      // ////console.log(errors);
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
@@ -269,7 +269,7 @@ export const nextOfKING =
       relationship,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.post(
@@ -277,14 +277,14 @@ export const nextOfKING =
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
 
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,
@@ -307,7 +307,7 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
     dateOfBirth,
   });
 
-  console.log(body);
+  //console.log(body);
 
   try {
     const res = await axios.put(
@@ -315,21 +315,21 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
       body,
       config
     );
-    console.log(res);
+    //console.log(res);
 
     return {
       success: true,
       data: res.data,
     };
   } catch (err) {
-    console.log(err.response);
+    //console.log(err.response);
 
     const body = JSON.stringify({
       gender,
       dateOfBirth,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.put(
@@ -337,14 +337,14 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
 
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,
@@ -369,7 +369,7 @@ export const changePassword =
       newpassword,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.put(
@@ -377,14 +377,14 @@ export const changePassword =
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
 
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,

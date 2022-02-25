@@ -33,14 +33,14 @@ const AdminAllProducts = () => {
         config
     ).then((data) => {
        
-        console.log(data.data.data, "chukwubuike");
+        //console.log(data.data.data, "chukwubuike");
      
        
         setItemDisplay(data.data.data);
 
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
 
     
@@ -56,7 +56,7 @@ const AdminAllProducts = () => {
         config
     ).then((data) => {
        
-        console.log(data.data.user, "line_ful");
+        //console.log(data.data.user, "line_ful");
         setRolesInfo({
           role20:data.data.user.role,
         })
@@ -64,7 +64,7 @@ const AdminAllProducts = () => {
     
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       }); 
   }, []);
 

@@ -16,7 +16,7 @@ const ResetPassword = ({ match, reset }) => {
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [strongPass, setStrongPass] = useState(false);
 
-  //console.log(match.params.id);
+  ////console.log(match.params.id);
 
   const [formData, setFormData] = useState({
     email_auth: match.params.id,
@@ -33,10 +33,10 @@ const ResetPassword = ({ match, reset }) => {
       case "password":
         if (e.target.value.length <= 7) {
           setStrongPass(true);
-          console.log("password is not 8");
+          //console.log("password is not 8");
         } else if (password.length >= 7) {
           setStrongPass(false);
-          console.log("password is 8");
+          //console.log("password is 8");
         }
         break;
       default:
@@ -48,7 +48,7 @@ const ResetPassword = ({ match, reset }) => {
     
     // setIsLoading(true);
     // if (res)
-    console.log(email_auth, password, confirmpassword);
+    //console.log(email_auth, password, confirmpassword);
     
     // setAlert('res3.data', "danger");
 
@@ -61,10 +61,10 @@ const ResetPassword = ({ match, reset }) => {
         setAlertType('danger')
       } else {
         let res = await reset({ password, email_auth });
-        //console.log(res);
+        ////console.log(res);
         if (res.data.success === true) {
           setIsSuccessful(true);
-          //console.log("okay Good Server");
+          ////console.log("okay Good Server");
         } else {
           setAlert(res.data[0].msg);
           setAlertType('danger')

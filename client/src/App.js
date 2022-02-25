@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/layout/home/Home";
 import Opd from "./components/layout/home/Opd";
 import Aos from "aos";
+// import ScrollAnimation from "react-animate-on-scroll";
 import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
@@ -155,7 +156,7 @@ import ResetPassword from "./components/layout/Home2/PasswordReset/ResetPassword
 // import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
-  //console.log("setAuthToken");
+  ////console.log("setAuthToken");
 }
 
 const App = () => {
@@ -174,11 +175,11 @@ const App = () => {
       axios
         .get("https://geolocation-db.com/json/", null, config)
         .then((data) => {
-          console.log(data, "The Country");
+          //console.log(data, "The Country");
           localStorage.setItem("origin", data.data.country_name);
         });
     } catch (err) {
-      console.log(err, "Call from exchange rate");
+      //console.log(err, "Call from exchange rate");
     }
   }, []);
 
@@ -197,7 +198,7 @@ const App = () => {
 
   const handleChange = (e) => {
     e.preventDefault();
-    console.log(intitiated);
+    //console.log(intitiated);
     localStorage.setItem("toogle", !intitiated);
     SetIntitiated((intitiated) => !intitiated);
   };
@@ -216,32 +217,32 @@ const App = () => {
     SetIntitiated((intitiated) => toggleState);
   }, []);
   const currentPage = window.location.pathname;
-  // console.log(currentPage);
+  // //console.log(currentPage);
   useEffect(() => {
     if (currentPage == "/token-metrics") {
       SetIsTokenMetrics(true);
-      console.log("/token-metrics");
+      //console.log("/token-metrics");
     }
   }, []);
 
   useEffect(() => {
     const myArr = currentPage.split("/");
-    console.log(myArr[1]);
+    //console.log(myArr[1]);
     if (myArr[1] === "super_admin") {
       setAdminLocate("super_admin");
-      // console.log("super_admin");
+      // //console.log("super_admin");
       store.dispatch(loadAdminUser());
     } else if (myArr[1] === "dashboard") {
       setAdminLocate("dashboard");
-      // console.log("dashboard");
+      // //console.log("dashboard");
       store.dispatch(loadUser());
     } else if (myArr[1] === "products") {
       setAdminLocate("dashboard");
-      // console.log("dashboard");
+      // //console.log("dashboard");
       store.dispatch(loadUser());
     } else if (myArr[1] === "savings") {
       setAdminLocate("dashboard");
-      // console.log("dashboard");
+      // //console.log("dashboard");
       store.dispatch(loadUser());
     }
   });
@@ -286,11 +287,11 @@ const App = () => {
                     path="/loan-details/:id"
                     component={LoanDetails}
                   />
-                       <Route
-                exact
-                path="/products/categories/:category"
-                component={PhonesCatPagDuplicate}
-              />
+                  <Route
+                    exact
+                    path="/products/categories/:category"
+                    component={PhonesCatPagDuplicate}
+                  />
                   <Route
                     exact
                     path="/companies/details/:id"
@@ -356,7 +357,7 @@ const App = () => {
                     path="/products/details/:id/:name"
                     component={Item_details_main}
                   />
-                     {/* <Route
+                  {/* <Route
                     exact
                     path="/products/categories/:category"
                     component={See_ALL_Category}
@@ -502,14 +503,14 @@ const App = () => {
                   ) : null}
                   {/* {(() => {
                     if (adminLocate === "super_admin"){
-                      console.log('super_admin');
+                      //console.log('super_admin');
                         return (
                           <PrivateRoute3>
                           <Admin />
                         </PrivateRoute3>
                         )
                     } else if (adminLocate === "dashboard") {
-                      console.log('dashboard');
+                      //console.log('dashboard');
                       return (
                         <PrivateRoute2>
                           <Dashboard />
@@ -517,7 +518,7 @@ const App = () => {
                     )
                     }
 
-                    console.log('hhhhhh');
+                    //console.log('hhhhhh');
                     
                     return null;
                   })()} */}

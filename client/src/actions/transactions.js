@@ -26,17 +26,17 @@ export const proceedToCheckout =
     // product_id
   ) =>
   async (dispatch) => {
-    console.log(
-      card_number,
-      expiry_month,
-      expiry_year,
-      cvv,
-      fullname,
-      email,
-      phone_number,
-      // amount,
-      // product_id
-    );
+    // console.log(
+    //   card_number,
+    //   expiry_month,
+    //   expiry_year,
+    //   cvv,
+    //   fullname,
+    //   email,
+    //   phone_number,
+    //   // amount,
+    //   // product_id
+    // );
     const amount = 100
     const config = {
       headers: {
@@ -56,7 +56,7 @@ export const proceedToCheckout =
       // product_id
     });
 
-    console.log(body);
+    // console.log(body);
     try {
       const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
       console.log(res.data.data);
@@ -66,7 +66,7 @@ export const proceedToCheckout =
         data: res,
       };
     } catch (error) {
-      console.log(error.response);
+      // console.log(error.response);
       // dispatch({
       //   type: AUTH_ERROR,
       // });
@@ -76,7 +76,7 @@ export const proceedToCheckout =
 //   };
 // Check pin
 export const checkPin = (payload, pin) => async (dispatch) => {
-  console.log(payload, pin);
+  // console.log(payload, pin);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -85,10 +85,10 @@ export const checkPin = (payload, pin) => async (dispatch) => {
 
   const body = JSON.stringify({});
 
-  console.log(body);
+  // console.log(body);
   try {
     const res = await axios.post(api_url2 + "/v1/payment/card", body, config);
-    console.log(res);
+    // console.log(res);
 
     return {
       success: true,
@@ -100,12 +100,12 @@ export const checkPin = (payload, pin) => async (dispatch) => {
     //   payload: res.data.data,
     // });
   } catch (error) {
-    console.log(error);
+    // console.log(error);
   }
 };
 
 export const sendPin = (payload1, pin) => async (dispatch) => {
-  console.log(payload1, pin);
+  // console.log(payload1, pin);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -115,14 +115,14 @@ export const sendPin = (payload1, pin) => async (dispatch) => {
   const payload = JSON.stringify(payload1);
   const body = { payload, pin };
 
-  console.log(body);
+  // console.log(body);
   try {
     const res = await axios.post(
       api_url2 + "/v1/payment/card/pin",
       body,
       config
     );
-    console.log(res.data);
+    // console.log(res.data);
 
     return {
       success: true,
@@ -134,7 +134,7 @@ export const sendPin = (payload1, pin) => async (dispatch) => {
     //   payload: res.data.data,
     // });
   } catch (error) {
-    console.log(error.response);
+    // console.log(error.response);
     return {
         success: false,
         data: error.response,
@@ -143,7 +143,7 @@ export const sendPin = (payload1, pin) => async (dispatch) => {
 };
 
 export const sendOtp = (payload1, otp, customer_id, product_id) => async (dispatch) => {
-  console.log(payload1, otp, customer_id, product_id);
+  // console.log(payload1, otp, customer_id, product_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -153,15 +153,15 @@ export const sendOtp = (payload1, otp, customer_id, product_id) => async (dispat
   const payload = JSON.stringify(payload1);
   const body = { payload, otp, customer_id, product_id};
 
-  console.log(body);
+  // console.log(body);
   try {
     const res = await axios.post(
       api_url2 + "/v1/payment/card/otp",
       body,
       config
     );
-    console.log(res.data);
-    console.log("nnnnnnn");
+    // console.log(res.data);
+    // console.log("nnnnnnn");
     return {
       success: true,
       data: res.data,
@@ -172,8 +172,8 @@ export const sendOtp = (payload1, otp, customer_id, product_id) => async (dispat
     //   payload: res.data.data,
     // });
   } catch (error) {
-    console.log(error.response);
-    console.log("ffgfgfgc");
+    // console.log(error.response);
+    // console.log("ffgfgfgc");
     // dispatch({
     //   type: AUTH_ERROR,
     // });
