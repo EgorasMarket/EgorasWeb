@@ -288,7 +288,7 @@ const CheckoutModalComponent = ({
                   setOption(0)
               }}>
                 Pay via card{" "}
-                <input type="checkbox" name="payment" id="" className="checkBox" />
+                <input type="radio" name="payment" id="" className="checkBox" />
               </div>
             </div>
             {/* ===================== */}
@@ -297,7 +297,7 @@ const CheckoutModalComponent = ({
                  }}>
               <div className="wit_card">
                 Pay via wallet {" "}
-                <input type="checkbox" name="payment" id="" className="checkBox"  />
+                <input type="radio" name="payment" id="" className="checkBox"  />
               </div>
             </div>
 

@@ -307,10 +307,10 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                 <div className="formConcept1">
                   <span className="formConceptWallet">My Assets</span>
                   <div
-                    className="formConceptSup"
+               
                     // onClick={sending}
                   >
-                    Contact Support
+                 
                   </div>
                 </div>
                 {/* <div className="divConcept2">
