@@ -17,10 +17,10 @@ const connectDB = async () => {
 
     try {
         await connection.connect();
-        console.log("Database Connected");
+        //console.log("Database Connected");
 
     } catch (error) {
-        console.log(error);
+        //console.log(error);
         // Process exit with failure
         process.exit(1);
 

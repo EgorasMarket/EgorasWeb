@@ -96,11 +96,11 @@ const AdminUploadProducts = () => {
         //     id: data.data.data.id
         // })
 
-        console.log(data.data.data, "Weeee");
+        //console.log(data.data.data, "Weeee");
         setCategories(data.data.data);
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -108,12 +108,12 @@ const AdminUploadProducts = () => {
     let getproductId = localStorage.getItem("productId");
 
     if (localStorage.productId) {
-      // console.log('localStorage');
+      // //console.log('localStorage');
       setProductId(getproductId);
       setLSExist(true);
     } else {
       setLSExist(false);
-      // console.log('localStorage localStorage');
+      // //console.log('localStorage localStorage');
     }
   }, []);
 
@@ -128,7 +128,7 @@ const AdminUploadProducts = () => {
         config
     ).then((data) => {
        
-        console.log(data.data.user, "line_ful");
+        //console.log(data.data.user, "line_ful");
         setRoles1({
           role15:data.data.user.role,
         })
@@ -136,7 +136,7 @@ const AdminUploadProducts = () => {
     
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       }); 
   }, []);
 
@@ -147,7 +147,7 @@ const AdminUploadProducts = () => {
 
     switch (e.target.name) {
       case "product_category_desc":
-        // console.log('fff');
+        // //console.log('fff');
         // setRandom(generateString(10))
         setCategoryInsert({
           product_category_code: getrandom,
@@ -167,10 +167,10 @@ const AdminUploadProducts = () => {
   };
 
   const addCategory = async () => {
-    console.log(product_category_code, product_category_desc);
+    //console.log(product_category_code, product_category_desc);
 
     if (product_category_desc === "") {
-      // console.log("Please supply product description.");
+      // //console.log("Please supply product description.");
       setAlert("Please supply product description");
       setAlertType('danger')
     } else {
@@ -178,14 +178,14 @@ const AdminUploadProducts = () => {
         product_category_code,
         product_category_desc,
       });
-      console.log(body);
+      //console.log(body);
       try {
         const res = await axios.post(
           api_url2 + "/v1/product/add/category",
           body,
           config
         );
-        console.log(res, "undefined");
+        //console.log(res, "undefined");
 
         if (res.data.statusCode === 200) {
           setAlert('Category added succefully');
@@ -198,7 +198,7 @@ const AdminUploadProducts = () => {
          
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -206,8 +206,8 @@ const AdminUploadProducts = () => {
   const timer = setTimeout(() => {
     setAlert("");
   }, 5000);
-  // console.log(generateString(10));
-  // console.log('oookkkk');
+  // //console.log(generateString(10));
+  // //console.log('oookkkk');
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -221,15 +221,15 @@ const AdminUploadProducts = () => {
           let productFile = document.getElementById("product_image").files[0];
 
           let fileExtension = productFile.name.split(".").pop();
-          console.log(productFile);
+          //console.log(productFile);
 
           if (!types.includes(fileExtension)) {
           } else {
-            console.log(productFile.size);
+            //console.log(productFile.size);
             if (productFile.size > 1000000) {
               setAlert("file too large");
               setAlertType('danger')
-              console.log("file too large.");
+              //console.log("file too large.");
             } else {
               setproduct_image(URL.createObjectURL(event.target.files[0]));
             }
@@ -245,7 +245,7 @@ const AdminUploadProducts = () => {
     const formData = new FormData();
 
     if (product_image === "../../img/profile_img.jpeg") {
-      console.log("empty passport");
+      //console.log("empty passport");
       setAlert("Please provide product image");
       setAlertType('danger')
     
@@ -254,21 +254,21 @@ const AdminUploadProducts = () => {
       const file = element.files[0];
       formData.append("product_image", file, file.name);
 
-      console.log(formData, "hhhh");
+      //console.log(formData, "hhhh");
 
       try {
         const res = await axios.post(
           api_url2 + "/v1/product/add/product/image",
           formData
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           setAlert("Product image uploaded successfully");
           setAlertType('success');
           setproduct_image('../../img/profile_img.jpeg')
           setLSExist(true);
-          console.log(res.data.data[0].productId, "undefined");
+          //console.log(res.data.data[0].productId, "undefined");
           setProductId(res.data.data[0].productId);
           localStorage.setItem("productId", res.data.data[0].productId);
         } else {
@@ -277,7 +277,7 @@ const AdminUploadProducts = () => {
           
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         
       }
     }
@@ -285,24 +285,24 @@ const AdminUploadProducts = () => {
 
   const handleCenter = (event) => {
     setProduct_category_code1(event.target.value || "");
-    // // console.log('handleMOI');
+    // // //console.log('handleMOI');
   };
 
   // };
 
   // const handleDuration = (event) => {
   //   setProduct_duration(event.target.value || "");
-  //   // // console.log('handleMOI');
+  //   // // //console.log('handleMOI');
   // };
 
   const handleproductType = (event) => {
     setProduct_type(event.target.value || "");
-    // // console.log('handleMOI');
+    // // //console.log('handleMOI');
   };
 
   const handlepaymentType = (event) => {
     setPayment_type(event.target.value || null);
-    // // console.log('handleMOI');
+    // // //console.log('handleMOI');
   };
 
   const UpdateProductInfo = async (e) => {
@@ -320,7 +320,7 @@ const AdminUploadProducts = () => {
         amount === null ||
         product_details === ""
       ) {
-        // console.log("Please supply all information.");
+        // //console.log("Please supply all information.");
         setAlert("Please supply all information");
         setAlertType('danger')
       } else {
@@ -345,14 +345,14 @@ const AdminUploadProducts = () => {
             amount,
             product_details,
           });
-          console.log(body, "yyyyyy");
+          //console.log(body, "yyyyyy");
           try {
             const res = await axios.put(
               api_url2 + "/v1/product/add/product",
               body,
               config
             );
-            console.log(res, "undefined");
+            //console.log(res, "undefined");
   
             if (res.data.statusCode === 200) {
               // setMOIUpload(true)
@@ -379,7 +379,7 @@ const AdminUploadProducts = () => {
   
             }
           } catch (err) {
-            console.log(err.response);
+            //console.log(err.response);
             // setAlert('Check your internet connection', 'danger');
           }
         }
@@ -397,7 +397,7 @@ const AdminUploadProducts = () => {
         amount === null ||
         product_details === ""
       ) {
-        // console.log("Please supply all information.");
+        // //console.log("Please supply all information.");
         setAlert("Please supply all information");
         setAlertType('danger')
       } else {
@@ -422,14 +422,14 @@ const AdminUploadProducts = () => {
             amount,
             product_details,
           });
-          console.log(body, "yyyyyy");
+          //console.log(body, "yyyyyy");
           try {
             const res = await axios.put(
               api_url2 + "/v1/product/add/product",
               body,
               config
             );
-            console.log(res, "undefined");
+            //console.log(res, "undefined");
   
             if (res.data.statusCode === 200) {
               // setMOIUpload(true)
@@ -457,7 +457,7 @@ const AdminUploadProducts = () => {
               
             }
           } catch (err) {
-            console.log(err.response);
+            //console.log(err.response);
             // setAlert('Check your internet connection', 'danger');
           }
         }

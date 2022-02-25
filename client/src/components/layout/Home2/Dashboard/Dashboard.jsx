@@ -25,14 +25,14 @@ import "./DashboardStyles/dashboard.css";
 import PrivateRoute2 from "../../../routing/PrivateRoute2";
 const Dashboard = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
-  console.log(isAuthenticated, loading);
+  //console.log(isAuthenticated, loading);
   useEffect(() => {
-    // console.log(isAuthenticated,'77777');
+    // //console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
       // return <Redirect to="/" />;
       return window.location.replace("/login");
     } else if (isAuthenticated == true) {
-      // console.log('trueee');
+      // //console.log('trueee');
       const timer = setTimeout(() => {
         setSplashScreen(false);
       }, 1000);

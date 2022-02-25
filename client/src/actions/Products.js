@@ -36,7 +36,7 @@ export const getAuthentication =
       InfoReason,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.post(
@@ -44,14 +44,14 @@ export const getAuthentication =
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
 
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,
@@ -74,7 +74,7 @@ export const getLogin = (email, password) => async (dispatch) => {
     password,
   });
 
-  console.log(body);
+  //console.log(body);
 
   try {
     const res = await axios.post(
@@ -82,12 +82,12 @@ export const getLogin = (email, password) => async (dispatch) => {
       body,
       config
     );
-    console.log(res);
+    //console.log(res);
 
     if (res.data.success === false) {
-      //console.log(res.data);
+      ////console.log(res.data);
       const errors = res.data.errors;
-      //console.log(errors);
+      ////console.log(errors);
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
@@ -111,7 +111,7 @@ export const getLogin = (email, password) => async (dispatch) => {
       };
     }
   } catch (err) {
-    console.log(err.response);
+    //console.log(err.response);
 
     return {
       success: false,
@@ -121,14 +121,14 @@ export const getLogin = (email, password) => async (dispatch) => {
 };
 
 export const getProductByCat = (categoryName) => async (dispatch) => {
-  // console.log(payload1, otp, customer_id, product_id);
+  // //console.log(payload1, otp, customer_id, product_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
 
-  console.log(categoryName);
+  //console.log(categoryName);
 
   try {
     const res = await axios.get(
@@ -136,20 +136,20 @@ export const getProductByCat = (categoryName) => async (dispatch) => {
       null,
       config
     );
-    console.log(res.data);
-    console.log("nnnnnnn");
+    //console.log(res.data);
+    //console.log("nnnnnnn");
     return {
       success: true,
       data: res.data,
     };
-    // console.log("Yes I call You because i can", res.data.data);
+    // //console.log("Yes I call You because i can", res.data.data);
     // dispatch({
     //   type: FETCH_CART,
     //   payload: res.data.data,
     // });
   } catch (error) {
-    console.log(error.response);
-    console.log("ffgfgfgc");
+    //console.log(error.response);
+    //console.log("ffgfgfgc");
     // dispatch({
     //   type: AUTH_ERROR,
     // });

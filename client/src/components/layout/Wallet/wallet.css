@@ -135,11 +135,12 @@
   border: solid 1px #e5e5e5;
 }
 .formConcept1 {
-  padding: 5px 15px;
+  padding: 5px 10px;
   display: flex;
   justify-content: space-between;
   align-items: center;
   background-color: #ebecf0;
+  gap: 20px;
 }
 
 .deposit_div_heading {
@@ -198,6 +199,36 @@
   gap: 5px;
   color: black;
   font-size: 14px;
+  margin-top: 45px;
+}
+.qr_code_divv_check {
+  position: relative;
+}
+.load_qr_code_ {
+  background: #ffffffd1;
+  padding: 2em;
+  position: absolute;
+  left: 0;
+  top: 0;
+  backdrop-filter: blur(7px);
+  width: 35%;
+  height: 100%;
+  border: solid 1px #d7d7d7;
+  border-radius: 5px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+p.wallet_address_loading_cont {
+  font-size: 12px;
+  margin: 0;
+  margin-top: 10px;
+  color: #239e54;
+}
+.loading_iconnn_wallet {
+  width: 70% !important;
+  height: 100% !important;
 }
 .token_symbolism {
   color: #229e54;
@@ -211,6 +242,17 @@
   padding: 1em 1em;
   border-radius: 5px;
   font-weight: 400;
+}
+.pay_via_wallet_btn {
+  margin-top: 1em;
+  width: 100%;
+  padding: 0.5em 1em;
+  border-radius: 5px;
+  background: #41ba71;
+  color: #fff;
+  font-weight: 600;
+  border: none;
+  box-shadow: 0px 4px 10px #4cc37b;
 }
 .view_all_btn {
   padding: 1em;
@@ -381,6 +423,10 @@ li.deposit_qr_not {
   border-radius: 5px;
   cursor: pointer;
   font-size: 14px;
+}
+.token_symbol {
+  color: #000;
+  font-weight: 700;
 }
 .noticeable_txt {
   font-size: 13px;

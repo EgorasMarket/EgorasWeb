@@ -65,7 +65,7 @@ const Companyreg = props => {
     } else {
 
     }
-    console.log(res);
+    //console.log(res);
   }
 
   const onDeleteDirector = e => {
@@ -75,11 +75,11 @@ const Companyreg = props => {
 
     data.splice(index, data.length);
     setFormData({ ...formData, ["board_of_directors"]: data })
-    console.log(data);
+    //console.log(data);
 
   }
   const toggle = tab => {
-    // console.log(tab);
+    // //console.log(tab);
     //if (activeTab !== tab) setActiveTab(tab);
   };
   const [formData, setFormData] = useState({

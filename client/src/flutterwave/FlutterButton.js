@@ -29,7 +29,7 @@ const FlutterButton = ({ amount, customer, payment_title, payment_options, payme
       <div className="wit_card" onClick={() => {
         handleFlutterPayment({
           callback: async (response) => {
-            console.log(response)
+            //console.log(response)
             try {
               const verification = await verify(response.transaction_id)
               const { success, card } = verification.data.data.data;
@@ -39,15 +39,15 @@ const FlutterButton = ({ amount, customer, payment_title, payment_options, payme
               }
 
 
-              console.log(verification.data.data.data.amount, 'from me  ')
+              //console.log(verification.data.data.data.amount, 'from me  ')
               closePaymentModal()
             } catch (error) {
-              console.log(error.response)
+              //console.log(error.response)
             }
 
           },
           onClose: (response) => {
-            console.log(response, "response from onclose ")
+            //console.log(response, "response from onclose ")
 
           }
         })

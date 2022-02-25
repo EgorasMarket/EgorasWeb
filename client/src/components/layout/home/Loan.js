@@ -135,7 +135,7 @@ const Loan = ({ match, loans, messenger }) => {
 
       let ret = await payLoan(loanData.loanID, parseEther(votePower.toString(), "wei").toString(), library.getSigner());
 
-      console.log(ret);
+      //console.log(ret);
 
       if (ret.status == true) {
 
@@ -177,7 +177,7 @@ const Loan = ({ match, loans, messenger }) => {
 
       let ret = await acceptLoan(loanData.loanID, type, parseEther(votePower.toString(), "wei").toString(), library.getSigner());
 
-      console.log(ret);
+      //console.log(ret);
 
       if (ret.status == true) {
 
@@ -228,7 +228,7 @@ const Loan = ({ match, loans, messenger }) => {
 
 
 
-          console.log(data.data);
+          //console.log(data.data);
           setLoanDetailData({
             ...loanDetailData, ['validated']: d._validate, ['isActiveVotingPeriod']: (theCountDown >= now), ['is_approved']: d._state,
             ['payable']: d._finalLoanAmount
@@ -259,7 +259,7 @@ const Loan = ({ match, loans, messenger }) => {
 
           setIsFetching(false);
         })
-        console.log(response.data.data[0].loanID);
+        //console.log(response.data.data[0].loanID);
 
 
       });
@@ -274,22 +274,22 @@ const Loan = ({ match, loans, messenger }) => {
     // const pString = parseFloat(577) + 1;
     const pString = parseFloat(match.params.id) + 1;
     const mString = parseFloat(match.params.id) - 1;
-    // console.log( match.params.id);
+    // //console.log( match.params.id);
     const plusString = pString.toString();
     const minusString = mString.toString();
-    // console.log(plusString);
+    // //console.log(plusString);
 
 
     axios.get(api_url + "/api/loans/get/by/id/" + minusString, null, config)
       .then(function (response) {
-        console.log(response.data.data);
+        //console.log(response.data.data);
 
         if (response.data.data.length && response.data.data.length) {
-          console.log('not ok');
+          //console.log('not ok');
 
-          console.log(response.data.data[0].loan_category);
+          //console.log(response.data.data[0].loan_category);
 
-          console.log(loanData2.loan_category);
+          //console.log(loanData2.loan_category);
           let percent = 0;
           let up = 0;
           let down = 0;
@@ -324,12 +324,12 @@ const Loan = ({ match, loans, messenger }) => {
 
         } else {
           setNextTrue(true);
-          console.log('ok');
+          //console.log('ok');
 
         }
 
       });
-    console.log(nextTrue);
+    //console.log(nextTrue);
 
     localStorage.setItem('unlocking', false);
 
@@ -358,10 +358,10 @@ const Loan = ({ match, loans, messenger }) => {
   setInterval(() => {
 
     if (localStorage.getItem('unlocking') == "true") {
-      console.log("running Interval");
+      //console.log("running Interval");
       transactReceipt(localStorage.getItem('unlockingHash'), library)
         .then(function (env) {
-          console.log("running Interval", env);
+          //console.log("running Interval", env);
           if (env.status == true && env.message !== null) {
             if (env.message.confirmations > 0) {
               setIsLoading(false);

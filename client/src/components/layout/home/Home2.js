@@ -119,7 +119,7 @@ useEffect(() => {
     if (typeof loans.data !== "undefined" && loans.data.length > 0) {
         setLoanData(loans.data);
 
-        console.log(loans.data);
+        //console.log(loans.data);
     }
   }, [loans]);
 
@@ -150,7 +150,7 @@ useEffect(() => {
       null,
       config
     ).then((response)=>{
-      console.log(response.data.items);
+      //console.log(response.data.items);
       setVideos(response.data.items);
     }).catch((err) =>{
       setVideos([{"id":{"videoId":"fPHzVIrRIV4"},"snippet":{"title":"Customer Experience With Mr Innocent"}},{"id":{"videoId":"VkLJz_A2DeM"},"snippet":{"title":"Customer Experience With Catherine Innocent"}},{"id":{"videoId":"_Q4sNYaSqVw"},"snippet":{"title":"Sarah Chukwuemeka - Head Of Business Development"}}])

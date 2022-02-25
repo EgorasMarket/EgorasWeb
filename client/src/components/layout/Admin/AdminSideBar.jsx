@@ -54,16 +54,16 @@ const AdminSideBar = ({ auth }) => {
   useEffect(() => {
     // setCartNum(cart.length)
     // fetchDepositLinks();
-    console.log(auth);
+    //console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
+      // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
 
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
+      // //console.log('====================================');
+      //console.log(todecodedn);
+      // //console.log('====================================');
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
@@ -158,13 +158,13 @@ const AdminSideBar = ({ auth }) => {
     axios
       .get(api_url2 + "/v1/admin/info", null, config)
       .then((data) => {
-        console.log(data.data.user, "line_ful");
+        //console.log(data.data.user, "line_ful");
         setRoles({
           role1: data.data.user.role,
         });
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
