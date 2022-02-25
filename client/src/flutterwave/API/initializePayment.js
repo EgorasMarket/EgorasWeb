@@ -26,8 +26,8 @@ const initializePayment = async (amount, customer_data) => {
         }
         console.log(call, "from the anonymous")
         const {link} = call.data.data.data;
+        console.log(link, 'from me ')
         window.open(link, "_self")
-        
        return call; 
        
     } catch (err) {
