@@ -2,6 +2,7 @@ import React, { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import verify from "../../../../flutterwave/API/Verify";
+import CloseIcon from "@mui/icons-material/Close";
 // import Wallet1 from "../../Wallet/Wallet1";
 import {
   PRODUCT_LOADED,
@@ -52,9 +53,10 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  const [tokenBal, setTokenBal] = useState("0.000");
-  const [assetVal, setAssetVal] = useState("0.000");
+  const [tokenBal, setTokenBal] = useState(0);
+  const [assetVal, setAssetVal] = useState(0.000);
   const [tokenSign, setTokenSign] = useState();
+  const [hardNumb, setHardNum] = useState(300);
   const [errorDiv, setErrorDiv] = useState(false);
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
@@ -189,6 +191,12 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
 
       case 1:
+        // if (hardNumb >= amount) {
+        //   setProcessingDiv(true);
+        // } else {
+        //   setProcessingDiv(false);
+        //   setErrorDiv(true);
+        // }
         if (tokenBal >= amount) {
           setProcessingDiv(true);
         } else {
@@ -377,6 +385,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               {walletBalance == true ? (
                 <div className="wallet_bal_acct">
                   Wallet Bal: {parseInt(tokenBal).toFixed(3)} {tokenSign}
+                  {/* Wallet Bal: {hardNumb} {tokenSign} */}
                 </div>
               ) : null}
             </div>
@@ -451,9 +460,9 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           </div>
         </div>
       </div>
-      {ProcessingDiv == false ? (
-        <div></div>
-      ) : (
+      {ProcessingDiv == false ? 
+       null
+      : (
         <div className="processing_transac_div">
           <LoadingIcons.Bars fill="#229e54" />
           Processing Transaction...
@@ -461,8 +470,20 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
       )}
       {errorDiv == false ? null : (
         <div className="processing_transac_div insufficient">
-          Insufficient Balance
-          <span className="fund_wall">Please Fund Your Wallet</span>
+          <div className="insufficient_div">
+            <CloseIcon
+              className="closeDivIcon"
+              onClick={() => setErrorDiv(false)}
+            />
+            <img src="/img/empty-wallet.svg" alt="" className="empty_wallet" />
+            Insufficient Balance
+            <span className="fund_wall">
+              Please fund Your wallet to complete payment.
+            </span>
+            <a href="/dashboard/wallet">
+              <button className="fund_wallet_btn">Fund Wallet</button>
+            </a>
+          </div>
         </div>
       )}
     </>
