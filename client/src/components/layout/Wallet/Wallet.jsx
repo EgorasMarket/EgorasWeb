@@ -26,7 +26,7 @@ const ITEM_HEIGHT = 48;
 
 const Wallet = ({ auth, createWallet, depositToken }) => {
   const [age, setAge] = React.useState("");
-  const [assetVal, setAssetVal] = useState("");
+  const [assetVal, setAssetVal] = useState("0.000");
   const [adminId, setAdminId] = useState("");
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
@@ -36,7 +36,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   const [copiedTxt, setCopiedTxt] = useState(false);
   const [copiedTxt1, setCopiedTxt1] = useState(false);
   const [deposits, setDeposits] = useState([]);
-  const [tokenBal, setTokenBal] = useState("");
+  const [tokenBal, setTokenBal] = useState("0.000");
   // const [currentToken, setCurrentToken] = useState();
   // const [tokenName, setTokenName] = useState();
   const [tokenSymbol, setTokenSymbol] = useState();
@@ -223,6 +223,8 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
 
   const openDepositDiv = async (tokenName, tokenSymbol) => {
     setActiveBg("deposit_btn");
+    setShowDeposit(true);
+    setIsLoading(true);
     // setCurrentToken(tokenSymbol);
     // setTokenName(tokenName);
     // setIsLoading(true);
@@ -241,7 +243,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       }
     } else {
       console.log("not accountExists");
-      setShowDeposit(false);
+      // setShowDeposit(false);
       // console.log(adminId);
       let res3 = await createWallet(adminId, tokenSymbol);
       console.log(res3);
@@ -307,11 +309,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                 <div className="formConcept1">
                   <span className="formConceptWallet">My Assets</span>
                   <div
-               
-                    // onClick={sending}
-                  >
-                 
-                  </div>
+                  // className="formConceptSup"
+                  // onClick={sending}
+                  ></div>
                 </div>
                 {/* <div className="divConcept2">
                   <div>

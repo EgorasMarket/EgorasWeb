@@ -46,11 +46,16 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [isloading, setIsLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [phone_no, setPhoneNo] = useState("");
+  const [walletBalance, setWalletBalance] = useState(false);
   const [walletModal, setWalletModal] = useState(false);
   const [ProcessingDiv, setProcessingDiv] = useState(false);
   const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
+  const [tokenBal, setTokenBal] = useState("0.000");
+  const [assetVal, setAssetVal] = useState("0.000");
+  const [tokenSign, setTokenSign] = useState();
+  const [errorDiv, setErrorDiv] = useState(false);
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
 
@@ -73,7 +78,32 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         //  //console.log(addressName,"Bk is good for development")
       });
   }, []);
-
+  useEffect(() => {
+    var Authorized = auth.user;
+    var userId = Authorized.user.id;
+    axios
+      .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
+      .then((data) => {
+        console.log(data.data.data.balance);
+        setTokenBal(data.data.data.balance);
+        setAssetVal(data.data.data.balance * 1);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [auth]);
+  useEffect(() => {
+    // setIsLoading2(true);
+    axios
+      .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
+        setTokenSign(data.data.data[0].tokenSymbol);
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+  }, []);
   useEffect(() => {
     if (auth.user !== null) {
       //console.log(auth.user, "user  exist ");
@@ -159,8 +189,12 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
 
       case 1:
-        // alert("wallet method selected");
-        setWalletModal(true);
+        if (tokenBal >= amount) {
+          setProcessingDiv(true);
+        } else {
+          setProcessingDiv(false);
+          setErrorDiv(true);
+        }
         break;
     }
   };
@@ -309,12 +343,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             <div className="cart_area2_heading">Payment Options</div>
             {/* ===================== */}
             <div className="cart_area2_select">
-              <div
-                className="wit_card"
-                onClick={() => {
-                  setOption(0);
-                }}
-              >
+              <div className="wit_card">
                 Pay via card{" "}
                 <input
                   type="radio"
@@ -322,16 +351,15 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                   id=""
                   className="checkBox"
                   style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(0);
+                    setWalletBalance(false);
+                  }}
                 />
               </div>
             </div>
             {/* ===================== */}
-            <div
-              className="cart_area2_select"
-              onClick={() => {
-                setOption(1);
-              }}
-            >
+            <div className="cart_area2_select">
               <div className="wit_card">
                 Pay via wallet{" "}
                 <input
@@ -340,8 +368,17 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                   id=""
                   className="checkBox"
                   style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(1);
+                    setWalletBalance(true);
+                  }}
                 />
               </div>
+              {walletBalance == true ? (
+                <div className="wallet_bal_acct">
+                  Wallet Bal: {parseInt(tokenBal).toFixed(3)} {tokenSign}
+                </div>
+              ) : null}
             </div>
 
             {/* <FlutterButton 
@@ -413,11 +450,6 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             </button>
           </div>
         </div>
-        {walletModal == false ? null : (
-          <div className="wallet_component">
-            {/* <Wallet1 openProcessingDiv={openProcessingDiv} /> */}
-          </div>
-        )}
       </div>
       {ProcessingDiv == false ? (
         <div></div>
@@ -425,6 +457,12 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         <div className="processing_transac_div">
           <LoadingIcons.Bars fill="#229e54" />
           Processing Transaction...
+        </div>
+      )}
+      {errorDiv == false ? null : (
+        <div className="processing_transac_div insufficient">
+          Insufficient Balance
+          <span className="fund_wall">Please Fund Your Wallet</span>
         </div>
       )}
     </>
