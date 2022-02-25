@@ -146,6 +146,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
                     name="email"
                     onChange={onChange2}
                     value={email}
+                    placeHolder="@gmail.com"
                   />
                 </div>
                 {/* <div className="signup_input_field1_cont">
@@ -161,6 +162,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
                       value={password}
                       name="password"
                       onChange={onChange2}
+                      placeHolder="******"
                       // onInput={onChangeMisMatch}
                     />
                     {visibility == false ? (

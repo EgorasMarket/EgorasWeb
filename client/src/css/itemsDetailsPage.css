@@ -536,16 +536,18 @@ span.per_day {
   position: relative;
 }
 .wallet_bal_acct {
-  font-size: 14px;
-  color: #ffffff;
-  font-weight: 700;
-  padding: 0.5em 1em;
-  border: solid 1px #dcede1;
-  border-top: 0;
-  border-radius: 5px;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-  background: #5db37f;
+
+    font-size: 14px;
+    color: #42a66c;
+    font-weight: 700;
+    padding: 0.5em 1em;
+    border: solid 1px #dcede1;
+    border-top: 0;
+    border-radius: 5px;
+    border-top-right-radius: 0;
+    border-top-left-radius: 0;
+    background: #d8f3e2;
+
 }
 .description_click1_active::after {
   content: "";
