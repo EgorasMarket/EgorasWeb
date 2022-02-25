@@ -2,7 +2,7 @@ import React, { useState, useEffect, Fragment } from "react";
 
 export const CustomAlert = (props) => {
   // const [timeOut, setTimeOuut] = useState(true);
-  console.log(props.alertType);
+  //console.log(props.alertType);
   // const timer = () => {
   //   if (timeOut == false) {
   //     setTimeout(() => {

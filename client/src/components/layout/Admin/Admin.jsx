@@ -27,7 +27,7 @@ const Admin = ({ isAuthenticated, loading }) => {
   });
 
   const { Role } = roleDisplay;
-  console.log(isAuthenticated, loading);
+  //console.log(isAuthenticated, loading);
 
   const config = {
     headers: {
@@ -35,12 +35,12 @@ const Admin = ({ isAuthenticated, loading }) => {
     },
   };
   useEffect(() => {
-    // console.log(isAuthenticated,'77777');
+    // //console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
       // return <Redirect to="/" />;
       return window.location.replace("/login/super_admin");
     } else if (isAuthenticated == true) {
-      // console.log('trueee');
+      // //console.log('trueee');
       const timer = setTimeout(() => {
         setSplashScreen(false);
       }, 1000);
@@ -57,13 +57,13 @@ const Admin = ({ isAuthenticated, loading }) => {
     axios
       .get(api_url2 + "/v1/admin/info", null, config)
       .then((data) => {
-        console.log(data.data.user, "line_ful");
+        //console.log(data.data.user, "line_ful");
         setRoleDisplay({
           Role: data.data.user.role,
         });
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 

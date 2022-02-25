@@ -101,7 +101,7 @@ const {
     setStageOne(1);
     setModal(!modal);
     let  approve = await approveCompany(loanCompany.address, library.getSigner());
-     console.log(approve);
+     //console.log(approve);
     if(approve.status == true){
       setStageOne(2);
       setHash(approve.message);
@@ -128,7 +128,7 @@ const {
            
       }
          let ret = await voteInCompany(loanCompany.address, type, parseEther(votePower.toString(), "wei").toString(), library.getSigner());
-        console.log(ret);
+        //console.log(ret);
         
          if(ret.status == true){
           
@@ -204,10 +204,10 @@ const {
 setInterval(() => {
  
   if(localStorage.getItem('unlocking') == "true"){
-    console.log("running Interval");
+    //console.log("running Interval");
     transactReceipt(localStorage.getItem('unlockingHash'), library)
       .then(function(env) {
-        console.log("running Interval", env);
+        //console.log("running Interval", env);
        if(env.status == true && env.message !== null){
          if(env.message.confirmations > 0){
           setIsLoading(false);

@@ -116,7 +116,7 @@ const {
      
          let ret = await acceptLoan(loanData.loanID, type, parseEther(votePower.toString(), "wei").toString(), library.getSigner());
   
-         console.log(ret);
+         //console.log(ret);
         
          if(ret.status == true){
           
@@ -157,7 +157,7 @@ const {
 
     axios.get(api_url + "/api/loans/get/by/id/"+match.params.id, null, config)
             .then(function (response) {
-              console.log(response.data.data);
+              //console.log(response.data.data);
            
               let accepted = parseInt(response.data.data[0].accepted);
               let declined = parseInt(response.data.data[0].declined);
@@ -216,10 +216,10 @@ const validate = async (e) => {
 setInterval(() => {
  
   if(localStorage.getItem('unlocking') == "true"){
-    console.log("running Interval");
+    //console.log("running Interval");
     transactReceipt(localStorage.getItem('unlockingHash'), library)
       .then(function(env) {
-        console.log("running Interval", env);
+        //console.log("running Interval", env);
        if(env.status == true && env.message !== null){
          if(env.message.confirmations > 0){
           setIsLoading(false);

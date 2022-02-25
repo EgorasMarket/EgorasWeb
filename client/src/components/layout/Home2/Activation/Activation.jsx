@@ -9,15 +9,15 @@ const Activation = ({match, activate}) => {
   const [email_auth, setEmail_auth] = useState(match.params.id);
   const [activated, setActivated] = useState(false);
 
-  console.log(email_auth);
+  //console.log(email_auth);
 
   useEffect(() => {
     async function fetchMyAPI() {
       let response = await activate(email_auth);
-      console.log(response);
-      console.log(response.data.statusCode);
+      //console.log(response);
+      //console.log(response.data.statusCode);
       if (response.data.statusCode === 200) {
-        //console.log("okay Good Server");
+        ////console.log("okay Good Server");
         setActivated(true)
 
       } else {

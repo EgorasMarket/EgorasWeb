@@ -28,11 +28,11 @@ const FlutterButton  = ({amount, customer, payment_title, payment_options }) => 
       <div className="wit_card" onClick={() => {
           handleFlutterPayment({
             callback: (response) => {
-              console.log(response )
+              //console.log(response )
               closePaymentModal()
             },
             onClose: (response) => {
-              console.log(response, "response from onclose ")
+              //console.log(response, "response from onclose ")
 
             }
           }) 

@@ -52,13 +52,11 @@ const HomeUpdate = () => {
           <div className="h_update_hero_area">
             <div className="h_update_hero_area1">
               <div className="h_update_hero_area1_title">
-                The Better Way to Borrow & Save Money.
+                BETTER WAYS TO BORROW & SAVE MONEY.
               </div>
               <div className="h_update_hero_area1_para">
-                Interest-free loans, plus our target Savings tools to help you
-                get any personal properties with ease. Put your personal
-                properties up as collateral for an interest-free loan. Certain
-                fees apply.
+                Put up your assets to access interest-free loans while saving up
+                to get any desired item.
               </div>{" "}
               <div className="h_update_hero_area1_para_btns">
                 <a href="/signup">
@@ -142,17 +140,13 @@ const HomeUpdate = () => {
       {/* =========== */}
       {/* =========== */}
 
-
- 
-
-
       <section className="new_hero_section2">
         <div className="container">
           <div className="new_hero_section2_area">
             <div
               className="operations_cards_cont"
               data-aos="fade-up"
-              data-aos-duration="3000"
+            
             >
               <div className="operations_card1">
                 <div className="operations_card1_title">
@@ -210,25 +204,6 @@ const HomeUpdate = () => {
                   />
                 </div>
               </div>
-              <div className="operations_card1">
-                <div className="operations_card1_title">
-                  Collaterals are converted to{" "}
-                  <span className="hover_color">NFTs </span> and stored in the
-                  blockchain.
-                </div>
-                <div className="operations_card1_img">
-                  <img
-                    src="/img/block_chain_icon1.png"
-                    alt=""
-                    className="operations_card1_icon1c"
-                  />
-                  <img
-                    src="/img/block_chain_icon2.png"
-                    alt=""
-                    className="operations_card1_icon2c"
-                  />
-                </div>
-              </div>
             </div>
           </div>
         </div>
@@ -248,8 +223,7 @@ const HomeUpdate = () => {
             <div
               className="new_home_attributes_area1"
               data-aos="fade-up"
-              data-aos-easing="linear"
-              data-aos-duration="3000"
+           
             >
               <div className="new_home_attributes_area1_txt">
                 {" "}
@@ -271,8 +245,7 @@ const HomeUpdate = () => {
             <div
               className="new_home_attributes_area2"
               data-aos="zoom-in-up"
-              data-aos-easing="linear"
-              data-aos-duration="1500"
+           
             >
               <img src="/img/take_loan.svg" alt="" className="take_loan_img" />
             </div>
@@ -302,9 +275,7 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-                  data-aos-anchor-placement="bottom-bottom"
-                  data-aos-offset="300"
-                  data-aos-easing="ease-in-sine"
+               
                 >
                   <ExitToAppIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
@@ -325,9 +296,7 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-                  data-aos-anchor-placement="bottom-bottom"
-                  data-aos-offset="300"
-                  data-aos-easing="ease-in-sine"
+           
                 >
                   <AccountBalanceWalletIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
@@ -348,9 +317,7 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-                  data-aos-anchor-placement="bottom-bottom"
-                  data-aos-offset="300"
-                  data-aos-easing="ease-in-sine"
+             
                 >
                   <ManageAccountsIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
@@ -371,9 +338,7 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-                  data-aos-anchor-placement="bottom-bottom"
-                  data-aos-offset="300"
-                  data-aos-easing="ease-in-sine"
+              
                 >
                   <GroupsIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
@@ -406,8 +371,7 @@ const HomeUpdate = () => {
             <div
               className="new_home_attributes_area2"
               data-aos="zoom-in-up"
-              data-aos-easing="linear"
-              data-aos-duration="1500"
+      
             >
               <img
                 src="/img/new_save_money_img.svg"
@@ -418,8 +382,7 @@ const HomeUpdate = () => {
             <div
               className="new_home_attributes_area1"
               data-aos="fade-up"
-              data-aos-easing="linear"
-              data-aos-duration="3000"
+ 
             >
               <div className="new_home_attributes_area1_txt">
                 {" "}
@@ -453,8 +416,7 @@ const HomeUpdate = () => {
             <div
               className="new_home_attributes_area1"
               data-aos="fade-up"
-              data-aos-easing="linear"
-              data-aos-duration="3000"
+          
             >
               <div className="new_home_attributes_area1_txt">
                 {" "}
@@ -474,8 +436,7 @@ const HomeUpdate = () => {
             <div
               className="new_home_attributes_area2"
               data-aos="zoom-in-up"
-              data-aos-easing="linear"
-              data-aos-duration="1500"
+          
             >
               <img
                 src="/img/validated_img.svg"

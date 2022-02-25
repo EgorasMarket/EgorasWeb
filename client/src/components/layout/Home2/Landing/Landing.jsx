@@ -143,7 +143,7 @@ const Landing = ({
   //       setIsLoading(false);
   //       setLoanData(loans.data);
 
-  //       console.log(loans.data);
+  //       //console.log(loans.data);
   //   }
 
   // }, [loans]);
@@ -152,7 +152,7 @@ const Landing = ({
     axios
       .get(api_url + "/api/loans/100", null, config)
       .then(function (response) {
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setLoanData(response.data.data);
 
         setIsLoading(false);
@@ -161,7 +161,7 @@ const Landing = ({
 
   useEffect(() => {
     // setIsLoading(true);
-    console.log(getCategory);
+    //console.log(getCategory);
   }, []);
 
   useEffect(() => {
@@ -193,7 +193,7 @@ const Landing = ({
         config
       )
       .then((response) => {
-        // console.log(response.data.items);
+        // //console.log(response.data.items);
         setVideos(response.data.items);
       })
       .catch((err) => {
@@ -227,23 +227,23 @@ const Landing = ({
   const triggerCategory = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(e.target.id);
+    //console.log(e.target.id);
     // setGetCategory(e.target.id);
 
     // const finalCat = e.target.id.replace("%20", " ");
     const finalCat = "all%20loans";
 
-    console.log(finalCat);
+    //console.log(finalCat);
 
     if (finalCat == "all loans") {
       axios
         .get(api_url + "/api/loans/100", null, config)
         .then(function (response) {
-          console.log(response, "Lekeleke");
+          //console.log(response, "Lekeleke");
           setLoanData(response.data.data);
 
           setIsLoading(false);
-          // console.log(response.data.data);
+          // //console.log(response.data.data);
         });
     } else {
       axios
@@ -253,7 +253,7 @@ const Landing = ({
           config
         )
         .then(function (response) {
-          console.log(response.data.data);
+          //console.log(response.data.data);
           setLoanData(response.data.data);
 
           setIsLoading(false);
@@ -264,7 +264,7 @@ const Landing = ({
   const triggerStatus = (e) => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(e.target.id);
+    //console.log(e.target.id);
     // setGetCategory(e.target.id);
 
     let status = 0;
@@ -602,9 +602,9 @@ const Landing = ({
             >
               {loanData.map((loan, i) => {
                 // if (loan.loan_category === getCategory) {
-                // console.log(loan);
+                // //console.log(loan);
 
-                // console.log(loan.loan_category);
+                // //console.log(loan.loan_category);
                 let percent = 0;
                 let up = 0;
                 let down = 0;
@@ -619,7 +619,7 @@ const Landing = ({
                 let per =
                   (parseFloat(backed) / parseFloat(votingThreshold)) * 100;
 
-                // console.log(per);
+                // //console.log(per);
 
                 // setPercentage(Math.round(per));
 
@@ -639,7 +639,7 @@ const Landing = ({
                   }
                 }
                 // }
-                // console.log(loan);
+                // //console.log(loan);
 
                 return (
                   // <Link to="/loan-details">{"/loan/details/" + loan.id}

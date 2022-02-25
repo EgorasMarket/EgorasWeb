@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import "../../../../css/login.css";
 import { Link } from "react-router-dom";
 import PropTypes from "prop-types";
+import {CustomAlert} from "./alert";
 
 import { getLogin } from "../../../../actions/auth";
 // import { getAuthentication } from "../../../../actions/auth";
@@ -12,6 +13,9 @@ import { setAlert } from "../../../../actions/alert";
 const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
   const [toke, setToke] = useState({ email: "", password: "" });
   const [userName, setUserName] = useState("");
+  const [alert2, setAlert2] = useState("");
+  const [alertType, setAlertType] = useState("");
+  
   // const [loginSuccess,setLoginSuccess]= useState('successfully');
   // const [password,setPassword]= useState();
 
@@ -27,27 +31,33 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
   // setEmail(e.target.value)
 
   // }
-  console.log(email," email up to you")
+  // console.log(email," email up to you")
 
   //  const onChangeMe2 =(e)=>{
   // setPassword(e.target.value)
 
   //  }
 
+
+
   const sumit = async (e) => {
     // loginSuccess('true')
     
     let res3 = await getLogin(email, password);
     
-    console.log(res3,"Welcome mr Charlse");
+    console.log(res3);
+  
     
-    // if (res.data.email !== e.target.value)
+    // const email2 = document.querySelector('#Email');
+    // if (email != email2.target.value){
+    //   console.log(' email does not match')
+    // }
     
     if (res3.data.success === true) {
       parentCallback(true);
-      console.log("okay Good Server");
     } else {
-      setAlert(res3.data.errors[0].msg, "danger");
+      console.log(res3.data);
+      setAlert2(res3.data);
     }
   };
   // Redirect if logged in
@@ -55,6 +65,10 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
     // return <Redirect to="/dashboard" />;
     // return window.location.replace("/dashboard");
   }
+
+  const timer = setTimeout(() => {
+    setAlert2("");
+  }, 5000);
 
   return (
     <div>
@@ -69,6 +83,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
               <span className="input_title">Email address</span>
               <input
                 type="email"
+                id="Email"
                 className="signup_input_field"
                 name="email"
                 onChange={onChange2}
@@ -104,6 +119,8 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
           </a>
         </span>
       </div>
+
+      {alert2 == "" ? null : <CustomAlert alert={alert} alertType={alertType} onChange={timer} />}
     </div>
   );
 };

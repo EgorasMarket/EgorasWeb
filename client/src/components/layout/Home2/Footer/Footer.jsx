@@ -69,7 +69,7 @@ const Footer = () => {
       document.getElementById("FooterId").style.display = "none";
     }
 
-    // console.log(myArr[3], myArr[4]);
+    // ////console.log(myArr[3], myArr[4]);
     if (FooterHide === "/dashboard/") {
       document.getElementById("FooterId").style.display = "none";
     }
@@ -100,7 +100,7 @@ const Footer = () => {
     if (FooterHide === "/whitepaper") {
       document.getElementById("FooterId").style.display = "none";
     }
-    // console.log(myArr[1]);
+    // ////console.log(myArr[1]);
     if (myArr[1] === "super_admin") {
       document.getElementById("FooterId").style.display = "none";
     }
