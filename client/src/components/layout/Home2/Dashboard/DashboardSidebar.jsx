@@ -9,6 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
+import NotificationsIcon from '@mui/icons-material/Notifications';
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import StoreIcon from "@mui/icons-material/Store";
@@ -199,7 +200,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
             >
               <div className="together">
                 <div className="save_numb_div">
-                  <SavingsIcon className="cart_icon" />
+                  <NotificationsIcon className="cart_icon" />
                   <div className="cart_num">{cartNum}</div>
                 </div>
 

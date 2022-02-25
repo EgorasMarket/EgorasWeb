@@ -97,6 +97,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 value={email}
                 name="email"
                 onChange={onChange}
+                placeHolder="@gmail.com"
               />
               <div className="weak_pass_div text-muted">* Optional</div>
             </div>
@@ -128,6 +129,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 value={password}
                 name="password"
                 onChange={onChange}
+                  placeHolder="****"
               />
             </div>
             <div className="signup_input_field1_cont">
@@ -140,6 +142,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 name="confirmpassword"
                 onChange={onChange}
                 className="signup_input_field"
+                  placeHolder="****"
               />
             </div>
             <div className="signup_input_field1_cont">
