@@ -17,6 +17,8 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
 
   const { email, password } = toke;
 
+  const [infoSet,setSet]= useState(localStorage.getItem("6218a7a7c55c3a00ed668b6d.appUserId"))
+
   const onChange2 = (e) => {
     setToke({ ...toke, [e.target.name]: e.target.value });
   };
@@ -25,6 +27,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
   // setEmail(e.target.value)
 
   // }
+  console.log(email," email up to you")
 
   //  const onChangeMe2 =(e)=>{
   // setPassword(e.target.value)
@@ -36,7 +39,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
     
     let res3 = await getLogin(email, password);
     
-    console.log(res3);
+    console.log(res3,"Welcome mr Charlse");
     
     // if (res.data.email !== e.target.value)
     
