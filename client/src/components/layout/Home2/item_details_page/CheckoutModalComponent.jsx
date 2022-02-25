@@ -324,7 +324,7 @@ const CheckoutModalComponent = ({
                  }}>
               <div className="wit_card">
                 Pay via wallet {" "}
-                <input type="checkbox" name="payment" id="" className="checkBox"  />
+                <input type="checkbox" name ="payment" id="" className="checkBox"  />
               </div>
             </div>
 

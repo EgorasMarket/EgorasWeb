@@ -6,6 +6,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
 import "../DashboardStyles/dashboard_savings.css";
+import NoFoundInfo from "../NodataFound/NoDataFoundComponent"
 
 
 const responsive7 = {
@@ -123,6 +124,8 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
+  const text = "No item Locked yet";
+
   // useEffect(() => {
   //   const body = JSON.stringify({
   //     product_id,
@@ -194,11 +197,12 @@ function DashboardSavingsPage({ match, auth }) {
                 <div className="savings_overview_card1  over_third_card"></div>
                 <div className="savings_overview_card1 over_fourth_card"></div> */}
               </div>
-              {/* {userLockId.length <= 0 ? null:  } */}
+               {userLockId.length <= 0 ? null :(
               <div className="savings_overview_body_cont1">
                 Total Number of Locked {userLockId.length >= 2 ? "items":'item'}{" "}
                <span className="saved_figure">{userLockId.length}</span>
-              </div>
+              </div>)} 
+              {userLockId.length <= 0 ? (<NoFoundInfo text={text} />) :(
               <div className="locked_items">
                 <div class="save_prod_deta">
                   <table className="save_item_table">
@@ -298,8 +302,8 @@ function DashboardSavingsPage({ match, auth }) {
                     ))}
                   </table>
                 </div>
-              </div>
-           
+              </div>) }
+             
             </div>
             <div className="dash_savings_area2">
               <div className="savings_transactions_divs"></div>

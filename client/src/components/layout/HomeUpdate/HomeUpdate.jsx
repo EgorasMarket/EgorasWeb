@@ -11,6 +11,7 @@ import Carousel from "react-multi-carousel";
 import "../../../css/market_home.css";
 import "../../../css/about.css";
 import "../../../css/aboutMobile.css";
+
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -140,6 +141,11 @@ const HomeUpdate = () => {
       {/* =========== */}
       {/* =========== */}
       {/* =========== */}
+
+
+ 
+
+
       <section className="new_hero_section2">
         <div className="container">
           <div className="new_hero_section2_area">
