@@ -53,8 +53,8 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  const [tokenBal, setTokenBal] = useState(0);
-  const [assetVal, setAssetVal] = useState(0.000);
+  const [tokenBal, setTokenBal] = useState("0.000");
+  const [assetVal, setAssetVal] = useState("0.000");
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
   const [errorDiv, setErrorDiv] = useState(false);
