@@ -2,15 +2,17 @@ import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { createWallet } from "../../../actions/wallet";
 import { depositToken } from "../../../actions/wallet";
-
+import LoadingIcons from "react-loading-icons";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
 import { Link } from "react-router-dom";
 import data from "../MockData";
 import { API_URL2 as api_url2 } from "../../../actions/types";
+
 import axios from "axios";
 
 import "./wallet.css";
@@ -24,13 +26,17 @@ const ITEM_HEIGHT = 48;
 
 const Wallet = ({ auth, createWallet, depositToken }) => {
   const [age, setAge] = React.useState("");
-  const [assetVal, setAssetVal] = useState("200,000.00");
+  const [assetVal, setAssetVal] = useState("");
   const [adminId, setAdminId] = useState("");
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
   const [allTokens, setAllTokens] = useState([]);
   const [copiedTxt, setCopiedTxt] = useState(false);
   const [copiedTxt1, setCopiedTxt1] = useState(false);
+  const [deposits, setDeposits] = useState([]);
+  const [tokenBal, setTokenBal] = useState("");
   // const [currentToken, setCurrentToken] = useState();
   // const [tokenName, setTokenName] = useState();
   const [tokenSymbol, setTokenSymbol] = useState();
@@ -38,15 +44,17 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   const [createWalletModal, setCreateWalletModal] = useState(false);
   const [walletAddr, setWalletAddr] = useState("");
   const [assetName, setAssetName] = useState();
+  const [custId, setCustId] = useState("");
   const [showDeposit, setShowDeposit] = useState(false);
   const [tokenSign, setTokenSign] = useState();
   const [activeBg, setActiveBg] = useState("Home");
-  const [txId, setTxId] = useState(
-    "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
-  );
-  const [txId2, setTxId2] = useState(
-    "0x360ba97e2a8f0deb200e34846092a3b8110283b1"
-  );
+  const [network, setNetwork] = useState("BSC");
+  // const [txId, setTxId] = useState(
+  //   "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
+  // );
+  // const [txId2, setTxId2] = useState(
+  //   "0x360ba97e2a8f0deb200e34846092a3b8110283b1"
+  // );
 
   const handleChange = (event) => {
     setAge(event.target.value);
@@ -89,10 +97,45 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   //     });
   // }, []);
   useEffect(() => {
+    var Authorized = auth.user;
+    var userId = Authorized.user.id;
+    axios
+      .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
+      .then((data) => {
+        console.log(data.data.data.balance);
+        setTokenBal(data.data.data.balance);
+        setAssetVal(data.data.data.balance * 1);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [auth]);
+  useEffect(() => {
+    var Authorized = auth.user;
+    var userId = Authorized.user.id;
+    var hardCodedId = "2cac7619-fc8e-45d2-be07-39d76f04def1";
+    console.log(userId);
+    axios
+      .get(
+        api_url2 + "/v1/wallet/get/wallet/fetch/deposits/" + userId,
+        null,
+        config
+      )
+      .then((data) => {
+        console.log(data.data.data);
+        setDeposits(data.data.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
+  }, [auth]);
+  useEffect(() => {
+    setIsLoading2(true);
     axios
       .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
       .then((data) => {
         console.log(data.data.data, "powerful");
+        setIsLoading2(false);
         setAssetName(data.data.data[0].tokenName);
         setTokenSign(data.data.data[0].tokenSymbol);
         setAllTokens(data.data.data);
@@ -150,6 +193,12 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   //   }
   // };
 
+  const copyWalletAddress = (e) => {
+    navigator.clipboard.writeText(e);
+    // let currentId = e.currentTarget.id;
+    // setActiveBg(currentId);
+    setCopiedTxt(true);
+  };
   const copyTextText = (e) => {
     navigator.clipboard.writeText(e);
     // let currentId = e.currentTarget.id;
@@ -176,31 +225,37 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     setActiveBg("deposit_btn");
     // setCurrentToken(tokenSymbol);
     // setTokenName(tokenName);
-
+    // setIsLoading(true);
     if (accountExists) {
       console.log("accountExists");
       setShowDeposit(true);
+      setIsLoading(true);
       // console.log(adminId);
       let res3 = await depositToken(adminId, tokenSymbol);
       console.log(res3);
+      setIsLoading(true);
 
       if (res3.success === true) {
         setWalletAddr(res3.data.address);
+        setIsLoading(false);
       }
     } else {
       console.log("not accountExists");
-      setShowDeposit(true);
+      setShowDeposit(false);
       // console.log(adminId);
       let res3 = await createWallet(adminId, tokenSymbol);
       console.log(res3);
+      setIsLoading(true);
 
       if (res3.success === true) {
         setWalletAddr(res3.data.address);
+        setIsLoading(false);
       }
     }
   };
   const closeDepositDiv = () => {
     setShowDeposit(false);
+    setActiveBg("withdraw_btn");
   };
 
   return (
@@ -224,14 +279,26 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                   />
                 )}
               </div>
-              {secureNumb == true ? (
-                <div className="arrowSpan">
-                  *********** <div className="usd_val">*********</div>
+              {isLoading2 == true ? (
+                <div className="loading_icon_div_amnt">
+                  <LoadingIcons.ThreeDots
+                    fill="#fff"
+                    className="loading_iconnn"
+                  />
                 </div>
               ) : (
-                <div className="arrowSpan">
-                  ₦{assetVal} <div className="usd_val">≈ ${200000 / 560}</div>
-                </div>
+                <>
+                  {secureNumb == true ? (
+                    <div className="arrowSpan">
+                      *********** <div className="usd_val">*********</div>
+                    </div>
+                  ) : (
+                    <div className="arrowSpan">
+                      ₦{assetVal}{" "}
+                      <div className="usd_val">≈ ${assetVal / 560}</div>
+                    </div>
+                  )}
+                </>
               )}
             </div>
 
@@ -319,84 +386,102 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                   </div>
                 </div>
                 <hr />
-
-                {allTokens.map((data) => (
-                  <div className="divConcept2 ">
-                    <div>
-                      <StarRateIcon className="starRateIcon" />
-                    </div>
-                    <div>
-                      <div className="nigeriaCurrency">{data.tokenName}</div>
-                      {secureNumb == true ? (
-                        <div style={{ marginBottom: "5px" }}>*******</div>
-                      ) : (
-                        <div style={{ marginBottom: "5px" }}>0.00</div>
-                      )}
-
-                      <div style={{ display: "flex" }}>
-                        <button
-                          id="withdraw"
-                          className={
-                            activeBg == "deposit_btn"
-                              ? "depositButton_active"
-                              : "depositButton"
-                          }
-                          // id={data.tokenSymbol}
-                          onClick={() =>
-                            openDepositDiv(data.tokenName, data.tokenSymbol)
-                          }
-                        >
-                          Deposit
-                        </button>
-                        <button
-                          id="withdraw_btn"
-                          className={
-                            activeBg == "withdraw_btn"
-                              ? "depositButton_active"
-                              : "depositButton"
-                          }
-                          onClick={changeBg}
-                        >
-                          {" "}
-                          Withdraw
-                        </button>
-
-                        <button className="buttonMenu_drop">
-                          <MoreVertIcon
-                            className="divVan"
-                            // onClick={works2}
-                            id="tab1"
-                          />
-                          <MoreVertIcon
-                            className="divVan"
-                            // onClick={works}
-                            id="tab2"
-                          />
-                          <div className="downContent" id="downContent1">
-                            <div
-                              className="depo"
-                              // onClick={changePage5}
-                            >
-                              Deposit History
-                            </div>
-                            <div
-                              className="depo"
-                              // onClick={changePage6}
-                            >
-                              Transaction History
-                            </div>
-                            <div
-                              className="depo"
-                              // onClick={changePage4}
-                            >
-                              Withdrawal History
-                            </div>
-                          </div>
-                        </button>
-                      </div>
-                    </div>
+                {isLoading2 == true ? (
+                  <div className="loading_icon_d">
+                    <LoadingIcons.ThreeDots
+                      fill="#229e54"
+                      className="loading_iconnn"
+                    />
+                    <p className="loading_txt">Loading...</p>
                   </div>
-                ))}
+                ) : (
+                  <>
+                    {allTokens.map((data) => (
+                      <div className="divConcept2 ">
+                        <div>
+                          <StarRateIcon className="starRateIcon" />
+                        </div>
+                        <div>
+                          <div className="nigeriaCurrency">
+                            {data.tokenName}
+                          </div>
+                          {secureNumb == true ? (
+                            <div style={{ marginBottom: "5px" }}>*******</div>
+                          ) : (
+                            <div style={{ marginBottom: "5px" }}>
+                              {tokenBal}
+                              <span className="token_symbolism">
+                                {tokenSign}
+                              </span>
+                            </div>
+                          )}
+
+                          <div style={{ display: "flex" }}>
+                            <button
+                              id="withdraw"
+                              className={
+                                activeBg == "deposit_btn"
+                                  ? "depositButton_active"
+                                  : "depositButton"
+                              }
+                              // id={data.tokenSymbol}
+                              onClick={() =>
+                                openDepositDiv(data.tokenName, data.tokenSymbol)
+                              }
+                            >
+                              Deposit
+                            </button>
+                            <button
+                              id="withdraw_btn"
+                              className={
+                                activeBg == "withdraw_btn"
+                                  ? "depositButton_active"
+                                  : "depositButton"
+                              }
+                              onClick={closeDepositDiv}
+                            >
+                              {" "}
+                              Withdraw
+                            </button>
+
+                            <button className="buttonMenu_drop">
+                              <MoreVertIcon
+                                className="divVan"
+                                // onClick={works2}
+                                id="tab1"
+                              />
+                              <MoreVertIcon
+                                className="divVan"
+                                // onClick={works}
+                                id="tab2"
+                              />
+                              <div className="downContent" id="downContent1">
+                                <div
+                                  className="depo"
+                                  // onClick={changePage5}
+                                >
+                                  Deposit History
+                                </div>
+                                <div
+                                  className="depo"
+                                  // onClick={changePage6}
+                                >
+                                  Transaction History
+                                </div>
+                                <div
+                                  className="depo"
+                                  // onClick={changePage4}
+                                >
+                                  Withdrawal History
+                                </div>
+                              </div>
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                  </>
+                )}
               </div>
               {showDeposit == true ? (
                 <div className="deposit_div">
@@ -433,6 +518,14 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                           {assetName}
                         </div>
                         <div className="deposit_div_body1_input1_qr_code_img_div">
+                          {/* {isLoading == true ? ( */}
+                          {/* <div className="wallet_loading_c">
+                            <LoadingIcons.ThreeDots
+                              fill="#229e54"
+                              className="loading_iconnn"
+                            />
+                          </div> */}
+                          {/* ) : ( */}
                           <img
                             src={
                               "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
@@ -441,14 +534,38 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             alt=""
                             className="qr_img"
                           />
+                          {/* )} */}
+
                           <div className="copy_address_div">
-                            <div className="copy_address_div_title">
-                              Address
-                            </div>
-                            <div className="copy_address_div_txt" id="myInput">
-                              {walletAddr}
-                              <FileCopyIcon className="file_icon_copy" />
-                            </div>
+                            {isLoading == true ? null : (
+                              <>
+                                <div className="copy_address_div_title">
+                                  Address
+                                </div>
+                                <div
+                                  className="copy_address_div_txt"
+                                  id="myInput"
+                                >
+                                  {walletAddr}
+                                  <FileCopyIcon
+                                    className="file_icon_copy"
+                                    onClick={() =>
+                                      copyWalletAddress(walletAddr)
+                                    }
+                                    // onMouseOut={outFunc}
+                                  />
+
+                                  {copiedTxt == true ? (
+                                    <div
+                                      className="copiedToClipBoardDiv"
+                                      onChange={timer}
+                                    >
+                                      Wallet Address copied to clipboard
+                                    </div>
+                                  ) : null}
+                                </div>
+                              </>
+                            )}
                           </div>
                         </div>
                         <div className="deposit_div_body1_input1_qr_code_title">
@@ -474,92 +591,96 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                   <div className="deposit_history">
                     <div className="deposit_history_title">Recent Deposits</div>
                     <div className="deposit_history_body">
-                      {data.depositTransactions.map((data) => (
-                        <div className="deposit_history_body_area1">
-                          <div className="deposit_history_body_area1_cont">
-                            <div className="deposit_history_body_area1_cont_area1">
-                              <div className="deposit_history_div1">
-                                <span className="token_symbol">
-                                  {" "}
-                                  <StarRateIcon className="starRateIcon starRateIcon_2" />
-                                </span>
-                                <div className="token_deposit_amnt">
-                                  131.3504 {tokenSign}
-                                  <span className="completed_div">
-                                    Completed
-                                  </span>
-                                </div>
-                              </div>
-                              <div className="deposit_history_div2">
-                                <div className="deposit_history_div2_date">
-                                  2022-02-20{" "}
-                                  <span className="deposit_history_div2_time">
-                                    12:28
-                                  </span>
-                                </div>
-                                <div className="deposit_history_div2_network">
-                                  <span className="deposit_history_div2_network_title">
-                                    Network
-                                  </span>
-                                  {data.network}
-                                </div>
-                                <div className="deposit_history_div2_address">
-                                  <span className="deposit_history_div2_network_title">
-                                    Address
-                                  </span>
-                                  <div className="address_cont">
-                                    {data.fromAddress}
-                                  </div>
-
-                                  <FileCopyIcon
-                                    className="deposit_history_address_copy_icon"
-                                    onClick={() =>
-                                      copyTextText2(data.fromAddress)
-                                    }
-                                  />
-                                  <span className="hover_txn_address_cont">
-                                    {data.fromAddress}
-                                  </span>
-                                  {copiedTxt1 == true ? (
-                                    <div
-                                      className="copiedToClipBoardDiv"
-                                      onChange={timer}
-                                    >
-                                      Text copied to clipboard
+                      {deposits.length == 0 ? (
+                        <NoDataFoundComponent nodataTxt="No Deposits Here Yet." />
+                      ) : (
+                        <>
+                          {deposits.map((data) => (
+                            <div className="deposit_history_body_area1">
+                              <div className="deposit_history_body_area1_cont">
+                                <div className="deposit_history_body_area1_cont_area1">
+                                  <div className="deposit_history_div1">
+                                    <span className="token_symbol">
+                                      {" "}
+                                      <StarRateIcon className="starRateIcon starRateIcon_2" />
+                                    </span>
+                                    <div className="token_deposit_amnt">
+                                      {data.amount} {tokenSign}
+                                      <span className="completed_div">
+                                        Completed
+                                      </span>
                                     </div>
-                                  ) : null}
-                                </div>
-                                <div className="deposit_history_div2_address">
-                                  <span className="deposit_history_div2_network_title">
-                                    TXID
-                                  </span>
-                                  <div className="address_cont">
-                                    {data.txnId.substring(0, 10) +
-                                      "..." +
-                                      data.txnId.substr(data.txnId.length - 7)}
                                   </div>
-
-                                  <FileCopyIcon
-                                    onClick={() => copyTextText(data.txnId)}
-                                    className="deposit_history_address_copy_icon"
-                                  />
-                                  <span className="hover_txn_address_cont">
-                                    {data.txnId}
-                                  </span>
-                                  {copiedTxt == true ? (
-                                    <div
-                                      className="copiedToClipBoardDiv"
-                                      onChange={timer}
-                                    >
-                                      Text copied to clipboard
+                                  <div className="deposit_history_div2">
+                                    <div className="deposit_history_div2_date">
+                                      {data.timestamp}
                                     </div>
-                                  ) : null}
+                                    <div className="deposit_history_div2_network">
+                                      <span className="deposit_history_div2_network_title">
+                                        Network
+                                      </span>
+                                      {network}
+                                    </div>
+                                    <div className="deposit_history_div2_address">
+                                      <span className="deposit_history_div2_network_title">
+                                        Address
+                                      </span>
+                                      <div className="address_cont">
+                                        {/* {data.fromAddress.substring(0, 10) +
+                                    "..." +
+                                    data.fromAddress.substr(
+                                      data.fromAddress.length - 10
+                                    )} */}
+                                        {walletAddr}
+                                      </div>
+
+                                      <span className="hover_txn_address_cont">
+                                        {walletAddr}
+                                      </span>
+                                      {/* {copiedTxt1 == true ? (
+                                        <div
+                                          className="copiedToClipBoardDiv"
+                                          onChange={timer}
+                                        >
+                                          Text copied to clipboard
+                                        </div>
+                                      ) : null} */}
+                                    </div>
+                                    <div className="deposit_history_div2_address">
+                                      <span className="deposit_history_div2_network_title">
+                                        TXID
+                                      </span>
+                                      <div className="address_cont">
+                                        {data.transaction_hash.substring(
+                                          0,
+                                          10
+                                        ) +
+                                          "..." +
+                                          data.transaction_hash.substr(
+                                            data.transaction_hash.length - 7
+                                          )}
+                                        {/* {txId} */}
+                                      </div>
+
+                                      <span className="hover_txn_address_cont">
+                                        {data.transaction_hash}
+                                      </span>
+                                      {/* {copiedTxt == true ? (
+                                        <div
+                                          className="copiedToClipBoardDiv"
+                                          onChange={timer}
+                                        >
+                                          Text copied to clipboard
+                                        </div>
+                                      ) : null} */}
+                                    </div>
+                                  </div>
                                 </div>
                               </div>
                             </div>
-                          </div>
-                        </div>
-                      ))}
+                          ))}
+                        </>
+                      )}
 
                       <div className="view_all_btn" key={data.id}>
                         <a href="#" className="view_all_link">
