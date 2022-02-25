@@ -107,22 +107,6 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     //     //   alert('here')
     //     // }})
     // }
-<<<<<<< HEAD
-    switch (value){
-      case 0:   
-             // alert('payment set as card', product_id)
-          handleFlutterPayment({
-            callback: async (response) => {
-              console.log(response)
-              try {
-                if (!response.transaction_id){
-                    alert("We couldn't return any information from this payment please try again.")
-                }
-                const verification = await verify(response.transaction_id, product_id, startDate, endDate, days_left)
-                closePaymentModal()
-              } catch (error) {
-                console.log(error.response)
-=======
     switch (value) {
       case 0:
         // alert('payment set as card', product_id)
@@ -134,7 +118,6 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                 alert(
                   "We couldn't return any information from this payment please try again."
                 );
->>>>>>> 88992091bdac8e51966ce4845e9e9a764df47aac
               }
               const verification = await verify(
                 response.transaction_id,

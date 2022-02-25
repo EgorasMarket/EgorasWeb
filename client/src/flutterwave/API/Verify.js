@@ -28,7 +28,7 @@ const verify = async (transaction_id, product_id, startDate, endDate, days_left)
             initial_pay: amount,
             startDate, 
             endDate,
-            days_left
+            // days_left
 
         });
         const res = await axios.post(API_URL2 + "/v1/order/add/order", orderBody, config);
