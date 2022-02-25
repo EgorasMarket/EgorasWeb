@@ -223,6 +223,7 @@ const Signup = ({ getAuthentication }) => {
                       value={email}
                       name="email"
                       onChange={onChange}
+                      placeHolder="@gmail.com"
                     />
                   </div>
                   <div className="signup_input_field1_cont">
@@ -233,6 +234,7 @@ const Signup = ({ getAuthentication }) => {
                       value={phoneNumber}
                       name="phoneNumber"
                       onChange={onChange}
+                      
                     />
                   </div>
                   <div className="signup_input_field1_cont">
@@ -256,6 +258,7 @@ const Signup = ({ getAuthentication }) => {
                         value={password}
                         name="password"
                         onChange={onChange}
+                        placeHolder="****"
                         // onInput={onChangeMisMatch}
                       />
                       {visibility == false ? (
@@ -287,6 +290,7 @@ const Signup = ({ getAuthentication }) => {
                         value={confirmPassword}
                         name="confirmPassword"
                         onChange={onChange2}
+                          placeHolder="****"
                       />
                       {visibility2 == false ? (
                         <img
