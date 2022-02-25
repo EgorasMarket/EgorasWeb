@@ -26,16 +26,16 @@ const Item_details_main = ({ match, auth }) => {
     },
   };
 
-  console.log(match.params.id);
-  console.log(auth);
+  //console.log(match.params.id);
+  //console.log(auth);
 
   const [loginSuccess,setLoginSuccess]= useState(false);
 
   // const handleSelect = (ranges) => {
-  //   console.log(ranges);
+  //   //console.log(ranges);
   // };
   const handleSelect = (ranges) => {
-    console.log(ranges);
+    //console.log(ranges);
     // {
     //   selection: {
     //     startDate: [native Date Object],
@@ -105,7 +105,7 @@ const Item_details_main = ({ match, auth }) => {
     if (date.getDate()) {
       return true;
     }
-    console.log(date.getDate() + 2, "memememe");
+    //console.log(date.getDate() + 2, "memememe");
   }, []);
 
   const {
@@ -133,18 +133,18 @@ const Item_details_main = ({ match, auth }) => {
     //   set_user_id(auth.user.user.id);
     // }
 
-    console.log(body);
+    //console.log(body);
 
     axios
       .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       .then((data) => {
-        console.log(data.data.data, "king");
+        //console.log(data.data.data, "king");
 
         const getSlid = data.data.data.product_specifications;
         //  const slipVar = getSlid.split(',');
-        console.log("====================================");
-        console.log(getSlid);
-        console.log("====================================");
+        //console.log("====================================");
+        //console.log(getSlid);
+        //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
 
@@ -165,14 +165,14 @@ const Item_details_main = ({ match, auth }) => {
         });
         // setLowNumS({prod_dur:"8"});
 
-        console.log("====================================");
+        //console.log("====================================");
         // const NumbsAr =
         // setLowNumS(NumbLow);
-        // console.log(NumbLow);
-        console.log(lowOutCome);
+        // //console.log(NumbLow);
+        //console.log(lowOutCome);
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
   }, []);
 
@@ -180,16 +180,16 @@ const Item_details_main = ({ match, auth }) => {
 
     // setCartNum(cart.length)
     // fetchDepositLinks();
-    console.log(auth);
+    //console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
+      // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
       
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
+      // //console.log('====================================');
+      //console.log(todecodedn);
+      // //console.log('====================================');
       
       
       const getName = todecoded.user.fullname
@@ -206,8 +206,8 @@ const Item_details_main = ({ match, auth }) => {
     .fill(0)
     .map((e, i) => i + 1);
 
-  console.log("====================================");
-  console.log(LowCalc);
+  //console.log("====================================");
+  //console.log(LowCalc);
   const addToCart = async (customer_id, product_id, quantity) => {
     const payload = {
       customer_id,
@@ -219,14 +219,14 @@ const Item_details_main = ({ match, auth }) => {
       .then((response) => {
         // alert("Item successfully added to cart ");
 
-        console.log("kingsley Chukwubuike");
+        //console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
         alert(err.response.data.message);
-        console.log("error reported", err.response);
+        //console.log("error reported", err.response);
       });
 
-    console.log(call, "chukwubuike kingsley");
+    //console.log(call, "chukwubuike kingsley");
   };
 
   const checkout = async (
@@ -251,17 +251,17 @@ const Item_details_main = ({ match, auth }) => {
         // alert("Item successfully added to cart ");
         // setDailyAmount(response.data.details.rounded)
 
-        console.log(response.data.details);
+        //console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
         setInitialDeposit(response.data.details.initial_deposit);
       })
       .catch((err) => {
         // alert(err.response.data.message);
-        console.log("error reported", err.response);
+        //console.log("error reported", err.response);
       });
   };
   // const food = spec[0].split('');
-  // console.log(food[0])
+  // //console.log(food[0])
 
   const [itemsLeft, setItemsLeft] = useState(2);
   const [daysAdded, setDaysAdded] = useState(0);
@@ -269,10 +269,10 @@ const Item_details_main = ({ match, auth }) => {
   const [date, setDate] = useState(null);
   // const iteming = unitCount;
 
-  console.log("====================================");
-  console.log(spec);
-  console.log(productDetails);
-  console.log("====================================");
+  //console.log("====================================");
+  //console.log(spec);
+  //console.log(productDetails);
+  //console.log("====================================");
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
@@ -285,7 +285,7 @@ const Item_details_main = ({ match, auth }) => {
     if (count >= 4) {
       setDisable(true);
       setDisable2(false);
-      console.log("stop count");
+      //console.log("stop count");
     } else {
       setDisable(false);
       setDisable2(false);
@@ -307,7 +307,7 @@ const Item_details_main = ({ match, auth }) => {
     if (count <= 1) {
       setDisable2(true);
       setDisable(false);
-      console.log("stop count2");
+      //console.log("stop count2");
     }
 
     if (unitCount <= 1 || count < 1) {
@@ -362,21 +362,21 @@ const Item_details_main = ({ match, auth }) => {
     window.scrollTo(0, 0);
     // setImeeg(itemsId.map((log) => log.img));
     setImeeg(itemsId.firstItem.img);
-    console.log(itemsId.firstItem.img);
+    //console.log(itemsId.firstItem.img);
   }, []);
 
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip");
+        //console.log(data.data.data, "phlip");
 
         setTerm(data.data.data);
 
         // setTerm(data.data.data)
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -401,20 +401,20 @@ const Item_details_main = ({ match, auth }) => {
   // setDaysAdded(days)
   const percentDays = (percentage / 100) * days;
   // const endDate = addDays(new Date(), percentDays - 1);
-  console.log(percentDays);
+  //console.log(percentDays);
   const percentMoney = (percentage / 100) * amount;
-  console.log(percentDays);
+  //console.log(percentDays);
   // const [cStartDate, setStartDate] = useState(new Date());
   // const [cEndDate, setEndDate] = useState(new Date(), days);
-  // console.log(cStartDate);
+  // //console.log(cStartDate);
 
   // =================
   // =================
-  console.log(days);
+  //console.log(days);
   const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
-  // console.log(CalcDaysConvert);
+  // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
-    console.log("Hello Mr King");
+    //console.log("Hello Mr King");
   }
   const OpenModal = () => {
     setModal(true);
@@ -463,7 +463,7 @@ const Item_details_main = ({ match, auth }) => {
     }
 
   }, []);
-  console.log(loginSuccess);
+  //console.log(loginSuccess);
   return (
     <div className="other2">
 

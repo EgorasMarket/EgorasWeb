@@ -1,6 +1,7 @@
 import React from "react";
 import "./nodatafoundStyle.css";
- const NoDataFoundComponent = ({nodataTxt,text}) => {
+
+export const NoDataFoundComponent = ({ nodataTxt, text }) => {
   return (
     <div className="nodata_found_div">
       <img src="/img/no-data-found.svg" alt="" className="nodataImage" />
@@ -9,4 +10,3 @@ import "./nodatafoundStyle.css";
     </div>
   );
 };
-export default NoDataFoundComponent;

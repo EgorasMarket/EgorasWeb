@@ -267,7 +267,7 @@ const Whitepaper = () => {
     var footer_id = document.getElementById("footer_id");
     var boundingFoot = footer_id.getBoundingClientRect();
     var sideMenu = document.getElementById("whitepaper-side-bar");
-    // console.log(bounding1);
+    // //console.log(bounding1);
 
     if (
       boundingFoot.top >= 90 &&
@@ -283,7 +283,7 @@ const Whitepaper = () => {
       sideMenu.classList.add("on-scroll-sidebar");
       sideMenu.classList.remove("bottom-sidebar");
     }
-    console.log("i am working ooo");
+    //console.log("i am working ooo");
   });
 
   const toggleActive = (e) => {
@@ -291,7 +291,7 @@ const Whitepaper = () => {
     setActiveLink(link);
     setActiveMenu("notDetails-accord ");
 
-    console.log(e.currentTarget.id);
+    //console.log(e.currentTarget.id);
   };
 
   const toggleActiveDrop = () => {

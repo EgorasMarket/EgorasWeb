@@ -78,10 +78,10 @@ const Signup = ({ getAuthentication }) => {
       case "password":
         if (e.target.value.length <= 7) {
           setStrongPass(true);
-          console.log("password is not 8");
+          //console.log("password is not 8");
         } else if (password.length >= 7) {
           setStrongPass(false);
-          console.log("password is 8");
+          //console.log("password is 8");
         }
         break;
       default:
@@ -93,9 +93,9 @@ const Signup = ({ getAuthentication }) => {
     // }
 
     // if (e.target.value === "") {
-    //   console.log("input something here");
+    //   //console.log("input something here");
     // } else {
-    //   console.log("something is here");
+    //   //console.log("something is here");
     // }
   };
   const onChange2 = (e) => {
@@ -107,10 +107,10 @@ const Signup = ({ getAuthentication }) => {
       case "confirmPassword":
         if (e.target.value !== password) {
           setMismatchPass(true);
-          console.log("password not match");
+          //console.log("password not match");
         } else if (e.target.value === password) {
           setMismatchPass(false);
-          console.log("password match");
+          //console.log("password match");
         }
         break;
       default:
@@ -122,9 +122,9 @@ const Signup = ({ getAuthentication }) => {
     // }
 
     // if (e.target.value === "") {
-    //   console.log("input something here");
+    //   //console.log("input something here");
     // } else {
-    //   console.log("something is here");
+    //   //console.log("something is here");
     // }
   };
   const setPasswordVisibilty = () => {
@@ -165,10 +165,10 @@ const Signup = ({ getAuthentication }) => {
       InfoReason
       //   localStorage.referrer
     );
-    console.log(res);
+    //console.log(res);
     if (res.data.success === true) {
       setIsSuccessful(true);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
       setIsLoading(false);
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
@@ -176,7 +176,7 @@ const Signup = ({ getAuthentication }) => {
       setDisable(false);
     }
 
-    console.log(res.data.data.errors[0].msg);
+    //console.log(res.data.data.errors[0].msg);
   };
   const timer = setTimeout(() => {
     setAlert("");

@@ -24,19 +24,19 @@ const SignupComp = ({ adminAddCustomer }) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
     // if (e.target.value === "") {
-    //   console.log("input something here");
+    //   //console.log("input something here");
     // } else {
-    //   console.log("something is here");
+    //   //console.log("something is here");
     // }
   };
 
   const submitData = async (e) => {
-    // console.log('ggg');
+    // //console.log('ggg');
     if (fullname === '' || password === '' || phoneNumber === '' || BVN === '' || confirmpassword === '' || InfoReason === '') {
-      console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
+      //console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
       setAlert('All supply all fields.');
       setAlertType('danger')
-      console.log('All supply all fields.');
+      //console.log('All supply all fields.');
     } else {
 
       if (password !== confirmpassword) {
@@ -53,10 +53,10 @@ const SignupComp = ({ adminAddCustomer }) => {
         InfoReason
         //   localStorage.referrer
       );
-      console.log(res);
+      //console.log(res);
       if (res.data.success === true) {
           setIsSuccessful(true);
-        console.log("okay Good Server");
+        //console.log("okay Good Server");
       } else {
         setAlert(res.data.data.errors[0].msg);
         setAlertType('danger')

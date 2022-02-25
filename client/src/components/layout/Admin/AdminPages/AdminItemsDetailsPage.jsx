@@ -48,7 +48,7 @@ function AdminItemDetailsPage({ auth, match }) {
 
   
   useEffect(() => {
-    console.log(auth);
+    //console.log(auth);
 
     if (window.location.pathname.split("/")[1] === 'dashboard') {
       setProductId(match.params.id)
@@ -85,9 +85,9 @@ function AdminItemDetailsPage({ auth, match }) {
   };
 
   const OpenLoginModal = () => {
-    // console.log(auth.user.user);
+    // //console.log(auth.user.user);
     if (auth.user !== null) {
-      console.log(auth.user.user);
+      //console.log(auth.user.user);
       // set_user_id(customer_id);
       openDetailsModal();
       // checkout(
@@ -131,16 +131,16 @@ function AdminItemDetailsPage({ auth, match }) {
   
 
   useEffect(() => {
-    console.log(auth.isAuthenticated);
+    //console.log(auth.isAuthenticated);
     const body = JSON.stringify({
       product_id,
     });
     if (auth.user !== null) {
       set_user_id(auth.user.user.id);
-      console.log(auth.user.user);
+      //console.log(auth.user.user);
     } else {
       set_user_id('')
-      console.log('rrrrr');
+      //console.log('rrrrr');
     }
 
     axios
@@ -169,7 +169,7 @@ function AdminItemDetailsPage({ auth, match }) {
 
         } = data.data.data;
 
-        console.log(data.data.data, "king");
+        //console.log(data.data.data, "king");
         setPayload({
           amount,
           percentage,
@@ -195,25 +195,24 @@ function AdminItemDetailsPage({ auth, match }) {
         const getSpecs = data.data.data.product_details;
         // const myArray = getSlid.split(",");
 
-        console.log(getSlid);
-        console.log(getSpecs);
+        //console.log(getSlid);
 
         setSpec(getSlid);
         setDeScript(getSpecs);
 
         // //  const slipVar = getSlid.split(',');
-        // console.log("====================================");
-        // console.log(getSlid);
-        // console.log("====================================");
+        // //console.log("====================================");
+        // //console.log(getSlid);
+        // //console.log("====================================");
 
-        // console.log("====================================");
+        // //console.log("====================================");
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
   }, [product_id, auth]); // USE EFFECT TO  GET THE SPECIFIC PRODUCTS
 
-  console.log(product_id);
+  //console.log(product_id);
   return (
     <>
       {loginModal === false ? null : (

@@ -178,7 +178,7 @@ const ItemDetailComponent = ({
     axios
       .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip22278");
+        //console.log(data.data.data, "phlip22278");
 
         setOutrightProducts(data.data.data);
         // setCaping({
@@ -186,7 +186,7 @@ const ItemDetailComponent = ({
         // })
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -194,7 +194,7 @@ const ItemDetailComponent = ({
     axios
       .get(api_url2 + "/v1/product/retrieve/category", null, config)
       .then((data) => {
-        console.log(data.data.data, "Anthonia");
+        //console.log(data.data.data, "Anthonia");
 
         // const pad = data.data.data[0].product_category_code;
 
@@ -210,7 +210,7 @@ const ItemDetailComponent = ({
         // })
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -220,14 +220,14 @@ const ItemDetailComponent = ({
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "item detail component ");
+        //console.log(data.data.data, "item detail component ");
 
         setTerm(data.data.data);
 
         // setTerm(data.data.data)
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
   const data1 = api_url2 + "/" + product_image;
@@ -255,7 +255,7 @@ const ItemDetailComponent = ({
   ];
 
   // {
-  //   console.log(spec, " welcome  Daniel");
+  //   //console.log(spec, " welcome  Daniel");
   // }
   const numberWithCommas = (x) => {
     return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");

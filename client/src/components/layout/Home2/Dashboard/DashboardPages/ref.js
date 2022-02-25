@@ -31,7 +31,7 @@ class App extends React.Component {
 //         friends: response
 //       })
 //     })
-//     .catch(err => { console.log(err); 
+//     .catch(err => { //console.log(err); 
 //     });
 //   }
 
@@ -55,10 +55,10 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response)
+      //console.log(response)
     })
     .catch(err => {
-      console.log(err);
+      //console.log(err);
     });
   }
 
@@ -82,9 +82,11 @@ class App extends React.Component {
         })
         })
         .then(response => response.json())
-        .then(response => { console.log(response);
+        .then(response => { //console.log(response);
         })
-        .catch(err => { console.log(err); });
+      .catch(err => {
+        // console.log(err);
+      });
   }
 
   delete(e) {
@@ -100,10 +102,10 @@ class App extends React.Component {
     })
     .then(response => response.json())
     .then(response => {
-      console.log(response);
+      //console.log(response);
     })
     .catch(err => {
-      console.log(err);
+      //console.log(err);
     });
   }
 

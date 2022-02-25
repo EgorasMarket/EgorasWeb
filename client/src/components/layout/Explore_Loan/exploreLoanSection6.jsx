@@ -21,7 +21,7 @@ const ExploreLoanSection3 = ({loans, fetch}) => {
             setIsLoading(false);
             setLoanData(loans.data);
     
-            console.log(loans.data);
+            //console.log(loans.data);
         }
     
        

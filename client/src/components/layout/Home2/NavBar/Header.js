@@ -253,7 +253,7 @@ const Header = ({ isAuthenticated, auth }) => {
     // document.getElementById("app_icon").style.display = "none";
   });
 
-  // console.log(auth);
+  // //console.log(auth);
 
   // page hide element
 
@@ -549,19 +549,17 @@ const Header = ({ isAuthenticated, auth }) => {
                     Dashboard
                   </a>
                 </div>
-              ) :null
-              //  (
-                // <div style={{ display: "flex" }}>
-                //   <a href="/login" className="getLoan">
-                //     {" "}
-                //     Login
-                //   </a>
-                //   <a href="/signup" className="connectb">
-                //     Signup
-                //   </a>
-                // </div>
-              // )
-              }
+              ) : currentPage == "/savings" && isAuth === false ? (
+                <div style={{ display: "flex" }}>
+                  <a href="/login" className="getLoan">
+                    {" "}
+                    Login
+                  </a>
+                  <a href="/signup" className="connectb">
+                    Signup
+                  </a>
+                </div>
+              ) : null}
             </ul>
             {/* <img
               src="/img/hamburger-open.svg"

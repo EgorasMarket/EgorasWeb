@@ -115,7 +115,7 @@ useEffect(() => {
 
     axios.get(api_url + "/api/loans/get/by/category/"+getCategory, null, config)
       .then(function (response) {
-          console.log(response.data.data)
+          //console.log(response.data.data)
           setLoanData(response.data.data)
           
           setIsLoading(false);
@@ -124,7 +124,7 @@ useEffect(() => {
 
   useEffect(() => {
     // setIsLoading(true);
-    console.log(getCategory);
+    //console.log(getCategory);
     
 
         
@@ -134,7 +134,7 @@ useEffect(() => {
 
 
   useEffect(() => {
-     console.log("Going...");  
+     //console.log("Going...");  
     const config = {
       headers: {
         "Content-Type": "application/json",
@@ -143,11 +143,11 @@ useEffect(() => {
 
     axios.get(api_url + "/api/loans/pending/100", null, config)
     .then(function (response) {
-      console.log("back...", response);  
+      //console.log("back...", response);  
         setLoanData(response.data.data)
        
         setIsLoading(false);
-        // console.log(response.data.data);
+        // //console.log(response.data.data);
         
     }); 
     
@@ -164,7 +164,7 @@ useEffect(() => {
 
   const confirm = async (e) =>{
    let id = e.currentTarget.id;
-   console.log(id);
+   //console.log(id);
   let confirm = await confirmLoan(id, library.getSigner());
 
 
