@@ -14,6 +14,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
+import Nodata from "../NodataFound/NoDataFoundComponent"
 
 const responsive6 = {
   superLargeDesktop: {
@@ -195,6 +196,8 @@ const DashboardHomePage = ({ auth, match }) => {
       });
   }, [auth]);
 
+  const text = "No item Locked yet"
+
   // useEffect(() => {
 
   // console.log(body);
@@ -272,7 +275,7 @@ const DashboardHomePage = ({ auth, match }) => {
             {/* [===================] */}
             {/* [===================] */}
 
-            {userLockId.length <= 0 ? null: 
+            {userLockId.length <= 0 ? (<Nodata text ={text}/>): 
             <div className="savings_overview">
               <div className="savings_overview_title">Savings Overview</div>
               <div className="savings_overview_body">
