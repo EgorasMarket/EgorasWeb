@@ -43,10 +43,10 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   // const handleSelect = (ranges) => {
-  //   console.log(ranges);
+  //   //console.log(ranges);
   // };
   const handleSelect = (ranges) => {
-    console.log(ranges);
+    //console.log(ranges);
     // {
     //   selection: {
     //     startDate: [native Date Object],
@@ -114,7 +114,7 @@ function ItemDetailsPage({ auth, match }) {
     if (date.getDate()) {
       return true;
     }
-    console.log(date.getDate() + 2, "memememe");
+    //console.log(date.getDate() + 2, "memememe");
   }, []);
 
   const {
@@ -141,18 +141,18 @@ function ItemDetailsPage({ auth, match }) {
       set_user_id(auth.user.user.id);
     }
 
-    console.log(body);
+    //console.log(body);
 
     axios
       .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       .then((data) => {
-        console.log(data.data.data, "king");
+        //console.log(data.data.data, "king");
 
         const getSlid = data.data.data.product_specifications;
         //  const slipVar = getSlid.split(',');
-        console.log("====================================");
-        console.log(getSlid);
-        console.log("====================================");
+        //console.log("====================================");
+        //console.log(getSlid);
+        //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
 
@@ -172,14 +172,14 @@ function ItemDetailsPage({ auth, match }) {
         });
         // setLowNumS({prod_dur:"8"});
 
-        console.log("====================================");
+        //console.log("====================================");
         // const NumbsAr =
         // setLowNumS(NumbLow);
-        // console.log(NumbLow);
-        console.log(lowOutCome);
+        // //console.log(NumbLow);
+        //console.log(lowOutCome);
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
   }, []);
 
@@ -191,13 +191,13 @@ function ItemDetailsPage({ auth, match }) {
       //   axios
       //   .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       //   .then((data) => {
-      //     console.log(data.data.data, "king");
+      //     //console.log(data.data.data, "king");
   
       //     const getSlid = data.data.data.product_specifications;
       //     //  const slipVar = getSlid.split(',');
-      //     console.log("====================================");
-      //     console.log(getSlid);
-      //     console.log("====================================");
+      //     //console.log("====================================");
+      //     //console.log(getSlid);
+      //     //console.log("====================================");
          
   
       //     setProductDetails({
@@ -216,14 +216,14 @@ function ItemDetailsPage({ auth, match }) {
       //     });
       //     // setLowNumS({prod_dur:"8"});
   
-      //     console.log("====================================");
+      //     //console.log("====================================");
       //     // const NumbsAr =
       //     // setLowNumS(NumbLow);
-      //     // console.log(NumbLow);
-      //     console.log(lowOutCome);
+      //     // //console.log(NumbLow);
+      //     //console.log(lowOutCome);
       //   })
       //   .catch((err) => {
-      //     console.log(err.response); // "oh, no!"
+      //     //console.log(err.response); // "oh, no!"
       //   });
     
   
@@ -232,7 +232,7 @@ function ItemDetailsPage({ auth, match }) {
 
   const submitCallCheck = async (product_id) => {
 
-    console.log(product_id, 'I feel it');
+    //console.log(product_id, 'I feel it');
 
     const body = JSON.stringify({
       product_id
@@ -245,7 +245,7 @@ function ItemDetailsPage({ auth, match }) {
       ).then((data) => {
         // document.getElementById(product_id).remove();
         
-          console.log(data.data);
+          //console.log(data.data);
 
           if (data.data.success === true) {
 
@@ -255,7 +255,7 @@ function ItemDetailsPage({ auth, match }) {
     
         })
         .catch((err) => {
-          console.log(err.response); // "oh, no!"
+          //console.log(err.response); // "oh, no!"
         });}
 
 
@@ -263,8 +263,8 @@ function ItemDetailsPage({ auth, match }) {
     .fill(0)
     .map((e, i) => i + 1);
 
-  console.log("====================================");
-  console.log(LowCalc);
+  //console.log("====================================");
+  //console.log(LowCalc);
   const addToCart = async (customer_id, product_id, quantity) => {
     const payload = {
       customer_id,
@@ -276,14 +276,14 @@ function ItemDetailsPage({ auth, match }) {
       .then((response) => {
         // alert("Item successfully added to cart ");
 
-        console.log("kingsley Chukwubuike");
+        //console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
         alert(err.response.data.message);
-        console.log("error reported", err.response);
+        //console.log("error reported", err.response);
       });
 
-    console.log(call, "chukwubuike kingsley");
+    //console.log(call, "chukwubuike kingsley");
   };
 
   const checkout = async (
@@ -308,19 +308,19 @@ function ItemDetailsPage({ auth, match }) {
         // alert("Item successfully added to cart ");
         // setDailyAmount(response.data.details.rounded)
 
-        console.log(response.data.details);
+        //console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
         setInitialDeposit(response.data.details.initial_deposit)
       })
       .catch((err) => {
         alert(err.response.data.message);
-        console.log("error reported", err.response);
+        //console.log("error reported", err.response);
       });
 
-    console.log(call, "chukwubuike kingsley");
+    //console.log(call, "chukwubuike kingsley");
   };
   // const food = spec[0].split('');
-  // console.log(food[0])
+  // //console.log(food[0])
 
   const [itemsLeft, setItemsLeft] = useState(2);
   const [daysAdded, setDaysAdded] = useState(0);
@@ -333,10 +333,10 @@ function ItemDetailsPage({ auth, match }) {
 
 
 
-  console.log("====================================");
-  console.log(spec);
-  console.log(productDetails);
-  console.log("====================================");
+  //console.log("====================================");
+  //console.log(spec);
+  //console.log(productDetails);
+  //console.log("====================================");
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
@@ -349,7 +349,7 @@ function ItemDetailsPage({ auth, match }) {
     if (count >= 4) {
       setDisable(true);
       setDisable2(false);
-      console.log("stop count");
+      //console.log("stop count");
     } else {
       setDisable(false);
       setDisable2(false);
@@ -371,7 +371,7 @@ function ItemDetailsPage({ auth, match }) {
     if (count <= 1) {
       setDisable2(true);
       setDisable(false);
-      console.log("stop count2");
+      //console.log("stop count2");
     }
 
     if (unitCount <= 1 || count < 1) {
@@ -423,7 +423,7 @@ function ItemDetailsPage({ auth, match }) {
 
         axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
           (response)=>{
-            console.log(response.data);
+            //console.log(response.data);
             // if (data.data.data.success === true) {
 
             //   return window.location.replace("/super_admin/all_products");
@@ -452,21 +452,21 @@ function ItemDetailsPage({ auth, match }) {
     window.scrollTo(0, 0);
     // setImeeg(itemsId.map((log) => log.img));
     setImeeg(itemsId.firstItem.img);
-    console.log(itemsId.firstItem.img);
+    //console.log(itemsId.firstItem.img);
   }, []);
 
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip");
+        //console.log(data.data.data, "phlip");
 
         setTerm(data.data.data);
 
         // setTerm(data.data.data)
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -481,14 +481,14 @@ function ItemDetailsPage({ auth, match }) {
         config
     ).then((data) => {
        
-        console.log(data.data.data, "chukwubuike");
+        //console.log(data.data.data, "chukwubuike");
      
        
         setItemDisplay(data.data.data);
 
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
 
     
@@ -516,20 +516,20 @@ function ItemDetailsPage({ auth, match }) {
   // setDaysAdded(days)
   const percentDays = (percentage / 100) * days;
   // const endDate = addDays(new Date(), percentDays - 1);
-  console.log(percentDays);
+  //console.log(percentDays);
   const percentMoney = (percentage / 100) * amount;
-  console.log(percentDays);
+  //console.log(percentDays);
   // const [cStartDate, setStartDate] = useState(new Date());
   // const [cEndDate, setEndDate] = useState(new Date(), days);
-  // console.log(cStartDate);
+  // //console.log(cStartDate);
 
   // =================
   // =================
-  console.log(days);
+  //console.log(days);
   const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
-  // console.log(CalcDaysConvert);
+  // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
-    console.log("Hello Mr King");
+    //console.log("Hello Mr King");
   }
   const OpenModal = () => {
     setModal(true);

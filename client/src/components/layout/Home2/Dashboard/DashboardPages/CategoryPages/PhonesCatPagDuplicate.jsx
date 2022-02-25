@@ -92,10 +92,10 @@ const PhonesCatPagDuplicate = ({match}) => {
     setSearchTerm(event.target.value);
   };
 
-  console.log('====================================');
-  console.log(match.params.category);
-  console.log(match.params.product_name)
-  console.log('====================================');
+  //console.log('====================================');
+  //console.log(match.params.category);
+  //console.log(match.params.product_name)
+  //console.log('====================================');
 
     const [category2,setCategory2]=useState([]);
     const [erra,setErra]=useState({cate:""});
@@ -139,8 +139,8 @@ const PhonesCatPagDuplicate = ({match}) => {
         config
     ).then((data) => {
        
-      console.log("hello mr kingsley");
-        console.log(data.data.data, "samuel_Chuks");
+      //console.log("hello mr kingsley");
+        //console.log(data.data.data, "samuel_Chuks");
 
         setSeeAll(data.data.data);
 
@@ -151,7 +151,7 @@ const PhonesCatPagDuplicate = ({match}) => {
      
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
 
     
@@ -172,14 +172,14 @@ const PhonesCatPagDuplicate = ({match}) => {
       config
   ).then((data) => {
      
-      console.log(data.data.data, "dominic kig King");
+      //console.log(data.data.data, "dominic kig King");
       setCategory2(data.data.data)
        
       //  cate:category2.product_category_code;
-      //  console.log(cate);
+      //  //console.log(cate);
     })
     .catch((err) => {
-      console.log(err); // "oh, no!"
+      //console.log(err); // "oh, no!"
     });
 
   }
@@ -209,7 +209,7 @@ const PhonesCatPagDuplicate = ({match}) => {
         config
     ).then((data) => {
        
-        console.log(data.data.data, "phlip");
+        //console.log(data.data.data, "phlip");
      
        
         setPhone(data.data.data)
@@ -217,7 +217,7 @@ const PhonesCatPagDuplicate = ({match}) => {
        
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
 
     

@@ -70,16 +70,16 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   useEffect(() => {
     // setCartNum(cart.length)
     // fetchDepositLinks();
-    console.log(auth);
+    //console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
+      // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
 
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
+      // //console.log('====================================');
+      //console.log(todecodedn);
+      // //console.log('====================================');
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
@@ -109,7 +109,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     setCartNum(cart.length);
   }, [cart]);
 
-  // console.log(dddd);
+  // //console.log(dddd);
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);

@@ -68,7 +68,7 @@ router.get("/loan-created", async (req, res) => {
             
               let meta = JSON.parse(event.returnValues._metadata);
               
-              console.log(meta);
+              //console.log(meta);
                Loans.create(
                  {
                   loanID: event.returnValues.newLoanID,
@@ -99,13 +99,13 @@ router.get("/loan-created", async (req, res) => {
                           blockType: "LoanCreated"
                         }
                       }).then((res) => {
-                        console.log(res);
+                        //console.log(res);
                       })
                   }else{
                     Blocks.create({block_no: event.blockNumber, blockType: "LoanCreated"})
                   }
                   
-                  console.log(res);
+                  //console.log(res);
                 })
                 
             
@@ -126,7 +126,7 @@ router.get("/loan-created", async (req, res) => {
                     blockType: "LoanCreated"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "LoanCreated"})
@@ -142,7 +142,7 @@ router.get("/loan-created", async (req, res) => {
                     blockType: "LoanCreated"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "LoanCreated"})
@@ -157,13 +157,13 @@ router.get("/loan-created", async (req, res) => {
         
        }
     }).catch(err => {
-      console.log( "In");
+      //console.log( "In");
     });
     res.status(200).send({ status: true});
   } catch (error) {
       res.status(500).send({ status: false, events: [], message: "internal error"});
      
-    console.log(error, "Out");
+    //console.log(error, "Out");
   }
 
 
@@ -228,13 +228,13 @@ router.get("/confirm", async (req, res) => {
                           blockType: "Confirmed"
                         }
                       }).then((res) => {
-                        console.log(res);
+                        //console.log(res);
                       })
                   }else{
                     Blocks.create({block_no: event.blockNumber, blockType: "Confirmed"})
                   }
                  
-                  console.log(res);
+                  //console.log(res);
                 })
 
 
@@ -258,7 +258,7 @@ router.get("/confirm", async (req, res) => {
                     blockType: "Confirmed"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "Confirmed"})
@@ -274,7 +274,7 @@ router.get("/confirm", async (req, res) => {
                     blockType: "Confirmed"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "Confirmed"})
@@ -289,13 +289,13 @@ router.get("/confirm", async (req, res) => {
         
        }
     }).catch(err => {
-      console.log( "In");
+      //console.log( "In");
     });
     res.status(200).send({ status: true});
   } catch (error) {
       res.status(500).send({ status: false, events: [], message: "internal error"});
      
-    console.log(error, "Out");
+    //console.log(error, "Out");
   }
 
 
@@ -335,7 +335,7 @@ router.get("/voted", async (req, res) => {
         events.forEach(function (event) {
           if(event.event == "Voted"){
             
-              console.log(event);
+              //console.log(event);
               Loans.update({
                 backed: web3.utils.fromWei(event.returnValues._totalBackedAmount.toString()),
               
@@ -361,7 +361,7 @@ router.get("/voted", async (req, res) => {
                             blockType: "Voted"
                           }
                         }).then((res) => {
-                          console.log(res);
+                          //console.log(res);
                         })
                     }else{
                       Blocks.create({block_no: event.blockNumber, blockType: "Voted"})
@@ -386,7 +386,7 @@ router.get("/voted", async (req, res) => {
                     blockType: "Voted"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "Voted"})
@@ -402,7 +402,7 @@ router.get("/voted", async (req, res) => {
                     blockType: "Voted"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "Voted"})
@@ -417,13 +417,13 @@ router.get("/voted", async (req, res) => {
         
        }
     }).catch(err => {
-      console.log( "In");
+      //console.log( "In");
     });
     res.status(200).send({ status: true});
   } catch (error) {
       res.status(500).send({ status: false, events: [], message: "internal error"});
      
-    console.log(error, "Out");
+    //console.log(error, "Out");
   }
 
 
@@ -464,7 +464,7 @@ router.get("/approve", async (req, res) => {
         events.forEach(function (event) {
           if(event.event == "ApproveLoan"){
             
-              console.log(event);
+              //console.log(event);
               Loans.update({           validated: true,
                 is_approved: event.returnValues.state
                                 
@@ -481,12 +481,12 @@ router.get("/approve", async (req, res) => {
                           blockType: "ApproveLoan"
                         }
                       }).then((res) => {
-                        console.log(res);
+                        //console.log(res);
                       })
                   }else{
                     Blocks.create({block_no: event.blockNumber, blockType: "ApproveLoan"})
                   }
-                  console.log(res);
+                  //console.log(res);
                  })
              
             
@@ -507,7 +507,7 @@ router.get("/approve", async (req, res) => {
                     blockType: "ApproveLoan"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "ApproveLoan"})
@@ -523,7 +523,7 @@ router.get("/approve", async (req, res) => {
                     blockType: "ApproveLoan"
                   }
                 }).then((res) => {
-                  console.log(res);
+                  //console.log(res);
                 })
             }else{
               Blocks.create({block_no: blockNumber, blockType: "ApproveLoan"})
@@ -538,13 +538,13 @@ router.get("/approve", async (req, res) => {
         
        }
     }).catch(err => {
-      console.log( "In");
+      //console.log( "In");
     });
     res.status(200).send({ status: true});
   } catch (error) {
       res.status(500).send({ status: false, events: [], message: "internal error"});
      
-    console.log(error, "Out");
+    //console.log(error, "Out");
   }
 
 
@@ -556,7 +556,7 @@ router.get("/approve", async (req, res) => {
 // @desc Get all managers on the system
 // @access Private
 router.get("/directors/:limit", async (req, res) => {
-  console.log("directors requests");
+  //console.log("directors requests");
 
   let limit = req.params.limit;
   try {
@@ -572,7 +572,7 @@ router.get("/directors/:limit", async (req, res) => {
     });
     res.status(200).send({ data: loans });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -610,7 +610,7 @@ router.get("/get/total/supply", async (req, res) => {
     }))
    
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -649,7 +649,7 @@ router.get("/get/balance/ngnc", async (req, res) => {
     }))
    
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -670,7 +670,7 @@ router.get("/get/by/category/:name", async (req, res) => {
     });
     res.status(200).send({ data: loans });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -707,7 +707,7 @@ router.get("/get/by/status/:status", async (req, res) => {
         });
         res.status(200).send({ data: loans });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
     
         res.status(400).send({ errors: [{ msg: "No Data" }] });
       }
@@ -736,7 +736,7 @@ router.get("/get/by/status/:status", async (req, res) => {
         });
         res.status(200).send({ data: loans });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
     
         res.status(400).send({ errors: [{ msg: "No Data" }] });
       }
@@ -765,7 +765,7 @@ router.get("/get/by/status/:status", async (req, res) => {
         });
         res.status(200).send({ data: loans });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
     
         res.status(400).send({ errors: [{ msg: "No Data" }] });
       }
@@ -788,7 +788,7 @@ router.get("/get/by/id/:id", async (req, res) => {
     });
     res.status(200).send({ data: loans });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -826,7 +826,7 @@ router.get("/get/balance/egr", async (req, res) => {
     }))
    
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -901,7 +901,7 @@ router.get("/pending/:limit", async (req, res) => {
 });
 
 router.get("/requests/:limit", async (req, res) => {
-  console.log("HOME requests");
+  //console.log("HOME requests");
   let limit = req.params.limit;
   try {
     let requests = await Requests.findAll({
@@ -912,7 +912,7 @@ router.get("/requests/:limit", async (req, res) => {
     });
     res.status(200).send({ data: requests });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -941,7 +941,7 @@ router.get("/companies/:limit", async (req, res) => {
     });
     res.status(200).send({ data: companies });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -1043,23 +1043,23 @@ router.post(
               payment_model,
             })
               .then(function (data) {
-                //console.log(data);
+                ////console.log(data);
                 res.status(200).send({cover_image: data.cover_image});
               })
               .catch(function (err) {
-                console.log(err);
+                //console.log(err);
 
                 res.status(500).send({ errors: [{ msg: "Server Error! #1" }] });
               });
           })
           .catch(function (err) {
-            console.log(err);
+            //console.log(err);
 
             res.status(500).send({ errors: [{ msg: "Server Error! #2" }] });
           });
      
     } catch (error) {
-      console.log(error);
+      //console.log(error);
 
       res.status(500).send({ errors: [{ msg: "Server Error! #3" }] });
     }
@@ -1200,7 +1200,7 @@ router.post(
             res.status(200).send({image: json.data.link})
           })
           .catch(function (err) {
-            console.log(err, "the upper");
+            //console.log(err, "the upper");
 
             res.status(500).send({ errors: [{ msg: "Server Error!" }] });
           });

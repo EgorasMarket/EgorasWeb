@@ -51,11 +51,33 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  console.log(phone_no, name, option);
+  // //console.log(phone_no, name, option);
+  // //console.log(phone_no, name, option)
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const [addressName, setAddressName] = useState("")
+
+  useEffect( async ()=>{
+    await axios.get(api_url2 + "/v1/user/address/info", null,
+     config).then((response)=>{
+    //console.log(response , "wewter kings")
+ //console.log(response.data.cusAddress. address,"market")
+
+ setAddressName(response.data.cusAddress.address)
+//  //console.log(addressName,"Bk is good for development")
+     })
+
+  }, [])
+
 
   useEffect(() => {
     if (auth.user !== null) {
-      console.log(auth.user, "user  exist ");
+      //console.log(auth.user, "user  exist ");
       setEmail(auth.user.user.email);
       setPhoneNo(auth.user.user.phoneNumber);
       setName(auth.user.user.fullname);
@@ -101,7 +123,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     // switch(value ){
     //   case 0:
     //     // const call = await initializePayment(1, customer_data)
-    //     // console.log(call)
+    //     // //console.log(call)
 
     //     // handleFlutterPayment({callback: ()=> {
     //     //   alert('here')
@@ -112,7 +134,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         // alert('payment set as card', product_id)
         handleFlutterPayment({
           callback: async (response) => {
-            console.log(response);
+            //console.log(response);
             try {
               if (!response.transaction_id) {
                 alert(
@@ -127,11 +149,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               );
               closePaymentModal();
             } catch (error) {
-              console.log(error.response);
+              //console.log(error.response);
             }
           },
           onClose: (response) => {
-            console.log(response, "response from onclose ");
+            //console.log(response, "response from onclose ");
           },
         });
 
@@ -163,11 +185,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                   </button>
                 </div>
                 <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
+                  <div className="delivery_card_body_cont1">{customer_data.name}</div>
                   <div className="delivery_card_body_cont1">
-                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
+                    {addressName}
                   </div>
-                  <div className="delivery_card_body_cont1">08164020234</div>
+                  <div className="delivery_card_body_cont1">{customer_data.phonenumber}</div>
                 </div>
               </div>
               {/* ============= */}

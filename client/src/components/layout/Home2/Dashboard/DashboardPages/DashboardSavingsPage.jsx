@@ -62,28 +62,28 @@ function DashboardSavingsPage({ match, auth }) {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "chukwubuike");
+        //console.log(data.data.data, "chukwubuike");
 
         setItemDisplay(data.data.data);
 
-        console.log("=============");
-        console.log(itemdisplay);
-        console.log("=============");
+        //console.log("=============");
+        //console.log(itemdisplay);
+        //console.log("=============");
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, [auth]);
 
 
 
   useEffect(() => { 
-    console.log(match.params.prduct_id,"play every day")
-    console.log(auth.user.user.id)
+    //console.log(match.params.prduct_id,"play every day")
+    //console.log(auth.user.user.id)
     axios.get(api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`, null, config)
       .then((data) => {
 
-        console.log(data.data,"Ewwooo oh")
+        //console.log(data.data,"Ewwooo oh")
 
        setUserLockId(data.data.data)
 
@@ -94,13 +94,13 @@ function DashboardSavingsPage({ match, auth }) {
         
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
   useEffect(async() => {
 
-    console.log(auth.user.user.id);
+    //console.log(auth.user.user.id);
     const customer_id = auth.user.user.id
     const body = JSON.stringify({
       customer_id,
@@ -108,7 +108,7 @@ function DashboardSavingsPage({ match, auth }) {
     await axios
       .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
       .then((data) => {
-        console.log(data.data.data, "bbbbbbb");
+        //console.log(data.data.data, "bbbbbbb");
 
         setAccountInfo({
           ledger: data.data.data.ledger,
@@ -119,7 +119,7 @@ function DashboardSavingsPage({ match, auth }) {
         // setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
   }, [auth]);
 
@@ -128,12 +128,12 @@ function DashboardSavingsPage({ match, auth }) {
   //     product_id,
   //   });
 
-  //   console.log(body);
+  //   //console.log(body);
 
   //   axios
   //     .post(api_url2 + "/v1/product/retrieve/specific", body, config)
   //     .then((data) => {
-  //       console.log(data.data.data, "king");
+  //       //console.log(data.data.data, "king");
 
   //       setProductDetail({
   //         product_image: data.data.data.product_image,
@@ -143,7 +143,7 @@ function DashboardSavingsPage({ match, auth }) {
   //       });
   //     })
   //     .catch((err) => {
-  //       console.log(err.response); // "oh, no!"
+  //       //console.log(err.response); // "oh, no!"
   //     });
   // }, []);
 

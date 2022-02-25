@@ -15,7 +15,7 @@ export const Logout = ({ }) => {
 
     const triggerLogout = (event) => {
         // setBusinessDuration(event.target.value);
-        // console.log('okkkk');
+        // //console.log('okkkk');
         localStorage.removeItem("token");
         window.location.href = "/login"
     };

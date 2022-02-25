@@ -80,20 +80,20 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
   //   axios
   //     .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
   //     .then((data) => {
-  //       console.log(data.data.data, "powerful");
+  //       //console.log(data.data.data, "powerful");
 
   //       setAllTokens(data.data.data);
   //       setAssetName(data.data.data[0].tokenName);
   //       setTokenSign(data.data.data[0].tokenSymbol);
   //       setTokenSymbol(data.data.data[0].tokenSymbol);
-  //       console.log(data.data.data[0].tokenName);
+  //       //console.log(data.data.data[0].tokenName);
 
   //       // setWrap({
   //       //   code: data.data.data.product_category_code,
   //       // });
   //     })
   //     .catch((err) => {
-  //       console.log(err.response); // "oh, no!"
+  //       //console.log(err.response); // "oh, no!"
   //     });
   // }, []);
   useEffect(() => {
@@ -102,19 +102,19 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
     axios
       .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
       .then((data) => {
-        console.log(data.data.data.balance);
+        //console.log(data.data.data.balance);
         setTokenBal(data.data.data.balance);
         setAssetVal(data.data.data.balance * 1);
       })
       .catch((err) => {
-        console.log(err.response);
+        //console.log(err.response);
       });
   }, [auth]);
   useEffect(() => {
     var Authorized = auth.user;
     var userId = Authorized.user.id;
     var hardCodedId = "2cac7619-fc8e-45d2-be07-39d76f04def1";
-    console.log(userId);
+    //console.log(userId);
     axios
       .get(
         api_url2 + "/v1/wallet/get/wallet/fetch/deposits/" + userId,
@@ -122,11 +122,11 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
         config
       )
       .then((data) => {
-        console.log(data.data.data);
+        //console.log(data.data.data);
         setDeposits(data.data.data);
       })
       .catch((error) => {
-        console.log(error.response);
+        //console.log(error.response);
       });
   }, [auth]);
   useEffect(() => {
@@ -134,7 +134,7 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
     axios
       .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
       .then((data) => {
-        console.log(data.data.data, "powerful");
+        //console.log(data.data.data, "powerful");
         setIsLoading2(false);
         setAssetName(data.data.data[0].tokenName);
         setTokenSign(data.data.data[0].tokenSymbol);
@@ -144,20 +144,20 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
         // });
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
   }, []);
   useEffect(async () => {
-    console.log(auth);
+    //console.log(auth);
     if (auth.user !== null) {
       var todecoded = auth.user;
 
       // const getName = todecoded.user.fullname;
       // const splitName = getName.split(" ");
-      // console.log(todecoded.user.id)
+      // //console.log(todecoded.user.id)
       setAdminId(todecoded.user.id);
 
-      console.log(adminId);
+      //console.log(adminId);
 
       await axios
         .get(
@@ -166,11 +166,11 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
           config
         )
         .then((data) => {
-          console.log(data.data, "powerful");
+          //console.log(data.data, "powerful");
           setAccountExists(data.data.accountExists);
         })
         .catch((err) => {
-          console.log(err.response); // "oh, no!"
+          //console.log(err.response); // "oh, no!"
         });
     }
   }, [auth]);
@@ -227,12 +227,12 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
     // setTokenName(tokenName);
     // setIsLoading(true);
     if (accountExists) {
-      console.log("accountExists");
+      //console.log("accountExists");
       setShowDeposit(true);
       setIsLoading(true);
-      // console.log(adminId);
+      // //console.log(adminId);
       let res3 = await depositToken(adminId, tokenSymbol);
-      console.log(res3);
+      //console.log(res3);
       setIsLoading(true);
 
       if (res3.success === true) {
@@ -240,11 +240,11 @@ const Wallet1 = ({ auth, createWallet, depositToken, openProcessingDiv }) => {
         setIsLoading(false);
       }
     } else {
-      console.log("not accountExists");
+      //console.log("not accountExists");
       setShowDeposit(false);
-      // console.log(adminId);
+      // //console.log(adminId);
       let res3 = await createWallet(adminId, tokenSymbol);
-      console.log(res3);
+      //console.log(res3);
       setIsLoading(true);
 
       if (res3.success === true) {

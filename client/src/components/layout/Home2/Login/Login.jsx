@@ -32,10 +32,10 @@ const Login = ({ getLogin, isAuthenticated }) => {
       case "password":
         if (e.target.value.length <= 7) {
           setStrongPass(true);
-          console.log("password is not 8");
+          //console.log("password is not 8");
         } else if (password.length >= 7) {
           setStrongPass(false);
-          console.log("password is 8");
+          //console.log("password is 8");
         }
         break;
       default:
@@ -74,10 +74,10 @@ const Login = ({ getLogin, isAuthenticated }) => {
     setIsLoading(true);
     setDisable(true);
     let res3 = await getLogin(email, password);
-    // console.log(res3.data.data.errors[0].msg);
+    // //console.log(res3.data.data.errors[0].msg);
     //  setToken(res)
 
-    console.log(res3.data);
+    //console.log(res3.data);
 
     // if (res.data.email !== e.target.value)
 
@@ -85,9 +85,9 @@ const Login = ({ getLogin, isAuthenticated }) => {
       setIsSuccessful(true);
       setIsLoading(false);
       // setDisable(false);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
-      console.log('ffff');
+      //console.log('ffff');
       setAlert(res3.data);
       setAlertType('danger')
       setIsLoading(false);
