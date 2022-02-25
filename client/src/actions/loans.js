@@ -43,7 +43,7 @@ export const fetch = (limit) => async (dispatch) => {
 
 // Fetch Laons
 export const fetchStats = () => async (dispatch) => {
-  console.log("Fetching stats");
+  //console.log("Fetching stats");
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -80,13 +80,13 @@ export const fetchRequests = (limit) => async (dispatch) => {
       null,
       config
     );
-    console.log(res);
+    //console.log(res);
     dispatch({
       type: FETCH_REQUESTS_SUCCESS,
       payload: res.data,
     });
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     dispatch({
       type: FETCH_REQUESTS_FAILED,
     });
@@ -105,13 +105,13 @@ export const fetchCompanies = (limit) => async (dispatch) => {
       null,
       config
     );
-    console.log(res);
+    //console.log(res);
     dispatch({
       type: FETCH_COMPANIES_SUCCESS,
       payload: res.data,
     });
   } catch (err) {
-    console.log(err);
+    //console.log(err);
     dispatch({
       type: FETCH_COMPANIES_FAILED,
     });
@@ -130,17 +130,17 @@ export const image = (picture_of_director) => async (dispatch) => {
     picture_of_director
   });
 
-  // console.log(body);
+  // //console.log(body);
 
 
   try {
     const res = await axios.post(api_url + "/api/loans/image", body, config);
 
-    // console.log(res);
+    // //console.log(res);
 
     return res;
   } catch (err) {
-    console.log(err, 'eeeerrr');
+    //console.log(err, 'eeeerrr');
 
     return false;
   }
@@ -157,7 +157,7 @@ export const add = (cac, name_of_company, share_capital, location, company_offse
   const body = JSON.stringify({
     cac, name_of_company, share_capital, location, company_offset_loan, board_of_directors, address, company_description, company_logo
   });
-  // console.log(body);
+  // //console.log(body);
   // localStorage.setItem("code", body);
 
 
@@ -176,10 +176,10 @@ export const add = (cac, name_of_company, share_capital, location, company_offse
       status: true
     };
   } catch (err) {
-    console.log(err);
+    //console.log(err);
 
     const errors = err.response.data.errors;
-    console.log(errors);
+    //console.log(errors);
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
@@ -223,10 +223,10 @@ export const test = () => async (dispatch) => {
 
     return true;
   } catch (err) {
-    console.log(err);
+    //console.log(err);
 
     const errors = err.response.data.errors;
-    console.log(errors);
+    //console.log(errors);
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }
@@ -249,7 +249,7 @@ export const loan = (loan_tile, cover_image, loan_duration, loan_category, count
   const body = JSON.stringify({
     loan_tile, cover_image, loan_duration, loan_category, country, loan_fees, loan_payable, story, loan_amount, address, payment_model
   });
-  console.log(body);
+  //console.log(body);
 
   try {
     const res = await axios.post(
@@ -257,7 +257,7 @@ export const loan = (loan_tile, cover_image, loan_duration, loan_category, count
       body,
       config
     );
-    console.log(res);
+    //console.log(res);
     //dispatch(setAlert("Added Successfully!", "success"));
     // dispatch(fetch(3000));
 
@@ -268,10 +268,10 @@ export const loan = (loan_tile, cover_image, loan_duration, loan_category, count
       cover_image: res.data.cover_image
     };
   } catch (err) {
-    console.log(err);
+    //console.log(err);
 
     const errors = err.response.data.errors;
-    console.log(errors);
+    //console.log(errors);
     if (errors) {
       errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
     }

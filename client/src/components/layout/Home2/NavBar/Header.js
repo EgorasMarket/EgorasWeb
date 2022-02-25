@@ -253,7 +253,7 @@ const Header = ({ isAuthenticated, auth }) => {
     // document.getElementById("app_icon").style.display = "none";
   });
 
-  // console.log(auth);
+  // //console.log(auth);
 
   // page hide element
 

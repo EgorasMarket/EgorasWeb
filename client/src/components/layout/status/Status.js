@@ -19,7 +19,7 @@ const Status = ({match}) => {
 
     useEffect(() => {
         setIsLoading(true);
-        console.log();
+        //console.log();
         let status = 0;
         switch (match.params.name) {
             case "approved":

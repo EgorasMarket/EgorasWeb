@@ -2,7 +2,8 @@ import React, { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import verify from "../../../../flutterwave/API/Verify";
-import Wallet1 from "../../Wallet/Wallet1";
+import CloseIcon from "@mui/icons-material/Close";
+// import Wallet1 from "../../Wallet/Wallet1";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -46,16 +47,68 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [isloading, setIsLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [phone_no, setPhoneNo] = useState("");
+  const [walletBalance, setWalletBalance] = useState(false);
   const [walletModal, setWalletModal] = useState(false);
   const [ProcessingDiv, setProcessingDiv] = useState(false);
   const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  console.log(phone_no, name, option);
+  const [tokenBal, setTokenBal] = useState(0);
+  const [assetVal, setAssetVal] = useState(0.000);
+  const [tokenSign, setTokenSign] = useState();
+  const [hardNumb, setHardNum] = useState(300);
+  const [errorDiv, setErrorDiv] = useState(false);
+  // //console.log(phone_no, name, option);
+  // //console.log(phone_no, name, option)
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const [addressName, setAddressName] = useState("");
+
+  useEffect(async () => {
+    await axios
+      .get(api_url2 + "/v1/user/address/info", null, config)
+      .then((response) => {
+        //console.log(response , "wewter kings")
+        //console.log(response.data.cusAddress. address,"market")
+
+        setAddressName(response.data.cusAddress.address);
+        //  //console.log(addressName,"Bk is good for development")
+      });
+  }, []);
+  useEffect(() => {
+    var Authorized = auth.user;
+    var userId = Authorized.user.id;
+    axios
+      .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
+      .then((data) => {
+        console.log(data.data.data.balance);
+        setTokenBal(data.data.data.balance);
+        setAssetVal(data.data.data.balance * 1);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [auth]);
+  useEffect(() => {
+    // setIsLoading2(true);
+    axios
+      .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
+        setTokenSign(data.data.data[0].tokenSymbol);
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+  }, []);
   useEffect(() => {
     if (auth.user !== null) {
-      console.log(auth.user, "user  exist ");
+      //console.log(auth.user, "user  exist ");
       setEmail(auth.user.user.email);
       setPhoneNo(auth.user.user.phoneNumber);
       setName(auth.user.user.fullname);
@@ -101,7 +154,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     // switch(value ){
     //   case 0:
     //     // const call = await initializePayment(1, customer_data)
-    //     // console.log(call)
+    //     // //console.log(call)
 
     //     // handleFlutterPayment({callback: ()=> {
     //     //   alert('here')
@@ -112,7 +165,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         // alert('payment set as card', product_id)
         handleFlutterPayment({
           callback: async (response) => {
-            console.log(response);
+            //console.log(response);
             try {
               if (!response.transaction_id) {
                 alert(
@@ -127,19 +180,29 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               );
               closePaymentModal();
             } catch (error) {
-              console.log(error.response);
+              //console.log(error.response);
             }
           },
           onClose: (response) => {
-            console.log(response, "response from onclose ");
+            //console.log(response, "response from onclose ");
           },
         });
 
         break;
 
       case 1:
-        // alert("wallet method selected");
-        setWalletModal(true);
+        // if (hardNumb >= amount) {
+        //   setProcessingDiv(true);
+        // } else {
+        //   setProcessingDiv(false);
+        //   setErrorDiv(true);
+        // }
+        if (tokenBal >= amount) {
+          setProcessingDiv(true);
+        } else {
+          setProcessingDiv(false);
+          setErrorDiv(true);
+        }
         break;
     }
   };
@@ -163,11 +226,13 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                   </button>
                 </div>
                 <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
                   <div className="delivery_card_body_cont1">
-                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
+                    {customer_data.name}
                   </div>
-                  <div className="delivery_card_body_cont1">08164020234</div>
+                  <div className="delivery_card_body_cont1">{addressName}</div>
+                  <div className="delivery_card_body_cont1">
+                    {customer_data.phonenumber}
+                  </div>
                 </div>
               </div>
               {/* ============= */}
@@ -286,37 +351,43 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             <div className="cart_area2_heading">Payment Options</div>
             {/* ===================== */}
             <div className="cart_area2_select">
-              <div
-                className="wit_card"
-                onClick={() => {
-                  setOption(0);
-                }}
-              >
+              <div className="wit_card">
                 Pay via card{" "}
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="payment"
                   id=""
                   className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(0);
+                    setWalletBalance(false);
+                  }}
                 />
               </div>
             </div>
             {/* ===================== */}
-            <div
-              className="cart_area2_select"
-              onClick={() => {
-                setOption(1);
-              }}
-            >
+            <div className="cart_area2_select">
               <div className="wit_card">
                 Pay via wallet{" "}
                 <input
-                  type="checkbox"
+                  type="radio"
                   name="payment"
                   id=""
                   className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(1);
+                    setWalletBalance(true);
+                  }}
                 />
               </div>
+              {walletBalance == true ? (
+                <div className="wallet_bal_acct">
+                  Wallet Bal: {parseInt(tokenBal).toFixed(3)} {tokenSign}
+                  {/* Wallet Bal: {hardNumb} {tokenSign} */}
+                </div>
+              ) : null}
             </div>
 
             {/* <FlutterButton 
@@ -388,18 +459,31 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             </button>
           </div>
         </div>
-        {walletModal == false ? null : (
-          <div className="wallet_component">
-            <Wallet1 openProcessingDiv={openProcessingDiv} />
-          </div>
-        )}
       </div>
-      {ProcessingDiv == false ? (
-        <div></div>
-      ) : (
+      {ProcessingDiv == false ? 
+       null
+      : (
         <div className="processing_transac_div">
           <LoadingIcons.Bars fill="#229e54" />
           Processing Transaction...
+        </div>
+      )}
+      {errorDiv == false ? null : (
+        <div className="processing_transac_div insufficient">
+          <div className="insufficient_div">
+            <CloseIcon
+              className="closeDivIcon"
+              onClick={() => setErrorDiv(false)}
+            />
+            <img src="/img/empty-wallet.svg" alt="" className="empty_wallet" />
+            Insufficient Balance
+            <span className="fund_wall">
+              Please fund Your wallet to complete payment.
+            </span>
+            <a href="/dashboard/wallet">
+              <button className="fund_wallet_btn">Fund Wallet</button>
+            </a>
+          </div>
         </div>
       )}
     </>

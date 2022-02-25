@@ -67,12 +67,12 @@ const CheckoutModalComponent = ({
       // spread_balance,
     };
 
-    console.log(payload_data);
+    //console.log(payload_data);
 
     let call = await axios
       .post(api_url2 + "/v1/checkout/add", payload_data, config)
       .then((response) => {
-        console.log(response.data);
+        //console.log(response.data);
         setDailyAmount(response.data.details.rounded);
 
         const {
@@ -107,7 +107,7 @@ const CheckoutModalComponent = ({
       })
       .catch((err) => {
         alert(err.response.data.message);
-        console.log("error reported", err.response);
+        //console.log("error reported", err.response);
       });
   };
 

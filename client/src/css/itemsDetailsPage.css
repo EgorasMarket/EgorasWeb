@@ -326,6 +326,15 @@ span.per_day {
   font-size: 14px;
   font-weight: 600;
 }
+
+.closeDivIcon {
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  background: #c6edd6;
+  border-radius: 5px;
+  cursor: pointer;
+}
 .carousel .slider {
   margin: 0;
   padding: 0;
@@ -370,23 +379,72 @@ span.per_day {
   font-size: 16px !important;
 }
 .processing_transac_div {
-    position: fixed;
-    background: #ffffff6e;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    z-index: 1000000;
-    left: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 25px;
-    font-weight: 600;
-    color: #239d52;
-    flex-direction: column;
-    -webkit-backdrop-filter: blur(20px);
-    backdrop-filter: blur(20px);
-    gap: 15px;
+  position: fixed;
+  background: #ffffff6e;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 1000000;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 600;
+  color: #239d52;
+  flex-direction: column;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+  gap: 15px;
+}
+.insufficient {
+  position: fixed;
+  background: #18181857;
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  z-index: 1000000;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 25px;
+  font-weight: 600;
+  color: #239d52;
+  flex-direction: column;
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(7px);
+  grid-gap: 5px;
+  gap: 5px;
+}
+.insufficient_div {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 5px;
+  background: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px #444444;
+  position: relative;
+  /* width: 49%; */
+}
+.fund_wallet_btn {
+  font-size: 12px;
+  padding: 0.5em 1em;
+  border-radius: 7px;
+  border: none;
+  background: #3fa96b;
+  color: #ffffff;
+  font-weight: 700;
+  box-shadow: 0px 4px 10px #5fa97e;
+}
+.empty_wallet {
+  width: 3em;
+}
+.fund_wall {
+  font-size: 15px;
+  color: #6c6c6c;
 }
 .items_left_div {
   font-size: 12px;
@@ -476,6 +534,18 @@ span.per_day {
   cursor: pointer;
   color: #239e54;
   position: relative;
+}
+.wallet_bal_acct {
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 0.5em 1em;
+  border: solid 1px #dcede1;
+  border-top: 0;
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  background: #5db37f;
 }
 .description_click1_active::after {
   content: "";

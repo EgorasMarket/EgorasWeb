@@ -19,7 +19,7 @@ const Categories = ({match}) => {
 
     useEffect(() => {
         setIsLoading(true);
-        console.log(match.params.name);
+        //console.log(match.params.name);
         if(match.params.name == "all loans" ){
             axios.get(api_url + "/api/loans/100", null, config)
             .then(function (response) {
@@ -34,7 +34,7 @@ const Categories = ({match}) => {
             axios.get(api_url + "/api/loans/get/by/category/"+match.params.name, null, config)
             .then(function (response) {
                 setLoanData(response.data.data);
-                console.log(response.data.data);
+                //console.log(response.data.data);
                 
                
                 setIsLoading(false);

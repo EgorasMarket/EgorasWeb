@@ -32,7 +32,7 @@ const {rolesMap}=info;
         config
     ).then((data) => {
        
-        console.log(data.data.user, "line_ful");
+        //console.log(data.data.user, "line_ful");
         setInfo({
           rolesMap:data.data.user.role,
         })
@@ -40,7 +40,7 @@ const {rolesMap}=info;
     
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       }); 
   }, []);
 

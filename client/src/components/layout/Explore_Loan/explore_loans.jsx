@@ -42,24 +42,24 @@ const Explore_loans = ({ loans, fetch }) => {
   const handleCategory = (event) => {
     setCategoryChange(true);
     setCategory(event.target.value);
-    console.log(event.target.value);
+    //console.log(event.target.value);
 
     const arr1 = loanData.filter((d) => d.category === event.target.value);
-    console.log("arr1", arr1);
+    //console.log("arr1", arr1);
     setMainLoanData(arr1);
     setGeneralData(arr1);
 
     if (arr1.length === 0) {
       setIsEmpty(true);
-      console.log("empty");
+      //console.log("empty");
     } else {
       setIsEmpty(false);
-      console.log("not empty");
+      //console.log("not empty");
     }
   };
 
   const triggerStatus = (e) => {
-    console.log(e.currentTarget.id);
+    //console.log(e.currentTarget.id);
     // var element = document.getElementById(e.currentTarget.id);
     setStatus(e.currentTarget.id);
     // element.classList.add("addBackground");
@@ -67,7 +67,7 @@ const Explore_loans = ({ loans, fetch }) => {
     if (categoryChange === true) {
       if (e.currentTarget.id === "Approved") {
         const uniqueStatus = generalData.filter((d) => d.is_approved === true);
-        console.log("uniqueStatus", uniqueStatus);
+        //console.log("uniqueStatus", uniqueStatus);
         setMainLoanData(uniqueStatus);
         if (uniqueStatus.length === 0) {
           setIsEmpty(true);
@@ -76,7 +76,7 @@ const Explore_loans = ({ loans, fetch }) => {
         }
       } else if (e.currentTarget.id === "Ongoing") {
         const uniqueStatus = generalData.filter((d) => d.isConfirmed === true);
-        console.log("uniqueStatus", uniqueStatus);
+        //console.log("uniqueStatus", uniqueStatus);
         setMainLoanData(uniqueStatus);
         if (uniqueStatus.length === 0) {
           setIsEmpty(true);
@@ -87,11 +87,11 @@ const Explore_loans = ({ loans, fetch }) => {
     } else {
       if (e.currentTarget.id === "Approved") {
         const uniqueStatus = loanData.filter((d) => d.is_approved === true);
-        console.log("uniqueStatus", uniqueStatus);
+        //console.log("uniqueStatus", uniqueStatus);
         setGeneralData(uniqueStatus);
       } else if (e.currentTarget.id === "Ongoing") {
         const uniqueStatus = loanData.filter((d) => d.isConfirmed === true);
-        console.log("uniqueStatus", uniqueStatus);
+        //console.log("uniqueStatus", uniqueStatus);
         setGeneralData(uniqueStatus);
       }
     }
@@ -108,7 +108,7 @@ const Explore_loans = ({ loans, fetch }) => {
       setIsLoading(false);
       setLoanData(loans.data);
       setGeneralData(loans.data);
-      console.log(loans.data);
+      //console.log(loans.data);
 
       // setData(arr1);
       // setIsLoading(false);

@@ -53,12 +53,12 @@ const CheckoutModalComponent = ({
   const [name, setName] = useState("")
   const [option, setOption] = useState(-1)
   const [customer_data, setCustomerData] = useState({})
-  console.log(phone_no, name, option)
+  //console.log(phone_no, name, option)
 
 
   useEffect(() => {
     if (auth.user !== null){
-      console.log(auth.user, 'user  exist ')
+      //console.log(auth.user, 'user  exist ')
       setEmail(auth.user.user.email);
         setPhoneNo( auth.user.user.phoneNumber);
         setName( auth.user.user.fullname)
@@ -99,7 +99,7 @@ const CheckoutModalComponent = ({
     // switch(value ){
     //   case 0: 
     //     // const call = await initializePayment(1, customer_data)
-    //     // console.log(call)
+    //     // //console.log(call)
 
     //     // handleFlutterPayment({callback: ()=> {
     //     //   alert('here')
@@ -110,19 +110,19 @@ const CheckoutModalComponent = ({
              // alert('payment set as card', product_id)
           handleFlutterPayment({
             callback: async (response) => {
-              console.log(response)
+              //console.log(response)
               try {
                 const verification = await verify(response.transaction_id, product_id)
        
-                console.log(verification.data.data.data.amount, 'from me  ')
+                //console.log(verification.data.data.data.amount, 'from me  ')
                 closePaymentModal()
               } catch (error) {
-                console.log(error.response)
+                //console.log(error.response)
               }
   
             },
             onClose: (response) => {
-              console.log(response, "response from onclose ")
+              //console.log(response, "response from onclose ")
   
             }
           })
@@ -288,7 +288,7 @@ const CheckoutModalComponent = ({
                   setOption(0)
               }}>
                 Pay via card{" "}
-                <input type="checkbox" name="payment" id="" className="checkBox" />
+                <input type="radio" name="payment" id="" className="checkBox" />
               </div>
             </div>
             {/* ===================== */}
@@ -297,7 +297,7 @@ const CheckoutModalComponent = ({
                  }}>
               <div className="wit_card">
                 Pay via wallet {" "}
-                <input type="checkbox" name="payment" id="" className="checkBox"  />
+                <input type="radio" name="payment" id="" className="checkBox"  />
               </div>
             </div>
 

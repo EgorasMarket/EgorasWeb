@@ -93,73 +93,73 @@ const Savings = ({ getProductByCat }) => {
     let res7 = await getProductByCat("Home Appliances");
     let res8 = await getProductByCat("Computer & Accessories");
 
-    console.log(
-      res.data,
-      res2.data,
-      res3.data,
-      res4.data,
-      res5.data,
-      res6.data,
-      res7.data,
-      res8.data
-    );
-    console.log(res.data.data);
+    //console.log(
+    //   res.data,
+    //   res2.data,
+    //   res3.data,
+    //   res4.data,
+    //   res5.data,
+    //   res6.data,
+    //   res7.data,
+    //   res8.data
+    // );
+    //console.log(res.data.data);
 
     if (res.data.success === true) {
       setPhoneTablets(res.data.data);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
 
     if (res2.data.success === true) {
       setNfts(res2.data.data);
-      console.log(res2.data.data.length);
+      //console.log(res2.data.data.length);
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
     if (res3.data.success === true) {
       setFurniture(res3.data.data);
-      console.log(res3.data.data.length);
+      //console.log(res3.data.data.length);
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
     if (res4.data.success === true) {
       setElectronics(res4.data.data);
-      console.log(res4.data.data.length);
+      //console.log(res4.data.data.length);
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
     if (res5.data.success === true) {
       setMusicalEquipment(res5.data.data);
-      console.log(res5.data.data.length);
+      //console.log(res5.data.data.length);
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
     if (res6.data.success === true) {
       setIndustrialEquipments(res6.data.data);
-      console.log(res6.data.data.length);
+      //console.log(res6.data.data.length);
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
     if (res7.data.success === true) {
       setHomeAppliances(res7.data.data);
-      console.log(res7.data.data.length);
+      //console.log(res7.data.data.length);
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
     if (res8.data.success === true) {
       setComputerAccessories(res8.data.data);
-      console.log(res8.data.data.length);
+      //console.log(res8.data.data.length);
     } else {
-      console.log("data no dey ooo");
+      //console.log("data no dey ooo");
     }
   }, []);
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "powerful");
+        //console.log(data.data.data, "powerful");
 
         // setItem(data.data.data);
         setWrap1({
@@ -167,7 +167,7 @@ const Savings = ({ getProductByCat }) => {
         });
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -175,12 +175,12 @@ const Savings = ({ getProductByCat }) => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip");
+        //console.log(data.data.data, "phlip");
 
         setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -188,7 +188,7 @@ const Savings = ({ getProductByCat }) => {
     axios
       .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip22278");
+        //console.log(data.data.data, "phlip22278");
 
         setOutrightProducts(data.data.data);
         setCaping({
@@ -196,7 +196,7 @@ const Savings = ({ getProductByCat }) => {
         });
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -204,7 +204,7 @@ const Savings = ({ getProductByCat }) => {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "powerful");
+        //console.log(data.data.data, "powerful");
 
         setItem(data.data.data);
         // setWrap({
@@ -213,7 +213,7 @@ const Savings = ({ getProductByCat }) => {
         // )
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
   
@@ -266,9 +266,9 @@ const Savings = ({ getProductByCat }) => {
               <div
                 className="savings_section2_area_box1"
                 data-aos="fade-up"
-                data-aos-anchor-placement="bottom-bottom"
-                data-aos-offset="300"
-                data-aos-easing="ease-in-sine"
+                // data-aos-anchor-placement="bottom-bottom"
+                // data-aos-offset="300"
+                // data-aos-easing="ease-in-sine"
               >
                 <AccountBalanceWalletIcon className="conts1_box1_contents_icon" />
                 <div className="build_savings_area2_conts1_box1_contents">

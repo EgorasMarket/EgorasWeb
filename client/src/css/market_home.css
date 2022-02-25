@@ -181,11 +181,12 @@
 .operations_cards_cont {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 20px;
 }
 
 .operations_card1 {
-  width: 24%;
+  width: 30%;
   display: flex;
   flex-direction: column;
   gap: 25px;
@@ -495,7 +496,7 @@
   from {
     background-position: 0 0;
   }
-/*use negative width if you want it to flow right to left else and positive for left to right*/
+  /*use negative width if you want it to flow right to left else and positive for left to right*/
   to {
     background-position: -10000px 0;
   }
@@ -546,4 +547,15 @@ button.compliment_btn {
   padding-top: 4em;
   position: relative;
   background: #f2fff7;
+}
+@media (max-width: 1080px) {
+  .build_savings_area2_conts1_box1 {
+    padding: 1.5em 1em;
+  }
+  .build_savings_area2_conts1_box1_title {
+    font-size: 16px;
+  }
+  .build_savings_area2_conts1_box1_para {
+    font-size: 13px;
+  }
 }
