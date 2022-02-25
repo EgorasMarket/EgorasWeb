@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/layout/home/Home";
 import Opd from "./components/layout/home/Opd";
 import Aos from "aos";
-import ScrollAnimation from "react-animate-on-scroll";
+// import ScrollAnimation from "react-animate-on-scroll";
 import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
