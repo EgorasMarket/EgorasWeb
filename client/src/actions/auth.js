@@ -176,10 +176,10 @@ export const getLogin = (email, password) => async (dispatch) => {
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
-      dispatch({
-        type: LOGIN_FAIL,
-        payload: errors[0].msg,
-      });
+      // dispatch({
+      //   type: LOGIN_FAIL,
+      //   payload: errors[0].msg,
+      // });
 
       return {
         status: false,
@@ -196,7 +196,7 @@ export const getLogin = (email, password) => async (dispatch) => {
       };
     }
   } catch (err) {
-    //console.log(err.response);
+    console.log(err);
 
     return {
       success: false,

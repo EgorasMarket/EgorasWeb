@@ -131,7 +131,7 @@ function ItemDetailsPage({ auth, match }) {
   
 
   useEffect(() => {
-    //console.log(auth.isAuthenticated);
+    console.log(auth, auth.isAuthenticated, auth.user);
     const body = JSON.stringify({
       product_id,
     });
