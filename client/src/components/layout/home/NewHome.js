@@ -18,7 +18,7 @@ const NewHome = () => {
             null
           ).then((data) =>{
               setPosts(data.data.items);
-            console.log(data.data.items);
+            //console.log(data.data.items);
           })  
          
     }, []);

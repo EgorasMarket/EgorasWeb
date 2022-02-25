@@ -130,12 +130,12 @@ const AdminSavingsOverview = ({ match }) => {
     setActiveBg(currentId);
   };
   useEffect(() => {
-    console.log(match.params.id);
+    //console.log(match.params.id);
 
     axios
       .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
       .then((data) => {
-        console.log(data.data.data);
+        //console.log(data.data.data);
         const getName = data.data.data.fullname;
         const splitName = getName.split(" ");
         setUserInfo({
@@ -151,7 +151,7 @@ const AdminSavingsOverview = ({ match }) => {
         });
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
   const onChangeaddress = (event) => {
@@ -171,12 +171,12 @@ const AdminSavingsOverview = ({ match }) => {
           let passportFile = document.getElementById("customer_image").files[0];
 
           let fileExtension = passportFile.name.split(".").pop();
-          console.log(passportFile);
+          //console.log(passportFile);
 
           if (!types.includes(fileExtension)) {
           } else {
             if (passportFile.size > 1000000) {
-              console.log("file too large.");
+              //console.log("file too large.");
             }
             // else {
             setcustomer_image(passportFile);
@@ -192,7 +192,7 @@ const AdminSavingsOverview = ({ match }) => {
     const formData = new FormData();
 
     if (customer_image === "") {
-      console.log("empty passport");
+      //console.log("empty passport");
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
@@ -200,14 +200,14 @@ const AdminSavingsOverview = ({ match }) => {
       const file = element.files[0];
       formData.append("customer_image", file, file.name);
 
-      console.log(formData, "hhhh");
+      //console.log(formData, "hhhh");
 
       try {
         const res = await axios.put(
           api_url2 + "/v1/admin/add/customer/image/" + customerId,
           formData
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -215,7 +215,7 @@ const AdminSavingsOverview = ({ match }) => {
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -224,10 +224,10 @@ const AdminSavingsOverview = ({ match }) => {
     e.preventDefault();
 
     if (customerAddress === "") {
-      console.log("empty address");
+      //console.log("empty address");
     } else {
       const body = JSON.stringify({ customerAddress });
-      console.log(body);
+      //console.log(body);
 
       try {
         const res = await axios.post(
@@ -235,7 +235,7 @@ const AdminSavingsOverview = ({ match }) => {
           body,
           config
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -243,7 +243,7 @@ const AdminSavingsOverview = ({ match }) => {
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -252,10 +252,10 @@ const AdminSavingsOverview = ({ match }) => {
     e.preventDefault();
 
     if (secondaryPhoneNumber === "") {
-      console.log("empty address");
+      //console.log("empty address");
     } else {
       const body = JSON.stringify({ secondaryPhoneNumber });
-      console.log(body);
+      //console.log(body);
 
       try {
         const res = await axios.put(
@@ -263,7 +263,7 @@ const AdminSavingsOverview = ({ match }) => {
           body,
           config
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -271,7 +271,7 @@ const AdminSavingsOverview = ({ match }) => {
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -295,7 +295,7 @@ const AdminSavingsOverview = ({ match }) => {
         body,
         config
       );
-      console.log(res.data, "undefined");
+      //console.log(res.data, "undefined");
 
       if (res.data.statusCode === 200) {
         // setPassportUpload(true)
@@ -303,7 +303,7 @@ const AdminSavingsOverview = ({ match }) => {
         // setAlert('Something went wrong, please try again later', 'danger');
       }
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
       // setAlert('Check your internet connection', 'danger');
     }
   };
@@ -321,7 +321,7 @@ const AdminSavingsOverview = ({ match }) => {
         body,
         config
       );
-      console.log(res.data, "undefined");
+      //console.log(res.data, "undefined");
 
       if (res.data.statusCode === 200) {
         // setPassportUpload(true)
@@ -329,7 +329,7 @@ const AdminSavingsOverview = ({ match }) => {
         // setAlert('Something went wrong, please try again later', 'danger');
       }
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
       // setAlert('Check your internet connection', 'danger');
     }
   };
@@ -343,14 +343,14 @@ const AdminSavingsOverview = ({ match }) => {
 
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-    console.log(nextKin);
+    //console.log(nextKin);
   };
 
   // const firstName = allCustomers.fullName.slice(0);
 
   // const lastName = allCustomers.fullName.slice(1);
-  // console.log(firstName);
-  // console.log(allCustomers.fullName.slice(0));
+  // //console.log(firstName);
+  // //console.log(allCustomers.fullName.slice(0));
   const openModal2 = () => {
     setModal2(true);
   };

@@ -51,7 +51,7 @@ const HomeUpdate = () => {
           <div className="h_update_hero_area">
             <div className="h_update_hero_area1">
               <div className="h_update_hero_area1_title">
-                The Better Way to Borrow & Save Money.
+                BETTER WAYS TO BORROW & SAVE MONEY.
               </div>
               <div className="h_update_hero_area1_para">
                 Interest-free loans, plus our target Savings tools to help you
@@ -201,25 +201,6 @@ const HomeUpdate = () => {
                     src="/img/assets_icon2.svg"
                     alt=""
                     className="operations_card1_icon2b"
-                  />
-                </div>
-              </div>
-              <div className="operations_card1">
-                <div className="operations_card1_title">
-                  Collaterals are converted to{" "}
-                  <span className="hover_color">NFTs </span> and stored in the
-                  blockchain.
-                </div>
-                <div className="operations_card1_img">
-                  <img
-                    src="/img/block_chain_icon1.png"
-                    alt=""
-                    className="operations_card1_icon1c"
-                  />
-                  <img
-                    src="/img/block_chain_icon2.png"
-                    alt=""
-                    className="operations_card1_icon2c"
                   />
                 </div>
               </div>

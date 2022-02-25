@@ -114,7 +114,7 @@ function DashboardInvestPage({ auth }) {
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "powerful");
+        //console.log(data.data.data, "powerful");
 
         setItem(data.data.data);
         setWrap({
@@ -122,7 +122,7 @@ function DashboardInvestPage({ auth }) {
         });
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -146,15 +146,15 @@ function DashboardInvestPage({ auth }) {
     axios
       .get(api_url2 + "/v1/product/retrieve/category", null, config)
       .then((data) => {
-        console.log(data.data.data, "king");
+        //console.log(data.data.data, "king");
         setCategory(data.data.data);
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }
 
-  console.log(item);
+  //console.log(item);
 
   const [prodBody, setProdBody] = useState("not_product_body");
   const [dropBtn, setDropBtn] = useState("dropHead");

@@ -28,10 +28,10 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
       case "password":
         if (e.target.value.length <= 7) {
           setStrongPass(true);
-          console.log("password is not 8");
+          //console.log("password is not 8");
         } else if (password.length >= 7) {
           setStrongPass(false);
-          console.log("password is 8");
+          //console.log("password is 8");
         }
         break;
       default:
@@ -52,7 +52,7 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
     }
   });
   const submitLogin = async (e) => {
-    console.log(email, password);
+    //console.log(email, password);
     if (isLoading == true) {
       setDisable(true);
     } else if (isLoading == false) {
@@ -64,14 +64,14 @@ const AdminLogin = ({ getLogin, isAuthenticated }) => {
 
     //  setToken(res)
 
-    console.log(res3);
+    //console.log(res3);
 
     // if (res.data.email !== e.target.value)
 
     if (res3.data.success === true) {
       setIsSuccessful(true);
       setIsLoading(false);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
       setAlert(res3.data, "danger");
       setIsLoading(false);

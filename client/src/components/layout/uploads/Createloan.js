@@ -79,7 +79,7 @@ const Createloan = props => {
   const test = (e) => {
     checkAllowance(account, library.getSigner());
     
-    console.log(parseEther("10", "wei").toString());
+    //console.log(parseEther("10", "wei").toString());
   }
   const onEditorStateChange = (editorState) =>{
     let text = draftToHtml(convertToRaw(editorState.getCurrentContent()));
@@ -94,7 +94,7 @@ const Createloan = props => {
   const [activeTab, setActiveTab] = useState('1');
 
   const toggle = tab => {
-   // console.log(tab);
+   // //console.log(tab);
     //if (activeTab !== tab) setActiveTab(tab);
   };
   
@@ -181,7 +181,7 @@ const submit = async (e) => {
   setIsLoading(true);
   // const promise = await props.loan(loan_tile, cover_image, loan_duration, loan_category, loan_fees, story, loan_amount, context.account);
   let res =  await props.image(cover_image);
-      console.log(res, "Imges");
+      //console.log(res, "Imges");
       if ( typeof res.data.image !== 'undefined') {  
      
      let ret = await creatLoan(parseEther(loan_amount.toString(), "wei").toString(),  

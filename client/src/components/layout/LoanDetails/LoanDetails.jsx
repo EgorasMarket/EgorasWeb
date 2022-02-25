@@ -203,7 +203,7 @@ const LoanDetails = ({ match, loans, messenger }) => {
         library.getSigner()
       );
 
-      console.log(ret);
+      //console.log(ret);
 
       if (ret.status == true) {
         setIsLoading(false);
@@ -248,7 +248,7 @@ const LoanDetails = ({ match, loans, messenger }) => {
         library.getSigner()
       );
 
-      console.log(ret);
+      //console.log(ret);
 
       if (ret.status == true) {
         setIsLoading(false);
@@ -285,7 +285,7 @@ const LoanDetails = ({ match, loans, messenger }) => {
       .get(api_url + "/api/loans/get/by/id/" + match.params.id, null, config)
       .then(function (response) {
         setLoanData(response.data.data[0]);
-        console.log(response.data.data);
+        //console.log(response.data.data);
         let backed = response.data.data[0].backed;
         let votingThreshold = response.data.data[0].votingThreshold;
         if (response.data.data[0].is_approved) {
@@ -307,7 +307,7 @@ const LoanDetails = ({ match, loans, messenger }) => {
     axios
       .get(api_url + "/api/loans/100", null, config)
       .then(function (response) {
-        console.log(response.data.data);
+        //console.log(response.data.data);
         setAllLoansData(response.data.data);
 
         setIsLoading(false);
@@ -329,10 +329,10 @@ const LoanDetails = ({ match, loans, messenger }) => {
 
   setInterval(() => {
     if (localStorage.getItem("unlocking") == "true") {
-      console.log("running Interval");
+      //console.log("running Interval");
       transactReceipt(localStorage.getItem("unlockingHash"), library).then(
         function (env) {
-          // console.log("running Interval", env);
+          // //console.log("running Interval", env);
           if (env.status == true && env.message !== null) {
             if (env.message.confirmations > 0) {
               setIsLoading(false);
@@ -650,9 +650,9 @@ const LoanDetails = ({ match, loans, messenger }) => {
             >
               {allLoansData.map((loan, i) => {
                 // if (loan.loan_category === getCategory) {
-                 console.log(loan);
+                 //console.log(loan);
 
-                // console.log(loan.loan_category);
+                // //console.log(loan.loan_category);
                 let percent = 0;
                 let up = 0;
                 let down = 0;
@@ -667,7 +667,7 @@ const LoanDetails = ({ match, loans, messenger }) => {
                 let per =
                   (parseFloat(backed) / parseFloat(votingThreshold)) * 100;
 
-                // console.log(per);
+                // //console.log(per);
 
                 // setPercentage(Math.round(per));
 
@@ -687,7 +687,7 @@ const LoanDetails = ({ match, loans, messenger }) => {
                   }
                 }
                 // }
-                // console.log(loan);
+                // //console.log(loan);
 
                 return (
                   // <Link to="/loan-details">{"/loan/details/" + loan.id}

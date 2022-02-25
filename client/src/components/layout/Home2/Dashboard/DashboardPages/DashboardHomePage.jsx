@@ -94,21 +94,21 @@ const DashboardHomePage = ({ auth, match }) => {
   const [userLockId,setUserLockId]=useState([])
 
   // const fetchFromCart = async (customer_id) => {
-  //   console.log('fetchfromCart', customer_id);
+  //   //console.log('fetchfromCart', customer_id);
   //   let call = await axios.get(`${api}/v1/cart/get/${customer_id}`).catch((err) => {
-  //     console.log("error from dashboardcart", err.message);
+  //     //console.log("error from dashboardcart", err.message);
   //   });
   //   // setCartData(call.data.data)
 
-  //   console.log(call.data.data, 'async call');
+  //   //console.log(call.data.data, 'async call');
   //   dispatch(allCart(call.data.data))
   //   // dispatch(allCart(call)) // use this to send to the redux store
   // }
 
   // useEffect(() => {
-  //   console.log(cus_id);
+  //   //console.log(cus_id);
   //   retrieveCart(cus_id)
-  //   console.log("inside use effect")
+  //   //console.log("inside use effect")
 
   // },[])
 
@@ -140,23 +140,23 @@ const DashboardHomePage = ({ auth, match }) => {
     await axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip");
+        //console.log(data.data.data, "phlip");
 
         setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
 
   useEffect(() => { 
-    // console.log(match.params.prduct_id,"play every day")
-    console.log(auth.user.user.id)
+    // //console.log(match.params.prduct_id,"play every day")
+    //console.log(auth.user.user.id)
     axios.get(api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`, null, config)
       .then((data) => {
 
-        console.log(data.data,"Ewwooo oh")
+        //console.log(data.data,"Ewwooo oh")
 
        setUserLockId(data.data.data)
 
@@ -167,12 +167,12 @@ const DashboardHomePage = ({ auth, match }) => {
         
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
   useEffect(async () => {
-    console.log(auth.user.user.id);
+    //console.log(auth.user.user.id);
     const customer_id = auth.user.user.id;
     const body = JSON.stringify({
       customer_id,
@@ -180,7 +180,7 @@ const DashboardHomePage = ({ auth, match }) => {
     await axios
       .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
       .then((data) => {
-        console.log(data.data.data, "bbbbbbb");
+        //console.log(data.data.data, "bbbbbbb");
 
         setAccountInfo({
           ledger: data.data.data.ledger,
@@ -191,13 +191,13 @@ const DashboardHomePage = ({ auth, match }) => {
         // setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
   }, [auth]);
 
   // useEffect(() => {
 
-  // console.log(body);
+  // //console.log(body);
 
   //     axios.post(
   //         api_url2 + "/v1/product/retrieve/specific",
@@ -206,8 +206,8 @@ const DashboardHomePage = ({ auth, match }) => {
   //         config
   //     ).then((cafe) => {
 
-  //       console.log("Goods only");
-  //         console.log(cafe.data.data, "Feeding");
+  //       //console.log("Goods only");
+  //         //console.log(cafe.data.data, "Feeding");
 
   //         setlock ({
   //           productImage:cafe.data.data.product_image,
@@ -215,7 +215,7 @@ const DashboardHomePage = ({ auth, match }) => {
   //           productAmount:cafe.data.data.amount
   //         })
   //     }).catch((err) => {
-  //         console.log(err.response); // "oh, no!"
+  //         //console.log(err.response); // "oh, no!"
   //     })
   // }, []);
 
