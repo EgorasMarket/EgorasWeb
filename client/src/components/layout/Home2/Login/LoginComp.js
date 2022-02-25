@@ -36,13 +36,13 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
     
     let res3 = await getLogin(email, password);
     
-    console.log(res3);
+    //console.log(res3);
     
     // if (res.data.email !== e.target.value)
     
     if (res3.data.success === true) {
       parentCallback(true);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
       setAlert(res3.data.errors[0].msg, "danger");
     }

@@ -64,10 +64,10 @@ const AdminSignup = ({ getAuthentication }) => {
       branch
       //   localStorage.referrer
     );
-    console.log(res);
+    //console.log(res);
     if (res.data.success === true) {
       setIsSuccessful(true);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
     }

@@ -129,12 +129,12 @@ useEffect(() => {
         setIsLoading(false);
         setLoanData(loans.data);
 
-        console.log(loans.data);
+        //console.log(loans.data);
     }
 
     // axios.get(api_url + "/api/loans/get/by/category/"+getCategory, null, config)
     //   .then(function (response) {
-    //       console.log(response.data.data)
+    //       //console.log(response.data.data)
     //       setLoanData(response.data.data)
           
     //       setIsLoading(false);
@@ -143,7 +143,7 @@ useEffect(() => {
 
   useEffect(() => {
     // setIsLoading(true);
-    console.log(getCategory);
+    //console.log(getCategory);
     
 
         
@@ -180,7 +180,7 @@ useEffect(() => {
       null,
       config
     ).then((response)=>{
-      console.log(response.data.items);
+      //console.log(response.data.items);
       setVideos(response.data.items);
     }).catch((err) =>{
       setVideos([{"id":{"videoId":"fPHzVIrRIV4"},"snippet":{"title":"Customer Experience With Mr Innocent"}},{"id":{"videoId":"VkLJz_A2DeM"},"snippet":{"title":"Customer Experience With Catherine Innocent"}},{"id":{"videoId":"_Q4sNYaSqVw"},"snippet":{"title":"Sarah Chukwuemeka - Head Of Business Development"}}])
@@ -200,28 +200,28 @@ useEffect(() => {
   const triggerCategory = e => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(e.target.id);
+    //console.log(e.target.id);
     // setGetCategory(e.target.id);
 
     const finalCat = e.target.id.replace("%20", " ");
 
-    console.log(finalCat);
+    //console.log(finalCat);
     
 
     if(finalCat == "all loans" ){
       axios.get(api_url + "/api/loans/100", null, config)
       .then(function (response) {
-        console.log(response, "Lekeleke");
+        //console.log(response, "Lekeleke");
           setLoanData(response.data.data)
          
           setIsLoading(false);
-          // console.log(response.data.data);
+          // //console.log(response.data.data);
           
       });  
     } else {
       axios.get(api_url + "/api/loans/get/by/category/"+e.target.id, null, config)
       .then(function (response) {
-          // console.log(response.data.data)
+          // //console.log(response.data.data)
           setLoanData(response.data.data)
           
           setIsLoading(false);
@@ -234,7 +234,7 @@ useEffect(() => {
   const triggerStatus = e => {
     e.preventDefault();
     setIsLoading(true);
-    console.log(e.target.id);
+    //console.log(e.target.id);
     // setGetCategory(e.target.id);
 
     let status = 0;
@@ -532,7 +532,7 @@ useEffect(() => {
                       {
                         loanData.map((loan, i) => {
                         if (loan.loan_category === getCategory) {
-                          console.log(loan.loan_category);
+                          //console.log(loan.loan_category);
                           let percent = 0;
                           let up = 0;
                           let down = 0;

@@ -8,7 +8,7 @@ const verify = async (transaction_id, product_id, startDate, endDate, days_left)
             "Content-Type": "application/json",
         },
     };
-    console.log(transaction_id)
+    //console.log(transaction_id)
     const body = {
         transaction_id
 
@@ -20,7 +20,7 @@ const verify = async (transaction_id, product_id, startDate, endDate, days_left)
         const { success, card, amount, tx_ref } = call.data.data.data;
         let token = card.token
 
-        console.log(call.data.data, token, success)
+        //console.log(call.data.data, token, success)
         const orderBody = JSON.stringify({
             product_id,
             token,
@@ -32,19 +32,19 @@ const verify = async (transaction_id, product_id, startDate, endDate, days_left)
 
         });
         const res = await axios.post(API_URL2 + "/v1/order/add/order", orderBody, config);
-        console.log(res.data.data);
+        //console.log(res.data.data);
         return call
     } catch (err) {
 
-        console.log(err.response)
+        //console.log(err.response)
     }
 
 
 
     // axios.get(`${API_URL2}/v1/flutterwave/payments/verify`, body, config).then(response => {
-    //     console.log(response, 'response from script')
+    //     //console.log(response, 'response from script')
     // }).catch(err => {
-    //     console.log(err.message, "message from exception")
+    //     //console.log(err.message, "message from exception")
     // })
 
 }

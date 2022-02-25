@@ -106,16 +106,16 @@ function DashboardAccountPage({
 
   useEffect(() => {
     // fetchDepositLinks();
-    console.log(auth);
+    //console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
+      // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
 
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
+      // //console.log('====================================');
+      //console.log(todecodedn);
+      // //console.log('====================================');
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
@@ -146,8 +146,8 @@ function DashboardAccountPage({
         null,
         config
     ).then((data) => {
-       console.log('eeeeee');
-        console.log(data.data.nxtOfKin, "king");
+       //console.log('eeeeee');
+        //console.log(data.data.nxtOfKin, "king");
 
         if (data.data.status === true) {
           setNxtOfKinA(true)
@@ -167,7 +167,7 @@ function DashboardAccountPage({
      
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
 
 
@@ -177,12 +177,12 @@ function DashboardAccountPage({
         null,
         config
       ).then((data) => {
-       console.log('eeeeee');
-        console.log(data.data.cusAddress, "king");
+       //console.log('eeeeee');
+        //console.log(data.data.cusAddress, "king");
      
       })
       .catch((err) => {
-        console.log(err.response); // "oh, no!"
+        //console.log(err.response); // "oh, no!"
       });
 
     
@@ -193,7 +193,7 @@ function DashboardAccountPage({
 
   const { user } = userName;
 
-  // console.log('okkkk');
+  // //console.log('okkkk');
 
   // const config = {
   //   headers: {
@@ -212,7 +212,7 @@ function DashboardAccountPage({
 
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-    console.log(nextKin);
+    //console.log(nextKin);
   };
 
   const onChangeFor4 = (e) => {
@@ -252,12 +252,12 @@ function DashboardAccountPage({
           let passportFile = document.getElementById("customer_image").files[0];
 
           let fileExtension = passportFile.name.split(".").pop();
-          console.log(passportFile);
+          //console.log(passportFile);
 
           if (!types.includes(fileExtension)) {
           } else {
             if (passportFile.size > 1000000) {
-              console.log("file too large.");
+              //console.log("file too large.");
             }
             // else {
             setcustomer_image(passportFile);
@@ -308,12 +308,12 @@ function DashboardAccountPage({
   const sends = async (e) => {
     let res = await sumitGenderAndDate(gender, dateOfBirth);
 
-    console.log(res);
+    //console.log(res);
 
     if (res.success === true) {
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
-      console.log("Something went wrong!");
+      //console.log("Something went wrong!");
       // setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
@@ -321,10 +321,10 @@ function DashboardAccountPage({
   // const updateInfo = async (e) => {
   //   let res = await userInfo(firstname1,lastname1,phoneNumber1,email1,BVN1);
 
-  //   console.log(res);
+  //   //console.log(res);
 
   //   if (res.data.data.success === true) {
-  //     console.log("okay Good Server");
+  //     //console.log("okay Good Server");
   //   } else {
   //     setAlert(res.data.data.errors[0].msg, "danger");
   //   }
@@ -340,10 +340,10 @@ function DashboardAccountPage({
       gender
     );
 
-    console.log(res);
+    //console.log(res);
 
     if (res.data.data.success === true) {
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
@@ -352,10 +352,10 @@ function DashboardAccountPage({
   const sumitChangePassword = async (e) => {
     let res = await changePassword(oldpassword, newpassword);
 
-    console.log(res);
+    //console.log(res);
 
     if (res.data.data.success === true) {
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
@@ -367,7 +367,7 @@ function DashboardAccountPage({
     const formData = new FormData();
 
     if (customer_image === "") {
-      console.log("empty passport");
+      //console.log("empty passport");
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
@@ -375,14 +375,14 @@ function DashboardAccountPage({
       const file = element.files[0];
       formData.append("customer_image", file, file.name);
 
-      console.log(formData, "hhhh");
+      //console.log(formData, "hhhh");
 
       try {
         const res = await axios.put(
           api_url2 + "/v1/user/add/customer/image",
           formData
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -390,7 +390,7 @@ function DashboardAccountPage({
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -399,15 +399,15 @@ function DashboardAccountPage({
   const submitAddress = async (e) => {
     e.preventDefault();
 
-    // console.log('vbvbvb');
+    // //console.log('vbvbvb');
 
     if (customerAddress === "") {
-      console.log("empty address");
+      //console.log("empty address");
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
       const body = JSON.stringify({ customerAddress });
-      console.log(body);
+      //console.log(body);
 
       try {
         const res = await axios.post(
@@ -415,7 +415,7 @@ function DashboardAccountPage({
           body,
           config
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -423,7 +423,7 @@ function DashboardAccountPage({
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }

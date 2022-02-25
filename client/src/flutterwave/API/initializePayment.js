@@ -25,14 +25,14 @@ const initializePayment = async (amount, customer_data) => {
         if (!call){
             return; 
         }
-        console.log(call, "from the anonymous")
+        //console.log(call, "from the anonymous")
         const {link} = call.data.data.data;
-        console.log(link, 'from me ')
         window.open(link, "_self")
+        
        return call; 
        
     } catch (err) {
-        console.log(err.response)
+        //console.log(err.response)
         return err.response
 
         //just checking

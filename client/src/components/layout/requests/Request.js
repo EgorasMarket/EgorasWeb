@@ -96,7 +96,7 @@ import Footer from '../parts/Footer';
     setStageOne(1);
     setModal(!modal);
     let  approve = await initiateRequest(requestID, library.getSigner());
-     console.log(approve);
+     //console.log(approve);
     if(approve.status == true){
       setStageOne(2);
       setHash(approve.message);
@@ -125,7 +125,7 @@ import Footer from '../parts/Footer';
   const openVote = (e) => {
     setStage(0);
     setStageOne(0);
-    console.log(requestData[e.currentTarget.id]);
+    //console.log(requestData[e.currentTarget.id]);
     setFormData({ ...formData, ['requestID']:requestData[e.currentTarget.id].requestID,  ['type']:requestData[e.currentTarget.id].requestType, ['votePower']: 0, ['Vote']: "None"});
     
     setModal(true);
@@ -133,7 +133,7 @@ import Footer from '../parts/Footer';
   }
   const changeType = (e) => {
     e.preventDefault();
-    console.log();
+    //console.log();
     switch (e.currentTarget.id) {
       case "interest":
         setRequestType(0);
@@ -269,10 +269,10 @@ import Footer from '../parts/Footer';
   setInterval(() => {
  
     if(localStorage.getItem('unlocking') == "true"){
-      console.log("running Interval");
+      //console.log("running Interval");
       transactReceipt(localStorage.getItem('unlockingHash'), library)
         .then(function(env) {
-          console.log("running Interval", env);
+          //console.log("running Interval", env);
          if(env.status == true && env.message !== null){
            if(env.message.confirmations > 0){
             setIsLoading(false);
