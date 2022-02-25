@@ -15,6 +15,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
   const [userName, setUserName] = useState("");
   const [alert2, setAlert2] = useState("");
   const [alertType, setAlertType] = useState("");
+  // const [autFree,setAutFree]=useState()
   
   // const [loginSuccess,setLoginSuccess]= useState('successfully');
   // const [password,setPassword]= useState();
@@ -64,6 +65,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
   if (isAuthenticated) {
     // return <Redirect to="/dashboard" />;
     // return window.location.replace("/dashboard");
+    
   }
 
   const timer = setTimeout(() => {
@@ -120,7 +122,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
         </span>
       </div>
 
-      {alert2 == "" ? null : <CustomAlert alert={alert} alertType={alertType} onChange={timer} />}
+      {alert2 == "" ? null : <CustomAlert alert={alert2} alertType={alertType} onChange={timer} />}
     </div>
   );
 };
