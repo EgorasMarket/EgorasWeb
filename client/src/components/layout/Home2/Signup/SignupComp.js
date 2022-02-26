@@ -13,13 +13,13 @@ const SignupComp = ({ adminAddCustomer }) => {
     fullname: "",
     email: "",
     password: "",
-    BVN: "",
+    // BVN: "",
     phoneNumber: "",
     confirmpassword: "",
     InfoReason: "",
   });
 
-  const { fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason } = userAuth;
+  const { fullname, email, password, confirmpassword, phoneNumber, InfoReason } = userAuth;
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -32,7 +32,7 @@ const SignupComp = ({ adminAddCustomer }) => {
 
   const submitData = async (e) => {
     // //console.log('ggg');
-    if (fullname === '' || password === '' || phoneNumber === '' || BVN === '' || confirmpassword === '' || InfoReason === '') {
+    if (fullname === '' || password === '' || phoneNumber === '' || confirmpassword === '' || InfoReason === '') {
       //console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
       setAlert('All supply all fields.');
       setAlertType('danger')
@@ -48,7 +48,7 @@ const SignupComp = ({ adminAddCustomer }) => {
         fullname,
         email,
         password,
-        BVN,
+        // BVN,
         phoneNumber,
         InfoReason
         //   localStorage.referrer
@@ -97,6 +97,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 value={email}
                 name="email"
                 onChange={onChange}
+                placeHolder="@gmail.com"
               />
               <div className="weak_pass_div text-muted">* Optional</div>
             </div>
@@ -111,16 +112,6 @@ const SignupComp = ({ adminAddCustomer }) => {
               />
             </div>
             <div className="signup_input_field1_cont">
-              <span className="input_title">Bank Verification Number (BVN)</span>
-              <input
-                type="number"
-                className="signup_input_field"
-                value={BVN}
-                name="BVN"
-                onChange={onChange}
-              />
-            </div>
-            <div className="signup_input_field1_cont">
               <span className="input_title">Password</span>
               <input
                 type="password"
@@ -128,6 +119,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 value={password}
                 name="password"
                 onChange={onChange}
+                  placeHolder="****"
               />
             </div>
             <div className="signup_input_field1_cont">
@@ -140,6 +132,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 name="confirmpassword"
                 onChange={onChange}
                 className="signup_input_field"
+                  placeHolder="****"
               />
             </div>
             <div className="signup_input_field1_cont">

@@ -67,7 +67,7 @@ export const loadUser = () => async (dispatch) => {
 
 // Get Social Media Handles
 export const getAuthentication =
-  (fullname, email, password, BVN, phoneNumber, InfoReason) =>
+  (fullname, email, password, phoneNumber, InfoReason) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -81,7 +81,6 @@ export const getAuthentication =
       fullname,
       email,
       password,
-      BVN,
       phoneNumber,
       InfoReason,
     });
