@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { CustomAlert } from "../../../../CustomAlert";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./Kcl.css"
+import "./Kcl.css";
 
 import { getLogin } from "../../../../actions/auth";
 // import { getAuthentication } from "../../../../actions/auth";
@@ -87,9 +87,9 @@ const Login = ({ getLogin, isAuthenticated }) => {
       // setDisable(false);
       console.log("okay Good Server");
     } else {
-      console.log('ffff');
+      console.log("ffff");
       setAlert(res3.data);
-      setAlertType('danger')
+      setAlertType("danger");
       setIsLoading(false);
       setDisable(false);
     }
@@ -121,16 +121,17 @@ const Login = ({ getLogin, isAuthenticated }) => {
   }, 5000);
   return (
     <div>
-      
       <section className="signup_section">
         <div className="container">
           <div className="signup_area">
             <div className="signup_cont_head">
-              <img
-                src="/img/egoras-logo.svg"
-                alt=""
-                className="signup_title_img"
-              />
+              <a href="/">
+                <img
+                  src="/img/egoras-logo.svg"
+                  alt=""
+                  className="signup_title_img"
+                />
+              </a>
             </div>
             <div className="signup_cont">
               <div className="signup_title">Login to your account</div>
@@ -217,9 +218,11 @@ const Login = ({ getLogin, isAuthenticated }) => {
         <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
       </section>
 
-      {alert == "" ? null : <CustomAlert alert={alert} alertType={alertType} onChange={timer} />}
-      </div>
- 
+      {alert == "" ? null : (
+        <CustomAlert alert={alert} alertType={alertType} onChange={timer} />
+      )}
+    </div>
+
     // :null}
   );
 };
