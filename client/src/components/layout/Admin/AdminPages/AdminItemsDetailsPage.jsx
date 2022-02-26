@@ -9,7 +9,7 @@ import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
 import Dashboard_Checkout_Page from "../../Home2/Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import Checkout from "./check";
+import Checkout from "./AdminCheckoutModalComponent";
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 
@@ -18,17 +18,17 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
-import ItemDetailComponent from "./items2";
+import ItemDetailComponent from "./AdminItemDetailCompnent";
 import LoginComp from "../../Home2/Login/LoginComp";
 
-function ItemDetailsPage({ auth, match }) {
+function AdminItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  //console.log(window.location.pathname.split("/"));
-  // //console.log(match.params.id);
+  // console.log(window.location.pathname.split("/"));
+  // console.log(match.params.id);
   const [loginModal, setLoginModal] = useState(false);
   const [loginSuccess,setLoginSuccess]= useState(false);
   const [product_id, setProductId] = useState();
@@ -37,12 +37,14 @@ function ItemDetailsPage({ auth, match }) {
   const [modal, setModal] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(null);
+  const [userPayload,setUserPayload] = useState({})   
   const [card, setSpec] = useState([]);
-  const [isAuthenticated, setIsAuthenticated ]  = useState(null)
+  const [deScript, setDeScript] = useState([]);
 
-  const [addressName,setAddressName]=useState({contactAddress:""})
+  
 
-  const {contactAddress}=addressName
+  // const {contactAddress}=addressName
 
   
   useEffect(() => {
@@ -126,19 +128,7 @@ function ItemDetailsPage({ auth, match }) {
   }, []);
 
 
-//   useEffect(()=>{
-//     axios.get(api_url2 + "/v1/user/address/info", null,
-//      config).then((response)=>{
-//  //console.log(response , "wewter kings")
-// //  //console.log(response.data.cusAddress. address,"market")
-
-//  setAddressName({contactAddress:response.data.cusAddress. address
-
-//  })
-//  //console.log(addressName,"Bk is good for development")
-//      })
-
-//   })
+  
 
   useEffect(() => {
     //console.log(auth.isAuthenticated);
@@ -157,7 +147,7 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/product/retrieve/specific", body, config)
       .then((data) => {
         const {
-          roundedAmount,
+          amount,
           percentage,
           product_brand,
           product_category_code,
@@ -167,21 +157,21 @@ function ItemDetailsPage({ auth, match }) {
           product_image,
           product_name,
           product_specifications,
-          unitCount,
-          payment_type,
           product_type,
           initial_deposit,
-          dailyAmount,
           paymentPerday,
+          payment_type, 
           days_left,
-          rounded,
-          total_amount,
           no_of_days,
+          no_of_days_paid, 
+          startDate, 
+          endDate
+
         } = data.data.data;
 
         //console.log(data.data.data, "king");
         setPayload({
-          roundedAmount,
+          amount,
           percentage,
           product_brand,
           product_category_code,
@@ -191,23 +181,24 @@ function ItemDetailsPage({ auth, match }) {
           product_image,
           product_name,
           product_specifications,
-          unitCount,
-          payment_type,
           product_type,
           initial_deposit,
-          dailyAmount,
           paymentPerday,
+          payment_type,
           days_left,
-          rounded,
-          total_amount,
           no_of_days,
+          no_of_days_paid, 
+          startDate, 
+          endDate
         });
         const getSlid = data.data.data.product_specifications;
+        const getSpecs = data.data.data.product_details;
         // const myArray = getSlid.split(",");
 
         //console.log(getSlid);
 
         setSpec(getSlid);
+        setDeScript(getSpecs);
 
         // //  const slipVar = getSlid.split(',');
         // //console.log("====================================");
@@ -224,7 +215,7 @@ function ItemDetailsPage({ auth, match }) {
   //console.log(product_id);
   return (
     <>
-      {loginModal == false ? null : (
+      {loginModal === false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           {/* <div>Login</div> */}
@@ -240,21 +231,21 @@ function ItemDetailsPage({ auth, match }) {
           <div className="container">
             {detailsModal === true ? (
               <Checkout
-                installation_days={payload.product_duration}
-                product_id={product_id}
-                customer_id={user_id}
-                closeCheckoutOptions={closeDetailModal}
-                apps={contactAddress}
+               payload={payload}
+               closeCheckoutOptions={closeDetailModal}
+
+                
               />
             ) : (
               <ItemDetailComponent
                 payload={payload}
+                specification={deScript}
                 // numberWithCommas={numberWithCommas}
                 card={card}
                 openCheckoutModal={() => {
                   // openDetailsModal();
-                  OpenLoginModal()
-                  // //console.log('gggg');
+                  OpenLoginModal();
+                  // console.log('gggg');
                 }}
               />
             )}
@@ -271,4 +262,4 @@ const mapStateToProps1 = (state) => ({
   cart: state.shop.cart,
 });
 
-export default connect(mapStateToProps1)(ItemDetailsPage);
+export default connect(mapStateToProps1)(AdminItemDetailsPage);

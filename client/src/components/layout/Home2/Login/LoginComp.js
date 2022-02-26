@@ -90,6 +90,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
                 name="email"
                 onChange={onChange2}
                 value={email}
+                placeHolder="email or password"
               />
             </div>
             {/* <div className="signup_input_field1_cont">
@@ -104,6 +105,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
                 name="password"
                 onChange={onChange2}
                 value={password}
+                placeHolder="****"
               />
             </div>
             {/* <div className="signup_input_field1_cont">
