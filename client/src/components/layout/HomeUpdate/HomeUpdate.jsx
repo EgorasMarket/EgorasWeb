@@ -143,16 +143,16 @@ const HomeUpdate = () => {
       <section className="new_hero_section2">
         <div className="container">
           <div className="new_hero_section2_area">
-            <div
-              className="operations_cards_cont"
-              data-aos="fade-up"
-            
-            >
+            <div className="operations_cards_cont" data-aos="fade-up">
               <div className="operations_card1">
                 <div className="operations_card1_title">
-                  Use our target savings and get up to
-                  <span className="hover_color"> 13% interest </span> every
-                  year.
+                  Put up your personal items to access after evaluation of
+                  assets.
+                  <span className="hover_color">
+                    {" "}
+                    interest-free loans{" "}
+                  </span>{" "}
+                  every year.
                 </div>
                 <div className="operations_card1_img">
                   <img
@@ -169,9 +169,9 @@ const HomeUpdate = () => {
               </div>
               <div className="operations_card1">
                 <div className="operations_card1_title">
-                  The assets get delivered to the shipping address immediately
-                  after the<span className="hover_color"> savings goals </span>{" "}
-                  have been met.
+                  Save up to get desired
+                  <span className="hover_color"> items </span> over a period of
+                  time.
                 </div>
                 <div className="operations_card1_img">
                   <img
@@ -188,8 +188,8 @@ const HomeUpdate = () => {
               </div>
               <div className="operations_card1">
                 <div className="operations_card1_title">
-                  Get<span className="hover_color"> interest-free </span> loans
-                  instantly after evaluation of assets.
+                  Instant buy off of items after
+                  <span className="hover_color"> evaluation.</span>
                 </div>
                 <div className="operations_card1_img">
                   <img
@@ -220,21 +220,16 @@ const HomeUpdate = () => {
       <section className="new_home_attributes_section1">
         <div className="container">
           <div className="new_home_attributes_area">
-            <div
-              className="new_home_attributes_area1"
-              data-aos="fade-up"
-           
-            >
+            <div className="new_home_attributes_area1" data-aos="fade-up">
               <div className="new_home_attributes_area1_txt">
                 {" "}
                 <h4 className="new_home_attributes_area1_txt_head">
-                  Your interest-free loans in 5mins.
+                  INSTANT INTEREST FREE LOANS.
                 </h4>
                 <p className="new_home_attributes_area1_txt_para">
-                  Seal the deal in just 3 steps! Get a value of your collateral,
-                  fix an appointment with the Egoras branch nearest to you, and
-                  finally, receive your loan before the collateral leaves your
-                  hands.
+                  Seal the deal in just 3 steps! Fix an appointment with any
+                  Egoras branch nearest to you, get a value of your collateral,
+                  and finally get your loan sent to you.
                 </p>
               </div>
               <a href="/loan" className="new_home_attributes_area1_link">
@@ -242,11 +237,7 @@ const HomeUpdate = () => {
                 <ArrowForwardIosIcon className="link_arrow" />
               </a>
             </div>{" "}
-            <div
-              className="new_home_attributes_area2"
-              data-aos="zoom-in-up"
-           
-            >
+            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
               <img src="/img/take_loan.svg" alt="" className="take_loan_img" />
             </div>
           </div>
@@ -261,10 +252,10 @@ const HomeUpdate = () => {
           <div className="build_savings_area">
             <div className="build_savings_area1">
               <div className="compliment_number_title">
-                Save Better. Choose Egoras.
+                SAVE BETTER. CHOOSE EGORAS.
               </div>
               <div className="compliment_number_para">
-                Earn 5%-15% when you save with Egoras.
+                Save to get any desired item with ease.
               </div>
               <a href="/savings">
                 <button className="compliment_btn">Start Saving</button>
@@ -275,18 +266,16 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-               
                 >
                   <ExitToAppIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
                     {" "}
                     <div className="build_savings_area2_conts1_box1_title">
-                      Signing up is simple.
+                      Signing up.
                     </div>
                     <div className="build_savings_area2_conts1_box1_para">
-                      No long applications or complicated terms & conditions.
-                      Have your email, phone number, address, DOB, and
-                      debit/credit card handy—that’s it.
+                      Easy application process with just your name, phone
+                      number, email address get registered in less than 5 mins.
                     </div>
                   </div>
                 </div>
@@ -296,17 +285,15 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-           
                 >
                   <AccountBalanceWalletIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
                     {" "}
                     <div className="build_savings_area2_conts1_box1_title">
-                      Get what you need right now.
+                      Get your desired item(s).
                     </div>
                     <div className="build_savings_area2_conts1_box1_para">
-                      Make your first savings today and the rest over 6 weeks.
-                      It is that simple to acquire any household items.
+                      Save over a period of time to get a desired item.
                     </div>
                   </div>
                 </div>
@@ -317,18 +304,15 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-             
                 >
                   <ManageAccountsIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
                     {" "}
                     <div className="build_savings_area2_conts1_box1_title">
-                      Manage with smart limits.
+                      Below market price.
                     </div>
                     <div className="build_savings_area2_conts1_box1_para">
-                      Check your available spend and stay within budget. And
-                      spend wisely with limits that gradually increase with
-                      on-time payments.
+                      Our items at an affordable prices.
                     </div>
                   </div>
                 </div>
@@ -338,19 +322,16 @@ const HomeUpdate = () => {
                 <div
                   className="build_savings_area2_conts1_box1"
                   data-aos="fade-up"
-              
                 >
                   <GroupsIcon className="conts1_box1_contents_icon" />
                   <div className="build_savings_area2_conts1_box1_contents">
                     {" "}
                     <div className="build_savings_area2_conts1_box1_title">
-                      We’ve got your back.
+                      Timely reminder.
                     </div>
                     <div className="build_savings_area2_conts1_box1_para">
-                      We’ll send reminders, so you never miss a payment. And if
-                      you do, we pause your account until you’re back on track.
-                      There are no fees when you pay on time. And late fees are
-                      capped at 25% of the purchase price.
+                      Get notifications via SMS/Emails about your saving
+                      progress.
                     </div>
                   </div>
                 </div>
@@ -368,32 +349,22 @@ const HomeUpdate = () => {
       <section className="new_home_attributes_section1">
         <div className="container">
           <div className="new_home_attributes_area">
-            <div
-              className="new_home_attributes_area2"
-              data-aos="zoom-in-up"
-      
-            >
+            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
               <img
                 src="/img/new_save_money_img.svg"
                 alt=""
                 className="take_loan_img2"
               />
             </div>
-            <div
-              className="new_home_attributes_area1"
-              data-aos="fade-up"
- 
-            >
+            <div className="new_home_attributes_area1" data-aos="fade-up">
               <div className="new_home_attributes_area1_txt">
                 {" "}
                 <h4 className="new_home_attributes_area1_txt_head">
-                  Goal-oriented Savings.
+                  GOAL ORIENTED SAVINGS.
                 </h4>
                 <p className="new_home_attributes_area1_txt_para">
-                  Get rewarded when you reach all your savings goals faster.
-                  Acquire personal properties with ease with our target savings
-                  tools. Earn 9% per annum to help you reach your goal faster.
-                  Think of it as a reward for meeting your target.
+                  Acquire items with ease through our target savings and get
+                  rewarded.
                 </p>
               </div>
               <a href="#" className="new_home_attributes_area1_link">
@@ -413,31 +384,22 @@ const HomeUpdate = () => {
       <section className="new_home_attributes_section4">
         <div className="container">
           <div className="new_home_attributes_area">
-            <div
-              className="new_home_attributes_area1"
-              data-aos="fade-up"
-          
-            >
+            <div className="new_home_attributes_area1" data-aos="fade-up">
               <div className="new_home_attributes_area1_txt">
                 {" "}
                 <h4 className="new_home_attributes_area1_txt_head">
-                  Become A Validator
+                  SMART SAVINGS
                 </h4>
                 <p className="new_home_attributes_area1_txt_para">
-                  With Egoras Protocol, you earn more when you back real people
-                  to access interest free loans instantly with their used
-                  item(s).
+                  Get to acquire your desired items with ease through our smart
+                  savings plan.
                 </p>
               </div>
               <a href="/validator" className="new_home_attributes_area1_link">
                 Back A loan Now <ArrowForwardIosIcon className="link_arrow" />
               </a>
             </div>{" "}
-            <div
-              className="new_home_attributes_area2"
-              data-aos="zoom-in-up"
-          
-            >
+            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
               <img
                 src="/img/validated_img.svg"
                 alt=""

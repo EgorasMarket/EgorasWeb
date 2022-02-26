@@ -191,11 +191,13 @@ const Signup = ({ getAuthentication }) => {
           <div className="container">
             <div className="signup_area">
               <div className="signup_cont_head">
-                <img
-                  src="/img/egoras-logo.svg"
-                  alt=""
-                  className="signup_title_img"
-                />
+                <a href="/">
+                  <img
+                    src="/img/egoras-logo.svg"
+                    alt=""
+                    className="signup_title_img"
+                  />
+                </a>
               </div>
               <div className="signup_cont">
                 <div className="signup_title">Create an Account</div>
@@ -232,7 +234,6 @@ const Signup = ({ getAuthentication }) => {
                       value={phoneNumber}
                       name="phoneNumber"
                       onChange={onChange}
-                      
                     />
                   </div>
                   {/* <div className="signup_input_field1_cont">
@@ -288,7 +289,7 @@ const Signup = ({ getAuthentication }) => {
                         value={confirmPassword}
                         name="confirmPassword"
                         onChange={onChange2}
-                          placeHolder="****"
+                        placeHolder="****"
                       />
                       {visibility2 == false ? (
                         <img
