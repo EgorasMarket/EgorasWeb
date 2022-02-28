@@ -3,6 +3,18 @@
   padding-top: 12em;
   position: relative;
 }
+.left_savings_icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 20%;
+}
+.right_savings_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 20%;
+}
 /* .savings_section .container {
   max-width: 1274px;
   /* overflow: hidden; */
@@ -20,14 +32,22 @@
 .savings_area2 {
   width: 150%;
 }
+.relate_div {
+  position: relative !important;
+}
 
 .savings_area1_title {
-  font-size: 62px;
-  font-weight: 700;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1em;
+}
+.innnn {
+  width: 65%;
+  position: relative;
 }
 
 .savings_area1_para {
-  width: 83%;
+  width: 100%;
   margin-bottom: 25px;
   margin-top: 20px;
 }
