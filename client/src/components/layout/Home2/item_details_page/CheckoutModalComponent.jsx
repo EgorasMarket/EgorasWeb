@@ -176,7 +176,8 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                 response.transaction_id,
                 product_id,
                 startDate,
-                endDate
+                endDate, 
+                days_left
               );
               closePaymentModal();
             } catch (error) {
