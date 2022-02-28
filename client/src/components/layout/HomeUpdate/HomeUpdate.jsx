@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
@@ -31,7 +31,29 @@ const responsive = {
     items: 1,
   },
 };
-
+const responsive1 = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 5,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1320 },
+    items: 4,
+  },
+  desktop2: {
+    breakpoint: { max: 1320, min: 990 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 990, min: 600 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 600, min: 0 },
+    items: 1,
+  },
+};
 const HomeUpdate = () => {
   const settings = {
     dots: false,
@@ -45,6 +67,7 @@ const HomeUpdate = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+
   return (
     <div>
       <section className="h_update_hero_section">
@@ -414,93 +437,256 @@ const HomeUpdate = () => {
       {/* ======== */}
       {/* ======== */}
       {/* ======== */}
-      <section className="users_compliment_section">
+
+      {/* ============== */}
+      {/* ============== */}
+      {/* ============== */}
+      {/* ============== */}
+
+      <section className="gtstoriesSection">
         <div className="container">
-          <div className="users_compliment_area">
-            <div className="users_compliment_box">
-              <div class="testimonials">
-                <div height="857" class="sc-bdfBQB fXZgI">
-                  <div class="box">
-                    <small style={{ color: "#239e54" }}>
-                      Friday, 27th of August 2021 by 20:39 PM
-                    </small>
-                    <div class="mt-20 clear-right">
-                      <div>
-                        <h6>Helen S</h6>
-                        <p className="compliment_para">
-                          Wow! Where has Piggyvest been all my adult life?.... I
-                          wish I knew about Piggyvest in my early days, I knew
-                          about it in a group chat on Whatsapp, at first I "said
-                          to myself this can't be real", but once I sign in, I
-                          got impressed and challenged myself. I am able to save
-                          money monthly. I love it!" "Piggyvest helped me to
-                          save better especially for rainy days. It's hard
-                          saving on your own and very tempting but with
-                          Piggyvest, I get to save with discipline." I love to
-                          share this with my friends.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box">
-                    <small style={{ color: "#239e54" }}>
-                      Wednesday, 25th of August 2021 by 21:33 PM
-                    </small>
-                    <div class=" mt-20 clear-right">
-                      <div>
-                        <h6>Kenechukwu E</h6>
-                        <p className="compliment_para">
-                          I used to have a problem of spending money on the go.
-                          When my brother told me about Piggyvest I was
-                          reluctant. But I am happy he persuaded me. Piggyvest
-                          has helped me to instill discipline financially.
-                          Piggyvest is a sure way to prepare for the future.
-                          Trust piggyvest they got your back👍
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="box">
-                    <small style={{ color: "#239e54" }}>
-                      Tuesday, 24th of August 2021 by 18:09 PM
-                    </small>
-                    <div class=" mt-20 clear-right">
-                      <div>
-                        <h6>Cynthia C</h6>
-                        <p className="compliment_para">
-                          PiggyVest has helped my life truly in many ways. I was
-                          kinda restless, helpless, but PiggyVest gave me the
-                          courage to stand. I couldn't save nor make a profit. I
-                          found PiggyVest it changed my life. It gave me a
-                          turnaround. I made a huge amount from it, which have
-                          helped me Soo much in my everyday life especially my
-                          Education, finance, etc This is not the opportunity
-                          you should miss, have a plan B, think better for the
-                          future.
-                        </p>
-                      </div>
-                    </div>
-                  </div>
+          <div
+            className="gttitleLine"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          ></div>
+          <div
+            className="gthowItWorksTitle"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <h1 className="gttitle" data-aos="fade-up" data-aos-duration="3000">
+              Popular Stories
+            </h1>
+          </div>
+          <div
+            className="gtstoriesArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            {/* Carousel start==============================
+==============================================
+============================= */}
+            <Carousel
+              responsive={responsive1}
+              className="storiesCard"
+              showDots={false}
+              infinite={true}
+            >
+              <div className="storiesCard1  width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    className="stroriesIframe"
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/C42kN47tbQk"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Meet Mrs Faith, She used Egoras micro-credit to restore her
+                    failing farm business.
+                  </h5>
+                  <h6 className="storiesCardDate">19 Apr 2021</h6>
                 </div>
               </div>
-            </div>
-            <div className="users_compliment_number">
-              <div className="compliment_number_title">
-                Over 2billion naira in loans.
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/8W9qbS-dZ2c"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Meet Mrs Onyiyechi, She used Egoras microcredit to expand
+                    her small business
+                  </h5>
+                  <h6 className="storiesCardDate">19 Apr 2021</h6>
+                </div>
               </div>
-              <div className="compliment_number_para">
-                Since launching in 2020, over 3,000,000 people have used
-                PiggyVest to manage their money better, avoid over-spending and
-                be more accountable.
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/uxv9_BfnLVg"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Meet Mrs Elizabeth, She used Egoras microcredit to expand
+                    her grocery business.
+                  </h5>
+                  <h6 className="storiesCardDate">19 Apr 2021</h6>
+                </div>
               </div>
-              <a href="/signup">
-                <button className="compliment_btn">
-                  Create a free account
-                </button>
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/5g8XkN10ScU"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Mrs Chidinma Happiness used Egoras Micro-credit to expand
+                    her grocery business
+                  </h5>
+                  <h6 className="storiesCardDate">1 Apr 2021</h6>
+                </div>
+              </div>
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/ZpLVfX8vfGk"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Meet Mrs Justina Kelechi, a small business owner that used
+                    Egoras microcredit to grow her business
+                  </h5>
+                  <h6 className="storiesCardDate">1 Apr 2021</h6>
+                </div>
+              </div>
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/xSR_wKvpVAA"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Meet Mr Chinemerem, An Egoras borrower
+                  </h5>
+                  <h6 className="storiesCardDate">28 Mar 2021</h6>
+                </div>
+              </div>
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/Wlxx40AImfI"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Meet Mrs Chidinma Ogu, an Egoras borrower
+                  </h5>
+                  <h6 className="storiesCardDate">28 Mar 2021</h6>
+                </div>
+              </div>
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/QjmG5Xvq63I"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Meet Mrs Faith Akpan, An Egoras borrower
+                  </h5>
+                  <h6 className="storiesCardDate">28 Mar 2021</h6>
+                </div>
+              </div>
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/RXPPrnrWuss"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    What is Egoras Microfinance Protocol
+                  </h5>
+                  <h6 className="storiesCardDate">23 Mar 2021</h6>
+                </div>
+              </div>
+              <div className="storiesCard1 width_ap">
+                <div className="storiesCardVideo">
+                  <iframe
+                    width="100%"
+                    height="200"
+                    src="https://www.youtube.com/embed/a_ehqUZGyoc"
+                    title="YouTube video player"
+                    frameborder="0"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowfullscreen
+                  ></iframe>
+                </div>
+                <div className="storiesCardTxts">
+                  <h5 className="storiesCardTitle">
+                    Mrs Gloria Omoreke just doubled her profits with Egoras
+                    Micro-credit
+                  </h5>
+                  <h6 className="storiesCardDate">23 Mar 2021</h6>
+                </div>
+              </div>
+            </Carousel>
+            {/* Carousel end==============================
+==============================================
+============================= */}
+            <div className="carouselLinkStories">
+              <a
+                href="https://www.youtube.com/channel/UCHfi5EwXig46xp5Dx8hVBHQ/videos"
+                target="_blank"
+                className="carouselLinkbtn"
+              >
+                View All
               </a>
             </div>
           </div>
         </div>
+
+        <img src="/img/video-dots.svg" alt="" className="gtvidDots" />
       </section>
       {/* ============== */}
       {/* ============== */}
