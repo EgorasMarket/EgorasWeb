@@ -264,8 +264,8 @@ input:-internal-autofill-selected {
   top: 45%;
   width: 10px !important;
 }
-.react-multi-carousel-track {
-  gap: 0px;
+.partnerCards .react-multi-carousel-track {
+  gap: 15px;
 }
 
 .eHUcDD {
@@ -287,5 +287,16 @@ input:-internal-autofill-selected {
   border-radius: 50% !important;
   width: 100%;
   height: 100%;
-  background-color: #093f1f
+  background-color: #093f1f;
+}
+@media screen and (max-width: 700px) {
+  .partnerCards .react-multi-carousel-track {
+    gap: 30px;
+  }
+}
+@media screen and (max-width: 590px) {
+  .partnerCards .react-multi-carousel-track {
+    gap: 15px;
+  }
+
 }

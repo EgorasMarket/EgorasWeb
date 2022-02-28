@@ -234,7 +234,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   name="search"
                   id="search"
                   className="dash_board_header_search_input"
-                  placeholder="search"
+                  placeholder="search market"
                 />
               </div>
               <div className="welcome_user">
