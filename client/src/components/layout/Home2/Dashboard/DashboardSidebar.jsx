@@ -9,7 +9,7 @@ import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
-import NotificationsIcon from '@mui/icons-material/Notifications';
+import NotificationsIcon from "@mui/icons-material/Notifications";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import StoreIcon from "@mui/icons-material/Store";
@@ -228,7 +228,15 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   /> */}
                 </div>
               </div>
-
+              <div className="dash_board_header_search_bar">
+                <input
+                  type="search"
+                  name="search"
+                  id="search"
+                  className="dash_board_header_search_input"
+                  placeholder="search"
+                />
+              </div>
               <div className="welcome_user">
                 Welcome
                 <span className="userName_name">{Userlastname}</span>
