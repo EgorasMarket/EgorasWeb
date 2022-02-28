@@ -73,18 +73,30 @@ const responsive7 = {
     items: 8,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: { max: 3000, min: 1620 },
     items: 6,
   },
   tablet: {
-    breakpoint: { max: 1024, min: 600 },
+    breakpoint: { max: 1620, min: 1420 },
+    items: 5,
+  },
+  tabletMedium: {
+    breakpoint: { max: 1420, min: 1024 },
+    items: 4,
+  },
+  tabletSmall: {
+    breakpoint: { max: 1024, min: 810 },
     items: 4,
   },
   mobile: {
-    breakpoint: { max: 670, min: 400 },
+    breakpoint: { max: 810, min: 590 },
     items: 3,
   },
-  mobile: {
+  mobileSmall: {
+    breakpoint: { max: 590, min: 400 },
+    items: 2,
+  },
+  mobileSmaller: {
     breakpoint: { max: 400, min: 0 },
     items: 2,
   },
