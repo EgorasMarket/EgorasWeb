@@ -576,7 +576,7 @@ const Header = ({ isAuthenticated, auth }) => {
                   className={clsx(open && classes.hide)}
                   id="HideAgain"
                 >
-                  <MenuIcon />
+                  <MenuIcon className="menu_open_mui_icon" />
                 </IconButton>
               </Toolbar>
               <Drawer
@@ -596,37 +596,27 @@ const Header = ({ isAuthenticated, auth }) => {
                 <Divider />
                 <List>
                   <ListItem>
-                    <Accordion>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <Typography className={classes.heading}>
-                          Products
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <div className="footerLinks">
-                          <a
-                            href="https://egoras.ng/appointment"
-                            className="c1link1 a"
-                          >
-                            Get loan
-                          </a>
-                          <a
-                            href="/explore_collaterals"
-                            className="c1link1"
-                            target="_blank"
-                          >
-                            Explore Collaterals
-                          </a>
-                        </div>
-                      </AccordionDetails>
-                    </Accordion>
-                    {/* <a href="/documents" className="product">
-                      Products
-                    </a> */}
+                    <a href="/loan" className="about">
+                      Loan
+                    </a>
+                  </ListItem>
+                </List>
+                <Divider />
+
+                <List>
+                  <ListItem>
+                    <a href="/savings" className="about">
+                      Savings
+                    </a>
+                  </ListItem>
+                </List>
+                <Divider />
+
+                <List>
+                  <ListItem>
+                    <a href="/validator" className="about">
+                      Validator
+                    </a>
                   </ListItem>
                 </List>
                 <Divider />
@@ -678,23 +668,82 @@ const Header = ({ isAuthenticated, auth }) => {
                   </ListItem>
                 </List>
                 <Divider />
-                <List>
-                  <ListItem>
-                    <a href="https://egoras.ng/appointment" className="getLoan">
-                      {" "}
-                      Get the loan
-                    </a>
-                  </ListItem>
-                </List>
-                <Divider />
-                <List>
-                  <ListItem>
-                    <a href="#" className="connect">
-                      <Authenticate />
-                      <div className="connectHover"></div>
-                    </a>
-                  </ListItem>
-                </List>
+                {currentPage == "/" ? (
+                  <div>
+                    <List>
+                      <ListItem>
+                        <a href="/login" className="getLoan">
+                          {" "}
+                          Login
+                        </a>
+                      </ListItem>
+                    </List>
+                    <Divider />
+                    <List>
+                      <ListItem>
+                        <a href="/signup" className="connectb">
+                          Signup
+                        </a>
+                      </ListItem>
+                    </List>
+                  </div>
+                ) : null}
+                {currentPage == "/loan" ? (
+                  <div>
+                    <List>
+                      <ListItem>
+                        <a
+                          href="https://egoras.ng/appointment"
+                          className="connectb"
+                        >
+                          {" "}
+                          Get the loan
+                        </a>
+                      </ListItem>
+                    </List>
+                  </div>
+                ) : null}
+                {currentPage == "/validator" ? (
+                  <div>
+                    <List>
+                      <ListItem>
+                        <a href="#" className="connect">
+                          <Authenticate />
+                        </a>
+                      </ListItem>
+                    </List>
+                  </div>
+                ) : null}
+                {currentPage == "/savings" && isAuth === true ? (
+                  <div>
+                    <List>
+                      <ListItem>
+                        <a href="/dashboard" className="connectb">
+                          Dashboard
+                        </a>
+                      </ListItem>
+                    </List>
+                  </div>
+                ) : currentPage == "/savings" && isAuth === false ? (
+                  <div>
+                    <List>
+                      <ListItem>
+                        <a href="/login" className="getLoan">
+                          {" "}
+                          Login
+                        </a>
+                      </ListItem>
+                    </List>
+                    <Divider />
+                    <List>
+                      <ListItem>
+                        <a href="/signup" className="connectb">
+                          Signup
+                        </a>
+                      </ListItem>
+                    </List>
+                  </div>
+                ) : null}
               </Drawer>
             </div>
           </div>

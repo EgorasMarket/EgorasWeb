@@ -351,12 +351,12 @@ const Savings = ({ getProductByCat }) => {
     },
   ];
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
       <section className="savings_section">
         <div className="container">
           <div className="savings_area">
             <div className="savings_area1">
-              <div className="savings_area1_title">SMART SAVINGS.</div>
+              <div className="savings_area1_title">Smart Savings.</div>
               <div className="savings_area1_para">
                 Get to acquire your desired items with ease through our smart
                 savings plan.
@@ -604,7 +604,7 @@ const Savings = ({ getProductByCat }) => {
             </h1>
           </div>
           <div className="users_compliment_area">
-            <div className="innnn">
+            <div className="container_style">
               <ReactCardCarousel
                 position={"relative"}
                 autoplay={true}
@@ -614,7 +614,7 @@ const Savings = ({ getProductByCat }) => {
               >
                 {/* <div className="wrap_them"> */}
                 {reviews.map((rev) => (
-                  <div style={CARD_STYLE[0]}>
+                  <div className="card_compliment_style">
                     <div className="reviewer_img">
                       <TwitterIcon className="twitter_social_icon" />
                     </div>
@@ -681,7 +681,7 @@ const Savings = ({ getProductByCat }) => {
 ============================= */}
             <Carousel
               responsive={responsive}
-              className="partnerCards"
+              className="partnerCards featured_logos"
               showDots={false}
               //   infinite={false}
               autoPlay={true}

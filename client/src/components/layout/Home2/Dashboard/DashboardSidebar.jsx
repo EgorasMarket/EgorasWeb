@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { API_URL2 as api_url2 } from "../../../../actions/types";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
+import SearchIcon from "@mui/icons-material/Search";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
@@ -42,6 +43,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [smallSide, setSmallSide] = useState(dddd);
   const [cartNum, setCartNum] = useState("");
   const [image, setImage] = useState("");
+  const [searchBar, setSearchBar] = useState(false);
   const linksActive = window.location.pathname;
 
   const [userInfo, setUserInfo] = useState({
@@ -68,6 +70,11 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     UserdateOfBirth,
   } = userInfo;
 
+  useEffect(() => {
+    if (linksActive == "/dashboard/products") {
+      setSearchBar(true);
+    }
+  });
   useEffect(() => {
     // setCartNum(cart.length)
     // fetchDepositLinks();
@@ -199,10 +206,12 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               //   onMouseOut={closeLogoutDiv}
             >
               <div className="together">
-                <div className="save_numb_div">
-                  <NotificationsIcon className="cart_icon" />
-                  <div className="cart_num">{cartNum}</div>
-                </div>
+                {searchBar == false ? (
+                  <div className="save_numb_div">
+                    <NotificationsIcon className="cart_icon" />
+                    <div className="cart_num">{cartNum}</div>
+                  </div>
+                ) : null}
 
                 {/* <div
                   className="logout_div"
@@ -219,28 +228,35 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     Logout
                   </button>
                 </div> */}
-                <div className="immmgg">
-                  <img src={image} alt="" className="user_profile" />
-                  {/* <img
+                {searchBar == false ? (
+                  <div className="immmgg">
+                    <img src={image} alt="" className="user_profile" />
+                    {/* <img
                     src="/img/profile_icon2.svg"
                     alt=""
                     className="user_profile2"
                   /> */}
+                  </div>
+                ) : null}
+              </div>
+              {searchBar == true ? (
+                <div className="dash_board_header_search_bar">
+                  <input
+                    type="search"
+                    name="search"
+                    id="search"
+                    className="dash_board_header_search_input"
+                    placeholder="search market"
+                  />
+                  <SearchIcon className="search_icon"/>
                 </div>
-              </div>
-              <div className="dash_board_header_search_bar">
-                <input
-                  type="search"
-                  name="search"
-                  id="search"
-                  className="dash_board_header_search_input"
-                  placeholder="search market"
-                />
-              </div>
-              <div className="welcome_user">
-                Welcome
-                <span className="userName_name">{Userlastname}</span>
-              </div>
+              ) : null}
+              {searchBar == false ? (
+                <div className="welcome_user">
+                  Welcome
+                  <span className="userName_name">{Userlastname}</span>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
