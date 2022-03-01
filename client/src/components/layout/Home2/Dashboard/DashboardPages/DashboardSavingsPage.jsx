@@ -347,7 +347,7 @@ function DashboardSavingsPage({ match, auth }) {
                   >
                     {itemdisplay.map((asset) => (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
                       >
                         <li className="carous_list">
                           <div
@@ -445,7 +445,7 @@ function DashboardSavingsPage({ match, auth }) {
                   >
                     {itemdisplay.map((asset) => (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
                       >
                         <li className="carous_list no_marg">
                           <div
