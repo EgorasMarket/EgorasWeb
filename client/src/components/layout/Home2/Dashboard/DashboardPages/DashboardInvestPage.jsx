@@ -42,6 +42,41 @@ const responsive7 = {
     items: 2,
   },
 };
+const responsive8 = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 8,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1620 },
+    items: 6,
+  },
+  tablet: {
+    breakpoint: { max: 1620, min: 1420 },
+    items: 5,
+  },
+  tabletMedium: {
+    breakpoint: { max: 1420, min: 1024 },
+    items: 4,
+  },
+  tabletSmall: {
+    breakpoint: { max: 1024, min: 810 },
+    items: 4,
+  },
+  mobile: {
+    breakpoint: { max: 810, min: 590 },
+    items: 3,
+  },
+  mobileSmall: {
+    breakpoint: { max: 590, min: 400 },
+    items: 2,
+  },
+  mobileSmaller: {
+    breakpoint: { max: 400, min: 0 },
+    items: 2,
+  },
+};
 
 function DashboardInvestPage({ auth }) {
   // const [item,setItem]=useState({})
@@ -365,6 +400,21 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
+                   <Carousel
+                  responsive={responsive8}
+                  className="partnerCards LEFTARROW"
+                  showDots={false}
+                  //   infinite={false}
+                  //   infinite={false}
+                  autoPlay={true}
+                  autoPlaySpeed={6000}
+                  transitionDelay={"2s"}
+                  infinite={true}
+                  draggable={true}
+                  // transitionDuration={500}
+                  swipeable={true}
+                  style={{ height: "25em" }}
+                >
               {item.slice(0, 12).map((asset, index) => (
                 <a
                   href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
@@ -387,6 +437,7 @@ function DashboardInvestPage({ auth }) {
                         //   backgroundPositionY: "center",
                       }}
                     >
+                   
                       <div className="storeTiles_storeTileOffersContainer__3v8lC">
                         <button className="items_remaining_btn">
                           {asset.payment_type == "OUTRIGHT" ? (
@@ -419,6 +470,7 @@ function DashboardInvestPage({ auth }) {
                   </li>
                 </a>
               ))}
+                 </Carousel>
             </div>
           </div>
 

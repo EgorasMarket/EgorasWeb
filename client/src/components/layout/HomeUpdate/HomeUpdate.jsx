@@ -69,7 +69,7 @@ const HomeUpdate = () => {
   };
 
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
       <section className="h_update_hero_section">
         <div className="container">
           <div className="h_update_hero_area">
@@ -406,16 +406,17 @@ const HomeUpdate = () => {
       {/* ================== */}
       <section className="new_home_attributes_section4">
         <div className="container">
-          <div className="new_home_attributes_area">
+          <div className="new_home_attributes_area rev_me">
             <div className="new_home_attributes_area1" data-aos="fade-up">
               <div className="new_home_attributes_area1_txt">
                 {" "}
                 <h4 className="new_home_attributes_area1_txt_head">
-                  SMART SAVINGS
+                  Become A Validator
                 </h4>
                 <p className="new_home_attributes_area1_txt_para">
-                  Get to acquire your desired items with ease through our smart
-                  savings plan.
+                  With Egoras Protocol, you earn more when you back real people
+                  to access interest free loans instantly with their used
+                  item(s).
                 </p>
               </div>
               <a href="/validator" className="new_home_attributes_area1_link">
@@ -700,7 +701,7 @@ const HomeUpdate = () => {
 ============================= */}
             <Carousel
               responsive={responsive}
-              className="partnerCards"
+              className="partnerCards featured_logos"
               showDots={false}
               //   infinite={false}
               autoPlay={true}

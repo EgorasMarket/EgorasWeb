@@ -88,12 +88,20 @@
     width: 10px !important;
     padding: 0 !important;
   }
+  .explore,
+  .docs,
+  .about,
+  .metrics {
+    font-size: 14px;
+  }
   .hideNow {
     display: grid !important;
     width: 10px !important;
     padding: 0 !important;
   }
-
+  .menu_open_mui_icon {
+    font-size: 30px !important;
+  }
   #HideAgain {
     width: 10px !important;
     padding: 0 !important;
@@ -104,10 +112,10 @@
     width: 50%;
   }
 
-  .egr-logo2 {
+  /* .egr-logo2 {
     display: block;
     width: 130px;
-  }
+  } */
 
   .headerLinks {
     display: none;
@@ -144,7 +152,7 @@
   .egr-logo {
     width: 100px;
   }
-  .egr-logo2 {
+  /* .egr-logo2 {
     width: 100px;
-  }
+  } */
 }

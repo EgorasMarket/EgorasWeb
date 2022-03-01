@@ -267,7 +267,12 @@ input:-internal-autofill-selected {
 .partnerCards .react-multi-carousel-track {
   gap: 15px;
 }
-
+.featured_logos .react-multi-carousel-track {
+  gap: 0px;
+}
+.gtr .react-multi-carousel-track {
+  gap: 0px;
+}
 .eHUcDD {
   width: 64px;
   height: 64px;
@@ -293,10 +298,21 @@ input:-internal-autofill-selected {
   .partnerCards .react-multi-carousel-track {
     gap: 30px;
   }
+  .featured_logos .react-multi-carousel-track {
+  gap: 0px;
+}
+  .gtr .react-multi-carousel-track {
+    gap: 0px;
+  }
 }
 @media screen and (max-width: 590px) {
   .partnerCards .react-multi-carousel-track {
     gap: 15px;
   }
-
+  .featured_logos .react-multi-carousel-track {
+  gap: 0px;
+}
+  .gtr .react-multi-carousel-track {
+    gap: 0px;
+  }
 }
