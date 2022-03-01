@@ -462,12 +462,14 @@
   color: #96bda5;
   list-style: disc;
   direction: rtl;
+  text-align: left;
 }
 .change_section_active {
   cursor: pointer;
   font-size: 20px;
   font-weight: 800;
   color: #208d4b;
+  text-align: left;
 }
 .reverse {
   flex-direction: row-reverse;
@@ -700,11 +702,11 @@ button.compliment_btn {
   color: #ffff;
   font-weight: 600;
 }
-  .gthowItWorksTitle {
-    margin-bottom: 5px;
-    position: relative;
-    z-index: 5;
-  }
+.gthowItWorksTitle {
+  margin-bottom: 5px;
+  position: relative;
+  z-index: 5;
+}
 /* ================= */
 /* ================= */
 /* ================= */
@@ -714,6 +716,12 @@ button.compliment_btn {
   padding-top: 4em;
   position: relative;
   background: #f2fff7;
+}
+@media (max-width: 1100px) {
+  .card_compliment_style {
+    height: 255px;
+    width: 255px;
+  }
 }
 @media (max-width: 1080px) {
   .build_savings_area2_conts1_box1 {
@@ -727,6 +735,10 @@ button.compliment_btn {
   }
 }
 @media (max-width: 991px) {
+  .card_compliment_style {
+    height: 300px;
+    width: 300px;
+  }
   .section_writeup_div_controls {
     width: 100%;
     display: flex;
@@ -798,14 +810,14 @@ button.compliment_btn {
     color: #96bda5;
     list-style: disc;
     direction: rtl;
-    text-align: center;
+    text-align: left;
   }
   .change_section_active {
     cursor: pointer;
     font-size: 12px;
     font-weight: 800;
     color: #208d4b;
-    text-align: center;
+    text-align: left;
   }
   .h_update_hero_area2 {
     width: 100%;
@@ -908,10 +920,8 @@ button.compliment_btn {
     font-weight: 600;
   }
   .users_compliment_area {
-
     gap: 0px;
-
-}
+  }
 }
 @media (max-width: 450px) {
   .card_compliment_style {
