@@ -175,10 +175,7 @@
   color: #fff;
 }
 .products_display_body_conts {
-  padding: 0em 2em;
-  display: grid;
-  grid-template-columns: auto auto auto auto auto auto;
-  gap: 15px;
+  padding: 0em .5em;
 }
 .products_display_body_conts2 {
   padding: 0em 2em;
@@ -242,12 +239,7 @@
   }
 
   .products_display_body_conts {
-    padding: 0em 2em;
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
-    grid-gap: 15px;
-    gap: 15px;
-    overflow-x: scroll;
+    padding: 0em .5em;
   }
   .no_marg {
     margin: 0 !important;
