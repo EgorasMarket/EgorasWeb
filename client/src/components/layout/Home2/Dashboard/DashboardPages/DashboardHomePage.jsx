@@ -316,9 +316,9 @@ const DashboardHomePage = ({ auth, match }) => {
                             <div className="save_overview_cont_items_left">
                               Paid Sum ₦{item.paidSum}
                             </div>
-                            <button className="save_overview_cont_items_top_up">
+                            {/* <button className="save_overview_cont_items_top_up">
                               Top up
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </div>
@@ -369,7 +369,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div
@@ -468,7 +468,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div
@@ -583,7 +583,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div
@@ -681,7 +681,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div
