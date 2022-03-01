@@ -28,8 +28,9 @@ const verify = async (transaction_id, product_id, startDate, endDate, days_left)
             initial_pay: amount,
             startDate, 
             endDate,
-            days_left
-
+            days_left, 
+            transaction_type:"FIAT"
+            
         });
 
         console.log(orderBody)
