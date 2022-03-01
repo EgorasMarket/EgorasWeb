@@ -251,8 +251,9 @@ const AdminUploadProducts = () => {
     
     } else {
       const element = document.getElementById("product_image");
-      const file = element.files[0];
-      formData.append("product_image", file, file.name);
+      const file = element.files;
+      console.log(file);
+      formData.append("product_image", file);
 
       //console.log(formData, "hhhh");
 
@@ -277,7 +278,7 @@ const AdminUploadProducts = () => {
           
         }
       } catch (err) {
-        //console.log(err.response);
+        console.log(err.response);
         
       }
     }
@@ -537,6 +538,7 @@ const AdminUploadProducts = () => {
                     name="product_image"
                     onChange={onImageChange}
                     className="filetype"
+                    multiple
                   />
                 </div>{" "}
                 <div className="profile_modal_area2">

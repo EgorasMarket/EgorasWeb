@@ -90,7 +90,7 @@ const LoginComp = ({ getLogin, setAlert, isAuthenticated, parentCallback }) => {
                 name="email"
                 onChange={onChange2}
                 value={email}
-                placeHolder="@gmail.com"
+                placeHolder="email or password"
               />
             </div>
             {/* <div className="signup_input_field1_cont">

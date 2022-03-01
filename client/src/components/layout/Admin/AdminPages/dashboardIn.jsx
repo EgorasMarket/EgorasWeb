@@ -369,7 +369,7 @@ function DashboardInvestPage({ auth }) {
                 <a
                   // href={`/admin/products/details/${asset.id}/${asset.product_name}`}
                   // href={`/products/details/${asset.id}/${asset.product_name}`}
-                  href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                  href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                   key={index.toString()}
                 >
                   <li className="carous_list no_marg">
@@ -463,7 +463,7 @@ function DashboardInvestPage({ auth }) {
                     return (
                       <a 
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} 
-                      href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                      href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                       key={index.toString()}>
                   <li className="carous_list no_marg">
                     <div
@@ -583,7 +583,7 @@ function DashboardInvestPage({ auth }) {
 
                 <a
                 //  href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} 
-                href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                 key={index2}>
                   <li className="carous_list no_marg">
                     <div
@@ -675,7 +675,7 @@ function DashboardInvestPage({ auth }) {
                   return (
                     <a 
                     // href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                    href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                    href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                      key={index.toString()}>
                     <li className="carous_list no_marg">
                       <div
@@ -779,7 +779,7 @@ function DashboardInvestPage({ auth }) {
                     return (
                       <a 
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name}` }
-                      href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                      href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                        key={index4.toString()}>
                       <li className="carous_list no_marg">
                         <div
@@ -867,7 +867,7 @@ function DashboardInvestPage({ auth }) {
                   return (
                     <a 
                     // href={`/dashboard/products/details/${asset.id}/${asset.product_name}` }
-                    href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                    href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                      key={index5.toString()}>
                       <li className="carous_list no_marg">
                         <div
@@ -970,7 +970,7 @@ function DashboardInvestPage({ auth }) {
                     return (
                       <a 
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name}` }
-                      href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                      href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                        key={index7.toString()}>
                       <li className="carous_list no_marg">
                         <div
@@ -1056,7 +1056,7 @@ function DashboardInvestPage({ auth }) {
                   return (
                     <a 
                     // href={`/dashboard/products/details/${asset.id}/${asset.product_name}` }
-                    href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                    href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                      key={index8.toString()}>
                       <li className="carous_list no_marg">
                         <div
@@ -1160,7 +1160,7 @@ function DashboardInvestPage({ auth }) {
                     return (
                       <a
                         // href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-                        href={`/super_admin/details/${asset.id}/${asset.product_name}`}
+                        href={`/super_admin/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                         key={index9.toString()}
                       >
                         <li className="carous_list no_marg no_marg">
