@@ -147,7 +147,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
                     name="email"
                     onChange={onChange2}
                     value={email}
-                    placeHolder="@gmail.com"
+                    placeHolder="Email or phone number"
                   />
                 </div>
                 {/* <div className="signup_input_field1_cont">

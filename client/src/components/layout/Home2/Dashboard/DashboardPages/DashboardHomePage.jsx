@@ -145,10 +145,11 @@ const DashboardHomePage = ({ auth, match }) => {
   const [itemGalleryShow, setItemGalleryShow] = useState([]);
   const [accountInfo, setAccountInfo] = useState({
     ledger: "",
+    balance: 0,
     pending_sum: "",
     total_sum: "",
   });
-  const { ledger, pending_sum, total_sum } = accountInfo;
+  const { ledger, pending_sum, balance, total_sum } = accountInfo;
 
   useEffect(async () => {
     await axios
@@ -191,10 +192,12 @@ const DashboardHomePage = ({ auth, match }) => {
     await axios
       .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
       .then((data) => {
-        //console.log(data.data.data, "bbbbbbb");
+        // console.log(data.data.data, "bbbbbbb");
+        // console.log(Number('78.77'));
 
         setAccountInfo({
           ledger: data.data.data.ledger,
+          balance: Number(data.data.data.balance).toFixed(3),
           pending_sum: data.data.data.pending_sum,
           total_sum: data.data.data.total_sum,
         });
@@ -271,9 +274,15 @@ const DashboardHomePage = ({ auth, match }) => {
                 />
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
+                  title={"Wallet Balance"}
+                  balance={balance}
+                />
+                <DashBoardCard
+                  background={"/img/save_card3.svg"}
                   title={"Ledger Balance"}
                   balance={ledger}
                 />
+                
 
                 {/* ))} */}
               </Carousel>
@@ -319,9 +328,9 @@ const DashboardHomePage = ({ auth, match }) => {
                             <div className="save_overview_cont_items_left">
                               Paid Sum ₦{item.paidSum}
                             </div>
-                            <button className="save_overview_cont_items_top_up">
+                            {/* <button className="save_overview_cont_items_top_up">
                               Top up
-                            </button>
+                            </button> */}
                           </div>
                         </div>
                       </div>
@@ -372,7 +381,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div
@@ -471,7 +480,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div
@@ -586,7 +595,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div
@@ -684,7 +693,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 >
                   {itemGalleryShow.map((asset) => (
                     <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                     >
                       <li className="carous_list no_marg">
                         <div

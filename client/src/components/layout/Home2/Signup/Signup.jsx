@@ -14,7 +14,7 @@ const Signup = ({ getAuthentication }) => {
     fullname: "",
     email: "",
     password: "",
-    BVN: "",
+    // BVN: "",
     phoneNumber: "",
     confirmPassword: "",
     InfoReason: "",
@@ -32,7 +32,7 @@ const Signup = ({ getAuthentication }) => {
     fullname,
     email,
     password,
-    BVN,
+    // BVN,
     phoneNumber,
     confirmPassword,
     InfoReason,
@@ -52,8 +52,6 @@ const Signup = ({ getAuthentication }) => {
     } else if (email === "") {
       setDisable(true);
     } else if (password === "") {
-      setDisable(true);
-    } else if (BVN === "") {
       setDisable(true);
     } else if (phoneNumber === "") {
       setDisable(true);
@@ -160,7 +158,7 @@ const Signup = ({ getAuthentication }) => {
       fullname,
       email,
       password,
-      BVN,
+      // BVN,
       phoneNumber,
       InfoReason
       //   localStorage.referrer
@@ -238,7 +236,7 @@ const Signup = ({ getAuthentication }) => {
                       onChange={onChange}
                     />
                   </div>
-                  <div className="signup_input_field1_cont">
+                  {/* <div className="signup_input_field1_cont">
                     <span className="input_title">
                       Bank Verification Number (BVN)
                     </span>
@@ -249,7 +247,7 @@ const Signup = ({ getAuthentication }) => {
                       name="BVN"
                       onChange={onChange}
                     />
-                  </div>
+                  </div> */}
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Password</span>
                     <div className="passwrd_input_div">

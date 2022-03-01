@@ -385,7 +385,7 @@ export const ForgetPassword = (email) => async (dispatch) => {
 // Admin Register Customer
 
 export const adminAddCustomer =
-  (fullname, email, password, BVN, phoneNumber, InfoReason) =>
+  (fullname, email, password, phoneNumber, InfoReason) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -399,7 +399,7 @@ export const adminAddCustomer =
       fullname,
       email,
       password,
-      BVN,
+      // BVN,
       phoneNumber,
       InfoReason,
     });

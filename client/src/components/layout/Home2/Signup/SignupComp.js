@@ -13,13 +13,13 @@ const SignupComp = ({ adminAddCustomer }) => {
     fullname: "",
     email: "",
     password: "",
-    BVN: "",
+    // BVN: "",
     phoneNumber: "",
     confirmpassword: "",
     InfoReason: "",
   });
 
-  const { fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason } = userAuth;
+  const { fullname, email, password, confirmpassword, phoneNumber, InfoReason } = userAuth;
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -32,7 +32,7 @@ const SignupComp = ({ adminAddCustomer }) => {
 
   const submitData = async (e) => {
     // //console.log('ggg');
-    if (fullname === '' || password === '' || phoneNumber === '' || BVN === '' || confirmpassword === '' || InfoReason === '') {
+    if (fullname === '' || password === '' || phoneNumber === '' || confirmpassword === '' || InfoReason === '') {
       //console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
       setAlert('All supply all fields.');
       setAlertType('danger')
@@ -48,7 +48,7 @@ const SignupComp = ({ adminAddCustomer }) => {
         fullname,
         email,
         password,
-        BVN,
+        // BVN,
         phoneNumber,
         InfoReason
         //   localStorage.referrer
@@ -108,16 +108,6 @@ const SignupComp = ({ adminAddCustomer }) => {
                 className="signup_input_field"
                 value={phoneNumber}
                 name="phoneNumber"
-                onChange={onChange}
-              />
-            </div>
-            <div className="signup_input_field1_cont">
-              <span className="input_title">Bank Verification Number (BVN)</span>
-              <input
-                type="number"
-                className="signup_input_field"
-                value={BVN}
-                name="BVN"
                 onChange={onChange}
               />
             </div>
