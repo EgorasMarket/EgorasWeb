@@ -672,7 +672,7 @@ const Savings = ({ getProductByCat }) => {
             data-aos-duration="3000"
           >
             <h1 className="gttitle" data-aos="fade-up" data-aos-duration="3000">
-              Our Partners.
+             Featured In.
             </h1>
           </div>
           <div className="gtstoriesArea">
