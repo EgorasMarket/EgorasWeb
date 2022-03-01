@@ -1225,6 +1225,10 @@ iframe {
 .storiesCardTitle {
   font-size: 16px;
   font-weight: 700;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 .storiesCardDate {
   margin-top: 20px;
@@ -1515,9 +1519,8 @@ hr {
 /* ============================================ */
 /* ============================================ */
 
-
 /* ********===================== */
-.refButtonDiv{
+.refButtonDiv {
   position: fixed;
   bottom: 0;
   right: 0;
