@@ -54,6 +54,9 @@ function DashboardAccountPage({
   const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
   const [customerAddress, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
+  const [customerBvn1, setCustomerBvn1] = useState("");
+  const [bvnId,setBvnId]= useState({})
+
 
   const [nextKin, setNextKin] = useState({
     firstname: "",
@@ -103,6 +106,18 @@ function DashboardAccountPage({
     nxtrelationship
    } = nextOfKinData;
   const { oldpassword, newpassword } = changePassword1;
+  const [idSet,setIdSet]=useState({idNum:""})
+  const {idNum}=idSet;
+
+useEffect(()=>{
+  // console.log('====================================');
+  // console.log(auth.user.user.id);
+  // console.log('====================================');
+  setIdSet({
+    idNum:auth.user.user.id
+  })
+},[auth])
+
 
   useEffect(() => {
     // fetchDepositLinks();
@@ -113,9 +128,9 @@ function DashboardAccountPage({
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
 
-      // //console.log('====================================');
-      //console.log(todecodedn);
-      // //console.log('====================================');
+      // console.log('====================================');
+      // console.log(todecoded);
+      // console.log('====================================');
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
@@ -131,6 +146,7 @@ function DashboardAccountPage({
         Userbvn: todecoded.user.BVN,
         UserdateOfBirth: todecoded.user.dateOfBirth,
       });
+      // setBvnId({Userbvn})
 
       if (todecoded.user.userImage !== null) {
         setImage(api_url2 + "/" + todecoded.user.userImage);
@@ -177,7 +193,7 @@ function DashboardAccountPage({
         null,
         config
       ).then((data) => {
-       //console.log('eeeeee');
+       console.log(data.data);
         //console.log(data.data.cusAddress, "king");
      
       })
@@ -236,6 +252,8 @@ function DashboardAccountPage({
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
+
+  // const [bvnId,setBvnId]= useState("")
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
 
   const onImageChange = (event) => {
@@ -270,6 +288,10 @@ function DashboardAccountPage({
 
   const onChangeaddress = (event) => {
     setAddress(event.target.value);
+  };
+
+  const onChangeBvn = (event) => {
+    setCustomerBvn1(event.target.value);
   };
 
   const handleChange = (event) => {
@@ -427,7 +449,41 @@ function DashboardAccountPage({
         // setAlert('Check your internet connection', 'danger');
       }
     }
+
+     // comments for bvn
+    if (customerBvn1 === "") {
+      //console.log("empty address");
+
+      // setAlert('Please provide a passport photo', 'danger');
+    } else {
+      let BVN =customerBvn1;
+      let customer_id=idNum;
+      const body = JSON.stringify({ BVN,customer_id });
+      // console.log(body);
+
+      try {
+        const res = await axios.post(
+          api_url2 + "/v1/user/add/BVN",
+          body,
+          config
+        );
+        //console.log(res.data, "undefined");
+
+        if (res.data.statusCode === 200) {
+          // setPassportUpload(true)
+        } else {
+          // setAlert('Something went wrong, please try again later', 'danger');
+        }
+      } catch (err) {
+        //console.log(err.response);
+        // setAlert('Check your internet connection', 'danger');
+      }
+    }
+
   };
+
+
+  // const divBvn = (<div><form><input type="number" placeholder="enter ur bvn" onChange={onChangeBvn}    value={customerBvn1}/></form></div>)
 
   return (
     <div className="other2" style={{ paddingBottom: "0em" }}>
@@ -1076,7 +1132,20 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="bvn_btn">{Userbvn}</div>
+
+                        {/* {Userbvn ==""? <input type="number" placeholder="enter ur bvn" onChange={onChangeBvn}    value={customerBvn1}/>:className="bvn_btn"
+                        <div className="bvn_btn">{Userbvn}</div>} */}
+                        {(Userbvn == null)?
+                        <div className="input_btn_grouped_div" ><TextField
+                             className="name_input1a"
+                            id="outlined-basic"
+                            label="BVN"
+                            variant="outlined"
+                            name="customerAddress"
+                            value={customerBvn1}
+                            onChange={onChangeBvn}
+                          /></div>
+                          :<div className="bvn_btn">{Userbvn }</div>}
                       </div>
                     </div>
                     {/* ================= */}

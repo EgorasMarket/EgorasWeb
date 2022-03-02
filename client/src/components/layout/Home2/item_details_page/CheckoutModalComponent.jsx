@@ -328,15 +328,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                           </div>
                           <div className="save_item_days_left">
                             {days_left} days left
-                            {/* <div className="days_left_percentage_cont">
-                              <span
-                                className="days_left_percentage"
-                                // style={{
-                                //   width:
-                                //     100 % -((amount * 100) / unitCount),
-                                // }}
-                              ></span>
-                            </div> */}
+                           
                           </div>
                           <div className="save_total_locked_amount">
                             <span className="items_left_amount">

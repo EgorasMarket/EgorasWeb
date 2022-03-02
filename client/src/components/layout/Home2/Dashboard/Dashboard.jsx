@@ -47,7 +47,8 @@ const Dashboard = ({ isAuthenticated, loading }) => {
   }, [isAuthenticated]);
 
 
-
+// let spaceRemove = "/dashboard/products/details/:id/:name";
+//  let dapp =spaceRemove.replace(/%20/g, "-")
 
   return (
     <div>
@@ -99,7 +100,9 @@ const Dashboard = ({ isAuthenticated, loading }) => {
               />
               <Route
                 exact
-                path="/dashboard/products/details/:id/:name"
+                // path ={`/dashboard/products/details/:id/:${"name".replace( '','-')}`}
+                path ={`/dashboard/products/details/:id/:${"name".replace(/\s+/g, '')}`}
+                // path={dapp }
                 component={ItemDetailsPage}
               />
                 {/* <Route
