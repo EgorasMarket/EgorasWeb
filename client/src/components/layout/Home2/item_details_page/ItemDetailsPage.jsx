@@ -31,7 +31,7 @@ function ItemDetailsPage({ auth, match }) {
   // //console.log(match.params.id);
   const [loginModal, setLoginModal] = useState(false);
   const [loginSuccess,setLoginSuccess]= useState(false);
-  const [product_id, setProductId] = useState();
+  const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState("");
   const [payload, setPayload] = useState({});
   const [modal, setModal] = useState(false);
@@ -169,7 +169,7 @@ function ItemDetailsPage({ auth, match }) {
 
         } = data.data.data;
 
-        //console.log(data.data.data, "king");
+        console.log(data.data.data, "king");
         setPayload({
           amount,
           percentage,

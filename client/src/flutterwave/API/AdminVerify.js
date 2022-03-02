@@ -1,14 +1,14 @@
 import axios from 'axios'
 import { API_URL2 } from '../../actions/types'
 
-const adminVerify = async (customer_id, transaction_id, product_id, startDate, endDate) => {
+const adminVerify = async (customer_id, transaction_id, product_id, startDate, endDate, days_left) => {
 
     const config = {
         headers: {
             "Content-Type": "application/json",
         },
     };
-    console.log(transaction_id)
+    // console.log(transaction_id)
     const body = {
         transaction_id
 
@@ -28,7 +28,9 @@ const adminVerify = async (customer_id, transaction_id, product_id, startDate, e
             tx_ref,
             initial_pay: amount,
             startDate, 
-            endDate
+            endDate,
+            days_left, 
+            transaction_type:"FIAT"
 
         });
         const res = await axios.post(API_URL2 + "/v1/order/add/order/admin", orderBody, config);
