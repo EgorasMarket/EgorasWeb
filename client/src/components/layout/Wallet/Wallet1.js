@@ -8,8 +8,9 @@ import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import NumberFormat from "react-number-format";
 // import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
-import {NoDataFoundComponent} from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
+import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
 import { Link } from "react-router-dom";
 import data from "../MockData";
 import { API_URL2 as api_url2 } from "../../../actions/types";
@@ -28,7 +29,7 @@ const ITEM_HEIGHT = 48;
 const Wallet1 = ({ auth, createWallet, depositToken }) => {
   const [age, setAge] = React.useState("");
   const [assetVal, setAssetVal] = useState("0.000");
-  const [userId, setUserId] = useState(localStorage.getItem('adminCusId'));
+  const [userId, setUserId] = useState(localStorage.getItem("adminCusId"));
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -159,11 +160,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
       // console.log(userId);
 
       await axios
-        .get(
-          api_url2 + "/v1/wallet/check/wallet/" + userId,
-          null,
-          config
-        )
+        .get(api_url2 + "/v1/wallet/check/wallet/" + userId, null, config)
         .then((data) => {
           //  console.log(data.data, "powerful");
           setAccountExists(data.data.accountExists);
@@ -384,6 +381,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
                     </div>
                   </div>
                 </div> */}
+
                 <hr />
                 {isLoading2 == true ? (
                   <div className="loading_icon_d">
@@ -484,222 +482,20 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
               </div>
               {showDeposit == true ? (
                 <div className="deposit_div">
-                  <div className="deposit_div_heading">Deposit {assetName}</div>
-                  <div className="deposit_div_body">
-                    <div className="deposit_div_body1">
-                      <div className="deposit_div_body1_input1">
-                        <div className="deposit_div_body1_input_title">
-                          Coin:
-                        </div>
-                        <div className="deposit_div_body1_input_asset">
-                          <span className="token_symbol">
-                            {" "}
-                            <StarRateIcon className="starRateIcon" />
-                            {tokenSign}{" "}
-                          </span>
-                          {assetName}
-                        </div>
-                      </div>
-                      <div className="deposit_div_body1_input1">
-                        <div className="deposit_div_body1_input_title">
-                          Network:
-                        </div>
-                        <div className="deposit_div_body1_input_asset">
-                          <span className="network_symbol">
-                            <span className="token_symbol">BSC</span>
-                          </span>{" "}
-                          BNB Smart Chain (BEP20)
-                        </div>
-                      </div>
-                      <div className="deposit_div_body1_input1_qr_code">
-                        <div className="deposit_div_body1_input1_qr_code_title">
-                          Scan the code on the deposit page to deposit{" "}
-                          {assetName}
-                        </div>
-                        <div className="deposit_div_body1_input1_qr_code_img_div">
-                          {isLoading == true ? (
-                            <div className="qr_code_divv_check">
-                              <img
-                                src={
-                                  "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
-                                  walletAddr
-                                }
-                                alt=""
-                                className="qr_img"
-                              />
-                              <span className="load_qr_code_">
-                                <LoadingIcons.ThreeDots
-                                  fill="#229e54"
-                                  className="loading_iconnn_wallet"
-                                />
-                              </span>
-                            </div>
-                          ) : (
-                            <div className="qr_code_divv_check">
-                              <img
-                                src={
-                                  "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
-                                  walletAddr
-                                }
-                                alt=""
-                                className="qr_img"
-                              />
-                            </div>
-                          )}
-
-                          <div className="copy_address_div">
-                            {isLoading == true ? null : (
-                              <>
-                                <div className="copy_address_div_title">
-                                  Address
-                                </div>
-                                <div
-                                  className="copy_address_div_txt"
-                                  id="myInput"
-                                >
-                                  {walletAddr}
-                                  <FileCopyIcon
-                                    className="file_icon_copy"
-                                    onClick={() =>
-                                      copyWalletAddress(walletAddr)
-                                    }
-                                    // onMouseOut={outFunc}
-                                  />
-
-                                  {copiedTxt == true ? (
-                                    <div
-                                      className="copiedToClipBoardDiv"
-                                      onChange={timer}
-                                    >
-                                      Wallet Address copied to clipboard
-                                    </div>
-                                  ) : null}
-                                </div>
-                              </>
-                            )}
-                          </div>
-                        </div>
-                        <div className="deposit_div_body1_input1_qr_code_title">
-                          <li className="deposit_qr_not">
-                            Send only
-                            <span className="noticeable_txt">
-                              {" "}
-                              {tokenSign}
-                            </span>{" "}
-                            to this deposit address.
-                          </li>
-                          <li className="deposit_qr_not">
-                            Ensure the network is
-                            <span className="noticeable_txt">
-                              {" "}
-                              BNB Smart Chain (BEP20).
-                            </span>
-                          </li>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="deposit_history">
-                    <div className="deposit_history_title">Recent Deposits</div>
-                    <div className="deposit_history_body">
-                      {deposits.length == 0 ? (
-                        <NoDataFoundComponent nodataTxt="No Deposits Here Yet." />
-                      ) : (
-                        <>
-                          {deposits.map((data) => (
-                            <div className="deposit_history_body_area1">
-                              <div className="deposit_history_body_area1_cont">
-                                <div className="deposit_history_body_area1_cont_area1">
-                                  <div className="deposit_history_div1">
-                                    <span className="token_symbol">
-                                      {" "}
-                                      <StarRateIcon className="starRateIcon starRateIcon_2" />
-                                    </span>
-                                    <div className="token_deposit_amnt">
-                                      {data.amount} {tokenSign}
-                                      <span className="completed_div">
-                                        Completed
-                                      </span>
-                                    </div>
-                                  </div>
-                                  <div className="deposit_history_div2">
-                                    <div className="deposit_history_div2_date">
-                                      {data.timestamp}
-                                    </div>
-                                    <div className="deposit_history_div2_network">
-                                      <span className="deposit_history_div2_network_title">
-                                        Network
-                                      </span>
-                                      {network}
-                                    </div>
-                                    <div className="deposit_history_div2_address">
-                                      <span className="deposit_history_div2_network_title">
-                                        Address
-                                      </span>
-                                      <div className="address_cont">
-                                        {/* {data.fromAddress.substring(0, 10) +
-                                    "..." +
-                                    data.fromAddress.substr(
-                                      data.fromAddress.length - 10
-                                    )} */}
-                                        {walletAddr}
-                                      </div>
-
-                                      <span className="hover_txn_address_cont">
-                                        {walletAddr}
-                                      </span>
-                                      {/* {copiedTxt1 == true ? (
-                                        <div
-                                          className="copiedToClipBoardDiv"
-                                          onChange={timer}
-                                        >
-                                          Text copied to clipboard
-                                        </div>
-                                      ) : null} */}
-                                    </div>
-                                    <div className="deposit_history_div2_address">
-                                      <span className="deposit_history_div2_network_title">
-                                        TXID
-                                      </span>
-                                      <div className="address_cont">
-                                        {data.transaction_hash.substring(
-                                          0,
-                                          10
-                                        ) +
-                                          "..." +
-                                          data.transaction_hash.substr(
-                                            data.transaction_hash.length - 7
-                                          )}
-                                        {/* {txId} */}
-                                      </div>
-
-                                      <span className="hover_txn_address_cont">
-                                        {data.transaction_hash}
-                                      </span>
-                                      {/* {copiedTxt == true ? (
-                                        <div
-                                          className="copiedToClipBoardDiv"
-                                          onChange={timer}
-                                        >
-                                          Text copied to clipboard
-                                        </div>
-                                      ) : null} */}
-                                    </div>
-                                  </div>
-                                </div>
-                              </div>
-                            </div>
-                          ))}
-                        </>
-                      )}
-
-                      <div className="view_all_btn" key={data.id}>
-                        <a href="#" className="view_all_link">
-                          {" "}
-                          View all
-                        </a>
-                      </div>
-                    </div>
+                  <div className="input_amnt_heading">Input Amount</div>
+                  <div className="input_amnt_div">
+                    <NumberFormat
+                      // format="#### #### #### ####"
+                      className="input_amnt_div_input"
+                      name="card_numberVar"
+                      thousandSeparator={true}
+                      inputmode="numeric"
+                      // value={card_numberVar}
+                      // onChange={(e) => onChange1(e)}
+                    />
+                    <button className="proceed_cust_funding_wallet_div">
+                      Proceed
+                    </button>
                   </div>
                 </div>
               ) : null}
@@ -718,4 +514,6 @@ const mapStateToProps = (state) => ({
 });
 
 // export default Wallet;
-export default connect(mapStateToProps, { createWallet, depositToken })(Wallet1);
+export default connect(mapStateToProps, { createWallet, depositToken })(
+  Wallet1
+);

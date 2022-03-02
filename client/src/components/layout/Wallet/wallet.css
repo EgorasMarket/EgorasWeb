@@ -39,12 +39,37 @@
 }
 .starRateIcon_2 {
 }
+
 .walletClass2 {
   background-color: #000000;
   color: white;
   padding: 20px 15px;
   font-size: 18px;
   font-weight: 800;
+}
+.input_amnt_heading {
+  padding: 1em 2em;
+  background: #e7fff1;
+}
+.input_amnt_div {
+  padding: 1em 2em;
+  display: flex;
+  align-items: self-start;
+  flex-direction: column;
+  gap: 20px;
+}
+.input_amnt_div_input {
+  padding: 0.5em 1em;
+  border-radius: 7px;
+  border: solid 1px #badbc7;
+  width: 60%;
+}
+.proceed_cust_funding_wallet_div {
+  background: #41ba71;
+  color: #fff;
+  padding: 0.5em 6em;
+  border: 0px;
+  border-radius: 7px;
 }
 .walletClass3 {
   display: flex;
