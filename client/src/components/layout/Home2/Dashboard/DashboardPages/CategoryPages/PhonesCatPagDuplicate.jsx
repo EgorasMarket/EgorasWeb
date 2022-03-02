@@ -13,6 +13,9 @@ import {
   API_URL2 as api_url2,
 } from "../../../../../../actions/types";
 
+import { numberWithCommas } from "../../../../../../static";
+
+
 const assetBrand = [
   {
     id: "apple",
@@ -223,9 +226,9 @@ const PhonesCatPagDuplicate = ({match}) => {
     
   }, []);
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
 
   return (
