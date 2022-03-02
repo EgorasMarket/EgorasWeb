@@ -400,21 +400,6 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-                   <Carousel
-                  responsive={responsive8}
-                  className="partnerCards LEFTARROW"
-                  showDots={false}
-                  //   infinite={false}
-                  //   infinite={false}
-                  autoPlay={true}
-                  autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
-                  infinite={true}
-                  draggable={true}
-                  // transitionDuration={500}
-                  swipeable={true}
-                  style={{ height: "25em" }}
-                >
               {item.slice(0, 12).map((asset, index) => (
                 <a
                   href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
@@ -472,7 +457,7 @@ function DashboardInvestPage({ auth }) {
                   </li>
                 </a>
               ))}
-                 </Carousel>
+            
             </div>
           </div>
 
