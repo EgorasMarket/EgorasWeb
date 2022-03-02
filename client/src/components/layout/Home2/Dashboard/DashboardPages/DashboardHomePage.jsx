@@ -452,6 +452,7 @@ const DashboardHomePage = ({ auth, match }) => {
                   <div className="projectTitle">
                     <h1 className="gttitle TITE">Similar Products </h1>
                   </div>
+                 
                   {/* 
               <a href="/explore_collaterals" className="projectsLink">
                 Explore collaterals
