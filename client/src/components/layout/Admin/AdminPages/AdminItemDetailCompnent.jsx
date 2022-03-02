@@ -476,7 +476,7 @@ const ItemDetailComponent = ({
                   if (product_category_code === asset.product_category_code) {
                     return (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                       >
                         <li className="carous_list">
                           <div
