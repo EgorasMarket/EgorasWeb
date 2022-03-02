@@ -417,7 +417,7 @@ function DashboardInvestPage({ auth }) {
                 >
               {item.slice(0, 12).map((asset, index) => (
                 <a
-                  href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
 
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                   key={index.toString()}
@@ -513,7 +513,7 @@ function DashboardInvestPage({ auth }) {
                 {item.slice(0, 9).map((asset, index) => {
                   if (phonesTablets === asset.product_category_desc)
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`} key={index.toString()}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -630,7 +630,7 @@ function DashboardInvestPage({ auth }) {
                 //   </li>
                 // </a>
 
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`} key={index2}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index2}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -719,7 +719,7 @@ function DashboardInvestPage({ auth }) {
               {item.map((asset, index) => {
                 if (homeAppliances === asset.product_category_desc) {
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`} key={index.toString()}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index.toString()}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -820,7 +820,7 @@ function DashboardInvestPage({ auth }) {
                 {item.map((asset, index4) => {
                   if (electronics === asset.product_category_desc){
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index4.toString()}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index4.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -905,7 +905,7 @@ function DashboardInvestPage({ auth }) {
                 // if (ComputAccessories === asset.product_category_desc){
                    if (ComputerAccessories === asset.product_category_desc){ 
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index5.toString()}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index5.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1005,7 +1005,7 @@ function DashboardInvestPage({ auth }) {
                 {item.slice(0, 12).map((asset, index7) => {
                   if (musicalEquipment === asset.product_category_desc)
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index7.toString()}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index7.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1088,7 +1088,7 @@ function DashboardInvestPage({ auth }) {
               {item.slice(0, 8).map((asset, index8) => {
                 if (industrialEquipments === asset.product_category_desc)
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index8.toString()}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index8.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1190,7 +1190,7 @@ function DashboardInvestPage({ auth }) {
                   if (musicalEquipment === asset.product_category_desc){
                     return (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                         key={index9.toString()}
                       >
                         <li className="carous_list no_marg no_marg">
