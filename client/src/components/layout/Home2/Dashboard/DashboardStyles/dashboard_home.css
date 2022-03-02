@@ -256,6 +256,12 @@ button.save_overview_cont_items_top_up {
   .savvvvv {
     padding: 2em 0em;
   }
+  .gtr {
+    margin-top: 0px !important;
+    position: relative;
+    z-index: 3;
+    padding: 0.5em 0em !important;
+  }
 }
 @media screen and (max-width: 630px) {
   .savings_overview_body_cont2_1a {
