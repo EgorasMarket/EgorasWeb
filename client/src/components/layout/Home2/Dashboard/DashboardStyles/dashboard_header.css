@@ -33,7 +33,19 @@
   justify-content: space-between;
   align-items: center;
 }
-
+.dash_board_header_search_input {
+  width: 100%;
+  padding: 0.3em 2em;
+  padding-left: 3em;
+  border-radius: 62px;
+  border: solid 2px #d6eade;
+  background: #edf6f0;
+}
+.search_icon {
+  position: absolute;
+  left: 10px;
+  top: 30%;
+}
 .user_profile_icon_cont {
   display: flex;
   width: 82%;
@@ -46,7 +58,7 @@
   border-width: 1px;
   /* border-color: #cdcdcd; */
   border-radius: 10px;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 .welcome_user {
@@ -57,19 +69,19 @@
   flex-direction: column-reverse;
 }
 .cart_num {
-    background: #41ba71;
-    border-radius: 100%;
-    text-align: center;
-    color: #fff;
-    font-size: 10px;
-    width: 15px;
-    height: 15px;
-    line-height: 11px;
-    position: absolute;
-    top: -5px;
-    font-weight: 700;
-    right: 6px;
-    padding: 2px;
+  background: #41ba71;
+  border-radius: 100%;
+  text-align: center;
+  color: #fff;
+  font-size: 10px;
+  width: 15px;
+  height: 15px;
+  line-height: 11px;
+  position: absolute;
+  top: -5px;
+  font-weight: 700;
+  right: 6px;
+  padding: 2px;
 }
 .save_numb_div {
   border-right: solid 1px #c8c8c8;
@@ -112,6 +124,10 @@ button.logout-btn {
   box-shadow: 0px 5px 13px #cbcbcb;
 }
 
+.dash_board_header_search_bar {
+  width: 100%;
+  position: relative;
+}
 .not_logout_div {
   display: none;
 }
@@ -153,22 +169,7 @@ button.logout-btn {
     right: 0;
     border-radius: 0;
   }
-  .user_profile {
-    width: 30px;
-    box-shadow: -1px 0px 10px #1d5031;
-    border-radius: 100%;
-    margin-right: 0px;
-    cursor: pointer;
-    display: none;
-  }
-  .user_profile2 {
-    width: 25px;
-    box-shadow: -1px 0px 10px #1d5031;
-    border-radius: 100%;
-    margin-right: 0px;
-    cursor: pointer;
-    display: block;
-  }
+
   .welcome_user {
     display: flex;
     margin: 0;
@@ -202,7 +203,9 @@ button.logout-btn {
     cursor: pointer;
     flex-direction: row-reverse;
   }
-
+  .dash_board_header_search_input {
+    width: 100%;
+  }
   .logout_sec_btn {
     background: #ffffff;
     color: #329058;
@@ -216,10 +219,34 @@ button.logout-btn {
   .welcome_user {
     display: flex;
     margin: 0;
-    font-size: 12px;
-    flex-direction: column;
-    color: #6af7a3;
+    font-size: 16px;
+    flex-direction: row;
+    color: #818181;
+    font-weight: 600;
+    align-items: center;
+    gap: 5px;
+  }
+  .userName_name {
+    color: #207845;
     font-weight: 800;
-    align-items: flex-start;
+    font-size: 18px;
+    margin-right: 7px;
+  }
+}
+@media screen and (max-width: 480px) {
+  .dash_board_header_search_input {
+    width: 100%;
+    padding: 0.3em 2em;
+    padding-left: 3em;
+    border-radius: 62px;
+    border: solid 2px #d6eade;
+    background: #edf6f0;
+    font-size: 12px;
+  }
+  .user_profile_icon_cont {
+    padding: 0em 0em;
+  }
+  .save_numb_div {
+    margin-right: 0px;
   }
 }

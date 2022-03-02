@@ -7,6 +7,7 @@ import axios from "axios";
 import ReactCardCarousel from "react-card-carousel";
 import TwitterIcon from "@mui/icons-material/Twitter";
 import { getProductByCat } from "../../../../actions/Products";
+// import TypeIt from "typeit-react";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -350,12 +351,12 @@ const Savings = ({ getProductByCat }) => {
     },
   ];
   return (
-    <div>
+    <div style={{ overflow: "hidden" }}>
       <section className="savings_section">
         <div className="container">
           <div className="savings_area">
             <div className="savings_area1">
-              <div className="savings_area1_title">SMART SAVINGS.</div>
+              <div className="savings_area1_title">Smart Savings.</div>
               <div className="savings_area1_para">
                 Get to acquire your desired items with ease through our smart
                 savings plan.
@@ -405,7 +406,7 @@ const Savings = ({ getProductByCat }) => {
           </div>
           <div className="section_writeup_divs">
             <div className="section_writeup_div_controls">
-              <span
+              <li
                 id="Target"
                 className={
                   activeBg == "Target"
@@ -415,8 +416,8 @@ const Savings = ({ getProductByCat }) => {
                 onClick={changeBg}
               >
                 Targeted savings
-              </span>
-              <span
+              </li>
+              <li
                 id="Instant"
                 className={
                   activeBg == "Instant"
@@ -426,8 +427,8 @@ const Savings = ({ getProductByCat }) => {
                 onClick={changeBg}
               >
                 Instant buy off
-              </span>
-              <span
+              </li>
+              <li
                 id="Payment"
                 className={
                   activeBg == "Payment"
@@ -437,8 +438,8 @@ const Savings = ({ getProductByCat }) => {
                 onClick={changeBg}
               >
                 Payment Plan
-              </span>
-              <span
+              </li>
+              <li
                 id="Global"
                 className={
                   activeBg == "Global"
@@ -448,7 +449,7 @@ const Savings = ({ getProductByCat }) => {
                 onClick={changeBg}
               >
                 Global access
-              </span>
+              </li>
             </div>
             <div className="section_writeup_div_body">
               {" "}
@@ -472,7 +473,7 @@ const Savings = ({ getProductByCat }) => {
                   </div>{" "}
                   <div className="new_home_attributes_area2 anima">
                     <img
-                      src="/img/validated_img.svg"
+                      src="/img/targeted_savings_img.svg"
                       alt=""
                       className="take_loan_img5 bigger_img"
                     />
@@ -497,7 +498,7 @@ const Savings = ({ getProductByCat }) => {
                   </div>{" "}
                   <div className="new_home_attributes_area2 anima">
                     <img
-                      src="/img/block-chain.svg"
+                      src="/img/instant_buy_off.svg"
                       alt=""
                       className="take_loan_img5 bigger_img"
                     />
@@ -523,7 +524,7 @@ const Savings = ({ getProductByCat }) => {
                   </div>{" "}
                   <div className="new_home_attributes_area2 anima">
                     <img
-                      src="/img/weigh-tokens.svg"
+                      src="/img/onlinePayment_icon.svg"
                       alt=""
                       className="take_loan_img5 bigger_img"
                     />
@@ -549,7 +550,7 @@ const Savings = ({ getProductByCat }) => {
                   </div>{" "}
                   <div className="new_home_attributes_area2 anima">
                     <img
-                      src="/img/sorry-image.svg"
+                      src="/img/deliver_across_globe.svg"
                       alt=""
                       className="take_loan_img5 bigger_img"
                     />
@@ -599,20 +600,21 @@ const Savings = ({ getProductByCat }) => {
             data-aos-duration="3000"
           >
             <h1 className="gttitle" data-aos="fade-up" data-aos-duration="3000">
-              Customer Reviews.
+              User Reviews.
             </h1>
           </div>
           <div className="users_compliment_area">
-            <div className="innnn">
+            <div className="container_style">
               <ReactCardCarousel
                 position={"relative"}
                 autoplay={true}
                 autoplay_speed={10000}
+                spread={"wide"}
                 className="relate_div"
               >
                 {/* <div className="wrap_them"> */}
                 {reviews.map((rev) => (
-                  <div style={CARD_STYLE[0]}>
+                  <div className="card_compliment_style">
                     <div className="reviewer_img">
                       <TwitterIcon className="twitter_social_icon" />
                     </div>
@@ -647,7 +649,11 @@ const Savings = ({ getProductByCat }) => {
             </div>
           </div>
         </div>
-        <img src="/img/right_savings_line_icon.svg" alt="" className="right_savings_icon" />
+        <img
+          src="/img/right_savings_line_icon.svg"
+          alt=""
+          className="right_savings_icon"
+        />
       </section>
       {/* ============== */}
       {/* ============== */}
@@ -666,7 +672,7 @@ const Savings = ({ getProductByCat }) => {
             data-aos-duration="3000"
           >
             <h1 className="gttitle" data-aos="fade-up" data-aos-duration="3000">
-              Our Partners.
+             Featured In.
             </h1>
           </div>
           <div className="gtstoriesArea">
@@ -675,7 +681,7 @@ const Savings = ({ getProductByCat }) => {
 ============================= */}
             <Carousel
               responsive={responsive}
-              className="partnerCards"
+              className="partnerCards featured_logos"
               showDots={false}
               //   infinite={false}
               autoPlay={true}

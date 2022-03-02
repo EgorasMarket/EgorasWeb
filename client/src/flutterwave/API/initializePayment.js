@@ -4,6 +4,7 @@ import axios from 'axios';
 import { API_URL2 } from '../../actions/types';
 const initializePayment = async (amount, customer_data) => {
 
+
     const security = "FLWSECK-26a59517b4cd2e97b661af9868a2e9ab-X";
     const {email, phonenumber, name } = customer_data; 
       const body = {
