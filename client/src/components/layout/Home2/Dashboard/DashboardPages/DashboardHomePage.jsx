@@ -17,6 +17,8 @@ import {
 // import Nodata from "../NodataFound/NoDataFoundComponent"
 import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 
+import {numberWithCommas} from '../../../../../static'
+
 const responsive6 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -232,9 +234,9 @@ const DashboardHomePage = ({ auth, match }) => {
   //     })
   // }, []);
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
   return (
     <div className="other2">
       <section className="no-bg">

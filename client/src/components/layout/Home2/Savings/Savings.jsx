@@ -15,6 +15,7 @@ import {
 import NumberFormat from "react-number-format";
 import "../../../../css/savings.css";
 import "../../../../css/market_home.css";
+import { numberWithCommas } from '../../../../static'
 
 const responsive = {
   superLargeDesktop: {
@@ -294,9 +295,9 @@ const Savings = ({ getProductByCat }) => {
     //   })(i);
     // }
   }, []);
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
   const CARD_STYLE = [
     {
       height: "300px",
