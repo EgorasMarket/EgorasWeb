@@ -306,7 +306,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
-                    {" "}
+                    
                     <tr className="assets-category-row">
                       <td className="save_item_data">
                         <div className="assets-data height_data">

@@ -51,6 +51,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   const [tokenSign, setTokenSign] = useState();
   const [activeBg, setActiveBg] = useState("Home");
   const [network, setNetwork] = useState("BSC");
+  const [fAmount, setAmount] = useState(null);
   // const [txId, setTxId] = useState(
   //   "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
   // );
@@ -78,6 +79,11 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   const closeCreateWalletModal = () => {
     setCreateWalletModal(false);
   };
+
+  const onChange45 = (e) => {
+    setAmount(e.target.value || null);
+    // // //console.log('handleMOI');
+  };
   // useEffect(() => {
   //   axios
   //     .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
@@ -99,8 +105,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   //     });
   // }, []);
   useEffect(() => {
-    var Authorized = auth.user;
-    var userId = Authorized.user.id;
+   
     axios
       .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
       .then((data) => {
@@ -113,10 +118,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
       });
   }, [auth]);
   useEffect(() => {
-    var Authorized = auth.user;
-    var userId = Authorized.user.id;
-    var hardCodedId = "2cac7619-fc8e-45d2-be07-39d76f04def1";
-    // console.log(userId);
+   
     axios
       .get(
         api_url2 + "/v1/wallet/get/wallet/fetch/deposits/" + userId,
@@ -152,17 +154,11 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   useEffect(async () => {
     // console.log(auth);
     if (auth.user !== null) {
-      // const getName = todecoded.user.fullname;
-      // const splitName = getName.split(" ");
-      // console.log(todecoded.user.id)
-      // setUserId(todecoded.user.id);
-
-      // console.log(userId);
-
+ 
       await axios
         .get(api_url2 + "/v1/wallet/check/wallet/" + userId, null, config)
         .then((data) => {
-          //  console.log(data.data, "powerful");
+          
           setAccountExists(data.data.accountExists);
         })
         .catch((err) => {
@@ -219,27 +215,15 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
 
   const openDepositDiv = async (tokenName, tokenSymbol) => {
     setActiveBg("deposit_btn");
-    setShowDeposit(true);
-    setIsLoading(true);
-    // setCurrentToken(tokenSymbol);
-    // setTokenName(tokenName);
-    // setIsLoading(true);
+  
     if (accountExists) {
       // console.log("accountExists");
       setShowDeposit(true);
-      setIsLoading(true);
-      // console.log(userId);
-      let res3 = await depositToken(userId, tokenSymbol);
-      // console.log(res3);
-      setIsLoading(true);
-
-      if (res3.success === true) {
-        setWalletAddr(res3.data.address);
-        setIsLoading(false);
-      }
+      setIsLoading(false);
+      
     } else {
       console.log("not accountExists");
-      // setShowDeposit(false);
+      setShowDeposit(true);
       // console.log(userId);
       let res3 = await createWallet(userId, tokenSymbol);
       // console.log(res3);
@@ -251,6 +235,31 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
       }
     }
   };
+
+  const fundCustomer = async () => {
+    console.log(parseInt(fAmount.replace(/,/g, '')));
+
+    const amount = parseInt(fAmount.replace(/,/g, ''));
+
+    const body = JSON.stringify({
+      amount
+    });
+
+    try {
+      const res = await axios.post(
+        api_url2 + "/v1/wallet/fund/customer/"+userId,
+        body,
+        config
+      );
+      console.log(res);
+
+      
+    } catch (err) {
+      console.log(err.response);
+
+    }
+
+  }
   const closeDepositDiv = () => {
     setShowDeposit(false);
     setActiveBg("withdraw_btn");
@@ -484,19 +493,35 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
                 <div className="deposit_div">
                   <div className="input_amnt_heading">Input Amount</div>
                   <div className="input_amnt_div">
-                    <NumberFormat
-                      // format="#### #### #### ####"
-                      className="input_amnt_div_input"
-                      name="card_numberVar"
-                      thousandSeparator={true}
-                      inputmode="numeric"
-                      // value={card_numberVar}
-                      // onChange={(e) => onChange1(e)}
-                    />
-                    <button className="proceed_cust_funding_wallet_div">
-                      Proceed
-                    </button>
-                  </div>
+                  {isLoading ? (
+                    <div className="loading_icon_d">
+                      <LoadingIcons.ThreeDots
+                        fill="#229e54"
+                        className="loading_iconnn"
+                      />
+                      <p className="loading_txt">Loading...</p>
+                    </div>
+                  ) : (
+                      <div>
+                      <NumberFormat
+                        // format="#### #### #### ####"
+                        className="input_amnt_div_input"
+                        name="card_numberVar"
+                        thousandSeparator={true}
+                        inputmode="numeric"
+                        value={fAmount}
+                        onChange={(e) => onChange45(e)}
+                      />
+                      <button
+                      className="proceed_cust_funding_wallet_div mt-3"
+                      onClick={fundCustomer}
+                      >
+                        Proceed
+                      </button>
+                    </div>
+                  )}
+                      </div>
+                  
                 </div>
               ) : null}
             </div>
