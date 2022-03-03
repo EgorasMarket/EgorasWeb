@@ -22,6 +22,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 import { index } from "d3-array";
+import {numberWithCommas} from '../../../../static'
 
 const responsive7 = {
   superLargeDesktop: {
@@ -198,9 +199,9 @@ function DashboardInvestPage({ auth }) {
 
   }
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
   return (
     <div className="other2">
