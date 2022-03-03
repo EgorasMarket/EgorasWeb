@@ -267,7 +267,7 @@ const AdminUploadProducts = () => {
           api_url2 + "/v1/product/add/product/image",
           formData
         );
-        //console.log(res.data, "undefined");
+        console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           setAlert("Product image uploaded successfully");
