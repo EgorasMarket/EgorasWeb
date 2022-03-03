@@ -4,7 +4,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 export const ProductImageCarousel = (props) => {
   return (
     <div>
-      {" "}
+      {/* <img src={props.img_not} />{" "} */}
       <Carousel showArrows={true} showIndicators={false}>
         {/* {data_img.map((data) => (
           <div>

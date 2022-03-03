@@ -960,6 +960,10 @@ span.per_day {
   flex-direction: column;
   gap: 20px;
 }
+.image_carooooo {
+  margin: auto;
+  display: flex;
+}
 .detailsModalSection1-area2_title {
   padding: 0.5em 1em;
   border-bottom: 1px solid #c5d9cd;
@@ -1125,5 +1129,8 @@ span.percent_days_amnt {
     padding: 1em;
     box-shadow: 0px 0px 10px #c7e1d187;
     border-radius: 10px;
+  }
+  .product_details_area1 {
+    gap: 15px;
   }
 }
