@@ -19,6 +19,7 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+import { stringify } from "uuid";
 
 const InstallmentComponent = ({
   product_duration,
@@ -102,6 +103,7 @@ const ItemDetailComponent = ({
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
   const [activeBg, setActiveBg] = useState("features");
+  const [moreImg, setMoreImg] = useState([]);
   const [outrightProducts, setOutrightProducts] = useState([]);
   const [categ, setcate] = useState([]);
   const [food, setFood] = useState([]);
@@ -115,6 +117,7 @@ const ItemDetailComponent = ({
     product_duration,
     product_id,
     product_image,
+    more_image,
     product_name,
     product_specifications,
     product_type,
@@ -123,11 +126,19 @@ const ItemDetailComponent = ({
     payment_type,
     days_left,
     no_of_days,
-    no_of_days_paid, 
-    startDate, 
-    endDate
+    no_of_days_paid,
+    startDate,
+    endDate,
   } = payload;
-  // //console.log(initial_deposit)
+
+  useEffect(() => {
+    if (more_image != null) {
+      let splited = JSON.parse(more_image);
+      setMoreImg(splited);
+      console.log(more_image.split(","));
+      console.log(JSON.parse(more_image));
+    }
+  }, [more_image]);
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -220,7 +231,7 @@ const ItemDetailComponent = ({
     axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        //console.log(data.data.data, "item detail component ");
+        console.log(data.data.data, "item detail component ");
 
         setTerm(data.data.data);
 
@@ -231,28 +242,6 @@ const ItemDetailComponent = ({
       });
   }, []);
   const data1 = api_url2 + "/" + product_image;
-  const data = [
-    {
-      image:
-        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-      caption: "San Francisco",
-    },
-    {
-      image:
-        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-      caption: "Scotland",
-    },
-    {
-      image:
-        "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
-      caption: "Darjeeling",
-    },
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
-      caption: "San Francisco",
-    },
-  ];
 
   // {
   //   //console.log(spec, " welcome  Daniel");
@@ -291,7 +280,11 @@ const ItemDetailComponent = ({
               alt=""
               className="product_details_img"
             /> */}
-            <ProductImageCarousel img={api_url2 + "/" + product_image} />
+            <ProductImageCarousel
+              img={api_url2 + "/" + moreImg[0]}
+              img2={api_url2 + "/" + moreImg[1]}
+              img3={api_url2 + "/" + moreImg[2]}
+            />
           </div>
           {/* ================ */}
           {/* ================ */}
@@ -474,7 +467,9 @@ const ItemDetailComponent = ({
                   if (product_category_code === asset.product_category_code) {
                     return (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
                       >
                         <li className="carous_list">
                           <div
@@ -621,8 +616,6 @@ const ItemDetailComponent = ({
     </>
   );
 };
-
-
 
 const mapStateToProps1 = (state) => ({
   auth: state.auth,
