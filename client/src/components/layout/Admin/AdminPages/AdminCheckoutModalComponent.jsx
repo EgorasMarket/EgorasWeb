@@ -206,7 +206,7 @@ const CheckoutModalComponent = ({
       });
 
       console.log(orderBody)
-      const res = await axios.post(api_url2 + "/v1/order/add/order/crypto", orderBody, config).then(response =>{
+      const res = await axios.post(api_url2 + "/v1/order/add/order/crypto/admin", orderBody, config).then(response =>{
           console.log(response, " response after order endpoint is called")
           setProcessingDiv(false)
           alert("Your order have been completed successfully, You will redirected to the market place")
