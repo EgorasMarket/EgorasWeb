@@ -963,6 +963,7 @@ span.per_day {
 .image_carooooo {
   margin: auto;
   display: flex;
+  width: 100%;
 }
 .detailsModalSection1-area2_title {
   padding: 0.5em 1em;
