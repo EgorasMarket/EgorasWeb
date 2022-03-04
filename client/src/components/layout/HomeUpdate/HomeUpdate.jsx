@@ -169,7 +169,7 @@ const HomeUpdate = () => {
             <div className="operations_cards_cont" data-aos="fade-up">
               <div className="operations_card1">
                 <div className="operations_card1_title">
-                  Put up your personal items to access after evaluation of
+                  Pledgeyour personal items to access after evaluation of
                   assets.
                   <span className="hover_color">
                     {" "}
