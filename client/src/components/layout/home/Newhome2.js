@@ -113,7 +113,7 @@ const GetLoan = () => {
               <p className="gtheroCaption"> FOR EVERYONE.</p>
               <p className="gtheroPara">
                 We are here to help you get access to loans at zero interest.
-                Put your personal properties up as collateral for a loan.
+                Pledge your personal properties up as collateral for a loan.
               </p>
               <ul className="gtherobuttons">
                 {/* <a href="/appointment" className="gtconnect">
@@ -195,13 +195,8 @@ const GetLoan = () => {
               <br /> <span className="collat"> to collateralize.</span>
               <div className="collat-para">
                 Our collateral valuation tool is free, easy to use,
-                <br /> and gives you an instant quote. Our price guarantee
-                <br /> ensures that you get the price we quote online which is
-                usually
-                <br /> “same range” with the current market value of your
-                collateral
-                <br /> (if in top condition). The valuation is valid for 7 days
-                only.
+                <br /> and gives you an instant quote. The valuation is valid
+                for 7 days only.
               </div>
               <a
                 href="https://egoras.ng/appointment"
@@ -2200,13 +2195,12 @@ const GetLoan = () => {
       </section>
       {/* explore section  end */}
       {/* =================================================================================================================================================================================================================================================================== */}
-   
-   
-   <div className="refButtonDiv">   
-   <a href="https://earn.egoras.com" target="_blank">
-     <button>Refferal</button>
-     </a> 
-     </div>
+
+      <div className="refButtonDiv">
+        <a href="https://earn.egoras.com" target="_blank">
+          <button>Refferal</button>
+        </a>
+      </div>
     </div>
   );
 };
