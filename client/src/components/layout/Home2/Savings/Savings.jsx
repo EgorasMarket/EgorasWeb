@@ -15,7 +15,7 @@ import {
 import NumberFormat from "react-number-format";
 import "../../../../css/savings.css";
 import "../../../../css/market_home.css";
-import { numberWithCommas } from '../../../../static'
+import { numberWithCommas } from "../../../../static";
 
 const responsive = {
   superLargeDesktop: {
@@ -416,7 +416,7 @@ const Savings = ({ getProductByCat }) => {
                 }
                 onClick={changeBg}
               >
-                Targeted savings
+                Target savings
               </li>
               <li
                 id="Instant"
@@ -427,7 +427,7 @@ const Savings = ({ getProductByCat }) => {
                 }
                 onClick={changeBg}
               >
-                Instant buy off
+                Outright Buy
               </li>
               <li
                 id="Payment"
@@ -467,7 +467,7 @@ const Savings = ({ getProductByCat }) => {
                         Targeted savings
                       </h4>
                       <p className="new_home_attributes_area1_txt_para">
-                        Save up over a given period of time to acquire desired
+                        Save over a given period of time to acquire desired
                         items.
                       </p>
                     </div>
@@ -490,7 +490,7 @@ const Savings = ({ getProductByCat }) => {
                     <div className="new_home_attributes_area1_txt">
                       {" "}
                       <h4 className="new_home_attributes_area1_txt_head bigger_head">
-                        Instant buy off
+                        Outright Buy
                       </h4>
                       <p className="new_home_attributes_area1_txt_para">
                         Make a one-time payment and get your desired item.
@@ -544,7 +544,7 @@ const Savings = ({ getProductByCat }) => {
                         Global access
                       </h4>
                       <p className="new_home_attributes_area1_txt_para">
-                        Save up to acquire items and get it delivered it to you
+                        Save to acquire items and get it delivered it to you
                         regardless of your location.
                       </p>
                     </div>
@@ -673,7 +673,7 @@ const Savings = ({ getProductByCat }) => {
             data-aos-duration="3000"
           >
             <h1 className="gttitle" data-aos="fade-up" data-aos-duration="3000">
-             Featured In.
+              Featured In.
             </h1>
           </div>
           <div className="gtstoriesArea">
