@@ -3,7 +3,12 @@
   flex-direction: column;
   gap: 30px;
 }
-
+.to_save_btn {
+  color: #fff;
+}
+.to_save_btn:hover {
+  color: rgb(0, 0, 0);
+}
 .dash_savings_area1 {
   padding: 2em;
   background: #fff;
