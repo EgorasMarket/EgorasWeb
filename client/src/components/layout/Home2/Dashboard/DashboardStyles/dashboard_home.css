@@ -209,8 +209,10 @@
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  font-weight: 700;
+  font-weight: 500;
   color: #8bb79e;
+  font-size: 14px;
+  padding-bottom: 10px;
 }
 .center_this {
   justify-content: center;
@@ -237,6 +239,9 @@
   /* margin-top: 10px; */
   cursor: pointer;
 }
+.dashboard_transaction_body_cont1:hover {
+  background-color: #f6f6f6;
+}
 span.dashboard_transac_body_cont1_layer1_completed_status {
   background: #74c795;
   color: #fff;
@@ -252,8 +257,9 @@ span.dashboard_transac_body_cont1_layer1_completed_status {
 .dashboard_transac_body_cont1_layer1 {
   display: flex;
   align-items: center;
+  grid-gap: 10px;
   gap: 10px;
-  padding: 20px;
+  padding: 20px 10px;
   width: 100%;
 }
 .dashboard_transac_body_cont1_layer1_amount_cont {
@@ -273,6 +279,7 @@ span.dashboard_transac_body_cont1_layer1_completed_status {
 }
 .dashboard_transac_body_cont1_layer1_status_cont {
   padding: 20px;
+  padding: 20px 10px;
 }
 .dashboard_transactions_header {
   font-size: 18px;
