@@ -8,6 +8,7 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
+import ReceiptLongIcon from '@mui/icons-material/ReceiptLong';
 import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";

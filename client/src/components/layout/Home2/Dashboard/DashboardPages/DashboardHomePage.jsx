@@ -116,6 +116,7 @@ const DashboardHomePage = ({ auth, match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
   const [userLockId, setUserLockId] = useState([]);
+  // const [tranPopUp, setTranPopUp] = useState(null);
 
   // const fetchFromCart = async (customer_id) => {
   //   //console.log('fetchfromCart', customer_id);
@@ -152,6 +153,10 @@ const DashboardHomePage = ({ auth, match }) => {
     },
   };
 
+  // const ChangeTranPopUp = (e) => {
+  //   let currentTarget = e.currentTarget.id;
+  //   setTranPopUp(currentTarget);
+  // };
   const [itemGalleryShow, setItemGalleryShow] = useState([]);
   const [accountInfo, setAccountInfo] = useState({
     ledger: 0,
@@ -365,7 +370,12 @@ const DashboardHomePage = ({ auth, match }) => {
             </div>
             <div className="dashboard_transaction_body">
               {transaction.map((data) => (
-                <div className="dashboard_transaction_body_cont1" key={data.id}>
+                <div
+                  className="dashboard_transaction_body_cont1"
+                  id={data.id}
+                  // key={data.id}
+                  // onClick={ChangeTranPopUp}
+                >
                   <div className="dashboard_transac_body_cont1_layer1">
                     <div className="deposited_icon">
                       <ArrowDownwardIcon className="arrow_down_deposit_icon" />
