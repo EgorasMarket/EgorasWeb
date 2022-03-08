@@ -158,7 +158,7 @@ button.savings_area_btn {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: flex-end;
   height: 14.25rem;
   height: 100%;
   padding: 0.25rem;

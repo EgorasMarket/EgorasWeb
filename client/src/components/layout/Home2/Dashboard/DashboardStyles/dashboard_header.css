@@ -35,16 +35,36 @@
 }
 .dash_board_header_search_input {
   width: 100%;
-  padding: 0.3em 2em;
-  padding-left: 3em;
-  border-radius: 62px;
-  border: solid 2px #d6eade;
-  background: #edf6f0;
+  padding: 0.8em 2em;
+  padding-right: 4em;
+  border-radius: 50px;
+  border: solid 2px #55a675;
+  background: #f5fff7;
 }
-.search_icon {
+
+.search_button {
   position: absolute;
-  left: 10px;
-  top: 30%;
+  right: 0;
+  top: 0;
+  height: 100%;
+  width: 5%;
+  border-top-right-radius: 50px;
+  border-bottom-right-radius: 50px;
+  background: #d4f8e2;
+  border: solid #55a675 2px;
+  border-left: 0;
+  color: #55a675;
+  transition: 0.2s all ease-in;
+}
+.search_button:hover {
+  background: #55a675;
+  border: solid #55a675 2px;
+  border-left: 0;
+  transition: 0.2s all ease-in;
+  color: #ffffff;
+}
+.search_bar_icon {
+  font-size: 29px !important;
 }
 .user_profile_icon_cont {
   display: flex;
@@ -127,6 +147,9 @@ button.logout-btn {
 .dash_board_header_search_bar {
   width: 100%;
   position: relative;
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 .not_logout_div {
   display: none;

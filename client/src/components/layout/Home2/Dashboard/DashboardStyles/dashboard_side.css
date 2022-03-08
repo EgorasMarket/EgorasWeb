@@ -315,7 +315,19 @@
   border-bottom-right-radius: 10px;
   width: 50px;
 }
-
+.click_search_btn {
+  width: 10%;
+  padding: 0.8em 0em;
+  border-radius: 10px;
+  border: none;
+  background: #55a675;
+  color: #fff;
+  box-shadow: 0px 10px 20px #8ee3b0;
+}
+.search_input_cont {
+  position: relative;
+  width: 80%;
+}
 .small_user_profile_icon_cont {
   display: flex;
   width: 96% !important;
@@ -494,4 +506,3 @@
     padding: 0.3em 0em;
   }
 }
-

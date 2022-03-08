@@ -22,8 +22,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
 
-import {numberWithCommas} from '../../../../../static'
-
+import { numberWithCommas } from "../../../../../static";
 
 const responsive7 = {
   superLargeDesktop: {
@@ -93,16 +92,19 @@ function DashboardInvestPage({ auth }) {
 
   const [item, setItem] = useState([]);
 
- 
-  const [furniture,setFurniture] =useState("Furnitures");
-  const [ComputerAccessories,setComputerAccessories] =useState("Computer & Accessories");
-  const [homeAppliances,setHomeAppliances] =useState("Home Appliances");
-  const [electronics,setElectronics] =useState("Electronics");
-  const [nfts,setNfts] =useState("Nfts");
-  const [phonesTablets,setPhoneTablets] =useState("Phones & Tablet");
-  const [musicalEquipment,setMusicalEquipment] =useState("Musical Equipments");
-  const [industrialEquipments,setIndustrialEquipments]= useState("Industral Equipments")
-
+  const [furniture, setFurniture] = useState("Furnitures");
+  const [ComputerAccessories, setComputerAccessories] = useState(
+    "Computer & Accessories"
+  );
+  const [homeAppliances, setHomeAppliances] = useState("Home Appliances");
+  const [electronics, setElectronics] = useState("Electronics");
+  const [nfts, setNfts] = useState("Nfts");
+  const [phonesTablets, setPhoneTablets] = useState("Phones & Tablet");
+  const [musicalEquipment, setMusicalEquipment] =
+    useState("Musical Equipments");
+  const [industrialEquipments, setIndustrialEquipments] = useState(
+    "Industral Equipments"
+  );
 
   // const [furniture, setFurniture] = useState("Furnitures");
   // const [ComputAccessories, setComputerAccessories] = useState(
@@ -195,8 +197,8 @@ function DashboardInvestPage({ auth }) {
 
   const [prodBody, setProdBody] = useState("not_product_body");
   const [dropBtn, setDropBtn] = useState("dropHead");
-  const [height20,setHeight20] = useState("0px");
-  const [rap,setRap] = useState("#electronics");
+  const [height20, setHeight20] = useState("0px");
+  const [rap, setRap] = useState("#electronics");
 
   const settings = {
     dots: true,
@@ -224,16 +226,15 @@ function DashboardInvestPage({ auth }) {
   //    scroll.scrollToTop(100);
   //  }
 
- const height={
-   position:'absolute',
-   top:'1000px',
- }
+  const height = {
+    position: "absolute",
+    top: "1000px",
+  };
 
-  const wash =()=>{
-    setHeight20(height)
-    setRap("#HomeKitchen")
-
-  }
+  const wash = () => {
+    setHeight20(height);
+    setRap("#HomeKitchen");
+  };
 
   // const numberWithCommas = (x) => {
   //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -243,19 +244,13 @@ function DashboardInvestPage({ auth }) {
     <div className="other2">
       <div className="cat_div" id="cat_div">
         <div className="cat_body_toggle">
-         
-            <div className="cat_body_toggle1">
-              All Categories
-              <ListIcon className="cat_icon" />
-            </div>
-      
           <a href="computerAcc">
-          <div className="cat_body_toggle1">Computers and Accessories</div>
+            <div className="cat_body_toggle1">Computers and Accessories</div>
           </a>
           <a href="#phonesTab">
             <div className="cat_body_toggle1">Phones and Tablets</div>
           </a>
-          <a href="#Electronics" >
+          <a href="#Electronics">
             <div className="cat_body_toggle1">Electronics</div>
           </a>
           <div className="cat_body_toggle1">Konga Fashion</div>
@@ -263,7 +258,7 @@ function DashboardInvestPage({ auth }) {
             <div className="cat_body_toggle1">Home and Kitchen</div>
           </a>
           <a href="#MusicEquip">
-          <div className="cat_body_toggle1">Musical Equipment</div>
+            <div className="cat_body_toggle1">Musical Equipment</div>
           </a>
         </div>
       </div>
@@ -392,7 +387,7 @@ function DashboardInvestPage({ auth }) {
 
           <div className="products_display_body">
             <div className="products_display_body_heading">
-              Top Categories/outright Buy{" "}
+              Outright Buy{" "}
               <a
                 href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn"
@@ -404,9 +399,10 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_conts">
               {item.slice(0, 12).map((asset, index) => (
                 <a
-                  href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
-
-                      // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
+                  href={`/dashboard/products/details/${
+                    asset.id
+                  }/${asset.product_name.replace(/\s+/g, "-")}`}
+                  // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                   key={index.toString()}
                 >
                   <li className="carous_list no_marg">
@@ -426,25 +422,6 @@ function DashboardInvestPage({ auth }) {
                         //   backgroundPositionY: "center",
                       }}
                     >
-                   
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
-
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            40% locked
-                          </button>
-                        )}
-                      </div>
                       <div className="storeTiles_storeTileBottomContainer__2sWHh">
                         <div className="asset_name">{asset.product_name}</div>
                         <div className="asset_title">
@@ -459,7 +436,6 @@ function DashboardInvestPage({ auth }) {
                   </li>
                 </a>
               ))}
-            
             </div>
           </div>
 
@@ -500,61 +476,56 @@ function DashboardInvestPage({ auth }) {
                 {item.slice(0, 9).map((asset, index) => {
                   if (phonesTablets === asset.product_category_desc)
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index.toString()}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
-
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div></div>
-                              ) : (
-                                <button className="items_remaining_btn2">
-                                  {" "}
-                                  {asset.percentage}% locked
-                                </button>
-                              )}
-                            </div>
+                      <a
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        key={index.toString()}
+                      >
+                        <li className="carous_list no_marg">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
                               <div className="asset_name">
                                 {asset.product_name}
                               </div>
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
-                                </span>
+                              <div class="asset_prices_div">
+                                <div className="asset_title">
+                                  ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                  </span>
+                                </div>
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    (
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
                               </div>
                             </div>
+
                             {/* </a> */}
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
-                            )}
-                            <span className="per_day_symbol"> / perday</span>
                           </div>
                         </li>
                       </a>
@@ -563,127 +534,6 @@ function DashboardInvestPage({ auth }) {
               </div>
             </div>
           </div>
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-
-          <div className="products_display_body">
-            <div className="products_display_body_heading">
-              Grocery Store
-              <a
-                href={`/dashboard/products/categories/${code}`}
-                className="se_all_btnn"
-              >
-                SEE ALL
-                <ChevronRightIcon />
-              </a>
-            </div>
-            <div className="products_display_body_conts">
-              {item.slice(0, 12).map((asset, index2) => (
-                // <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index2.toString()}>
-                //   <li className="carous_list no_marg no_marg">
-                //     <div
-                //       className="storeTiles_storeTileContainer__HoGEa"
-                //       style={{
-                //         backgroundImage: `url(${api_url2+'/'+asset.product_image})`,
-                //         //           height: "200px",
-                //         //           width: "100%",
-                //         //           backgroundRepeat: "no-repeat",
-                //         //           backgroundSize: "cover",
-                //         //           borderRadius: "8px",
-                //         //           borderBottomLeftRadius: "0px",
-                //         //           borderBottomRightRadius: "0px",
-                //         //   backgroundPositionY: "center",
-                //       }}
-                //     >
-                //       <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                //         <button className="items_remaining_btn">
-                //           save now
-                //         </button>
-                //         <button className="items_remaining_btn2">
-                //           100% off
-                //         </button>
-                //       </div>
-                //       <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                //         <div className="asset_name">{asset.product_name}</div>
-                //         <div className="asset_title">
-                //           {asset.unitCount}{asset.unitCount ===1? "item left": asset.unitCount <= 1? "no item left":asset.unitCount > 1? "itms left": null }
-                //         </div>
-                //       </div>
-                //       {/* </a> */}
-                //     </div>
-                //   </li>
-                // </a>
-
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index2}>
-                  <li className="carous_list no_marg">
-                    <div
-                      className="storeTiles_storeTileContainer__HoGEa"
-                      style={{
-                        backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
-                        })`,
-                        //           height: "200px",
-                        //           width: "100%",
-                        //           backgroundRepeat: "no-repeat",
-                        //           backgroundSize: "cover",
-                        //           borderRadius: "8px",
-                        //           borderBottomLeftRadius: "0px",
-                        //           borderBottomRightRadius: "0px",
-                        //   backgroundPositionY: "center",
-                      }}
-                    >
-                      <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                        <button className="items_remaining_btn">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <p className="no_margg"> Buy now</p>
-                          ) : (
-                            <p className="no_margg"> Save now</p>
-                          )}
-                        </button>
-
-                        {asset.payment_type == "OUTRIGHT" ? (
-                          <div></div>
-                        ) : (
-                          <button className="items_remaining_btn2">
-                            {" "}
-                            {asset.percentage}% locked
-                          </button>
-                        )}
-                      </div>
-                      <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                        <div className="asset_name">{asset.product_name}</div>
-                        <div className="asset_prices_div">
-                          <div className="asset_title">
-                            ₦{numberWithCommas(asset.amount)}{" "}
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          </div>
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
-                            )}
-                            <span className="per_day_symbol"> / perday</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/* </a> */}
-                    </div>
-                  </li>
-                </a>
-              ))}
-            </div>
-          </div>
-
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
-          {/* =========[[[[[[[[[]]]]]]]]] */}
 
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
@@ -706,64 +556,58 @@ function DashboardInvestPage({ auth }) {
               {item.map((asset, index) => {
                 if (homeAppliances === asset.product_category_desc) {
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index.toString()}>
-                    <li className="carous_list no_marg">
-                      <div
-                        className="storeTiles_storeTileContainer__HoGEa"
-                        style={{
-                          backgroundImage: `url(${
-                            api_url2 + "/" + asset.product_image
-                          })`,
-                          //           height: "200px",
-                          //           width: "100%",
-                          //           backgroundRepeat: "no-repeat",
-                          //           backgroundSize: "cover",
-                          //           borderRadius: "8px",
-                          //           borderBottomLeftRadius: "0px",
-                          //           borderBottomRightRadius: "0px",
-                          //   backgroundPositionY: "center",
-                        }}
-                      >
-                        <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                          <button className="items_remaining_btn">
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <p className="no_margg"> Buy now</p>
-                            ) : (
-                              <p className="no_margg"> Save now</p>
-                            )}
-                          </button>
-  
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <div></div>
-                          ) : (
-                            <button className="items_remaining_btn2">
-                              {" "}
-                              {asset.percentage}% locked
-                            </button>
-                          )}
-                        </div>
-                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                          <div className="asset_name">{asset.product_name}</div>
-                          <div className="asset_prices_div">
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
+                    <a
+                      href={`/dashboard/products/details/${
+                        asset.id
+                      }/${asset.product_name.replace(/\s+/g, "-")}`}
+                      key={index.toString()}
+                    >
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${
+                              api_url2 + "/" + asset.product_image
+                            })`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
                             </div>
-                            <div className="amount_per_day_div">
-                              ₦
-                              {numberWithCommas(
-                                (asset.amount / asset.product_duration).toFixed()
-                              )}
-                              <span className="per_day_symbol"> / perday</span>
+                            <div className="asset_prices_div">
+                              <div className="asset_title">
+                                ₦{numberWithCommas(asset.amount)}{" "}
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              </div>
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
                             </div>
                           </div>
+                          {/* </a> */}
                         </div>
-                        {/* </a> */}
-                      </div>
-                    </li>
-                  </a>
+                      </li>
+                    </a>
                   );
                 }
               })}
@@ -805,67 +649,62 @@ function DashboardInvestPage({ auth }) {
               </div>
               <div className="products_display_body_conts2">
                 {item.map((asset, index4) => {
-                  if (electronics === asset.product_category_desc){
+                  if (electronics === asset.product_category_desc) {
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index4.toString()}>
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                {asset.percentage}% locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_prices_div">
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
-                                </span>
+                      <a
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        key={index4.toString()}
+                      >
+                        <li className="carous_list no_marg">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
                               </div>
-                              <div className="amount_per_day_div">
-                                ₦
-                                {numberWithCommas(
-                                  (asset.amount / asset.product_duration).toFixed()
-                                )}
-                                <span className="per_day_symbol"> / perday</span>
+                              <div className="asset_prices_div">
+                                <div className="asset_title">
+                                  ₦{numberWithCommas(asset.amount)}{" "}
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.amount * 2)}
+                                  </span>
+                                </div>
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    (
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
                               </div>
                             </div>
+                            {/* </a> */}
                           </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
-                    )}
+                        </li>
+                      </a>
+                    );
+                  }
                 })}
               </div>
             </div>
@@ -890,9 +729,14 @@ function DashboardInvestPage({ auth }) {
             <div className="products_display_body_conts">
               {item.slice(0, 10).map((asset, index5) => {
                 // if (ComputAccessories === asset.product_category_desc){
-                   if (ComputerAccessories === asset.product_category_desc){ 
+                if (ComputerAccessories === asset.product_category_desc) {
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index5.toString()}>
+                    <a
+                      href={`/dashboard/products/details/${
+                        asset.id
+                      }/${asset.product_name.replace(/\s+/g, "-")}`}
+                      key={index5.toString()}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -910,26 +754,10 @@ function DashboardInvestPage({ auth }) {
                             //   backgroundPositionY: "center",
                           }}
                         >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                {asset.percentage}% locked
-                              </button>
-                            )}
-                          </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
                             <div className="asset_prices_div">
                               <div className="asset_title">
                                 ₦{numberWithCommas(asset.amount)}{" "}
@@ -940,9 +768,14 @@ function DashboardInvestPage({ auth }) {
                               <div className="amount_per_day_div">
                                 ₦
                                 {numberWithCommas(
-                                  (asset.amount / asset.product_duration).toFixed()
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
                                 )}
-                                <span className="per_day_symbol"> / perday</span>
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -950,7 +783,8 @@ function DashboardInvestPage({ auth }) {
                         </div>
                       </li>
                     </a>
-                  )}
+                  );
+                }
               })}
             </div>
           </div>
@@ -992,64 +826,58 @@ function DashboardInvestPage({ auth }) {
                 {item.slice(0, 12).map((asset, index7) => {
                   if (musicalEquipment === asset.product_category_desc)
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index7.toString()}>
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                {asset.percentage}% locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
-                            <div className="asset_prices_div">
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
-                                </span>
+                      <a
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        key={index7.toString()}
+                      >
+                        <li className="carous_list no_marg">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${
+                                api_url2 + "/" + asset.product_image
+                              })`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
                               </div>
-                              <div className="amount_per_day_div">
-                                ₦
-                                {numberWithCommas(
-                                  (asset.amount / asset.product_duration).toFixed()
-                                )}
-                                <span className="per_day_symbol"> / perday</span>
+                              <div className="asset_prices_div">
+                                <div className="asset_title">
+                                  ₦{numberWithCommas(asset.amount)}{" "}
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.amount * 2)}
+                                  </span>
+                                </div>
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    (
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
                               </div>
                             </div>
+                            {/* </a> */}
                           </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
+                        </li>
+                      </a>
                     );
                 })}
               </div>
@@ -1075,7 +903,12 @@ function DashboardInvestPage({ auth }) {
               {item.slice(0, 8).map((asset, index8) => {
                 if (industrialEquipments === asset.product_category_desc)
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index8.toString()}>
+                    <a
+                      href={`/dashboard/products/details/${
+                        asset.id
+                      }/${asset.product_name.replace(/\s+/g, "-")}`}
+                      key={index8.toString()}
+                    >
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1093,26 +926,10 @@ function DashboardInvestPage({ auth }) {
                             //   backgroundPositionY: "center",
                           }}
                         >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-    
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                {asset.percentage}% locked
-                              </button>
-                            )}
-                          </div>
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">{asset.product_name}</div>
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
                             <div className="asset_prices_div">
                               <div className="asset_title">
                                 ₦{numberWithCommas(asset.amount)}{" "}
@@ -1123,9 +940,14 @@ function DashboardInvestPage({ auth }) {
                               <div className="amount_per_day_div">
                                 ₦
                                 {numberWithCommas(
-                                  (asset.amount / asset.product_duration).toFixed()
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
                                 )}
-                                <span className="per_day_symbol"> / perday</span>
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
                               </div>
                             </div>
                           </div>
@@ -1172,12 +994,13 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-
                 {item.slice(0, 12).map((asset, index9) => {
-                  if (musicalEquipment === asset.product_category_desc){
+                  if (musicalEquipment === asset.product_category_desc) {
                     return (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
                         key={index9.toString()}
                       >
                         <li className="carous_list no_marg no_marg">
@@ -1197,14 +1020,14 @@ function DashboardInvestPage({ auth }) {
                               //   backgroundPositionY: "center",
                             }}
                           >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                            {/* <div className="storeTiles_storeTileOffersContainer__3v8lC">
                               <button className="items_remaining_btn">
                                 save now
                               </button>
                               <button className="items_remaining_btn2">
                                 100% off
                               </button>
-                            </div>
+                            </div> */}
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
                               <div className="asset_name">
                                 {asset.product_name}
@@ -1224,7 +1047,8 @@ function DashboardInvestPage({ auth }) {
                           </div>
                         </li>
                       </a>
-                    )}
+                    );
+                  }
                 })}
               </div>
             </div>
