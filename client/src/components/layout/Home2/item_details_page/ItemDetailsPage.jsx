@@ -155,18 +155,18 @@ function ItemDetailsPage({ auth, match }) {
           product_duration,
           product_id,
           product_image,
+          more_image,
           product_name,
           product_specifications,
           product_type,
           initial_deposit,
           paymentPerday,
-          payment_type, 
+          payment_type,
           days_left,
           no_of_days,
-          no_of_days_paid, 
-          startDate, 
-          endDate
-
+          no_of_days_paid,
+          startDate,
+          endDate,
         } = data.data.data;
 
         console.log(data.data.data, "king");
@@ -179,6 +179,7 @@ function ItemDetailsPage({ auth, match }) {
           product_duration,
           product_id,
           product_image,
+          more_image,
           product_name,
           product_specifications,
           product_type,

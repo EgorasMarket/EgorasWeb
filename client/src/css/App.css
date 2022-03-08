@@ -113,7 +113,42 @@ button:focus {
 .MuiSelect-root {
   width: 60% !important;
 }
-
+@media screen and (max-width: 991px) {
+  .react-multiple-carousel__arrow {
+    position: absolute;
+    outline: 0;
+    transition: all 0.5s;
+    border-radius: 35px;
+    z-index: 1000;
+    border: 0;
+    background: rgba(0, 0, 0, 0.5);
+    min-width: 28px;
+    min-height: 28px;
+    opacity: 1;
+    cursor: pointer;
+  }
+  .LEFTARROW .react-multiple-carousel__arrow--left {
+    background-color: #ffffff !important;
+    box-shadow: 0px 0px 15px #b8d2c2;
+    top: 52% !important;
+    left: 2px !important;
+  }
+  .LEFTARROW .react-multiple-carousel__arrow--right {
+    background-color: #ffffff !important;
+    box-shadow: 0px 0px 15px #b8d2c2;
+    right: 2px;
+    top: 52% !important;
+  }
+  .react-multiple-carousel__arrow::before {
+    font-size: 14px;
+    color: #fff;
+    display: block;
+    font-family: revicons;
+    text-align: center;
+    z-index: 2;
+    position: relative;
+  }
+}
 @media (min-width: 768px) {
   .col-md-6 {
     flex: 0 0 50%;
@@ -299,8 +334,8 @@ input:-internal-autofill-selected {
     gap: 30px;
   }
   .featured_logos .react-multi-carousel-track {
-  gap: 0px;
-}
+    gap: 0px;
+  }
   .gtr .react-multi-carousel-track {
     gap: 0px;
   }
@@ -310,8 +345,8 @@ input:-internal-autofill-selected {
     gap: 15px;
   }
   .featured_logos .react-multi-carousel-track {
-  gap: 0px;
-}
+    gap: 0px;
+  }
   .gtr .react-multi-carousel-track {
     gap: 0px;
   }

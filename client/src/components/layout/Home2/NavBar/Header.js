@@ -672,18 +672,16 @@ const Header = ({ isAuthenticated, auth }) => {
                   <div>
                     <List>
                       <ListItem>
-                        <a href="/login" className="getLoan">
-                          {" "}
-                          Login
-                        </a>
-                      </ListItem>
-                    </List>
-                    <Divider />
-                    <List>
-                      <ListItem>
-                        <a href="/signup" className="connectb">
-                          Signup
-                        </a>
+                        <div className="Flex_btns_div">
+                          <a href="/login" className="getLoan">
+                            {" "}
+                            Login
+                          </a>
+
+                          <a href="/signup" className="connectb">
+                            Signup
+                          </a>
+                        </div>
                       </ListItem>
                     </List>
                   </div>
@@ -728,19 +726,21 @@ const Header = ({ isAuthenticated, auth }) => {
                   <div>
                     <List>
                       <ListItem>
-                        <a href="/login" className="getLoan">
+                        <div className="Flex_btns_div">
                           {" "}
-                          Login
-                        </a>
+                          <a href="/login" className="getLoan">
+                            {" "}
+                            Login
+                          </a>
+                          <a href="/signup" className="connectb">
+                            Signup
+                          </a>
+                        </div>
                       </ListItem>
                     </List>
                     <Divider />
                     <List>
-                      <ListItem>
-                        <a href="/signup" className="connectb">
-                          Signup
-                        </a>
-                      </ListItem>
+                      <ListItem></ListItem>
                     </List>
                   </div>
                 ) : null}
