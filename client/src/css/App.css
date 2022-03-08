@@ -141,9 +141,11 @@ button:focus {
   }
   .gtr .react-multiple-carousel__arrow--right {
     top: 55% !important;
+    display: none;
   }
   .gtr .react-multiple-carousel__arrow--left {
     top: 55% !important;
+    display: none;
   }
   .react-multiple-carousel__arrow::before {
     font-size: 14px;
