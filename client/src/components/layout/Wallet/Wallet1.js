@@ -7,6 +7,7 @@ import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarRateIcon from "@mui/icons-material/StarRate";
+import { CustomAlert } from "../../../CustomAlert";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 import NumberFormat from "react-number-format";
 // import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
@@ -39,6 +40,8 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   const [copiedTxt1, setCopiedTxt1] = useState(false);
   const [deposits, setDeposits] = useState([]);
   const [tokenBal, setTokenBal] = useState("0.000");
+  const [alert, setAlert] = useState("");
+  const [alertType, setAlertType] = useState("");
   // const [currentToken, setCurrentToken] = useState();
   // const [tokenName, setTokenName] = useState();
   const [tokenSymbol, setTokenSymbol] = useState();
@@ -105,7 +108,6 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   //     });
   // }, []);
   useEffect(() => {
-   
     axios
       .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
       .then((data) => {
@@ -118,7 +120,6 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
       });
   }, [auth]);
   useEffect(() => {
-   
     axios
       .get(
         api_url2 + "/v1/wallet/get/wallet/fetch/deposits/" + userId,
@@ -154,11 +155,9 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   useEffect(async () => {
     // console.log(auth);
     if (auth.user !== null) {
- 
       await axios
         .get(api_url2 + "/v1/wallet/check/wallet/" + userId, null, config)
         .then((data) => {
-          
           setAccountExists(data.data.accountExists);
         })
         .catch((err) => {
@@ -211,16 +210,16 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   const timer = setTimeout(() => {
     setCopiedTxt(false);
     setCopiedTxt1(false);
-  }, 1000);
-
+    setAlert("");
+  }, 5000);
+  // const hide_error = setTimeout(setAlert(""), 5000);
   const openDepositDiv = async (tokenName, tokenSymbol) => {
     setActiveBg("deposit_btn");
-  
+
     if (accountExists) {
       // console.log("accountExists");
       setShowDeposit(true);
       setIsLoading(false);
-      
     } else {
       console.log("not accountExists");
       setShowDeposit(true);
@@ -237,29 +236,28 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   };
 
   const fundCustomer = async () => {
-    console.log(parseInt(fAmount.replace(/,/g, '')));
+    console.log(parseInt(fAmount.replace(/,/g, "")));
 
-    const amount = parseInt(fAmount.replace(/,/g, ''));
+    const amount = parseInt(fAmount.replace(/,/g, ""));
 
     const body = JSON.stringify({
-      amount
+      amount,
     });
 
     try {
       const res = await axios.post(
-        api_url2 + "/v1/wallet/fund/customer/"+userId,
+        api_url2 + "/v1/wallet/fund/customer/" + userId,
         body,
         config
       );
-      console.log(res);
-
-      
+      console.log(res.data.message);
+      setAlert(res.data.message);
     } catch (err) {
-      console.log(err.response);
-
+      console.log(err.response.data.message);
+      setAlert(err.response.data.message);
+      setAlertType("danger");
     }
-
-  }
+  };
   const closeDepositDiv = () => {
     setShowDeposit(false);
     setActiveBg("withdraw_btn");
@@ -493,41 +491,47 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
                 <div className="deposit_div">
                   <div className="input_amnt_heading">Input Amount</div>
                   <div className="input_amnt_div">
-                  {isLoading ? (
-                    <div className="loading_icon_d">
-                      <LoadingIcons.ThreeDots
-                        fill="#229e54"
-                        className="loading_iconnn"
-                      />
-                      <p className="loading_txt">Loading...</p>
-                    </div>
-                  ) : (
-                      <div>
-                      <NumberFormat
-                        // format="#### #### #### ####"
-                        className="input_amnt_div_input"
-                        name="card_numberVar"
-                        thousandSeparator={true}
-                        inputmode="numeric"
-                        value={fAmount}
-                        onChange={(e) => onChange45(e)}
-                      />
-                      <button
-                      className="proceed_cust_funding_wallet_div mt-3"
-                      onClick={fundCustomer}
-                      >
-                        Proceed
-                      </button>
-                    </div>
-                  )}
+                    {isLoading ? (
+                      <div className="loading_icon_d">
+                        <LoadingIcons.ThreeDots
+                          fill="#229e54"
+                          className="loading_iconnn"
+                        />
+                        <p className="loading_txt">Loading...</p>
                       </div>
-                  
+                    ) : (
+                      <div>
+                        <NumberFormat
+                          // format="#### #### #### ####"
+                          className="input_amnt_div_input"
+                          name="card_numberVar"
+                          thousandSeparator={true}
+                          inputmode="numeric"
+                          value={fAmount}
+                          onChange={(e) => onChange45(e)}
+                        />
+                        <button
+                          className="proceed_cust_funding_wallet_div mt-3"
+                          onClick={fundCustomer}
+                        >
+                          Proceed
+                        </button>
+                      </div>
+                    )}
+                  </div>
                 </div>
               ) : null}
             </div>
           </div>
         </div>
       </section>
+      {alert == "" ? null : (
+        <CustomAlert
+          alert={alert}
+          alertType={alertType}
+          onChange={() => timer}
+        />
+      )}
     </div>
   );
 };
