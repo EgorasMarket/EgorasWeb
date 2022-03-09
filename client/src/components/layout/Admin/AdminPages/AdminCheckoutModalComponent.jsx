@@ -17,6 +17,7 @@ import {createOrder} from '../../../../actions/shop'
 import { connect } from "react-redux";
 import initPayment from '../../../../flutterwave/initPayment'
 import initializePayment from "../../../../flutterwave/API/initializePayment";
+import  { Redirect } from 'react-router-dom'
 
 const CheckoutModalComponent = ({
   payload, 
@@ -51,9 +52,15 @@ const CheckoutModalComponent = ({
   const [isloading, setIsLoading] = useState(true);
   const [email, setEmail] = useState("")
   const [phone_no, setPhoneNo] = useState("")
+  const [walletBalance, setWalletBalance] = useState(false);
+  const [ProcessingDiv, setProcessingDiv] = useState(false);
   const [name, setName] = useState("")
   const [option, setOption] = useState(-1)
   const [customer_data, setCustomerData] = useState({})
+  const [tokenBal, setTokenBal] = useState("0.000");
+  const [assetVal, setAssetVal] = useState("0.000");
+  const [tokenSign, setTokenSign] = useState();
+  const [errorDiv, setErrorDiv] = useState(false);
   // console.log(phone_no, name, option)
 
   const config = {
@@ -62,39 +69,34 @@ const CheckoutModalComponent = ({
     },
   };
 
-  const [addressName, setAddressName] = useState("")
+  // const [addressName, setAddressName] = useState("")
 
-  // useEffect( async ()=>{
-  //   await axios.get(api_url2 + "/v1/user/address/info", null,
-  //    config).then((response)=>{
-  //   console.log(response , "wewter kings")
-  //   console.log(response.data.cusAddress. address,"market")
+  useEffect(() => {
 
-  //   setAddressName(response.data.cusAddress.address)
-  //   //  console.log(addressName,"Bk is good for development")
-  //    })
-
-  // }, [])
-
-
-  // useEffect(() => {
-  //   if (auth.user !== null){
-  //     console.log(auth.user, 'user  exist ')
-  //     setEmail(auth.user.user.email);
-  //       setPhoneNo( auth.user.user.phoneNumber);
-  //       setName( auth.user.user.fullname)
-  //       const { fullname, email, phoneNumber, id} = auth.user.user;
-  //       setCustomerData(
-  //        { name: fullname, 
-  //         email, 
-  //         phonenumber:phoneNumber, 
-  //         customer_id: id, 
-  //       }
-  //       )
-  //   }
-
-  // }, []);
-
+    axios
+      .get(api_url2 + "/v1/wallet/get/wallet/info/" + user_id, null, config)
+      .then((data) => {
+        console.log(data.data.data.balance);
+        setTokenBal(data.data.data.balance);
+        setAssetVal(data.data.data.balance * 1);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, []);
+  useEffect(() => {
+    // setIsLoading2(true);
+    axios
+      .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
+        setTokenSign(data.data.data[0].tokenSymbol);
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+  }, []);
+  
   useEffect(() => {
 
     axios
@@ -143,8 +145,10 @@ const CheckoutModalComponent = ({
       logo: 'https://egoras.com/img/egoras-logo.svg',
     },
   };
-    const handleFlutterPayment= useFlutterwave(flutterConfig);
-
+  const handleFlutterPayment= useFlutterwave(flutterConfig);
+  const openProcessingDiv = () => {
+    setProcessingDiv(true);
+  };
 
   const selectOption =async (value) => {
     // switch(value ){
@@ -163,6 +167,11 @@ const CheckoutModalComponent = ({
             callback: async (response) => {
               console.log(response)
               try {
+                if (!response.transaction_id) {
+                  alert(
+                    "We couldn't return any information from this payment please try again."
+                  );
+                }
                 const verification = await adminVerify(user_id, response.transaction_id, product_id, startDate, endDate)
        
                 console.log(verification.data.data.data.amount, 'from me  ')
@@ -173,8 +182,8 @@ const CheckoutModalComponent = ({
   
             },
             onClose: (response) => {
-              console.log(response, "response from onclose ")
-  
+              // console.log(response, "response from onclose ")
+                
             }
           })
         
@@ -182,11 +191,38 @@ const CheckoutModalComponent = ({
         
         break;
 
-      case 1: (
-        alert('wallet method selected')
+      case 1: 
+      if (tokenBal >= initial_deposit) {
+        setProcessingDiv(true);
+        //
+        const orderBody = JSON.stringify({
+          user_id,
+          product_id,
+          initial_pay:initial_deposit,
+          startDate, 
+          endDate,
+          days_left, 
+          
+      });
 
-      )
-        break
+      console.log(orderBody)
+      const res = await axios.post(api_url2 + "/v1/order/add/order/crypto", orderBody, config).then(response =>{
+          console.log(response, " response after order endpoint is called")
+          setProcessingDiv(false)
+          alert("Your order have been completed successfully, You will redirected to the market place")
+          return <Redirect to="/dashboard" />
+      }).catch(err => {
+          console.log(err.response)
+          setProcessingDiv(false)
+          setErrorDiv(true)
+      });
+      //
+
+      } else {
+        setProcessingDiv(false);
+        setErrorDiv(true);
+      }
+      break
     
     }
 
@@ -288,15 +324,7 @@ const CheckoutModalComponent = ({
                           </div>
                           <div className="save_item_days_left">
                             {days_left} days left
-                            {/* <div className="days_left_percentage_cont">
-                              <span
-                                className="days_left_percentage"
-                                // style={{
-                                //   width:
-                                //     100 % -((amount * 100) / unitCount),
-                                // }}
-                              ></span>
-                            </div> */}
+                         
                           </div>
                           <div className="save_total_locked_amount">
                             <span className="items_left_amount">
@@ -332,23 +360,64 @@ const CheckoutModalComponent = ({
 
             <div className="cart_area2_heading">Payment Options</div>
             {/* ===================== */}
-            <div className="cart_area2_select">
+            {/* <div className="cart_area2_select">
               <div className="wit_card" onClick={() => {
                   setOption(0)
               }}>
                 Pay via card{" "}
                 <input type="checkbox" name="payment" id="" className="checkBox" />
               </div>
+            </div> */}
+            <div className="cart_area2_select">
+              <div className="wit_card">
+                Pay via card{" "}
+                <input
+                  type="radio"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(0);
+                    setWalletBalance(false);
+                  }}
+                />
+              </div>
             </div>
             {/* ===================== */}
-              <div className="cart_area2_select" onClick={()  => {
+            {/* <div className="cart_area2_select" onClick={()  => {
                   setOption(1)
                  }}>
               <div className="wit_card">
                 Pay via wallet {" "}
                 <input type="checkbox" name="payment" id="" className="checkBox"  />
               </div>
+            </div> */}
+
+            <div className="cart_area2_select">
+              <div className="wit_card">
+                Pay via wallet{" "}
+                <input
+                  type="radio"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(1);
+                    setWalletBalance(true);
+                  }}
+                />
+              </div>
+              {walletBalance == true ? (
+                <div className="wallet_bal_acct">
+                  Wallet Bal: {parseInt(tokenBal).toFixed(3)} {tokenSign}
+                  {/* Wallet Bal: {hardNumb} {tokenSign} */}
+                </div>
+              ) : null}
             </div>
+
+
 
              {/* <FlutterButton 
              payment_plan={showPayment}

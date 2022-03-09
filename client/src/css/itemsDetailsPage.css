@@ -536,18 +536,16 @@ span.per_day {
   position: relative;
 }
 .wallet_bal_acct {
-
-    font-size: 14px;
-    color: #42a66c;
-    font-weight: 700;
-    padding: 0.5em 1em;
-    border: solid 1px #dcede1;
-    border-top: 0;
-    border-radius: 5px;
-    border-top-right-radius: 0;
-    border-top-left-radius: 0;
-    background: #d8f3e2;
-
+  font-size: 14px;
+  color: #42a66c;
+  font-weight: 700;
+  padding: 0.5em 1em;
+  border: solid 1px #dcede1;
+  border-top: 0;
+  border-radius: 5px;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+  background: #d8f3e2;
 }
 .description_click1_active::after {
   content: "";
@@ -962,6 +960,11 @@ span.per_day {
   flex-direction: column;
   gap: 20px;
 }
+.image_carooooo {
+  margin: auto;
+  display: flex;
+  width: 100%;
+}
 .detailsModalSection1-area2_title {
   padding: 0.5em 1em;
   border-bottom: 1px solid #c5d9cd;
@@ -1076,6 +1079,16 @@ span.percent_days_amnt {
     /* flex: 1; */
     width: 5.6% !important;
   }
+  .carousel.carousel-slider {
+    width: 100% !important;
+  }
+  .carousel .thumbs-wrapper {
+    margin: 0px !important;
+    overflow: hidden;
+  }
+  .carousel .thumbs {
+    margin: 10px !important;
+  }
 }
 
 @media screen and (max-width: 900px) {
@@ -1105,5 +1118,20 @@ span.percent_days_amnt {
     padding: 1em;
     border-radius: 10px;
     box-shadow: 0px 0px 10px #dfdfdf;
+  }
+}
+@media screen and (max-width: 767px) {
+  .product_details_Title {
+    font-size: 24px;
+    font-weight: 700;
+  }
+  .faq_section {
+    background: #fff;
+    padding: 1em;
+    box-shadow: 0px 0px 10px #c7e1d187;
+    border-radius: 10px;
+  }
+  .product_details_area1 {
+    gap: 15px;
   }
 }

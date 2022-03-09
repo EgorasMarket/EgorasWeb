@@ -489,3 +489,8 @@
     box-shadow: none;
   }
 }
+@media screen and (max-width: 991px) {
+  .small_user_profile_icon_cont {
+    padding: 0.3em 0em;
+  }
+}

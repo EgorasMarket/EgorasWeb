@@ -13,6 +13,8 @@ import {
   API_URL2 as api_url2,
 } from "../../../../../../actions/types";
 
+import {numberWithCommas} from '../../../../../../static'
+
 const assetBrand = [
   {
     id: "apple",
@@ -223,9 +225,9 @@ const PhonesCatPage = ({match}) => {
     
   }, []);
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
 
   return (
@@ -607,14 +609,14 @@ const PhonesCatPage = ({match}) => {
                     {searchResults.map((brand,index10) => (
                       <div className="select_brand_check_box" key={index10.toString()}>
                         <label class="label_cont">
-                          {brand.product_name}
-                          <input
+                          {/* {brand.product_name} */}
+                          {/* <input
                             type="checkbox"
                             name="apple"
                             //   id="apple"
                             className="brand_check_input"
                             key={brand.product_id}
-                          />
+                          /> */}
                           <span class="checkmark"></span>
                         </label>
                       </div>

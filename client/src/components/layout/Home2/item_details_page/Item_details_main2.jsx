@@ -19,6 +19,8 @@ import {
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import LoginComp from "../Login/LoginComp";
+
+import { numberWithCommas } from "../../../../static";
 const Item_details_main = ({ match, auth }) => {
   const config = {
     headers: {

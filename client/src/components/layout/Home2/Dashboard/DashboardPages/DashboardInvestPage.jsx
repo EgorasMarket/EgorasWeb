@@ -10,9 +10,11 @@ import DvrIcon from "@mui/icons-material/Dvr";
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
+import SearchIcon from "@mui/icons-material/Search";
 // import {Link} from 'react-router-dom';
 import "../DashboardStyles/dashboard_side.css";
 import "../DashboardStyles/dashboard_header.css";
+
 // import { Link, animateScroll as scroll } from "react-scroll";
 
 import axios from "axios";
@@ -21,7 +23,9 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../../actions/types";
-import { index } from "d3-array";
+
+import {numberWithCommas} from '../../../../../static'
+
 
 const responsive7 = {
   superLargeDesktop: {
@@ -133,6 +137,18 @@ function DashboardInvestPage({ auth }) {
   const [img, setImg] = useState();
   const [category, setCategory] = useState([]);
 
+
+ 
+// const [searchTerm1,setSearchTerm1]=useState('phone');
+// const [dataFlow,setDataFlow]=useState([]);
+// const handleChange = event=>{
+//   setSearchTerm1(event.target.value);
+// }
+
+// const results = !searchTerm1 ? dataFlow : dataFlow.filter(items=>items.toLowerCase().includes(searchTerm1.toLocaleLowerCase()))
+
+
+
   const {
     productId,
     productAmount,
@@ -196,6 +212,9 @@ function DashboardInvestPage({ auth }) {
   const [height20,setHeight20] = useState("0px");
   const [rap,setRap] = useState("#electronics");
 
+  // const [cap,setCap]=useState('');
+  // const [searchTerm,setSearchTerm]=useState('samsung')
+
   const settings = {
     dots: true,
     fade: true,
@@ -233,12 +252,36 @@ function DashboardInvestPage({ auth }) {
 
   }
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+
+
+     
+
+  // useEffect(()=>{
+  //   axios
+  //   .get(api_url2 + `/v1/product/retrieve/products/search/${searchTerm1}`, null, config)
+  //   .then((data) => {
+   
+  //     setCap(data)
+  //     console.log(data,'mr kingsleyu')
+  //     // setCategory(data.data.data);
+  //   })
+  //   .catch((err) => {
+  //     //console.log(err); // "oh, no!"
+  //   });
+
+
+  // },[])
+
+
+
+
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
   return (
     <div className="other2">
+       
       <div className="cat_div" id="cat_div">
         <div className="cat_body_toggle">
          
@@ -400,24 +443,9 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-                   <Carousel
-                  responsive={responsive8}
-                  className="partnerCards LEFTARROW"
-                  showDots={false}
-                  //   infinite={false}
-                  //   infinite={false}
-                  autoPlay={true}
-                  autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
-                  infinite={true}
-                  draggable={true}
-                  // transitionDuration={500}
-                  swipeable={true}
-                  style={{ height: "25em" }}
-                >
               {item.slice(0, 12).map((asset, index) => (
                 <a
-                  href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
+                  href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
 
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                   key={index.toString()}
@@ -472,7 +500,7 @@ function DashboardInvestPage({ auth }) {
                   </li>
                 </a>
               ))}
-                 </Carousel>
+            
             </div>
           </div>
 
@@ -513,7 +541,7 @@ function DashboardInvestPage({ auth }) {
                 {item.slice(0, 9).map((asset, index) => {
                   if (phonesTablets === asset.product_category_desc)
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`} key={index.toString()}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index.toString()}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -630,7 +658,7 @@ function DashboardInvestPage({ auth }) {
                 //   </li>
                 // </a>
 
-                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`} key={index2}>
+                <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index2}>
                   <li className="carous_list no_marg">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
@@ -719,7 +747,7 @@ function DashboardInvestPage({ auth }) {
               {item.map((asset, index) => {
                 if (homeAppliances === asset.product_category_desc) {
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`} key={index.toString()}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} key={index.toString()}>
                     <li className="carous_list no_marg">
                       <div
                         className="storeTiles_storeTileContainer__HoGEa"
@@ -820,7 +848,7 @@ function DashboardInvestPage({ auth }) {
                 {item.map((asset, index4) => {
                   if (electronics === asset.product_category_desc){
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index4.toString()}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index4.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -905,7 +933,7 @@ function DashboardInvestPage({ auth }) {
                 // if (ComputAccessories === asset.product_category_desc){
                    if (ComputerAccessories === asset.product_category_desc){ 
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index5.toString()}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index5.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1005,7 +1033,7 @@ function DashboardInvestPage({ auth }) {
                 {item.slice(0, 12).map((asset, index7) => {
                   if (musicalEquipment === asset.product_category_desc)
                     return (
-                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index7.toString()}>
+                      <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index7.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1088,7 +1116,7 @@ function DashboardInvestPage({ auth }) {
               {item.slice(0, 8).map((asset, index8) => {
                 if (industrialEquipments === asset.product_category_desc)
                   return (
-                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}` } key={index8.toString()}>
+                    <a href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}` } key={index8.toString()}>
                       <li className="carous_list no_marg">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
@@ -1190,7 +1218,7 @@ function DashboardInvestPage({ auth }) {
                   if (musicalEquipment === asset.product_category_desc){
                     return (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
+                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                         key={index9.toString()}
                       >
                         <li className="carous_list no_marg no_marg">
