@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { API_URL2 } from '../../actions/types'
 
-const verify = async (transaction_id, product_id, startDate, endDate) => {
+const verify = async (transaction_id, product_id, startDate, endDate, days_left) => {
 
     const config = {
         headers: {
@@ -20,22 +20,30 @@ const verify = async (transaction_id, product_id, startDate, endDate) => {
         const { success, card, amount, tx_ref } = call.data.data.data;
         let token = card.token
 
-        //console.log(call.data.data, token, success)
+        // console.log(call.data.data, token, success)
         const orderBody = JSON.stringify({
             product_id,
             token,
             tx_ref,
             initial_pay: amount,
             startDate, 
-            endDate
-
+            endDate,
+            days_left, 
+            transaction_type:"FIAT"
+            
         });
-        const res = await axios.post(API_URL2 + "/v1/order/add/order", orderBody, config);
+
+        console.log(orderBody)
+        const res = await axios.post(API_URL2 + "/v1/order/add/order", orderBody, config).then(response =>{
+            console.log(response, " response after order endpoint is called")
+        }).catch(err => {
+            console.log(err.message)
+        });
         //console.log(res.data.data);
         return call
     } catch (err) {
 
-        //console.log(err.response)
+        console.log(err)
     }
 
 

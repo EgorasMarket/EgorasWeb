@@ -251,9 +251,14 @@ const AdminUploadProducts = () => {
     
     } else {
       const element = document.getElementById("product_image");
-      const file = element.files;
-      console.log(file);
+      const element2 = document.getElementById("product_image2");
+      const element3 = document.getElementById("product_image3");
+      const file = element.files[0];
+      const file2 = element2.files[0];
+      const file3 = element3.files[0];
       formData.append("product_image", file);
+      formData.append("product_image2", file2);
+      formData.append("product_image3", file3);
 
       //console.log(formData, "hhhh");
 
@@ -262,7 +267,7 @@ const AdminUploadProducts = () => {
           api_url2 + "/v1/product/add/product/image",
           formData
         );
-        //console.log(res.data, "undefined");
+        console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           setAlert("Product image uploaded successfully");
@@ -278,7 +283,7 @@ const AdminUploadProducts = () => {
           
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         
       }
     }
@@ -537,10 +542,29 @@ const AdminUploadProducts = () => {
                     id="product_image"
                     name="product_image"
                     onChange={onImageChange}
-                    className="filetype"
-                    multiple
+                    // className="filetype"
+                    
                   />
+                  
                 </div>{" "}
+                <input
+                  style={{display:'inline-block'}}
+                  type="file"
+                  id="product_image2"
+                  name="product_image2"
+                  onChange={onImageChange}
+                  // className="filetype"
+                  
+                />
+                <input
+                  style={{display:'inline-block'}}
+                  type="file"
+                  id="product_image3"
+                  name="product_image3"
+                  onChange={onImageChange}
+                  // className="filetype"
+                  
+                />
                 <div className="profile_modal_area2">
                   <button className="add_photo" onClick={AddProductPhoto}>
                     <AddAPhotoIcon className="photo_icon" /> Upload Image

@@ -34,6 +34,7 @@ import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 import { retrieveCart } from "../../../../actions/shop";
+import axios from "axios";
 import Logout from "../Logout/Logout";
 const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
@@ -45,6 +46,19 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [image, setImage] = useState("");
   const [searchBar, setSearchBar] = useState(false);
   const linksActive = window.location.pathname;
+
+
+
+const [searchTerm,setSearchTerm]=useState('');
+const [dataFlow,setDataFlow]=useState([]);
+const handleChange = event=>{
+  setSearchTerm(event.target.value);
+}
+
+const results = !searchTerm ? dataFlow : dataFlow.filter(items=>items.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
+
+
+
 
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
@@ -185,6 +199,30 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     }
   };
 
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+
+  useEffect(()=>{
+    axios
+    .get(api_url2 + `/v1/product/retrieve/products/search/${searchTerm}`, null, config)
+    .then((data) => {
+   
+      setDataFlow(data)
+      console.log(data,'mr kingsleyu')
+      // setCategory(data.data.data);
+    })
+    .catch((err) => {
+      //console.log(err); // "oh, no!"
+    });
+
+
+  },[searchTerm])
+
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
       <section className="DashBoardHeaderSection">
@@ -239,17 +277,33 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   </div>
                 ) : null}
               </div>
-              {searchBar == true ? (
+              {searchBar == true ? (<>
                 <div className="dash_board_header_search_bar">
                   <input
                     type="search"
                     name="search"
                     id="search"
+                    value={searchTerm}
                     className="dash_board_header_search_input"
                     placeholder="search market"
+                    onChange={handleChange}
                   />
                   <SearchIcon className="search_icon"/>
                 </div>
+                <ul style={{position:'absolute',top:'100px',zIndex:'500000'}}>
+                        {
+                          results.map(item=>(
+                            <li>{item}</li>
+                            
+                          ))
+                        }
+
+                       <li>emeka </li>
+                       <li>Chibuike </li>
+                       <li>Chibuike </li>
+                       <li>Chibuike </li>
+                </ul>
+                </>
               ) : null}
               {searchBar == false ? (
                 <div className="welcome_user">
