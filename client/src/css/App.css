@@ -139,6 +139,14 @@ button:focus {
     right: 2px;
     top: 52% !important;
   }
+  .gtr .react-multiple-carousel__arrow--right {
+    top: 55% !important;
+    display: none;
+  }
+  .gtr .react-multiple-carousel__arrow--left {
+    top: 55% !important;
+    display: none;
+  }
   .react-multiple-carousel__arrow::before {
     font-size: 14px;
     color: #fff;

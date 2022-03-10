@@ -78,7 +78,7 @@ const HomeUpdate = () => {
                 BETTER WAYS TO BORROW & SAVE MONEY.
               </div>
               <div className="h_update_hero_area1_para">
-                Put up your assets to access interest-free loans while saving up
+                Pledge your assets to access interest-free loans while saving up
                 to get any desired item.
               </div>{" "}
               <div className="h_update_hero_area1_para_btns">
@@ -169,13 +169,12 @@ const HomeUpdate = () => {
             <div className="operations_cards_cont" data-aos="fade-up">
               <div className="operations_card1">
                 <div className="operations_card1_title">
-                  Pledgeyour personal items to access after evaluation of
-                  assets.
+                  Pledge your personal items to access
                   <span className="hover_color">
                     {" "}
                     interest-free loans{" "}
                   </span>{" "}
-                  every year.
+                  after evaluation.
                 </div>
                 <div className="operations_card1_img">
                   <img
@@ -298,7 +297,7 @@ const HomeUpdate = () => {
                     </div>
                     <div className="build_savings_area2_conts1_box1_para">
                       Easy application process with just your name, phone
-                      number, email address get registered in less than 5 mins.
+                      number, email address.
                     </div>
                   </div>
                 </div>
@@ -316,7 +315,7 @@ const HomeUpdate = () => {
                       Get your desired item(s).
                     </div>
                     <div className="build_savings_area2_conts1_box1_para">
-                      Save over a period of time to get a desired item.
+                      Get your desired item at an affordable price.
                     </div>
                   </div>
                 </div>
@@ -332,10 +331,10 @@ const HomeUpdate = () => {
                   <div className="build_savings_area2_conts1_box1_contents">
                     {" "}
                     <div className="build_savings_area2_conts1_box1_title">
-                      Below market price.
+                      Budget Friendly.
                     </div>
                     <div className="build_savings_area2_conts1_box1_para">
-                      Our items at an affordable prices.
+                      Our items are at an affordable price.
                     </div>
                   </div>
                 </div>
@@ -414,9 +413,8 @@ const HomeUpdate = () => {
                   Become A Validator
                 </h4>
                 <p className="new_home_attributes_area1_txt_para">
-                  With Egoras Protocol, you earn more when you back real people
-                  to access interest free loans instantly with their used
-                  item(s).
+                  With Egoras Protocol, you help disburse funds by voting for
+                  proposed collaterals.
                 </p>
               </div>
               <a href="/validator" className="new_home_attributes_area1_link">
