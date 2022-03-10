@@ -13,7 +13,29 @@
 .sidebar::-webkit-scrollbar {
   display: none;
 }
-
+/* .egoras_icon_over_lay_div {
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background: #000;
+  top: 0%;
+  left: 50%;
+} */
+.egoras_icon_over_lay_div {
+  position: absolute;
+  width: 56px;
+  top: -41%;
+  right: 0px;
+  left: 0px;
+  z-index: 1;
+  margin: auto;
+}
+.egoras_icon_over_lay_img {
+  width: 100%;
+}
+.sideBar_relative {
+  height: 100%;
+}
 .open-icon {
   margin-right: 20px;
   width: 25px;
@@ -315,7 +337,19 @@
   border-bottom-right-radius: 10px;
   width: 50px;
 }
-
+.click_search_btn {
+  width: 10%;
+  padding: 0.8em 0em;
+  border-radius: 10px;
+  border: none;
+  background: #55a675;
+  color: #fff;
+  box-shadow: 0px 10px 20px #8ee3b0;
+}
+.search_input_cont {
+  position: relative;
+  width: 80%;
+}
 .small_user_profile_icon_cont {
   display: flex;
   width: 96% !important;
@@ -376,6 +410,18 @@
   .side_bar_head {
     display: none;
   }
+  a#products {
+    margin-right: 20%;
+  }
+  .sideBar_relative {
+    position: relative;
+    position: relative;
+    width: 100%;
+    height: 100%;
+  }
+  a#accounts {
+    display: none;
+  }
   .sidebarList {
     width: 100%;
     padding: 0%;
@@ -396,19 +442,26 @@
   }
 
   .sidebar {
-    background-color: rgb(255, 255, 255);
+    background: none;
     position: fixed;
     bottom: 0;
-    overflow-x: hidden;
+    overflow-y: visible;
+    overflow-x: visible;
     width: 15%;
     transition: 0.5s linear;
     width: 100%;
     z-index: 2000000;
     height: 60px;
     top: auto;
-    box-shadow: 0px 0px 15px #7aae8f;
+    box-shadow: 0px 0px 5px #b1dbc2;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
+    background-image: radial-gradient(
+      circle 40px at 50% 0px,
+      #ffffff00 727px,
+      #ffffff 50px
+    );
+    backdrop-filter: blur(26px);
   }
 
   .sidebarWrapper {
@@ -494,4 +547,3 @@
     padding: 0.3em 0em;
   }
 }
-

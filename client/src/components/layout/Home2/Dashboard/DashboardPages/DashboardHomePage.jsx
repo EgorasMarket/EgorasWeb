@@ -6,6 +6,10 @@ import { API_URL2 as api } from "../../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import CloseIcon from "@mui/icons-material/Close";
+import CircleIcon from "@mui/icons-material/Circle";
+import LoadingIcons from "react-loading-icons";
+// import { numberWithCommas } from "../../../../../static";
 // import { allCart } from "../../../../../actions/shop";
 import DashBoardCard from "../DashBoardCard";
 // import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
@@ -21,37 +25,37 @@ import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 import { numberWithCommas } from "../../../../../static";
 const transaction = [
   {
-    id: "1",
+    id: 1,
     date: "05-16-2022",
-    amount: "₦2,000",
+    amount: "2000",
     type: "Card",
     status: "Completed",
   },
   {
-    id: "2",
+    id: 2,
     date: "05-16-2022",
-    amount: "₦2,000",
+    amount: "2000",
     type: "Card",
     status: "Completed",
   },
   {
-    id: "3",
+    id: 3,
     date: "05-25-2022",
-    amount: "₦3,500",
+    amount: "3500",
     type: "Wallet",
     status: "Completed",
   },
   {
-    id: "4",
+    id: 4,
     date: "05-16-2022",
-    amount: "₦2,000",
+    amount: "2000",
     type: "Card",
     status: "Completed",
   },
   {
-    id: "5",
+    id: 5,
     date: "06-16-2022",
-    amount: "₦1,500",
+    amount: "1500",
     type: "Wallet",
     status: "Completed",
   },
@@ -116,6 +120,8 @@ const DashboardHomePage = ({ auth, match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
   const [userLockId, setUserLockId] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  const [tranPopUp, setTranPopUp] = useState(0);
 
   // const fetchFromCart = async (customer_id) => {
   //   //console.log('fetchfromCart', customer_id);
@@ -152,6 +158,16 @@ const DashboardHomePage = ({ auth, match }) => {
     },
   };
 
+  const ChangeTranPopUp = (e) => {
+    let currentTarget = e.currentTarget.id;
+    console.log(currentTarget);
+    setTranPopUp(currentTarget);
+  };
+  const closeTranPop = () => {
+    // let currentTarget = e.currentTarget.id;
+    setTranPopUp(0);
+    console.log("i am not here");
+  };
   const [itemGalleryShow, setItemGalleryShow] = useState([]);
   const [accountInfo, setAccountInfo] = useState({
     ledger: 0,
@@ -194,6 +210,7 @@ const DashboardHomePage = ({ auth, match }) => {
   }, []);
 
   useEffect(async () => {
+    setLoading(true);
     //console.log(auth.user.user.id);
     const customer_id = auth.user.user.id;
     const body = JSON.stringify({
@@ -202,6 +219,7 @@ const DashboardHomePage = ({ auth, match }) => {
     await axios
       .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
       .then((data) => {
+        setLoading(false);
         // console.log(data.data.data, "bbbbbbb");
         // console.log(Number('78.77'));
 
@@ -215,6 +233,7 @@ const DashboardHomePage = ({ auth, match }) => {
         // setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
+        setLoading(false);
         //console.log(err.response); // "oh, no!"
       });
   }, [auth]);
@@ -275,22 +294,30 @@ const DashboardHomePage = ({ auth, match }) => {
                 <DashBoardCard
                   background={"/img/save_card1.svg"}
                   title={"Total Savings"}
-                  balance={parseInt(total_sum).toFixed(2)}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(total_sum).toFixed(2))}
                 />
                 <DashBoardCard
                   background={"/img/save_card2.svg"}
                   title={"Pending Payment"}
-                  balance={parseInt(pending_sum).toFixed(2)}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(pending_sum).toFixed(2))}
                 />
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
                   title={"Wallet Balance"}
-                  balance={parseInt(balance).toFixed(2)}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(balance).toFixed(2))}
                 />
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
                   title={"Ledger Balance"}
-                  balance={parseInt(ledger).toFixed(2)}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(ledger).toFixed(2))}
                 />
 
                 {/* ))} */}
@@ -330,12 +357,16 @@ const DashboardHomePage = ({ auth, match }) => {
                               {item.product_name}
                             </div>
                             <div className="save_overview_cont_amount">
-                              Total ₦{item.sum}
+                              Total Amount ₦
+                              {numberWithCommas(parseInt(item.sum).toFixed(2))}
                             </div>
                           </div>
                           <div className="save_item_details_btn">
                             <div className="save_overview_cont_items_left">
-                              Paid Sum ₦{item.paidSum}
+                              Savings Amount ₦
+                              {numberWithCommas(
+                                parseInt(item.paidSum).toFixed(2)
+                              )}
                             </div>
                             {/* <button className="save_overview_cont_items_top_up">
                               Top up
@@ -359,40 +390,47 @@ const DashboardHomePage = ({ auth, match }) => {
             <div className="transaction_headings">
               <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Date</div>
-              <div className="transaction_heading1">Amount</div>
+              <div className="transaction_heading1 amnt_small">Amount</div>
               <div className="transaction_heading1 center_this">Type</div>
               <div className="transaction_heading1 reduce_width">Status</div>
             </div>
             <div className="dashboard_transaction_body">
               {transaction.map((data) => (
-                <div className="dashboard_transaction_body_cont1" key={data.id}>
-                  <div className="dashboard_transac_body_cont1_layer1">
-                    <div className="deposited_icon">
-                      <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                <>
+                  <div
+                    className="dashboard_transaction_body_cont1"
+                    id={data.id}
+                    // key={data.id}
+                    onClick={ChangeTranPopUp}
+                  >
+                    <div className="dashboard_transac_body_cont1_layer1">
+                      <div className="deposited_icon">
+                        <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                      </div>
+                      <div className="dashboard_transac_body_cont1_layer1_title">
+                        Deposited
+                      </div>
                     </div>
-                    <div className="dashboard_transac_body_cont1_layer1_title">
-                      Deposited
+                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                      <div className="dashboard_transac_body_cont1_layer1_time">
+                        {data.date}
+                      </div>
+                    </div>
+                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                      ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
+                    </div>
+                    <div className="dashboard_transac_body_cont1_layer1_type_cont">
+                      <span className="dashboard_transac_body_cont1_layer1_type_status">
+                        {data.type}
+                      </span>
+                    </div>
+                    <div className="dashboard_transac_body_cont1_layer1_status_cont">
+                      <span className="dashboard_transac_body_cont1_layer1_completed_status">
+                        {data.status}
+                      </span>
                     </div>
                   </div>
-                  <div className="dashboard_transac_body_cont1_layer1_amount_cont">
-                    <div className="dashboard_transac_body_cont1_layer1_time">
-                      {data.date}
-                    </div>
-                  </div>
-                  <div className="dashboard_transac_body_cont1_layer1_amount_cont">
-                    {data.amount}
-                  </div>
-                  <div className="dashboard_transac_body_cont1_layer1_type_cont">
-                    <span className="dashboard_transac_body_cont1_layer1_type_status">
-                      {data.type}
-                    </span>
-                  </div>
-                  <div className="dashboard_transac_body_cont1_layer1_status_cont">
-                    <span className="dashboard_transac_body_cont1_layer1_completed_status">
-                      {data.status}
-                    </span>
-                  </div>
-                </div>
+                </>
               ))}
             </div>
           </div>
@@ -401,6 +439,51 @@ const DashboardHomePage = ({ auth, match }) => {
           {/* =================================================================================================================================================================================================================================================================== */}
         </div>
       </section>
+      {transaction.map((data) => (
+        <>
+          {tranPopUp == data.id ? (
+            <div className="trans_div">
+              <div className="tranPop_div">
+                <div className="tranPopHeading">
+                  Deposit Details{" "}
+                  <span className="tranPopOutButton">
+                    <CloseIcon
+                      className="closeTranPopDiv"
+                      onClick={closeTranPop}
+                    />
+                  </span>
+                </div>
+                <div className="tranPop_div_cont1">
+                  {" "}
+                  <div className="deposited_icon">
+                    <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                  </div>
+                  <span className="transPopData">Deposited</span>
+                </div>
+                <div className="tranPop_div_cont1">
+                  Date <span className="transPopData"> {data.date}</span>{" "}
+                </div>
+                <div className="tranPop_div_cont1">
+                  Amount{" "}
+                  <span className="transPopData">
+                    ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
+                  </span>{" "}
+                </div>
+                <div className="tranPop_div_cont1">
+                  Type <span className="transPopData">{data.type}</span>
+                </div>
+                <div className="tranPop_div_cont1">
+                  Status{" "}
+                  <span className="transPopData">
+                    <CircleIcon className="complete_circle" />
+                    Completed
+                  </span>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </>
+      ))}
     </div>
   );
 };
