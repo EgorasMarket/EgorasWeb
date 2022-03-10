@@ -3,7 +3,7 @@
   padding: 4em 0em;
   width: 100vw;
   /* background: #000; */
-  background: #f8fffa;
+  background: #fefffe;
   padding-left: 0em;
   padding-top: 5em;
   height: 100vh;
@@ -277,7 +277,7 @@
   top: 0;
   background: rgba(0, 0, 0, 0.39);
   /* padding: 0em; */
-  z-index: 1000000;
+  z-index: 10000000;
   height: 100%;
   width: 100%;
   left: 0;
@@ -318,8 +318,8 @@
   align-items: center;
 }
 .dashboard_transac_body_cont1_layer1_completed_status {
-  background: #0ecb81;
-  color: #fff;
+  background: #b4f3da;
+  color: #35a461;
   padding: 10px 25px;
   border-radius: 7px;
   font-size: 14px;
@@ -407,12 +407,15 @@ button.save_overview_cont_items_top_up {
     padding-right: 0.2em;
     width: 100%;
   }
+  .tranPop_div {
+    width: 45%;
+  }
 }
 @media screen and (max-width: 991px) {
-  .products_hero_img {
+  /* .products_hero_img {
     /* height: 150px; */
-    border-radius: 5px;
-  }
+  /* border-radius: 5px; */
+  /* } */
   .savvvvv {
     padding: 2em 0em;
   }
@@ -477,7 +480,31 @@ button.save_overview_cont_items_top_up {
     padding-bottom: 0em !important;
   }
   .other2 {
-    padding-top: 4em;
+    padding-top: 5em;
+  }
+  .dashboard_transac_body_cont1_layer1 {
+    padding: 10px;
+  }
+  .dashboard_transac_body_cont1_layer1_amount_cont {
+    padding: 10px;
+  }
+  .dashboard_transac_body_cont1_layer1_type_cont {
+    padding: 10px;
+    justify-content: flex-end;
+  }
+  .dashboard_transac_body_cont1_layer1_status_cont {
+    display: none;
+  }
+  .transaction_heading1 {
+    padding: 10px;
+  }
+  .reduce_width {
+    justify-content: flex-end;
+    display: none;
+  }
+  .center_this {
+    justify-content: flex-end;
+    padding: 10px;
   }
 }
 @media screen and (max-width: 630px) {
@@ -485,23 +512,80 @@ button.save_overview_cont_items_top_up {
     width: 100%;
     height: 170px;
   }
+  .savings_overview_body_cont1 {
+    width: 100%;
+  }
+  .tranPop_div {
+    width: 95%;
+  }
 }
 @media screen and (max-width: 600px) {
   .card_cont1 {
     width: 100%;
   }
+  .dashboard_transaction_body_cont1 {
+    gap: 5px;
+  }
+  .transaction_headings {
+    gap: 5px;
+  }
 }
-@media screen and (max-width: 500px) {
+@media screen and (max-width: 550px) {
   .savings_overview_body_cont2_1a {
     width: 100%;
     height: 125px;
   }
+
+  .savings_overview_body_cont2 {
+    display: flex;
+    /* flex-direction: column; */
+    justify-content: space-between;
+    grid-gap: 35px;
+    gap: 15px;
+    margin-top: 20px;
+  }
+  .dashboard_transactions_header {
+    font-size: 16px;
+  }
+  .see_all_transac_link {
+    font-size: 12px;
+  }
+  .dash_home_area {
+    padding: 1em 0.5em;
+    padding-top: 0em;
+    grid-gap: 10px;
+    gap: 10px;
+  }
+  .center_this {
+    display: none;
+  }
+  .dashboard_transac_body_cont1_layer1_type_cont {
+    display: none;
+  }
+  .dashboard_transac_body_cont1_layer1_amount_cont {
+    padding: 10px;
+    justify-content: flex-end;
+  }
+  .amnt_small {
+    padding: 5px;
+    justify-content: flex-end;
+  }
+  .dashboard_transac_body_cont1_layer1 {
+    padding: 15px 5px;
+  }
+  .dashboard_transac_body_cont1_layer1_amount_cont {
+    padding: 15px 5px;
+    justify-content: flex-end;
+  }
+  .transaction_heading1 {
+    padding: 10px;
+  }
 }
 @media screen and (max-width: 425px) {
-  .products_hero_img {
+  /* .products_hero_img {
     height: 150px;
     border-radius: 5px;
-  }
+  } */
   /* .products_area2_cont1 {
     height: 130px;
   }
@@ -514,12 +598,11 @@ button.save_overview_cont_items_top_up {
     align-items: center;
     justify-content: space-between;
     grid-gap: 10px;
-    gap: 10px;
+    gap: 20px;
     flex-direction: column;
   }
   .products_area1 {
     width: 100%;
-    height: 150px;
     border-radius: 15px;
     box-shadow: 0px 0px 15px #bfdccb;
   }

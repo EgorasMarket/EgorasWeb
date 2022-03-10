@@ -9,7 +9,7 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
 import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
-// import ListIcon from "@mui/icons-material/List";
+import axios from "axios";
 import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -23,14 +23,7 @@ import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import YouTubeIcon from "@mui/icons-material/YouTube";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
-// import InstagramIcon from "@mui/icons-material/Instagram";
-// import FacebookOutlinedIcon from "@mui/icons-material/FacebookOutlined";
-// import TwitterIcon from "@mui/icons-material/Twitter";
-// import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
-// import CloseRoundedIcon from "@mui/icons-material/CloseRounded";
-// import MenuOpenRoundedIcon from "@mui/icons-material/MenuOpenRounded";
-// import PlaylistAddRoundedIcon from "@mui/icons-material/PlaylistAddRounded";
-// import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
+
 import GroupIcon from "@mui/icons-material/Group";
 import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
@@ -59,6 +52,14 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     Userbvn: "",
     UserdateOfBirth: "",
   });
+
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  const [searchValue, setSearchValue] = useState('');
 
   const {
     Userfirstname,
@@ -187,6 +188,28 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     }
   };
 
+  const findResult = (e) => {
+    
+      const { name, value } = e.target;
+      setSearchValue(value)
+      console.log(value);
+
+      axios.get(
+        api_url2 + "/v1/product/retrieve/products/search/"+value,
+        null,
+        config
+        ).then((data) => {
+          
+            console.log(data.data.data, "chukwubuike");
+        
+            // setItemDisplay(data.data.data);
+          })
+          .catch((err) => {
+            //console.log(err); // "oh, no!"
+          });
+
+  }
+
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
       <section className="DashBoardHeaderSection">
@@ -231,14 +254,14 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   </button>
                 </div> */}
                 {searchBar == false ? (
-                  <div className="immmgg">
+                  <a href="/dashboard/accounts" className="immmgg">
                     <img src={image} alt="" className="user_profile" />
                     {/* <img
                     src="/img/profile_icon2.svg"
                     alt=""
                     className="user_profile2"
                   /> */}
-                  </div>
+                  </a>
                 ) : null}
               </div>
               {searchBar == true ? (
@@ -254,6 +277,8 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                       id="search"
                       className="dash_board_header_search_input"
                       placeholder="Search products, brands and categories"
+                      onChange={findResult}
+                      value={searchValue}
                     />
 
                     <button className="search_button">
@@ -307,91 +332,99 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
         // className={side == "sidebar" ? "not-sidebar" : "sidebar"}
         id="side_bar"
       >
-        <div
-          className="sidebarWrapper"
-          // className={
-          //   sideWrap == "sidebarWrapper"
-          //     ? "not-sidebarWrapper"
-          //     : "sidebarWrapper"
-          // }
-          id="side_bar_wrapper"
-        >
-          <div className="sidebarMenu">
-            <div
-              className={
-                smallSide == "not_small"
-                  ? "side_bar_head"
-                  : "small_side_bar_head"
-              }
-            >
-              {/* {smallSide == "not_small" ? (
+        <div className="sideBar_relative">
+          <div className=" egoras_icon_over_lay_div">
+            <img
+              src="/img/EGC-LOGO.svg"
+              alt=""
+              className="egoras_icon_over_lay_img"
+            />
+          </div>
+          <div
+            className="sidebarWrapper"
+            // className={
+            //   sideWrap == "sidebarWrapper"
+            //     ? "not-sidebarWrapper"
+            //     : "sidebarWrapper"
+            // }
+            id="side_bar_wrapper"
+          >
+            <div className="sidebarMenu">
+              <div
+                className={
+                  smallSide == "not_small"
+                    ? "side_bar_head"
+                    : "small_side_bar_head"
+                }
+              >
+                {/* {smallSide == "not_small" ? (
                 <MenuIcon className="menu_icon_toggle" onClick={shrinkSide} />
               ) : (
                 <MenuIcon className="menu_icon_toggle" onClick={UnShrinkSide} />
               )}{" "} */}
-              <MenuIcon className="menu_icon_toggle" onClick={shrinkAction} />
-              <a href="/" alt="">
-                <img
-                  src="/img/egoras-logo.svg"
-                  alt="..."
-                  className="egr-logo3cc"
-                />
-              </a>
-            </div>
-
-            {/* <h3 className="sidebarTitle">Dashboard</h3> */}
-
-            {smallSide == "not_small" ? (
-              <ul className="sidebarList">
-                {/* =================== */}
-                {/* =================== */}
-                {/* =================== */}
-                {/* =================== */}
-                <a
-                  href="/dashboard"
-                  id="Home"
-                  className="link"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "Home"
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
-                  >
-                    <HomeIcon className="sidebarIcon" />
-                    Home
-                  </li>
+                <MenuIcon className="menu_icon_toggle" onClick={shrinkAction} />
+                <a href="/" alt="">
+                  <img
+                    src="/img/egoras-logo.svg"
+                    alt="..."
+                    className="egr-logo3cc"
+                  />
                 </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+              </div>
 
-                <a
-                  href="/dashboard/products"
-                  className="link"
-                  id="products"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "products"
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
+              {/* <h3 className="sidebarTitle">Dashboard</h3> */}
+
+              {smallSide == "not_small" ? (
+                <ul className="sidebarList">
+                  {/* =================== */}
+                  {/* =================== */}
+                  {/* =================== */}
+                  {/* =================== */}
+                  <a
+                    href="/dashboard"
+                    id="Home"
+                    className="link"
+                    onClick={changeBg}
                   >
-                    <StoreIcon className="sidebarIcon" />
-                    Market
-                  </li>
-                </a>
+                    <li
+                      className={
+                        activeBg == "Home"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <HomeIcon className="sidebarIcon" />
+                      Home
+                    </li>
+                  </a>
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* 
+                  <a
+                    href="/dashboard/products"
+                    className="link"
+                    id="products"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "products"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <StoreIcon className="sidebarIcon" />
+                      Inventory
+                    </li>
+                  </a>
+
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* 
                 <a
                   href="/dashboard/cart"
                   className="link"
@@ -409,131 +442,131 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     My Cart
                   </li>
                 </a> */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                <a
-                  href="/dashboard/savings"
-                  className="link"
-                  id="savings"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "savings"
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  <a
+                    href="/dashboard/savings"
+                    className="link"
+                    id="savings"
+                    onClick={changeBg}
                   >
-                    <SavingsIcon className="sidebarIcon" />
-                    Savings
-                  </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                    <li
+                      className={
+                        activeBg == "savings"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <SavingsIcon className="sidebarIcon" />
+                      Savings
+                    </li>
+                  </a>
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                <a
-                  href="/dashboard/wallet"
-                  className="link"
-                  id="wallet"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "wallet"
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
+                  <a
+                    href="/dashboard/wallet"
+                    className="link"
+                    id="wallet"
+                    onClick={changeBg}
                   >
-                    <AccountBalanceWalletIcon className="sidebarIcon" />
-                    Wallet
-                  </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                    <li
+                      className={
+                        activeBg == "wallet"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <AccountBalanceWalletIcon className="sidebarIcon" />
+                      Wallet
+                    </li>
+                  </a>
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                <a
-                  href="/dashboard/accounts"
-                  className="link"
-                  id="accounts"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "accounts"
-                        ? "sidebarListItem list-item-active"
-                        : "sidebarListItem"
-                    }
+                  <a
+                    href="/dashboard/accounts"
+                    className="link"
+                    id="accounts"
+                    onClick={changeBg}
                   >
-                    <AccountCircleIcon className="sidebarIcon" />
-                    Profile
-                  </li>
-                </a>
+                    <li
+                      className={
+                        activeBg == "accounts"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <AccountCircleIcon className="sidebarIcon" />
+                      Profile
+                    </li>
+                  </a>
 
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-              </ul>
-            ) : (
-              <ul className="sidebarList">
-                {/* =================== */}
-                {/* =================== */}
-                {/* =================== */}
-                {/* =================== */}
-                <a
-                  href="/dashboard"
-                  id="Home"
-                  className="link"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "Home"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                </ul>
+              ) : (
+                <ul className="sidebarList">
+                  {/* =================== */}
+                  {/* =================== */}
+                  {/* =================== */}
+                  {/* =================== */}
+                  <a
+                    href="/dashboard"
+                    id="Home"
+                    className="link"
+                    onClick={changeBg}
                   >
-                    <HomeIcon className="sidebarIcon" />
-                    Home
-                  </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                    <li
+                      className={
+                        activeBg == "Home"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <HomeIcon className="sidebarIcon" />
+                      Home
+                    </li>
+                  </a>
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                <a
-                  href="/dashboard/products"
-                  className="link"
-                  id="products"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "products"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                  <a
+                    href="/dashboard/products"
+                    className="link"
+                    id="products"
+                    onClick={changeBg}
                   >
-                    <StoreIcon className="sidebarIcon" />
-                    {/* <GroupIcon className="sidebarIcon" /> */}
-                    Market
-                  </li>
-                </a>
+                    <li
+                      className={
+                        activeBg == "products"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <StoreIcon className="sidebarIcon" />
+                      {/* <GroupIcon className="sidebarIcon" /> */}
+                      Inventory
+                    </li>
+                  </a>
 
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                {/* <a
+                  {/* <a
                   href="/dashboard/cart"
                   className="link"
                   id="cart"
@@ -550,84 +583,84 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     My Cart
                   </li>
                 </a> */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                <a
-                  href="/dashboard/savings"
-                  className="link"
-                  id="savings"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "savings"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                  <a
+                    href="/dashboard/savings"
+                    className="link"
+                    id="savings"
+                    onClick={changeBg}
                   >
-                    <SavingsIcon className="sidebarIcon" />
-                    Savings
-                  </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                    <li
+                      className={
+                        activeBg == "savings"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <SavingsIcon className="sidebarIcon" />
+                      Savings
+                    </li>
+                  </a>
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                <a
-                  href="/dashboard/wallet"
-                  className="link"
-                  id="wallet"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "wallet"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                  <a
+                    href="/dashboard/wallet"
+                    className="link"
+                    id="wallet"
+                    onClick={changeBg}
                   >
-                    <AccountBalanceWalletIcon className="sidebarIcon" />
-                    Wallet
-                  </li>
-                </a>
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
+                    <li
+                      className={
+                        activeBg == "wallet"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <AccountBalanceWalletIcon className="sidebarIcon" />
+                      Wallet
+                    </li>
+                  </a>
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
 
-                <a
-                  href="/dashboard/accounts"
-                  className="link"
-                  id="accounts"
-                  onClick={changeBg}
-                >
-                  <li
-                    className={
-                      activeBg == "accounts"
-                        ? "sidebarListItem small_list-item-active"
-                        : "sidebarListItem"
-                    }
+                  <a
+                    href="/dashboard/accounts"
+                    className="link"
+                    id="accounts"
+                    onClick={changeBg}
                   >
-                    <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
-                  </li>
-                </a>
+                    <li
+                      className={
+                        activeBg == "accounts"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <AccountCircleIcon className="sidebarIcon" />
+                      Accounts
+                    </li>
+                  </a>
 
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-              </ul>
-            )}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                  {/* ===================== */}
+                </ul>
+              )}
 
-            <hr className="hrr" />
-            <ul className="social_icons">
-              {/* <div
+              <hr className="hrr" />
+              <ul className="social_icons">
+                {/* <div
                 to="/dashboard/accounts"
                 className="link"
                 id="logout"
@@ -641,8 +674,9 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   Logout
                 </span>
               </div> */}
-              <Logout />
-            </ul>
+                <Logout />
+              </ul>
+            </div>
           </div>
         </div>
       </div>

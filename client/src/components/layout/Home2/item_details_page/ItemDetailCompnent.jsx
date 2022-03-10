@@ -283,14 +283,14 @@ const ItemDetailComponent = ({
             /> */}
             {moreImg.length == 0 ? (
               <img
-                src={api_url2 + "/" + product_image}
+                src={product_image}
                 className="image_carooooo"
               />
             ) : (
               <ProductImageCarousel
-                img={api_url2 + "/" + moreImg[0]}
-                img2={api_url2 + "/" + moreImg[1]}
-                img3={api_url2 + "/" + moreImg[2]}
+                img={moreImg[0]}
+                img2={moreImg[1]}
+                img3={moreImg[2]}
               />
             )}
           </div>

@@ -195,7 +195,9 @@ button.logout-btn {
     right: 0;
     border-radius: 0;
   }
-
+  .user_profile {
+    margin-left: 0;
+  }
   .welcome_user {
     display: flex;
     margin: 0;
@@ -221,13 +223,13 @@ button.logout-btn {
     justify-content: space-between;
     align-items: center;
     border: solid;
-    padding: 0em 1em;
+    padding: 0.5em 0em;
     border-width: 1px;
     border-color: #ffffff78;
     border-radius: 10px;
     width: 100%;
     cursor: pointer;
-    flex-direction: row-reverse;
+    flex-direction: row;
   }
   .dash_board_header_search_input {
     width: 100%;
@@ -258,6 +260,19 @@ button.logout-btn {
     font-size: 18px;
     margin-right: 7px;
   }
+  .together {
+    display: flex;
+    align-items: center;
+    flex-direction: row-reverse;
+  }
+  .save_numb_div {
+    margin-left: 5px;
+    border-left: solid 1px #c8c8c8;
+    border-right: none;
+    display: flex;
+    flex-direction: row-reverse;
+    margin-right: 0;
+  }
 }
 @media screen and (max-width: 480px) {
   .dash_board_header_search_input {
@@ -270,7 +285,7 @@ button.logout-btn {
     font-size: 12px;
   }
   .user_profile_icon_cont {
-    padding: 0em 0em;
+    padding: 0.5em 0em;
   }
   .save_numb_div {
     margin-right: 0px;
