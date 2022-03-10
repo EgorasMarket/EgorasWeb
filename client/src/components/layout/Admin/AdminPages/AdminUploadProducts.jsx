@@ -2,6 +2,9 @@ import React, { useState, useEffect } from "react";
 import { CustomAlert } from "../../../../CustomAlert.js";
 import InputLabel from "@mui/material/InputLabel";
 import axios from "axios";
+import { EditorState, convertToRaw } from 'draft-js';
+import { Editor } from 'react-draft-wysiwyg';
+import draftToHtml from 'draftjs-to-html';
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
 import DoDisturbIcon from "@mui/icons-material/DoDisturb";
@@ -17,6 +20,7 @@ import { API_URL2 as api_url2 } from "../../../../actions/types.js";
 const way = window.location.pathname;
 
 const AdminUploadProducts = () => {
+  const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const config = {
     headers: {
       Accept: "*",
@@ -46,6 +50,10 @@ const AdminUploadProducts = () => {
     product_category_desc: "",
   });
 
+  const [formData, setFormData] = useState({
+    product_details: "",
+  });
+
   const [productUpdateInfo, setProductUpdateInfo] = React.useState({
     // product_category_code1: '',
     product_name: "",
@@ -54,11 +62,12 @@ const AdminUploadProducts = () => {
     product_brand: "",
     product_specifications: "",
     amount: null,
-    product_details: "",
+    // product_details: "",
     product_duration: null
   });
+  const { product_details } = formData;
 
-  const {role15,role2,role3}= roles1;
+  const {role15,role2,role3} = roles1;
   const { product_category_code, product_category_desc } = categoryInsert;
   const {
     product_name,
@@ -67,7 +76,7 @@ const AdminUploadProducts = () => {
     percentage,
     product_specifications,
     amount,
-    product_details,
+    // product_details,
     product_duration
   } = productUpdateInfo;
 
@@ -117,8 +126,6 @@ const AdminUploadProducts = () => {
     }
   }, []);
 
-
-
      
   useEffect(() => {
   
@@ -140,7 +147,12 @@ const AdminUploadProducts = () => {
       }); 
   }, []);
 
-
+  const onEditorStateChange = (editorState) =>{
+    let text = draftToHtml(convertToRaw(editorState.getCurrentContent()));
+   
+    setFormData({ ...formData, product_details: text });
+    setEditorState(editorState);
+  }
 
   const onChange = (e) => {
     setCategoryInsert({ ...categoryInsert, [e.target.name]: e.target.value });
@@ -811,7 +823,7 @@ const AdminUploadProducts = () => {
               <div className="add_cat_input_title">
                 <span className="input_brand">Product Details</span>
 
-                <textarea
+                {/* <textarea
                   name="product_details"
                   value={product_details}
                   id=""
@@ -819,7 +831,14 @@ const AdminUploadProducts = () => {
                   rows="5"
                   className="prod_desc_text_area"
                   onChange={(e) => onChange1(e)}
-                ></textarea>
+                ></textarea> */}
+
+                <Editor
+                  editorState={editorState}
+                  wrapperClassName="demo-wrapper"
+                  editorClassName="demo-editor"
+                  onEditorStateChange={onEditorStateChange}
+                />
               </div>
               <div className="add_cat_input_title">
                 <span className="submit_cat_btn_div">
