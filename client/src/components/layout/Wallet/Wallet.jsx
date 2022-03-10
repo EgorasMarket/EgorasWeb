@@ -3,11 +3,14 @@ import { connect } from "react-redux";
 import { createWallet } from "../../../actions/wallet";
 import { depositToken } from "../../../actions/wallet";
 import LoadingIcons from "react-loading-icons";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import StarRateIcon from "@mui/icons-material/StarRate";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { numberWithCommas } from "../../../static";
 // import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
 import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
 import { Link } from "react-router-dom";
@@ -28,6 +31,9 @@ const ITEM_HEIGHT = 48;
 const Wallet = ({ auth, createWallet, depositToken }) => {
   const [age, setAge] = React.useState("");
   const [assetVal, setAssetVal] = useState("0.000");
+  const [FundBtn, setFundBtn] = useState(false);
+  const [openFundDiv, setOpenFundDiv] = useState(true);
+  const [closeFundDiv, setCloseFundDiv] = useState(false);
   const [adminId, setAdminId] = useState("");
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
@@ -57,6 +63,16 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   //   "0x360ba97e2a8f0deb200e34846092a3b8110283b1"
   // );
 
+  const showFundButton = () => {
+    setFundBtn(true);
+    setOpenFundDiv(false);
+    setCloseFundDiv(true);
+  };
+  const closeFundButton = () => {
+    setFundBtn(false);
+    setOpenFundDiv(true);
+    setCloseFundDiv(false);
+  };
   const handleChange = (event) => {
     setAge(event.target.value);
   };
@@ -135,7 +151,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     axios
       .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
       .then((data) => {
-        // console.log(data.data.data, "powerful");
+        console.log(data.data.data, "powerful");
         setIsLoading2(false);
         setAssetName(data.data.data[0].tokenName);
         setTokenSign(data.data.data[0].tokenSymbol);
@@ -263,7 +279,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
 
   return (
     <div className="other2">
-      <section className="no-bg">
+      <section className="no-bg wallet_bg">
         <div className="container">
           <div className="walletClass3">
             <div className="walletSubClass3ng">
@@ -315,79 +331,19 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                     // onClick={sending}
                     ></div>
                   </div>
-                  {/* <div className="divConcept2">
-                  <div>
-                    <StarRateIcon className="starRateIcon" />
+                  <div className="asset_lists_headings">
+                    <span className="asset_lists_headings_list1">Token</span>
+                    <span className="asset_lists_headings_list1 list_avail_bal">
+                      Available Balance
+                    </span>
+                    <span className="asset_lists_headings_list1 list_avail_bal list_avail_in_usd">
+                      USD
+                    </span>
+                    <span className="asset_lists_headings_list1 action_heading">
+                      Action
+                    </span>
                   </div>
-                  <div>
-                    <div className="nigeriaCurrency">Nigerian Naira</div>
-                    {secureNumb == true ? (
-                      <div style={{ marginBottom: "5px" }}>*******</div>
-                    ) : (
-                      <div style={{ marginBottom: "5px" }}>0.00</div>
-                    )}
-
-                    <div style={{ display: "flex" }}>
-                      <button
-                        id="deposit"
-                        className={
-                          activeBg == "deposit"
-                            ? "depositButton_active"
-                            : "depositButton"
-                        }
-                        onClick={changeBg}
-                      >
-                        Deposit
-                      </button>
-
-                      <button
-                        id="withdraw"
-                        className={
-                          activeBg == "withdraw"
-                            ? "depositButton_active"
-                            : "depositButton"
-                        }
-                        onClick={changeBg}
-                      >
-                        Withdraw
-                      </button>
-
-                      <button className="buttonMenu_drop">
-                        <MoreVertIcon
-                          className="divVan"
-                          // onClick={works6}
-                          id="tab3"
-                        />
-                        <MoreVertIcon
-                          className="divVan"
-                          // onClick={works4}
-                          id="tab4"
-                        />
-                        <div className="downContent" id="downContent2">
-                          <div
-                            className="depo"
-                            // onClick={changePage5}
-                          >
-                            Deposit History
-                          </div>
-                          <div
-                            className="depo"
-                            // onClick={changePage6}
-                          >
-                            Transaction History
-                          </div>
-                          <div
-                            className="depo"
-                            // onClick={changePage4}
-                          >
-                            Withdrawal History
-                          </div>
-                        </div>
-                      </button>
-                    </div>
-                  </div>
-                </div> */}
-                  <hr />
+                  {/* <hr /> */}
                   {isLoading2 == true ? (
                     <div className="loading_icon_d">
                       <LoadingIcons.ThreeDots
@@ -400,25 +356,115 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                     <>
                       {allTokens.map((data) => (
                         <div className="divConcept2 ">
-                          <div>
+                          <div className="token_icon_div">
                             <StarRateIcon className="starRateIcon" />
                           </div>
-                          <div>
+                          <div className="assets_token_lists">
                             <div className="nigeriaCurrency">
-                              {data.tokenName}
+                              <span className="tokenSyn">{tokenSign}</span>
+                              <span className="tokenName">
+                                {data.tokenName}
+                              </span>
                             </div>
                             {secureNumb == true ? (
-                              <div style={{ marginBottom: "5px" }}>*******</div>
+                              <div
+                                // style={{ marginBottom: "5px" }}
+                                className="token_amount_bal"
+                              >
+                                <div className="amount_bal_token_cont">
+                                  *******
+                                  {openFundDiv == true ? (
+                                    <ArrowDropDownIcon
+                                      onClick={showFundButton}
+                                      className="arrow_down_show_fund_div"
+                                    />
+                                  ) : null}
+                                  {closeFundDiv == true ? (
+                                    <ArrowDropUpIcon
+                                      onClick={closeFundButton}
+                                      className="arrow_down_show_fund_div"
+                                    />
+                                  ) : null}
+                                </div>
+                                {FundBtn == true ? (
+                                  <span className="fund_btn_div_cont">
+                                    <button
+                                      className="fund_wallet_btn_open"
+                                      onClick={() =>
+                                        openDepositDiv(
+                                          data.tokenName,
+                                          data.tokenSymbol
+                                        )
+                                      }
+                                    >
+                                      Fund
+                                    </button>
+                                  </span>
+                                ) : null}
+                              </div>
                             ) : (
-                              <div style={{ marginBottom: "5px" }}>
-                                {tokenBal}
-                                <span className="token_symbolism">
-                                  {tokenSign}
-                                </span>
+                              <div
+                                // style={{ marginBottom: "5px" }}
+                                className="token_amount_bal"
+                              >
+                                <div className="amount_bal_token_cont">
+                                  {numberWithCommas(
+                                    parseInt(tokenBal).toFixed(2)
+                                  )}
+                                  <span className="token_symbolism">
+                                    {tokenSign}
+                                  </span>
+                                  {openFundDiv == true ? (
+                                    <ArrowDropDownIcon
+                                      onClick={showFundButton}
+                                      className="arrow_down_show_fund_div"
+                                    />
+                                  ) : null}
+
+                                  {closeFundDiv == true ? (
+                                    <ArrowDropUpIcon
+                                      onClick={closeFundButton}
+                                      className="arrow_down_show_fund_div"
+                                    />
+                                  ) : null}
+                                </div>
+                                {FundBtn == true ? (
+                                  <span className="fund_btn_div_cont">
+                                    <button
+                                      className="fund_wallet_btn_open"
+                                      onClick={() =>
+                                        openDepositDiv(
+                                          data.tokenName,
+                                          data.tokenSymbol
+                                        )
+                                      }
+                                    >
+                                      Fund
+                                    </button>
+                                  </span>
+                                ) : null}
+                              </div>
+                            )}
+                            {secureNumb == true ? (
+                              <div
+                                // style={{ marginBottom: "5px" }}
+                                className="token_amount_bal token_usd_bal"
+                              >
+                                *******
+                              </div>
+                            ) : (
+                              <div
+                                // style={{ marginBottom: "5px" }}
+                                className="token_amount_bal token_usd_bal"
+                              >
+                                {numberWithCommas(
+                                  parseInt(tokenBal / 560).toFixed(2)
+                                )}
+                                <span className="token_symbolism">USD</span>
                               </div>
                             )}
 
-                            <div style={{ display: "flex" }}>
+                            <div className="fund_wallet_btn_div">
                               <button
                                 id="withdraw"
                                 className={
