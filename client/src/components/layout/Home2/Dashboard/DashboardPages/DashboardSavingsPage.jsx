@@ -5,8 +5,9 @@ import { connect } from "react-redux";
 import { API_URL2 as api_url2 } from "../../../../../actions/types";
 import "../DashboardStyles/dashboard_savings.css";
 // import { NodataFound } from "../NodataFound/NoDataFoundComponent";
-import {NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
-
+import LoadingIcons from "react-loading-icons";
+import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
+import { numberWithCommas } from "../../../../../static";
 const responsive7 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -28,6 +29,7 @@ const responsive7 = {
 };
 function DashboardSavingsPage({ match, auth }) {
   const [savedNum, setSavedNum] = useState(5);
+  const [Loading, setLoading] = useState(false);
   const [itemdisplay, setItemDisplay] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
   const [productDetail, setProductDetail] = useState({
@@ -51,9 +53,9 @@ function DashboardSavingsPage({ match, auth }) {
   };
 
   const [accountInfo, setAccountInfo] = useState({
-    ledger: "",
-    pending_sum: "",
-    total_sum: "",
+    ledger: 0,
+    pending_sum: 0,
+    total_sum: 0,
   });
   const { ledger, pending_sum, total_sum } = accountInfo;
 
@@ -84,7 +86,7 @@ function DashboardSavingsPage({ match, auth }) {
         config
       )
       .then((data) => {
-        //console.log(data.data,"Ewwooo oh")
+        console.log(data.data, "Ewwooo oh");
 
         setUserLockId(data.data.data);
       })
@@ -95,6 +97,7 @@ function DashboardSavingsPage({ match, auth }) {
 
   useEffect(async () => {
     //console.log(auth.user.user.id);
+    setLoading(true);
     const customer_id = auth.user.user.id;
     const body = JSON.stringify({
       customer_id,
@@ -103,7 +106,7 @@ function DashboardSavingsPage({ match, auth }) {
       .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
       .then((data) => {
         //console.log(data.data.data, "bbbbbbb");
-
+        setLoading(false);
         setAccountInfo({
           ledger: data.data.data.ledger,
           pending_sum: data.data.data.pending_sum,
@@ -113,6 +116,7 @@ function DashboardSavingsPage({ match, auth }) {
         // setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
+        setLoading(false);
         //console.log(err.response); // "oh, no!"
       });
   }, [auth]);
@@ -143,9 +147,9 @@ function DashboardSavingsPage({ match, auth }) {
   //     });
   // }, []);
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
   return (
     <div className="other2">
@@ -159,7 +163,15 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="card_over_body">
                     <div className="card_over_title">
                       Total Savings
-                      <div className="card_over_balance">₦{total_sum}</div>
+                      {Loading == true ? (
+                        <div className="loading_money_icon">
+                          <LoadingIcons.Oval fill="#fff" />
+                        </div>
+                      ) : (
+                        <div className="card_over_balance">
+                          ₦{numberWithCommas(parseInt(total_sum).toFixed(2))}
+                        </div>
+                      )}
                     </div>
 
                     <div className="card_over_balance_button">Start Saving</div>
@@ -169,7 +181,15 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="card_over_body">
                     <div className="card_over_title">
                       Pending Payment
-                      <div className="card_over_balance">₦{pending_sum}</div>
+                      {Loading == true ? (
+                        <div className="loading_money_icon">
+                          <LoadingIcons.Oval fill="#fff" />
+                        </div>
+                      ) : (
+                        <div className="card_over_balance">
+                          ₦{numberWithCommas(parseInt(pending_sum).toFixed(2))}
+                        </div>
+                      )}
                     </div>
 
                     <div className="card_over_balance_button">Start Saving</div>
@@ -179,7 +199,15 @@ function DashboardSavingsPage({ match, auth }) {
                   <div className="card_over_body">
                     <div className="card_over_title">
                       Ledger Balance
-                      <div className="card_over_balance">₦{ledger}</div>
+                      {Loading == true ? (
+                        <div className="loading_money_icon">
+                          <LoadingIcons.Oval fill="#fff" />
+                        </div>
+                      ) : (
+                        <div className="card_over_balance">
+                          ₦{numberWithCommas(parseInt(ledger).toFixed(2))}
+                        </div>
+                      )}
                     </div>
 
                     <div className="card_over_balance_button">Start Saving</div>
@@ -216,7 +244,7 @@ function DashboardSavingsPage({ match, auth }) {
                             Order_id
                           </th>
                           <th className="assets-category-titles-heading1 quant">
-                            Paid Sum
+                            Saved Amount
                           </th>
                           <th className="assets-category-titles-heading1_last">
                             Total
@@ -266,7 +294,7 @@ function DashboardSavingsPage({ match, auth }) {
                                 </div> */}
 
                                   <div>
-                                    Product duration : {asset.product_duration}{" "}
+                                    Savings duration : {asset.product_duration}{" "}
                                     {"days left"}
                                   </div>
                                 </div>
@@ -285,12 +313,12 @@ function DashboardSavingsPage({ match, auth }) {
                             </td>
                             <td className="save_item_data1b">
                               <div className="assets-data-name center_name">
-                                ₦{asset.paidSum}
+                                ₦{numberWithCommas(asset.paidSum.toFixed(2))}
                               </div>
                             </td>
                             <td className="save_item_data1b">
                               <div className="assets-data-name_last">
-                                ₦{asset.sum}
+                                ₦{numberWithCommas(asset.sum.toFixed(2))}
                               </div>
                             </td>
                           </tr>
@@ -304,224 +332,6 @@ function DashboardSavingsPage({ match, auth }) {
             <div className="dash_savings_area2">
               <div className="savings_transactions_divs"></div>
             </div>
-            {/* ====================================== */}
-            {/* ====================================== */}
-            {/* ====================================== */}
-            {/* ====================================== */}
-            {/* ====================================== */}
-            {/*  Projects Section start*/}
-            <section className="projectsSection savvvvv" id="projects">
-              <div className="container">
-                <div className="projectsArea">
-                  <div className="projectsLinea"></div>
-                  <div className="projectsTitleContentsa">
-                    <div className="projectTitle">
-                      <h1 className="gttitle TITE">
-                        New Products / Outright Buy
-                      </h1>
-                    </div>
-                    {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                  </div>
-
-                  {/* Carousel start==============================
-==============================================
-============================= */}
-
-                  <Carousel
-                    responsive={responsive7}
-                    className="partnerCards LEFTARROW"
-                    showDots={false}
-                    //   infinite={false}
-                    autoPlay={true}
-                    autoPlaySpeed={6000}
-                    transitionDelay={"2s"}
-                    infinite={true}
-                    draggable={true}
-                    // transitionDuration={500}
-                    swipeable={true}
-                    style={{ height: "25em" }}
-                  >
-                    {itemdisplay.map((asset) => (
-                      <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
-                      >
-                        <li className="carous_list">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                {asset.payment_type == "OUTRIGHT" ? (
-                                  <p className="no_margg"> Buy now</p>
-                                ) : (
-                                  <p className="no_margg"> Save now</p>
-                                )}
-                              </button>
-
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div></div>
-                              ) : (
-                                <button className="items_remaining_btn2">
-                                  {" "}
-                                  40% locked
-                                </button>
-                              )}
-                            </div>
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
-                                </span>
-                              </div>
-                            </div>
-                            {/* </a> */}
-                          </div>
-                        </li>
-                      </a>
-                    ))}
-                  </Carousel>
-                  {/* Carousel end==============================
-==============================================
-============================= */}
-                </div>
-              </div>
-            </section>
-            {/*  Projects Section end*/}
-
-            {/*  Projects Section start*/}
-            <section className="projectsSection savvvvv" id="projects">
-              <div className="container">
-                <div className="projectsArea">
-                  <div className="projectsLinea"></div>
-                  <div className="projectsTitleContentsa">
-                    <div className="projectTitle">
-                      <h1 className="gttitle TITE">New Products </h1>
-                    </div>
-                    {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                  </div>
-
-                  {/* Carousel start==============================
-==============================================
-============================= */}
-
-                  <Carousel
-                    responsive={responsive7}
-                    className="partnerCards LEFTARROW"
-                    showDots={false}
-                    //   infinite={false}
-                    autoPlay={true}
-                    autoPlaySpeed={6000}
-                    transitionDelay={"2s"}
-                    infinite={true}
-                    draggable={true}
-                    // transitionDuration={500}
-                    swipeable={true}
-                    style={{ height: "25em" }}
-                  >
-                    {itemdisplay.map((asset) => (
-                      <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '')}`}
-                      >
-                        <li className="carous_list no_marg">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                {asset.payment_type == "OUTRIGHT" ? (
-                                  <p className="no_margg"> Buy now</p>
-                                ) : (
-                                  <p className="no_margg"> Save now</p>
-                                )}
-                              </button>
-
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div></div>
-                              ) : (
-                                <button className="items_remaining_btn2">
-                                  {" "}
-                                  {asset.percentage}% to be locked
-                                </button>
-                              )}
-                            </div>
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_prices_div">
-                                <div className="asset_title">
-                                  ₦{numberWithCommas(asset.amount)}{" "}
-                                  <span className="slashed_price">
-                                    ₦{numberWithCommas(asset.amount * 2)}
-                                  </span>
-                                </div>
-                                <div className="amount_per_day_div">
-                                  ₦
-                                  {numberWithCommas(
-                                    (
-                                      asset.amount / asset.product_duration
-                                    ).toFixed()
-                                  )}
-                                  <span className="per_day_symbol">
-                                    {" "}
-                                    / perday
-                                  </span>
-                                </div>
-                              </div>
-                            </div>
-                            {/* </a> */}
-                          </div>
-                        </li>
-                      </a>
-                    ))}
-                  </Carousel>
-                  {/* Carousel end==============================
-==============================================
-============================= */}
-                </div>
-              </div>
-            </section>
-
-            {/* ====================================== */}
-            {/* ====================================== */}
             {/* ====================================== */}
             {/* ====================================== */}
             {/* ====================================== */}

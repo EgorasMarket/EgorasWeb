@@ -8,6 +8,8 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+// import ListIcon from "@mui/icons-material/List";
 import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -241,14 +243,26 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               </div>
               {searchBar == true ? (
                 <div className="dash_board_header_search_bar">
-                  <input
-                    type="search"
-                    name="search"
-                    id="search"
-                    className="dash_board_header_search_input"
-                    placeholder="search market"
-                  />
-                  <SearchIcon className="search_icon"/>
+                  <div className="all_cat_link">
+                    All Categories
+                    <ListIcon className="all_cat_list_icon" />
+                  </div>
+                  <div className="search_input_cont">
+                    <input
+                      type="search"
+                      name="search"
+                      id="search"
+                      className="dash_board_header_search_input"
+                      placeholder="Search products, brands and categories"
+                    />
+
+                    <button className="search_button">
+                      {" "}
+                      <SearchIcon className="search_bar_icon" />
+                    </button>
+                  </div>
+
+                  <button className="click_search_btn">Search</button>
                 </div>
               ) : null}
               {searchBar == false ? (
@@ -457,7 +471,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
+                    Profile
                   </li>
                 </a>
 
