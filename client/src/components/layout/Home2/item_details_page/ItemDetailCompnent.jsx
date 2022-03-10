@@ -423,7 +423,11 @@ const ItemDetailComponent = ({
                         <td>{desc}</td>
                       </tr>
                     ))} */}
-                {specification}
+                {/* {specification} */}
+                <div
+                  className="for-des"
+                  dangerouslySetInnerHTML={{ __html: specification }}
+                />
               </div>
             )}
           </div>
