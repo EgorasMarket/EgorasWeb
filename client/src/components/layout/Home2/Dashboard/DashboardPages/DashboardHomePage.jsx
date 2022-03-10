@@ -5,9 +5,13 @@ import "../DashboardStyles/dashboard_home.css";
 import { API_URL2 as api } from "../../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import axios from "axios";
+import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import CloseIcon from "@mui/icons-material/Close";
+import CircleIcon from "@mui/icons-material/Circle";
+import LoadingIcons from "react-loading-icons";
+// import { numberWithCommas } from "../../../../../static";
 // import { allCart } from "../../../../../actions/shop";
 import DashBoardCard from "../DashBoardCard";
-// import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 import data from "../../../MockData";
 import { retrieveCart } from "../../../../../actions/shop";
 import {
@@ -17,8 +21,44 @@ import {
 // import Nodata from "../NodataFound/NoDataFoundComponent"
 import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 
-import {numberWithCommas} from '../../../../../static'
-
+import { numberWithCommas } from "../../../../../static";
+const transaction = [
+  {
+    id: 1,
+    date: "05-16-2022",
+    amount: "2000",
+    type: "Card",
+    status: "Completed",
+  },
+  {
+    id: 2,
+    date: "05-16-2022",
+    amount: "2000",
+    type: "Card",
+    status: "Completed",
+  },
+  {
+    id: 3,
+    date: "05-25-2022",
+    amount: "3500",
+    type: "Wallet",
+    status: "Completed",
+  },
+  {
+    id: 4,
+    date: "05-16-2022",
+    amount: "2000",
+    type: "Card",
+    status: "Completed",
+  },
+  {
+    id: 5,
+    date: "06-16-2022",
+    amount: "1500",
+    type: "Wallet",
+    status: "Completed",
+  },
+];
 const responsive6 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -39,35 +79,6 @@ const responsive6 = {
   },
 };
 
-const itemDetails2 = [
-  {
-    // id: 1,
-    img: "/img/BAG.jpeg",
-    name: "Samsung smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    amount: "200,000",
-    percentage: "100%",
-    // ratio: "175%",
-  },
-  {
-    // id: 2,
-    img: "/img/samsung_tv_555.jpeg",
-    name: "Lg smart tv series",
-    items_remainings: "16 items left.",
-    Save_button: "Save now",
-    amount: "200,000",
-    percentage: "100%",
-  },
-  {
-    // id: 3,
-    img: "/img/BAG.jpeg",
-    name: "Iphone 12pro max",
-    items_remainings: "16 items left.",
-    amount: "200,000",
-    percentage: "100%",
-  },
-];
 const responsive7 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -108,6 +119,8 @@ const DashboardHomePage = ({ auth, match }) => {
   const [cus_id, setCusId] = useState("");
   const dispatch = useDispatch();
   const [userLockId, setUserLockId] = useState([]);
+  const [Loading, setLoading] = useState(false);
+  const [tranPopUp, setTranPopUp] = useState(0);
 
   // const fetchFromCart = async (customer_id) => {
   //   //console.log('fetchfromCart', customer_id);
@@ -144,12 +157,22 @@ const DashboardHomePage = ({ auth, match }) => {
     },
   };
 
+  const ChangeTranPopUp = (e) => {
+    let currentTarget = e.currentTarget.id;
+    console.log(currentTarget);
+    setTranPopUp(currentTarget);
+  };
+  const closeTranPop = () => {
+    // let currentTarget = e.currentTarget.id;
+    setTranPopUp(0);
+    console.log("i am not here");
+  };
   const [itemGalleryShow, setItemGalleryShow] = useState([]);
   const [accountInfo, setAccountInfo] = useState({
-    ledger: "",
+    ledger: 0,
     balance: 0,
-    pending_sum: "",
-    total_sum: "",
+    pending_sum: 0,
+    total_sum: 0,
   });
   const { ledger, pending_sum, balance, total_sum } = accountInfo;
 
@@ -186,6 +209,7 @@ const DashboardHomePage = ({ auth, match }) => {
   }, []);
 
   useEffect(async () => {
+    setLoading(true);
     //console.log(auth.user.user.id);
     const customer_id = auth.user.user.id;
     const body = JSON.stringify({
@@ -194,6 +218,7 @@ const DashboardHomePage = ({ auth, match }) => {
     await axios
       .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
       .then((data) => {
+        setLoading(false);
         // console.log(data.data.data, "bbbbbbb");
         // console.log(Number('78.77'));
 
@@ -207,6 +232,7 @@ const DashboardHomePage = ({ auth, match }) => {
         // setItemGalleryShow(data.data.data);
       })
       .catch((err) => {
+        setLoading(false);
         //console.log(err.response); // "oh, no!"
       });
   }, [auth]);
@@ -253,7 +279,7 @@ const DashboardHomePage = ({ auth, match }) => {
               <Carousel
                 responsive={responsive6}
                 className="partnerCards LEFTARROW gtr"
-                showDots={false}
+                showDots={true}
                 //   infinite={false}
                 autoPlay={false}
                 autoPlaySpeed={9000}
@@ -266,25 +292,32 @@ const DashboardHomePage = ({ auth, match }) => {
                 {/* {data.dashBoardHomeCard.map((asset, index) => ( */}
                 <DashBoardCard
                   background={"/img/save_card1.svg"}
-                  title={"Total Saving"}
-                  balance={total_sum}
+                  title={"Total Savings"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(total_sum).toFixed(2))}
                 />
                 <DashBoardCard
                   background={"/img/save_card2.svg"}
                   title={"Pending Payment"}
-                  balance={pending_sum}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(pending_sum).toFixed(2))}
                 />
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
                   title={"Wallet Balance"}
-                  balance={balance}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(balance).toFixed(2))}
                 />
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
                   title={"Ledger Balance"}
-                  balance={ledger}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(ledger).toFixed(2))}
                 />
-                
 
                 {/* ))} */}
               </Carousel>
@@ -342,439 +375,110 @@ const DashboardHomePage = ({ auth, match }) => {
               </div>
             )}
           </div>
+          <div className="dashboard_transactions">
+            <div className="dashboard_transactions_header">
+              Recent Transactions{" "}
+              <a href="#" className="see_all_transac_link">
+                See all
+              </a>
+            </div>
+            <div className="transaction_headings">
+              <div className="transaction_heading1">Title</div>
+              <div className="transaction_heading1">Date</div>
+              <div className="transaction_heading1">Amount</div>
+              <div className="transaction_heading1 center_this">Type</div>
+              <div className="transaction_heading1 reduce_width">Status</div>
+            </div>
+            <div className="dashboard_transaction_body">
+              {transaction.map((data) => (
+                <>
+                  <div
+                    className="dashboard_transaction_body_cont1"
+                    id={data.id}
+                    // key={data.id}
+                    onClick={ChangeTranPopUp}
+                  >
+                    <div className="dashboard_transac_body_cont1_layer1">
+                      <div className="deposited_icon">
+                        <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                      </div>
+                      <div className="dashboard_transac_body_cont1_layer1_title">
+                        Deposited
+                      </div>
+                    </div>
+                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                      <div className="dashboard_transac_body_cont1_layer1_time">
+                        {data.date}
+                      </div>
+                    </div>
+                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                      ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
+                    </div>
+                    <div className="dashboard_transac_body_cont1_layer1_type_cont">
+                      <span className="dashboard_transac_body_cont1_layer1_type_status">
+                        {data.type}
+                      </span>
+                    </div>
+                    <div className="dashboard_transac_body_cont1_layer1_status_cont">
+                      <span className="dashboard_transac_body_cont1_layer1_completed_status">
+                        {data.status}
+                      </span>
+                    </div>
+                  </div>
+                </>
+              ))}
+            </div>
+          </div>
           {/* =================================================================================================================================================================================================================================================================== */}
-
-          {/*  Projects Section start*/}
-          <section className="projectsSection savvvvv" id="projects">
-            <div className="container">
-              <div className="projectsArea">
-                <div className="projectsLinea"></div>
-                <div className="projectsTitleContentsa">
-                  <div className="projectTitle">
-                    <h1 className="gttitle TITE">
-                      Similar Products / Outright Buy
-                    </h1>
-                  </div>
-                  {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                </div>
-
-                {/* Carousel start==============================
-==============================================
-============================= */}
-
-                <Carousel
-                  responsive={responsive7}
-                  className="partnerCards LEFTARROW"
-                  showDots={false}
-                  //   infinite={false}
-                  //   infinite={false}
-                  autoPlay={true}
-                  autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
-                  infinite={true}
-                  draggable={true}
-                  // transitionDuration={500}
-                  swipeable={true}
-                  style={{ height: "25em" }}
-                >
-                  {itemGalleryShow.map((asset) => (
-                    <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
-                    >
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                40% locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">
-                              {asset.product_name}
-                            </div>
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
-                  ))}
-                </Carousel>
-                {/* Carousel end==============================
-==============================================
-============================= */}
-              </div>
-            </div>
-          </section>
-          {/*  Projects Section end*/}
-
-          {/*  Projects Section start*/}
-          <section className="projectsSection savvvvv" id="projects">
-            <div className="container">
-              <div className="projectsArea">
-                <div className="projectsLinea"></div>
-                <div className="projectsTitleContentsa">
-                  <div className="projectTitle">
-                    <h1 className="gttitle TITE">Similar Products </h1>
-                  </div>
-                 
-                  {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                </div>
-
-                {/* Carousel start==============================
-==============================================
-============================= */}
-
-                <Carousel
-                  responsive={responsive7}
-                  className="partnerCards LEFTARROW"
-                  showDots={false}
-                  //   infinite={false}
-                  //   infinite={false}
-                  autoPlay={true}
-                  autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
-                  infinite={true}
-                  draggable={true}
-                  // transitionDuration={500}
-                  swipeable={true}
-                  style={{ height: "25em" }}
-                >
-                  {itemGalleryShow.map((asset) => (
-                    <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
-                    >
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                {asset.percentage}% to be locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">
-                              {asset.product_name}
-                            </div>
-                            <div className="asset_prices_div">
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
-                                </span>
-                              </div>
-                              <div className="amount_per_day_div">
-                                ₦
-                                {numberWithCommas(
-                                  (
-                                    asset.amount / asset.product_duration
-                                  ).toFixed()
-                                )}
-                                <span className="per_day_symbol">
-                                  {" "}
-                                  / perday
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
-                  ))}
-                </Carousel>
-                {/* Carousel end==============================
-==============================================
-============================= */}
-              </div>
-            </div>
-          </section>
-          {/*  Projects Section end*/}
-
-          {/* =================================================================================================================================================================================================================================================================== */}
-          {/*  Projects Section start*/}
-          <section className="projectsSection savvvvv" id="projects">
-            <div className="container">
-              <div className="projectsArea">
-                <div className="projectsLinea"></div>
-                <div className="projectsTitleContentsa">
-                  <div className="projectTitle">
-                    <h1 className="gttitle TITE">
-                      Top Products / Outright Buy
-                    </h1>
-                  </div>
-                  {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                </div>
-
-                {/* Carousel start==============================
-==============================================
-============================= */}
-
-                <Carousel
-                  responsive={responsive7}
-                  className="partnerCards LEFTARROW"
-                  showDots={false}
-                  //   infinite={false}
-                  autoPlay={true}
-                  autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
-                  infinite={true}
-                  draggable={true}
-                  // transitionDuration={500}
-                  swipeable={true}
-                  style={{ height: "25em" }}
-                >
-                  {itemGalleryShow.map((asset) => (
-                    <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
-                    >
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                40% locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">
-                              {asset.product_name}
-                            </div>
-                            <div className="asset_title">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                              <span className="slashed_price">
-                                ₦{numberWithCommas(asset.amount * 2)}
-                              </span>
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
-                  ))}
-                </Carousel>
-                {/* Carousel end==============================
-==============================================
-============================= */}
-              </div>
-            </div>
-          </section>
-          {/*  Projects Section end*/}
-
-          {/*  Projects Section start*/}
-          <section className="projectsSection savvvvv" id="projects">
-            <div className="container">
-              <div className="projectsArea">
-                <div className="projectsLinea"></div>
-                <div className="projectsTitleContentsa">
-                  <div className="projectTitle">
-                    <h1 className="gttitle TITE">Top Products </h1>
-                  </div>
-                  {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-                </div>
-
-                {/* Carousel start==============================
-==============================================
-============================= */}
-
-                <Carousel
-                  responsive={responsive7}
-                  className="partnerCards LEFTARROW"
-                  showDots={false}
-                  //   infinite={false}
-                  autoPlay={true}
-                  autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
-                  infinite={true}
-                  draggable={true}
-                  // transitionDuration={500}
-                  swipeable={true}
-                  style={{ height: "25em" }}
-                >
-                  {itemGalleryShow.map((asset) => (
-                    <a
-                      href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
-                    >
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                            <button className="items_remaining_btn">
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <p className="no_margg"> Buy now</p>
-                              ) : (
-                                <p className="no_margg"> Save now</p>
-                              )}
-                            </button>
-
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div></div>
-                            ) : (
-                              <button className="items_remaining_btn2">
-                                {" "}
-                                {asset.percentage}% to be locked
-                              </button>
-                            )}
-                          </div>
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">
-                              {asset.product_name}
-                            </div>
-                            <div className="asset_prices_div">
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
-                                </span>
-                              </div>
-                              <div className="amount_per_day_div">
-                                ₦
-                                {numberWithCommas(
-                                  (
-                                    asset.amount / asset.product_duration
-                                  ).toFixed()
-                                )}
-                                <span className="per_day_symbol">
-                                  {" "}
-                                  / perday
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
-                  ))}
-                </Carousel>
-                {/* Carousel end==============================
-==============================================
-============================= */}
-              </div>
-            </div>
-          </section>
-          {/*  Projects Section end*/}
 
           {/* =================================================================================================================================================================================================================================================================== */}
         </div>
       </section>
+      {transaction.map((data) => (
+        <>
+          {tranPopUp == data.id ? (
+            <div className="trans_div">
+              <div className="tranPop_div">
+                <div className="tranPopHeading">
+                  Deposit Details{" "}
+                  <span className="tranPopOutButton">
+                    <CloseIcon
+                      className="closeTranPopDiv"
+                      onClick={closeTranPop}
+                    />
+                  </span>
+                </div>
+                <div className="tranPop_div_cont1">
+                  {" "}
+                  <div className="deposited_icon">
+                    <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                  </div>
+                  <span className="transPopData">Deposited</span>
+                </div>
+                <div className="tranPop_div_cont1">
+                  Date <span className="transPopData"> {data.date}</span>{" "}
+                </div>
+                <div className="tranPop_div_cont1">
+                  Amount{" "}
+                  <span className="transPopData">
+                    ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
+                  </span>{" "}
+                </div>
+                <div className="tranPop_div_cont1">
+                  Type <span className="transPopData">{data.type}</span>
+                </div>
+                <div className="tranPop_div_cont1">
+                  Status{" "}
+                  <span className="transPopData">
+                    <CircleIcon className="complete_circle" />
+                    Completed
+                  </span>
+                </div>
+              </div>
+            </div>
+          ) : null}
+        </>
+      ))}
     </div>
   );
 };

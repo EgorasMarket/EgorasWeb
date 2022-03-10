@@ -529,7 +529,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
         <CustomAlert
           alert={alert}
           alertType={alertType}
-          onChange={() => timer}
+          onChange={timer}
         />
       )}
     </div>
