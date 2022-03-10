@@ -386,7 +386,7 @@ const DashboardHomePage = ({ auth, match }) => {
             <div className="transaction_headings">
               <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Date</div>
-              <div className="transaction_heading1">Amount</div>
+              <div className="transaction_heading1 amnt_small">Amount</div>
               <div className="transaction_heading1 center_this">Type</div>
               <div className="transaction_heading1 reduce_width">Status</div>
             </div>
