@@ -237,6 +237,10 @@
   padding: 24px 16px;
   border-bottom: 1px solid #e7e7e8;
   cursor: pointer;
+  overflow: scroll;
+}
+.address_cont {
+  white-space: nowrap;
 }
 .deposit_div_body1_input1 {
   padding: 1em 1em;

@@ -313,8 +313,11 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                     </div>
                   ) : (
                     <div className="arrowSpan">
-                      ₦{assetVal}{" "}
-                      <div className="usd_val">≈ ${assetVal / 560}</div>
+                      ₦{numberWithCommas(parseInt(assetVal).toFixed(2))}{" "}
+                      <div className="usd_val">
+                        ≈ $
+                        {numberWithCommas(parseInt(assetVal / 560).toFixed(2))}
+                      </div>
                     </div>
                   )}
                 </>
@@ -673,7 +676,10 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                           <StarRateIcon className="starRateIcon starRateIcon_2" />
                                         </span>
                                         <div className="token_deposit_amnt">
-                                          {data.amount} {tokenSign}
+                                          {numberWithCommas(
+                                            parseInt(data.amount).toFixed(2)
+                                          )}{" "}
+                                          {tokenSign}
                                           <span className="completed_div">
                                             Completed
                                           </span>
