@@ -8,6 +8,8 @@ import BarChartIcon from "@mui/icons-material/BarChart";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+// import ListIcon from "@mui/icons-material/List";
 import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
 import NotificationsIcon from "@mui/icons-material/Notifications";
@@ -36,6 +38,9 @@ import "./DashboardStyles/dashboard_header.css";
 import { retrieveCart } from "../../../../actions/shop";
 import axios from "axios";
 import Logout from "../Logout/Logout";
+import "./went.css";
+import { ConstructionTwoTone } from "@mui/icons-material";
+
 const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
@@ -47,18 +52,41 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [searchBar, setSearchBar] = useState(false);
   const linksActive = window.location.pathname;
 
+  const [productNamesZ, setProductNamesZ] = useState([]);
+  const [searchTerm, setSearchTerm] = useState('');
+  const [tr,setTr]=useState([])
 
-
-const [searchTerm,setSearchTerm]=useState('');
-const [dataFlow,setDataFlow]=useState([]);
-const handleChange = event=>{
-  setSearchTerm(event.target.value);
-}
-
-const results = !searchTerm ? dataFlow : dataFlow.filter(items=>items.toLowerCase().includes(searchTerm.toLocaleLowerCase()))
+  // const [terms, setTerms] = useState("");
 
 
 
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/search/new/products", null, config)
+      .then((data) => {
+        console.log(data.data.data);
+        setProductNamesZ(data.data.data);
+      })
+      .catch((error) => {
+        console.log('Error:',error)
+      });
+  }, []);
+
+
+
+  const handler = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+// useEffect(()=>{
+  const results =  productNamesZ.filter((car) =>
+        car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+//   setTr(results)
+
+// },[searchTerm])
+
+      
 
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
@@ -199,29 +227,11 @@ const results = !searchTerm ? dataFlow : dataFlow.filter(items=>items.toLowerCas
     }
   };
 
-
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-
-
-  useEffect(()=>{
-    axios
-    .get(api_url2 + `/v1/product/retrieve/products/search/${searchTerm}`, null, config)
-    .then((data) => {
-   
-      setDataFlow(data)
-      console.log(data,'mr kingsleyu')
-      // setCategory(data.data.data);
-    })
-    .catch((err) => {
-      //console.log(err); // "oh, no!"
-    });
-
-
-  },[searchTerm])
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
@@ -277,34 +287,51 @@ const results = !searchTerm ? dataFlow : dataFlow.filter(items=>items.toLowerCas
                   </div>
                 ) : null}
               </div>
-              {searchBar == true ? (<>
-                <div className="dash_board_header_search_bar">
-                  <input
-                    type="search"
-                    name="search"
-                    id="search"
-                    value={searchTerm}
-                    className="dash_board_header_search_input"
-                    placeholder="search market"
-                    onChange={handleChange}
-                  />
-                  <SearchIcon className="search_icon"/>
-                </div>
-                <ul style={{position:'absolute',top:'100px',zIndex:'500000'}}>
-                        {
-                          results.map(item=>(
-                            <li>{item}</li>
-                            
-                          ))
-                        }
+              {searchBar == true ? (
+                <>
+                  <div style={{ width: "100%", position: "relative" }}>
+                    <div className="dash_board_header_search_bar">
+                      <input
+                        type="text"
+                        value={searchTerm}
+                        className="dash_board_header_search_input"
+                        placeholder="search market"
+                        onChange={handler}
+                      />
+                      <SearchIcon className="search_icon" />
 
-                       <li>emeka </li>
-                       <li>Chibuike </li>
-                       <li>Chibuike </li>
-                       <li>Chibuike </li>
-                </ul>
+                    {searchTerm.length === 0 ? null:(
+                      <div
+                        style={{
+                          position: "absolute",
+                          zIndex: "500",
+                          width: "100%",
+                          top: "60px",
+                          maxHeight:'500px',
+                          height: "auto",
+                          backgroundColor: "#fff",
+                          overflow: "scroll",
+                        }}
+                        className="scr"
+                      >
+
+                        <ul>
+                            { results.map((item)=>(
+                            <li style={{ padding: "4px 25px" }}>
+                              {item.product_name}
+                            </li> 
+                            ))}
+                          
+                        </ul>
+                      </div>
+                      )}
+
+                    
+                    </div>
+                  </div>
                 </>
               ) : null}
+
               {searchBar == false ? (
                 <div className="welcome_user">
                   Welcome
@@ -511,7 +538,7 @@ const results = !searchTerm ? dataFlow : dataFlow.filter(items=>items.toLowerCas
                     }
                   >
                     <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
+                    Profile
                   </li>
                 </a>
 
