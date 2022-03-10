@@ -25,23 +25,7 @@ export const UPDATE_CART = "UPDATE_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
 
 export const API_URL = "https://tea.egoras.com";
-// export const API_URL2 = "https://330188b756ae73.lhr.life";
-// export const API_URL2 = "https://9434474f241ea8.lhr.life";
+
+export const API_URL2 = "http://localhost:4015";
+
 // export const API_URL2 = "https://saul.egoras.com";
-// export const API_URL3 = "https://coffee.egoras.com";
-// export const API_URL3 = "http://localhost:7976";
-// export const API_URL2 = "http://localhost:4000";
-
-export const API_URL2 = "https://saul.egoras.com";
-// <<<<<<< HEAD
-// export const API_URL2 = "http://192.168.43.179:4000";
-// export const API_URL2 = "http://192.168.175.63:4000";
-// =======
-
-// export const API_URL2 = "http://localhost:4015";
-// >>>>>>> fa3fdd02db940adc77c381bc780ac88d579a8482
-
-// token Symbol
-// constract address
-// token name
-// Blockchain

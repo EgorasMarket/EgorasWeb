@@ -275,22 +275,22 @@ const DashboardHomePage = ({ auth, match }) => {
                 <DashBoardCard
                   background={"/img/save_card1.svg"}
                   title={"Total Savings"}
-                  // balance={total_sum.toFixed(2)}
+                  balance={parseInt(total_sum).toFixed(2)}
                 />
                 <DashBoardCard
                   background={"/img/save_card2.svg"}
                   title={"Pending Payment"}
-                  // balance={pending_sum.toFixed(2)}
+                  balance={parseInt(pending_sum).toFixed(2)}
                 />
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
                   title={"Wallet Balance"}
-                  // balance={balance.toFixed(2)}
+                  balance={parseInt(balance).toFixed(2)}
                 />
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
                   title={"Ledger Balance"}
-                  // balance={ledger.toFixed(2)}
+                  balance={parseInt(ledger).toFixed(2)}
                 />
 
                 {/* ))} */}
