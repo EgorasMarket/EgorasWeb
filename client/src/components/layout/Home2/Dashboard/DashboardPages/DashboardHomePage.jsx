@@ -356,12 +356,16 @@ const DashboardHomePage = ({ auth, match }) => {
                               {item.product_name}
                             </div>
                             <div className="save_overview_cont_amount">
-                              Total ₦{item.sum}
+                              Total Amount ₦
+                              {numberWithCommas(parseInt(item.sum).toFixed(2))}
                             </div>
                           </div>
                           <div className="save_item_details_btn">
                             <div className="save_overview_cont_items_left">
-                              Paid Sum ₦{item.paidSum}
+                              Savings Amount ₦
+                              {numberWithCommas(
+                                parseInt(item.paidSum).toFixed(2)
+                              )}
                             </div>
                             {/* <button className="save_overview_cont_items_top_up">
                               Top up
@@ -385,7 +389,7 @@ const DashboardHomePage = ({ auth, match }) => {
             <div className="transaction_headings">
               <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Date</div>
-              <div className="transaction_heading1">Amount</div>
+              <div className="transaction_heading1 amnt_small">Amount</div>
               <div className="transaction_heading1 center_this">Type</div>
               <div className="transaction_heading1 reduce_width">Status</div>
             </div>
