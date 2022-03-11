@@ -236,9 +236,9 @@
 }
 .search_icon {
   position: absolute;
-  left: 3%;
+  left: 1.5%;
   font-size: 18px !important;
-  top: 25%;
-  bottom: 25%;
+  top: 52%;
+  transform: translate(-50%,-50%);
   color: #1e5f38;
 }
