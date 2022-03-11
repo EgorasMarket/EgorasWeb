@@ -3,7 +3,7 @@ import PaymentsIcon from "@mui/icons-material/Payments";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-import { ProductImageCarousel } from "./productCarousel";
+import { ProductImageCarousel } from "../../Home2/item_details_page/ProductImageCarousel";
 import "../../Home2/Dashboard/DashboardStyles/dashboardCart.css";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import CallIcon from "@mui/icons-material/Call";
@@ -104,6 +104,7 @@ const ItemDetailComponent = ({
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
   const [activeBg, setActiveBg] = useState("features");
+  const [moreImg, setMoreImg] = useState([]);
   const [outrightProducts, setOutrightProducts] = useState([]);
   const [categ, setcate] = useState([]);
   const [food, setFood] = useState([]);
@@ -117,6 +118,7 @@ const ItemDetailComponent = ({
     product_duration,
     product_id,
     product_image,
+    more_image,
     product_name,
     product_specifications,
     product_type,
@@ -129,7 +131,15 @@ const ItemDetailComponent = ({
     startDate, 
     endDate
   } = payload;
-  // console.log(initial_deposit)
+  
+  useEffect(() => {
+    if (more_image != null) {
+      let splited = JSON.parse(more_image);
+      setMoreImg(splited);
+      // console.log(more_image.split(","));
+      // console.log(JSON.parse(more_image));
+    }
+  }, [more_image]);
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -293,7 +303,18 @@ const ItemDetailComponent = ({
               alt=""
               className="product_details_img"
             /> */}
-            <ProductImageCarousel img={api_url2 + "/" + product_image} />
+            {moreImg.length == 0 ? (
+              <img
+                src={product_image}
+                className="image_carooooo"
+              />
+            ) : (
+              <ProductImageCarousel
+                img={moreImg[0]}
+                img2={moreImg[1]}
+                img3={moreImg[2]}
+              />
+            )}
           </div>
           {/* ================ */}
           {/* ================ */}
