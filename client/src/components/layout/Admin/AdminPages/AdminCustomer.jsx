@@ -89,6 +89,7 @@ const AdminCustomer = () => {
       setSearchResults(allCustomers);
       //console.log("tttt");
     } else {
+      console.log(allCustomers);
       const results = allCustomers.filter((userInfo) =>
         userInfo.fullname
           .toString()
