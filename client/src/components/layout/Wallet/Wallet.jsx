@@ -375,7 +375,14 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                 className="token_amount_bal"
                               >
                                 <div className="amount_bal_token_cont">
-                                  *******
+                                  <div className="token_bal_cont1_hold_all">
+                                    <div className="usd_val_of_token_bal_co">
+                                      *******
+                                    </div>
+                                    <div className="token_bal_cont_token_amnt">
+                                      *******
+                                    </div>
+                                  </div>
                                   {openFundDiv == true ? (
                                     <ArrowDropDownIcon
                                       onClick={showFundButton}
@@ -411,12 +418,24 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                 className="token_amount_bal"
                               >
                                 <div className="amount_bal_token_cont">
-                                  {numberWithCommas(
-                                    parseInt(tokenBal).toFixed(2)
-                                  )}
-                                  <span className="token_symbolism">
-                                    {tokenSign}
-                                  </span>
+                                  <div className="token_bal_cont1_hold_all">
+                                    <div className="usd_val_of_token_bal_co">
+                                      ≈
+                                      {numberWithCommas(
+                                        parseInt(tokenBal / 560).toFixed(2)
+                                      )}{" "}
+                                      USD
+                                    </div>
+                                    <div className="token_bal_cont_token_amnt">
+                                      {numberWithCommas(
+                                        parseInt(tokenBal).toFixed(2)
+                                      )}
+                                      <span className="token_symbolism">
+                                        {tokenSign}
+                                      </span>
+                                    </div>
+                                  </div>
+
                                   {openFundDiv == true ? (
                                     <ArrowDropDownIcon
                                       onClick={showFundButton}

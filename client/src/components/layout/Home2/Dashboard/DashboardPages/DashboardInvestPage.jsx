@@ -301,7 +301,7 @@ function DashboardInvestPage({ auth }) {
           <a href="#Electronics">
             <div className="cat_body_toggle1">Electronics</div>
           </a>
-          <div className="cat_body_toggle1">Konga Fashion</div>
+          <div className="cat_body_toggle1">Fashion</div>
           <a href="#HomeKitchen">
             <div className="cat_body_toggle1">Home and Kitchen</div>
           </a>
@@ -341,28 +341,28 @@ function DashboardInvestPage({ auth }) {
             <div className="products_area2">
               <div className="products_area2_cont1">
                 <img
-                  src="/img/fake_assets/best_buys.gif"
+                  src="/img/Egoras-Market-Banners/web-banner-1.gif"
                   alt=""
                   className="products_hero_img  w-1"
                 />
               </div>
               <div className="products_area2_cont1">
                 <img
-                  src="/img/fake_assets/best_buys.gif"
+                  src="/img/Egoras-Market-Banners/web-banner-2.gif"
                   alt=""
                   className="products_hero_img w-1"
                 />
               </div>
               <div className="products_area2_cont1">
                 <img
-                  src="/img/fake_assets/best_buys.gif"
+                  src="/img/Egoras-Market-Banners/web-banner-5.gif"
                   alt=""
                   className="products_hero_img w-1"
                 />
               </div>
               <div className="products_area2_cont1">
                 <img
-                  src="/img/fake_assets/best_buys.gif"
+                  src="/img/Egoras-Market-Banners/web-banner-4.gif"
                   alt=""
                   className="products_hero_img w-1"
                 />
