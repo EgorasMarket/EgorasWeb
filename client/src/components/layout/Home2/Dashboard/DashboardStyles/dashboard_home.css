@@ -488,7 +488,7 @@ button.save_overview_cont_items_top_up {
     padding-bottom: 0em !important;
   }
   .other2 {
-    padding-top: 5em;
+    padding-top: 3.5em;
   }
   .dashboard_transac_body_cont1_layer1 {
     padding: 10px;
@@ -542,6 +542,9 @@ button.save_overview_cont_items_top_up {
   .savings_overview_body_cont2_1a {
     width: 100%;
     height: 125px;
+  }
+  .no_paddd .container {
+    padding: 0em 0.5em;
   }
 
   .savings_overview_body_cont2 {

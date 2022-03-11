@@ -102,7 +102,7 @@
   margin-bottom: 4%;
 }
 .walletSubClass3ng {
-  background-image: linear-gradient(45deg, #227c46, #6effa8);
+  background-image: linear-gradient(45deg, #227c46, #3bc873);
   padding: 15px;
   color: #fff;
   border-radius: 5px;
@@ -646,6 +646,9 @@ li.deposit_qr_not {
   margin-left: 35px;
   padding-left: 15px;
 }
+.usd_val_of_token_bal_co {
+  display: none;
+}
 .mena1 {
   padding: 10px 10px;
   border-left: 3px solid #e4a788;
@@ -1137,6 +1140,13 @@ li.deposit_qr_not {
     font-weight: 700;
     margin-bottom: 4%;
   }
+  .walletClass3 {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 40px;
+    gap: 10px;
+    width: 100%;
+  }
   .DivCap {
     padding: 1em;
   }
@@ -1163,6 +1173,18 @@ li.deposit_qr_not {
   }
 }
 @media (max-width: 767px) {
+  .eye-visibility {
+    font-size: 13px !important;
+    background: #2f764b !important;
+    padding: 1px 0px !important;
+    border-radius: 7px !important;
+    width: 18px !important;
+    cursor: pointer !important;
+  }
+  .divConcept2 {
+    padding: 20px 15px 15px 15px;
+    display: flex;
+  }
   .DivCap {
     /* display: flex; */
     width: 100%;
@@ -1182,6 +1204,11 @@ li.deposit_qr_not {
   }
   .load_qr_code_ {
     width: 50%;
+  }
+  .formConceptWallet {
+    font-size: 14px;
+    font-weight: 600;
+    color: #246f42;
   }
 }
 @media (max-width: 500px) {
@@ -1203,7 +1230,8 @@ li.deposit_qr_not {
     align-items: center;
     grid-gap: 8px;
     grid-gap: 8px;
-    gap: 8px;
+    grid-gap: 8px;
+    gap: 3px;
   }
   .arrowSpan {
     font-weight: 700;
@@ -1227,6 +1255,9 @@ li.deposit_qr_not {
     font-size: 10px;
     font-weight: 500;
     color: #beffd8;
+  }
+  .asset_lists_headings_list1 {
+    font-size: 10px;
   }
 }
 @media (max-width: 600px) {
@@ -1269,6 +1300,20 @@ li.deposit_qr_not {
 @media (max-width: 700px) {
   .arrow_down_show_fund_div {
     display: inline-block !important ;
+  }
+  .amount_bal_token_cont {
+    display: flex;
+    /* align-items: center; */
+    justify-content: flex-end;
+  }
+  .token_bal_cont1_hold_all {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+  .usd_val_of_token_bal_co {
+    display: inline-block;
+    color: #99a3ab;
+    font-size: 10px;
   }
   .fund_btn_div_cont {
     display: block;
@@ -1321,6 +1366,15 @@ li.deposit_qr_not {
   .tokenName {
     font-size: 10px;
     color: grey;
+  }
+  .fund_wallet_btn_open {
+    padding: 8px 30px;
+    background: #4ec77e;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 4px 10px #55d387;
+    /* display: block; */
   }
 }
 @media (min-width: 600px) {
