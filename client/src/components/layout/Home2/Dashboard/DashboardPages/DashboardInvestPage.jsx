@@ -470,7 +470,7 @@ function DashboardInvestPage({ auth }) {
             <img
               src="/img/fake_assets/prod_banner_ad.jpeg"
               alt=""
-              className="prod_banner_ad"
+              className="prod_banner_ad nn"
             />
           </div>
           {/* =========[[[[[[[[[]]]]]]]]] */}
