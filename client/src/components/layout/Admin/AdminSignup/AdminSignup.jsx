@@ -279,7 +279,7 @@ const AdminSignup = ({ getAuthentication }) => {
                 </div>
               </div>
               <span className="login_txt">
-                <a href="/login" className="login_link">
+                <a href="/login/super_admin" className="login_link">
                   Already have an account? Login
                 </a>
               </span>

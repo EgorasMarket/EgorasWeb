@@ -230,35 +230,34 @@ function DashboardSavingsPage({ match, auth }) {
               ) : (
                 <div className="locked_items">
                   <div class="save_prod_deta">
+                    <thead className="assets-category-titles save_list_titles">
+                      <tr className="assets save_list_assets_head ">
+                        <th className="assets-category-titles-heading1">
+                          Item
+                        </th>
+                        <th className="assets-category-titles-heading1">
+                          Item Details
+                        </th>
+
+                        <th className="assets-category-titles-heading1 quant">
+                          Order_id
+                        </th>
+                        <th className="assets-category-titles-heading1 quant">
+                          Saved Amount
+                        </th>
+                        <th className="assets-category-titles-heading1_last">
+                          Total
+                        </th>
+                      </tr>
+                    </thead>
                     <table className="save_item_table">
-                      <thead className="assets-category-titles">
-                        <tr className="assets">
-                          <th className="assets-category-titles-heading1">
-                            Item
-                          </th>
-                          <th className="assets-category-titles-heading1">
-                            Item Details
-                          </th>
-
-                          <th className="assets-category-titles-heading1 quant">
-                            Order_id
-                          </th>
-                          <th className="assets-category-titles-heading1 quant">
-                            Saved Amount
-                          </th>
-                          <th className="assets-category-titles-heading1_last">
-                            Total
-                          </th>
-                        </tr>
-                      </thead>
-
                       {userLockId.slice(0, 5).map((asset) => (
                         <tbody
                           className="save_items_cat popular-categories"
                           id="popular-categories"
                         >
                           {" "}
-                          <tr className="assets-category-row">
+                          <tr className="assets-category-row saving_assets_row">
                             <td className="save_item_data">
                               <div className="assets-data height_data">
                                 <img

@@ -50,6 +50,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [cartNum, setCartNum] = useState("");
   const [image, setImage] = useState("");
   const [searchBar, setSearchBar] = useState(false);
+  
   const linksActive = window.location.pathname;
 
   const [productNamesZ, setProductNamesZ] = useState([]);
@@ -143,6 +144,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
+    
 
       retrieveCart(todecoded.user.id);
       setUserInfo({
@@ -226,6 +228,12 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
       localStorage.setItem("smallSidetoken", "smallSide");
     }
   }, []);
+
+
+
+  
+
+ 
 
   const shrinkAction = () => {
     if (smallSide == "not_small") {
@@ -327,12 +335,15 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                       >
 
                         <ul>
-                            { results.map((item)=>(
+                            { results.map((item,index)=>(
                             <li style={{ padding: "4px 25px" }}>
+                              
                              <a  href={`/dashboard/products/details/${
-                          asset.id
-                        }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        key={index.toString()} > {item.product_name}</a>
+                          item.id
+                        }/${item.product_name.replace(/\s+/g, "-")}`}
+                        key={index.toString()} style={{color:'#255839',
+                          fontSize: '14px',
+                          fontWeight: '700'}} > {item.product_name}</a>
                             </li> 
                             ))}
                           
