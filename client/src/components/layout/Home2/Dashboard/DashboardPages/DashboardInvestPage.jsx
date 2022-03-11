@@ -324,15 +324,20 @@ function DashboardInvestPage({ auth }) {
           <a href="computerAcc">
             <div className="cat_body_toggle1">Computers and Accessories</div>
           </a>
-          <a href="#phonesTab">
+          <a    
+                href={`/dashboard/products/categories/Phones & Tablet`}
+              >
             <div className="cat_body_toggle1">Phones and Tablets</div>
           </a>
-          <a href="#Electronics">
+          <a href={`/dashboard/products/categories/Electronics`}>
             <div className="cat_body_toggle1">Electronics</div>
           </a>
           <div className="cat_body_toggle1">Konga Fashion</div>
-          <a href="#HomeKitchen">
-            <div className="cat_body_toggle1">Home and Kitchen</div>
+          <a  
+                href={`/dashboard/products/categories/Home Appliances`}
+              
+              >
+            <div className="cat_body_toggle1">Home & Kitchen Appliances</div>
           </a>
           <a href="#MusicEquip">
             <div className="cat_body_toggle1">Musical Equipment</div>
