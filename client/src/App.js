@@ -153,6 +153,8 @@ import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
 import ResetPassword from "./components/layout/Home2/PasswordReset/ResetPassword";
 
+
+
 // import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
   setAuthToken(localStorage.token);
@@ -274,6 +276,7 @@ const App = () => {
                     component={ResetPassword}
                   />
                   <Route exact path="/savings" component={Savings} />
+                 
                   {/* <Route
                     exact
                     path="/products/details/:id"

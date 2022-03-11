@@ -477,9 +477,7 @@ function DashboardInvestPage({ auth }) {
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
+                            backgroundImage: `url(${asset.product_image})`,
                           }}
                         >
                           <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -567,9 +565,7 @@ function DashboardInvestPage({ auth }) {
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
-                                  backgroundImage: `url(${
-                                    api_url2 + "/" + asset.product_image
-                                  })`,
+                                  backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -634,9 +630,7 @@ function DashboardInvestPage({ auth }) {
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
-                                  backgroundImage: `url(${
-                                    api_url2 + "/" + asset.product_image
-                                  })`,
+                                  backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -714,9 +708,7 @@ function DashboardInvestPage({ auth }) {
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
+                            backgroundImage: `url(${asset.product_image})`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -811,9 +803,7 @@ function DashboardInvestPage({ auth }) {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
+                              backgroundImage: `url(${asset.product_image})`,
                             }}
                           >
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -884,9 +874,7 @@ function DashboardInvestPage({ auth }) {
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
+                            backgroundImage: `url(${asset.product_image})`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
@@ -981,9 +969,7 @@ function DashboardInvestPage({ auth }) {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
+                              backgroundImage: `url(${asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -1061,9 +1047,7 @@ function DashboardInvestPage({ auth }) {
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
-                            backgroundImage: `url(${
-                              api_url2 + "/" + asset.product_image
-                            })`,
+                            backgroundImage: `url(${asset.product_image})`,
                             //           height: "200px",
                             //           width: "100%",
                             //           backgroundRepeat: "no-repeat",
