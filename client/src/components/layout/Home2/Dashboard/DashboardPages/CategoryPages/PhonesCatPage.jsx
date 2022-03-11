@@ -119,6 +119,11 @@ const PhonesCatPage = ({match}) => {
 
   const {categoryPhoneTablets,categoryHomeAppliances,categoryElectronics,categoryComputerAccessories,categoryFurniture,categoryMusicalEquipment,categoryIndustrialEquipment} = page;
 
+
+
+
+
+
   const config = {
     headers: {
       "Content-Type": "application/json",

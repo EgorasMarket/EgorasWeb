@@ -327,7 +327,7 @@ function DashboardInvestPage({ auth }) {
         </div>
       </div>
 
-      <section className="no-bg">
+      <section className="no-bg no_pad">
         <div className="container">
           <div className="products_hero_area">
             <div className="products_area1">
@@ -359,28 +359,28 @@ function DashboardInvestPage({ auth }) {
                 <img
                   src="/img/fake_assets/best_buys.gif"
                   alt=""
-                  className="products_hero_img"
+                  className="products_hero_img  w-1"
                 />
               </div>
               <div className="products_area2_cont1">
                 <img
                   src="/img/fake_assets/best_buys.gif"
                   alt=""
-                  className="products_hero_img"
+                  className="products_hero_img w-1"
                 />
               </div>
               <div className="products_area2_cont1">
                 <img
                   src="/img/fake_assets/best_buys.gif"
                   alt=""
-                  className="products_hero_img"
+                  className="products_hero_img w-1"
                 />
               </div>
               <div className="products_area2_cont1">
                 <img
                   src="/img/fake_assets/best_buys.gif"
                   alt=""
-                  className="products_hero_img"
+                  className="products_hero_img w-1"
                 />
               </div>
             </div>

@@ -179,7 +179,7 @@ button.savings_area_btn {
   align-items: center;
   justify-content: space-between;
   min-height: 3.2rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.15rem 0.25rem;
   position: relative;
   box-shadow: 0px 0px 3px grey;
   bottom: -1px;
@@ -339,7 +339,7 @@ button.savings_area_btn {
   .storeTiles_storeTileBottomContainer__2sWHh {
     min-height: 0rem;
   }
-  .products_display_body_conts_banner_cont {
+  /* .products_display_body_conts_banner_cont {
     width: 100%;
   }
   .products_display_body_conts2 {
@@ -349,7 +349,7 @@ button.savings_area_btn {
     grid-gap: 15px;
     gap: 15px;
     width: 55%;
-  }
+  } */
 }
 
 @media (max-width: 991px) {
@@ -404,5 +404,27 @@ button.savings_area_btn {
     font-size: 40px;
     font-weight: 800;
     line-height: 1em;
+  }
+  .asset_name {
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .asset_title {
+    font-size: 10px;
+  }
+  .slashed_price {
+    font-size: 7px;
+  }
+  .amount_per_day_div {
+    font-size: 9px;
+    font-weight: 700;
+    gap: 0px;
+    justify-content: flex-end;
+    /* flex-direction: column; */
+    white-space: nowrap;
+    flex-flow: wrap;
+  }
+  .per_day_symbol {
+    font-size: 7px;
   }
 }
