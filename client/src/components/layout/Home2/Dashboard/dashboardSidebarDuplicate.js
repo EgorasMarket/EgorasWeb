@@ -21,7 +21,6 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import YouTubeIcon from "@mui/icons-material/YouTube";
-import axios from "axios";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 // import InstagramIcon from "@mui/icons-material/Instagram";
@@ -37,7 +36,11 @@ import { Link } from "react-router-dom";
 import "./DashboardStyles/dashboard_side.css";
 import "./DashboardStyles/dashboard_header.css";
 import { retrieveCart } from "../../../../actions/shop";
+import axios from "axios";
 import Logout from "../Logout/Logout";
+import "./went.css";
+import { ConstructionTwoTone } from "@mui/icons-material";
+
 const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
@@ -47,11 +50,23 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [cartNum, setCartNum] = useState("");
   const [image, setImage] = useState("");
   const [searchBar, setSearchBar] = useState(false);
+  
+  const linksActive = window.location.pathname;
 
   const [productNamesZ, setProductNamesZ] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [tr,setTr]=useState([])
 
-  const linksActive = window.location.pathname;
+  // const [terms, setTerms] = useState("");
+
+
+
+  let modal = document.getElementById('fodo');
+  document.body.onclick = function(event) {
+    if (event.target == modal) {
+    modal.style.display = "none";
+    }
+}
 
 
 
@@ -69,14 +84,20 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   }, []);
 
 
+
   const handler = (event) => {
     setSearchTerm(event.target.value);
   };
 
-
+// useEffect(()=>{
   const results =  productNamesZ.filter((car) =>
         car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+//   setTr(results)
+
+// },[searchTerm])
+
+      
 
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
@@ -123,6 +144,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
+    
 
       retrieveCart(todecoded.user.id);
       setUserInfo({
@@ -207,6 +229,12 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     }
   }, []);
 
+
+
+  
+
+ 
+
   const shrinkAction = () => {
     if (smallSide == "not_small") {
       setSmallSide("smallSide");
@@ -222,7 +250,6 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
       "Content-Type": "application/json",
     },
   };
-
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
@@ -280,30 +307,18 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               </div>
               {searchBar == true ? (
                 <>
-                 <div style={{ width: "100%", position: "relative" }}>
-                <div className="dash_board_header_search_bar">
-                  <div className="all_cat_link">
-                    All Categories
-                    <ListIcon className="all_cat_list_icon" />
-                  </div>
-                  <div className="search_input_cont">
-                    <input
-                      type="search"
-                      name="search"
-                      value={searchTerm}
-                      id="search"
-                      className="dash_board_header_search_input"
-                      placeholder="Search products, brands and categories"
-                      onChange={handler}
-                      autocomplete="off"
-                    />
+                  <div style={{ width: "100%", position: "relative" }}>
+                    <div className="dash_board_header_search_bar">
+                      <input
+                        type="search"
+                        value={searchTerm}
+                        className="dash_board_header_search_input"
+                        placeholder="search market"
+                        onChange={handler}
+                      />
+                      <SearchIcon className="search_icon" />
 
-                    <button className="search_button">
-                      {" "}
-                      <SearchIcon className="search_bar_icon" />
-                    </button>
-                  {searchTerm.length === 0? null:(
-                
+                    {searchTerm.length === 0 ? null:(
                       <div
                       id="fodo"
                         style={{
@@ -314,12 +329,10 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                           maxHeight:'500px',
                           height: "auto",
                           backgroundColor: "#fff",
-                          overflowY: "scroll",
+                          overflow: "scroll",
                         }}
                         className="scr"
                       >
-                          {/* <a
-                     href={`/dashboard/products/categories/${item.product_name}`} */}
 
                         <ul>
                             { results.map((item,index)=>(
@@ -328,8 +341,6 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                              <a  href={`/dashboard/products/details/${
                           item.id
                         }/${item.product_name.replace(/\s+/g, "-")}`}
-              
-              
                         key={index.toString()} style={{color:'#255839',
                           fontSize: '14px',
                           fontWeight: '700'}} > {item.product_name}</a>
@@ -338,19 +349,14 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                           
                         </ul>
                       </div>
-                     
-
                       )}
+
+                    
+                    </div>
                   </div>
-
-                  <button className="click_search_btn">Search</button>
-
-
-
-                </div>
-                </div>
                 </>
               ) : null}
+
               {searchBar == false ? (
                 <div className="welcome_user">
                   Welcome

@@ -321,7 +321,7 @@ function DashboardInvestPage({ auth }) {
        
       <div className="cat_div" id="cat_div">
         <div className="cat_body_toggle">
-          <a href="computerAcc">
+          <a     href={`/dashboard/products/categories/Computer & Accessories`}>
             <div className="cat_body_toggle1">Computers and Accessories</div>
           </a>
           <a    
@@ -333,10 +333,10 @@ function DashboardInvestPage({ auth }) {
             <div className="cat_body_toggle1">Electronics</div>
           </a>
           <div className="cat_body_toggle1">Fashion</div>
-          <a href="#HomeKitchen">
-            <div className="cat_body_toggle1">Home and Kitchen</div>
+          <a  href={`/dashboard/products/categories/Home Appliances`}>
+            <div className="cat_body_toggle1">Home & Kitchen Appliances</div>
           </a>
-          <a href="#MusicEquip">
+          <a href={`/dashboard/products/categories/Musical Equipments`}>
             <div className="cat_body_toggle1">Musical Equipment</div>
           </a>
         </div>
