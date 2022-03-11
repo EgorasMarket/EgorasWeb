@@ -553,7 +553,7 @@ function ItemDetailsPage({ auth, match }) {
               <div className="details_area1_cont1">
                 {" "}
                 <img
-                  src={api_url2 + "/" + product_image}
+                  src={product_image}
                   alt=""
                   className="product_details_img"
                 />
@@ -945,7 +945,7 @@ function ItemDetailsPage({ auth, match }) {
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
                               backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
+                                asset.product_image
                               })`,
                               //           height: "200px",
                               //           width: "100%",
@@ -1084,7 +1084,7 @@ function ItemDetailsPage({ auth, match }) {
                               <td className="save_item_data">
                                 <div className="assets-data height_data">
                                   <img
-                                    src={api_url2 + "/" + product_image}
+                                    src={product_image}
                                     alt=""
                                     className="save_item_img_img"
                                   />
