@@ -76,10 +76,13 @@
   min-width: 0px;
   width: 100%;
   max-width: 1425px;
-  /* display: flex; */
+  display: flex;
   padding: 0px;
   border-collapse: separate;
   border-spacing: 0px 9px;
+  flex-direction: column;
+  margin-top: 20px;
+  gap: 10px;
 }
 .save_prod_deta {
   height: 100%;
@@ -92,12 +95,12 @@
   width: 100%;
   height: 100%;
 }
-.assets-category-titles {
+.save_list_titles {
   display: flex;
   width: 100%;
   justify-content: space-between;
 }
-.assets {
+.save_list_assets_head {
   box-sizing: border-box;
   margin: 0px;
   min-width: 0px;
@@ -118,7 +121,7 @@
 .quant {
   text-align: center;
 }
-.assets-category-row {
+.saving_assets_row {
   box-sizing: border-box;
   margin: 0px 0px 16px;
   min-width: 0px;
@@ -333,17 +336,21 @@ span.items_left_amount {
     height: 100%;
     max-width: 1425px;
     display: flex;
-    padding: 0px;
+    padding: 1px;
+    flex-direction: row;
+    overflow: scroll;
+    gap: 10px;
   }
   .save_items_cat {
     width: 100%;
     height: 100%;
+    min-width: auto;
   }
 
   .assets-category-row {
     width: 100%;
     display: flex;
-    gap: 10px;
+    gap: 0px;
     margin-bottom: 0;
     height: 100%;
     flex-direction: column;
@@ -353,12 +360,12 @@ span.items_left_amount {
     border-bottom: solid 1px #d7f7e4;
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 300px;
 
     height: 100%;
   }
   .save_item_data1 {
-    padding: 0px 16px;
+    padding: 10px 10px;
     display: flex;
     justify-content: space-between;
     border-bottom: solid 1px #d7f7e4;
@@ -375,7 +382,7 @@ span.items_left_amount {
   }
   .save_items_details1 {
     font-weight: 700;
-    font-size: 22px;
+    font-size: 18px;
     white-space: nowrap;
     width: 100%;
     overflow: hidden;
@@ -386,14 +393,18 @@ span.items_left_amount {
     position: relative;
     display: flex;
     flex-direction: column;
+    font-size: 12px;
   }
   .save_item_data1b {
-    padding: 0px 16px;
+    padding: 10px 10px;
     display: flex;
     justify-content: space-between;
     width: 100%;
     border-bottom: solid 1px #d7f7e4;
     height: 100%;
+  }
+  .center_name {
+    font-size: 12px;
   }
   .savings_overview_card {
     display: flex;
@@ -407,5 +418,18 @@ span.items_left_amount {
     width: 100%;
   }
 }
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 415px) {
+  .save_item_data {
+    width: 280px;
+  }
+}
+@media screen and (max-width: 374px) {
+  .save_item_data {
+    width: 250px;
+  }
+}
+@media screen and (max-width: 349px) {
+  .save_item_data {
+    width: 200px;
+  }
 }
