@@ -268,8 +268,8 @@ const DashboardHomePage = ({ auth, match }) => {
   // };
   return (
     <div className="other2">
-      <section className="no-bg">
-        <div className="container">
+      <section className="no-bg no_paddd">
+        <div className="container ">
           <div className="dash_home_area">
             <div className="dash_savings_cards_area">
               {/* Carousel start==============================
