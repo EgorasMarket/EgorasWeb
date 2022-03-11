@@ -120,7 +120,7 @@ const AdminAllProducts = () => {
                           <td className="save_item_data_cart small_height">
                             <div className="assets-data height_data height_data1">
                               <img
-                                src={`${api_url2}/${asset.product_image}`}
+                                src={`${asset.product_image}`}
                                 alt=""
                                 className="save_item_img_img"
                               />
