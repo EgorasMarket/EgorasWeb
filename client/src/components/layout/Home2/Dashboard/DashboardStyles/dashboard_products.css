@@ -192,6 +192,8 @@
 }
 .products_display_body_conts {
   padding: 0em 0.5em;
+  display: flex;
+  gap: 10px;
 }
 .products_display_body_conts2 {
   padding: 0em 2em;

@@ -12,7 +12,6 @@ import LoadingIcons from "react-loading-icons";
 // import { numberWithCommas } from "../../../../../static";
 // import { allCart } from "../../../../../actions/shop";
 import DashBoardCard from "../DashBoardCard";
-// import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 import data from "../../../MockData";
 import { retrieveCart } from "../../../../../actions/shop";
 import {
