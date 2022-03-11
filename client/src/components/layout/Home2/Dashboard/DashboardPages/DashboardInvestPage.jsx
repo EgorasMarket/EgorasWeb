@@ -507,7 +507,7 @@ function DashboardInvestPage({ auth }) {
             <img
               src="/img/Egoras-Market-Banners/market_banner_long_3.jpg"
               alt=""
-              className="prod_banner_ad"
+              className="prod_banner_ad nn"
             />
           </div>
           {/* =========[[[[[[[[[]]]]]]]]] */}
