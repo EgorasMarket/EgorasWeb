@@ -135,7 +135,8 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     payment_options: "card",
     // payment_plan:63558,
     customer: {
-      phonenumber: phone_no,
+      phone_number: phone_no,
+      // phonenumber: phone_no,
       email: email,
       name: name,
     },
