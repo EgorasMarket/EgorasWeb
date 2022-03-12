@@ -71,7 +71,7 @@
 
 .gtr .react-multi-carousel-dot button {
   display: inline-block;
-  width: 12px;
+  width: 10px;
   height: 10px;
   border-radius: 10px !important;
   border-radius: 50%;
@@ -213,6 +213,14 @@
 .closeTranPopDiv {
   background: #dff2e6;
   color: #346f4c;
+  border-radius: 5px;
+  font-size: 24px !important;
+  cursor: pointer;
+  box-shadow: 0px 10px 10px #cae1d2;
+}
+.closeTranPopDiv:hover {
+  color: #dff2e6;
+  background: #346f4c;
   border-radius: 5px;
   font-size: 24px !important;
   cursor: pointer;
