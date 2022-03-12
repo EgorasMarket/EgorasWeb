@@ -974,7 +974,7 @@ function DashboardInvestPage({ auth }) {
                   </div>
                   <Carousel
                     responsive={responsive7}
-                    className="partnerCards LEFTARROW "
+                    className="partnerCards LEFTARROW market_carous "
                     showDots={false}
                     //   infinite={false}
                     autoPlay={false}
