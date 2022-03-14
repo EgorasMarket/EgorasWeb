@@ -544,7 +544,7 @@ const ItemDetailComponent = ({
               voluptas.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="What are the duration of products luck.">
             <div className="accordion_body">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
               autem saepe error facilis earum beatae cum dolorem commodi odio
@@ -553,7 +553,7 @@ const ItemDetailComponent = ({
               voluptas.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="what are the delivering charges attached to a product.">
             <div className="accordion_body">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
               autem saepe error facilis earum beatae cum dolorem commodi odio
@@ -562,7 +562,7 @@ const ItemDetailComponent = ({
               voluptas.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="How long does it take for me to receive my product.">
             <div className="accordion_body">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
               autem saepe error facilis earum beatae cum dolorem commodi odio
@@ -571,7 +571,7 @@ const ItemDetailComponent = ({
               voluptas.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="what are the discount attachments to product.">
             <div className="accordion_body">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
               autem saepe error facilis earum beatae cum dolorem commodi odio
@@ -580,7 +580,7 @@ const ItemDetailComponent = ({
               voluptas.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="Are products tested before delivering.">
             <div className="accordion_body">
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
               autem saepe error facilis earum beatae cum dolorem commodi odio
