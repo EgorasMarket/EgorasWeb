@@ -261,7 +261,7 @@ function DashboardSavingsPage({ match, auth }) {
                             <td className="save_item_data">
                               <div className="assets-data height_data">
                                 <img
-                                  src={api_url2 + "/" + asset.product_img}
+                                  src={asset.product_img}
                                   alt=""
                                   className="save_item_img_img"
                                 />

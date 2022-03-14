@@ -345,7 +345,7 @@ const DashboardHomePage = ({ auth, match }) => {
                       <div className="savings_overview_body_cont2_1a">
                         <div className="save_overview_cont_img">
                           <img
-                            src={api_url2 + "/" + item.product_img}
+                            src={item.product_img}
                             alt=""
                             className="save_overview_cont_img_imgg"
                           />
