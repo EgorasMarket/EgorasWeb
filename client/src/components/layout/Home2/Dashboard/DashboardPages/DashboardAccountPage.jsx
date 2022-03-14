@@ -255,6 +255,9 @@ useEffect(()=>{
 
   // const [bvnId,setBvnId]= useState("")
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
+    const [error4,setError4]=useState('First Name1')
+
+  const label3 =(<span style={{color:'red'}}>First Name Required</span>)
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -362,7 +365,10 @@ useEffect(()=>{
       gender
     );
 
-    //console.log(res);
+    
+    if(nxtfirstname === "" || nxtfirstname.length === 0 ){
+      setError4(label3)
+    }
 
     if (res.data.data.success === true) {
       //console.log("okay Good Server");
@@ -718,7 +724,9 @@ useEffect(()=>{
                             <TextField
                               className="name_input1"
                               id="outlined-basic"
-                              label="First Name"
+                              // label="First Name"
+                              label={error4}
+
                               variant="outlined"
                               name="firstname"
                               value={nxtfirstname}
