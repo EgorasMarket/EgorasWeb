@@ -12,6 +12,7 @@ import { connect } from "react-redux";
 import {
   API_URL2 as api_url2,
 } from "../../../../../../actions/types";
+import './the.css'
 
 import {numberWithCommas} from '../../../../../../static'
 
@@ -365,13 +366,13 @@ const PhonesCatPage = ({match}) => {
               style={{ height: "25em" }}
             >
               {seeAll.map((asset) => {return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id.replace(/\s+/g, "-")}`}>
                 <li className="carous_list">
                   <div
                     className="storeTiles_storeTileContainer__HoGEa"
                     style={{
                       backgroundImage: `url(${
-                        api_url2 + "/" + asset.product_image
+                         asset.product_image
                       })`,
                       //           height: "200px",
                       //           width: "100%",
@@ -480,13 +481,13 @@ const PhonesCatPage = ({match}) => {
               style={{ height: "25em" }}
             >
               {seeAll.map((asset) => {return(
-                <a href={`/products/details/${asset.id}`}>
+                <a href={`/products/details/${asset.id.replace(/\s+/g, "-")}`}>
                   <li className="carous_list">
                     <div
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
                         backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
+                           asset.product_image
                         })`,
                         //           height: "200px",
                         //           width: "100%",
@@ -606,8 +607,9 @@ const PhonesCatPage = ({match}) => {
                         value={searchTerm}
                         onChange={handleSearchChange}
                         className="search_brand"
+                        autoComplete="off"
                       />
-                      <SearchIcon className="search_icon" />
+                      <SearchIcon className="search_icon the" />
                     </div>
                   </div>
                   <div className="cat_select_div2_body">
@@ -650,13 +652,13 @@ const PhonesCatPage = ({match}) => {
                   {seeAll.slice(0,100).map((asset,index11) => (
 
 
-<a href={`/products/details/${asset.id}`}>
+<a href={`/products/details/${asset.id.replace(/\s+/g, "-")}`}>
 <li className="carous_list">
   <div
     className="storeTiles_storeTileContainer__HoGEa"
     style={{
       backgroundImage: `url(${
-        api_url2 + "/" + asset.product_image
+         asset.product_image
       })`,
       //           height: "200px",
       //           width: "100%",
