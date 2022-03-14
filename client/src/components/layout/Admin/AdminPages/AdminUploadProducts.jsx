@@ -38,6 +38,7 @@ const AdminUploadProducts = () => {
   const [productId, setProductId] = useState("");
   const [product_category_code1, setProduct_category_code1] = useState("");
   const [product_type, setProduct_type] = useState("");
+  const [product_condition, setProduct_condition] = useState("");
   const [payment_type, setPayment_type] = useState(1);
   const [roles1,setRoles1]=useState({role15:"",role2
   :"",role3:""});
@@ -318,6 +319,11 @@ const AdminUploadProducts = () => {
     // // //console.log('handleMOI');
   };
 
+  const handleCondition = (event) => {
+    setProduct_condition(event.target.value || "");
+    // // //console.log('handleMOI');
+  };
+
   const handlepaymentType = (event) => {
     setPayment_type(event.target.value || null);
     // // //console.log('handleMOI');
@@ -330,7 +336,7 @@ const AdminUploadProducts = () => {
         product_name === "" ||
         product_category_code1 === "" ||
         unitCount === null ||
-        // product_duration === null ||
+        product_condition === "" ||
         // percentage === null ||
         product_brand === "" ||
         product_type === "" ||
@@ -356,6 +362,7 @@ const AdminUploadProducts = () => {
             product_name,
             product_category_code,
             unitCount,
+            product_condition,
             product_duration,
             product_brand,
             percentage,
@@ -408,6 +415,7 @@ const AdminUploadProducts = () => {
         product_category_code1 === "" ||
         unitCount === null ||
         product_duration === null ||
+        product_condition === "" ||
         percentage === null ||
         product_brand === "" ||
         product_type === "" ||
@@ -433,6 +441,7 @@ const AdminUploadProducts = () => {
             product_name,
             product_category_code,
             unitCount,
+            product_condition,
             product_duration,
             product_brand,
             percentage,
@@ -659,6 +668,32 @@ const AdminUploadProducts = () => {
                     value={product_brand}
                     onChange={(e) => onChange1(e)}
                   />
+                </div>
+
+                <div className="add_cat_input_title">
+                  <span className="input_brand">Condition</span>
+
+                  <FormControl fullWidth>
+                    <InputLabel id="demo-simple-select-label">
+                      Select Type
+                    </InputLabel>
+                    <Select
+                      labelId="demo-simple-select-label"
+                      id="demo-simple-select"
+                      name="product_type"
+                      className="w-100"
+                      value={product_condition}
+                      label="Product Type"
+                      onChange={handleCondition}
+                    >
+                      <MenuItem value="Brand New">
+                        Brand New
+                      </MenuItem>
+                      <MenuItem value="Used">
+                        Used
+                      </MenuItem>
+                    </Select>
+                  </FormControl>
                 </div>
                 <div className="add_cat_input_title">
                   <span className="input_brand">Product category</span>

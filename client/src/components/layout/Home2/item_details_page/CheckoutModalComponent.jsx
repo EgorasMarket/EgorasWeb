@@ -19,7 +19,7 @@ import { createOrder } from "../../../../actions/shop";
 import { connect } from "react-redux";
 import initPayment from "../../../../flutterwave/initPayment";
 import initializePayment from "../../../../flutterwave/API/initializePayment";
-import  { Redirect } from 'react-router-dom'
+import { Redirect } from "react-router-dom";
 
 const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   //destructure the payload and return values
@@ -62,7 +62,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [errorDiv, setErrorDiv] = useState(false);
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
-  let deliveryFee = 0; 
+  let deliveryFee = 0;
 
   const config = {
     headers: {
@@ -180,7 +180,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                 response.transaction_id,
                 product_id,
                 startDate,
-                endDate, 
+                endDate,
                 days_left
               );
               closePaymentModal();
@@ -196,32 +196,34 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
 
       case 1:
-      
         if (tokenBal >= initial_deposit) {
           setProcessingDiv(true);
           //
           const orderBody = JSON.stringify({
             product_id,
-            initial_pay:initial_deposit,
-            startDate, 
+            initial_pay: initial_deposit,
+            startDate,
             endDate,
-            days_left, 
-            
-        });
+            days_left,
+          });
 
-        console.log(orderBody)
-        const res = await axios.post(API_URL2 + "/v1/order/add/order/crypto", orderBody, config).then(response =>{
-            console.log(response, " response after order endpoint is called")
-            setProcessingDiv(false)
-            alert("Your order have been completed successfully, You will redirected to the market place")
-            return <Redirect to="/dashboard" />
-        }).catch(err => {
-            console.log(err.response)
-            setProcessingDiv(false)
-            setErrorDiv(true)
-        });
-        //
-
+          console.log(orderBody);
+          const res = await axios
+            .post(API_URL2 + "/v1/order/add/order/crypto", orderBody, config)
+            .then((response) => {
+              console.log(response, " response after order endpoint is called");
+              setProcessingDiv(false);
+              alert(
+                "Your order have been completed successfully, You will redirected to the market place"
+              );
+              return <Redirect to="/dashboard" />;
+            })
+            .catch((err) => {
+              console.log(err.response);
+              setProcessingDiv(false);
+              setErrorDiv(true);
+            });
+          //
         } else {
           setProcessingDiv(false);
           setErrorDiv(true);
@@ -307,12 +309,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
-                    
                     <tr className="assets-category-row">
                       <td className="save_item_data">
                         <div className="assets-data height_data">
                           <img
-                            src={api_url2 + "/" + product_image}
+                            src={product_image}
                             alt=""
                             className="save_item_img_img"
                           />
@@ -329,7 +330,6 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                           </div>
                           <div className="save_item_days_left">
                             {days_left} days left
-                           
                           </div>
                           <div className="save_total_locked_amount">
                             <span className="items_left_amount">
@@ -350,7 +350,9 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                                 </div>
                               </td> */}
                       <td className="save_item_data1b">
-                        <div className="assets-data-name_last">₦{initial_deposit}</div>
+                        <div className="assets-data-name_last">
+                          ₦{initial_deposit}
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -440,7 +442,8 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
-              Sub Total: <span className="sub_total_div_span">₦{initial_deposit}</span>
+              Sub Total:{" "}
+              <span className="sub_total_div_span">₦{initial_deposit}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -458,7 +461,10 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             {/* ========== */}
             {/* ========== */}
             <div className="transac_secure_div">
-              Total <span className="sub_total_div_span">₦{initial_deposit + deliveryFee}</span>
+              Total{" "}
+              <span className="sub_total_div_span">
+                ₦{initial_deposit + deliveryFee}
+              </span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -475,9 +481,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           </div>
         </div>
       </div>
-      {ProcessingDiv == false ? 
-       null
-      : (
+      {ProcessingDiv == false ? null : (
         <div className="processing_transac_div">
           <LoadingIcons.Bars fill="#229e54" />
           Processing Transaction...

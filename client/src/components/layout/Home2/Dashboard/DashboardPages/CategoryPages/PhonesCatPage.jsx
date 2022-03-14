@@ -119,6 +119,11 @@ const PhonesCatPage = ({match}) => {
 
   const {categoryPhoneTablets,categoryHomeAppliances,categoryElectronics,categoryComputerAccessories,categoryFurniture,categoryMusicalEquipment,categoryIndustrialEquipment} = page;
 
+
+
+
+
+
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -609,14 +614,14 @@ const PhonesCatPage = ({match}) => {
                     {searchResults.map((brand,index10) => (
                       <div className="select_brand_check_box" key={index10.toString()}>
                         <label class="label_cont">
-                          {brand.product_name}
-                          <input
+                          {/* {brand.product_name} */}
+                          {/* <input
                             type="checkbox"
                             name="apple"
                             //   id="apple"
                             className="brand_check_input"
                             key={brand.product_id}
-                          />
+                          /> */}
                           <span class="checkmark"></span>
                         </label>
                       </div>
