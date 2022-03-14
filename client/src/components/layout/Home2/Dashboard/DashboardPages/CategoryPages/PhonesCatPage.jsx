@@ -372,7 +372,7 @@ const PhonesCatPage = ({match}) => {
                     className="storeTiles_storeTileContainer__HoGEa"
                     style={{
                       backgroundImage: `url(${
-                        api_url2 + "/" + asset.product_image
+                         asset.product_image
                       })`,
                       //           height: "200px",
                       //           width: "100%",
@@ -487,7 +487,7 @@ const PhonesCatPage = ({match}) => {
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
                         backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
+                           asset.product_image
                         })`,
                         //           height: "200px",
                         //           width: "100%",
@@ -658,7 +658,7 @@ const PhonesCatPage = ({match}) => {
     className="storeTiles_storeTileContainer__HoGEa"
     style={{
       backgroundImage: `url(${
-        api_url2 + "/" + asset.product_image
+         asset.product_image
       })`,
       //           height: "200px",
       //           width: "100%",

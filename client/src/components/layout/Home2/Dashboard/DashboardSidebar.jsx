@@ -223,6 +223,11 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     },
   };
 
+const close =()=>{
+  document.getElementById('fodo').style.display ="none"
+
+}
+
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
@@ -280,7 +285,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               </div>
               {searchBar == true ? (
                 <>
-                 <div style={{ width: "100%", position: "relative" }}>
+                 <div style={{ width: "100%", position: "relative" }} onClick={close}>
                 <div className="dash_board_header_search_bar">
                   <div className="all_cat_link">
                     All Categories
@@ -302,7 +307,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                       {" "}
                       <SearchIcon className="search_bar_icon" />
                     </button>
-                  {searchTerm.length === 0? null:(
+                  {(searchTerm.length === 0) ? null: (
                 
                       <div
                       id="fodo"
@@ -310,7 +315,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                           position: "absolute",
                           zIndex: "500",
                           width: "100%",
-                          top: "60px",
+                          top: "56px",
                           maxHeight:'500px',
                           height: "auto",
                           backgroundColor: "#fff",
@@ -353,8 +358,8 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               ) : null}
               {searchBar == false ? (
                 <div className="welcome_user">
-                  Welcome
                   <span className="userName_name">{Userlastname}</span>
+                 <span style={{fontSize:'16px',fontWeight:'700',color:'#000'}}> Welcome</span>
                 </div>
               ) : null}
             </div>
