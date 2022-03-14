@@ -307,7 +307,7 @@ const CheckoutModalComponent = ({
                       <td className="save_item_data">
                         <div className="assets-data height_data">
                           <img
-                            src={api_url2 + "/" + product_image}
+                            src={product_image}
                             alt=""
                             className="save_item_img_img"
                           />
