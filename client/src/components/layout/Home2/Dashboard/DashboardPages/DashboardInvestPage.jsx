@@ -51,11 +51,11 @@ const responsive8 = {
     items: 8,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1620 },
-    items: 6,
+    breakpoint: { max: 3000, min: 1562 },
+    items: 5,
   },
   tablet: {
-    breakpoint: { max: 1620, min: 1420 },
+    breakpoint: { max: 1562, min: 1420 },
     items: 5,
   },
   tabletMedium: {
@@ -200,9 +200,9 @@ function DashboardInvestPage({ auth }) {
         config
       )
       .then((data) => {
-        // console.log(data.data.data, "powerful");
+        console.log(data.data.data.length, "powerful");
 
-        musicalEquipmentData(data.data.data);
+        setMusicalEquipmentData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -216,7 +216,7 @@ function DashboardInvestPage({ auth }) {
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
-        industrialEquipmentsData(data.data.data);
+        setIndustrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -291,7 +291,7 @@ function DashboardInvestPage({ auth }) {
     superLargeDesktop: {
       // the naming can be any, depends on you.
       breakpoint: { max: 4000, min: 3000 },
-      items: 6,
+      items: 5,
     },
     desktop: {
       breakpoint: { max: 3000, min: 1780 },
@@ -537,8 +537,59 @@ function DashboardInvestPage({ auth }) {
                 {phonesTabletsData.length <= 0 ? (
                   <NoDataFoundComponent text={text} />
                 ) : (
-                  // <div className="div_carousel_prod_display">
                   <>
+                    <div className="show_prods_on_mobile">
+                      {phonesTabletsData.map((asset) => {
+                        return (
+                          <a
+                            href={`/dashboard/products/details/${
+                              asset.id
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
+                            // key={index.toString()}
+                          >
+                            <li className="carous_list no_marg inventory_cards">
+                              <div
+                                className="storeTiles_storeTileContainer__HoGEa"
+                                style={{
+                                  backgroundImage: `url(${asset.product_image})`,
+                                }}
+                              >
+                                <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                  <div className="asset_name">
+                                    {asset.product_name}
+                                  </div>
+                                  <div class="asset_prices_div">
+                                    <div className="asset_title">
+                                      ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                      <span className="slashed_price">
+                                        ₦
+                                        {numberWithCommas(
+                                          asset.roundedAmount * 2
+                                        )}
+                                      </span>
+                                    </div>
+                                    <div className="amount_per_day_div">
+                                      ₦
+                                      {numberWithCommas(
+                                        (
+                                          asset.amount / asset.product_duration
+                                        ).toFixed()
+                                      )}
+                                      <span className="per_day_symbol">
+                                        {" "}
+                                        / perday
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                {/* </a> */}
+                              </div>
+                            </li>
+                          </a>
+                        );
+                      })}
+                    </div>
                     <Carousel
                       responsive={responsive6}
                       className="partnerCards LEFTARROW market_carous"
@@ -547,7 +598,7 @@ function DashboardInvestPage({ auth }) {
                       autoPlay={false}
                       autoPlaySpeed={6000}
                       transitionDelay={"2s"}
-                      infinite={true}
+                      infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
@@ -612,7 +663,7 @@ function DashboardInvestPage({ auth }) {
                       autoPlay={false}
                       autoPlaySpeed={6000}
                       transitionDelay={"2s"}
-                      infinite={true}
+                      infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
@@ -858,66 +909,144 @@ function DashboardInvestPage({ auth }) {
                 <ChevronRightIcon />
               </a>
             </div>
-            <div className="products_display_body_conts">
+            <div className=".products_display_body_conts_pad">
               {ComputerAccessoriesData.length <= 0 ? (
                 <NoDataFoundComponent text={text} />
               ) : (
-                ComputerAccessoriesData.slice(0, 10).map((asset, index5) => {
-                  return (
-                    <a
-                      href={`/dashboard/products/details/${
-                        asset.id
-                      }/${asset.product_name.replace(/\s+/g, "-")}`}
-                      key={index5.toString()}
-                    >
-                      <li className="carous_list no_marg">
-                        <div
-                          className="storeTiles_storeTileContainer__HoGEa"
-                          style={{
-                            backgroundImage: `url(${asset.product_image})`,
-                            //           height: "200px",
-                            //           width: "100%",
-                            //           backgroundRepeat: "no-repeat",
-                            //           backgroundSize: "cover",
-                            //           borderRadius: "8px",
-                            //           borderBottomLeftRadius: "0px",
-                            //           borderBottomRightRadius: "0px",
-                            //   backgroundPositionY: "center",
-                          }}
-                        >
-                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                            <div className="asset_name">
-                              {asset.product_name}
-                            </div>
-                            <div className="asset_prices_div">
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.amount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.amount * 2)}
-                                </span>
+                <>
+                  <div className="show_prods_on_mobile">
+                    {ComputerAccessoriesData.slice(0, 10).map(
+                      (asset, index5) => {
+                        return (
+                          <a
+                            href={`/dashboard/products/details/${
+                              asset.id
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
+                            key={index5.toString()}
+                          >
+                            <li className="carous_list no_marg">
+                              <div
+                                className="storeTiles_storeTileContainer__HoGEa"
+                                style={{
+                                  backgroundImage: `url(${asset.product_image})`,
+                                  //           height: "200px",
+                                  //           width: "100%",
+                                  //           backgroundRepeat: "no-repeat",
+                                  //           backgroundSize: "cover",
+                                  //           borderRadius: "8px",
+                                  //           borderBottomLeftRadius: "0px",
+                                  //           borderBottomRightRadius: "0px",
+                                  //   backgroundPositionY: "center",
+                                }}
+                              >
+                                <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                  <div className="asset_name">
+                                    {asset.product_name}
+                                  </div>
+                                  <div className="asset_prices_div">
+                                    <div className="asset_title">
+                                      ₦{numberWithCommas(asset.amount)}{" "}
+                                      <span className="slashed_price">
+                                        ₦{numberWithCommas(asset.amount * 2)}
+                                      </span>
+                                    </div>
+                                    <div className="amount_per_day_div">
+                                      ₦
+                                      {numberWithCommas(
+                                        (
+                                          asset.amount / asset.product_duration
+                                        ).toFixed()
+                                      )}
+                                      <span className="per_day_symbol">
+                                        {" "}
+                                        / perday
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                                {/* </a> */}
                               </div>
-                              <div className="amount_per_day_div">
-                                ₦
-                                {numberWithCommas(
-                                  (
-                                    asset.amount / asset.product_duration
-                                  ).toFixed()
-                                )}
-                                <span className="per_day_symbol">
-                                  {" "}
-                                  / perday
-                                </span>
+                            </li>
+                          </a>
+                        );
+                      }
+                    )}
+                  </div>
+                  <Carousel
+                    responsive={responsive7}
+                    className="partnerCards LEFTARROW market_carous "
+                    showDots={false}
+                    //   infinite={false}
+                    autoPlay={false}
+                    autoPlaySpeed={6000}
+                    transitionDelay={"2s"}
+                    infinite={true}
+                    draggable={true}
+                    // transitionDuration={500}
+                    swipeable={true}
+                    style={{ height: "25em" }}
+                  >
+                    {ComputerAccessoriesData.slice(0, 10).map(
+                      (asset, index5) => {
+                        return (
+                          <a
+                            href={`/dashboard/products/details/${
+                              asset.id
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
+                            key={index5.toString()}
+                          >
+                            <li className="carous_list no_marg">
+                              <div
+                                className="storeTiles_storeTileContainer__HoGEa"
+                                style={{
+                                  backgroundImage: `url(${asset.product_image})`,
+                                  //           height: "200px",
+                                  //           width: "100%",
+                                  //           backgroundRepeat: "no-repeat",
+                                  //           backgroundSize: "cover",
+                                  //           borderRadius: "8px",
+                                  //           borderBottomLeftRadius: "0px",
+                                  //           borderBottomRightRadius: "0px",
+                                  //   backgroundPositionY: "center",
+                                }}
+                              >
+                                <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                  <div className="asset_name">
+                                    {asset.product_name}
+                                  </div>
+                                  <div className="asset_prices_div">
+                                    <div className="asset_title">
+                                      ₦{numberWithCommas(asset.amount)}{" "}
+                                      <span className="slashed_price">
+                                        ₦{numberWithCommas(asset.amount * 2)}
+                                      </span>
+                                    </div>
+                                    <div className="amount_per_day_div">
+                                      ₦
+                                      {numberWithCommas(
+                                        (
+                                          asset.amount / asset.product_duration
+                                        ).toFixed()
+                                      )}
+                                      <span className="per_day_symbol">
+                                        {" "}
+                                        / perday
+                                      </span>
+                                    </div>
+                                  </div>
+                                </div>
+                                {/* </a> */}
                               </div>
-                            </div>
-                          </div>
-                          {/* </a> */}
-                        </div>
-                      </li>
-                    </a>
-                  );
-                })
+                            </li>
+                          </a>
+                        );
+                      }
+                    )}
+                  </Carousel>
+                </>
               )}
             </div>
+            {/* </div> */}
           </div>
 
           {/* =========[[[[[[[[[]]]]]]]]] */}
@@ -954,16 +1083,16 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {musicalEquipmentData.length <= 0 ? (
+                {musicalEquipmentData.length == 0 ? (
                   <NoDataFoundComponent text={text} />
                 ) : (
-                  musicalEquipmentData.slice(0, 12).map((asset, index7) => {
+                  musicalEquipmentData.slice(0, 12).map((asset) => {
                     return (
                       <a
                         href={`/dashboard/products/details/${
                           asset.id
                         }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        key={index7.toString()}
+                        // key={index7.toString()}
                       >
                         <li className="carous_list no_marg">
                           <div

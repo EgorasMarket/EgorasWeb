@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
+import DashBoardCard from "../DashBoardCard";
 import axios from "axios";
 import { connect } from "react-redux";
 import { API_URL2 as api_url2 } from "../../../../../actions/types";
@@ -8,6 +9,26 @@ import "../DashboardStyles/dashboard_savings.css";
 import LoadingIcons from "react-loading-icons";
 import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 import { numberWithCommas } from "../../../../../static";
+
+const responsive6 = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 4,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1024 },
+    items: 3,
+  },
+  tablet: {
+    breakpoint: { max: 1024, min: 600 },
+    items: 2,
+  },
+  mobile: {
+    breakpoint: { max: 600, min: 0 },
+    items: 1,
+  },
+};
 const responsive7 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -54,10 +75,11 @@ function DashboardSavingsPage({ match, auth }) {
 
   const [accountInfo, setAccountInfo] = useState({
     ledger: 0,
+    balance: 0,
     pending_sum: 0,
     total_sum: 0,
   });
-  const { ledger, pending_sum, total_sum } = accountInfo;
+  const { ledger, pending_sum, balance, total_sum } = accountInfo;
 
   useEffect(() => {
     axios
@@ -109,6 +131,7 @@ function DashboardSavingsPage({ match, auth }) {
         setLoading(false);
         setAccountInfo({
           ledger: data.data.data.ledger,
+          balance: Number(data.data.data.balance).toFixed(3),
           pending_sum: data.data.data.pending_sum,
           total_sum: data.data.data.total_sum,
         });
@@ -155,69 +178,56 @@ function DashboardSavingsPage({ match, auth }) {
     <div className="other2">
       <section className="no-bg">
         <div className="container">
+       
           <div className="dash_savings_area">
             <div className="dash_savings_area1">
               <div className="dash_savings_area1_title">Savings Overview</div>
-              <div className="savings_overview_card">
-                <div className="savings_overview_card1 over_first_card">
-                  <div className="card_over_body">
-                    <div className="card_over_title">
-                      Total Savings
-                      {Loading == true ? (
-                        <div className="loading_money_icon">
-                          <LoadingIcons.Oval fill="#fff" />
-                        </div>
-                      ) : (
-                        <div className="card_over_balance">
-                          ₦{numberWithCommas(parseInt(total_sum).toFixed(2))}
-                        </div>
-                      )}
-                    </div>
+              <Carousel
+                responsive={responsive6}
+                className="partnerCards LEFTARROW gtr"
+                showDots={true}
+                //   infinite={false}
+                autoPlay={false}
+                autoPlaySpeed={9000}
+                infinite={false}
+                draggable={true}
+                swipeable={true}
+                // transitionDuration={1000}
+                style={{ height: "25em" }}
+              >
+                {/* {data.dashBoardHomeCard.map((asset, index) => ( */}
+                <DashBoardCard
+                  background={"/img/save_card1.svg"}
+                  title={"Total Savings"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(total_sum).toFixed(2))}
+                />
+                <DashBoardCard
+                  background={"/img/save_card2.svg"}
+                  title={"Pending Payment"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(pending_sum).toFixed(2))}
+                />
+                <DashBoardCard
+                  background={"/img/save_card3.svg"}
+                  title={"Wallet Balance"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(balance).toFixed(2))}
+                />
+                <DashBoardCard
+                  background={"/img/save_card3.svg"}
+                  title={"Ledger Balance"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(ledger).toFixed(2))}
+                />
 
-                    <div className="card_over_balance_button">Start Saving</div>
-                  </div>
-                </div>
-                <div className="savings_overview_card1 over_first_card">
-                  <div className="card_over_body">
-                    <div className="card_over_title">
-                      Pending Payment
-                      {Loading == true ? (
-                        <div className="loading_money_icon">
-                          <LoadingIcons.Oval fill="#fff" />
-                        </div>
-                      ) : (
-                        <div className="card_over_balance">
-                          ₦{numberWithCommas(parseInt(pending_sum).toFixed(2))}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="card_over_balance_button">Start Saving</div>
-                  </div>
-                </div>
-                <div className="savings_overview_card1 over_first_card">
-                  <div className="card_over_body">
-                    <div className="card_over_title">
-                      Ledger Balance
-                      {Loading == true ? (
-                        <div className="loading_money_icon">
-                          <LoadingIcons.Oval fill="#fff" />
-                        </div>
-                      ) : (
-                        <div className="card_over_balance">
-                          ₦{numberWithCommas(parseInt(ledger).toFixed(2))}
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="card_over_balance_button">Start Saving</div>
-                  </div>
-                </div>
-
-                {/* <div className="savings_overview_card1 over_second_card"></div>
-                <div className="savings_overview_card1  over_third_card"></div>
-                <div className="savings_overview_card1 over_fourth_card"></div> */}
-              </div>
+                {/* ))} */}
+              </Carousel>
+            
               {userLockId.length <= 0 ? null : (
                 <div className="savings_overview_body_cont1">
                   Total Number of Locked{" "}
