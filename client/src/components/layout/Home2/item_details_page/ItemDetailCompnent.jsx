@@ -282,15 +282,12 @@ const ItemDetailComponent = ({
               className="product_details_img"
             /> */}
             {moreImg.length == 0 ? (
-              <img
-                src={api_url2 + "/" + product_image}
-                className="image_carooooo"
-              />
+              <img src={product_image} className="image_carooooo" />
             ) : (
               <ProductImageCarousel
-                img={api_url2 + "/" + moreImg[0]}
-                img2={api_url2 + "/" + moreImg[1]}
-                img3={api_url2 + "/" + moreImg[2]}
+                img={moreImg[0]}
+                img2={moreImg[1]}
+                img3={moreImg[2]}
               />
             )}
           </div>
@@ -487,9 +484,7 @@ const ItemDetailComponent = ({
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
+                              backgroundImage: `url(${asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -500,24 +495,6 @@ const ItemDetailComponent = ({
                               //   backgroundPositionY: "center",
                             }}
                           >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                {asset.payment_type == "OUTRIGHT" ? (
-                                  <p className="no_margg"> Buy now</p>
-                                ) : (
-                                  <p className="no_margg"> Save now</p>
-                                )}
-                              </button>
-
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div></div>
-                              ) : (
-                                <button className="items_remaining_btn2">
-                                  {" "}
-                                  40% locked
-                                </button>
-                              )}
-                            </div>
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
                               <div className="asset_name">
                                 {asset.product_name}
