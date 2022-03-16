@@ -12,14 +12,14 @@ const SignupComp = ({ adminAddCustomer }) => {
   const [userAuth, setUserAuth] = useState({
     fullname: "",
     email: "",
-    password: "",
+    // password: "",
     // BVN: "",
     phoneNumber: "",
-    confirmpassword: "",
+    // confirmpassword: "",
     InfoReason: "",
   });
 
-  const { fullname, email, password, confirmpassword, phoneNumber, InfoReason } = userAuth;
+  const { fullname, email, phoneNumber, InfoReason } = userAuth;
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -32,22 +32,22 @@ const SignupComp = ({ adminAddCustomer }) => {
 
   const submitData = async (e) => {
     // //console.log('ggg');
-    if (fullname === '' || password === '' || phoneNumber === '' || confirmpassword === '' || InfoReason === '') {
+    if (fullname === '' || phoneNumber === '' || InfoReason === '') {
       //console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
       setAlert('All supply all fields.');
       setAlertType('danger')
       //console.log('All supply all fields.');
     } else {
 
-      if (password !== confirmpassword) {
-        setAlert('Password do not match.');
-        setAlertType('danger')
-      }
+      // if (password !== confirmpassword) {
+      //   setAlert('Password do not match.');
+      //   setAlertType('danger')
+      // }
 
       let res = await adminAddCustomer(
         fullname,
         email,
-        password,
+        // password,
         // BVN,
         phoneNumber,
         InfoReason
@@ -58,6 +58,7 @@ const SignupComp = ({ adminAddCustomer }) => {
           setIsSuccessful(true);
         //console.log("okay Good Server");
       } else {
+        console.log(res.data.data);
         setAlert(res.data.data.errors[0].msg);
         setAlertType('danger')
       }
@@ -111,7 +112,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 onChange={onChange}
               />
             </div>
-            <div className="signup_input_field1_cont">
+            {/* <div className="signup_input_field1_cont">
               <span className="input_title">Password</span>
               <input
                 type="password"
@@ -134,7 +135,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 className="signup_input_field"
                   placeHolder="****"
               />
-            </div>
+            </div> */}
             <div className="signup_input_field1_cont">
               <span className="input_title">How did you hear about us?</span>
 

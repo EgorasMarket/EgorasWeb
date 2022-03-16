@@ -385,7 +385,7 @@ export const ForgetPassword = (email) => async (dispatch) => {
 // Admin Register Customer
 
 export const adminAddCustomer =
-  (fullname, email, password, phoneNumber, InfoReason) =>
+  (fullname, email, phoneNumber, InfoReason) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -398,7 +398,6 @@ export const adminAddCustomer =
     const body = JSON.stringify({
       fullname,
       email,
-      password,
       // BVN,
       phoneNumber,
       InfoReason,

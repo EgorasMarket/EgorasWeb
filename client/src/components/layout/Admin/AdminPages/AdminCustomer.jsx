@@ -30,14 +30,14 @@ const AdminCustomer = () => {
   useEffect(() => {
     // //console.log('ttttrr');
     axios
-      .get(api_url2 + "/v1/admin/retrieve/customers/byBranch/", null, config)
+      .get(api_url2 + "/v1/admin/retrieve/customers/byBranch", null, config)
       .then((data) => {
         //console.log(data.data.data, "king");
 
         setAllCustomers(data.data.data);
       })
       .catch((err) => {
-        //console.log(err.response, 'ooooo'); // "oh, no!"
+        console.log(err.response, 'ooooo'); // "oh, no!"
       });
 
     //console.log("my naem");

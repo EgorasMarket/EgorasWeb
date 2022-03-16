@@ -18,6 +18,7 @@ import Item_details_main2 from "./AdminPages/AdminItemsDetailsPage";
 
 import "./AdminStyles/admin.css";
 import Page from "./AdminPages/dashboardIn";
+import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
 import ItemsPage2 from "./AdminPages/AdminItemsDetailsPage";
 
 const Admin = ({ isAuthenticated, loading }) => {
@@ -119,6 +120,14 @@ const Admin = ({ isAuthenticated, loading }) => {
                 // path="/dashboard/products/details/:id/:name"
                 // / dashboard/products/details/:id/:name
                 component={Page}
+              />
+
+              <Route
+                exact
+                path="/super_admin/user_overview/:id"
+                // path="/dashboard/products/details/:id/:name"
+                // / dashboard/products/details/:id/:name
+                component={AdminSavingsOverview}
               />
 
                {/* <Route
