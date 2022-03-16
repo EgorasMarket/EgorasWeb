@@ -24,7 +24,9 @@ import {
   nextOfKING,
   changePassword,
 } from "../../../../../actions/auth";
+import './accF.css'
 import { setAlert } from "../../../../../actions/alert";
+import validator from 'validator'
 // import {getNaame} from "../../../Signup/signup"
 
 function DashboardAccountPage({
@@ -56,6 +58,25 @@ function DashboardAccountPage({
   const [customer_image, setcustomer_image] = useState("");
   const [customerBvn1, setCustomerBvn1] = useState("");
   const [bvnId,setBvnId]= useState({})
+
+  const [disabled1,setDisabled1]=useState(false)
+  const [disabled2,setDisabled2]=useState(false)
+  const [disabled3,setDisabled3]=useState(false)
+  
+  const [fold,setFold]=useState('save_changes_btn')
+  const [fold1,setFold1]=useState('save_changes_btn')
+  const [fold2,setFold2]=useState('add_photo')
+  const [emailError,setEmailError]=useState('Email Address')
+
+  const validateEmail = (e) => {
+    var email = e.target.value
+  
+    if (validator.isEmail(email)) {
+      setEmailError('Valid Email :')
+    } else {
+      setEmailError(label4)
+    }
+  }
 
 
   const [nextKin, setNextKin] = useState({
@@ -228,8 +249,71 @@ useEffect(()=>{
 
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
+
+    var email = e.target.value
+  
+    if (validator.isEmail(email)) {
+      setEmailError('Valid Email :')
+    } else {
+      setEmailError(label4)
+    }
+
     //console.log(nextKin);
   };
+
+
+const onChangeFor22 = (e) => {
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value }); 
+  };
+  
+  const onChangeFor23 = (e) => {
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value }); 
+  };
+  const onChangeFor24 = (e) => {
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value }); 
+  };
+  
+  const onChangeFor5=(e)=>{
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
+
+    if(firstname.length === null ){
+      setError4(label3)
+    }else{
+      setError4('First Name')
+    }
+  }
+
+  const onChangeFor6=(e)=>{
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
+
+    if(lastname.length === null){
+      setError5(label3)
+    }else{
+      setError5('Last Name')
+    }
+    
+  }
+
+  const onChangeFor7=(e)=>{
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
+
+    // if(phoneNumber === "" || phoneNumber.length < 10 || phoneNumber.length > 10 ){
+    //   setError6(label5)
+    // }
+    // if (phoneNumber.length === 10){
+    //   setError6('Phone Number')
+    // }
+    // if{
+    //   setError6('Phone Number')
+    // }
+    
+  }
+
+
+  // useEffect(()=>{
+      
+      
+  // },[phoneNumber])
 
   const onChangeFor4 = (e) => {
     setChangePassword({ ...changePassword1, [e.target.name]: e.target.value });
@@ -252,12 +336,26 @@ useEffect(()=>{
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
+  const [trig,setTrig]=useState(false)
 
   // const [bvnId,setBvnId]= useState("")
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
-    const [error4,setError4]=useState('First Name1')
+    const [error4,setError4]=useState('First Name')
+    const [error5,setError5]=useState('Last Name')
+    const [error6,setError6]=useState('Phone Number')
+    const [error7,setError7]=useState('Address')
+    const [error8,setError8]=useState('BVN')
+    const [error9,setError9]=useState('Select Relationship')
+    const $disableMe = document.getElementById('fadat');
+    const [empty,setEmpty]=useState(true)
 
   const label3 =(<span style={{color:'red'}}>First Name Required</span>)
+  const label4 =(<span style={{color:'red'}}>Enter Valid Email</span>)
+  const label14 =(<span style={{color:'red'}}>last Name Required</span>)
+  const label5 =(<span style={{color:'red'}}>Enter Phone Number</span>)
+  const label6 =(<span style={{color:'red'}}>Enter Address</span>)
+  const label7 =(<span style={{color:'red'}}>Enter  BVN</span>)
+  const label8 =(<span style={{color:'red'}}>Relationship Required</span>)
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -333,7 +431,16 @@ useEffect(()=>{
   const sends = async (e) => {
     let res = await sumitGenderAndDate(gender, dateOfBirth);
 
+    setDisabled2(true)
+    setFold1('disBtn')
+
+    // $disableMe.setAttribute('disabled','disabled')
     //console.log(res);
+
+    setTimeout(()=>{
+      setDisabled2(false)
+      setFold1('save_changes_btn')
+    },5000)
 
     if (res.success === true) {
       //console.log("okay Good Server");
@@ -342,6 +449,8 @@ useEffect(()=>{
       // setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
+
+
 
   // const updateInfo = async (e) => {
   //   let res = await userInfo(firstname1,lastname1,phoneNumber1,email1,BVN1);
@@ -355,27 +464,96 @@ useEffect(()=>{
   //   }
   // };
 
-  const nextOfKINGS = async (e) => {
-    let res = await nextOfKING(
-      firstname,
-      lastname,
-      email,
-      phoneNumber,
-      relationship,
-      gender
-    );
+  useEffect(()=>{
 
+    if(relationship.length > 1){
+      setError9('Select Relationship')
+     }
+
+  },[relationship])
+
+
+
+
+  const nextOfKINGS = async (e) => {
     
-    if(nxtfirstname === "" || nxtfirstname.length === 0 ){
+    // $disableMe.setAttribute('diasbled','diasbled')
+
+    if(firstname ==="" || lastname ==="" || email ==="" || phoneNumber ==="" || relationship ==="" ){
+    //  console.log('fil in')
+     if(firstname === ""){
       setError4(label3)
+     }
+     if(lastname === ""){
+      setError5(label14)
+     }
+     if(phoneNumber === ""){
+      setError6(label5)
+     }
+     if(relationship === ""){
+      setError9(label8)
+     }
+     if(email === null){
+      setEmailError(label4)
+     }
+     if( phoneNumber.length < 11 || phoneNumber.length > 11 ){
+      setError6(label5)
+     }else{
+      setError6('Phone Number')
     }
+
+    }else{
+      let res = await nextOfKING(
+        firstname,
+        lastname,
+        email,
+        phoneNumber,
+        relationship,
+        gender
+      );
+
+    setDisabled1(true)
+    setFold('disBtn')
+
+    setTimeout(()=>{
+      setDisabled1(false)
+      setFold('save_changes_btn')
+    },5000)
+    
+    // if(firstname === "" || firstname.length === 0 ){
+    //   setError4(label3)
+    // }else{
+    //   setError4('First Name')
+    // }
+console.log(res.data.data.success )
 
     if (res.data.data.success === true) {
       //console.log("okay Good Server");
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
+
+  }
   };
+
+  // useEffect(()=>{
+  //   if(firstname === "" || firstname.length === 0 ){
+  //     setError4(label3)
+  //   }else{
+  //     setError4('First Name')
+  //   }
+
+  // },[firstname])
+
+
+  // useEffect(()=>{
+  //   if(lastname === "" || lastname.length === 0 ){
+  //     setError5(label3)
+  //   }else{
+  //     setError5('Last Name')
+  //   }
+
+  // },[lastname])
 
   const sumitChangePassword = async (e) => {
     let res = await changePassword(oldpassword, newpassword);
@@ -426,15 +604,51 @@ useEffect(()=>{
 
   const submitAddress = async (e) => {
     e.preventDefault();
+   
+    // if (empty){
 
-    // //console.log('vbvbvb');
+      // if(customerAddress ===""){
+      //   setError7(label6)
+      // }
+      if (customerAddress === "" || customerBvn1 === "" || (customerBvn1.length > 11 ||customerBvn1.length < 11)){
+        if(customerAddress === ""){
+          setError7(label6)
+        }
+        if(customerBvn1 === ""){
+          setError8(label7)
+        }
+
+       if (customerBvn1.length > 11 ||customerBvn1.length < 11){
+          setError8(label7)
+        }
+
+      }else{
+
+      // if(customerBvn1===""){
+      //   setError8(label7)
+      // }
+
+    // }else{
+ 
+    setFold2('disBtn')
+    // setDisabled3(true)
+    // setFold2('disBtn')
+    // setError7('Address')
+    // setError8('BVN')
 
     if (customerAddress === "") {
       //console.log("empty address");
 
+      setDisabled3(false)
+      // setFold2('add_photo')
+      
+
       // setAlert('Please provide a passport photo', 'danger');
     } else {
       const body = JSON.stringify({ customerAddress });
+      setError7('Address')
+      setDisabled3(true)
+     
       //console.log(body);
 
       try {
@@ -459,12 +673,18 @@ useEffect(()=>{
      // comments for bvn
     if (customerBvn1 === "") {
       //console.log("empty address");
+     
+      setDisabled3(false)
+      // setFold2('add_photo')
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
       let BVN =customerBvn1;
       let customer_id=idNum;
       const body = JSON.stringify({ BVN,customer_id });
+      setDisabled3(true)
+      setError8('BVN')
+      // setFold2('disBtn')
       // console.log(body);
 
       try {
@@ -485,7 +705,16 @@ useEffect(()=>{
         // setAlert('Check your internet connection', 'danger');
       }
     }
+ 
+    setTimeout(()=>{
+      setDisabled3(false)
+      setFold2('add_photo')
 
+    },5000)
+
+  }
+  
+  // }
   };
 
 
@@ -686,7 +915,7 @@ useEffect(()=>{
                       <div className="toggle_body_area1_cont1">
                         <div className="toggle_body_area1_cont1_txts"></div>
                         <div className="toggle_body_area1_cont1_input">
-                          <button className="save_changes_btn" onClick={sends}>
+                          <button className={fold1} disable={disabled2} onClick={sends} >
                             Save Changes
                           </button>
                         </div>
@@ -725,11 +954,12 @@ useEffect(()=>{
                               className="name_input1"
                               id="outlined-basic"
                               // label="First Name"
-                              label={error4}
+                              label="First Name"
 
                               variant="outlined"
                               name="firstname"
                               value={nxtfirstname}
+                           
                               // onChange={onChangeFor2}
                             />
                             <TextField
@@ -904,20 +1134,22 @@ useEffect(()=>{
                             <TextField
                               className="name_input1"
                               id="outlined-basic"
-                              label="First Name"
+                              label={error4}
                               variant="outlined"
                               name="firstname"
                               value={firstname}
-                              onChange={onChangeFor2}
+                              onChange={onChangeFor5}
+                             
                             />
                             <TextField
                               className="name_input1"
                               id="outlined-basic"
-                              label="Last Name"
+                              label={error5}
                               variant="outlined"
                               name="lastname"
                               value={lastname}
-                              onChange={onChangeFor2}
+                              onChange={onChangeFor6}
+                          
                             />
                           </div>
                         </div>
@@ -934,7 +1166,7 @@ useEffect(()=>{
                             <TextField
                               className="name_input1a"
                               id="outlined-basic"
-                              label="Email Address"
+                              label={emailError}
                               variant="outlined"
                               name="email"
                               value={email}
@@ -955,11 +1187,11 @@ useEffect(()=>{
                             <TextField
                               className="name_input1a"
                               id="outlined-basic"
-                              label="Phone number"
+                              label={error6}
                               variant="outlined"
                               name="phoneNumber"
                               value={phoneNumber}
-                              onChange={onChangeFor2}
+                              onChange={onChangeFor7}
                             />
                           </div>
                         </div>
@@ -995,7 +1227,7 @@ useEffect(()=>{
                             <div className="name_input1a">
                               <FormControl fullWidth>
                                 <InputLabel id="demo-simple-select-label">
-                                  Select Relationship
+                                  {error9}
                                 </InputLabel>
                                 <Select
                                   labelId="demo-simple-select-label"
@@ -1004,7 +1236,7 @@ useEffect(()=>{
                                   value={relationship}
                                   label="Age"
                                   // onChange={handleChange}
-                                  onChange={onChangeFor2}
+                                  onChange={onChangeFor22}
                                   // onSelect={onChangeFor2}
                                 >
                                   <MenuItem name="relationship" value="Mother">
@@ -1072,8 +1304,10 @@ useEffect(()=>{
                           <div className="toggle_body_area1_cont1_txts"></div>
                           <div className="toggle_body_area1_cont1_input">
                             <button
-                              className="save_changes_btn"
-                              onClick={nextOfKINGS}
+                              // className={disabled1 ? "save_changes_btn" :"disBtn"}
+                              className={fold}
+                              onClick={nextOfKINGS} disabled={disabled1}
+                              id="school"
                             >
                               Save Changes
                             </button>
@@ -1090,6 +1324,14 @@ useEffect(()=>{
               ) : null}
               {/* ================= */}
               {/* ================= */}
+
+                           {/* <button
+                              className="save_changes_btn" 
+                              onClick={nextOfKINGS} disabled={disabled1}
+                              id="school"
+                            >
+                              Save Changes
+                            </button> */}
               {/* ================= */}
               {/* ================= */}
               {activeBg == "security" ? (
@@ -1147,7 +1389,7 @@ useEffect(()=>{
                         <div className="input_btn_grouped_div" ><TextField
                              className="name_input1a"
                             id="outlined-basic"
-                            label="BVN"
+                            label={error8}
                             variant="outlined"
                             name="customerAddress"
                             value={customerBvn1}
@@ -1203,16 +1445,17 @@ useEffect(()=>{
                           <TextField
                             className="name_input1a"
                             id="outlined-basic"
-                            label="Address"
+                            label={error7}
                             variant="outlined"
                             name="customerAddress"
                             value={customerAddress}
                             onChange={onChangeaddress}
                           />
                           <button
-                            className="add_photo"
+                            className={fold2}
                             style={{ width: "25%" }}
                             onClick={submitAddress}
+                            disabled={disabled3}
                           >
                             Submit Address
                           </button>
