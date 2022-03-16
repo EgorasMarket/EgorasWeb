@@ -278,49 +278,45 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               </div>
               {searchBar == true ? (
                 <>
-                  <div
-                    style={{ width: "100%", position: "relative" }}
-                    // onClick={close}
-                  >
-                    <div className="dash_board_header_search_bar">
-                      <div className="all_cat_link">
-                        All Categories
-                        <ListIcon className="all_cat_list_icon" />
-                      </div>
-                      <div className="search_input_cont">
-                        <input
-                          type="search"
-                          name="search"
-                          value={searchTerm}
-                          id="search"
-                          className="dash_board_header_search_input"
-                          placeholder="Search products, brands and categories"
-                          onChange={handler}
-                          autocomplete="off"
-                        />
+                 <div style={{ width: "100%", position: "relative" }} >
+                <div className="dash_board_header_search_bar">
+                  <div className="all_cat_link">
+                    All Categories
+                    <ListIcon className="all_cat_list_icon" />
+                  </div>
+                  <div className="search_input_cont">
+                    <input
+                      type="search"
+                      name="search"
+                      value={searchTerm}
+                      id="search"
+                      className="dash_board_header_search_input"
+                      placeholder="Search products, brands and categories"
+                      onChange={handler}
+                      autocomplete="off"
+                    />
 
-                        <button className="search_button">
-                          {" "}
-                          <SearchIcon className="search_bar_icon" />
-                        </button>
-                        {searchTerm.length === 0 ? null : (
-                          <div
-                            id="fodo"
-                            style={{
-                              position: "absolute",
-                              zIndex: "500",
-                              width: "100%",
-                              top: "56px",
-                              maxHeight: "500px",
-                              height: "auto",
-                              backgroundColor: "#fff",
-                              overflowY: "scroll",
-                              borderBottomRightRadius: "20px",
-                              borderBottomLeftRadius: "20px",
-                            }}
-                            className="scr"
-                          >
-                            {/* <a
+                    <button className="search_button">
+                      {" "}
+                      <SearchIcon className="search_bar_icon" />
+                    </button>
+                  {(searchTerm.length === 0) ? null: (
+                
+                      <div
+                      id="fodo"
+                        style={{
+                          position: "absolute",
+                          zIndex: "500",
+                          width: "100%",
+                          top: "56px",
+                          maxHeight:'500px',
+                          height: "auto",
+                          backgroundColor: "#fff",
+                          overflowY: "scroll",
+                        }}
+                        className="scr"
+                      >
+                          {/* <a
                      href={`/dashboard/products/categories/${item.product_name}`} */}
 
                             <ul style={{ margin: "0" }}>
