@@ -62,11 +62,12 @@ const CheckoutModalComponent = ({
   const [fullname, setName] = useState('');
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  const [tokenBal, setTokenBal] = useState('0.000');
-  const [assetVal, setAssetVal] = useState('0.000');
+  const [tokenBal, setTokenBal] = useState('');
+  const [assetVal, setAssetVal] = useState('');
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
   const [errorDiv, setErrorDiv] = useState(false);
+  const [total, setTotal] = useState('');
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
   let deliveryFee = 0;
@@ -80,6 +81,13 @@ const CheckoutModalComponent = ({
   const [addressName, setAddressName] = useState('');
 
   useEffect(async () => {
+    if (payment_type === 'OUTRIGHT') {
+      // alert(initial_deposit);
+      setTotal(amount);
+      alert(total);
+    } else if (payment_type === 'INSTALLMENT') {
+      setTotal(initial_deposit + deliveryFee);
+    }
     await axios
       .get(api_url2 + '/v1/user/address/info', null, config)
       .then((response) => {
@@ -208,8 +216,10 @@ const CheckoutModalComponent = ({
         break;
 
       case 1:
-        if (tokenBal >= initial_deposit) {
-          setProcessingDiv(true);
+        setProcessingDiv(true);
+        alert(tokenBal);
+
+        if (tokenBal >= Number(total)) {
           //
           const orderBody = JSON.stringify({
             product_id,
@@ -240,12 +250,15 @@ const CheckoutModalComponent = ({
             .catch((err) => {
               console.log(err.response);
               setProcessingDiv(false);
-              setErrorDiv(true);
+              // setErrorDiv(true);
+              alert(err);
             });
           //
         } else {
+          console.log('something happened');
           setProcessingDiv(false);
           setErrorDiv(true);
+          // alert('hiy');
         }
         break;
     }
@@ -336,52 +349,103 @@ const CheckoutModalComponent = ({
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
-                    <tr className="assets-category-row">
-                      <td className="save_item_data">
-                        <div className="assets-data height_data">
-                          <img
-                            src={product_image}
-                            alt=""
-                            className="save_item_img_img"
-                          />
-                        </div>
-                      </td>
-                      {/* ======== */}
-                      {/* ======== */}
-                      {/* ======== */}
-                      {/* ======== */}
-                      <td className="save_item_data1">
-                        <div className="save_items_details">
-                          <div className="save_items_details1">
-                            {product_name}
-                          </div>
-                          <div className="save_item_days_left">
-                            {days_left} days left
-                          </div>
-                          <div className="save_total_locked_amount">
-                            <span className="items_left_amount">
-                              Total Amount Locked on Item
-                            </span>
-                            ₦{initial_deposit}
-                          </div>
-                        </div>
-                      </td>
-                      <td className="save_item_data1b">
-                        <div className="assets-data-name_last">
-                          ₦{paymentPerday}
-                        </div>
-                      </td>
-                      {/* <td className="save_item_data1b">
+                    {payment_type === 'OUTRIGHT' ? (
+                      <>
+                        <tr className="assets-category-row">
+                          <td className="save_item_data">
+                            <div className="assets-data height_data">
+                              <img
+                                src={product_image}
+                                alt=""
+                                className="save_item_img_img"
+                              />
+                            </div>
+                          </td>
+                          {/* ======== */}
+                          {/* ======== */}
+                          {/* ======== */}
+                          {/* ======== */}
+                          <td className="save_item_data1">
+                            <div className="save_items_details">
+                              <div className="save_items_details1">
+                                {product_name}
+                              </div>
+                              {/* <div className="save_item_days_left">
+                                {days_left} days left
+                              </div> */}
+                              <div className="save_total_locked_amount">
+                                <span className="items_left_amount">
+                                  Total Amount for Item
+                                </span>
+                                ₦{amount}
+                              </div>
+                            </div>
+                          </td>
+                          {/* <td className="save_item_data1b">
+                            <div className="assets-data-name_last">
+                              ₦{paymentPerday}
+                            </div>
+                          </td> */}
+                          {/* <td className="save_item_data1b">
                                 <div className="assets-data-name center_name">
                                   ₦{amount}
                                 </div>
                               </td> */}
-                      <td className="save_item_data1b">
-                        <div className="assets-data-name_last">
-                          ₦{initial_deposit}
-                        </div>
-                      </td>
-                    </tr>
+                          {/* <td className="save_item_data1b">
+                            <div className="assets-data-name_last">
+                              ₦{initial_deposit}
+                            </div>
+                          </td> */}
+                        </tr>
+                      </>
+                    ) : (
+                      <tr className="assets-category-row">
+                        <td className="save_item_data">
+                          <div className="assets-data height_data">
+                            <img
+                              src={product_image}
+                              alt=""
+                              className="save_item_img_img"
+                            />
+                          </div>
+                        </td>
+                        {/* ======== */}
+                        {/* ======== */}
+                        {/* ======== */}
+                        {/* ======== */}
+                        <td className="save_item_data1">
+                          <div className="save_items_details">
+                            <div className="save_items_details1">
+                              {product_name}
+                            </div>
+                            <div className="save_item_days_left">
+                              {days_left} days left
+                            </div>
+                            <div className="save_total_locked_amount">
+                              <span className="items_left_amount">
+                                Total Amount Locked on Item
+                              </span>
+                              ₦{initial_deposit}
+                            </div>
+                          </div>
+                        </td>
+                        <td className="save_item_data1b">
+                          <div className="assets-data-name_last">
+                            ₦{paymentPerday}
+                          </div>
+                        </td>
+                        {/* <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  ₦{amount}
+                                </div>
+                              </td> */}
+                        <td className="save_item_data1b">
+                          <div className="assets-data-name_last">
+                            ₦{initial_deposit}
+                          </div>
+                        </td>
+                      </tr>
+                    )}
                   </tbody>
                 </table>
               </div>
@@ -471,7 +535,10 @@ const CheckoutModalComponent = ({
             <div className="sub_total_div">
               Sub Total:{' '}
               <span className="sub_total_div_span">
-                ₦{initial_deposit}
+                ₦
+                {payment_type === 'OUTRIGHT'
+                  ? amount
+                  : initial_deposit}
               </span>
             </div>
             {/* ========== */}
@@ -492,9 +559,7 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             <div className="transac_secure_div">
               Total{' '}
-              <span className="sub_total_div_span">
-                ₦{initial_deposit + deliveryFee}
-              </span>
+              <span className="sub_total_div_span">₦{total}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
