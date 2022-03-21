@@ -230,15 +230,6 @@ function DashboardSavingsPage({ match, auth }) {
                 />
                 <DashBoardCard
                   background={'/img/save_card3.svg'}
-                  title={'Wallet Balance'}
-                  Loading={Loading}
-                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(
-                    parseInt(balance).toFixed(2)
-                  )}
-                />
-                <DashBoardCard
-                  background={'/img/save_card3.svg'}
                   title={'Ledger Balance'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
