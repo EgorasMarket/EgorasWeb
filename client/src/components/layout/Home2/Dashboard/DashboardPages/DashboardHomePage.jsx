@@ -190,8 +190,7 @@ const DashboardHomePage = ({ auth, match }) => {
   }, []);
 
   useEffect(() => {
-    // //console.log(match.params.prduct_id,"play every day")
-    //console.log(auth.user.user.id)
+   
     axios
       .get(
         api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,

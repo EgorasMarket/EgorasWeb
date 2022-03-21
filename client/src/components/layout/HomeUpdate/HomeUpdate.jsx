@@ -82,14 +82,16 @@ const HomeUpdate = () => {
                 to get any desired item.
               </div>{" "}
               <div className="h_update_hero_area1_para_btns">
-                <a href="/signup">
+                <a href="/loan">
                   <button className="h_update_hero_area1_para_btn1">
-                    Start Now <ArrowRightIcon />
+                    Borrow Now <ArrowRightIcon />
                   </button>
                 </a>
-                <button className="h_update_hero_area1_para_btn2">
-                  <ArrowRightIcon /> Play Video
-                </button>
+                <a href="/savings">
+                  <button className="h_update_hero_area1_para_btn2">
+                    <ArrowRightIcon /> Save Now
+                  </button>
+                </a>
               </div>
             </div>
             <div className="h_update_hero_area2">
