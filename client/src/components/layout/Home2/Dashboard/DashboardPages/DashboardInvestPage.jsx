@@ -32,8 +32,12 @@ const responsive7 = {
     items: 8,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: { max: 3000, min: 1480 },
     items: 6,
+  },
+  desktopMedium: {
+    breakpoint: { max: 1480, min: 1024 },
+    items: 5,
   },
   tablet: {
     breakpoint: { max: 1024, min: 600 },
@@ -51,11 +55,11 @@ const responsive8 = {
     items: 8,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1562 },
-    items: 5,
+    breakpoint: { max: 3000, min: 1680 },
+    items: 6,
   },
   tablet: {
-    breakpoint: { max: 1562, min: 1420 },
+    breakpoint: { max: 1680, min: 1420 },
     items: 5,
   },
   tabletMedium: {
@@ -221,9 +225,9 @@ function DashboardInvestPage({ auth }) {
         config
       )
       .then((data) => {
-        console.log(data.data.data.length, 'powerful');
+        // console.log(data.data.data, "powerful");
 
-        setMusicalEquipmentData(data.data.data);
+        musicalEquipmentData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -239,7 +243,7 @@ function DashboardInvestPage({ auth }) {
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
-        setIndustrialEquipmentsData(data.data.data);
+        industrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -321,11 +325,11 @@ function DashboardInvestPage({ auth }) {
       items: 4,
     },
     tablet: {
-      breakpoint: { max: 1780, min: 1400 },
+      breakpoint: { max: 1780, min: 1350 },
       items: 3,
     },
     mobile: {
-      breakpoint: { max: 1400, min: 1024 },
+      breakpoint: { max: 1350, min: 1024 },
       items: 2,
     },
   };
@@ -500,7 +504,7 @@ function DashboardInvestPage({ auth }) {
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                       key={index.toString()}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg inventory_cards">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -652,7 +656,7 @@ function DashboardInvestPage({ auth }) {
                             )}`}
                             // key={index.toString()}
                           >
-                            <li className="carous_list no_marg inventory_cards">
+                            <li className="carous_list no_marg inventory_cards inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -724,7 +728,7 @@ function DashboardInvestPage({ auth }) {
                             )}`}
                             // key={index.toString()}
                           >
-                            <li className="carous_list no_marg inventory_cards">
+                            <li className="carous_list no_marg inventory_cards inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -806,7 +810,7 @@ function DashboardInvestPage({ auth }) {
                       }/${asset.product_name.replace(/\s+/g, '-')}`}
                       key={index.toString()}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg inventory_cards">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -906,7 +910,7 @@ function DashboardInvestPage({ auth }) {
                         }/${asset.product_name.replace(/\s+/g, '-')}`}
                         key={index4.toString()}
                       >
-                        <li className="carous_list no_marg">
+                        <li className="carous_list no_marg inventory_cards">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -987,7 +991,7 @@ function DashboardInvestPage({ auth }) {
                             )}`}
                             key={index5.toString()}
                           >
-                            <li className="carous_list no_marg">
+                            <li className="carous_list no_marg inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -1041,14 +1045,14 @@ function DashboardInvestPage({ auth }) {
                     )}
                   </div>
                   <Carousel
-                    responsive={responsive7}
+                    responsive={responsive8}
                     className="partnerCards LEFTARROW market_carous "
                     showDots={false}
                     //   infinite={false}
                     autoPlay={false}
                     autoPlaySpeed={6000}
                     transitionDelay={'2s'}
-                    infinite={true}
+                    infinite={false}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
@@ -1066,7 +1070,7 @@ function DashboardInvestPage({ auth }) {
                             )}`}
                             key={index5.toString()}
                           >
-                            <li className="carous_list no_marg">
+                            <li className="carous_list no_marg inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -1162,67 +1166,72 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {musicalEquipmentData.length == 0 ? (
+                {musicalEquipmentData.length <= 0 ? (
                   <NoDataFoundComponent text={text} />
                 ) : (
-                  musicalEquipmentData.slice(0, 12).map((asset) => {
-                    return (
-                      <a
-                        href={`/dashboard/products/details/${
-                          asset.id
-                        }/${asset.product_name.replace(/\s+/g, '-')}`}
-                        // key={index7.toString()}
-                      >
-                        <li className="carous_list no_marg">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${asset.product_image})`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_prices_div">
-                                <div className="asset_title">
-                                  ₦{numberWithCommas(asset.amount)}{' '}
-                                  <span className="slashed_price">
+                  musicalEquipmentData
+                    .slice(0, 12)
+                    .map((asset, index7) => {
+                      return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(
+                            /\s+/g,
+                            '-'
+                          )}`}
+                          key={index7.toString()}
+                        >
+                          <li className="carous_list no_marg inventory_cards">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
+                                <div className="asset_prices_div">
+                                  <div className="asset_title">
+                                    ₦{numberWithCommas(asset.amount)}{' '}
+                                    <span className="slashed_price">
+                                      ₦
+                                      {numberWithCommas(
+                                        asset.amount * 2
+                                      )}
+                                    </span>
+                                  </div>
+                                  <div className="amount_per_day_div">
                                     ₦
                                     {numberWithCommas(
-                                      asset.amount * 2
+                                      (
+                                        asset.amount /
+                                        asset.product_duration
+                                      ).toFixed()
                                     )}
-                                  </span>
-                                </div>
-                                <div className="amount_per_day_div">
-                                  ₦
-                                  {numberWithCommas(
-                                    (
-                                      asset.amount /
-                                      asset.product_duration
-                                    ).toFixed()
-                                  )}
-                                  <span className="per_day_symbol">
-                                    {' '}
-                                    / perday
-                                  </span>
+                                    <span className="per_day_symbol">
+                                      {' '}
+                                      / perday
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
+                              {/* </a> */}
                             </div>
-                            {/* </a> */}
-                          </div>
-                        </li>
-                      </a>
-                    );
-                  })
+                          </li>
+                        </a>
+                      );
+                    })
                 )}
               </div>
             </div>

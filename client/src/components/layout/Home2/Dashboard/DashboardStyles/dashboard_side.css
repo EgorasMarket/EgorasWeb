@@ -416,6 +416,15 @@
   a#products {
     margin-right: 20%;
   }
+
+  .center_logo_icon {
+    top: -31px;
+    left: 40%;
+    width: 65px;
+    right: 40%;
+    margin: auto;
+    position: absolute;
+  }
   .sideBar_relative {
     position: relative;
     position: relative;
@@ -460,10 +469,11 @@
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
     background-image: radial-gradient(
-      circle 40px at 50% 0px,
+      circle 45px at 50% 0px,
       #ffffff00 727px,
       #ffffff 50px
     );
+    -webkit-backdrop-filter: blur(26px);
     backdrop-filter: blur(26px);
   }
 

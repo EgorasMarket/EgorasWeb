@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     fontWeight: theme.typography.fontWeightRegular,
   },
 }));
- 
+
 const Footer = () => {
   const FooterHide = window.location.pathname;
   const myArr = FooterHide.split("/");
@@ -47,13 +47,11 @@ const Footer = () => {
     if (FooterHide === "/dashboard") {
       document.getElementById("FooterId").style.display = "none";
     }
- 
-    if (FooterHide === "/super_admin/user_wallet"
-    ) {
+
+    if (FooterHide === "/super_admin/user_wallet") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/dashboard/user_wallet"
-    ) {
+    if (FooterHide === "/dashboard/user_wallet") {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/super_admin/login") {

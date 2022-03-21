@@ -2,12 +2,14 @@ import React, { useState, useEffect, useCallback } from "react";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import axios from "axios";
 import { ProductImageCarousel } from "./ProductImageCarousel";
 import "../Dashboard/DashboardStyles/dashboardCart.css";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import CallIcon from "@mui/icons-material/Call";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { NoDataFoundComponent } from "../Dashboard/NodataFound/NoDataFoundComponent";
 // import { ProductDescription } from "./ProductDescription";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 import { numberWithCommas } from "../../../../static";
@@ -114,6 +116,7 @@ const ItemDetailComponent = ({
     percentage,
     product_brand,
     product_category_code,
+    product_category_desc,
     product_details,
     product_duration,
     product_id,
@@ -140,7 +143,7 @@ const ItemDetailComponent = ({
       console.log(JSON.parse(more_image));
     }
   }, [more_image]);
-
+  const text = "No Products Found";
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -173,6 +176,42 @@ const ItemDetailComponent = ({
       items: 2,
     },
   };
+  const responsive8 = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 8,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1680 },
+      items: 6,
+    },
+    tablet: {
+      breakpoint: { max: 1680, min: 1420 },
+      items: 5,
+    },
+    tabletMedium: {
+      breakpoint: { max: 1420, min: 1024 },
+      items: 4,
+    },
+    tabletSmall: {
+      breakpoint: { max: 1024, min: 810 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 810, min: 590 },
+      items: 3,
+    },
+    mobileSmall: {
+      breakpoint: { max: 590, min: 400 },
+      items: 2,
+    },
+    mobileSmaller: {
+      breakpoint: { max: 400, min: 0 },
+      items: 2,
+    },
+  };
+
   const checkProductType = (payment_type) => {
     const outrightScenario = () => {};
     const installmentScenario = () => {};
@@ -272,7 +311,6 @@ const ItemDetailComponent = ({
         {/* <div className="wrapper"> */}
         {/* <ImageGallery items={images} /> */}
         {/* </div> */}
-
         <div className="product_details_area1">
           <div className="details_area1_cont1">
             {" "}
@@ -373,7 +411,6 @@ const ItemDetailComponent = ({
         {/* =======================================879087070y707680769067 */}
         {/* =======================================879087070y707680769067 */}
         {/* =======================================879087070y707680769067 */}
-
         <div className="description_area">
           <div className="description_header">
             <div
@@ -429,58 +466,40 @@ const ItemDetailComponent = ({
             )}
           </div>
         </div>
-
         {/* {spec.map((pad) => (
               <div style={{ display: "inline-block" }}>{pad}</div>
             ))} */}
-
         {/* ================ */}
         {/* ================ */}
         {/* =================================================================================================================================================================================================================================================================== */}
         {/* =================================================================================================================================================================================================================================================================== */}
-        {/*  Projects Section start*/}
-        <section className="projectsSection" id="projects">
-          <div className="container">
-            <div className="projectsArea">
-              <div className="projectsLinea"></div>
-              <div className="projectsTitleContentsa">
-                <div className="projectTitle">
-                  <h1 className="gttitle TITE">Similar Products</h1>
-                </div>
-                {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-              </div>
 
-              {/* Carousel start==============================
-==============================================
-============================= */}
-
-              <Carousel
-                responsive={responsive6}
-                className="partnerCards LEFTARROW"
-                showDots={false}
-                //   infinite={false}
-                autoPlay={true}
-                autoPlaySpeed={6000}
-                transitionDelay={"2s"}
-                infinite={true}
-                draggable={true}
-                // transitionDuration={500}
-                swipeable={true}
-                style={{ height: "25em" }}
-              >
-                {term.map((asset) => {
-                  if (product_category_code === asset.product_category_code) {
+        <div className="products_display_body" id="computerAcc">
+          <div className="products_display_body_heading">
+            Similar Products
+            <a
+              href={`/dashboard/products/categories/Computer & Accessories`}
+              className="se_all_btnn"
+            >
+              SEE ALL
+              <ChevronRightIcon />
+            </a>
+          </div>
+          <div className=".products_display_body_conts_pad">
+            {term.length <= 0 ? (
+              <NoDataFoundComponent text={text} />
+            ) : (
+              <>
+                <div className="show_prods_on_mobile">
+                  {term.map((asset) => {
                     return (
                       <a
                         href={`/dashboard/products/details/${
                           asset.id
                         }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        // key={index5.toString()}
                       >
-                        <li className="carous_list">
+                        <li className="carous_list no_marg inventory_cards">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -499,11 +518,28 @@ const ItemDetailComponent = ({
                               <div className="asset_name">
                                 {asset.product_name}
                               </div>
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
-                                </span>
+                              <div className="asset_prices_div">
+                                <div className="asset_title">
+                                  ₦{numberWithCommas(parseInt(asset.amount))}{" "}
+                                  <span className="slashed_price">
+                                    ₦
+                                    {numberWithCommas(
+                                      parseInt(asset.amount * 2)
+                                    )}
+                                  </span>
+                                </div>
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    parseInt(
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
                               </div>
                             </div>
                             {/* </a> */}
@@ -511,15 +547,78 @@ const ItemDetailComponent = ({
                         </li>
                       </a>
                     );
-                  }
-                })}
-              </Carousel>
-              {/* Carousel end==============================
+                  })}
+                </div>
+                <Carousel
+                  responsive={responsive8}
+                  className="partnerCards LEFTARROW market_carous"
+                  showDots={false}
+                  //   infinite={false}
+                  autoPlay={true}
+                  autoPlaySpeed={6000}
+                  transitionDelay={"2s"}
+                  infinite={false}
+                  draggable={true}
+                  // transitionDuration={500}
+                  swipeable={true}
+                  style={{ height: "25em" }}
+                >
+                  {term.map((asset) => {
+                    if (product_category_desc === asset.product_category_desc) {
+                      return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        >
+                          <li className="carous_list">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
+                                <div className="asset_title">
+                                  ₦
+                                  {numberWithCommas(
+                                    parseInt(asset.roundedAmount)
+                                  )}{" "}
+                                  <span className="slashed_price">
+                                    ₦
+                                    {numberWithCommas(
+                                      parseInt(asset.roundedAmount * 2)
+                                    )}
+                                  </span>
+                                </div>
+                              </div>
+                              {/* </a> */}
+                            </div>
+                          </li>
+                        </a>
+                      );
+                    }
+                  })}
+                </Carousel>
+              </>
+            )}
+          </div>
+          {/* </div> */}
+        </div>
+        {/* Carousel end==============================
 ==============================================
 ============================= */}
-            </div>
-          </div>
-        </section>
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}
@@ -530,7 +629,6 @@ const ItemDetailComponent = ({
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}
-
         <section className="faq_section">
           <div className="accordion_title">
             Frequently Asked Questions(FAQ).
