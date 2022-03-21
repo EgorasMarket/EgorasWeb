@@ -49,9 +49,11 @@ const Signup = ({ getAuthentication }) => {
   useEffect(() => {
     if (fullname === "") {
       setDisable(true);
-    } else if (email === "") {
-      setDisable(true);
-    } else if (password === "") {
+    } 
+    // else if (email === "") {
+    //   setDisable(true);
+    // }
+     else if (password === "") {
       setDisable(true);
     } else if (phoneNumber === "") {
       setDisable(true);
@@ -225,6 +227,7 @@ const Signup = ({ getAuthentication }) => {
                       onChange={onChange}
                       placeHolder="@gmail.com"
                     />
+                    <div className="weak_pass_div text-muted">* Optional</div>
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Phone Number</span>

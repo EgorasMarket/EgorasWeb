@@ -135,7 +135,7 @@ const AdminSavingsOverview = ({ match }) => {
     axios
       .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
       .then((data) => {
-        //console.log(data.data.data);
+        console.log(data.data.data);
         const getName = data.data.data.fullname;
         const splitName = getName.split(" ");
         setUserInfo({
