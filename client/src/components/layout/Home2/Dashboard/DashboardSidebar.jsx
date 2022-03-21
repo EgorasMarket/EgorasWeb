@@ -283,10 +283,10 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     // onClick={close}
                   >
                     <div className="dash_board_header_search_bar">
-                      <div className="all_cat_link">
+                      {/* <div className="all_cat_link">
                         All Categories
                         <ListIcon className="all_cat_list_icon" />
-                      </div>
+                      </div> */}
                       <div className="search_input_cont">
                         <input
                           type="search"
