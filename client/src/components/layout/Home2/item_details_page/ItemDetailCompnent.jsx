@@ -242,7 +242,7 @@ const ItemDetailComponent = ({
         //console.log(err); // "oh, no!"
       });
   }, []);
-  const data1 = api_url2 + "/" + product_image;
+  const data1 = product_image;
 
   // {
   //   //console.log(spec, " welcome  Daniel");
@@ -277,7 +277,7 @@ const ItemDetailComponent = ({
           <div className="details_area1_cont1">
             {" "}
             {/* <img
-              src={api_url2 + "/" + product_image}
+              src={product_image}
               alt=""
               className="product_details_img"
             /> */}

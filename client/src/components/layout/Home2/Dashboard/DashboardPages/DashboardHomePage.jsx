@@ -190,8 +190,7 @@ const DashboardHomePage = ({ auth, match }) => {
   }, []);
 
   useEffect(() => {
-    // //console.log(match.params.prduct_id,"play every day")
-    //console.log(auth.user.user.id)
+   
     axios
       .get(
         api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,
@@ -345,7 +344,7 @@ const DashboardHomePage = ({ auth, match }) => {
                       <div className="savings_overview_body_cont2_1a">
                         <div className="save_overview_cont_img">
                           <img
-                            src={api_url2 + "/" + item.product_img}
+                            src={item.product_img}
                             alt=""
                             className="save_overview_cont_img_imgg"
                           />

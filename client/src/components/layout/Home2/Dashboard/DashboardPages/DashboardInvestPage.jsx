@@ -200,9 +200,9 @@ function DashboardInvestPage({ auth }) {
         config
       )
       .then((data) => {
-        // console.log(data.data.data, "powerful");
+        console.log(data.data.data.length, "powerful");
 
-        musicalEquipmentData(data.data.data);
+        setMusicalEquipmentData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -216,7 +216,7 @@ function DashboardInvestPage({ auth }) {
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
-        industrialEquipmentsData(data.data.data);
+        setIndustrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -1083,16 +1083,16 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {musicalEquipmentData.length <= 0 ? (
+                {musicalEquipmentData.length == 0 ? (
                   <NoDataFoundComponent text={text} />
                 ) : (
-                  musicalEquipmentData.slice(0, 12).map((asset, index7) => {
+                  musicalEquipmentData.slice(0, 12).map((asset) => {
                     return (
                       <a
                         href={`/dashboard/products/details/${
                           asset.id
                         }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        key={index7.toString()}
+                        // key={index7.toString()}
                       >
                         <li className="carous_list no_marg">
                           <div
