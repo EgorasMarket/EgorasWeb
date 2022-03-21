@@ -51,11 +51,11 @@ const responsive8 = {
     items: 8,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1620 },
-    items: 6,
+    breakpoint: { max: 3000, min: 1562 },
+    items: 5,
   },
   tablet: {
-    breakpoint: { max: 1620, min: 1420 },
+    breakpoint: { max: 1562, min: 1420 },
     items: 5,
   },
   tabletMedium: {
@@ -598,7 +598,7 @@ function DashboardInvestPage({ auth }) {
                       autoPlay={false}
                       autoPlaySpeed={6000}
                       transitionDelay={"2s"}
-                      infinite={true}
+                      infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
@@ -663,7 +663,7 @@ function DashboardInvestPage({ auth }) {
                       autoPlay={false}
                       autoPlaySpeed={6000}
                       transitionDelay={"2s"}
-                      infinite={true}
+                      infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
@@ -909,7 +909,7 @@ function DashboardInvestPage({ auth }) {
                 <ChevronRightIcon />
               </a>
             </div>
-            <div className="">
+            <div className=".products_display_body_conts_pad">
               {ComputerAccessoriesData.length <= 0 ? (
                 <NoDataFoundComponent text={text} />
               ) : (
@@ -986,57 +986,62 @@ function DashboardInvestPage({ auth }) {
                     swipeable={true}
                     style={{ height: "25em" }}
                   >
-                    {phonesTabletsData.map((asset1) => {
-                      console.log(asset1);
-                      return (
-                        <a
-                          href={`/dashboard/products/details/${
-                            asset1.id
-                          }/${asset1.product_name.replace(/\s+/g, "-")}`}
-                          // key={index.toString()}
-                        >
-                          <li className="carous_list no_marg inventory_cards">
-                            <div
-                              className="storeTiles_storeTileContainer__HoGEa"
-                              style={{
-                                backgroundImage: `url(${asset1.product_image})`,
-                              }}
-                            >
-                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                <div className="asset_name">
-                                  {asset1.product_name}
-                                </div>
-                                <div class="asset_prices_div">
-                                  <div className="asset_title">
-                                    ₦{numberWithCommas(asset1.roundedAmount)}{" "}
-                                    <span className="slashed_price">
+                    {ComputerAccessoriesData.slice(0, 10).map(
+                      (asset, index5) => {
+                        return (
+                          <a
+                            href={`/dashboard/products/details/${
+                              asset.id
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
+                            key={index5.toString()}
+                          >
+                            <li className="carous_list no_marg">
+                              <div
+                                className="storeTiles_storeTileContainer__HoGEa"
+                                style={{
+                                  backgroundImage: `url(${asset.product_image})`,
+                                  //           height: "200px",
+                                  //           width: "100%",
+                                  //           backgroundRepeat: "no-repeat",
+                                  //           backgroundSize: "cover",
+                                  //           borderRadius: "8px",
+                                  //           borderBottomLeftRadius: "0px",
+                                  //           borderBottomRightRadius: "0px",
+                                  //   backgroundPositionY: "center",
+                                }}
+                              >
+                                <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                  <div className="asset_name">
+                                    {asset.product_name}
+                                  </div>
+                                  <div className="asset_prices_div">
+                                    <div className="asset_title">
+                                      ₦{numberWithCommas(asset.amount)}{" "}
+                                      <span className="slashed_price">
+                                        ₦{numberWithCommas(asset.amount * 2)}
+                                      </span>
+                                    </div>
+                                    <div className="amount_per_day_div">
                                       ₦
                                       {numberWithCommas(
-                                        asset1.roundedAmount * 2
+                                        (
+                                          asset.amount / asset.product_duration
+                                        ).toFixed()
                                       )}
-                                    </span>
-                                  </div>
-                                  <div className="amount_per_day_div">
-                                    ₦
-                                    {numberWithCommas(
-                                      (
-                                        asset1.amount / asset1.product_duration
-                                      ).toFixed()
-                                    )}
-                                    <span className="per_day_symbol">
-                                      {" "}
-                                      / perday
-                                    </span>
+                                      <span className="per_day_symbol">
+                                        {" "}
+                                        / perday
+                                      </span>
+                                    </div>
                                   </div>
                                 </div>
+                                {/* </a> */}
                               </div>
-
-                              {/* </a> */}
-                            </div>
-                          </li>
-                        </a>
-                      );
-                    })}
+                            </li>
+                          </a>
+                        );
+                      }
+                    )}
                   </Carousel>
                 </>
               )}

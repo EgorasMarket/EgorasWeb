@@ -21,6 +21,7 @@ import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import axios from "axios";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 // import InstagramIcon from "@mui/icons-material/Instagram";
@@ -46,7 +47,31 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [cartNum, setCartNum] = useState("");
   const [image, setImage] = useState("");
   const [searchBar, setSearchBar] = useState(false);
+
+  const [productNamesZ, setProductNamesZ] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const linksActive = window.location.pathname;
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/search/new/products", null, config)
+      .then((data) => {
+        // console.log(data.data.data);
+        setProductNamesZ(data.data.data);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }, []);
+
+  const handler = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const results = productNamesZ.filter((car) =>
+    car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
@@ -187,6 +212,16 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     }
   };
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // const close = () => {
+  //   document.getElementById("fodo").style.display = "none";
+  // };
+
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
       <section className="DashBoardHeaderSection">
@@ -242,33 +277,105 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                 ) : null}
               </div>
               {searchBar == true ? (
-                <div className="dash_board_header_search_bar">
-                  <div className="all_cat_link">
-                    All Categories
-                    <ListIcon className="all_cat_list_icon" />
-                  </div>
-                  <div className="search_input_cont">
-                    <input
-                      type="search"
-                      name="search"
-                      id="search"
-                      className="dash_board_header_search_input"
-                      placeholder="Search products, brands and categories"
-                    />
+                <>
+                  <div
+                    style={{ width: "100%", position: "relative" }}
+                    // onClick={close}
+                  >
+                    <div className="dash_board_header_search_bar">
+                      <div className="all_cat_link">
+                        All Categories
+                        <ListIcon className="all_cat_list_icon" />
+                      </div>
+                      <div className="search_input_cont">
+                        <input
+                          type="search"
+                          name="search"
+                          value={searchTerm}
+                          id="search"
+                          className="dash_board_header_search_input"
+                          placeholder="Search products, brands and categories"
+                          onChange={handler}
+                          autocomplete="off"
+                        />
 
-                    <button className="search_button">
-                      {" "}
-                      <SearchIcon className="search_bar_icon" />
-                    </button>
-                  </div>
+                        <button className="search_button">
+                          {" "}
+                          <SearchIcon className="search_bar_icon" />
+                        </button>
+                        {searchTerm.length === 0 ? null : (
+                          <div
+                            id="fodo"
+                            style={{
+                              position: "absolute",
+                              zIndex: "500",
+                              width: "100%",
+                              top: "56px",
+                              maxHeight: "500px",
+                              height: "auto",
+                              backgroundColor: "#fff",
+                              overflowY: "scroll",
+                              borderBottomRightRadius: "20px",
+                              borderBottomLeftRadius: "20px",
+                            }}
+                            className="scr"
+                          >
+                            {/* <a
+                     href={`/dashboard/products/categories/${item.product_name}`} */}
 
-                  <button className="click_search_btn">Search</button>
-                </div>
+                            <ul style={{ margin: "0" }}>
+                              {results.map((item, index) => (
+                                <li
+                                  className="hover_div"
+                                  style={{
+                                    padding: "4px 25px",
+                                    borderBottomStyle: "solid",
+                                    borderBottomColor: "#f0f0f0",
+                                    borderBottomWidth: "1px",
+                                  }}
+                                >
+                                  <a
+                                    href={`/dashboard/products/details/${
+                                      item.id
+                                    }/${item.product_name.replace(
+                                      /\s+/g,
+                                      "-"
+                                    )}`}
+                                    key={index.toString()}
+                                    style={{
+                                      color: "#255839",
+                                      fontSize: "14px",
+                                      fontWeight: "700",
+                                    }}
+                                  >
+                                    {" "}
+                                    {item.product_name}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+
+                      <button className="click_search_btn">Search</button>
+                    </div>
+                  </div>
+                </>
               ) : null}
               {searchBar == false ? (
                 <div className="welcome_user">
-                  Welcome
                   <span className="userName_name">{Userlastname}</span>
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      color: "#000",
+                    }}
+                  >
+                    {" "}
+                    Welcome
+                  </span>
                 </div>
               ) : null}
             </div>
