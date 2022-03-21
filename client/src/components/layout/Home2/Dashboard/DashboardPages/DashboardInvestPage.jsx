@@ -32,8 +32,12 @@ const responsive7 = {
     items: 8,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1024 },
+    breakpoint: { max: 3000, min: 1480 },
     items: 6,
+  },
+  desktopMedium: {
+    breakpoint: { max: 1480, min: 1024 },
+    items: 5,
   },
   tablet: {
     breakpoint: { max: 1024, min: 600 },
@@ -51,11 +55,11 @@ const responsive8 = {
     items: 8,
   },
   desktop: {
-    breakpoint: { max: 3000, min: 1562 },
-    items: 5,
+    breakpoint: { max: 3000, min: 1680 },
+    items: 6,
   },
   tablet: {
-    breakpoint: { max: 1562, min: 1420 },
+    breakpoint: { max: 1680, min: 1420 },
     items: 5,
   },
   tabletMedium: {
@@ -200,9 +204,9 @@ function DashboardInvestPage({ auth }) {
         config
       )
       .then((data) => {
-        console.log(data.data.data.length, "powerful");
+        // console.log(data.data.data, "powerful");
 
-        setMusicalEquipmentData(data.data.data);
+        musicalEquipmentData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -216,7 +220,7 @@ function DashboardInvestPage({ auth }) {
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
-        setIndustrialEquipmentsData(data.data.data);
+        industrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -298,11 +302,11 @@ function DashboardInvestPage({ auth }) {
       items: 4,
     },
     tablet: {
-      breakpoint: { max: 1780, min: 1400 },
+      breakpoint: { max: 1780, min: 1350 },
       items: 3,
     },
     mobile: {
-      breakpoint: { max: 1400, min: 1024 },
+      breakpoint: { max: 1350, min: 1024 },
       items: 2,
     },
   };
@@ -473,7 +477,7 @@ function DashboardInvestPage({ auth }) {
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                       key={index.toString()}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg inventory_cards">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -612,7 +616,7 @@ function DashboardInvestPage({ auth }) {
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
-                            <li className="carous_list no_marg inventory_cards">
+                            <li className="carous_list no_marg inventory_cards inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -677,7 +681,7 @@ function DashboardInvestPage({ auth }) {
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
-                            <li className="carous_list no_marg inventory_cards">
+                            <li className="carous_list no_marg inventory_cards inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -755,7 +759,7 @@ function DashboardInvestPage({ auth }) {
                       }/${asset.product_name.replace(/\s+/g, "-")}`}
                       key={index.toString()}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg inventory_cards">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -850,7 +854,7 @@ function DashboardInvestPage({ auth }) {
                         }/${asset.product_name.replace(/\s+/g, "-")}`}
                         key={index4.toString()}
                       >
-                        <li className="carous_list no_marg">
+                        <li className="carous_list no_marg inventory_cards">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -924,7 +928,7 @@ function DashboardInvestPage({ auth }) {
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
                           >
-                            <li className="carous_list no_marg">
+                            <li className="carous_list no_marg inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -973,14 +977,14 @@ function DashboardInvestPage({ auth }) {
                     )}
                   </div>
                   <Carousel
-                    responsive={responsive7}
+                    responsive={responsive8}
                     className="partnerCards LEFTARROW market_carous "
                     showDots={false}
                     //   infinite={false}
                     autoPlay={false}
                     autoPlaySpeed={6000}
                     transitionDelay={"2s"}
-                    infinite={true}
+                    infinite={false}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
@@ -995,7 +999,7 @@ function DashboardInvestPage({ auth }) {
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
                           >
-                            <li className="carous_list no_marg">
+                            <li className="carous_list no_marg inventory_cards">
                               <div
                                 className="storeTiles_storeTileContainer__HoGEa"
                                 style={{
@@ -1083,18 +1087,18 @@ function DashboardInvestPage({ auth }) {
                 />
               </div>
               <div className="products_display_body_conts2">
-                {musicalEquipmentData.length == 0 ? (
+                {musicalEquipmentData.length <= 0 ? (
                   <NoDataFoundComponent text={text} />
                 ) : (
-                  musicalEquipmentData.slice(0, 12).map((asset) => {
+                  musicalEquipmentData.slice(0, 12).map((asset, index7) => {
                     return (
                       <a
                         href={`/dashboard/products/details/${
                           asset.id
                         }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        // key={index7.toString()}
+                        key={index7.toString()}
                       >
-                        <li className="carous_list no_marg">
+                        <li className="carous_list no_marg inventory_cards">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -1172,7 +1176,7 @@ function DashboardInvestPage({ auth }) {
                       }/${asset.product_name.replace(/\s+/g, "-")}`}
                       key={index8.toString()}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg inventory_cards">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{

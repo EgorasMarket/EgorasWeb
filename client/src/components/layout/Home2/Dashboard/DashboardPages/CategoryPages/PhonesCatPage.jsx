@@ -225,7 +225,7 @@ const PhonesCatPage = ({ match }) => {
 
   return (
     <div className="other2">
-      <section className="no-bg">
+      <section className="no-bg cat_page_prod_display">
         <div className="container">
           <div className="categories_page_area">
             <div className="cat_banner_heading">
@@ -309,93 +309,91 @@ const PhonesCatPage = ({ match }) => {
             {/* =================+++++++++++++++ */}
 
             {/*  Projects Section start*/}
-            <section className="projectsSection" id="projects">
-              <div className="container">
-                <div
-                  className="projectsArea item_card_area"
-                  data-aos="fade-up"
-                  data-aos-duration="3000"
-                >
-                  <div className="projectsTitleContentsa bg_a">
-                    <div className="projectTitle">
-                      <h1 className="gttitle TITE">
-                        {match.params.category}{" "}
-                        <span className="ouright_sell">
-                          / Outright sell-off
-                        </span>
-                      </h1>
-                    </div>
-                    {/* <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
+            {/* <section className="projectsSection" id="projects">
+              <div className="container"> */}
+            <div
+              className="projectsArea item_card_area"
+              data-aos="fade-up"
+              data-aos-duration="3000"
+            >
+              <div className="projectsTitleContentsa bg_a">
+                <div className="projectTitle">
+                  <h1 className="gttitle TITE">
+                    {match.params.category}{" "}
+                    <span className="ouright_sell">/ Outright sell-off</span>
+                  </h1>
+                </div>
+                {/* <a href={`/dashboard/products/categories/Phones & Tablet`} className="see_all_cat">
                 See all <ArrowForwardIosIcon className="forward_icons" />
               </a> */}
-                  </div>
-
-                  {/* Carousel start==============================
-==============================================
-============================= */}
-
-                  <Carousel
-                    responsive={responsive6}
-                    className="partnerCards LEFTARROW"
-                    showDots={false}
-                    //   infinite={false}
-                    autoPlay={true}
-                    autoPlaySpeed={6000}
-                    transitionDelay={"2s"}
-                    infinite={true}
-                    draggable={true}
-                    // transitionDuration={500}
-                    swipeable={true}
-                    style={{ height: "25em" }}
-                  >
-                    {seeAll.map((asset) => {
-                      return (
-                        <a
-                          href={`/products/details/${asset.id.replace(
-                            /\s+/g,
-                            "-"
-                          )}`}
-                        >
-                          <li className="carous_list no_marg add_width">
-                            <div
-                              className="storeTiles_storeTileContainer__HoGEa"
-                              style={{
-                                backgroundImage: `url(${asset.product_image})`,
-                                //           height: "200px",
-                                //           width: "100%",
-                                //           backgroundRepeat: "no-repeat",
-                                //           backgroundSize: "cover",
-                                //           borderRadius: "8px",
-                                //           borderBottomLeftRadius: "0px",
-                                //           borderBottomRightRadius: "0px",
-                                //   backgroundPositionY: "center",
-                              }}
-                            >
-                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                <div className="asset_name">
-                                  {asset.product_name}
-                                </div>
-                                <div className="asset_title">
-                                  ₦{numberWithCommas(asset.amount)}{" "}
-                                  <span className="slashed_price">
-                                    ₦{numberWithCommas(asset.amount * 2)}
-                                  </span>
-                                </div>
-                              </div>
-                              {/* </a> */}
-                            </div>
-                          </li>
-                        </a>
-                      );
-                    })}
-                  </Carousel>
-
-                  {/* Carousel end==============================
-==============================================
-============================= */}
-                </div>
               </div>
-            </section>
+
+              {/* Carousel start==============================
+==============================================
+============================= */}
+
+              <Carousel
+                responsive={responsive6}
+                className="partnerCards LEFTARROW"
+                showDots={false}
+                //   infinite={false}
+                autoPlay={true}
+                autoPlaySpeed={6000}
+                transitionDelay={"2s"}
+                infinite={true}
+                draggable={true}
+                // transitionDuration={500}
+                swipeable={true}
+                style={{ height: "25em" }}
+              >
+                {seeAll.map((asset) => {
+                  return (
+                    <a
+                      href={`/products/details/${asset.id.replace(
+                        /\s+/g,
+                        "-"
+                      )}`}
+                    >
+                      <li className="carous_list no_marg">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${asset.product_image})`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div className="asset_title">
+                              ₦{numberWithCommas(asset.amount)}{" "}
+                              <span className="slashed_price">
+                                ₦{numberWithCommas(asset.amount * 2)}
+                              </span>
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                  );
+                })}
+              </Carousel>
+
+              {/* Carousel end==============================
+==============================================
+============================= */}
+            </div>
+            {/* </div>
+            </section> */}
 
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
@@ -437,7 +435,7 @@ const PhonesCatPage = ({ match }) => {
                           "-"
                         )}`}
                       >
-                        <li className="carous_list no_marg add_width">
+                        <li className="carous_list no_marg">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -595,8 +593,9 @@ const PhonesCatPage = ({ match }) => {
                         /\s+/g,
                         "-"
                       )}`}
+                      className="category_assets_display"
                     >
-                      <li className="carous_list no_marg add_width">
+                      <li className="carous_list  add_width">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
