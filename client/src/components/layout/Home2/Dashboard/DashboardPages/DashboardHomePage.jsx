@@ -20,7 +20,7 @@ const responsive6 = {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 4,
-  },
+  }, // comment
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
     items: 3, // main
