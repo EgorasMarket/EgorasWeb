@@ -270,7 +270,7 @@ const PhonesCatPage = ({ match }) => {
                 >
                   {seeAll.map((asset,index15) => (
                     <a href={`/dashboard/products/details/${asset.id}/${asset.product_name}`} key={index15.toString()}>
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg add_width">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{
@@ -356,7 +356,7 @@ const PhonesCatPage = ({ match }) => {
                             "-"
                           )}`}
                         >
-                          <li className="carous_list no_marg">
+                          <li className="carous_list no_marg add_width">
                             <div
                               className="storeTiles_storeTileContainer__HoGEa"
                               style={{
@@ -437,7 +437,7 @@ const PhonesCatPage = ({ match }) => {
                           "-"
                         )}`}
                       >
-                        <li className="carous_list no_marg">
+                        <li className="carous_list no_marg add_width">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
@@ -596,7 +596,7 @@ const PhonesCatPage = ({ match }) => {
                         "-"
                       )}`}
                     >
-                      <li className="carous_list no_marg">
+                      <li className="carous_list no_marg add_width">
                         <div
                           className="storeTiles_storeTileContainer__HoGEa"
                           style={{

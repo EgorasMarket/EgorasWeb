@@ -103,6 +103,8 @@ function ItemDetailsPage({ auth, match }) {
     }
   };
 
+  
+
   const CloseLoginModal = () => {
     setLoginModal(false);
   };
