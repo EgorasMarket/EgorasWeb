@@ -178,7 +178,6 @@ function DashboardSavingsPage({ match, auth }) {
     <div className="other2">
       <section className="no-bg">
         <div className="container">
-       
           <div className="dash_savings_area">
             <div className="dash_savings_area1">
               <div className="dash_savings_area1_title">Savings Overview</div>
@@ -210,13 +209,7 @@ function DashboardSavingsPage({ match, auth }) {
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
                   balance={numberWithCommas(parseInt(pending_sum).toFixed(2))}
                 />
-                <DashBoardCard
-                  background={"/img/save_card3.svg"}
-                  title={"Wallet Balance"}
-                  Loading={Loading}
-                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(balance).toFixed(2))}
-                />
+
                 <DashBoardCard
                   background={"/img/save_card3.svg"}
                   title={"Ledger Balance"}
@@ -227,7 +220,7 @@ function DashboardSavingsPage({ match, auth }) {
 
                 {/* ))} */}
               </Carousel>
-            
+
               {userLockId.length <= 0 ? null : (
                 <div className="savings_overview_body_cont1">
                   Total Number of Locked{" "}

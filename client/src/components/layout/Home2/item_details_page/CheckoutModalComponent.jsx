@@ -287,7 +287,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               <div class="save_prod_deta">
                 <table className="save_item_table">
                   <thead className="assets-category-titles">
-                    <tr className="assets">
+                    <tr className="assets checked_item">
                       <th className="assets-category-titles-heading1">Item</th>
                       <th className="assets-category-titles-heading1">
                         Item Details
@@ -295,7 +295,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                       <th className="assets-category-titles-heading1 quant">
                         Amount daily
                       </th>
-                      {/* <th className="assets-category-titles-heading1 quant">
+                      {/* <th className="assets-categordata1y-titles-heading1 quant">
                               Unit Price
                             </th> */}
                       <th className="assets-category-titles-heading1_last">
@@ -308,8 +308,8 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
-                    <tr className="assets-category-row">
-                      <td className="save_item_data">
+                    <tr className=" checked_item_row">
+                      <td className="save_item_data checked_item">
                         <div className="assets-data height_data">
                           <img
                             src={product_image}
@@ -322,7 +322,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                       {/* ======== */}
                       {/* ======== */}
                       {/* ======== */}
-                      <td className="save_item_data1">
+                      <td className="save_item_data1 checked_item_1">
                         <div className="save_items_details">
                           <div className="save_items_details1">
                             {product_name}
@@ -338,7 +338,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                           </div>
                         </div>
                       </td>
-                      <td className="save_item_data1b">
+                      <td className="save_item_data1b checked_item_data_1b">
                         <div className="assets-data-name_last">
                           ₦{paymentPerday}
                         </div>
@@ -348,7 +348,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                                   ₦{amount}
                                 </div>
                               </td> */}
-                      <td className="save_item_data1b">
+                      <td className="save_item_data1b checked_item_data_1b">
                         <div className="assets-data-name_last">
                           ₦{initial_deposit}
                         </div>
@@ -467,16 +467,17 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             </div>
             {/* ========== */}
             {/* ========== */}
-
-            <button
-              className="checkout_btn1a"
-              onClick={() => {
-                // openPayment();
-                selectOption(option);
-              }}
-            >
-              Proceed to Checkout
-            </button>
+            <div className="checkout_modal_btn_div">
+              <button
+                className="checkout_btn1a"
+                onClick={() => {
+                  // openPayment();
+                  selectOption(option);
+                }}
+              >
+                Proceed to Checkout
+              </button>
+            </div>
           </div>
         </div>
       </div>

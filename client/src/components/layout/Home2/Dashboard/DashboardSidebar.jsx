@@ -751,6 +751,8 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               <Logout />
             </ul>
           </div>
+
+          <img src="/egoras-favicon.svg" alt="" className="center_logo_icon" />
         </div>
       </div>
     </div>

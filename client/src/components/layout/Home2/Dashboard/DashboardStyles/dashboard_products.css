@@ -72,7 +72,7 @@
 }
 .show_prods_on_mobile {
   display: none;
-  padding: 1em;
+  padding: 0.5em;
 }
 .cat_body_toggle1:hover {
   background: #318954a1;
@@ -231,12 +231,17 @@
 }
 
 .products_display_body_conts_banner_cont {
-  width: 100%;
+  width: 45%;
 }
 
 .no_marg {
   margin: 0 !important;
   width: 215px !important;
+}
+.inventory_cards {
+  margin: 0 !important;
+  width: 185px !important;
+  height: 200px !important;
 }
 .prod_banner_advert_div {
   margin-top: 2em;
@@ -260,11 +265,7 @@
 .fixed_pop_img {
   width: 100%;
 }
-@media screen and (max-width: 1200px) {
-  .products_display_body_conts2 {
-    width: 53%;
-  }
-}
+
 @media screen and (max-width: 1780px) {
   .products_display_body_conts2 {
     width: 56%;
@@ -272,20 +273,27 @@
 }
 @media screen and (max-width: 1475px) {
   .inventory_cards {
-    width: 197px !important;
+    width: 190px !important;
+    height: 200px !important;
   }
 }
 @media screen and (max-width: 1400px) {
   .inventory_cards {
-    width: 228px !important;
+    width: 180px !important;
+    height: 180px !important;
   }
 }
 @media screen and (max-width: 1300px) {
   .products_display_body_conts2 {
-    width: 50%;
+    width: 55%;
   }
   .inventory_cards {
     width: 188px !important;
+  }
+}
+@media screen and (max-width: 1200px) {
+  .products_display_body_conts2 {
+    width: 53%;
   }
 }
 @media screen and (max-width: 1168px) {
@@ -307,10 +315,10 @@
   .products_display_body_conts {
     padding: 1em 0.5em;
   }
-  .no_marg {
+  /* .no_marg {
     margin: 0 !important;
     width: 200px !important;
-  }
+  } */
   .storeTiles_storeTileContainer__HoGEa {
     background-position: 48%;
     background-repeat: no-repeat;
@@ -326,8 +334,12 @@
     width: 100%;
     grid-column: span 2 / span 2;
   }
-  .carous_list {
+  /* .carous_list {
     height: 204px !important;
+  } */
+  .add_width {
+    height: 100% !important;
+    margin: 0 !important;
   }
 }
 @media screen and (max-width: 991px) {
