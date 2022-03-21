@@ -14,9 +14,9 @@ const verify = async (transaction_id, product_id, startDate, endDate, days_left)
 
     }
 
-
+     
     try {
-        const call = await axios.get(`${API_URL2}/v1/flutter/payments/verify/${transaction_id}`, null, config);
+               const call = await axios.get(`${API_URL2}/v1/flutter/payments/verify/${transaction_id}`, null, config);
         const { success, card, amount, tx_ref } = call.data.data.data;
         let token = card.token
 
@@ -26,15 +26,15 @@ const verify = async (transaction_id, product_id, startDate, endDate, days_left)
             token,
             tx_ref,
             initial_pay: amount,
-            startDate, 
+            startDate,
             endDate,
-            days_left, 
-            transaction_type:"FIAT"
-            
+            days_left,
+            transaction_type: "FIAT"
+
         });
 
         console.log(orderBody)
-        const res = await axios.post(API_URL2 + "/v1/order/add/order", orderBody, config).then(response =>{
+        const res = await axios.post(API_URL2 + "/v1/order/add/order", orderBody, config).then(response => {
             console.log(response, " response after order endpoint is called")
         }).catch(err => {
             console.log(err.message)
