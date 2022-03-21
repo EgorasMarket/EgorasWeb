@@ -22,6 +22,12 @@
 .market_carous {
   padding: 0.5em 0em !important;
 }
+.market_carous .react-multi-carousel-track {
+  gap: 0px;
+}
+.market_carous .react-multiple-carousel__arrow--left {
+  left: calc(4% + -24px) !important;
+}
 .cat_div {
   background: #55a675;
   -webkit-backdrop-filter: blur(7px);
@@ -52,7 +58,8 @@
   justify-content: center;
   margin: auto;
 }
-
+.products_display_body_conts_pad {
+}
 .cat_body_toggle a {
   color: #fff;
 }
@@ -65,6 +72,7 @@
 }
 .show_prods_on_mobile {
   display: none;
+  padding: 1em;
 }
 .cat_body_toggle1:hover {
   background: #318954a1;

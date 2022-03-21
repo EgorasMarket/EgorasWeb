@@ -346,6 +346,9 @@
   color: #fff;
   box-shadow: 0px 10px 20px #8ee3b0;
 }
+.hover_div:hover {
+  background-color: #f5f5f5;
+}
 .search_input_cont {
   position: relative;
   width: 80%;
