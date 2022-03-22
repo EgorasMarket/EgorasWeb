@@ -404,6 +404,9 @@
     gap: 10px;
     flex-direction: column-reverse;
   }
+  .items_all_list_cat_select {
+    display: none;
+  }
   .items_all_list_body_cont {
     width: 100%;
     background: #fff;

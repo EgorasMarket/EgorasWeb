@@ -478,7 +478,7 @@
       #daf4e5 50px
     );
     -webkit-backdrop-filter: blur(26px);
-    backdrop-filter: blur(26px);
+    backdrop-filter: blur(100px);
     box-shadow: none;
   }
 

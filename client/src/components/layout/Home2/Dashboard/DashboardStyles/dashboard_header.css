@@ -177,6 +177,9 @@ button.logout-btn {
   /* .drop-close-icon {
     width: 20px;
   } */
+  .scr {
+    top: 30px !important;
+  }
   .search_input_cont {
     position: relative;
     width: 100%;
