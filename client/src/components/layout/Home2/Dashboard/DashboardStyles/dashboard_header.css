@@ -177,17 +177,30 @@ button.logout-btn {
   /* .drop-close-icon {
     width: 20px;
   } */
+  .scr {
+    top: 30px !important;
+  }
+  .search_input_cont {
+    position: relative;
+    width: 100%;
+  }
+  .search_button {
+    width: 10%;
+  }
+  .search_bar_icon {
+    font-size: 20px !important;
+  }
   .egrLogo2Cont3 {
     display: none;
   }
   .DashBoardHeaderSection {
     padding: 0em 0em;
     /* background-image: linear-gradient(45deg, #2a7c4b, #41ba71); */
-    background: #fff;
+    background: #daf4e5;
     position: sticky;
     top: 0;
     z-index: 10000;
-    box-shadow: 0px 0px 15px #c5dfcf;
+    box-shadow: none;
     position: fixed;
     width: 100%;
     margin: auto;
@@ -218,21 +231,23 @@ button.logout-btn {
 
   .user_profile_icon_cont {
     display: flex;
-    /* width: 6.5%; */
-    /* flex-direction: column; */
     justify-content: space-between;
     align-items: center;
-    border: solid;
+
     padding: 0.5em 0em;
-    border-width: 1px;
-    border-color: #ffffff78;
-    border-radius: 10px;
+
     width: 100%;
-    cursor: pointer;
+
     flex-direction: row;
   }
   .dash_board_header_search_input {
     width: 100%;
+    padding: 0.3em 2em;
+    padding-left: 3em;
+    border-radius: 62px;
+    border: solid 2px #7bb090;
+    background: #edf6f0;
+    font-size: 12px;
   }
   .logout_sec_btn {
     background: #ffffff;
@@ -280,7 +295,7 @@ button.logout-btn {
     padding: 0.3em 2em;
     padding-left: 3em;
     border-radius: 62px;
-    border: solid 2px #d6eade;
+    border: solid 2px #7bb090;
     background: #edf6f0;
     font-size: 12px;
   }
