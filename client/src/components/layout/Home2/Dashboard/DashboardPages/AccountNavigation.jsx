@@ -1,13 +1,13 @@
-import React from "react";
-import { Link } from "react-router-dom";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
-import SummarizeIcon from "@mui/icons-material/Summarize";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
-import SecurityIcon from "@mui/icons-material/Security";
-import "../DashboardStyles/account_navigation_styles.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
+import SummarizeIcon from '@mui/icons-material/Summarize';
+import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
+import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
+import SecurityIcon from '@mui/icons-material/Security';
+import '../DashboardStyles/account_navigation_styles.css';
 export const AccountNavigation = ({ closeAcctNavDiv }) => {
   return (
     <div className="account_nav_page">
@@ -78,7 +78,7 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
                 Next of kin
               </div>
               <Link
-                to="dash_account_param"
+                to={`/dashboard/accounts`}
                 className="other_area_btn"
                 onClick={closeAcctNavDiv}
               >
@@ -155,7 +155,9 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
             {/* ============ */}
             {/* ============ */}
             <div className="acct_nav_log_out_btn_div">
-              <button className="acct_nav_log_out_btn">Log Out</button>
+              <button className="acct_nav_log_out_btn">
+                Log Out
+              </button>
             </div>
           </div>
         </div>
