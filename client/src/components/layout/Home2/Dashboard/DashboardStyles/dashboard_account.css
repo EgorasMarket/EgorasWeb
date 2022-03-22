@@ -362,3 +362,22 @@ input[type="file"] {
   flex-direction: column;
   gap: 20px;
 }
+.account_div_navigatons {
+  background-color: #ffffff;
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  z-index: 10000000;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+  animation: LeftGrow 0.5s linear;
+}
+@keyframes LeftGrow {
+  0% {
+    left: 100%;
+  }
+  100% {
+    left: 0%;
+  }
+}

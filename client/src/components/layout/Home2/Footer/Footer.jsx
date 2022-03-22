@@ -360,7 +360,7 @@ const Footer = () => {
           </div>
           <hr></hr>
           <h5 className="footerBottomPara">
-            ©️ 2021 Egoras Technologies LTD(RC - 1832671). All rights reserved .
+            ©️ 2022 Egoras Technologies LTD(RC - 1832671). All rights reserved .
           </h5>
         </div>
       </section>
