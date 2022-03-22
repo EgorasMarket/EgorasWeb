@@ -150,7 +150,7 @@ const CheckoutModalComponent = ({
     tx_ref: 'EGC-' + Date.now(),
     amount: 1,
     currency: 'NGN',
-    redirect_url: 'https://saul.egoras.com/v1/webhooks/all',
+    // redirect_url: 'https://saul.egoras.com/v1/webhooks/all',
 
     payment_options: 'card',
     // payment_plan:63558,
