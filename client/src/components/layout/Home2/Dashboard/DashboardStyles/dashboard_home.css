@@ -431,6 +431,7 @@ button.save_overview_cont_items_top_up {
     padding: 2em 0.5em;
     padding-top: 0em;
     gap: 10px;
+    box-shadow: 0px 0px 8px #c6e1d1;
   }
   .no-bg {
     background: none !important;
@@ -609,7 +610,7 @@ button.save_overview_cont_items_top_up {
     align-items: center;
     justify-content: space-between;
     grid-gap: 10px;
-    gap: 20px;
+    gap: 8px;
     flex-direction: column;
   }
   .products_area1 {
@@ -622,7 +623,7 @@ button.save_overview_cont_items_top_up {
     display: grid;
     grid-template-columns: auto auto;
     grid-gap: 15px;
-    gap: 15px;
+    gap: 8px;
   }
 }
 @media screen and (max-width: 345px) {
