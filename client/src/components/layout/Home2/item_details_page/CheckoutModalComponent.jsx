@@ -156,7 +156,6 @@ const CheckoutModalComponent = ({
     // payment_plan:63558,
     customer: {
       phone_number: phone_no,
-      // phonenumber: phone_no,
       email: email,
       name: fullname,
     },

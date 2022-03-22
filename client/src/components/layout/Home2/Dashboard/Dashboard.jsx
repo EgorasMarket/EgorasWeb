@@ -1,32 +1,32 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect } from 'react';
 import {
   BrowserRouter as Router,
   Route,
   Switch,
   Redirect,
-} from "react-router-dom";
-import { connect } from "react-redux";
+} from 'react-router-dom';
+import { connect } from 'react-redux';
 // import DashboardHomePage from "./DashboardPages/DashboardHomePage";
-import Wallet from "../../Wallet/Wallet";
+import Wallet from '../../Wallet/Wallet';
 
-import DashboardSidebar from "./DashboardSidebar";
-import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
+import DashboardSidebar from './DashboardSidebar';
+import ItemDetailsPage from '../item_details_page/ItemDetailsPage';
 // import ItemDetailsPage1 from "../item_details_page/detail";
-import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
-import CheckoutModalComponent from "../item_details_page/CheckoutModalComponent";
+import DashboardSavingsPage from './DashboardPages/DashboardSavingsPage';
+import CheckoutModalComponent from '../item_details_page/CheckoutModalComponent';
 // import DashboardCart from "./DashboardPages/DashboardCart";
-import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
-import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
-import PhonesCatPage from "./DashboardPages/CategoryPages/PhonesCatPage";
+import DashboardInvestPage from './DashboardPages/DashboardInvestPage';
+import DashboardAccountPage from './DashboardPages/DashboardAccountPage';
+import PhonesCatPage from './DashboardPages/CategoryPages/PhonesCatPage';
 // import dashboardCheckout from "./DashboardPages/dashboardCheckout";
-import DashboardHomePage from "./DashboardPages/DashboardHomePage";
-import Withdrawal from "../../Wallet/withdrawal";
+import DashboardHomePage from './DashboardPages/DashboardHomePage';
+import Withdrawal from '../../Wallet/withdrawal';
 // import { SplashScreen } from "../../SplashScreen/SplashScreen.js";
 // import { SplashScreen } from "../../SplashScreen/SplashScreen";
-import { SplashScreen } from "../../SplashScreen/SplashScreen.js";
+import { SplashScreen } from '../../SplashScreen/SplashScreen.js';
 
-import "./DashboardStyles/dashboard.css";
-import PrivateRoute2 from "../../../routing/PrivateRoute2";
+import './DashboardStyles/dashboard.css';
+import PrivateRoute2 from '../../../routing/PrivateRoute2';
 const Dashboard = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
   //console.log(isAuthenticated, loading);
@@ -34,7 +34,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
     // //console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
       // return <Redirect to="/" />;
-      return window.location.replace("/login");
+      return window.location.replace('/login');
     } else if (isAuthenticated == true) {
       // //console.log('trueee');
       const timer = setTimeout(() => {
@@ -42,7 +42,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
       }, 1000);
     }
 
-    if (window.location.pathname === "/saving") {
+    if (window.location.pathname === '/saving') {
       return <Redirect to="/savings" />;
     }
 
@@ -79,7 +79,11 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 component={Withdrawal}
               />
               {/* <Route exact path="/dashboard/cart" component={DashboardCart} /> */}
-              <Route exact path="/dashboard/wallet" component={Wallet} />
+              <Route
+                exact
+                path="/dashboard/wallet"
+                component={Wallet}
+              />
               <Route
                 exact
                 path="/dashboard/products"
@@ -95,23 +99,23 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 path="/dashboard/products/categories/:category"
                 component={PhonesCatPage}
               />
+
               <Route
-                exact
-                path="/dashboard/accounts"
-                component={DashboardAccountPage}
-              />
-              <Route
-                name="dash_account_param"
-                exact
                 path="/dashboard/accounts:action"
                 component={DashboardAccountPage}
               />
               <Route
                 exact
+                path="/dashboard/accounts"
+                component={DashboardAccountPage}
+              />
+
+              <Route
+                exact
                 // path ={`/dashboard/products/details/:id/:${"name".replace( '','-')}`}
-                path={`/dashboard/products/details/:id/:${"name".replace(
+                path={`/dashboard/products/details/:id/:${'name'.replace(
                   /\s+/g,
-                  ""
+                  ''
                 )}`}
                 // path={dapp }
                 component={ItemDetailsPage}
