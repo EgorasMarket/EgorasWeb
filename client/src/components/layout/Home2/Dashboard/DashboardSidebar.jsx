@@ -3,6 +3,7 @@ import HomeIcon from "@mui/icons-material/Home";
 import { API_URL2 as api_url2 } from "../../../../actions/types";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
+import { AccountNavigation } from "./DashboardPages/AccountNavigation";
 import SearchIcon from "@mui/icons-material/Search";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
@@ -47,11 +48,20 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [cartNum, setCartNum] = useState("");
   const [image, setImage] = useState("");
   const [searchBar, setSearchBar] = useState(false);
+  const [acctNav, setAcctNav] = useState(false);
 
   const [productNamesZ, setProductNamesZ] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
 
   const linksActive = window.location.pathname;
+
+  const toggleAccountNav = () => {
+    if (acctNav == true) {
+      setAcctNav(false);
+    } else if (acctNav == false) {
+      setAcctNav(true);
+    }
+  };
 
   useEffect(() => {
     axios
@@ -267,7 +277,12 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                 </div> */}
                 {searchBar == false ? (
                   <div className="immmgg">
-                    <img src={image} alt="" className="user_profile" />
+                    <img
+                      src={image}
+                      alt=""
+                      className="user_profile"
+                      onClick={toggleAccountNav}
+                    />
                     {/* <img
                     src="/img/profile_icon2.svg"
                     alt=""
@@ -755,6 +770,11 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
           <img src="/egoras-favicon.svg" alt="" className="center_logo_icon" />
         </div>
       </div>
+      {acctNav == false ? null : (
+        <div className="account_div_navigatons">
+          <AccountNavigation closeAcctNavDiv={toggleAccountNav} />
+        </div>
+      )}
     </div>
   );
 };
