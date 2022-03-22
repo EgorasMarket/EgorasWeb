@@ -1144,7 +1144,7 @@ li.deposit_qr_not {
     display: flex;
     flex-direction: column;
     grid-gap: 40px;
-    gap: 10px;
+    gap: 20px;
     width: 100%;
   }
   .DivCap {
@@ -1181,21 +1181,56 @@ li.deposit_qr_not {
     width: 18px !important;
     cursor: pointer !important;
   }
+  .walletSubClass3ng {
+    background-image: linear-gradient(45deg, #227c46, #3bc873);
+    padding: 15px;
+    color: #fff;
+    border-radius: 5px;
+    border-color: #41ba71;
+    border-width: 1px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 95%;
+    margin: auto;
+    margin-top: 1em;
+  }
   .divConcept2 {
     padding: 20px 15px 15px 15px;
     display: flex;
   }
   .DivCap {
-    /* display: flex; */
     width: 100%;
-    /* grid-gap: 20px; */
-    /* gap: 20px; */
+
     background: #fff;
     padding: 1em;
-    border-radius: 5px;
-    box-shadow: 0px 0px 15px #c6e3d2;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px #bddcca;
+    height: 100%;
   }
-
+  .formConcept1 {
+    padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ddfce9;
+    grid-gap: 20px;
+    gap: 20px;
+    border-top-right-radius: 15px;
+    border-top-left-radius: 15px;
+  }
+  .div_cap_area {
+    display: flex;
+    flex-direction: column;
+    grid-gap: 20px;
+    gap: 0px;
+  }
+  .formConcept {
+    border: none;
+    border-radius: 0;
+    width: 100%;
+  }
   .qr_img {
     width: 50%;
     padding: 0.3em;
@@ -1332,7 +1367,7 @@ li.deposit_qr_not {
     display: none;
   }
   .wallet_bg .container {
-    padding: 0em 0.5em;
+    padding: 0em 0em;
   }
   .token_amount_bal {
     text-align: right;

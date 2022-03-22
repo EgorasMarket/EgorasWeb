@@ -377,7 +377,7 @@
 @media screen and (max-width: 1019px) {
   .items_all_list_body {
     display: grid;
-    grid-template-columns: auto auto auto;
+    grid-template-columns: auto auto;
     grid-gap: 15px;
     gap: 10px;
     width: 100%;

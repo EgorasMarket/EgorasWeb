@@ -108,6 +108,7 @@ const ItemDetailComponent = ({
   const [activeBg, setActiveBg] = useState("features");
   const [moreImg, setMoreImg] = useState([]);
   const [outrightProducts, setOutrightProducts] = useState([]);
+  // const [categoryName, setCategoryName] = useState("");
   const [categ, setcate] = useState([]);
   const [food, setFood] = useState([]);
   //destructure the payload and return values
@@ -135,6 +136,13 @@ const ItemDetailComponent = ({
     endDate,
   } = payload;
 
+  console.log("====================================");
+  console.log(payload.product_category_desc);
+  console.log("====================================");
+  var categoryName = payload.product_category_desc;
+  console.log("====================================");
+  console.log(categoryName);
+  console.log("====================================");
   useEffect(() => {
     if (more_image != null) {
       let splited = JSON.parse(more_image);
@@ -147,7 +155,6 @@ const ItemDetailComponent = ({
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
-
   const closeDetailModal = () => {
     setDetailsModal(false);
   };
@@ -267,11 +274,15 @@ const ItemDetailComponent = ({
 
   useEffect(() => {
     checkProductType(product_type);
-
+    console.log(categoryName, "ryhtej");
     axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .get(
+        api_url2 + "/v1/product/retrieve/products/byId/" + categoryName,
+        null,
+        config
+      )
       .then((data) => {
-        console.log(data.data.data, "item detail component ");
+        console.log(data.data, "item detail component ");
 
         setTerm(data.data.data);
 
@@ -280,7 +291,7 @@ const ItemDetailComponent = ({
       .catch((err) => {
         //console.log(err); // "oh, no!"
       });
-  }, []);
+  }, [categoryName]);
   const data1 = product_image;
 
   // {
@@ -478,7 +489,7 @@ const ItemDetailComponent = ({
           <div className="products_display_body_heading">
             Similar Products
             <a
-              href={`/dashboard/products/categories/Computer & Accessories`}
+              href={`/dashboard/products/categories/` + categoryName}
               className="se_all_btnn"
             >
               SEE ALL
@@ -492,61 +503,51 @@ const ItemDetailComponent = ({
               <>
                 <div className="show_prods_on_mobile">
                   {term.map((asset) => {
-                    return (
-                      <a
-                        href={`/dashboard/products/details/${
-                          asset.id
-                        }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        // key={index5.toString()}
-                      >
-                        <li className="carous_list no_marg inventory_cards">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${asset.product_image})`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_prices_div">
+                    if (product_category_desc === asset.product_category_desc) {
+                      return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        >
+                          <li className="carous_list no_marg inventory_cards">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
                                 <div className="asset_title">
-                                  ₦{numberWithCommas(parseInt(asset.amount))}{" "}
+                                  ₦
+                                  {numberWithCommas(
+                                    parseInt(asset.roundedAmount)
+                                  )}{" "}
                                   <span className="slashed_price">
                                     ₦
                                     {numberWithCommas(
-                                      parseInt(asset.amount * 2)
+                                      parseInt(asset.roundedAmount * 2)
                                     )}
                                   </span>
                                 </div>
-                                <div className="amount_per_day_div">
-                                  ₦
-                                  {numberWithCommas(
-                                    parseInt(
-                                      asset.amount / asset.product_duration
-                                    ).toFixed()
-                                  )}
-                                  <span className="per_day_symbol">
-                                    {" "}
-                                    / perday
-                                  </span>
-                                </div>
                               </div>
+                              {/* </a> */}
                             </div>
-                            {/* </a> */}
-                          </div>
-                        </li>
-                      </a>
-                    );
+                          </li>
+                        </a>
+                      );
+                    }
                   })}
                 </div>
                 <Carousel
@@ -554,7 +555,7 @@ const ItemDetailComponent = ({
                   className="partnerCards LEFTARROW market_carous"
                   showDots={false}
                   //   infinite={false}
-                  autoPlay={true}
+                  autoPlay={false}
                   autoPlaySpeed={6000}
                   transitionDelay={"2s"}
                   infinite={false}
