@@ -1,13 +1,13 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings';
-import SummarizeIcon from '@mui/icons-material/Summarize';
-import ManageAccountsIcon from '@mui/icons-material/ManageAccounts';
-import NotificationsActiveIcon from '@mui/icons-material/NotificationsActive';
-import SecurityIcon from '@mui/icons-material/Security';
-import '../DashboardStyles/account_navigation_styles.css';
+import React from "react";
+import { Link } from "react-router-dom";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import AdminPanelSettingsIcon from "@mui/icons-material/AdminPanelSettings";
+import SummarizeIcon from "@mui/icons-material/Summarize";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
+import SecurityIcon from "@mui/icons-material/Security";
+import "../DashboardStyles/account_navigation_styles.css";
 export const AccountNavigation = ({ closeAcctNavDiv }) => {
   return (
     <div className="account_nav_page">
@@ -48,113 +48,108 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <div className="account_nav_other_areas">
+            <a
+              href={`/dashboard/accounts/accounts`}
+              className="account_nav_other_areas"
+              // onClick={closeAcctNavDiv}
+            >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
                   <ManageAccountsIcon />
                 </div>
                 Account
               </div>
-              <Link
-                to="dashboard/accounts/dash_account_param"
+              <span
                 // param={{ action: "account" }}
                 className="other_area_btn"
-                onClick={closeAcctNavDiv}
               >
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
-              </Link>
-            </div>
+              </span>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <div className="account_nav_other_areas">
+            <a
+              className="account_nav_other_areas"
+              href={`/dashboard/accounts/kin`}
+              // onClick={closeAcctNavDiv}
+            >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
                   <AdminPanelSettingsIcon />
                 </div>
                 Next of kin
               </div>
-              <Link
-                to={`/dashboard/accounts`}
-                className="other_area_btn"
-                onClick={closeAcctNavDiv}
-              >
-                // Using query
-                {/* <Link
-                  to={{
-                    pathname: '/dashboard/accounts',
-                    query: '/dashboard/accounts',
-                  }}
-                /> */}
+              <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
-              </Link>
-            </div>
+              </span>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <div className="account_nav_other_areas">
+            <a
+              className="account_nav_other_areas"
+              href={`/dashboard/accounts/security`}
+              // onClick={closeAcctNavDiv}
+            >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
                   <SecurityIcon />
                 </div>
                 Security
               </div>
-              <Link
-                to="dash_account_param"
-                className="other_area_btn"
-                onClick={closeAcctNavDiv}
-              >
+              <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
-              </Link>
-            </div>
+              </span>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <div className="account_nav_other_areas">
+            <a
+              className="account_nav_other_areas"
+              href="dash_account_param"
+              // onClick={closeAcctNavDiv}
+            >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
                   <NotificationsActiveIcon />
                 </div>
                 Notifications
               </div>
-              <Link
-                to="dash_account_param"
-                className="other_area_btn"
-                onClick={closeAcctNavDiv}
-              >
+              <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
-              </Link>
-            </div>
+              </span>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <div className="account_nav_other_areas">
+            <a
+              className="account_nav_other_areas"
+              href="dash_account_param"
+              onClick={closeAcctNavDiv}
+            >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
                   <SummarizeIcon />
                 </div>
                 Terms & conditions
               </div>
-              <Link
-                to="dash_account_param"
-                className="other_area_btn"
-                onClick={closeAcctNavDiv}
-              >
+              <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
-              </Link>
-            </div>
+              </span>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
@@ -162,9 +157,7 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
             {/* ============ */}
             {/* ============ */}
             <div className="acct_nav_log_out_btn_div">
-              <button className="acct_nav_log_out_btn">
-                Log Out
-              </button>
+              <button className="acct_nav_log_out_btn">Log Out</button>
             </div>
           </div>
         </div>

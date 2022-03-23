@@ -135,6 +135,21 @@ const Header = ({ isAuthenticated, auth }) => {
         document.getElementById("Header").style.display = "none";
       });
     }
+    if (currentPage === "/dashboard/accounts/accounts") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
+    if (currentPage === "/dashboard/accounts/kin") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
+    if (currentPage === "/dashboard/accounts/security") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
     if (currentPage === "/dashboard") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";

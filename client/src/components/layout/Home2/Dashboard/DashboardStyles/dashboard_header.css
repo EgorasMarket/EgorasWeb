@@ -118,7 +118,7 @@
 .user_profile {
   width: 40px;
   height: 40px;
-  box-shadow: -1px 0px 10px #85ad95;
+  box-shadow: -1px 0px 1px #85ad95;
   border-radius: 100%;
   margin-left: 8px;
   cursor: pointer;
@@ -196,7 +196,7 @@ button.logout-btn {
   .DashBoardHeaderSection {
     padding: 0em 0em;
     /* background-image: linear-gradient(45deg, #2a7c4b, #41ba71); */
-    background: #daf4e5;
+    background: #e9fff2;
     position: sticky;
     top: 0;
     z-index: 10000;
@@ -242,11 +242,11 @@ button.logout-btn {
   }
   .dash_board_header_search_input {
     width: 100%;
-    padding: 0.3em 2em;
-    padding-left: 3em;
+    padding: 0.5em 2em;
+    padding-left: 1em;
     border-radius: 62px;
     border: solid 2px #7bb090;
-    background: #edf6f0;
+    background: #ffffff;
     font-size: 12px;
   }
   .logout_sec_btn {
@@ -292,11 +292,11 @@ button.logout-btn {
 @media screen and (max-width: 480px) {
   .dash_board_header_search_input {
     width: 100%;
-    padding: 0.3em 2em;
-    padding-left: 3em;
+    padding: 0.5em 2em;
+    padding-left: 1em;
     border-radius: 62px;
     border: solid 2px #7bb090;
-    background: #edf6f0;
+    background: #ffffff;
     font-size: 12px;
   }
   .user_profile_icon_cont {
