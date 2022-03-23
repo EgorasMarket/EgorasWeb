@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter as Router, Route, Switch, Redirect} from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
 import { connect } from "react-redux";
 // import DashboardHomePage from "./DashboardPages/DashboardHomePage";
 import Wallet from "../../Wallet/Wallet";
 
-
 import DashboardSidebar from "./DashboardSidebar";
+import DashboardAccountPageMobile from "./DashboardPages/DashboardAccountPageMobile";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 // import ItemDetailsPage1 from "../item_details_page/detail";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
-import CheckoutModalComponent from "../item_details_page/CheckoutModalComponent"
+import CheckoutModalComponent from "../item_details_page/CheckoutModalComponent";
 // import DashboardCart from "./DashboardPages/DashboardCart";
 import DashboardInvestPage from "./DashboardPages/DashboardInvestPage";
 import DashboardAccountPage from "./DashboardPages/DashboardAccountPage";
@@ -38,17 +43,15 @@ const Dashboard = ({ isAuthenticated, loading }) => {
       }, 1000);
     }
 
-    if(window.location.pathname === "/saving"){
-      return(
-      <Redirect to ="/savings"/>)
+    if (window.location.pathname === "/saving") {
+      return <Redirect to="/savings" />;
     }
 
     // setSplashScreen(true);
   }, [isAuthenticated]);
 
-
-// let spaceRemove = "/dashboard/products/details/:id/:name";
-//  let dapp =spaceRemove.replace(/%20/g, "-")
+  // let spaceRemove = "/dashboard/products/details/:id/:name";
+  //  let dapp =spaceRemove.replace(/%20/g, "-")
 
   return (
     <div>
@@ -70,7 +73,7 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 // path={"/dashboard/savings" || "/dashboard/saving"}
                 component={DashboardSavingsPage}
               />
-           
+
               <Route
                 exact
                 path="/dashboard/wallet/withdrawal"
@@ -98,19 +101,42 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 path="/dashboard/accounts"
                 component={DashboardAccountPage}
               />
+              {/* <Route
+                exact
+                path="/dashboard/accounts/accounts"
+                component={DashboardAccountPage}
+              />
+              <Route
+                exact
+                path="/dashboard/accounts/nok"
+                component={DashboardAccountPage}
+              />
+              <Route
+                exact
+                path="/dashboard/accounts/security"
+                component={DashboardAccountPage}
+              /> */}
+              <Route
+                exact
+                path="/dashboard/accounts/:state"
+                component={DashboardAccountPageMobile}
+              />
               <Route
                 exact
                 // path ={`/dashboard/products/details/:id/:${"name".replace( '','-')}`}
-                path ={`/dashboard/products/details/:id/:${"name".replace(/\s+/g, '')}`}
+                path={`/dashboard/products/details/:id/:${"name".replace(
+                  /\s+/g,
+                  ""
+                )}`}
                 // path={dapp }
                 component={ItemDetailsPage}
               />
-                {/* <Route
+              {/* <Route
                 exact
                 path="/products/details/:id/:name"
                 component={ItemDetailsPage1}
               /> */}
-                <Route
+              <Route
                 exact
                 path="/dashboard/products/checkout"
                 component={CheckoutModalComponent}

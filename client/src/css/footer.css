@@ -2,7 +2,7 @@
   padding: 2em 0em;
   position: relative;
   background-color: #fbfffc;
-    overflow: hidden;
+  overflow: hidden;
 }
 
 .footerArea {
@@ -61,6 +61,7 @@
   margin-top: 10px;
   color: #525252;
   font-size: 13px;
+  width: 100% !important;
 }
 .c1link1:hover {
   color: #55bc7e;
