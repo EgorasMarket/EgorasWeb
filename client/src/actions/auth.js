@@ -112,6 +112,8 @@ export const getAuthentication =
         data: res.data,
       };
     } catch (err) {
+
+      
       //console.log(err.response);
 
       return {
