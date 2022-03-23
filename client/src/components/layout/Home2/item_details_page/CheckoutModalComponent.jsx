@@ -20,6 +20,7 @@ import { connect } from "react-redux";
 import initPayment from "../../../../flutterwave/initPayment";
 import initializePayment from "../../../../flutterwave/API/initializePayment";
 import { Redirect } from "react-router-dom";
+import { numberWithCommas } from "../../../../static";
 
 const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   //destructure the payload and return values
@@ -44,6 +45,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     startDate,
     endDate,
   } = payload;
+  console.log(payload.initial_deposit);
 
   const [user_id, setUserId] = useState("");
   const [isloading, setIsLoading] = useState(true);
@@ -63,7 +65,8 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
   let deliveryFee = 0;
-
+  const addedUp = amount + deliveryFee;
+  console.log(addedUp);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -334,13 +337,18 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                             <span className="items_left_amount">
                               Total Amount Locked on Item
                             </span>
-                            ₦{initial_deposit}
+                            ₦
+                            {payment_type == "OUTRIGHT"
+                              ? numberWithCommas(parseInt(amount).toFixed(2))
+                              : numberWithCommas(
+                                  parseInt(initial_deposit).toFixed(2)
+                                )}
                           </div>
                         </div>
                       </td>
                       <td className="save_item_data1b checked_item_data_1b">
                         <div className="assets-data-name_last">
-                          ₦{paymentPerday}
+                          ₦ {payment_type == "OUTRIGHT" ? 0 : paymentPerday}
                         </div>
                       </td>
                       {/* <td className="save_item_data1b">
@@ -350,7 +358,12 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                               </td> */}
                       <td className="save_item_data1b checked_item_data_1b">
                         <div className="assets-data-name_last">
-                          ₦{initial_deposit}
+                          ₦{" "}
+                          {payment_type == "OUTRIGHT"
+                            ? numberWithCommas(parseInt(amount).toFixed(2))
+                            : numberWithCommas(
+                                parseInt(initial_deposit).toFixed(2)
+                              )}
                         </div>
                       </td>
                     </tr>
@@ -442,7 +455,12 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             {/* ========== */}
             <div className="sub_total_div">
               Sub Total:{" "}
-              <span className="sub_total_div_span">₦{initial_deposit}</span>
+              <span className="sub_total_div_span">
+                ₦{" "}
+                {payment_type == "OUTRIGHT"
+                  ? numberWithCommas(parseInt(amount).toFixed(2))
+                  : numberWithCommas(parseInt(initial_deposit).toFixed(2))}
+              </span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -462,7 +480,14 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             <div className="transac_secure_div">
               Total{" "}
               <span className="sub_total_div_span">
-                ₦{initial_deposit + deliveryFee}
+                ₦
+                {payment_type == "OUTRIGHT"
+                  ? numberWithCommas(
+                      (parseInt(amount) + deliveryFee).toFixed(2)
+                    )
+                  : numberWithCommas(
+                      (parseInt(initial_deposit) + deliveryFee).toFixed(2)
+                    )}
               </span>
             </div>
             {/* ========== */}

@@ -46,6 +46,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  color: #000;
 }
 .other_area_title {
   display: flex;
