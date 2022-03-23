@@ -24,25 +24,29 @@ import {
   nextOfKING,
   changePassword,
 } from "../../../../../actions/auth";
-import { useParams } from "react-router-dom";
 import "./accF.css";
 import { setAlert } from "../../../../../actions/alert";
 import validator from "validator";
 // import {getNaame} from "../../../Signup/signup"
 
-function DashboardAccountPage({
+function DashboardAccountPageMobile({
   sumitGenderAndDate,
   setAlert,
   nextOfKING,
   auth,
   changePassword,
+  match,
 }) {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-
+  if (match == null) {
+    console.log("param is not here");
+  } else {
+    console.log("param is here", match.params.state);
+  }
   const [image, setImage] = useState("");
   const [nxtOfKinA, setNxtOfKinA] = useState(false);
   // const [getNxtOfKin, setGetNxtOfKin] = useState([]);
@@ -55,10 +59,7 @@ function DashboardAccountPage({
     nxtphoneNumber: "",
     nxtrelationship: "",
   });
-  const [tokens, setTokens] = useState({
-    gender: "",
-    dateOfBirth: "",
-  });
+  const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
   const [customerAddress, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
   const [customerBvn1, setCustomerBvn1] = useState("");
@@ -138,7 +139,6 @@ function DashboardAccountPage({
     // console.log('====================================');
     // console.log(auth.user.user.id);
     // console.log('====================================');
-
     setIdSet({
       idNum: auth.user.user.id,
     });
@@ -304,10 +304,7 @@ function DashboardAccountPage({
   // },[phoneNumber])
 
   const onChangeFor4 = (e) => {
-    setChangePassword({
-      ...changePassword1,
-      [e.target.name]: e.target.value,
-    });
+    setChangePassword({ ...changePassword1, [e.target.name]: e.target.value });
   };
 
   // const updateUser =()=>{
@@ -347,7 +344,15 @@ function DashboardAccountPage({
   const label6 = <span style={{ color: "red" }}>Enter Address</span>;
   const label7 = <span style={{ color: "red" }}>Enter BVN</span>;
   const label8 = <span style={{ color: "red" }}>Relationship Required</span>;
-
+  useEffect(() => {
+    if (window.location.pathname == "/dashboard/accounts/accounts") {
+      setActiveBg("accounts");
+    } else if (window.location.pathname == "/dashboard/accounts/kin") {
+      setActiveBg("kin");
+    } else if (window.location.pathname == "/dashboard/accounts/security") {
+      setActiveBg("security");
+    }
+  });
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
       setImage(URL.createObjectURL(event.target.files[0]));
@@ -705,13 +710,16 @@ function DashboardAccountPage({
   // const divBvn = (<div><form><input type="number" placeholder="enter ur bvn" onChange={onChangeBvn}    value={customerBvn1}/></form></div>)
 
   return (
-    <div className="other2 account_body" style={{ paddingBottom: "0em" }}>
+    <div
+      className="other2 account_body account_mobile"
+      style={{ paddingBottom: "0em" }}
+    >
       <section
         className="no-bg account_mobi_section"
         style={{ paddingBottom: "0em" }}
       >
         <div className="container">
-          <div className="dashboard_account_page_area">
+          <div className="dashboard_account_page_area dashboard_account_page_area_mobi">
             <div className="account_toggle_heading">
               <span
                 id="accounts"
@@ -719,7 +727,9 @@ function DashboardAccountPage({
                 className={
                   activeBg == "accounts"
                     ? "account_toggle account_toggle_active"
-                    : "account_toggle"
+                    : activeBg !== "accounts"
+                    ? "not_account_toggle"
+                    : "account_toggle_active account_toggle"
                 }
               >
                 Accounts
@@ -730,7 +740,9 @@ function DashboardAccountPage({
                 className={
                   activeBg == "kin"
                     ? "account_toggle account_toggle_active"
-                    : "account_toggle"
+                    : activeBg !== "kin"
+                    ? "not_account_toggle"
+                    : "account_toggle_active account_toggle"
                 }
               >
                 Next of Kin
@@ -741,7 +753,9 @@ function DashboardAccountPage({
                 className={
                   activeBg == "security"
                     ? "account_toggle account_toggle_active"
-                    : "account_toggle"
+                    : activeBg !== "security"
+                    ? "not_account_toggle"
+                    : "account_toggle_active account_toggle"
                 }
               >
                 Security
@@ -750,7 +764,13 @@ function DashboardAccountPage({
             {/* [[[[[[[[[[[[[[[[[[[]]]]]]]]]]]]]]]]]]] */}
             <div className="account_toggle_body_area">
               {activeBg == "accounts" ? (
-                <div className="account_toggle_body_area1">
+                <div
+                  className={
+                    activeBg == "kin" || activeBg == "security"
+                      ? "not_account_toggle_body_area1 "
+                      : "account_toggle_body_area1"
+                  }
+                >
                   <div className="account_toggle_body_area1_title">
                     Personalize
                   </div>
@@ -924,7 +944,13 @@ function DashboardAccountPage({
               {/* ================= */}
               {/* ================= */}
               {activeBg == "kin" ? (
-                <div className="account_toggle_body_area1">
+                <div
+                  className={
+                    activeBg == "security" || activeBg == "accounts"
+                      ? "not_account_toggle_body_area1 "
+                      : "account_toggle_body_area1"
+                  }
+                >
                   <div className="account_toggle_body_area1_title">
                     Personal Details
                   </div>
@@ -1322,7 +1348,13 @@ function DashboardAccountPage({
               {/* ================= */}
               {/* ================= */}
               {activeBg == "security" ? (
-                <div className="account_toggle_body_area1">
+                <div
+                  className={
+                    activeBg == "kin" || activeBg == "accounts"
+                      ? "not_account_toggle_body_area1 "
+                      : "account_toggle_body_area1"
+                  }
+                >
                   <div className="account_toggle_body_area1_title">
                     Verified Information
                   </div>
@@ -1613,4 +1645,4 @@ export default connect(mapStateToProps, {
   setAlert,
   nextOfKING,
   changePassword,
-})(DashboardAccountPage);
+})(DashboardAccountPageMobile);

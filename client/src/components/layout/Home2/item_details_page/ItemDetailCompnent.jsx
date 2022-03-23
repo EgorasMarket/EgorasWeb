@@ -1,28 +1,28 @@
-import React, { useState, useEffect, useCallback } from "react";
-import PaymentsIcon from "@mui/icons-material/Payments";
-import Carousel from "react-multi-carousel";
-import "../../../../css/itemsDetailsPage.css";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import axios from "axios";
-import { ProductImageCarousel } from "./ProductImageCarousel";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
-import CreditScoreIcon from "@mui/icons-material/CreditScore";
-import CallIcon from "@mui/icons-material/Call";
-import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
-import { NoDataFoundComponent } from "../Dashboard/NodataFound/NoDataFoundComponent";
+import React, { useState, useEffect, useCallback } from 'react';
+import PaymentsIcon from '@mui/icons-material/Payments';
+import Carousel from 'react-multi-carousel';
+import '../../../../css/itemsDetailsPage.css';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import axios from 'axios';
+import { ProductImageCarousel } from './ProductImageCarousel';
+import '../Dashboard/DashboardStyles/dashboardCart.css';
+import CreditScoreIcon from '@mui/icons-material/CreditScore';
+import CallIcon from '@mui/icons-material/Call';
+import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
+import { NoDataFoundComponent } from '../Dashboard/NodataFound/NoDataFoundComponent';
 // import { ProductDescription } from "./ProductDescription";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import { numberWithCommas } from "../../../../static";
+import Dashboard_Checkout_Page from '../Dashboard/DashboardPages/Dashboard_Checkout_Page';
+import { numberWithCommas } from '../../../../static';
 
 // import CheckoutModalComponent from "./CheckoutModalComponent";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
-import Accordion from "./Accordion";
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
+import Accordion from './Accordion';
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from "../../../../actions/types";
-import { stringify } from "uuid";
+} from '../../../../actions/types';
+import { stringify } from 'uuid';
 
 const InstallmentComponent = ({
   product_duration,
@@ -36,7 +36,7 @@ const InstallmentComponent = ({
   return (
     <div>
       <div className="amount_item_div">
-        ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}{" "}
+        ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}{' '}
         <span className="per_day"> / per-day</span>
       </div>
 
@@ -97,7 +97,7 @@ const ItemDetailComponent = ({
 }) => {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -105,9 +105,10 @@ const ItemDetailComponent = ({
   const [detailsModal, setDetailsModal] = useState(false);
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
-  const [activeBg, setActiveBg] = useState("features");
+  const [activeBg, setActiveBg] = useState('features');
   const [moreImg, setMoreImg] = useState([]);
   const [outrightProducts, setOutrightProducts] = useState([]);
+  // const [categoryName, setCategoryName] = useState("");
   const [categ, setcate] = useState([]);
   const [food, setFood] = useState([]);
   //destructure the payload and return values
@@ -135,19 +136,25 @@ const ItemDetailComponent = ({
     endDate,
   } = payload;
 
+  console.log('====================================');
+  console.log(payload.product_category_desc);
+  console.log('====================================');
+  var categoryName = payload.product_category_desc;
+  console.log('====================================');
+  console.log(categoryName);
+  console.log('====================================');
   useEffect(() => {
     if (more_image != null) {
       let splited = JSON.parse(more_image);
       setMoreImg(splited);
-      console.log(more_image.split(","));
+      console.log(more_image.split(','));
       console.log(JSON.parse(more_image));
     }
   }, [more_image]);
-  const text = "No Products Found";
+  const text = 'No Products Found';
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
-
   const closeDetailModal = () => {
     setDetailsModal(false);
   };
@@ -216,10 +223,10 @@ const ItemDetailComponent = ({
     const outrightScenario = () => {};
     const installmentScenario = () => {};
     switch (payment_type) {
-      case "OUTRIGHT":
+      case 'OUTRIGHT':
         outrightScenario();
         break;
-      case "INSTALLMENT":
+      case 'INSTALLMENT':
         installmentScenario();
         break;
     }
@@ -227,7 +234,11 @@ const ItemDetailComponent = ({
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
+      .get(
+        api_url2 + '/v1/product/retrieve/outright/products',
+        null,
+        config
+      )
       .then((data) => {
         //console.log(data.data.data, "phlip22278");
 
@@ -243,7 +254,7 @@ const ItemDetailComponent = ({
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .get(api_url2 + '/v1/product/retrieve/category', null, config)
       .then((data) => {
         //console.log(data.data.data, "Anthonia");
 
@@ -267,11 +278,17 @@ const ItemDetailComponent = ({
 
   useEffect(() => {
     checkProductType(product_type);
-
+    console.log(categoryName, 'ryhtej');
     axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .get(
+        api_url2 +
+          '/v1/product/retrieve/products/byId/' +
+          categoryName,
+        null,
+        config
+      )
       .then((data) => {
-        console.log(data.data.data, "item detail component ");
+        console.log(data.data, 'item detail component ');
 
         setTerm(data.data.data);
 
@@ -280,7 +297,7 @@ const ItemDetailComponent = ({
       .catch((err) => {
         //console.log(err); // "oh, no!"
       });
-  }, []);
+  }, [categoryName]);
   const data1 = product_image;
 
   // {
@@ -295,7 +312,10 @@ const ItemDetailComponent = ({
     <>
       {modal == false ? null : (
         <div className="checkout_main">
-          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <div
+            className="checkout_modal_out"
+            onClick={CloseModal}
+          ></div>
           <Dashboard_Checkout_Page
             cAmount={100}
             // cAmount={parseInt(roundedAmount)}
@@ -313,7 +333,7 @@ const ItemDetailComponent = ({
         {/* </div> */}
         <div className="product_details_area1">
           <div className="details_area1_cont1">
-            {" "}
+            {' '}
             {/* <img
               src={product_image}
               alt=""
@@ -334,13 +354,20 @@ const ItemDetailComponent = ({
           {/* ================ */}
           {/* ================ */}
           <div className="details_area1_cont2">
-            {" "}
-            <div className="product_details_Title">{product_name}</div>
+            {' '}
+            <div className="product_details_Title">
+              {product_name}
+            </div>
             <div className="product_details_code">
-              <span className="product_code_title">Product Code: </span>
+              <span className="product_code_title">
+                Product Code:{' '}
+              </span>
               {product_category_code}
             </div>
-            <div className="product_details_code" style={{ color: "#239e54" }}>
+            <div
+              className="product_details_code"
+              style={{ color: '#239e54' }}
+            >
               <span className="product_code_title">Brand: </span>
               {product_brand}
               {/* {props.Brand} */}
@@ -348,14 +375,13 @@ const ItemDetailComponent = ({
             {/* ----------------- */}
             {/* <hr className="horizontal_rule" /> */}
             {/* -------------- */}
-            {payment_type === "INSTALLMENT" ? (
+            {payment_type === 'INSTALLMENT' ? (
               <>
                 <InstallmentComponent
                   initial_deposit={initial_deposit}
                   product_duration={product_duration}
                   amount={amount}
                   percentage={percentage}
-                  amount={amount}
                   paymentPerday={paymentPerday}
                   numberWithCommas={numberWithCommas}
                 />
@@ -375,7 +401,10 @@ const ItemDetailComponent = ({
             {/* <hr className="horizontal_rule" /> */}
             {/* ------- */}
             <div className="buy_now_btn_div">
-              <button className="buy_now_button" onClick={openCheckoutModal}>
+              <button
+                className="buy_now_button"
+                onClick={openCheckoutModal}
+              >
                 <ShoppingCartCheckoutIcon className="payment_btn_icon" />
                 Proceed to Checkout
               </button>
@@ -385,7 +414,8 @@ const ItemDetailComponent = ({
                 For offline bookings contact:
               </div>
               <div className="offline_payment_para">
-                <CallIcon className="call_us_icon" /> 08164020234, 090234567893
+                <CallIcon className="call_us_icon" /> 08164020234,
+                090234567893
               </div>
             </div>
             <div className="quantity_div">
@@ -396,9 +426,12 @@ const ItemDetailComponent = ({
               </div>
               <span className="upfront_para">
                 <PaymentsIcon className="creditCardIcon_icon" />
-                That means you are to pay{" "}
+                That means you are to pay{' '}
                 <span className="percent_days_amnt">
-                  ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
+                  ₦
+                  {numberWithCommas(
+                    parseInt(initial_deposit).toFixed()
+                  )}
                 </span>
                 before this item can be locked by you.
               </span>
@@ -416,9 +449,9 @@ const ItemDetailComponent = ({
             <div
               id="features"
               className={
-                activeBg == "features"
-                  ? "description_click1 description_click1_active"
-                  : "description_click1"
+                activeBg == 'features'
+                  ? 'description_click1 description_click1_active'
+                  : 'description_click1'
               }
               onClick={changeBg}
             >
@@ -427,9 +460,9 @@ const ItemDetailComponent = ({
             <div
               id="descript"
               className={
-                activeBg == "descript"
-                  ? "description_click1 description_click1_active"
-                  : "description_click1"
+                activeBg == 'descript'
+                  ? 'description_click1 description_click1_active'
+                  : 'description_click1'
               }
               onClick={changeBg}
             >
@@ -438,7 +471,7 @@ const ItemDetailComponent = ({
           </div>
 
           <div className="description_body">
-            {activeBg == "features" ? (
+            {activeBg == 'features' ? (
               <div className="description_table">
                 <table class="_3a09a_1e-gU">
                   <tbody>
@@ -478,7 +511,7 @@ const ItemDetailComponent = ({
           <div className="products_display_body_heading">
             Similar Products
             <a
-              href={`/dashboard/products/categories/Computer & Accessories`}
+              href={`/dashboard/products/categories/` + categoryName}
               className="se_all_btnn"
             >
               SEE ALL
@@ -492,61 +525,59 @@ const ItemDetailComponent = ({
               <>
                 <div className="show_prods_on_mobile">
                   {term.map((asset) => {
-                    return (
-                      <a
-                        href={`/dashboard/products/details/${
-                          asset.id
-                        }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        // key={index5.toString()}
-                      >
-                        <li className="carous_list no_marg inventory_cards">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${asset.product_image})`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_prices_div">
+                    if (
+                      product_category_desc ===
+                      asset.product_category_desc
+                    ) {
+                      return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(
+                            /\s+/g,
+                            '-'
+                          )}`}
+                        >
+                          <li className="carous_list no_marg inventory_cards">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
                                 <div className="asset_title">
-                                  ₦{numberWithCommas(parseInt(asset.amount))}{" "}
+                                  ₦
+                                  {numberWithCommas(
+                                    parseInt(asset.roundedAmount)
+                                  )}{' '}
                                   <span className="slashed_price">
                                     ₦
                                     {numberWithCommas(
-                                      parseInt(asset.amount * 2)
+                                      parseInt(
+                                        asset.roundedAmount * 2
+                                      )
                                     )}
                                   </span>
                                 </div>
-                                <div className="amount_per_day_div">
-                                  ₦
-                                  {numberWithCommas(
-                                    parseInt(
-                                      asset.amount / asset.product_duration
-                                    ).toFixed()
-                                  )}
-                                  <span className="per_day_symbol">
-                                    {" "}
-                                    / perday
-                                  </span>
-                                </div>
                               </div>
+                              {/* </a> */}
                             </div>
-                            {/* </a> */}
-                          </div>
-                        </li>
-                      </a>
-                    );
+                          </li>
+                        </a>
+                      );
+                    }
                   })}
                 </div>
                 <Carousel
@@ -554,22 +585,28 @@ const ItemDetailComponent = ({
                   className="partnerCards LEFTARROW market_carous"
                   showDots={false}
                   //   infinite={false}
-                  autoPlay={true}
+                  autoPlay={false}
                   autoPlaySpeed={6000}
-                  transitionDelay={"2s"}
+                  transitionDelay={'2s'}
                   infinite={false}
                   draggable={true}
                   // transitionDuration={500}
                   swipeable={true}
-                  style={{ height: "25em" }}
+                  style={{ height: '25em' }}
                 >
                   {term.map((asset) => {
-                    if (product_category_desc === asset.product_category_desc) {
+                    if (
+                      product_category_desc ===
+                      asset.product_category_desc
+                    ) {
                       return (
                         <a
                           href={`/dashboard/products/details/${
                             asset.id
-                          }/${asset.product_name.replace(/\s+/g, "-")}`}
+                          }/${asset.product_name.replace(
+                            /\s+/g,
+                            '-'
+                          )}`}
                         >
                           <li className="carous_list">
                             <div
@@ -594,11 +631,13 @@ const ItemDetailComponent = ({
                                   ₦
                                   {numberWithCommas(
                                     parseInt(asset.roundedAmount)
-                                  )}{" "}
+                                  )}{' '}
                                   <span className="slashed_price">
                                     ₦
                                     {numberWithCommas(
-                                      parseInt(asset.roundedAmount * 2)
+                                      parseInt(
+                                        asset.roundedAmount * 2
+                                      )
                                     )}
                                   </span>
                                 </div>
@@ -635,56 +674,56 @@ const ItemDetailComponent = ({
           </div>
           <Accordion title="How do I save for a product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Unde autem saepe error facilis earum beatae cum
+              dolorem commodi odio non quidem dicta iusto animi nobis
+              fugiat quae esse enim porro ab, quas fuga? Esse repellat
+              officiis accusantium? Commodi, repellat voluptas.
             </div>
           </Accordion>
           <Accordion title="What are the duration of products luck.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Unde autem saepe error facilis earum beatae cum
+              dolorem commodi odio non quidem dicta iusto animi nobis
+              fugiat quae esse enim porro ab, quas fuga? Esse repellat
+              officiis accusantium? Commodi, repellat voluptas.
             </div>
           </Accordion>
           <Accordion title="what are the delivering charges attached to a product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Unde autem saepe error facilis earum beatae cum
+              dolorem commodi odio non quidem dicta iusto animi nobis
+              fugiat quae esse enim porro ab, quas fuga? Esse repellat
+              officiis accusantium? Commodi, repellat voluptas.
             </div>
           </Accordion>
           <Accordion title="How long does it take for me to receive my product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Unde autem saepe error facilis earum beatae cum
+              dolorem commodi odio non quidem dicta iusto animi nobis
+              fugiat quae esse enim porro ab, quas fuga? Esse repellat
+              officiis accusantium? Commodi, repellat voluptas.
             </div>
           </Accordion>
           <Accordion title="what are the discount attachments to product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Unde autem saepe error facilis earum beatae cum
+              dolorem commodi odio non quidem dicta iusto animi nobis
+              fugiat quae esse enim porro ab, quas fuga? Esse repellat
+              officiis accusantium? Commodi, repellat voluptas.
             </div>
           </Accordion>
           <Accordion title="Are products tested before delivering.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing
+              elit. Unde autem saepe error facilis earum beatae cum
+              dolorem commodi odio non quidem dicta iusto animi nobis
+              fugiat quae esse enim porro ab, quas fuga? Esse repellat
+              officiis accusantium? Commodi, repellat voluptas.
             </div>
           </Accordion>
         </section>
