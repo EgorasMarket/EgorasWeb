@@ -2,7 +2,10 @@ import React, { useEffect, useCallback, useState } from 'react';
 import axios from 'axios';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import verify from '../../../../flutterwave/API/Verify';
+import Loader from './Loader';
 import CloseIcon from '@mui/icons-material/Close';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons'
 // import Wallet1 from "../../Wallet/Wallet1";
 import {
   PRODUCT_LOADED,
@@ -77,6 +80,7 @@ const CheckoutModalComponent = ({
       'Content-Type': 'application/json',
     },
   };
+  
 
   const [addressName, setAddressName] = useState('');
 
@@ -144,6 +148,9 @@ const CheckoutModalComponent = ({
       });
     }
   }, []);
+  useEffect(() => {
+    
+  })
 
   const flutterConfig = {
     public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
@@ -174,6 +181,8 @@ const CheckoutModalComponent = ({
   const openProcessingDiv = () => {
     setProcessingDiv(true);
   };
+  // const <FontAwesomeIcon icon={faSpinner} spin />
+  const fonterm = (<FontAwesomeIcon icon={faSpinner} spin />)
   const selectOption = async (value) => {
     // switch(value ){
     //   case 0:
@@ -565,11 +574,24 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             <button
               className="checkout_btn1a"
-              onClick={() => {
-                // openPayment();
-                selectOption(option);
-              }}
+
+              
+              // onClick={() => {
+                
+              //   <Loader/>
+                    
+              //   // openPayment();
+              //   selectOption(option);
+               
+
+
+              // }}
+              onClick={()=>{ 
+                // return( <Loader/>)
+                selectOption(option);}}
             >
+            
+              
               Proceed to Checkout
             </button>
           </div>
