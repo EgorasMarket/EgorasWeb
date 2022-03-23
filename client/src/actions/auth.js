@@ -116,7 +116,6 @@ export const getAuthentication =
 
       //console.log(err.response);
       //console.log(err.response);
-      //console.log(err.response);
 
       return {
         success: false,
