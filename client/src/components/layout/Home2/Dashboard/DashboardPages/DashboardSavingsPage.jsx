@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "react-multi-carousel";
-import DashBoardCard from "../DashBoardCard";
-import axios from "axios";
-import { connect } from "react-redux";
-import { API_URL2 as api_url2 } from "../../../../../actions/types";
-import "../DashboardStyles/dashboard_savings.css";
+import React, { useState, useEffect } from 'react';
+import Carousel from 'react-multi-carousel';
+import DashBoardCard from '../DashBoardCard';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { API_URL2 as api_url2 } from '../../../../../actions/types';
+import '../DashboardStyles/dashboard_savings.css';
 // import { NodataFound } from "../NodataFound/NoDataFoundComponent";
-import LoadingIcons from "react-loading-icons";
-import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
-import { numberWithCommas } from "../../../../../static";
+import LoadingIcons from 'react-loading-icons';
+import { NoDataFoundComponent } from '../NodataFound/NoDataFoundComponent';
+import { numberWithCommas } from '../../../../../static';
+import FlutterButton from '../../../../../flutterwave/FlutterButton';
 
 const responsive6 = {
   superLargeDesktop: {
@@ -49,19 +50,24 @@ const responsive7 = {
   },
 };
 function DashboardSavingsPage({ match, auth }) {
+  const [email, setEmail] = useState('');
+  const [phonenumber, setPhonenumber] = useState('');
+  const [fullname, setFullname] = useState('');
+
   const [savedNum, setSavedNum] = useState(5);
   const [Loading, setLoading] = useState(false);
   const [itemdisplay, setItemDisplay] = useState([]);
   const [product_id, setProductId] = useState(match.params.id);
+
   const [productDetail, setProductDetail] = useState({
-    product_image: "",
-    product_name: "",
-    amount: "",
-    product_duration: "",
+    product_image: '',
+    product_name: '',
+    amount: '',
+    product_duration: '',
   });
 
   const [userLockId, setUserLockId] = useState([]);
-  const [lockedItem, setLockedItem] = useState({ itemsLock: "" });
+  const [lockedItem, setLockedItem] = useState({ itemsLock: '' });
   const { itemslock } = lockedItem;
 
   const { product_image, product_name, amount, product_duration } =
@@ -69,7 +75,7 @@ function DashboardSavingsPage({ match, auth }) {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -83,7 +89,7 @@ function DashboardSavingsPage({ match, auth }) {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .get(api_url2 + '/v1/product/retrieve/products', null, config)
       .then((data) => {
         //console.log(data.data.data, "chukwubuike");
 
@@ -108,7 +114,7 @@ function DashboardSavingsPage({ match, auth }) {
         config
       )
       .then((data) => {
-        console.log(data.data, "Ewwooo oh");
+        console.log(data.data, 'Ewwooo oh');
 
         setUserLockId(data.data.data);
       })
@@ -121,11 +127,18 @@ function DashboardSavingsPage({ match, auth }) {
     //console.log(auth.user.user.id);
     setLoading(true);
     const customer_id = auth.user.user.id;
+    setFullname(auth.user.user.fullname);
+    setEmail(auth.user.user.email);
+    setPhonenumber(auth.user.user.phoneNumber);
     const body = JSON.stringify({
       customer_id,
     });
     await axios
-      .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
+      .post(
+        api_url2 + '/v1/user/accounts/fetch/dashboard',
+        body,
+        config
+      )
       .then((data) => {
         //console.log(data.data.data, "bbbbbbb");
         setLoading(false);
@@ -144,7 +157,7 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
-  const text = "No item Locked yet";
+  const text = 'No item Locked yet';
 
   // useEffect(() => {
   //   const body = JSON.stringify({
@@ -180,7 +193,9 @@ function DashboardSavingsPage({ match, auth }) {
         <div className="container">
           <div className="dash_savings_area">
             <div className="dash_savings_area1">
-              <div className="dash_savings_area1_title">Savings Overview</div>
+              <div className="dash_savings_area1_title">
+                Savings Overview
+              </div>
               <Carousel
                 responsive={responsive6}
                 className="partnerCards LEFTARROW gtr"
@@ -192,30 +207,35 @@ function DashboardSavingsPage({ match, auth }) {
                 draggable={true}
                 swipeable={true}
                 // transitionDuration={1000}
-                style={{ height: "25em" }}
+                style={{ height: '25em' }}
               >
                 {/* {data.dashBoardHomeCard.map((asset, index) => ( */}
                 <DashBoardCard
-                  background={"/img/save_card1.svg"}
-                  title={"Total Savings"}
+                  background={'/img/save_card1.svg'}
+                  title={'Total Savings'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(total_sum).toFixed(2))}
+                  balance={numberWithCommas(
+                    parseInt(total_sum).toFixed(2)
+                  )}
                 />
                 <DashBoardCard
-                  background={"/img/save_card2.svg"}
-                  title={"Pending Payment"}
+                  background={'/img/save_card2.svg'}
+                  title={'Pending Payment'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(pending_sum).toFixed(2))}
+                  balance={numberWithCommas(
+                    parseInt(pending_sum).toFixed(2)
+                  )}
                 />
-
                 <DashBoardCard
-                  background={"/img/save_card3.svg"}
-                  title={"Ledger Balance"}
+                  background={'/img/save_card3.svg'}
+                  title={'Ledger Balance'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(ledger).toFixed(2))}
+                  balance={numberWithCommas(
+                    parseInt(ledger).toFixed(2)
+                  )}
                 />
 
                 {/* ))} */}
@@ -223,9 +243,11 @@ function DashboardSavingsPage({ match, auth }) {
 
               {userLockId.length <= 0 ? null : (
                 <div className="savings_overview_body_cont1">
-                  Total Number of Locked{" "}
-                  {userLockId.length >= 2 ? "items" : "item"}{" "}
-                  <span className="saved_figure">{userLockId.length}</span>
+                  Total Number of Locked{' '}
+                  {userLockId.length >= 2 ? 'items' : 'item'}{' '}
+                  <span className="saved_figure">
+                    {userLockId.length}
+                  </span>
                 </div>
               )}
               {userLockId.length <= 0 ? (
@@ -254,12 +276,12 @@ function DashboardSavingsPage({ match, auth }) {
                       </tr>
                     </thead>
                     <table className="save_item_table">
-                      {userLockId.slice(0, 5).map((asset) => (
+                      {userLockId.map((asset) => (
                         <tbody
                           className="save_items_cat popular-categories"
                           id="popular-categories"
                         >
-                          {" "}
+                          {' '}
                           <tr className="assets-category-row saving_assets_row">
                             <td className="save_item_data">
                               <div className="assets-data height_data">
@@ -296,9 +318,16 @@ function DashboardSavingsPage({ match, auth }) {
                                 </div> */}
 
                                   <div>
-                                    Savings duration : {asset.product_duration}{" "}
-                                    {"days left"}
+                                    Savings duration :{' '}
+                                    {asset.product_duration}{' '}
+                                    {'days left'}
                                   </div>
+                                  <FlutterButton
+                                    orderId={asset.order_id}
+                                    email={email}
+                                    phonenumber={phonenumber}
+                                    fullname={fullname}
+                                  />
                                 </div>
                                 {/* <div className="save_total_locked_amount">
                                 <span className="items_left_amount">
@@ -315,12 +344,18 @@ function DashboardSavingsPage({ match, auth }) {
                             </td>
                             <td className="save_item_data1b">
                               <div className="assets-data-name center_name">
-                                ₦{numberWithCommas(asset.paidSum.toFixed(2))}
+                                ₦
+                                {numberWithCommas(
+                                  asset.paidSum.toFixed(2)
+                                )}
                               </div>
                             </td>
                             <td className="save_item_data1b">
                               <div className="assets-data-name_last">
-                                ₦{numberWithCommas(asset.sum.toFixed(2))}
+                                ₦
+                                {numberWithCommas(
+                                  asset.sum.toFixed(2)
+                                )}
                               </div>
                             </td>
                           </tr>
