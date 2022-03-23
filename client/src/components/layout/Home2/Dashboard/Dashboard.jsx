@@ -10,6 +10,7 @@ import { connect } from "react-redux";
 import Wallet from "../../Wallet/Wallet";
 
 import DashboardSidebar from "./DashboardSidebar";
+import DashboardAccountPageMobile from "./DashboardPages/DashboardAccountPageMobile";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 // import ItemDetailsPage1 from "../item_details_page/detail";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
@@ -100,11 +101,25 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 path="/dashboard/accounts"
                 component={DashboardAccountPage}
               />
-              <Route
-                name="dash_account_param"
+              {/* <Route
                 exact
-                path="/dashboard/accounts:action"
+                path="/dashboard/accounts/accounts"
                 component={DashboardAccountPage}
+              />
+              <Route
+                exact
+                path="/dashboard/accounts/nok"
+                component={DashboardAccountPage}
+              />
+              <Route
+                exact
+                path="/dashboard/accounts/security"
+                component={DashboardAccountPage}
+              /> */}
+              <Route
+                exact
+                path="/dashboard/accounts/:state"
+                component={DashboardAccountPageMobile}
               />
               <Route
                 exact

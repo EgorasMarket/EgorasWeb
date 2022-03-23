@@ -48,6 +48,18 @@ const Footer = () => {
       document.getElementById("FooterId").style.display = "none";
     }
 
+    if (FooterHide === "/dashboard/accounts/accounts") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+
+    if (FooterHide === "/dashboard/accounts/kin") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+
+    if (FooterHide === "/dashboard/accounts/security") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+
     if (FooterHide === "/super_admin/user_wallet") {
       document.getElementById("FooterId").style.display = "none";
     }
