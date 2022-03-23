@@ -22,7 +22,7 @@ import { createOrder } from '../../../../actions/shop';
 import { connect } from 'react-redux';
 import initPayment from '../../../../flutterwave/initPayment';
 import initializePayment from '../../../../flutterwave/API/initializePayment';
-import { Redirect } from 'react-router-dom';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const CheckoutModalComponent = ({
   payload,
@@ -242,7 +242,8 @@ const CheckoutModalComponent = ({
               alert(
                 'Your order have been completed successfully, You will redirected to the market place'
               );
-              return <Redirect to="/dashboard" />;
+
+              return <Redirect push to={'/dashboard'} />;
             })
             .catch((err) => {
               console.log(err.response);
@@ -250,7 +251,6 @@ const CheckoutModalComponent = ({
               // setErrorDiv(true);
               alert(err);
             });
-          //
         } else {
           console.log('something happened');
           setProcessingDiv(false);
