@@ -24,6 +24,7 @@ import {
   nextOfKING,
   changePassword,
 } from "../../../../../actions/auth";
+import { useParams } from "react-router-dom";
 import "./accF.css";
 import { setAlert } from "../../../../../actions/alert";
 import validator from "validator";
@@ -54,7 +55,10 @@ function DashboardAccountPage({
     nxtphoneNumber: "",
     nxtrelationship: "",
   });
-  const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
+  const [tokens, setTokens] = useState({
+    gender: "",
+    dateOfBirth: "",
+  });
   const [customerAddress, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
   const [customerBvn1, setCustomerBvn1] = useState("");
@@ -134,6 +138,7 @@ function DashboardAccountPage({
     // console.log('====================================');
     // console.log(auth.user.user.id);
     // console.log('====================================');
+
     setIdSet({
       idNum: auth.user.user.id,
     });
@@ -299,7 +304,10 @@ function DashboardAccountPage({
   // },[phoneNumber])
 
   const onChangeFor4 = (e) => {
-    setChangePassword({ ...changePassword1, [e.target.name]: e.target.value });
+    setChangePassword({
+      ...changePassword1,
+      [e.target.name]: e.target.value,
+    });
   };
 
   // const updateUser =()=>{

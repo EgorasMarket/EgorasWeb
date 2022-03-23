@@ -48,10 +48,10 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <Link
-              to={`/dashboard/accounts/accounts`}
+            <a
+              href={`/dashboard/accounts/accounts`}
               className="account_nav_other_areas"
-              onClick={closeAcctNavDiv}
+              // onClick={closeAcctNavDiv}
             >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
@@ -65,17 +65,17 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
               >
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
               </span>
-            </Link>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <Link
+            <a
               className="account_nav_other_areas"
-              to={`/dashboard/accounts/kin`}
-              onClick={closeAcctNavDiv}
+              href={`/dashboard/accounts/kin`}
+              // onClick={closeAcctNavDiv}
             >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
@@ -86,17 +86,17 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
               <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
               </span>
-            </Link>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <Link
+            <a
               className="account_nav_other_areas"
-              to={`/dashboard/accounts/security`}
-              onClick={closeAcctNavDiv}
+              href={`/dashboard/accounts/security`}
+              // onClick={closeAcctNavDiv}
             >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
@@ -107,17 +107,17 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
               <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
               </span>
-            </Link>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <Link
+            <a
               className="account_nav_other_areas"
-              to="dash_account_param"
-              onClick={closeAcctNavDiv}
+              href="dash_account_param"
+              // onClick={closeAcctNavDiv}
             >
               <div className="other_area_title">
                 <div className="other_area_title_icon">
@@ -128,16 +128,16 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
               <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
               </span>
-            </Link>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <Link
+            <a
               className="account_nav_other_areas"
-              to="dash_account_param"
+              href="dash_account_param"
               onClick={closeAcctNavDiv}
             >
               <div className="other_area_title">
@@ -149,7 +149,7 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
               <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
               </span>
-            </Link>
+            </a>
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
