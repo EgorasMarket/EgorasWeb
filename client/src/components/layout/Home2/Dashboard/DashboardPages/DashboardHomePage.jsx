@@ -22,43 +22,43 @@ import {
 import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 
 import { numberWithCommas } from "../../../../../static";
-const transaction = [
-  {
-    id: 1,
-    date: "05-16-2022",
-    amount: "2000",
-    type: "Card",
-    status: "Completed",
-  },
-  {
-    id: 2,
-    date: "05-16-2022",
-    amount: "2000",
-    type: "Card",
-    status: "Completed",
-  },
-  {
-    id: 3,
-    date: "05-25-2022",
-    amount: "3500",
-    type: "Wallet",
-    status: "Completed",
-  },
-  {
-    id: 4,
-    date: "05-16-2022",
-    amount: "2000",
-    type: "Card",
-    status: "Completed",
-  },
-  {
-    id: 5,
-    date: "06-16-2022",
-    amount: "1500",
-    type: "Wallet",
-    status: "Completed",
-  },
-];
+// const transaction = [
+//   {
+//     id: 1,
+//     date: "05-16-2022",
+//     amount: "2000",
+//     type: "Card",
+//     status: "Completed",
+//   },
+//   {
+//     id: 2,
+//     date: "05-16-2022",
+//     amount: "2000",
+//     type: "Card",
+//     status: "Completed",
+//   },
+//   {
+//     id: 3,
+//     date: "05-25-2022",
+//     amount: "3500",
+//     type: "Wallet",
+//     status: "Completed",
+//   },
+//   {
+//     id: 4,
+//     date: "05-16-2022",
+//     amount: "2000",
+//     type: "Card",
+//     status: "Completed",
+//   },
+//   {
+//     id: 5,
+//     date: "06-16-2022",
+//     amount: "1500",
+//     type: "Wallet",
+//     status: "Completed",
+//   },
+// ];
 const responsive6 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -140,7 +140,7 @@ const DashboardHomePage = ({ auth, match }) => {
   //   //console.log("inside use effect")
 
   // },[])
-
+  const [allDatas, setAllDatas] = useState([]);
   const [savedNum, setSavedNum] = useState(5);
   const [productPage_id, setProductPageId] = useState(match.params.id);
   const [lock, setlock] = useState({
@@ -207,6 +207,7 @@ const DashboardHomePage = ({ auth, match }) => {
       });
   }, []);
 
+
   useEffect(async () => {
     setLoading(true);
     //console.log(auth.user.user.id);
@@ -265,6 +266,24 @@ const DashboardHomePage = ({ auth, match }) => {
   // const numberWithCommas = (x) => {
   //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   // };
+
+
+
+
+
+
+useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/user/transactions/customer/recent", null, config)
+      .then((data) => {
+        setAllDatas(data.data.payload);
+        console.log(data.data.payload)
+      })
+      .catch((err) => {
+        console.log(err);
+        })
+          
+    }, []);
   return (
     <div className="other2">
       <section className="no-bg no_paddd">
@@ -377,7 +396,28 @@ const DashboardHomePage = ({ auth, match }) => {
                 </div>
               </div>
             )}
+
           </div>
+
+          {/* useEffect(() => {
+            axios
+              .get(api_url2 + "/v1/user/transactions/customer/recent", null, config)
+              .then((data) => {
+                setAllCustomers(data.data.payload);
+                console.log(data.data.payload)
+              })
+              .catch((err) => {
+                console.log(err);
+              })
+          
+          }, []); */}
+      
+
+         
+
+
+          
+
           <div className="dashboard_transactions">
             <div className="dashboard_transactions_header">
               Recent Transactions{" "}
@@ -387,17 +427,17 @@ const DashboardHomePage = ({ auth, match }) => {
             </div>
             <div className="transaction_headings">
               <div className="transaction_heading1">Title</div>
-              <div className="transaction_heading1">Date</div>
+              <div className="transaction_heading1">Type</div>
               <div className="transaction_heading1 amnt_small">Amount</div>
-              <div className="transaction_heading1 center_this">Type</div>
+              <div className="transaction_heading1 center_this">Channel</div>
               <div className="transaction_heading1 reduce_width">Status</div>
             </div>
             <div className="dashboard_transaction_body">
-              {transaction.map((data) => (
+              {allDatas.slice(0,5).map((data) => (
                 <>
                   <div
                     className="dashboard_transaction_body_cont1"
-                    id={data.id}
+                    id={data.transaction_hash}
                     // key={data.id}
                     onClick={ChangeTranPopUp}
                   >
@@ -411,7 +451,7 @@ const DashboardHomePage = ({ auth, match }) => {
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_amount_cont">
                       <div className="dashboard_transac_body_cont1_layer1_time">
-                        {data.date}
+                        {data.transaction_type}
                       </div>
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_amount_cont">
@@ -419,12 +459,12 @@ const DashboardHomePage = ({ auth, match }) => {
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_type_cont">
                       <span className="dashboard_transac_body_cont1_layer1_type_status">
-                        {data.type}
+                        {data.channel}
                       </span>
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_status_cont">
                       <span className="dashboard_transac_body_cont1_layer1_completed_status">
-                        {data.status}
+                       Completed
                       </span>
                     </div>
                   </div>
@@ -437,9 +477,9 @@ const DashboardHomePage = ({ auth, match }) => {
           {/* =================================================================================================================================================================================================================================================================== */}
         </div>
       </section>
-      {transaction.map((data) => (
+      {allDatas.map((data) => (
         <>
-          {tranPopUp == data.id ? (
+          {tranPopUp == data.transaction_hash ? (
             <div className="trans_div">
               <div className="tranPop_div">
                 <div className="tranPopHeading">
@@ -459,7 +499,7 @@ const DashboardHomePage = ({ auth, match }) => {
                   <span className="transPopData">Deposited</span>
                 </div>
                 <div className="tranPop_div_cont1">
-                  Date <span className="transPopData"> {data.date}</span>{" "}
+                  Type <span className="transPopData"> {data.transaction_type}</span>{" "}
                 </div>
                 <div className="tranPop_div_cont1">
                   Amount{" "}
@@ -468,7 +508,7 @@ const DashboardHomePage = ({ auth, match }) => {
                   </span>{" "}
                 </div>
                 <div className="tranPop_div_cont1">
-                  Type <span className="transPopData">{data.type}</span>
+                  Channel <span className="transPopData">{data.channel}</span>
                 </div>
                 <div className="tranPop_div_cont1">
                   Status{" "}
@@ -476,13 +516,14 @@ const DashboardHomePage = ({ auth, match }) => {
                     <CircleIcon className="complete_circle" />
                     Completed
                   </span>
-                </div>
+                </div> 
               </div>
             </div>
           ) : null}
         </>
       ))}
     </div>
+  
   );
 };
 
