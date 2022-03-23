@@ -1,5 +1,6 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
+import DatePicker from 'react-date-picker';
 import { CustomAlert } from "../../../../CustomAlert";
 // import useAlert from "@semiorbit/react-ui-tools/Containers/useAlert";
 
@@ -11,14 +12,20 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 const Signup = ({ getAuthentication }) => {
   const [userAuth, setUserAuth] = useState({
-    fullname: "",
+    // fullname: "",
+    firstname: "",
+    lastname: "",
     email: "",
     password: "",
-    // BVN: "",
+    BVN: "",
     phoneNumber: "",
     confirmPassword: "",
     InfoReason: "",
   });
+
+  const [dateOfBirth, setDateOfBirth] = useState('');
+  
+
   const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState("");
@@ -29,14 +36,18 @@ const Signup = ({ getAuthentication }) => {
   const [mismatchPass, setMismatchPass] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
   const {
-    fullname,
+    // fullname,
+    firstname,
+    lastname,
     email,
     password,
-    // BVN,
+    BVN,
     phoneNumber,
     confirmPassword,
     InfoReason,
   } = userAuth;
+
+  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : '';
 
   // const weakPass = () => {
   //   setStrongPas(true);
@@ -47,13 +58,22 @@ const Signup = ({ getAuthentication }) => {
   //   }
   // }, []);
   useEffect(() => {
-    if (fullname === "") {
+    // if (fullname === "") {
+    //   setDisable(true);
+    // } 
+    if (firstname === "") {
       setDisable(true);
     } 
-    // else if (email === "") {
-    //   setDisable(true);
-    // }
-     else if (password === "") {
+    if (lastname === "") {
+      setDisable(true);
+    } 
+    if (email === "") {
+      setDisable(true);
+    } else if (BVN === "") {
+      setDisable(true);
+    } else if (birthDate === "") {
+      setDisable(true);
+    } else if (password === "") {
       setDisable(true);
     } else if (phoneNumber === "") {
       setDisable(true);
@@ -149,6 +169,8 @@ const Signup = ({ getAuthentication }) => {
   //   setIsSuccessful(false);
   // });
   const submitData = async (e) => {
+
+    console.log(birthDate, email, firstname, lastname, BVN, 'sfdbhjdfbkjdbjk');
     if (isLoading == true) {
       setDisable(true);
     } else if (isLoading == false) {
@@ -157,10 +179,13 @@ const Signup = ({ getAuthentication }) => {
     setIsLoading(true);
     setDisable(true);
     let res = await getAuthentication(
-      fullname,
+      // fullname,
+      firstname,
+      lastname,
       email,
+      birthDate,
       password,
-      // BVN,
+      BVN,
       phoneNumber,
       InfoReason
       //   localStorage.referrer
@@ -207,15 +232,27 @@ const Signup = ({ getAuthentication }) => {
                   Welcome to the future of savings & investments.
                 </span>
                 <div className="signup_inputs_cont">
-                  <div className="signup_input_field1_cont">
-                    <span className="input_title">Full Name</span>
-                    <input
-                      type="text"
-                      name="fullname"
-                      className="signup_input_field"
-                      value={fullname}
-                      onChange={onChange}
-                    />
+                  <div className="signup_input_field1_cont" style={{"flexDirection": 'row'}}>
+                    <div className='text-left'>
+                      <span className="input_title">First Name</span>
+                      <input
+                        type="text"
+                        name="firstname"
+                        className="signup_input_field"
+                        value={firstname}
+                        onChange={onChange}
+                      />
+                    </div>
+                    <div className='text-left'>
+                      <span className="input_title">Last Name</span>
+                      <input
+                        type="text"
+                        name="lastname"
+                        className="signup_input_field"
+                        value={lastname}
+                        onChange={onChange}
+                      />
+                    </div>
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Email address</span>
@@ -227,18 +264,38 @@ const Signup = ({ getAuthentication }) => {
                       onChange={onChange}
                       placeHolder="@gmail.com"
                     />
-                    <div className="weak_pass_div text-muted">* Optional</div>
+                    {/* <div className="weak_pass_div text-muted">* Optional</div> */}
+                  </div>
+               
+                  <div className="signup_input_field1_cont" style={{"flexDirection": 'row'}}>
+                    <div className='text-left'>
+                      <span className="input_title">Phone Number</span>
+                      <input
+                        type="number"
+                        className="signup_input_field"
+                        value={phoneNumber}
+                        name="phoneNumber"
+                        onChange={onChange}
+                      />
+                    </div>
+                    <div className='text-left'>
+                      <span className="input_title">Date Of Birth</span>
+                      <DatePicker onChange={setDateOfBirth} value={dateOfBirth}  format='yyyy-MM-dd' />
+                    </div>
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">Phone Number</span>
+                    <span className="input_title">Bank Verification Number (BVN)</span>
                     <input
                       type="number"
                       className="signup_input_field"
-                      value={phoneNumber}
-                      name="phoneNumber"
+                      value={BVN}
+                      name="BVN"
                       onChange={onChange}
+                      placeHolder="***********"
                     />
+                    {/* <div className="weak_pass_div text-muted">* Optional</div> */}
                   </div>
+                 
                   {/* <div className="signup_input_field1_cont">
                     <span className="input_title">
                       Bank Verification Number (BVN)

@@ -67,7 +67,16 @@ export const loadUser = () => async (dispatch) => {
 
 // Get Social Media Handles
 export const getAuthentication =
-  (fullname, email, password, phoneNumber, InfoReason) =>
+  (
+    firstname,
+    lastname,
+    email,
+    birthDate,
+    password,
+    BVN,
+    phoneNumber,
+    InfoReason
+  ) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -78,14 +87,17 @@ export const getAuthentication =
     };
 
     const body = JSON.stringify({
-      fullname,
+      firstname,
+      lastname,
       email,
+      birthDate,
       password,
+      BVN,
       phoneNumber,
-      InfoReason,
+      InfoReason
     });
 
-    //console.log(body);
+    console.log(body);
 
     try {
       const res = await axios.post(

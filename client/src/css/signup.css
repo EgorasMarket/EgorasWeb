@@ -251,6 +251,13 @@ option {
   color: #797979;
   cursor: not-allowed;
 }
+.react-date-picker__wrapper {
+  padding: 6px !important;
+  border-radius: 5px !important;
+  background: #f0fff6 !important;
+  border-color: #ace3c2 !important;
+}
+
 @media screen and (max-width: 991px) {
   .signup_cont {
     width: 60%;
