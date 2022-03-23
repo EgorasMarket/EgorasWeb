@@ -84,7 +84,6 @@ const CheckoutModalComponent = ({
     if (payment_type === 'OUTRIGHT') {
       // alert(initial_deposit);
       setTotal(amount);
-      alert(total);
     } else if (payment_type === 'INSTALLMENT') {
       setTotal(initial_deposit + deliveryFee);
     }
@@ -216,7 +215,6 @@ const CheckoutModalComponent = ({
 
       case 1:
         setProcessingDiv(true);
-        alert(tokenBal);
 
         if (tokenBal >= Number(total)) {
           //
