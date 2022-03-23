@@ -171,7 +171,8 @@ const Signup = ({ getAuthentication }) => {
   const submitData = async (e) => {
 
     console.log(birthDate, email, firstname, lastname, BVN, 'sfdbhjdfbkjdbjk');
-    if (isLoading == true) {
+    if (isLoading == true) {    
+      //
       setDisable(true);
     } else if (isLoading == false) {
       setDisable(false);
