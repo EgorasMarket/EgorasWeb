@@ -82,6 +82,13 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
                 className="other_area_btn"
                 onClick={closeAcctNavDiv}
               >
+                // Using query
+                {/* <Link
+                  to={{
+                    pathname: '/dashboard/accounts',
+                    query: '/dashboard/accounts',
+                  }}
+                /> */}
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
               </Link>
             </div>
