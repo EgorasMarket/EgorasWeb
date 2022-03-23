@@ -468,14 +468,12 @@
     z-index: 2000000;
     height: 60px;
     top: auto;
-
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
-
     background-image: radial-gradient(
       circle 45px at 50% 0px,
       #ffffff00 727px,
-      #daf4e5 50px
+      #e9fff2 50px
     );
     -webkit-backdrop-filter: blur(26px);
     backdrop-filter: blur(100px);
@@ -521,7 +519,7 @@
   }
   .list-item-active {
     position: relative;
-    color: #239e54;
+    color: #0b7535;
     background: none;
     border-radius: 19px;
     box-shadow: none;
@@ -531,7 +529,7 @@
     transform: scale(1.2);
     transition: 0.3s all ease-in-out;
     animation: bounce 0.5s cubic-bezier(0, 0.71, 0.25, 1.41);
-    font-weight: 700;
+    font-weight: 800;
   }
   @keyframes bounce {
     0% {
