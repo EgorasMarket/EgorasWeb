@@ -1,3 +1,31 @@
+// Skip to content
+// Search or jump to…
+// Pull requests
+// Issues
+// Marketplace
+// Explore
+
+// @samuel-2001
+// EgorasMarket
+// /
+// EgorasNextProject
+// Private
+// Code
+// Issues
+// Pull requests
+// Actions
+// Projects
+// Security
+// Insights
+// EgorasNextProject/client/src/components/layout/Admin/AdminSideBar.jsx /
+// @samuel-2001
+// samuel-2001 update
+// Latest commit 613e35e 19 days ago
+//  History
+//  3 contributors
+// @Buike369@samuel-2001@Ebrinix
+// Executable File  655 lines (597 sloc)  21.6 KB
+
 import React, { useState, useEffect } from "react";
 
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
@@ -19,7 +47,8 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
 import Logout from "../Home2/Logout/Logout";
-
+import NewOne from "./AdminPages/newOne";
+import Transact from "./AdminPages/Transactionbybranch";
 const AdminSideBar = ({ auth }) => {
   const dddd = localStorage.getItem("smallSidetoken");
 
@@ -340,9 +369,8 @@ const AdminSideBar = ({ auth }) => {
                         Customer
                       </li>
                     </a>
-    
 
-               {/* {  locate === "/super_admin/overview" ? */}
+                    {/* {  locate === "/super_admin/overview" ? */}
                     <a
                       href="/super_admin/user_wallet"
                       className="link"
@@ -358,6 +386,45 @@ const AdminSideBar = ({ auth }) => {
                       >
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         Wallet
+                      </li>
+                    </a>
+                    {/* :null} */}
+
+                    {/* {  locate === "/super_admin/overview" ? */}
+                    <a
+                      href="/super_admin/customers_by_branch"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        Transactions
+                      </li>
+                    </a>
+                    {/* :null} */}
+
+                    <a
+                      href="/super_admin/customers_by_location"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        TransactionBranch
                       </li>
                     </a>
                     {/* :null} */}
@@ -420,39 +487,44 @@ const AdminSideBar = ({ auth }) => {
 
                 {role1 === "CASHIER" ? (
                   <>
-                  <a href="#" className="link" id="accounts" onClick={changeBg}>
-                    <li
-                      className={
-                        activeBg == "accounts" && role1 === "CASHIER"
-                          ? "sidebarListItem list-item-active"
-                          : "sidebarListItem"
-                      }
-                    >
-                      <AccountCircleIcon className="sidebarIcon" />
-                      Accounts
-                    </li>
-                    </a>
-                 
-                  {((locate  ===  "/super_admin/overview") || (locate  ===  "/super_admin/cus_user_wallet")) ?
                     <a
-                      href="/super_admin/cus_user_wallet"
+                      href="#"
                       className="link"
-                      id="wallet1"
+                      id="accounts"
                       onClick={changeBg}
                     >
                       <li
                         className={
-                          activeBg == "wallet1"
+                          activeBg == "accounts" && role1 === "CASHIER"
                             ? "sidebarListItem list-item-active"
                             : "sidebarListItem"
                         }
                       >
-                        <AccountBalanceWalletIcon className="sidebarIcon" />
-                       Customer Wallet
+                        <AccountCircleIcon className="sidebarIcon" />
+                        Accounts
                       </li>
-                    </a> : null}
+                    </a>
 
-                
+                    {locate === "/super_admin/overview" ||
+                    locate === "/super_admin/cus_user_wallet" ? (
+                      <a
+                        href="/super_admin/cus_user_wallet"
+                        className="link"
+                        id="wallet1"
+                        onClick={changeBg}
+                      >
+                        <li
+                          className={
+                            activeBg == "wallet1"
+                              ? "sidebarListItem list-item-active"
+                              : "sidebarListItem"
+                          }
+                        >
+                          <AccountBalanceWalletIcon className="sidebarIcon" />
+                          Customer Wallet
+                        </li>
+                      </a>
+                    ) : null}
                   </>
                 ) : null}
 
@@ -521,22 +593,26 @@ const AdminSideBar = ({ auth }) => {
 
                 {role1 === "CASHIER" || role1 === "CUSTOMER_SERVICE" ? (
                   <>
-                  <a href="#" className="link" id="products" onClick={changeBg}>
-                    <li
-                      className={
-                        activeBg == "products"
-                          ? "sidebarListItem small_list-item-active"
-                          : "sidebarListItem"
-                      }
+                    <a
+                      href="#"
+                      className="link"
+                      id="products"
+                      onClick={changeBg}
                     >
-                      <GroupsIcon className="sidebarIcon" />
-                      {/* <GroupIcon className="sidebarIcon" /> */}
-                      Customer
-                    </li>
-                  </a>
-                  
-                  
-                  <a
+                      <li
+                        className={
+                          activeBg == "products"
+                            ? "sidebarListItem small_list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupsIcon className="sidebarIcon" />
+                        {/* <GroupIcon className="sidebarIcon" /> */}
+                        Customer
+                      </li>
+                    </a>
+
+                    <a
                       href="/super_admin/user_wallet"
                       className="link"
                       id="wallet"
@@ -553,12 +629,46 @@ const AdminSideBar = ({ auth }) => {
                         Wallet
                       </li>
                     </a>
+                    {/* {  locate === "/super_admin/overview" ? */}
+                    <a
+                      href="/super_admin/customers_by_branch"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        Transactions
+                      </li>
+                    </a>
+                    {/* :null} */}
+
+                    <a
+                      href="/super_admin/customers_by_location"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        TransactionBranch
+                      </li>
+                    </a>
                   </>
                 ) : null}
 
-
-
-                
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
