@@ -1285,7 +1285,7 @@ function DashboardInvestPage({ auth }) {
                             }}
                           >
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
+                            <div className="asset_name">
                                 {asset.product_name}
                               </div>
                               <div className="asset_prices_div">
