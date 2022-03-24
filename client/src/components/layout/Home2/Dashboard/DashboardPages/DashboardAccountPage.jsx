@@ -154,7 +154,7 @@ function DashboardAccountPage({
       var todecodedn = todecoded.user.userImage;
 
       // console.log('====================================');
-      // console.log(todecoded);
+      console.log(todecoded.user);
       // console.log('====================================');
 
       const getName = todecoded.user.fullname;
@@ -426,7 +426,7 @@ function DashboardAccountPage({
     setFold1("disBtn");
 
     // $disableMe.setAttribute('disabled','disabled')
-    //console.log(res);
+    console.log(res);
 
     setTimeout(() => {
       setDisabled2(false);
@@ -434,7 +434,8 @@ function DashboardAccountPage({
     }, 5000);
 
     if (res.success === true) {
-      //console.log("okay Good Server");
+      console.log("okay Good Server");
+      return window.location.replace("/dashboard/accounts");
     } else {
       //console.log("Something went wrong!");
       // setAlert(res.data.data.errors[0].msg, "danger");
