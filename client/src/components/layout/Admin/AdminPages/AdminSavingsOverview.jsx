@@ -136,18 +136,19 @@ const AdminSavingsOverview = ({ match }) => {
       .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
       .then((data) => {
         console.log(data.data.data);
-        const getName = data.data.data.fullname;
+        const getName = data.data.data.fetch.fullname;
         const splitName = getName.split(" ");
+        console.log(splitName);
         setUserInfo({
           CustFirstName: splitName[0],
           CustLastName: splitName[1],
-          Custemail: data.data.data.email,
-          CustImage: data.data.data.userImage,
-          CustphoneNumber: data.data.data.phoneNumber,
+          Custemail: data.data.data.fetch.email,
+          CustImage: data.data.data.fetch.userImage,
+          CustphoneNumber: data.data.data.fetch.phoneNumber,
           // CustRelationship: data.data.data,
-          Custgender: data.data.data.gender,
-          CustBvn: data.data.data.BVN,
-          CustDateOfBirth: data.data.data.dateOfBirth,
+          Custgender: data.data.data.fetch.gender,
+          CustBvn: data.data.data.fetch.BVN,
+          CustDateOfBirth: data.data.data.fetch.dateOfBirth,
         });
       })
       .catch((err) => {
@@ -329,7 +330,7 @@ const AdminSavingsOverview = ({ match }) => {
         // setAlert('Something went wrong, please try again later', 'danger');
       }
     } catch (err) {
-      //console.log(err.response);
+      console.log(err.response);
       // setAlert('Check your internet connection', 'danger');
     }
   };
