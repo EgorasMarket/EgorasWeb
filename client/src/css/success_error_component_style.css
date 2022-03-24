@@ -10,7 +10,7 @@
   overflow: hidden;
   color: #000;
   animation: fade_in 0.5s ease-in-out;
-  width: 90%;
+  width: 100%;
   margin: auto;
   text-align: center;
 }
@@ -60,3 +60,8 @@
   color: #ffffff;
   box-shadow: 0px 4px 10px #5fa97e;
 }
+@media screen and (max-width: 767px) {
+  .success_container {
+    width: 90%;
+  }
+} ;
