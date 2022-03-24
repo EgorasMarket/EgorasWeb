@@ -398,6 +398,7 @@ const AdminUploadProducts = () => {
                 amount: null,
                 product_details: "",
               })
+              return window.location.replace("/super_admin/upload_products");
             } else {
               setAlert(res.data.data.errors[0].msg);
               setAlertType('danger')
@@ -477,6 +478,7 @@ const AdminUploadProducts = () => {
                 amount: null,
                 product_details: "",
               })
+              return window.location.replace("/super_admin/upload_products");
             } else {
               setAlert(res.data.data.errors[0].msg);
               setAlertType('danger')

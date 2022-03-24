@@ -1,5 +1,5 @@
-import axios from "axios";
-import { setAlert } from "./alert";
+import axios from 'axios';
+import { setAlert } from './alert';
 // import { LOGIN_FAIL, LOGIN_SUCCESS } from "./types";
 
 import {
@@ -11,9 +11,9 @@ import {
   LOGIN_FAIL,
   LOGOUT,
   API_URL2 as api_url2,
-} from "./types";
+} from './types';
 // import setAuthToken from "../utils/setAuthToken";
-import setAuthToken from "../utils/setAuthToken";
+import setAuthToken from '../utils/setAuthToken';
 
 // Load User
 export const loadUser = () => async (dispatch) => {
@@ -32,7 +32,7 @@ export const loadUser = () => async (dispatch) => {
   // });
 
   try {
-    const res = await axios.get(api_url2 + "/v1/user/info");
+    const res = await axios.get(api_url2 + '/v1/user/info');
     //console.log(res);
     // //console.log("Yes I call You because i can", res.data);
     dispatch({
@@ -67,29 +67,41 @@ export const loadUser = () => async (dispatch) => {
 
 // Get Social Media Handles
 export const getAuthentication =
-  (fullname, email, password, phoneNumber, InfoReason) =>
+  (
+    firstname,
+    lastname,
+    email,
+    birthDate,
+    password,
+    BVN,
+    phoneNumber,
+    InfoReason
+  ) =>
   async (dispatch) => {
     const config = {
       headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Accept: '*',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     };
 
     const body = JSON.stringify({
-      fullname,
+      firstname,
+      lastname,
       email,
+      birthDate,
       password,
+      BVN,
       phoneNumber,
       InfoReason,
     });
 
-    //console.log(body);
+    console.log(body);
 
     try {
       const res = await axios.post(
-        api_url2 + "/v1/user/register",
+        api_url2 + '/v1/user/register',
         body,
         config
       );
@@ -100,6 +112,7 @@ export const getAuthentication =
         data: res.data,
       };
     } catch (err) {
+      console.log(err.response);
       //console.log(err.response);
 
       return {
@@ -108,52 +121,52 @@ export const getAuthentication =
       };
     }
   };
-  export const activate = (email_auth) => async (dispatch) => {
-    const config = {
-      headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
-      },
-    };
-  
-    const body = JSON.stringify({
-      email_auth,
-    });
-  
-    //console.log(body);
-  
-    try {
-      const res = await axios.post(api_url2 + "/v1/user/activate", body, config);
-      //console.log(res);
-      ////console.log("yyyyy");
-  
-      return res;
-    } catch (err) {
-      ////console.log(err);
-  
-      ////console.log("ok");
-  
-      // const errors = err.response.data.errors;
-      // ////console.log(errors);
-      // if (errors) {
-      //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
-      // }
-  
-      //   return {
-      //   status: false,
-      //   id: null
-      // }
-    }
+export const activate = (email_auth) => async (dispatch) => {
+  const config = {
+    headers: {
+      Accept: '*',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
   };
 
+  const body = JSON.stringify({
+    email_auth,
+  });
+
+  //console.log(body);
+
+  try {
+    const res = await axios.post(
+      api_url2 + '/v1/user/activate',
+      body,
+      config
+    );
+    console.log(res);
+    // console.log('yyyyy');
+
+    return res;
+  } catch (err) {
+    // console.log(err.message);
+    ////console.log("ok");
+    // const errors = err.response.data.errors;
+    // ////console.log(errors);
+    // if (errors) {
+    //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
+    // }
+    //   return {
+    //   status: false,
+    //   id: null
+    // }
+  }
+};
 
 export const getLogin = (email, password) => async (dispatch) => {
   const config = {
     headers: {
-      Accept: "*",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+      Accept: '*',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
   };
 
@@ -165,7 +178,11 @@ export const getLogin = (email, password) => async (dispatch) => {
   //console.log(body);
 
   try {
-    const res = await axios.post(api_url2 + "/v1/user/login", body, config);
+    const res = await axios.post(
+      api_url2 + '/v1/user/login',
+      body,
+      config
+    );
     //console.log(res);
 
     if (res.data.success === false) {
@@ -209,9 +226,9 @@ export const reset =
   async (dispatch) => {
     const config = {
       headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Accept: '*',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     };
 
@@ -223,7 +240,11 @@ export const reset =
     //console.log(body);
 
     try {
-      const res = await axios.put(api_url2 + "/v1/user/reset", body, config);
+      const res = await axios.put(
+        api_url2 + '/v1/user/reset',
+        body,
+        config
+      );
       ////console.log(res);
 
       return {
@@ -253,9 +274,9 @@ export const nextOfKING =
   async (dispatch) => {
     const config = {
       headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Accept: '*',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     };
 
@@ -272,7 +293,7 @@ export const nextOfKING =
 
     try {
       const res = await axios.post(
-        api_url2 + "/v1/user/add/customer/next-of-kin",
+        api_url2 + '/v1/user/add/customer/next-of-kin',
         body,
         config
       );
@@ -292,36 +313,15 @@ export const nextOfKING =
     }
   };
 
-export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
-  const config = {
-    headers: {
-      Accept: "*",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
-    },
-  };
-
-  const body = JSON.stringify({
-    gender,
-    dateOfBirth,
-  });
-
-  //console.log(body);
-
-  try {
-    const res = await axios.put(
-      api_url2 + "/v1/user/update/customer/info",
-      body,
-      config
-    );
-    //console.log(res);
-
-    return {
-      success: true,
-      data: res.data,
+export const sumitGenderAndDate =
+  (gender, dateOfBirth) => async (dispatch) => {
+    const config = {
+      headers: {
+        Accept: '*',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
+      },
     };
-  } catch (err) {
-    //console.log(err.response);
 
     const body = JSON.stringify({
       gender,
@@ -332,7 +332,7 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
 
     try {
       const res = await axios.put(
-        api_url2 + "/v1/user/update/customer/info",
+        api_url2 + '/v1/user/update/customer/info',
         body,
         config
       );
@@ -345,21 +345,43 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
     } catch (err) {
       //console.log(err.response);
 
-      return {
-        success: false,
-        data: err.response,
-      };
+      const body = JSON.stringify({
+        gender,
+        dateOfBirth,
+      });
+
+      //console.log(body);
+
+      try {
+        const res = await axios.put(
+          api_url2 + '/v1/user/update/customer/info',
+          body,
+          config
+        );
+        //console.log(res);
+
+        return {
+          success: true,
+          data: res.data,
+        };
+      } catch (err) {
+        //console.log(err.response);
+
+        return {
+          success: false,
+          data: err.response,
+        };
+      }
     }
-  }
-};
+  };
 
 export const changePassword =
   (oldpassword, newpassword) => async (dispatch) => {
     const config = {
       headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Accept: '*',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     };
 
@@ -372,7 +394,7 @@ export const changePassword =
 
     try {
       const res = await axios.put(
-        api_url2 + "/v1/user/update/customer/info",
+        api_url2 + '/v1/user/update/customer/info',
         body,
         config
       );
