@@ -380,7 +380,7 @@ input[type="file"] {
   z-index: 10000000;
   -webkit-backdrop-filter: blur(18px);
   backdrop-filter: blur(18px);
-  animation: LeftGrow 0.5s linear;
+  animation: LeftGrow 0.3s linear;
 }
 @keyframes LeftGrow {
   0% {

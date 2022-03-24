@@ -9,6 +9,16 @@
 .to_save_btn:hover {
   color: #f1bfa5;
 }
+
+.flutter_btn {
+  background: #42a66c;
+  color: #ffffff;
+  border: none;
+  padding: 0.3em 0.6em;
+  border-radius: 5px;
+  font-size: 12px;
+  box-shadow: 0px 5px 10px #90c2a5;
+}
 .dash_savings_area1 {
   padding: 2em;
   background: #fff;

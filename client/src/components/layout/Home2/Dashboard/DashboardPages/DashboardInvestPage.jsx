@@ -225,7 +225,7 @@ function DashboardInvestPage({ auth }) {
         config
       )
       .then((data) => {
-        // console.log(data.data.data, "powerful");
+        console.log(data.data.data.length, 'powerful');
 
         musicalEquipmentData(data.data.data);
       })
@@ -494,7 +494,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.slice(0, 12).map((asset, index) => {
+              {item.map((asset) => {
                 if (asset.payment_type == 'OUTRIGHT')
                   return (
                     <a
@@ -502,7 +502,7 @@ function DashboardInvestPage({ auth }) {
                         asset.id
                       }/${asset.product_name.replace(/\s+/g, '-')}`}
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
-                      key={index.toString()}
+                      // key={index.toString()}
                     >
                       <li className="carous_list no_marg inventory_cards">
                         <div
@@ -1052,7 +1052,7 @@ function DashboardInvestPage({ auth }) {
                     autoPlay={false}
                     autoPlaySpeed={6000}
                     transitionDelay={'2s'}
-                    infinite={false}
+                    infinite={true}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
@@ -1180,7 +1180,7 @@ function DashboardInvestPage({ auth }) {
                             /\s+/g,
                             '-'
                           )}`}
-                          key={index7.toString()}
+                          // key={index7.toString()}
                         >
                           <li className="carous_list no_marg inventory_cards">
                             <div

@@ -22,8 +22,7 @@ import { createOrder } from '../../../../actions/shop';
 import { connect } from 'react-redux';
 import initPayment from '../../../../flutterwave/initPayment';
 import initializePayment from '../../../../flutterwave/API/initializePayment';
-import { Redirect } from 'react-router-dom';
-import { numberWithCommas } from '../../../../static';
+import { Redirect, useHistory } from 'react-router-dom';
 
 const CheckoutModalComponent = ({
   payload,
@@ -60,19 +59,21 @@ const CheckoutModalComponent = ({
   const [walletBalance, setWalletBalance] = useState(false);
   const [walletModal, setWalletModal] = useState(false);
   const [ProcessingDiv, setProcessingDiv] = useState(false);
-  const [name, setName] = useState('');
+  const [fullname, setName] = useState('');
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  const [tokenBal, setTokenBal] = useState('0.000');
-  const [assetVal, setAssetVal] = useState('0.000');
+  const [tokenBal, setTokenBal] = useState('');
+  const [assetVal, setAssetVal] = useState('');
+  const [error_msg, setErrorMsg] = useState('');
+
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
   const [errorDiv, setErrorDiv] = useState(false);
+  const [total, setTotal] = useState('');
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
   let deliveryFee = 0;
-  const addedUp = amount + deliveryFee;
-  // console.log(addedUp);
+
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -82,6 +83,12 @@ const CheckoutModalComponent = ({
   const [addressName, setAddressName] = useState('');
 
   useEffect(async () => {
+    if (payment_type === 'OUTRIGHT') {
+      // alert(initial_deposit);
+      setTotal(amount);
+    } else if (payment_type === 'INSTALLMENT') {
+      setTotal(initial_deposit + deliveryFee);
+    }
     await axios
       .get(api_url2 + '/v1/user/address/info', null, config)
       .then((response) => {
@@ -95,6 +102,7 @@ const CheckoutModalComponent = ({
   useEffect(() => {
     var Authorized = auth.user;
     var userId = Authorized.user.id;
+
     axios
       .get(
         api_url2 + '/v1/wallet/get/wallet/info/' + userId,
@@ -142,15 +150,15 @@ const CheckoutModalComponent = ({
     public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
     tx_ref: 'EGC-' + Date.now(),
     amount: 1,
-
     currency: 'NGN',
-    // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
+    // redirect_url: 'https://saul.egoras.com/v1/webhooks/all',
+
     payment_options: 'card',
     // payment_plan:63558,
     customer: {
-      phonenumber: phone_no,
+      phone_number: phone_no,
       email: email,
-      name: name,
+      name: fullname,
     },
     meta: {
       customer_id: customer_data.customer_id,
@@ -208,8 +216,9 @@ const CheckoutModalComponent = ({
         break;
 
       case 1:
-        if (tokenBal >= initial_deposit) {
-          setProcessingDiv(true);
+        setProcessingDiv(true);
+
+        if (tokenBal >= Number(total)) {
           //
           const orderBody = JSON.stringify({
             product_id,
@@ -235,17 +244,22 @@ const CheckoutModalComponent = ({
               alert(
                 'Your order have been completed successfully, You will redirected to the market place'
               );
-
-              return <Redirect push to={'/dashboard'} />;
+              return <Redirect to="/dashboard" />;
             })
             .catch((err) => {
               console.log(err.response);
               setProcessingDiv(false);
-              setErrorDiv(true);
+              // setErrorMsg(err.response);
+              // setErrorDiv(true);
+              alert(err);
             });
+          //
         } else {
+          console.log('something happened');
           setProcessingDiv(false);
-          setErrorDiv(true);
+          // setErrorMsg("An error")
+          // setErrorDiv(true);
+          alert('hiy');
         }
         break;
     }
@@ -395,21 +409,30 @@ const CheckoutModalComponent = ({
                               className="save_item_img_img"
                             />
                           </div>
-                          <div className="save_item_days_left">
-                            {days_left} days left
+                        </td>
+                        {/* ======== */}
+                        {/* ======== */}
+                        {/* ======== */}
+                        {/* ======== */}
+                        <td className="save_item_data1">
+                          <div className="save_items_details">
+                            <div className="save_items_details1">
+                              {product_name}
+                            </div>
+                            <div className="save_item_days_left">
+                              {days_left} days left
+                            </div>
+                            <div className="save_total_locked_amount">
+                              <span className="items_left_amount">
+                                Total Amount Locked on Item
+                              </span>
+                              ₦{initial_deposit}
+                            </div>
                           </div>
-                          <div className="save_total_locked_amount">
-                            <span className="items_left_amount">
-                              Total Amount Locked on Item
-                            </span>
-                            ₦
-                            {payment_type == 'OUTRIGHT'
-                              ? numberWithCommas(
-                                  parseInt(amount).toFixed(2)
-                                )
-                              : numberWithCommas(
-                                  parseInt(initial_deposit).toFixed(2)
-                                )}
+                        </td>
+                        <td className="save_item_data1b">
+                          <div className="assets-data-name_last">
+                            ₦{paymentPerday}
                           </div>
                         </td>
                         {/* <td className="save_item_data1b">
@@ -433,8 +456,9 @@ const CheckoutModalComponent = ({
         <div className="detailsModalSection2">
           <div className="details_modal_divv">
             {/* ======================= */}
-
             <div className="cart_area2_heading">Payment Options</div>
+            {/* ===================== */}
+
             {/* ===================== */}
             <div className="cart_area2_select">
               <div className="wit_card">
@@ -476,7 +500,6 @@ const CheckoutModalComponent = ({
                 </div>
               ) : null}
             </div>
-
             {/* <FlutterButton 
              payment_plan={showPayment}
              user_id ={user_id}
@@ -490,7 +513,6 @@ const CheckoutModalComponent = ({
                phonenumber:"07026782437", 
                name:"Chidoro  Ndubueze"}
              } /> */}
-
             {/* <div className="cart_area2_select border_down">
               <div className="wit_card">
                 Pay via wallet{" "}
@@ -500,7 +522,6 @@ const CheckoutModalComponent = ({
             {/* ========= */}
             {/* ========= */}
             {/* ========= */}
-
             <div className="cart_area2_notes">
               . No minimum or maximum order.
               <br />
@@ -515,12 +536,10 @@ const CheckoutModalComponent = ({
             <div className="sub_total_div">
               Sub Total:{' '}
               <span className="sub_total_div_span">
-                ₦{' '}
-                {payment_type == 'OUTRIGHT'
-                  ? numberWithCommas(parseInt(amount).toFixed(2))
-                  : numberWithCommas(
-                      parseInt(initial_deposit).toFixed(2)
-                    )}
+                ₦
+                {payment_type === 'OUTRIGHT'
+                  ? amount
+                  : initial_deposit}
               </span>
             </div>
             {/* ========== */}
@@ -541,18 +560,7 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             <div className="transac_secure_div">
               Total{' '}
-              <span className="sub_total_div_span">
-                ₦
-                {payment_type == 'OUTRIGHT'
-                  ? numberWithCommas(
-                      (parseInt(amount) + deliveryFee).toFixed(2)
-                    )
-                  : numberWithCommas(
-                      (
-                        parseInt(initial_deposit) + deliveryFee
-                      ).toFixed(2)
-                    )}
-              </span>
+              <span className="sub_total_div_span">₦{total}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -587,9 +595,7 @@ const CheckoutModalComponent = ({
               className="empty_wallet"
             />
             Insufficient Balance
-            <span className="fund_wall">
-              Please fund Your wallet to complete payment.
-            </span>
+            <span className="fund_wall">{error_msg}</span>
             <a href="/dashboard/wallet">
               <button className="fund_wallet_btn">Fund Wallet</button>
             </a>
