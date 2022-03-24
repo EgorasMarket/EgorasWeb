@@ -448,7 +448,7 @@ const DashboardHomePage = ({ auth, match }) => {
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_amount_cont">
                       <div className="dashboard_transac_body_cont1_layer1_time">
-                        {data.timestamp}
+                        {data.timestamp.slice(0, 10)}
                       </div>
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_amount_cont">

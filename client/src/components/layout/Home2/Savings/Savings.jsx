@@ -692,66 +692,66 @@ const Savings = ({ getProductByCat }) => {
               swipeable={true}
             >
               <div className="partnerLogo1">
-                <a href="https://cointelegraph.com/" className="partnerLink">
+                <span className="partnerLink">
                   {" "}
                   <img
                     src="/img/coin-telegraph.svg"
                     alt=""
                     className="partnerlog"
                   />
-                </a>
+                </span>
               </div>
               <div className="partnerLogo1">
-                <a href="https://finance.yahoo.com/" className="partnerLink">
+                <span className="partnerLink">
                   {" "}
                   <img
                     src="/img/YAHOOFINANCE.svg"
                     alt=""
                     className="partnerlog"
                   />
-                </a>
+                </span>
               </div>
               <div className="partnerLogo1">
-                <a href="https://www.newsbtc.com/" className="partnerLink">
+                <span className="partnerLink">
                   {" "}
                   <img src="/img/NEWSBTC.svg" alt="" className="partnerlog" />
-                </a>
+                </span>
               </div>
               <div className="partnerLogo1">
-                <a href="https://apnews.com/" className="partnerLink">
+                <span className="partnerLink">
                   {" "}
                   <img src="/img/APNEWS.svg" alt="" className="partnerlog" />
-                </a>
+                </span>
               </div>
               <div className="partnerLogo1">
-                <a href="https://independent.ng/" className="partnerLink">
+                <span className="partnerLink">
                   {" "}
                   <img
                     src="/img/INDEPENDENT.svg"
                     alt=""
                     className="partnerlog"
                   />
-                </a>
+                </span>
               </div>
               <div className="partnerLogo1">
-                <a href="https://guardian.ng/" className="partnerLink">
+                <span className="partnerLink">
                   {" "}
                   <img
                     src="/img/THEGUARDIAN.svg"
                     alt=""
                     className="partnerlog"
                   />
-                </a>
+                </span>
               </div>
               <div className="partnerLogo1">
-                <a href="https://nairametrics.com/" className="partnerLink">
+                <span className="partnerLink">
                   {" "}
                   <img
                     src="/img/NAIRAMETRICS.svg"
                     alt=""
                     className="partnerlog"
                   />
-                </a>
+                </span>
               </div>
             </Carousel>
             {/* Carousel end==============================
