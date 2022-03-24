@@ -60,7 +60,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  const [tokenBal, setTokenBal] = useState("0.000");
+  const [tokenBal, setTokenBal] = useState(0);
   const [assetVal, setAssetVal] = useState("0.000");
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
@@ -204,9 +204,10 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
 
       case 1:
-        if (tokenBal >= initial_deposit || tokenBal >= amount) {
+        if (parseInt(tokenBal) > initial_deposit) {
           setProcessingDiv(true);
-          //
+          setErrorDiv(false);
+          console.log(parseInt(tokenBal), ">", initial_deposit);
           const orderBody = JSON.stringify({
             product_id,
             initial_pay: initial_deposit,
@@ -232,9 +233,10 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               setErrorDiv(true);
             });
           //
-        } else {
+        } else if (parseInt(tokenBal) < initial_deposit) {
           setProcessingDiv(false);
           setErrorDiv(true);
+          console.log(parseInt(tokenBal), "<", initial_deposit);
         }
         break;
     }
