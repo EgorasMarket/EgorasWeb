@@ -269,8 +269,10 @@ const DashboardHomePage = ({ auth, match }) => {
     axios
       .get(api_url2 + "/v1/user/transactions/customer/recent", null, config)
       .then((data) => {
-        setAllDatas(data.data.payload);
+        // let a = data.data.payload;
+
         console.log(data.data.payload);
+        setAllDatas(data.data.payload.reverse());
       })
       .catch((err) => {
         console.log(err);
@@ -411,8 +413,8 @@ const DashboardHomePage = ({ auth, match }) => {
               </a>
             </div>
             <div className="transaction_headings">
-              <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Type</div>
+              <div className="transaction_heading1">Date</div>
               <div className="transaction_heading1 amnt_small">Amount</div>
               <div className="transaction_heading1 center_this">Channel</div>
               <div className="transaction_heading1 reduce_width">Status</div>
@@ -432,7 +434,7 @@ const DashboardHomePage = ({ auth, match }) => {
                           style={
                             data.transaction_type == "DEBIT"
                               ? {
-                                  backgroundColor: " #ff4a4a",
+                                  backgroundColor: " #e4a788",
                                   transform: "rotate(180deg)",
                                 }
                               : { backgroundColor: "#0ecb81" }
