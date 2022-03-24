@@ -106,7 +106,18 @@ const Transact = () => {
                         Customer Id
                       </th>
 
+
+
                       <th className="assets-category-titles-heading1">Date</th>
+
+
+                       <th className="assets-category-titles-heading1 right_align email_align">
+                        Type
+                      </th>
+
+                        <th className="assets-category-titles-heading1 right_align email_align">
+                        Amount
+                      </th>
                     </tr>
                   </thead>
                   {searchResults.map((user) => (
@@ -149,11 +160,18 @@ const Transact = () => {
                               )}
                           </div>
                         </td> */}
-                        {/* <td className="assets-category-data1b">
+                         <td className="assets-category-data1b">
                           <div className="assets-data-name">
                             {user.transaction_type}
+                            {/* {user.transaction_type} */}
                           </div>
-                        </td> */}
+                        </td>
+                        
+                          <td className="assets-category-data1b">
+                          <div className="assets-data-name">
+                            {user.amount}
+                          </div>
+                        </td> 
                       </tr>
                     </tbody>
                   ))}
