@@ -1,39 +1,32 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from "react";
 // import { connect } from "react-redux";
-import {
-  BrowserRouter as Router,
-  Route,
-  Switch,
-} from 'react-router-dom';
-import { connect } from 'react-redux';
-import AdminUploadProducts from './AdminPages/AdminUploadProducts';
-import AdminAllProducts from './AdminPages/AdminAllProducts';
-import RegisterCustomer from './AdminPages/RegisterCustomer';
-import AdminCustomer from './AdminPages/AdminCustomer';
-import AdminAllView from './AdminPages/AdminAllProductView';
-import Admin_homePage from './AdminPages/Admin_homePage';
-import AdminSideBar from './AdminSideBar';
-import { SplashScreen } from '../SplashScreen/SplashScreen';
-import Wallet from '../Wallet/Wallet';
-import Wallet4 from '../Wallet/Wallet1';
-import NewOne from './AdminPages/newOne';
-import Transact from './AdminPages/Transactionbybranch';
-import axios from 'axios';
-import {
-  PRODUCT_LOADED,
-  API_URL2 as api_url2,
-} from '../../../actions/types';
-import Item_details_main2 from './AdminPages/AdminItemsDetailsPage';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { connect } from "react-redux";
+import AdminUploadProducts from "./AdminPages/AdminUploadProducts";
+import AdminAllProducts from "./AdminPages/AdminAllProducts";
+import RegisterCustomer from "./AdminPages/RegisterCustomer";
+import AdminCustomer from "./AdminPages/AdminCustomer";
+import AdminAllView from "./AdminPages/AdminAllProductView";
+import Admin_homePage from "./AdminPages/Admin_homePage";
+import AdminSideBar from "./AdminSideBar";
+import { SplashScreen } from "../SplashScreen/SplashScreen";
+import Wallet from "../Wallet/Wallet";
+import Wallet4 from "../Wallet/Wallet1";
+import NewOne from "./AdminPages/newOne";
+import Transact from "./AdminPages/Transactionbybranch";
+import axios from "axios";
+import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
+import Item_details_main2 from "./AdminPages/AdminItemsDetailsPage";
 
-import './AdminStyles/admin.css';
-import Page from './AdminPages/dashboardIn';
-import AdminSavingsOverview from './AdminPages/AdminSavingsOverview';
-import ItemsPage2 from './AdminPages/AdminItemsDetailsPage';
+import "./AdminStyles/admin.css";
+import Page from "./AdminPages/dashboardIn";
+import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
+import ItemsPage2 from "./AdminPages/AdminItemsDetailsPage";
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
   const [roleDisplay, setRoleDisplay] = useState({
-    Role: '',
+    Role: "",
   });
 
   const { Role } = roleDisplay;
@@ -41,14 +34,14 @@ const Admin = ({ isAuthenticated, loading }) => {
 
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
   useEffect(() => {
     // //console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
       // return <Redirect to="/" />;
-      return window.location.replace('/login/super_admin');
+      return window.location.replace("/login/super_admin");
     } else if (isAuthenticated == true) {
       // //console.log('trueee');
       const timer = setTimeout(() => {
@@ -64,7 +57,7 @@ const Admin = ({ isAuthenticated, loading }) => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + '/v1/admin/info', null, config)
+      .get(api_url2 + "/v1/admin/info", null, config)
       .then((data) => {
         //console.log(data.data.user, "line_ful");
         setRoleDisplay({
@@ -85,7 +78,8 @@ const Admin = ({ isAuthenticated, loading }) => {
           <div className="admin">
             <AdminSideBar />
             <Switch>
-              {Role === 'MEDIA' ? (
+              <Route exact path="/super_admin" component={Admin_homePage} />
+              {Role === "MEDIA" ? (
                 <>
                   <Route
                     exact
@@ -98,7 +92,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                 component={ItemsPage2}
               /> */}
                 </>
-              ) : Role === 'BUSINESS_ADMIN' ? (
+              ) : Role === "BUSINESS_ADMIN" ? (
                 <>
                   <Route
                     exact
@@ -111,8 +105,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                 component={ItemsPage2}
               /> */}
                 </>
-              ) : Role === 'CASHIER' ||
-                Role === 'CUSTOMER_SERVICE' ? (
+              ) : Role === "CASHIER" || Role === "CUSTOMER_SERVICE" ? (
                 <>
                   <Route
                     exact
@@ -177,7 +170,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                     component={Item_details_main2}
                   />
                 </>
-              ) : Role === 'HOD_MEDIA' ? (
+              ) : Role === "HOD_MEDIA" ? (
                 <>
                   <Route
                     exact

@@ -429,7 +429,7 @@ span.per_day {
   width: 100vw;
   height: 100vh;
   top: 0;
-  z-index: 1000000;
+  z-index: 10000000;
   left: 0;
   display: flex;
   align-items: center;
