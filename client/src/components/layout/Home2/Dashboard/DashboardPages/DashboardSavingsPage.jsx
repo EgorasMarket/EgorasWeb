@@ -104,10 +104,11 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
-  useEffect(() => {
+  useEffect(async () => {
     //console.log(match.params.prduct_id,"play every day")
     //console.log(auth.user.user.id)
-    axios
+
+    await axios
       .get(
         api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,
         null,
