@@ -30,7 +30,7 @@ function ItemDetailsPage({ auth, match }) {
   // //console.log(window.location.pathname.split("/"));
   // //console.log(match.params.id);
   const [loginModal, setLoginModal] = useState(false);
-  const [loginSuccess,setLoginSuccess]= useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState("");
   const [payload, setPayload] = useState({});
@@ -38,27 +38,22 @@ function ItemDetailsPage({ auth, match }) {
   const [detailsModal, setDetailsModal] = useState(false);
   const [showCheckout, setCheckoutStatus] = useState(false);
   const [isAuthenticated, setIsAuthenticated] = useState(null);
-  const [userPayload,setUserPayload] = useState({})   
+  const [userPayload, setUserPayload] = useState({});
   const [card, setSpec] = useState([]);
   const [deScript, setDeScript] = useState([]);
 
-  
-
   // const {contactAddress}=addressName
 
-  
   useEffect(() => {
     //console.log(auth);
 
-    if (window.location.pathname.split("/")[1] === 'dashboard') {
-      setProductId(match.params.id)
-      setIsAuthenticated(true)
+    if (window.location.pathname.split("/")[1] === "dashboard") {
+      setProductId(match.params.id);
+      setIsAuthenticated(true);
     } else {
-      setProductId(window.location.pathname.split("/")[3])
-      setIsAuthenticated(false)
+      setProductId(window.location.pathname.split("/")[3]);
+      setIsAuthenticated(false);
     }
-
-
   }, [auth]);
 
   const openDetailsModal = () => {
@@ -97,13 +92,10 @@ function ItemDetailsPage({ auth, match }) {
       //   startDate,
       //   endDate
       //   );
-      } else {
+    } else {
       setLoginModal(true);
-      
     }
   };
-
-  
 
   const CloseLoginModal = () => {
     setLoginModal(false);
@@ -113,8 +105,8 @@ function ItemDetailsPage({ auth, match }) {
     setLoginSuccess(loginSuccess);
 
     if (loginSuccess === true) {
-      CloseLoginModal()
-      window.location.reload()
+      CloseLoginModal();
+      window.location.reload();
       // openDetailsModal();
       // checkout(
       //   user_id,
@@ -124,13 +116,8 @@ function ItemDetailsPage({ auth, match }) {
       //   endDate
       // );
     } else {
-      
     }
-
   }, []);
-
-
-  
 
   useEffect(() => {
     console.log(auth, auth.isAuthenticated, auth.user);
@@ -141,7 +128,7 @@ function ItemDetailsPage({ auth, match }) {
       set_user_id(auth.user.user.id);
       //console.log(auth.user.user);
     } else {
-      set_user_id('')
+      set_user_id("");
       //console.log('rrrrr');
     }
 
@@ -153,6 +140,7 @@ function ItemDetailsPage({ auth, match }) {
           percentage,
           product_brand,
           product_category_code,
+          product_category_desc,
           product_details,
           product_duration,
           product_id,
@@ -177,6 +165,7 @@ function ItemDetailsPage({ auth, match }) {
           percentage,
           product_brand,
           product_category_code,
+          product_category_desc,
           product_details,
           product_duration,
           product_id,
@@ -190,9 +179,9 @@ function ItemDetailsPage({ auth, match }) {
           payment_type,
           days_left,
           no_of_days,
-          no_of_days_paid, 
-          startDate, 
-          endDate
+          no_of_days_paid,
+          startDate,
+          endDate,
         });
         const getSlid = data.data.data.product_specifications;
         const getSpecs = data.data.data.product_details;
@@ -235,10 +224,8 @@ function ItemDetailsPage({ auth, match }) {
           <div className="container">
             {detailsModal === true ? (
               <Checkout
-               payload={payload}
-               closeCheckoutOptions={closeDetailModal}
-
-                
+                payload={payload}
+                closeCheckoutOptions={closeDetailModal}
               />
             ) : (
               <ItemDetailComponent
