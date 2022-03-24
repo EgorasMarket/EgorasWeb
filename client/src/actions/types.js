@@ -25,6 +25,7 @@ export const UPDATE_CART = "UPDATE_CART";
 export const ADD_TO_CART = "ADD_TO_CART";
 
 export const API_URL = "https://tea.egoras.com";
+
 // export const API_URL2 = "https://330188b756ae73.lhr.life";
 // export const API_URL2 = "https://9434474f241ea8.lhr.life";
 // export const API_URL2 = "https://saul.egoras.com";
@@ -34,7 +35,7 @@ export const API_URL = "https://tea.egoras.com";
 export const API_URL2 = "http://192.168.43.241:4015";
 // export const API_URL2 = 'https://saul.egoras.com';
 
-// export const API_URL2 = "http://localhost:4000";
+// export const API_URL2 = 'http://localhost:4015';
 
 // token Symbol
 // constract address
