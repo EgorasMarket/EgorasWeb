@@ -24,9 +24,10 @@ import {
   nextOfKING,
   changePassword,
 } from "../../../../../actions/auth";
-import './accF.css'
+import { useParams } from "react-router-dom";
+import "./accF.css";
 import { setAlert } from "../../../../../actions/alert";
-import validator from 'validator'
+import validator from "validator";
 // import {getNaame} from "../../../Signup/signup"
 
 function DashboardAccountPage({
@@ -41,43 +42,46 @@ function DashboardAccountPage({
       "Content-Type": "application/json",
     },
   };
+
   const [image, setImage] = useState("");
   const [nxtOfKinA, setNxtOfKinA] = useState(false);
   // const [getNxtOfKin, setGetNxtOfKin] = useState([]);
-  const[nextOfKinData, setNextOfKinData] =useState({
+  const [nextOfKinData, setNextOfKinData] = useState({
     nxtcustomer_id: "",
     nxtemail: "",
     nxtfirstname: "",
     nxtgender: "",
     nxtlastname: "",
     nxtphoneNumber: "",
-    nxtrelationship: ""
-  })
-  const [tokens, setTokens] = useState({ gender: "", dateOfBirth: "" });
+    nxtrelationship: "",
+  });
+  const [tokens, setTokens] = useState({
+    gender: "",
+    dateOfBirth: "",
+  });
   const [customerAddress, setAddress] = useState("");
   const [customer_image, setcustomer_image] = useState("");
   const [customerBvn1, setCustomerBvn1] = useState("");
-  const [bvnId,setBvnId]= useState({})
+  const [bvnId, setBvnId] = useState({});
 
-  const [disabled1,setDisabled1]=useState(false)
-  const [disabled2,setDisabled2]=useState(false)
-  const [disabled3,setDisabled3]=useState(false)
-  
-  const [fold,setFold]=useState('save_changes_btn')
-  const [fold1,setFold1]=useState('save_changes_btn')
-  const [fold2,setFold2]=useState('add_photo')
-  const [emailError,setEmailError]=useState('Email Address')
+  const [disabled1, setDisabled1] = useState(false);
+  const [disabled2, setDisabled2] = useState(false);
+  const [disabled3, setDisabled3] = useState(false);
+
+  const [fold, setFold] = useState("save_changes_btn");
+  const [fold1, setFold1] = useState("save_changes_btn");
+  const [fold2, setFold2] = useState("add_photo");
+  const [emailError, setEmailError] = useState("Email Address");
 
   const validateEmail = (e) => {
-    var email = e.target.value
-  
-    if (validator.isEmail(email)) {
-      setEmailError('Valid Email :')
-    } else {
-      setEmailError(label4)
-    }
-  }
+    var email = e.target.value;
 
+    if (validator.isEmail(email)) {
+      setEmailError("Valid Email :");
+    } else {
+      setEmailError(label4);
+    }
+  };
 
   const [nextKin, setNextKin] = useState({
     firstname: "",
@@ -124,21 +128,21 @@ function DashboardAccountPage({
     nxtgender,
     nxtlastname,
     nxtphoneNumber,
-    nxtrelationship
-   } = nextOfKinData;
+    nxtrelationship,
+  } = nextOfKinData;
   const { oldpassword, newpassword } = changePassword1;
-  const [idSet,setIdSet]=useState({idNum:""})
-  const {idNum}=idSet;
+  const [idSet, setIdSet] = useState({ idNum: "" });
+  const { idNum } = idSet;
 
-useEffect(()=>{
-  // console.log('====================================');
-  // console.log(auth.user.user.id);
-  // console.log('====================================');
-  setIdSet({
-    idNum:auth.user.user.id
-  })
-},[auth])
+  useEffect(() => {
+    // console.log('====================================');
+    // console.log(auth.user.user.id);
+    // console.log('====================================');
 
+    setIdSet({
+      idNum: auth.user.user.id,
+    });
+  }, [auth]);
 
   useEffect(() => {
     // fetchDepositLinks();
@@ -178,18 +182,16 @@ useEffect(()=>{
   }, [auth]);
 
   useEffect(() => {
-    axios.get(
-        api_url2 + "/v1/user/nextOfKin/info",
-        null,
-        config
-    ).then((data) => {
-       //console.log('eeeeee');
+    axios
+      .get(api_url2 + "/v1/user/nextOfKin/info", null, config)
+      .then((data) => {
+        //console.log('eeeeee');
         //console.log(data.data.nxtOfKin, "king");
 
         if (data.data.status === true) {
-          setNxtOfKinA(true)
-        } 
-     
+          setNxtOfKinA(true);
+        }
+
         setNextOfKinData({
           // nxtcustomer_id: customer_id,
           nxtemail: data.data.nxtOfKin.email,
@@ -197,32 +199,23 @@ useEffect(()=>{
           nxtgender: data.data.nxtOfKin.gender,
           nxtlastname: data.data.nxtOfKin.lastname,
           nxtphoneNumber: data.data.nxtOfKin.phoneNumber,
-          nxtrelationship: data.data.nxtOfKin.relationship
-    })
+          nxtrelationship: data.data.nxtOfKin.relationship,
+        });
         // setGoods(data.data.data)
-
-     
       })
       .catch((err) => {
         //console.log(err.response); // "oh, no!"
       });
 
-
-
-      axios.get(
-        api_url2 + "/v1/user/address/info",
-        null,
-        config
-      ).then((data) => {
-       console.log(data.data);
+    axios
+      .get(api_url2 + "/v1/user/address/info", null, config)
+      .then((data) => {
+        console.log(data.data);
         //console.log(data.data.cusAddress, "king");
-     
       })
       .catch((err) => {
         //console.log(err.response); // "oh, no!"
       });
-
-    
   }, []);
 
   const [userName, setUserName] = useState({ user: "" });
@@ -250,51 +243,49 @@ useEffect(()=>{
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
 
-    var email = e.target.value
-  
+    var email = e.target.value;
+
     if (validator.isEmail(email)) {
-      setEmailError('Valid Email :')
+      setEmailError("Valid Email :");
     } else {
-      setEmailError(label4)
+      setEmailError(label4);
     }
 
     //console.log(nextKin);
   };
 
-
-const onChangeFor22 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value }); 
+  const onChangeFor22 = (e) => {
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
   };
-  
+
   const onChangeFor23 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value }); 
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
   };
   const onChangeFor24 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value }); 
+    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
   };
-  
-  const onChangeFor5=(e)=>{
+
+  const onChangeFor5 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
 
-    if(firstname.length === null ){
-      setError4(label3)
-    }else{
-      setError4('First Name')
+    if (firstname.length === null) {
+      setError4(label3);
+    } else {
+      setError4("First Name");
     }
-  }
+  };
 
-  const onChangeFor6=(e)=>{
+  const onChangeFor6 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
 
-    if(lastname.length === null){
-      setError5(label3)
-    }else{
-      setError5('Last Name')
+    if (lastname.length === null) {
+      setError5(label3);
+    } else {
+      setError5("Last Name");
     }
-    
-  }
+  };
 
-  const onChangeFor7=(e)=>{
+  const onChangeFor7 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
 
     // if(phoneNumber === "" || phoneNumber.length < 10 || phoneNumber.length > 10 ){
@@ -306,17 +297,17 @@ const onChangeFor22 = (e) => {
     // if{
     //   setError6('Phone Number')
     // }
-    
-  }
-
+  };
 
   // useEffect(()=>{
-      
-      
+
   // },[phoneNumber])
 
   const onChangeFor4 = (e) => {
-    setChangePassword({ ...changePassword1, [e.target.name]: e.target.value });
+    setChangePassword({
+      ...changePassword1,
+      [e.target.name]: e.target.value,
+    });
   };
 
   // const updateUser =()=>{
@@ -336,26 +327,26 @@ const onChangeFor22 = (e) => {
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [modal3, setModal3] = useState(false);
-  const [trig,setTrig]=useState(false)
+  const [trig, setTrig] = useState(false);
 
   // const [bvnId,setBvnId]= useState("")
   // const [image2, setImage2] = useState("../../img/profile_img.jpeg");
-    const [error4,setError4]=useState('First Name')
-    const [error5,setError5]=useState('Last Name')
-    const [error6,setError6]=useState('Phone Number')
-    const [error7,setError7]=useState('Address')
-    const [error8,setError8]=useState('BVN')
-    const [error9,setError9]=useState('Select Relationship')
-    const $disableMe = document.getElementById('fadat');
-    const [empty,setEmpty]=useState(true)
+  const [error4, setError4] = useState("First Name");
+  const [error5, setError5] = useState("Last Name");
+  const [error6, setError6] = useState("Phone Number");
+  const [error7, setError7] = useState("Address");
+  const [error8, setError8] = useState("BVN");
+  const [error9, setError9] = useState("Select Relationship");
+  const $disableMe = document.getElementById("fadat");
+  const [empty, setEmpty] = useState(true);
 
-  const label3 =(<span style={{color:'red'}}>First Name Required</span>)
-  const label4 =(<span style={{color:'red'}}>Enter Valid Email</span>)
-  const label14 =(<span style={{color:'red'}}>last Name Required</span>)
-  const label5 =(<span style={{color:'red'}}>Enter Phone Number</span>)
-  const label6 =(<span style={{color:'red'}}>Enter Address</span>)
-  const label7 =(<span style={{color:'red'}}>Enter  BVN</span>)
-  const label8 =(<span style={{color:'red'}}>Relationship Required</span>)
+  const label3 = <span style={{ color: "red" }}>First Name Required</span>;
+  const label4 = <span style={{ color: "red" }}>Enter Valid Email</span>;
+  const label14 = <span style={{ color: "red" }}>last Name Required</span>;
+  const label5 = <span style={{ color: "red" }}>Enter Phone Number</span>;
+  const label6 = <span style={{ color: "red" }}>Enter Address</span>;
+  const label7 = <span style={{ color: "red" }}>Enter BVN</span>;
+  const label8 = <span style={{ color: "red" }}>Relationship Required</span>;
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
@@ -431,16 +422,16 @@ const onChangeFor22 = (e) => {
   const sends = async (e) => {
     let res = await sumitGenderAndDate(gender, dateOfBirth);
 
-    setDisabled2(true)
-    setFold1('disBtn')
+    setDisabled2(true);
+    setFold1("disBtn");
 
     // $disableMe.setAttribute('disabled','disabled')
     //console.log(res);
 
-    setTimeout(()=>{
-      setDisabled2(false)
-      setFold1('save_changes_btn')
-    },5000)
+    setTimeout(() => {
+      setDisabled2(false);
+      setFold1("save_changes_btn");
+    }, 5000);
 
     if (res.success === true) {
       //console.log("okay Good Server");
@@ -449,8 +440,6 @@ const onChangeFor22 = (e) => {
       // setAlert(res.data.data.errors[0].msg, "danger");
     }
   };
-
-
 
   // const updateInfo = async (e) => {
   //   let res = await userInfo(firstname1,lastname1,phoneNumber1,email1,BVN1);
@@ -464,45 +453,44 @@ const onChangeFor22 = (e) => {
   //   }
   // };
 
-  useEffect(()=>{
-
-    if(relationship.length > 1){
-      setError9('Select Relationship')
-     }
-
-  },[relationship])
-
-
-
+  useEffect(() => {
+    if (relationship.length > 1) {
+      setError9("Select Relationship");
+    }
+  }, [relationship]);
 
   const nextOfKINGS = async (e) => {
-    
     // $disableMe.setAttribute('diasbled','diasbled')
 
-    if(firstname ==="" || lastname ==="" || email ==="" || phoneNumber ==="" || relationship ==="" ){
-    //  console.log('fil in')
-     if(firstname === ""){
-      setError4(label3)
-     }
-     if(lastname === ""){
-      setError5(label14)
-     }
-     if(phoneNumber === ""){
-      setError6(label5)
-     }
-     if(relationship === ""){
-      setError9(label8)
-     }
-     if(email === null){
-      setEmailError(label4)
-     }
-     if( phoneNumber.length < 11 || phoneNumber.length > 11 ){
-      setError6(label5)
-     }else{
-      setError6('Phone Number')
-    }
-
-    }else{
+    if (
+      firstname === "" ||
+      lastname === "" ||
+      email === "" ||
+      phoneNumber === "" ||
+      relationship === ""
+    ) {
+      //  console.log('fil in')
+      if (firstname === "") {
+        setError4(label3);
+      }
+      if (lastname === "") {
+        setError5(label14);
+      }
+      if (phoneNumber === "") {
+        setError6(label5);
+      }
+      if (relationship === "") {
+        setError9(label8);
+      }
+      if (email === null) {
+        setEmailError(label4);
+      }
+      if (phoneNumber.length < 11 || phoneNumber.length > 11) {
+        setError6(label5);
+      } else {
+        setError6("Phone Number");
+      }
+    } else {
       let res = await nextOfKING(
         firstname,
         lastname,
@@ -512,28 +500,27 @@ const onChangeFor22 = (e) => {
         gender
       );
 
-    setDisabled1(true)
-    setFold('disBtn')
+      setDisabled1(true);
+      setFold("disBtn");
 
-    setTimeout(()=>{
-      setDisabled1(false)
-      setFold('save_changes_btn')
-    },5000)
-    
-    // if(firstname === "" || firstname.length === 0 ){
-    //   setError4(label3)
-    // }else{
-    //   setError4('First Name')
-    // }
-console.log(res.data.data.success )
+      setTimeout(() => {
+        setDisabled1(false);
+        setFold("save_changes_btn");
+      }, 5000);
 
-    if (res.data.data.success === true) {
-      //console.log("okay Good Server");
-    } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
+      // if(firstname === "" || firstname.length === 0 ){
+      //   setError4(label3)
+      // }else{
+      //   setError4('First Name')
+      // }
+      console.log(res.data.data.success);
+
+      if (res.data.data.success === true) {
+        //console.log("okay Good Server");
+      } else {
+        setAlert(res.data.data.errors[0].msg, "danger");
+      }
     }
-
-  }
   };
 
   // useEffect(()=>{
@@ -544,7 +531,6 @@ console.log(res.data.data.success )
   //   }
 
   // },[firstname])
-
 
   // useEffect(()=>{
   //   if(lastname === "" || lastname.length === 0 ){
@@ -574,7 +560,6 @@ console.log(res.data.data.success )
 
     if (customer_image === "") {
       //console.log("empty passport");
-
       // setAlert('Please provide a passport photo', 'danger');
     } else {
       const element = document.getElementById("customer_image");
@@ -604,125 +589,127 @@ console.log(res.data.data.success )
 
   const submitAddress = async (e) => {
     e.preventDefault();
-   
+
     // if (empty){
 
-      // if(customerAddress ===""){
-      //   setError7(label6)
-      // }
-      if (customerAddress === "" || customerBvn1 === "" || (customerBvn1.length > 11 ||customerBvn1.length < 11)){
-        if(customerAddress === ""){
-          setError7(label6)
-        }
-        if(customerBvn1 === ""){
-          setError8(label7)
-        }
+    // if(customerAddress ===""){
+    //   setError7(label6)
+    // }
+    if (
+      customerAddress === "" ||
+      customerBvn1 === "" ||
+      customerBvn1.length > 11 ||
+      customerBvn1.length < 11
+    ) {
+      if (customerAddress === "") {
+        setError7(label6);
+      }
+      if (customerBvn1 === "") {
+        setError8(label7);
+      }
 
-       if (customerBvn1.length > 11 ||customerBvn1.length < 11){
-          setError8(label7)
-        }
-
-      }else{
-
+      if (customerBvn1.length > 11 || customerBvn1.length < 11) {
+        setError8(label7);
+      }
+    } else {
       // if(customerBvn1===""){
       //   setError8(label7)
       // }
 
-    // }else{
- 
-    setFold2('disBtn')
-    // setDisabled3(true)
-    // setFold2('disBtn')
-    // setError7('Address')
-    // setError8('BVN')
+      // }else{
 
-    if (customerAddress === "") {
-      //console.log("empty address");
-
-      setDisabled3(false)
-      // setFold2('add_photo')
-      
-
-      // setAlert('Please provide a passport photo', 'danger');
-    } else {
-      const body = JSON.stringify({ customerAddress });
-      setError7('Address')
-      setDisabled3(true)
-     
-      //console.log(body);
-
-      try {
-        const res = await axios.post(
-          api_url2 + "/v1/user/add/address",
-          body,
-          config
-        );
-        //console.log(res.data, "undefined");
-
-        if (res.data.statusCode === 200) {
-          // setPassportUpload(true)
-        } else {
-          // setAlert('Something went wrong, please try again later', 'danger');
-        }
-      } catch (err) {
-        //console.log(err.response);
-        // setAlert('Check your internet connection', 'danger');
-      }
-    }
-
-     // comments for bvn
-    if (customerBvn1 === "") {
-      //console.log("empty address");
-     
-      setDisabled3(false)
-      // setFold2('add_photo')
-
-      // setAlert('Please provide a passport photo', 'danger');
-    } else {
-      let BVN =customerBvn1;
-      let customer_id=idNum;
-      const body = JSON.stringify({ BVN,customer_id });
-      setDisabled3(true)
-      setError8('BVN')
+      setFold2("disBtn");
+      // setDisabled3(true)
       // setFold2('disBtn')
-      // console.log(body);
+      // setError7('Address')
+      // setError8('BVN')
 
-      try {
-        const res = await axios.post(
-          api_url2 + "/v1/user/add/BVN",
-          body,
-          config
-        );
-        //console.log(res.data, "undefined");
+      if (customerAddress === "") {
+        //console.log("empty address");
 
-        if (res.data.statusCode === 200) {
-          // setPassportUpload(true)
-        } else {
-          // setAlert('Something went wrong, please try again later', 'danger');
+        setDisabled3(false);
+        // setFold2('add_photo')
+
+        // setAlert('Please provide a passport photo', 'danger');
+      } else {
+        const body = JSON.stringify({ customerAddress });
+        setError7("Address");
+        setDisabled3(true);
+
+        //console.log(body);
+
+        try {
+          const res = await axios.post(
+            api_url2 + "/v1/user/add/address",
+            body,
+            config
+          );
+          //console.log(res.data, "undefined");
+
+          if (res.data.statusCode === 200) {
+            // setPassportUpload(true)
+          } else {
+            // setAlert('Something went wrong, please try again later', 'danger');
+          }
+        } catch (err) {
+          //console.log(err.response);
+          // setAlert('Check your internet connection', 'danger');
         }
-      } catch (err) {
-        //console.log(err.response);
-        // setAlert('Check your internet connection', 'danger');
       }
+
+      // comments for bvn
+      if (customerBvn1 === "") {
+        //console.log("empty address");
+
+        setDisabled3(false);
+        // setFold2('add_photo')
+
+        // setAlert('Please provide a passport photo', 'danger');
+      } else {
+        let BVN = customerBvn1;
+        let customer_id = idNum;
+        const body = JSON.stringify({ BVN, customer_id });
+        setDisabled3(true);
+        setError8("BVN");
+        // setFold2('disBtn')
+        // console.log(body);
+
+        try {
+          const res = await axios.post(
+            api_url2 + "/v1/user/add/BVN",
+            body,
+            config
+          );
+          //console.log(res.data, "undefined");
+
+          if (res.data.statusCode === 200) {
+            // setPassportUpload(true)
+          } else {
+            // setAlert('Something went wrong, please try again later', 'danger');
+          }
+        } catch (err) {
+          //console.log(err.response);
+          // setAlert('Check your internet connection', 'danger');
+        }
+      }
+
+      setTimeout(() => {
+        setDisabled3(false);
+        setFold2("add_photo");
+      }, 5000);
     }
- 
-    setTimeout(()=>{
-      setDisabled3(false)
-      setFold2('add_photo')
 
-    },5000)
-
-  }
-  
-  // }
+    // }
   };
-
 
   // const divBvn = (<div><form><input type="number" placeholder="enter ur bvn" onChange={onChangeBvn}    value={customerBvn1}/></form></div>)
 
   return (
-    <div className="other2" style={{ paddingBottom: "0em" }}>
-      <section className="no-bg" style={{ paddingBottom: "0em" }}>
+    <div className="other2 account_body" style={{ paddingBottom: "0em" }}>
+      <section
+        className="no-bg account_mobi_section"
+        style={{ paddingBottom: "0em" }}
+      >
         <div className="container">
           <div className="dashboard_account_page_area">
             <div className="account_toggle_heading">
@@ -915,7 +902,11 @@ console.log(res.data.data.success )
                       <div className="toggle_body_area1_cont1">
                         <div className="toggle_body_area1_cont1_txts"></div>
                         <div className="toggle_body_area1_cont1_input">
-                          <button className={fold1} disable={disabled2} onClick={sends} >
+                          <button
+                            className={fold1}
+                            disable={disabled2}
+                            onClick={sends}
+                          >
                             Save Changes
                           </button>
                         </div>
@@ -937,138 +928,136 @@ console.log(res.data.data.success )
                   <div className="account_toggle_body_area1_title">
                     Personal Details
                   </div>
-                  {
-                    nxtOfKinA === true ? (
-                      <div className="account_toggle_body_area1_txts_input">
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Full Name
-                            <span className="toggle_body_area1_cont1_sub_txts"></span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <TextField
-                              className="name_input1"
-                              id="outlined-basic"
-                              // label="First Name"
-                              label="First Name"
+                  {nxtOfKinA === true ? (
+                    <div className="account_toggle_body_area1_txts_input">
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Full Name
+                          <span className="toggle_body_area1_cont1_sub_txts"></span>
+                        </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <TextField
+                            className="name_input1"
+                            id="outlined-basic"
+                            // label="First Name"
+                            label="First Name"
+                            variant="outlined"
+                            name="firstname"
+                            value={nxtfirstname}
 
-                              variant="outlined"
-                              name="firstname"
-                              value={nxtfirstname}
-                           
-                              // onChange={onChangeFor2}
-                            />
-                            <TextField
-                              className="name_input1"
-                              id="outlined-basic"
-                              label="Last Name"
-                              variant="outlined"
-                              name="lastname"
-                              value={nxtlastname}
-                              // onChange={onChangeFor2}
-                            />
-                          </div>
+                            // onChange={onChangeFor2}
+                          />
+                          <TextField
+                            className="name_input1"
+                            id="outlined-basic"
+                            label="Last Name"
+                            variant="outlined"
+                            name="lastname"
+                            value={nxtlastname}
+                            // onChange={onChangeFor2}
+                          />
                         </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Email Address
-                            <span className="toggle_body_area1_cont1_sub_txts"></span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <TextField
-                              className="name_input1a"
-                              id="outlined-basic"
-                              label="Email Address"
-                              variant="outlined"
-                              name="email"
-                              value={nxtemail}
-                              // onChange={onChangeFor2}
-                            />
-                          </div>
+                      </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Email Address
+                          <span className="toggle_body_area1_cont1_sub_txts"></span>
                         </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Phone number
-                            <span className="toggle_body_area1_cont1_sub_txts"></span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <TextField
-                              className="name_input1a"
-                              id="outlined-basic"
-                              label="Phone number"
-                              variant="outlined"
-                              name="phoneNumber"
-                              value={nxtphoneNumber}
-                              // onChange={onChangeFor2}
-                            />
-                          </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <TextField
+                            className="name_input1a"
+                            id="outlined-basic"
+                            label="Email Address"
+                            variant="outlined"
+                            name="email"
+                            value={nxtemail}
+                            // onChange={onChangeFor2}
+                          />
                         </div>
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* <div className="account_toggle_body_area1_title">
+                      </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Phone number
+                          <span className="toggle_body_area1_cont1_sub_txts"></span>
+                        </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <TextField
+                            className="name_input1a"
+                            id="outlined-basic"
+                            label="Phone number"
+                            variant="outlined"
+                            name="phoneNumber"
+                            value={nxtphoneNumber}
+                            // onChange={onChangeFor2}
+                          />
+                        </div>
+                      </div>
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* <div className="account_toggle_body_area1_title">
                           Bank Details
                         </div> */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
 
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        <div className="account_toggle_body_area1_title">
-                          Other Details
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      <div className="account_toggle_body_area1_title">
+                        Other Details
+                      </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Relationship{" "}
+                          <span className="toggle_body_area1_cont1_sub_txts">
+                            Father, Mother, Sister ...
+                          </span>
                         </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Relationship{" "}
-                            <span className="toggle_body_area1_cont1_sub_txts">
-                              Father, Mother, Sister ...
-                            </span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                           <TextField
-                              className="name_input1a"
-                              id="outlined-basic"
-                              label="Relationship"
-                              variant="outlined"
-                              // name="phoneNumber"
-                              value={nxtrelationship}
-                              // onChange={onChangeFor2}
-                            />
-                          </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <TextField
+                            className="name_input1a"
+                            id="outlined-basic"
+                            label="Relationship"
+                            variant="outlined"
+                            // name="phoneNumber"
+                            value={nxtrelationship}
+                            // onChange={onChangeFor2}
+                          />
                         </div>
+                      </div>
 
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Gender
-                            <span className="toggle_body_area1_cont1_sub_txts">
-                              {" "}
-                              How you would like to be identified
-                            </span>
-                          </div>
-                          {/* <div className="toggle_body_area1_cont1_input">
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Gender
+                          <span className="toggle_body_area1_cont1_sub_txts">
+                            {" "}
+                            How you would like to be identified
+                          </span>
+                        </div>
+                        {/* <div className="toggle_body_area1_cont1_input">
                             <div className="radio_group">
                               <input
                                 type="radio"
@@ -1096,14 +1085,14 @@ console.log(res.data.data.success )
                               </label>
                             </div>
                           </div> */}
-                          {nxtgender}
-                        </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
+                        {nxtgender}
+                      </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
 
-                        {/* <div className="toggle_body_area1_cont1">
+                      {/* <div className="toggle_body_area1_cont1">
                           <div className="toggle_body_area1_cont1_txts"></div>
                           <div className="toggle_body_area1_cont1_input">
                             <button
@@ -1114,218 +1103,216 @@ console.log(res.data.data.success )
                             </button>
                           </div>
                         </div> */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                    </div>
+                  ) : (
+                    <div className="account_toggle_body_area1_txts_input">
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Full Name
+                          <span className="toggle_body_area1_cont1_sub_txts"></span>
+                        </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <TextField
+                            className="name_input1"
+                            id="outlined-basic"
+                            label={error4}
+                            variant="outlined"
+                            name="firstname"
+                            value={firstname}
+                            onChange={onChangeFor5}
+                          />
+                          <TextField
+                            className="name_input1"
+                            id="outlined-basic"
+                            label={error5}
+                            variant="outlined"
+                            name="lastname"
+                            value={lastname}
+                            onChange={onChangeFor6}
+                          />
+                        </div>
                       </div>
-                    ) : (
-                      <div className="account_toggle_body_area1_txts_input">
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Full Name
-                            <span className="toggle_body_area1_cont1_sub_txts"></span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <TextField
-                              className="name_input1"
-                              id="outlined-basic"
-                              label={error4}
-                              variant="outlined"
-                              name="firstname"
-                              value={firstname}
-                              onChange={onChangeFor5}
-                             
-                            />
-                            <TextField
-                              className="name_input1"
-                              id="outlined-basic"
-                              label={error5}
-                              variant="outlined"
-                              name="lastname"
-                              value={lastname}
-                              onChange={onChangeFor6}
-                          
-                            />
-                          </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Email Address
+                          <span className="toggle_body_area1_cont1_sub_txts"></span>
                         </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Email Address
-                            <span className="toggle_body_area1_cont1_sub_txts"></span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <TextField
-                              className="name_input1a"
-                              id="outlined-basic"
-                              label={emailError}
-                              variant="outlined"
-                              name="email"
-                              value={email}
-                              onChange={onChangeFor2}
-                            />
-                          </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <TextField
+                            className="name_input1a"
+                            id="outlined-basic"
+                            label={emailError}
+                            variant="outlined"
+                            name="email"
+                            value={email}
+                            onChange={onChangeFor2}
+                          />
                         </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Phone number
-                            <span className="toggle_body_area1_cont1_sub_txts"></span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <TextField
-                              className="name_input1a"
-                              id="outlined-basic"
-                              label={error6}
-                              variant="outlined"
-                              name="phoneNumber"
-                              value={phoneNumber}
-                              onChange={onChangeFor7}
-                            />
-                          </div>
+                      </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Phone number
+                          <span className="toggle_body_area1_cont1_sub_txts"></span>
                         </div>
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* <div className="account_toggle_body_area1_title">
+                        <div className="toggle_body_area1_cont1_input">
+                          <TextField
+                            className="name_input1a"
+                            id="outlined-basic"
+                            label={error6}
+                            variant="outlined"
+                            name="phoneNumber"
+                            value={phoneNumber}
+                            onChange={onChangeFor7}
+                          />
+                        </div>
+                      </div>
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* <div className="account_toggle_body_area1_title">
                           Bank Details
                         </div> */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
 
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        {/* '''''''''''''''''''''∂∂ */}
-                        <div className="account_toggle_body_area1_title">
-                          Other Details
-                        </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Relationship{" "}
-                            <span className="toggle_body_area1_cont1_sub_txts">
-                              Father, Mother, Sister ...
-                            </span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <div className="name_input1a">
-                              <FormControl fullWidth>
-                                <InputLabel id="demo-simple-select-label">
-                                  {error9}
-                                </InputLabel>
-                                <Select
-                                  labelId="demo-simple-select-label"
-                                  id="demo-simple-select"
-                                  name="relationship"
-                                  value={relationship}
-                                  label="Age"
-                                  // onChange={handleChange}
-                                  onChange={onChangeFor22}
-                                  // onSelect={onChangeFor2}
-                                >
-                                  <MenuItem name="relationship" value="Mother">
-                                    Mother
-                                  </MenuItem>
-                                  <MenuItem value="Father">Father</MenuItem>
-                                  <MenuItem value="Sister">Sister</MenuItem>
-                                  <MenuItem value="Uncle">Uncle</MenuItem>
-                                  <MenuItem value="Aunt">Aunt</MenuItem>
-                                  <MenuItem value="Brother">Brother</MenuItem>
-                                  <MenuItem value="Inlaw">Inlaw</MenuItem>
-                                </Select>
-                              </FormControl>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts">
-                            Gender
-                            <span className="toggle_body_area1_cont1_sub_txts">
-                              {" "}
-                              How you would like to be identified
-                            </span>
-                          </div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <div className="radio_group">
-                              <input
-                                type="radio"
-                                name="gender"
-                                id="male"
-                                // value={Male}
-                                value="Male"
-                                onChange={onChangeFor2}
-                              />
-                              <label for="male" class="radio" value={gender}>
-                                Male
-                              </label>
-                            </div>
-                            <div className="radio_group">
-                              <input
-                                type="radio"
-                                name="gender"
-                                id="female"
-                                // value="female"
-                                value="Female"
-                                onChange={onChangeFor2}
-                              />
-                              <label for="female" class="radio" value={gender}>
-                                Female
-                              </label>
-                            </div>
-                          </div>
-                        </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-
-                        <div className="toggle_body_area1_cont1">
-                          <div className="toggle_body_area1_cont1_txts"></div>
-                          <div className="toggle_body_area1_cont1_input">
-                            <button
-                              // className={disabled1 ? "save_changes_btn" :"disBtn"}
-                              className={fold}
-                              onClick={nextOfKINGS} disabled={disabled1}
-                              id="school"
-                            >
-                              Save Changes
-                            </button>
-                          </div>
-                        </div>
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
-                        {/* ================= */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      {/* '''''''''''''''''''''∂∂ */}
+                      <div className="account_toggle_body_area1_title">
+                        Other Details
                       </div>
-                    )
-                  }
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Relationship{" "}
+                          <span className="toggle_body_area1_cont1_sub_txts">
+                            Father, Mother, Sister ...
+                          </span>
+                        </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <div className="name_input1a">
+                            <FormControl fullWidth>
+                              <InputLabel id="demo-simple-select-label">
+                                {error9}
+                              </InputLabel>
+                              <Select
+                                labelId="demo-simple-select-label"
+                                id="demo-simple-select"
+                                name="relationship"
+                                value={relationship}
+                                label="Age"
+                                // onChange={handleChange}
+                                onChange={onChangeFor22}
+                                // onSelect={onChangeFor2}
+                              >
+                                <MenuItem name="relationship" value="Mother">
+                                  Mother
+                                </MenuItem>
+                                <MenuItem value="Father">Father</MenuItem>
+                                <MenuItem value="Sister">Sister</MenuItem>
+                                <MenuItem value="Uncle">Uncle</MenuItem>
+                                <MenuItem value="Aunt">Aunt</MenuItem>
+                                <MenuItem value="Brother">Brother</MenuItem>
+                                <MenuItem value="Inlaw">Inlaw</MenuItem>
+                              </Select>
+                            </FormControl>
+                          </div>
+                        </div>
+                      </div>
+
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts">
+                          Gender
+                          <span className="toggle_body_area1_cont1_sub_txts">
+                            {" "}
+                            How you would like to be identified
+                          </span>
+                        </div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <div className="radio_group">
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="male"
+                              // value={Male}
+                              value="Male"
+                              onChange={onChangeFor2}
+                            />
+                            <label for="male" class="radio" value={gender}>
+                              Male
+                            </label>
+                          </div>
+                          <div className="radio_group">
+                            <input
+                              type="radio"
+                              name="gender"
+                              id="female"
+                              // value="female"
+                              value="Female"
+                              onChange={onChangeFor2}
+                            />
+                            <label for="female" class="radio" value={gender}>
+                              Female
+                            </label>
+                          </div>
+                        </div>
+                      </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+
+                      <div className="toggle_body_area1_cont1">
+                        <div className="toggle_body_area1_cont1_txts"></div>
+                        <div className="toggle_body_area1_cont1_input">
+                          <button
+                            // className={disabled1 ? "save_changes_btn" :"disBtn"}
+                            className={fold}
+                            onClick={nextOfKINGS}
+                            disabled={disabled1}
+                            id="school"
+                          >
+                            Save Changes
+                          </button>
+                        </div>
+                      </div>
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                      {/* ================= */}
+                    </div>
+                  )}
                 </div>
               ) : null}
               {/* ================= */}
               {/* ================= */}
 
-                           {/* <button
+              {/* <button
                               className="save_changes_btn" 
                               onClick={nextOfKINGS} disabled={disabled1}
                               id="school"
@@ -1382,20 +1369,23 @@ console.log(res.data.data.success )
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-
                         {/* {Userbvn ==""? <input type="number" placeholder="enter ur bvn" onChange={onChangeBvn}    value={customerBvn1}/>:className="bvn_btn"
                         <div className="bvn_btn">{Userbvn}</div>} */}
-                        {(Userbvn == null)?
-                        <div className="input_btn_grouped_div" ><TextField
-                             className="name_input1a"
-                            id="outlined-basic"
-                            label={error8}
-                            variant="outlined"
-                            name="customerAddress"
-                            value={customerBvn1}
-                            onChange={onChangeBvn}
-                          /></div>
-                          :<div className="bvn_btn">{Userbvn }</div>}
+                        {Userbvn == null ? (
+                          <div className="input_btn_grouped_div">
+                            <TextField
+                              className="name_input1a"
+                              id="outlined-basic"
+                              label={error8}
+                              variant="outlined"
+                              name="customerAddress"
+                              value={customerBvn1}
+                              onChange={onChangeBvn}
+                            />
+                          </div>
+                        ) : (
+                          <div className="bvn_btn">{Userbvn}</div>
+                        )}
                       </div>
                     </div>
                     {/* ================= */}

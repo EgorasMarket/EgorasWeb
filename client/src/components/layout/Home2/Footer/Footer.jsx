@@ -48,6 +48,18 @@ const Footer = () => {
       document.getElementById("FooterId").style.display = "none";
     }
 
+    if (FooterHide === "/dashboard/accounts/accounts") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+
+    if (FooterHide === "/dashboard/accounts/kin") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+
+    if (FooterHide === "/dashboard/accounts/security") {
+      document.getElementById("FooterId").style.display = "none";
+    }
+
     if (FooterHide === "/super_admin/user_wallet") {
       document.getElementById("FooterId").style.display = "none";
     }
@@ -360,7 +372,7 @@ const Footer = () => {
           </div>
           <hr></hr>
           <h5 className="footerBottomPara">
-            ©️ 2021 Egoras Technologies LTD(RC - 1832671). All rights reserved .
+            ©️ 2022 Egoras Technologies LTD(RC - 1832671). All rights reserved .
           </h5>
         </div>
       </section>

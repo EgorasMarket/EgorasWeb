@@ -321,34 +321,34 @@ const Savings = ({ getProductByCat }) => {
 
   const reviews = [
     {
-      word: " Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+      word: " It always feels good and less stressful when you are using a site with less pop up ads, good graphics and made with simplicity, I gotta give it to the developers of Egoras platform #egorasV2 ",
       image: "/img/profilepic.jpg",
-      name: "John Doe",
+      name: "@iamkingmonye",
     },
     {
-      word: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nihil officiis inventore consequuntur minus doloribus nostrum exercitationem ad.",
+      word: "So, I took a quick tour through the @EgorasmarketV2 platform and In all honesty there is very particular attention to detail. Fonts are legible, sections are carefully separated and I had no troubles during navigation. this is a proper platform and I must say hats off #egorasV2",
       image: "/img/profilepic.jpg",
-      name: "Sarah Banks",
+      name: "@mister_ade5",
     },
     {
-      word: " Lorem ipsum dolor sit amet consectetur adipisicing elit.",
+      word: " The App's interface seems to be user-friendly coupled with the offer they give. Tho I'm still getting familiarized with the functionalities of the platform, I did have a good experience navigating my way through and yes I was impressed  they maintained the same color. #Egorasv2",
       image: "/img/profilepic.jpg",
-      name: "Kelvin Doe",
+      name: "@vibes__N",
     },
     {
-      word: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nihil officiis inventore consequuntur minus doloribus nostrum exercitationem ad.",
+      word: "Wow! I’ve been extremely impressed by how fluid this website is, other platforms should learn how to build a proper website like @egorasmarket. Kudos, Go Egoras! #egorasV2",
       image: "/img/profilepic.jpg",
-      name: "Henry Doe",
+      name: "@theamandachinda",
     },
     {
-      word: " Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
+      word: "Upon entering the platform, I had my reservations, but in less than no time, I was already having a hitch free tour. @EgorasmarketI like how the partitions are made, independent of each other and each button sure has a function, made navigation easy and lovable. #egorasV2 ",
       image: "/img/profilepic.jpg",
-      name: "Stella Doe",
+      name: "@datchuguy",
     },
     {
-      word: " Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nihil officiis inventore consequuntur minus doloribus nostrum exercitationem ad.",
+      word: "Browsing through the new Egoras website was a really refreshing experience. The adoption of modern design language has made the entire experience soothing. relevant information has been smartly laid out,so that clients don’t miss out on valuable details. Top notch 💯💯#egorasV2",
       image: "/img/profilepic.jpg",
-      name: "Clinton Doe",
+      name: "@black_bhoy_",
     },
   ];
   return (
@@ -633,7 +633,7 @@ const Savings = ({ getProductByCat }) => {
               </ReactCardCarousel>
             </div>
 
-            <div className="users_compliment_number">
+            {/* <div className="users_compliment_number">
               <div className="compliment_number_title">
                 Over 2billion naira in loans.
               </div>
@@ -647,7 +647,7 @@ const Savings = ({ getProductByCat }) => {
                   Create a free account
                 </button>
               </a>
-            </div>
+            </div> */}
           </div>
         </div>
         <img
