@@ -64,6 +64,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
   const [errorDiv, setErrorDiv] = useState(false);
+  const [successDiv, setSuccessDiv] = useState(false);
   const [total, setTotal] = useState("");
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
@@ -225,24 +226,28 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             .then((response) => {
               console.log(response, " response after order endpoint is called");
               setProcessingDiv(false);
-              alert(
-                "Your order have been completed successfully, You will redirected to the market place"
-              );
+              setErrorDiv(false);
+              setSuccessDiv(true);
+              // alert(
+              //   "Your order have been completed successfully, You will redirected to the market place"
+              // );
               return <Redirect to="/dashboard" />;
             })
             .catch((err) => {
               console.log(err.response);
               setProcessingDiv(false);
+              setSuccessDiv(false);
               // setErrorMsg(err.response);
-              // setErrorDiv(true);
-              alert(err);
+              setErrorDiv(true);
+              // alert(err);
             });
           //
         } else {
           console.log("something happened");
           setProcessingDiv(false);
+          setSuccessDiv(false);
           // setErrorMsg("An error")
-          // setErrorDiv(true);
+          setErrorDiv(true);
           alert("hiy");
         }
         break;
@@ -533,13 +538,25 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           Processing Transaction...
         </div>
       )}
+      {successDiv == true ? (
+        <div className="processing_transac_div insufficient">
+          <Success_Error_Component
+            remove_success_div={closeCheckoutOptions}
+            btn_txt="Continue"
+            msg="You have successfully locked this item "
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src="/dashboard/products"
+          />
+        </div>
+      ) : null}
       {errorDiv == false ? null : (
         <div className="processing_transac_div insufficient">
           <Success_Error_Component
-            remove_success_div={() => setErrorDiv(true)}
+            // remove_success_div={() => setErrorDiv(true)}
             btn_txt="Fund Wallet"
             msg="Please fund your wallet to complete transaction."
-            errorMsgDiv={true}
+            errorMsgDiv={errorDiv}
             link_btn={true}
             src="/dashboard/wallet"
           />
