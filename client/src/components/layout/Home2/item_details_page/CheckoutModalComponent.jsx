@@ -1,11 +1,11 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import axios from 'axios';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import verify from '../../../../flutterwave/API/Verify';
-import Loader from './Loader';
-import CloseIcon from '@mui/icons-material/Close';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import React, { useEffect, useCallback, useState } from "react";
+import axios from "axios";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import verify from "../../../../flutterwave/API/Verify";
+import Loader from "./Loader";
+import CloseIcon from "@mui/icons-material/Close";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus, faSpinner } from "@fortawesome/free-solid-svg-icons";
 // import Wallet1 from "../../Wallet/Wallet1";
 import {
   PRODUCT_LOADED,
@@ -75,7 +75,6 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
       "Content-Type": "application/json",
     },
   };
-  
 
   const [addressName, setAddressName] = useState("");
 
@@ -131,9 +130,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
       });
     }
   }, []);
-  useEffect(() => {
-    
-  })
+  useEffect(() => {});
 
   const flutterConfig = {
     public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
@@ -164,7 +161,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     setProcessingDiv(true);
   };
   // const <FontAwesomeIcon icon={faSpinner} spin />
-  const fonterm = (<FontAwesomeIcon icon={faSpinner} spin />)
+  const fonterm = <FontAwesomeIcon icon={faSpinner} spin />;
   const selectOption = async (value) => {
     // switch(value ){
     //   case 0:
@@ -503,24 +500,19 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             {/* ========== */}
             <button
               className="checkout_btn1a"
-
-              
               // onClick={() => {
-                
+
               //   <Loader/>
-                    
+
               //   // openPayment();
               //   selectOption(option);
-               
-
 
               // }}
-              onClick={()=>{ 
+              onClick={() => {
                 // return( <Loader/>)
-                selectOption(option);}}
+                selectOption(option);
+              }}
             >
-            
-              
               Proceed to Checkout
             </button>
           </div>
