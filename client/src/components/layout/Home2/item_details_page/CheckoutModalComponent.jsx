@@ -204,7 +204,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
 
       case 1:
-        if (tokenBal >= initial_deposit) {
+        if (tokenBal >= initial_deposit || tokenBal >= amount) {
           setProcessingDiv(true);
           //
           const orderBody = JSON.stringify({
