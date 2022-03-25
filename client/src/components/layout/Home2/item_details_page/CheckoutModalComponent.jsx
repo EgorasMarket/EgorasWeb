@@ -68,6 +68,8 @@ const CheckoutModalComponent = ({
   const [tokenBal, setTokenBal] = useState('');
   const [assetVal, setAssetVal] = useState('');
   const [error_msg, setErrorMsg] = useState('');
+  const [success_msg, setSuccessMsg] = useState('');
+  const [order_id, setOrder_id] = useState('');
 
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
@@ -237,6 +239,8 @@ const CheckoutModalComponent = ({
               );
 
               setProcessingDiv(false);
+              setSuccessMsg(response.data.message);
+              setOrder_id(response.data.order_id);
               setErrorDiv(false);
               setSuccessDiv(true);
               console.log(window.location.hostname);
@@ -244,12 +248,13 @@ const CheckoutModalComponent = ({
               // window.location.replace(
               //   `${window.location.hostname}/dashboard`
               // );
+              // return <Redirect to="/dashboard" />;
             })
             .catch((err) => {
               console.log(err.response);
               setProcessingDiv(false);
               setSuccessDiv(false);
-              // setErrorMsg(err.response);
+              setErrorMsg(err.response);
               setErrorDiv(true);
               // alert(err);
             });
@@ -577,10 +582,11 @@ const CheckoutModalComponent = ({
           <Success_Error_Component
             remove_success_div={closeCheckoutOptions}
             btn_txt="Continue"
-            msg="You have successfully locked this item "
+            // msg={success_msg}
+            msg={`${success_msg} Order-Id: ${order_id}`}
             errorMsgDiv={errorDiv}
             link_btn={true}
-            src="/dashboard/products"
+            src="/dashboard/savings"
           />
         </div>
       ) : null}
@@ -589,7 +595,7 @@ const CheckoutModalComponent = ({
           <Success_Error_Component
             // remove_success_div={() => setErrorDiv(true)}
             btn_txt="Fund Wallet"
-            msg="Please fund your wallet to complete transaction."
+            msg={error_msg}
             errorMsgDiv={errorDiv}
             link_btn={true}
             src="/dashboard/wallet"
