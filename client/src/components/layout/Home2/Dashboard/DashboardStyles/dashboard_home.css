@@ -146,7 +146,7 @@
 .savings_overview_body_cont2 {
   display: flex;
   /* flex-direction: column; */
-  justify-content: space-between;
+  /* justify-content: space; */
   gap: 35px;
   margin-top: 30px;
 }

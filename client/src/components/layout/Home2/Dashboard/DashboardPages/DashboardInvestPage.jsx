@@ -494,7 +494,7 @@ function DashboardInvestPage({ auth }) {
               </a>
             </div>
             <div className="products_display_body_conts">
-              {item.slice(0, 12).map((asset, index) => {
+              {item.map((asset) => {
                 if (asset.payment_type == 'OUTRIGHT')
                   return (
                     <a
@@ -502,7 +502,7 @@ function DashboardInvestPage({ auth }) {
                         asset.id
                       }/${asset.product_name.replace(/\s+/g, '-')}`}
                       // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
-                      key={index.toString()}
+                      // key={index.toString()}
                     >
                       <li className="carous_list no_marg inventory_cards">
                         <div
@@ -1169,64 +1169,69 @@ function DashboardInvestPage({ auth }) {
                 {musicalEquipmentData.length <= 0 ? (
                   <NoDataFoundComponent text={text} />
                 ) : (
-                  musicalEquipmentData.slice(0, 12).map((asset, index7) => {
-                    return (
-                      <a
-                        href={`/dashboard/products/details/${
-                          asset.id
-                        }/${asset.product_name.replace(/\s+/g, '-')}`}
-                        // key={index7.toString()}
-                      >
-                        <li className="carous_list no_marg inventory_cards">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${asset.product_image})`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div className="asset_prices_div">
-                                <div className="asset_title">
-                                  ₦{numberWithCommas(asset.amount)}{' '}
-                                  <span className="slashed_price">
+                  musicalEquipmentData
+                    .slice(0, 12)
+                    .map((asset, index7) => {
+                      return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(
+                            /\s+/g,
+                            '-'
+                          )}`}
+                          // key={index7.toString()}
+                        >
+                          <li className="carous_list no_marg inventory_cards">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
+                                <div className="asset_prices_div">
+                                  <div className="asset_title">
+                                    ₦{numberWithCommas(asset.amount)}{' '}
+                                    <span className="slashed_price">
+                                      ₦
+                                      {numberWithCommas(
+                                        asset.amount * 2
+                                      )}
+                                    </span>
+                                  </div>
+                                  <div className="amount_per_day_div">
                                     ₦
                                     {numberWithCommas(
-                                      asset.amount * 2
+                                      (
+                                        asset.amount /
+                                        asset.product_duration
+                                      ).toFixed()
                                     )}
-                                  </span>
-                                </div>
-                                <div className="amount_per_day_div">
-                                  ₦
-                                  {numberWithCommas(
-                                    (
-                                      asset.amount /
-                                      asset.product_duration
-                                    ).toFixed()
-                                  )}
-                                  <span className="per_day_symbol">
-                                    {' '}
-                                    / perday
-                                  </span>
+                                    <span className="per_day_symbol">
+                                      {' '}
+                                      / perday
+                                    </span>
+                                  </div>
                                 </div>
                               </div>
+                              {/* </a> */}
                             </div>
-                            {/* </a> */}
-                          </div>
-                        </li>
-                      </a>
-                    );
-                  })
+                          </li>
+                        </a>
+                      );
+                    })
                 )}
               </div>
             </div>
