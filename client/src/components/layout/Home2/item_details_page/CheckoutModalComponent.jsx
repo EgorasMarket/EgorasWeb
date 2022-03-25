@@ -199,21 +199,12 @@ const CheckoutModalComponent = ({
                 days_left
               );
               closePaymentModal();
-              if (window.location.hostname === 'localhost') {
-                window.location.replace(
-                  `${window.location.hostname}:4015/dashboard`
-                );
-              } else {
-                window.location.replace(
-                  `${window.location.hostname}/dashboard`
-                );
-              }
             } catch (error) {
               //console.log(error.response);
             }
           },
           onClose: (response) => {
-            //console.log(response, "response from onclose ");
+            // window.location.replace('google.com');
           },
         });
 
