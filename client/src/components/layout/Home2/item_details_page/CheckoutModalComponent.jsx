@@ -199,7 +199,15 @@ const CheckoutModalComponent = ({
                 days_left
               );
               closePaymentModal();
-              window.location.replace(`${api_url2}/dashboard`);
+              if (window.location.hostname === 'localhost') {
+                window.location.replace(
+                  `${window.location.hostname}:4015/dashboard`
+                );
+              } else {
+                window.location.replace(
+                  `${window.location.hostname}/dashboard`
+                );
+              }
             } catch (error) {
               //console.log(error.response);
             }
@@ -236,15 +244,15 @@ const CheckoutModalComponent = ({
                 response,
                 ' response after order endpoint is called'
               );
+
               setProcessingDiv(false);
               setErrorDiv(false);
               setSuccessDiv(true);
-              // alert(
-              //   "Your order have been completed successfully, You will redirected to the market place"
+              console.log(window.location.hostname);
+              alert(window.location.hostname);
+              // window.location.replace(
+              //   `${window.location.hostname}/dashboard`
               // );
-              // return <Redirect to="/dashboard" />;
-              // window.location.replace(`${api_url2}/dashboard`);
-              console.log(props.location);
             })
             .catch((err) => {
               console.log(err.response);
@@ -261,7 +269,7 @@ const CheckoutModalComponent = ({
           setSuccessDiv(false);
           // setErrorMsg("An error")
           setErrorDiv(true);
-          alert('hiy');
+          // alert('hiy');
         }
         break;
     }
