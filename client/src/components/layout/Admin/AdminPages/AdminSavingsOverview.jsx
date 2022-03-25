@@ -322,10 +322,11 @@ const AdminSavingsOverview = ({ match }) => {
         body,
         config
       );
-      //console.log(res.data, "undefined");
+      console.log(res, "undefined");
 
-      if (res.data.statusCode === 200) {
+      if (res.data.success === true) {
         // setPassportUpload(true)
+        return window.location.replace("/super_admin/user_overview/"+customerId);
       } else {
         // setAlert('Something went wrong, please try again later', 'danger');
       }
@@ -347,11 +348,7 @@ const AdminSavingsOverview = ({ match }) => {
     //console.log(nextKin);
   };
 
-  // const firstName = allCustomers.fullName.slice(0);
-
-  // const lastName = allCustomers.fullName.slice(1);
-  // //console.log(firstName);
-  // //console.log(allCustomers.fullName.slice(0));
+  
   const openModal2 = () => {
     setModal2(true);
   };
@@ -897,6 +894,7 @@ const AdminSavingsOverview = ({ match }) => {
                           </div>
                           <div className="toggle_body_area1_cont1_input">
                             <div className="bvn_btn">{CustBvn}</div>
+                          
                           </div>
                         </div>
                         {/* ================= */}
