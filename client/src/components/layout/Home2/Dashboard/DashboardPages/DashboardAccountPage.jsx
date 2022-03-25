@@ -64,6 +64,7 @@ function DashboardAccountPage({
   const [customerBvn1, setCustomerBvn1] = useState("");
   const [bvnId, setBvnId] = useState({});
 
+  const [genderEmpty, setGenderEmpty] = useState(false);
   const [disabled1, setDisabled1] = useState(false);
   const [disabled2, setDisabled2] = useState(false);
   const [disabled3, setDisabled3] = useState(false);
@@ -146,7 +147,7 @@ function DashboardAccountPage({
 
   useEffect(() => {
     // fetchDepositLinks();
-    //console.log(auth);
+    // console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
       // //console.log( new Buffer(dataa));
@@ -154,7 +155,7 @@ function DashboardAccountPage({
       var todecodedn = todecoded.user.userImage;
 
       // console.log('====================================');
-      // console.log(todecoded);
+      // console.log(todecoded.user);
       // console.log('====================================');
 
       const getName = todecoded.user.fullname;
@@ -169,9 +170,17 @@ function DashboardAccountPage({
         Userrelationship: todecoded.user.relationship,
         Usergender: todecoded.user.gender,
         Userbvn: todecoded.user.BVN,
-        UserdateOfBirth: todecoded.user.dateOfBirth,
+        UserdateOfBirth: todecoded.user.birthDate,
       });
-      // setBvnId({Userbvn})
+      setTokens({
+        dateOfBirth: todecoded.user.birthDate,
+        gender: "",
+
+      })
+
+      if (todecoded.user.gender === null) {
+        setGenderEmpty(true);
+      }
 
       if (todecoded.user.userImage !== null) {
         setImage(api_url2 + "/" + todecoded.user.userImage);
@@ -212,9 +221,10 @@ function DashboardAccountPage({
       .then((data) => {
         console.log(data.data);
         //console.log(data.data.cusAddress, "king");
+        setAddress(data.data.cusAddress.address)
       })
       .catch((err) => {
-        //console.log(err.response); // "oh, no!"
+        console.log(err.response); // "oh, no!"
       });
   }, []);
 
@@ -426,7 +436,7 @@ function DashboardAccountPage({
     setFold1("disBtn");
 
     // $disableMe.setAttribute('disabled','disabled')
-    //console.log(res);
+    console.log(res);
 
     setTimeout(() => {
       setDisabled2(false);
@@ -434,7 +444,8 @@ function DashboardAccountPage({
     }, 5000);
 
     if (res.success === true) {
-      //console.log("okay Good Server");
+      console.log("okay Good Server");
+      return window.location.replace("/dashboard/accounts");
     } else {
       //console.log("Something went wrong!");
       // setAlert(res.data.data.errors[0].msg, "danger");
@@ -523,23 +534,7 @@ function DashboardAccountPage({
     }
   };
 
-  // useEffect(()=>{
-  //   if(firstname === "" || firstname.length === 0 ){
-  //     setError4(label3)
-  //   }else{
-  //     setError4('First Name')
-  //   }
-
-  // },[firstname])
-
-  // useEffect(()=>{
-  //   if(lastname === "" || lastname.length === 0 ){
-  //     setError5(label3)
-  //   }else{
-  //     setError5('Last Name')
-  //   }
-
-  // },[lastname])
+ 
 
   const sumitChangePassword = async (e) => {
     let res = await changePassword(oldpassword, newpassword);
@@ -596,21 +591,22 @@ function DashboardAccountPage({
     //   setError7(label6)
     // }
     if (
-      customerAddress === "" ||
-      customerBvn1 === "" ||
-      customerBvn1.length > 11 ||
-      customerBvn1.length < 11
+      customerAddress === ""
+      //  ||
+      // customerBvn1 === "" ||
+      // customerBvn1.length > 11 ||
+      // customerBvn1.length < 11
     ) {
       if (customerAddress === "") {
         setError7(label6);
       }
-      if (customerBvn1 === "") {
-        setError8(label7);
-      }
+      // if (customerBvn1 === "") {
+      //   setError8(label7);
+      // }
 
-      if (customerBvn1.length > 11 || customerBvn1.length < 11) {
-        setError8(label7);
-      }
+      // if (customerBvn1.length > 11 || customerBvn1.length < 11) {
+      //   setError8(label7);
+      // }
     } else {
       // if(customerBvn1===""){
       //   setError8(label7)
@@ -646,8 +642,9 @@ function DashboardAccountPage({
           );
           //console.log(res.data, "undefined");
 
-          if (res.data.statusCode === 200) {
+          if (res.data.success === true) {
             // setPassportUpload(true)
+            return window.location.replace("/dashboard/accounts");
           } else {
             // setAlert('Something went wrong, please try again later', 'danger');
           }
@@ -658,40 +655,40 @@ function DashboardAccountPage({
       }
 
       // comments for bvn
-      if (customerBvn1 === "") {
-        //console.log("empty address");
+      // if (customerBvn1 === "") {
+      //   //console.log("empty address");
 
-        setDisabled3(false);
-        // setFold2('add_photo')
+      //   setDisabled3(false);
+      //   // setFold2('add_photo')
 
-        // setAlert('Please provide a passport photo', 'danger');
-      } else {
-        let BVN = customerBvn1;
-        let customer_id = idNum;
-        const body = JSON.stringify({ BVN, customer_id });
-        setDisabled3(true);
-        setError8("BVN");
-        // setFold2('disBtn')
-        // console.log(body);
+      //   // setAlert('Please provide a passport photo', 'danger');
+      // } else {
+      //   let BVN = customerBvn1;
+      //   let customer_id = idNum;
+      //   const body = JSON.stringify({ BVN, customer_id });
+      //   setDisabled3(true);
+      //   setError8("BVN");
+      //   // setFold2('disBtn')
+      //   // console.log(body);
 
-        try {
-          const res = await axios.post(
-            api_url2 + "/v1/user/add/BVN",
-            body,
-            config
-          );
-          //console.log(res.data, "undefined");
+      //   try {
+      //     const res = await axios.post(
+      //       api_url2 + "/v1/user/add/BVN",
+      //       body,
+      //       config
+      //     );
+      //     //console.log(res.data, "undefined");
 
-          if (res.data.statusCode === 200) {
-            // setPassportUpload(true)
-          } else {
-            // setAlert('Something went wrong, please try again later', 'danger');
-          }
-        } catch (err) {
-          //console.log(err.response);
-          // setAlert('Check your internet connection', 'danger');
-        }
-      }
+      //     if (res.data.statusCode === 200) {
+      //       // setPassportUpload(true)
+      //     } else {
+      //       // setAlert('Something went wrong, please try again later', 'danger');
+      //     }
+      //   } catch (err) {
+      //     console.log(err.response);
+      //     // setAlert('Check your internet connection', 'danger');
+      //   }
+      // }
 
       setTimeout(() => {
         setDisabled3(false);
@@ -702,7 +699,7 @@ function DashboardAccountPage({
     // }
   };
 
-  // const divBvn = (<div><form><input type="number" placeholder="enter ur bvn" onChange={onChangeBvn}    value={customerBvn1}/></form></div>)
+  
 
   return (
     <div className="other2 account_body" style={{ paddingBottom: "0em" }}>
@@ -880,25 +877,16 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {UserdateOfBirth === null ? (
-                          <input
-                            type="date"
-                            name="dateOfBirth"
-                            id=""
-                            value={dateOfBirth}
-                            className="name_input1 date_input"
-                            onChange={onChangeFor}
-                          />
-                        ) : (
-                          UserdateOfBirth
-                        )}
+                       
+                          {UserdateOfBirth}
+                        
                       </div>
                     </div>
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    {UserdateOfBirth === null ? (
+                    {genderEmpty === true ? (
                       <div className="toggle_body_area1_cont1">
                         <div className="toggle_body_area1_cont1_txts"></div>
                         <div className="toggle_body_area1_cont1_input">
@@ -1369,23 +1357,8 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {/* {Userbvn ==""? <input type="number" placeholder="enter ur bvn" onChange={onChangeBvn}    value={customerBvn1}/>:className="bvn_btn"
-                        <div className="bvn_btn">{Userbvn}</div>} */}
-                        {Userbvn == null ? (
-                          <div className="input_btn_grouped_div">
-                            <TextField
-                              className="name_input1a"
-                              id="outlined-basic"
-                              label={error8}
-                              variant="outlined"
-                              name="customerAddress"
-                              value={customerBvn1}
-                              onChange={onChangeBvn}
-                            />
-                          </div>
-                        ) : (
-                          <div className="bvn_btn">{Userbvn}</div>
-                        )}
+                    
+                        <div className="bvn_btn">{Userbvn}</div>
                       </div>
                     </div>
                     {/* ================= */}
@@ -1431,25 +1404,31 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        <div className="input_btn_grouped_div">
-                          <TextField
-                            className="name_input1a"
-                            id="outlined-basic"
-                            label={error7}
-                            variant="outlined"
-                            name="customerAddress"
-                            value={customerAddress}
-                            onChange={onChangeaddress}
-                          />
-                          <button
-                            className={fold2}
-                            style={{ width: "25%" }}
-                            onClick={submitAddress}
-                            disabled={disabled3}
-                          >
-                            Submit Address
-                          </button>
-                        </div>
+                        {
+                          customerAddress === '' ? (
+                          <div className="input_btn_grouped_div">
+                            <TextField
+                              className="name_input1a"
+                              id="outlined-basic"
+                              label={error7}
+                              variant="outlined"
+                              name="customerAddress"
+                              value={customerAddress}
+                              onChange={onChangeaddress}
+                            />
+                            <button
+                              className={fold2}
+                              style={{ width: "25%" }}
+                              onClick={submitAddress}
+                              disabled={disabled3}
+                            >
+                              Submit Address
+                            </button>
+                          </div>
+                          ) : (
+                            <div className="bvn_btn">{customerAddress}</div>
+                          )
+                        }
                       </div>
                     </div>
                     {/* ================= */}
