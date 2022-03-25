@@ -1,17 +1,16 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import axios from 'axios';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import verify from '../../../../flutterwave/API/Verify';
-import Loader from './Loader';
-import CloseIcon from '@mui/icons-material/Close';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faSpinner } from '@fortawesome/free-solid-svg-icons'
+import React, { useEffect, useCallback, useState } from "react";
+import axios from "axios";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import verify from "../../../../flutterwave/API/Verify";
+import CloseIcon from "@mui/icons-material/Close";
 // import Wallet1 from "../../Wallet/Wallet1";
+import Success_Error_Component from "../../../assets/Success_Error_Component";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
   API_URL2,
 } from "../../../../actions/types";
+import { numberWithCommas } from "../../../../static";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import FlutterButton from "../../../../flutterwave/FlutterButton";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
@@ -22,8 +21,7 @@ import { createOrder } from "../../../../actions/shop";
 import { connect } from "react-redux";
 import initPayment from "../../../../flutterwave/initPayment";
 import initializePayment from "../../../../flutterwave/API/initializePayment";
-import { Redirect } from "react-router-dom";
-import { numberWithCommas } from "../../../../static";
+import { Redirect, useHistory } from "react-router-dom";
 
 const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   //destructure the payload and return values
@@ -48,7 +46,6 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     startDate,
     endDate,
   } = payload;
-  console.log(payload.initial_deposit);
 
   const [user_id, setUserId] = useState("");
   const [isloading, setIsLoading] = useState(true);
@@ -57,29 +54,37 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [walletBalance, setWalletBalance] = useState(false);
   const [walletModal, setWalletModal] = useState(false);
   const [ProcessingDiv, setProcessingDiv] = useState(false);
-  const [name, setName] = useState("");
+  const [fullname, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  const [tokenBal, setTokenBal] = useState("0.000");
-  const [assetVal, setAssetVal] = useState("0.000");
+  const [tokenBal, setTokenBal] = useState("");
+  const [assetVal, setAssetVal] = useState("");
+  const [error_msg, setErrorMsg] = useState("");
+
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
   const [errorDiv, setErrorDiv] = useState(false);
+  const [successDiv, setSuccessDiv] = useState(false);
+  const [total, setTotal] = useState("");
   // //console.log(phone_no, name, option);
   // //console.log(phone_no, name, option)
   let deliveryFee = 0;
-  const addedUp = amount + deliveryFee;
-  console.log(addedUp);
+
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-  
 
   const [addressName, setAddressName] = useState("");
 
   useEffect(async () => {
+    if (payment_type === "OUTRIGHT") {
+      // alert(initial_deposit);
+      setTotal(amount);
+    } else if (payment_type === "INSTALLMENT") {
+      setTotal(initial_deposit + deliveryFee);
+    }
     await axios
       .get(api_url2 + "/v1/user/address/info", null, config)
       .then((response) => {
@@ -93,6 +98,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   useEffect(() => {
     var Authorized = auth.user;
     var userId = Authorized.user.id;
+
     axios
       .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
       .then((data) => {
@@ -131,23 +137,20 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
       });
     }
   }, []);
-  useEffect(() => {
-    
-  })
 
   const flutterConfig = {
     public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
     tx_ref: "EGC-" + Date.now(),
     amount: 1,
-
     currency: "NGN",
-    // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
+    // redirect_url: 'https://saul.egoras.com/v1/webhooks/all',
+
     payment_options: "card",
     // payment_plan:63558,
     customer: {
-      phonenumber: phone_no,
+      phone_number: phone_no,
       email: email,
-      name: name,
+      name: fullname,
     },
     meta: {
       customer_id: customer_data.customer_id,
@@ -163,8 +166,6 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const openProcessingDiv = () => {
     setProcessingDiv(true);
   };
-  // const <FontAwesomeIcon icon={faSpinner} spin />
-  const fonterm = (<FontAwesomeIcon icon={faSpinner} spin />)
   const selectOption = async (value) => {
     // switch(value ){
     //   case 0:
@@ -207,8 +208,9 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
 
       case 1:
-        if (tokenBal >= initial_deposit) {
-          setProcessingDiv(true);
+        setProcessingDiv(true);
+
+        if (tokenBal >= Number(total)) {
           //
           const orderBody = JSON.stringify({
             product_id,
@@ -224,20 +226,29 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             .then((response) => {
               console.log(response, " response after order endpoint is called");
               setProcessingDiv(false);
-              alert(
-                "Your order have been completed successfully, You will redirected to the market place"
-              );
+              setErrorDiv(false);
+              setSuccessDiv(true);
+              // alert(
+              //   "Your order have been completed successfully, You will redirected to the market place"
+              // );
               return <Redirect to="/dashboard" />;
             })
             .catch((err) => {
               console.log(err.response);
               setProcessingDiv(false);
+              setSuccessDiv(false);
+              // setErrorMsg(err.response);
               setErrorDiv(true);
+              // alert(err);
             });
           //
         } else {
+          console.log("something happened");
           setProcessingDiv(false);
+          setSuccessDiv(false);
+          // setErrorMsg("An error")
           setErrorDiv(true);
+          alert("hiy");
         }
         break;
     }
@@ -503,24 +514,19 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             {/* ========== */}
             <button
               className="checkout_btn1a"
-
-              
               // onClick={() => {
-                
+
               //   <Loader/>
-                    
+
               //   // openPayment();
               //   selectOption(option);
-               
-
 
               // }}
-              onClick={()=>{ 
+              onClick={() => {
                 // return( <Loader/>)
-                selectOption(option);}}
+                selectOption(option);
+              }}
             >
-            
-              
               Proceed to Checkout
             </button>
           </div>
@@ -532,22 +538,28 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           Processing Transaction...
         </div>
       )}
+      {successDiv == true ? (
+        <div className="processing_transac_div insufficient">
+          <Success_Error_Component
+            remove_success_div={closeCheckoutOptions}
+            btn_txt="Continue"
+            msg="You have successfully locked this item "
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src="/dashboard/products"
+          />
+        </div>
+      ) : null}
       {errorDiv == false ? null : (
         <div className="processing_transac_div insufficient">
-          <div className="insufficient_div">
-            <CloseIcon
-              className="closeDivIcon"
-              onClick={() => setErrorDiv(false)}
-            />
-            <img src="/img/empty-wallet.svg" alt="" className="empty_wallet" />
-            Insufficient Balance
-            <span className="fund_wall">
-              Please fund Your wallet to complete payment.
-            </span>
-            <a href="/dashboard/wallet">
-              <button className="fund_wallet_btn">Fund Wallet</button>
-            </a>
-          </div>
+          <Success_Error_Component
+            // remove_success_div={() => setErrorDiv(true)}
+            btn_txt="Fund Wallet"
+            msg="Please fund your wallet to complete transaction."
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src="/dashboard/wallet"
+          />
         </div>
       )}
     </>

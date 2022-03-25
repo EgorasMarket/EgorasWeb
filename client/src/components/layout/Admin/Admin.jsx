@@ -78,6 +78,7 @@ const Admin = ({ isAuthenticated, loading }) => {
           <div className="admin">
             <AdminSideBar />
             <Switch>
+              <Route exact path="/super_admin" component={Admin_homePage} />
               {Role === "MEDIA" ? (
                 <>
                   <Route
