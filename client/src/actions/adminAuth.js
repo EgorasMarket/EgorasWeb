@@ -385,7 +385,7 @@ export const ForgetPassword = (email) => async (dispatch) => {
 // Admin Register Customer
 
 export const adminAddCustomer =
-  (fullname, email, phoneNumber, InfoReason) =>
+  (firstname, lastname, email, birthDate, BVN, phoneNumber, InfoReason) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -396,14 +396,16 @@ export const adminAddCustomer =
     };
 
     const body = JSON.stringify({
-      fullname,
+      firstname, 
+      lastname,
       email,
-      // BVN,
+      birthDate,
+      BVN,
       phoneNumber,
       InfoReason,
     });
 
-    //console.log(body);
+    console.log(body);
 
     try {
       const res = await axios.post(
