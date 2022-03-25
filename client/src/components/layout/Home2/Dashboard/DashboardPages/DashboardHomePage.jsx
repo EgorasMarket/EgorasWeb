@@ -354,7 +354,10 @@ const DashboardHomePage = ({ auth, match }) => {
                   </div>
                   <div className="savings_overview_body_cont2">
                     {userLockId.slice(0, 3).map((item) => (
-                      <div className="savings_overview_body_cont2_1a">
+                      <a
+                        href="/dashboard/savings"
+                        className="savings_overview_body_cont2_1a"
+                      >
                         <div className="save_overview_cont_img">
                           <img
                             src={item.product_img}
@@ -384,7 +387,7 @@ const DashboardHomePage = ({ auth, match }) => {
                             </button> */}
                           </div>
                         </div>
-                      </div>
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -408,7 +411,7 @@ const DashboardHomePage = ({ auth, match }) => {
           <div className="dashboard_transactions">
             <div className="dashboard_transactions_header">
               Recent Transactions{" "}
-              <a href="#" className="see_all_transac_link">
+              <a href="/dashboard/wallet" className="see_all_transac_link">
                 See all
               </a>
             </div>
