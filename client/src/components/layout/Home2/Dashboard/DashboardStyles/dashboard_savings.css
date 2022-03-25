@@ -319,6 +319,14 @@ span.items_left_amount {
 .card_over_balance_button {
   color: #fff;
 }
+@media screen and (max-width: 1150px) {
+  /* .save_item_data1b .checked_item_data_1b{
+font-size: 12px;
+  } */
+  /* ..checked_item_data_1b {
+font-size: 12px;
+  } */
+}
 @media screen and (max-width: 1024px) {
   .dash_savings_area1 {
     padding: 1em;
