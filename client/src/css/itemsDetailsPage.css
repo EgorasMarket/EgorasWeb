@@ -842,9 +842,13 @@ span.per_day {
   font-size: 12px;
   color: #7fa58e;
   padding-left: 0em;
-  display: flex;
   align-items: center;
+  grid-gap: 5px;
   gap: 5px;
+  width: 100%;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 }
 
 .detailsModal {
@@ -1076,6 +1080,9 @@ span.percent_days_amnt {
     /* flex: 1; */
     width: 4.9% !important;
   }
+  .detailsModal {
+    gap: 10px;
+  }
   .product_details_img {
     width: 23em;
     height: 23em;
@@ -1083,6 +1090,10 @@ span.percent_days_amnt {
   }
   .checked_item_data_1b {
     width: 50% !important;
+    font-size: 12px;
+  }
+  .checkout_btn1a {
+    padding: 1em 1em;
   }
 }
 @media screen and (max-width: 1116px) {
