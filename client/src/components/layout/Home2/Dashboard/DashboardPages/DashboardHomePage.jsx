@@ -190,6 +190,7 @@ const DashboardHomePage = ({ auth, match }) => {
   }, []);
 
   useEffect(() => {
+   
     axios
       .get(
         api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,
@@ -205,6 +206,7 @@ const DashboardHomePage = ({ auth, match }) => {
         //console.log(err); // "oh, no!"
       });
   }, []);
+
 
   useEffect(async () => {
     setLoading(true);
@@ -265,19 +267,24 @@ const DashboardHomePage = ({ auth, match }) => {
   //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   // };
 
-  useEffect(() => {
+
+
+
+
+
+useEffect(() => {
     axios
       .get(api_url2 + "/v1/user/transactions/customer/recent", null, config)
       .then((data) => {
-        // let a = data.data.payload;
-
-        console.log(data.data.payload);
-        setAllDatas(data.data.payload.reverse());
+        // setAllDatas(data.data.payload);
+        setAllDatas([]);
+        console.log(data.data.payload)
       })
       .catch((err) => {
         console.log(err);
-      });
-  }, []);
+        })
+          
+    }, []);
   return (
     <div className="other2">
       <section className="no-bg no_paddd">
@@ -390,6 +397,7 @@ const DashboardHomePage = ({ auth, match }) => {
                 </div>
               </div>
             )}
+
           </div>
 
           {/* useEffect(() => {
@@ -405,6 +413,32 @@ const DashboardHomePage = ({ auth, match }) => {
           
           }, []); */}
 
+
+
+
+          
+      
+
+         
+
+
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
           <div className="dashboard_transactions">
             <div className="dashboard_transactions_header">
               Recent Transactions{" "}
@@ -413,14 +447,16 @@ const DashboardHomePage = ({ auth, match }) => {
               </a>
             </div>
             <div className="transaction_headings">
+              <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Type</div>
-              <div className="transaction_heading1">Date</div>
               <div className="transaction_heading1 amnt_small">Amount</div>
               <div className="transaction_heading1 center_this">Channel</div>
               <div className="transaction_heading1 reduce_width">Status</div>
             </div>
             <div className="dashboard_transaction_body">
-              {allDatas.slice(0, 5).map((data) => (
+
+
+              {allDatas.length<=0?( <NoDataFoundComponent text={text} />):    <>          {allDatas.slice(0,5).map((data) => (
                 <>
                   <div
                     className="dashboard_transaction_body_cont1"
@@ -430,25 +466,15 @@ const DashboardHomePage = ({ auth, match }) => {
                   >
                     <div className="dashboard_transac_body_cont1_layer1">
                       <div className="deposited_icon">
-                        <ArrowDownwardIcon
-                          style={
-                            data.transaction_type == "DEBIT"
-                              ? {
-                                  backgroundColor: " #e4a788",
-                                  transform: "rotate(180deg)",
-                                }
-                              : { backgroundColor: "#0ecb81" }
-                          }
-                          className="arrow_down_deposit_icon"
-                        />
+                        <ArrowDownwardIcon className="arrow_down_deposit_icon" />
                       </div>
                       <div className="dashboard_transac_body_cont1_layer1_title">
-                        {data.transaction_type}
+                        Deposited
                       </div>
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_amount_cont">
                       <div className="dashboard_transac_body_cont1_layer1_time">
-                        {data.timestamp.slice(0, 10)}
+                        {data.transaction_type}
                       </div>
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_amount_cont">
@@ -461,14 +487,19 @@ const DashboardHomePage = ({ auth, match }) => {
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_status_cont">
                       <span className="dashboard_transac_body_cont1_layer1_completed_status">
-                        Completed
+                       Completed
                       </span>
                     </div>
                   </div>
                 </>
               ))}
+</>
+              }
+
+              
             </div>
           </div>
+            )}
           {/* =================================================================================================================================================================================================================================================================== */}
 
           {/* =================================================================================================================================================================================================================================================================== */}
@@ -496,8 +527,7 @@ const DashboardHomePage = ({ auth, match }) => {
                   <span className="transPopData">Deposited</span>
                 </div>
                 <div className="tranPop_div_cont1">
-                  Type{" "}
-                  <span className="transPopData"> {data.transaction_type}</span>{" "}
+                  Type <span className="transPopData"> {data.transaction_type}</span>{" "}
                 </div>
                 <div className="tranPop_div_cont1">
                   Amount{" "}
@@ -514,13 +544,14 @@ const DashboardHomePage = ({ auth, match }) => {
                     <CircleIcon className="complete_circle" />
                     Completed
                   </span>
-                </div>
+                </div> 
               </div>
             </div>
           ) : null}
         </>
       ))}
     </div>
+
   );
 };
 
