@@ -1,6 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 // import { setAlert } from "../../../../actions/alert";
+import DatePicker from 'react-date-picker';
 import "../../../../css/signup.css";
 import { CustomAlert } from "../../../../CustomAlert";
 import { adminAddCustomer } from "../../../../actions/adminAuth";
@@ -10,16 +11,24 @@ const SignupComp = ({ adminAddCustomer }) => {
   const [alertType, setAlertType] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [userAuth, setUserAuth] = useState({
-    fullname: "",
+    // fullname: "",
+    firstname: '',
+    lastname: '',
     email: "",
     // password: "",
-    // BVN: "",
+    BVN: "",
     phoneNumber: "",
     // confirmpassword: "",
     InfoReason: "",
   });
 
-  const { fullname, email, phoneNumber, InfoReason } = userAuth;
+  const [dateOfBirth, setDateOfBirth] = useState('');
+
+
+  const { firstname, lastname, email, phoneNumber, BVN, InfoReason } = userAuth;
+
+  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : '';
+
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
 
@@ -32,7 +41,7 @@ const SignupComp = ({ adminAddCustomer }) => {
 
   const submitData = async (e) => {
     // //console.log('ggg');
-    if (fullname === '' || phoneNumber === '' || InfoReason === '') {
+    if (firstname === '' || lastname === '' || phoneNumber === '' || BVN === '' || InfoReason === '') {
       //console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
       setAlert('All supply all fields.');
       setAlertType('danger')
@@ -45,10 +54,13 @@ const SignupComp = ({ adminAddCustomer }) => {
       // }
 
       let res = await adminAddCustomer(
-        fullname,
+        // fullname,
+        firstname, 
+        lastname,
         email,
+        birthDate,
         // password,
-        // BVN,
+        BVN,
         phoneNumber,
         InfoReason
         //   localStorage.referrer
@@ -80,15 +92,30 @@ const SignupComp = ({ adminAddCustomer }) => {
             Welcome to the future of savings & investments.
           </span>
           <div className="signup_inputs_cont">
-            <div className="signup_input_field1_cont">
-              <span className="input_title">Full Name</span>
-              <input
-                type="text"
-                name="fullname"
-                className="signup_input_field"
-                value={fullname}
-                onChange={onChange}
-              />
+            <div
+              className="signup_input_field1_cont"
+              style={{ flexDirection: 'row' }}
+            >
+              <div className="text-left">
+                <span className="input_title">First Name</span>
+                <input
+                  type="text"
+                  name="firstname"
+                  className="signup_input_field"
+                  value={firstname}
+                  onChange={onChange}
+                />
+              </div>
+              <div className="text-left">
+                <span className="input_title">Last Name</span>
+                <input
+                  type="text"
+                  name="lastname"
+                  className="signup_input_field"
+                  value={lastname}
+                  onChange={onChange}
+                />
+              </div>
             </div>
             <div className="signup_input_field1_cont">
               <span className="input_title">Email address</span>
@@ -100,17 +127,48 @@ const SignupComp = ({ adminAddCustomer }) => {
                 onChange={onChange}
                 placeHolder="@gmail.com"
               />
-              <div className="weak_pass_div text-muted">* Optional</div>
+              {/* <div className="weak_pass_div text-muted">* Optional</div> */}
+            </div>
+            <div
+              className="signup_input_field1_cont"
+              style={{ flexDirection: 'row' }}
+            >
+              <div className="text-left">
+                <span className="input_title d-block">
+                  Phone Number
+                </span>
+                <input
+                  type="number"
+                  className="signup_input_field"
+                  value={phoneNumber}
+                  name="phoneNumber"
+                  onChange={onChange}
+                />
+              </div>
+              <div className="text-left">
+                <span className="input_title d-block">
+                  Date Of Birth
+                </span>
+                <DatePicker
+                  onChange={setDateOfBirth}
+                  value={dateOfBirth}
+                  format="yyyy-MM-dd"
+                />
+              </div>
             </div>
             <div className="signup_input_field1_cont">
-              <span className="input_title">Phone Number</span>
+              <span className="input_title">
+                Bank Verification Number (BVN)
+              </span>
               <input
                 type="number"
                 className="signup_input_field"
-                value={phoneNumber}
-                name="phoneNumber"
+                value={BVN}
+                name="BVN"
                 onChange={onChange}
+                placeHolder="***********"
               />
+              {/* <div className="weak_pass_div text-muted">* Optional</div> */}
             </div>
             {/* <div className="signup_input_field1_cont">
               <span className="input_title">Password</span>
