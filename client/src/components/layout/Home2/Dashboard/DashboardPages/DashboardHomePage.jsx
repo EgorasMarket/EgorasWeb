@@ -64,10 +64,10 @@ const responsive6 = {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 4,
-  },
+  }, // comment
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 3, // main
   },
   tablet: {
     breakpoint: { max: 1024, min: 600 },
@@ -361,7 +361,10 @@ useEffect(() => {
                   </div>
                   <div className="savings_overview_body_cont2">
                     {userLockId.slice(0, 3).map((item) => (
-                      <div className="savings_overview_body_cont2_1a">
+                      <a
+                        href="/dashboard/savings"
+                        className="savings_overview_body_cont2_1a"
+                      >
                         <div className="save_overview_cont_img">
                           <img
                             src={item.product_img}
@@ -391,7 +394,7 @@ useEffect(() => {
                             </button> */}
                           </div>
                         </div>
-                      </div>
+                      </a>
                     ))}
                   </div>
                 </div>
@@ -442,7 +445,7 @@ useEffect(() => {
           <div className="dashboard_transactions">
             <div className="dashboard_transactions_header">
               Recent Transactions{" "}
-              <a href="#" className="see_all_transac_link">
+              <a href="/dashboard/wallet" className="see_all_transac_link">
                 See all
               </a>
             </div>

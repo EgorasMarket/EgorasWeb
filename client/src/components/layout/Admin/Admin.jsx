@@ -171,13 +171,19 @@ const Admin = ({ isAuthenticated, loading }) => {
                   />
                 </>
               ) : Role === "HOD_MEDIA" ? (
-                <>
-                  <Route
-                    exact
-                    path="/super_admin/all_products"
-                    component={AdminAllProducts}
-                  />
-                  {/* <Route
+                <><Route
+                  exact
+                  path="/super_admin/all_products"
+                  component={AdminAllProducts}
+                />
+                <Route
+                  exact
+                  path="/super_admin/all_products_view/:id/:name"
+                  // path="/dashboard/products/details/:id/:name"
+                  // / dashboard/products/details/:id/:name
+                  component={AdminAllView}
+                />
+                {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
                 component={ItemsPage2}
