@@ -19,7 +19,7 @@ import { PRODUCT_LOADED, API_URL2 as api_url2 } from "../../../actions/types";
 import Item_details_main2 from "./AdminPages/AdminItemsDetailsPage";
 
 import "./AdminStyles/admin.css";
-import Page from "./AdminPages/dashboardIn";
+import AdminMarket from "./AdminPages/AdminMarket";
 import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
 import ItemsPage2 from "./AdminPages/AdminItemsDetailsPage";
 
@@ -118,7 +118,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                     path="/super_admin/overview"
                     // path="/dashboard/products/details/:id/:name"
                     // / dashboard/products/details/:id/:name
-                    component={Page}
+                    component={AdminMarket}
                   />
                   <Route
                     exact
