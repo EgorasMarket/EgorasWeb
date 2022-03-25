@@ -104,10 +104,11 @@ function DashboardSavingsPage({ match, auth }) {
       });
   }, [auth]);
 
-  useEffect(() => {
+  useEffect(async () => {
     //console.log(match.params.prduct_id,"play every day")
     //console.log(auth.user.user.id)
-    axios
+
+    await axios
       .get(
         api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,
         null,
@@ -226,6 +227,15 @@ function DashboardSavingsPage({ match, auth }) {
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
                   balance={numberWithCommas(
                     parseInt(pending_sum).toFixed(2)
+                  )}
+                />
+                <DashBoardCard
+                  background={'/img/save_card3.svg'}
+                  title={'Wallet Balance'}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(
+                    parseInt(balance).toFixed(2)
                   )}
                 />
                 <DashBoardCard
