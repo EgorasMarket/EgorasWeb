@@ -64,6 +64,7 @@ function DashboardAccountPage({
   const [customerBvn1, setCustomerBvn1] = useState("");
   const [bvnId, setBvnId] = useState({});
 
+  const [genderEmpty, setGenderEmpty] = useState(false);
   const [disabled1, setDisabled1] = useState(false);
   const [disabled2, setDisabled2] = useState(false);
   const [disabled3, setDisabled3] = useState(false);
@@ -146,7 +147,7 @@ function DashboardAccountPage({
 
   useEffect(() => {
     // fetchDepositLinks();
-    //console.log(auth);
+    // console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
       // //console.log( new Buffer(dataa));
@@ -169,9 +170,17 @@ function DashboardAccountPage({
         Userrelationship: todecoded.user.relationship,
         Usergender: todecoded.user.gender,
         Userbvn: todecoded.user.BVN,
-        UserdateOfBirth: todecoded.user.dateOfBirth,
+        UserdateOfBirth: todecoded.user.birthDate,
       });
-      // setBvnId({Userbvn})
+      setTokens({
+        dateOfBirth: todecoded.user.birthDate,
+        gender: "",
+
+      })
+
+      if (todecoded.user.gender === null) {
+        setGenderEmpty(true);
+      }
 
       if (todecoded.user.userImage !== null) {
         setImage(api_url2 + "/" + todecoded.user.userImage);
@@ -868,25 +877,16 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {UserdateOfBirth === null ? (
-                          <input
-                            type="date"
-                            name="dateOfBirth"
-                            id=""
-                            value={dateOfBirth}
-                            className="name_input1 date_input"
-                            onChange={onChangeFor}
-                          />
-                        ) : (
-                          UserdateOfBirth
-                        )}
+                       
+                          {UserdateOfBirth}
+                        
                       </div>
                     </div>
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
                     {/* ================= */}
-                    {UserdateOfBirth === null ? (
+                    {genderEmpty === true ? (
                       <div className="toggle_body_area1_cont1">
                         <div className="toggle_body_area1_cont1_txts"></div>
                         <div className="toggle_body_area1_cont1_input">
