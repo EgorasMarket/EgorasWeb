@@ -237,7 +237,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               console.log(err.response);
               setProcessingDiv(false);
               setSuccessDiv(false);
-              // setErrorMsg(err.response);
+              setErrorMsg(err.response);
               setErrorDiv(true);
               // alert(err);
             });
@@ -555,7 +555,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           <Success_Error_Component
             // remove_success_div={() => setErrorDiv(true)}
             btn_txt="Fund Wallet"
-            msg="Please fund your wallet to complete transaction."
+            msg={error_msg}
             errorMsgDiv={errorDiv}
             link_btn={true}
             src="/dashboard/wallet"
