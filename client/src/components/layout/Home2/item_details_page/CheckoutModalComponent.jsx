@@ -60,6 +60,8 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [tokenBal, setTokenBal] = useState("");
   const [assetVal, setAssetVal] = useState("");
   const [error_msg, setErrorMsg] = useState("");
+  const [success_msg, setSuccessMsg] = useState("");
+  const [order_id, setOrder_id] = useState("");
 
   const [tokenSign, setTokenSign] = useState();
   const [hardNumb, setHardNum] = useState(300);
@@ -226,12 +228,14 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             .then((response) => {
               console.log(response, " response after order endpoint is called");
               setProcessingDiv(false);
+              setSuccessMsg(response.data.message);
+              setOrder_id(response.data.order_id);
               setErrorDiv(false);
               setSuccessDiv(true);
               // alert(
               //   "Your order have been completed successfully, You will redirected to the market place"
               // );
-              return <Redirect to="/dashboard" />;
+              // return <Redirect to="/dashboard" />;
             })
             .catch((err) => {
               console.log(err.response);
@@ -543,10 +547,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           <Success_Error_Component
             remove_success_div={closeCheckoutOptions}
             btn_txt="Continue"
-            msg="You have successfully locked this item "
+            // msg={success_msg}
+            msg={`${success_msg} Order-Id: ${order_id}`}
             errorMsgDiv={errorDiv}
             link_btn={true}
-            src="/dashboard/products"
+            src="/dashboard/savings"
           />
         </div>
       ) : null}
