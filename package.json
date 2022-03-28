@@ -40,6 +40,7 @@
     "mysql": "^2.18.1",
     "mysql2": "^2.1.0",
     "node-cron": "^2.0.3",
+    "print-js": "^1.6.0",
     "react": "^16.14.0",
     "react-carousel-minimal": "^1.4.1",
     "react-chakra-slide-show": "^1.0.11",

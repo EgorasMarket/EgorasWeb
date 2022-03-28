@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from "react";
+import print from "print-js";
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import verify from "../../../../flutterwave/API/Verify";
@@ -60,6 +61,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [tokenBal, setTokenBal] = useState("");
   const [assetVal, setAssetVal] = useState("");
   const [error_msg, setErrorMsg] = useState("");
+  const [printJS, setPrintJS] = useState([]);
   const [success_msg, setSuccessMsg] = useState("");
   const [order_id, setOrder_id] = useState("");
 
@@ -257,6 +259,63 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
     }
   };
+  // const triggerPrint = (e) => {
+  //   let today = new Date().toLocaleDateString();
+
+  //   const getName = tag.split(" ");
+  //   console.log(getName);
+  //   tag.replaceAll(" ", "");
+  //   // var divContents = document.getElementById("mainContent").innerHTML;
+  //   if (category === "" || branch === "") {
+  //     setAlert("Please supply Category and Branch", "danger");
+  //   } else {
+  //     var printWindow = window.open("", "", "height=1200,width=1200");
+  //     printWindow.document.write("<html><head><title>Item Receipt</title>");
+  //     printWindow.document.write(
+  //       '</head><body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
+  //     );
+  //     printWindow.document.write(
+  //       '<img width="140" src="/img/tagheader.svg" />'
+  //     );
+  //     printWindow.document.write(
+  //       '<h6 style="margin-bottom: 5px">Customer Name:</h6>'
+  //     );
+  //     printWindow.document.write(
+  //       '<h4 style="margin-top: 5px;font-weight: 700;font-size:14px;">' +
+  //         tag.split("---")[0] +
+  //         "</h4> <hr />"
+  //     );
+  //     printWindow.document.write('<h3 style="margin-bottom: 5px">Tag:</h3>');
+  //     printWindow.document.write(
+  //       '<h5 style="margin-top: 5px;word-break: break-all;font-weight: 700;font-size:14px;">' +
+  //         tag.split("---")[1] +
+  //         "</h5>"
+  //     );
+  //     printWindow.document.write('<h3 style="margin-bottom: 5px">Asset:</h3>');
+  //     printWindow.document.write(
+  //       '<h5 style="margin-top: 5px;margin-bottom: 5px;">' + name + "</h5>"
+  //     );
+  //     printWindow.document.write(
+  //       '<h3 style="margin-bottom: 5px">Category:</h3>'
+  //     );
+  //     printWindow.document.write(
+  //       '<h5 style="margin-top: 5px;margin-bottom: 5px;">' + category + "</h5>"
+  //     );
+  //     printWindow.document.write('<h3 style="margin-bottom: 5px">Branch:</h3>');
+  //     printWindow.document.write(
+  //       '<h5 style="margin-top: 5px;margin-bottom: 5px;">' + branch + "</h5>"
+  //     );
+  //     printWindow.document.write(
+  //       '<h3 style="margin-bottom: 5px;">Tag Issued At:</h3>'
+  //     );
+  //     printWindow.document.write(
+  //       '<h5 style="margin-top: 5px;margin-bottom: 30px;">' + today + "</h5>"
+  //     );
+  //     printWindow.document.write("</body></html>");
+  //     printWindow.document.close();
+  //     printWindow.print();
+  //   }
+  // };
 
   return (
     <>
@@ -266,6 +325,9 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             Previous
             <ArrowForwardIosIcon className="arrow_back" />
           </div>
+          {/* <PrintMe /> */}
+
+          {/* <button onClick={printMe}>Print this stuff on screen</button> */}
           <div className="detailsModalSection1_area1">
             <div className="delivery_title1">Delivery / Pickup Options</div>
             <div className="delivery_cards_section">
@@ -319,9 +381,16 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                       <th className="assets-category-titles-heading1">
                         Item Details
                       </th>
-                      <th className="assets-category-titles-heading1 quant">
-                        Amount daily
-                      </th>
+                      {payment_type == "OUTRIGHT" ? (
+                        <th className="assets-category-titles-heading1 quant">
+                          Total Amount
+                        </th>
+                      ) : (
+                        <th className="assets-category-titles-heading1 quant">
+                          Amount daily
+                        </th>
+                      )}
+
                       {/* <th className="assets-categordata1y-titles-heading1 quant">
                               Unit Price
                             </th> */}
@@ -354,26 +423,46 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                           <div className="save_items_details1">
                             {product_name}
                           </div>
-                          <div className="save_item_days_left">
-                            {days_left} days left
-                          </div>
+                          {payment_type == "OUTRIGHT" ? null : (
+                            <div className="save_item_days_left">
+                              {days_left} days left
+                            </div>
+                          )}
+
                           <div className="save_total_locked_amount">
-                            <span className="items_left_amount">
-                              Total Amount Locked on Item
+                            {payment_type == "OUTRIGHT" ? (
+                              <span className="items_left_amount">
+                                Total Amount
+                              </span>
+                            ) : (
+                              <span className="items_left_amount">
+                                Total Amount Locked on Item
+                              </span>
+                            )}
+                            <span className="init_amount">
+                              ₦
+                              {payment_type == "OUTRIGHT"
+                                ? numberWithCommas(parseInt(amount).toFixed(2))
+                                : numberWithCommas(
+                                    parseInt(initial_deposit).toFixed(2)
+                                  )}
                             </span>
-                            ₦
-                            {payment_type == "OUTRIGHT"
-                              ? numberWithCommas(parseInt(amount).toFixed(2))
-                              : numberWithCommas(
-                                  parseInt(initial_deposit).toFixed(2)
-                                )}
                           </div>
                         </div>
                       </td>
                       <td className="save_item_data1b checked_item_data_1b">
-                        <div className="assets-data-name_last">
-                          ₦ {payment_type == "OUTRIGHT" ? 0 : paymentPerday}
-                        </div>
+                        {payment_type == "OUTRIGHT" ? (
+                          <div className="assets-data-name_last">
+                            ₦ {numberWithCommas(parseInt(amount).toFixed(2))}
+                          </div>
+                        ) : (
+                          <div className="assets-data-name_last">
+                            ₦{" "}
+                            {numberWithCommas(
+                              parseInt(paymentPerday).toFixed(2)
+                            )}
+                          </div>
+                        )}
                       </td>
                       {/* <td className="save_item_data1b">
                                 <div className="assets-data-name center_name">
@@ -548,7 +637,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             remove_success_div={closeCheckoutOptions}
             btn_txt="Continue"
             // msg={success_msg}
-            msg={`${success_msg} Order-Id: ${order_id}`}
+            msg={`${success_msg}, Order-Id: ${order_id}`}
             errorMsgDiv={errorDiv}
             link_btn={true}
             src="/dashboard/savings"
