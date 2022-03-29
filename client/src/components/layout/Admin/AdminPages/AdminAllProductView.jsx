@@ -9,6 +9,9 @@ import { Calendar, DateRangePicker, DateRange } from "react-date-range";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { addDays, differenceInCalendarDays } from "date-fns";
 // import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import { numberWithCommas } from "../../../../static";
+
+import {ProductImageCarousel} from '../../Home2/item_details_page/ProductImageCarousel';
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -63,6 +66,7 @@ function ItemDetailsPage({ auth, match }) {
   const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState("");
   const [asset, setAsset] = useState("");
+  const [moreImg, setMoreImg] = useState([]);
   const [lowOutCome, setLowOutCome] = useState("");
 
   const [base, setBase] = useState("");
@@ -84,6 +88,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [itemDisplay,setItemDisplay]=useState([])
 
+  const [more_image, setMore_image]=useState()
+
   const [productDetails, setProductDetails] = useState({
     product_image: "",
     product_name: "",
@@ -91,11 +97,13 @@ function ItemDetailsPage({ auth, match }) {
     Product_type: "",
     unitCount: "",
     amount: "",
+    // more_image: {},
     product_duration: "",
     product_category_code: "",
     product_details: "",
     productSpecification: "",
     percentage: "",
+    payment_type: "",
     productId:""
   });
 
@@ -121,7 +129,7 @@ function ItemDetailsPage({ auth, match }) {
     product_image,
     product_name,
     productId,
-
+    // more_image,
     product_brand,
     product_type,
     unitCount,
@@ -131,6 +139,7 @@ function ItemDetailsPage({ auth, match }) {
     productSpecification,
     product_details,
     percentage,
+    payment_type,
   } = productDetails;
 
   useEffect(() => {
@@ -139,6 +148,7 @@ function ItemDetailsPage({ auth, match }) {
     });
     if (auth) {
       set_user_id(auth.user.user.id);
+      console.log(auth.user.user.role);
     }
 
     //console.log(body);
@@ -155,8 +165,9 @@ function ItemDetailsPage({ auth, match }) {
         //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
-
+        setMore_image(data.data.data.more_image)
         setProductDetails({
+          // more_image: data.data.data.more_image,
           product_image: data.data.data.product_image,
           product_name: data.data.data.product_name,
           product_brand: data.data.data.product_brand,
@@ -182,6 +193,16 @@ function ItemDetailsPage({ auth, match }) {
         //console.log(err.response); // "oh, no!"
       });
   }, []);
+
+  useEffect(() => {
+    console.log(more_image);
+    if (more_image != null) {
+      // let splited = JSON.parse(more_image);
+      // setMoreImg(more_image);
+      // console.log(more_image.split(','));
+      // console.log(JSON.parse(more_image));
+    }
+  }, [more_image]);
 
 
       // const deletebro =()=>{
@@ -230,95 +251,13 @@ function ItemDetailsPage({ auth, match }) {
         
       // }
 
-  const submitCallCheck = async (product_id) => {
 
-    //console.log(product_id, 'I feel it');
-
-    const body = JSON.stringify({
-      product_id
-    });
-    
-    axios.post(
-      api_url2 + "/v1/product/approve/product",
-      body,
-      config
-      ).then((data) => {
-        // document.getElementById(product_id).remove();
-        
-          //console.log(data.data);
-
-          if (data.data.success === true) {
-
-            return window.location.replace("/super_admin/all_products");
-          }
-
-    
-        })
-        .catch((err) => {
-          //console.log(err.response); // "oh, no!"
-        });}
-
-
-  const LowCalc = Array(product_duration)
-    .fill(0)
-    .map((e, i) => i + 1);
 
   //console.log("====================================");
   //console.log(LowCalc);
-  const addToCart = async (customer_id, product_id, quantity) => {
-    const payload = {
-      customer_id,
-      product_id,
-      quantity,
-    };
-    let call = await axios
-      .post(api_url2 + "/v1/cart/add", payload, config)
-      .then((response) => {
-        // alert("Item successfully added to cart ");
 
-        //console.log("kingsley Chukwubuike");
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-        //console.log("error reported", err.response);
-      });
 
-    //console.log(call, "chukwubuike kingsley");
-  };
 
-  const checkout = async (
-    customer_id,
-    product_id,
-    installment_days,
-    startDate,
-    endDate
-  ) => {
-    const payload = {
-      customer_id,
-      product_id,
-      installment_days,
-      startDate,
-      endDate,
-      // spread_balance,
-    };
-
-    let call = await axios
-      .post(api_url2 + "/v1/checkout/add", payload, config)
-      .then((response) => {
-        // alert("Item successfully added to cart ");
-        // setDailyAmount(response.data.details.rounded)
-
-        //console.log(response.data.details);
-        setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit)
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-        //console.log("error reported", err.response);
-      });
-
-    //console.log(call, "chukwubuike kingsley");
-  };
   // const food = spec[0].split('');
   // //console.log(food[0])
 
@@ -512,6 +451,34 @@ function ItemDetailsPage({ auth, match }) {
     return result;
   };
 
+  const submitCallCheck = async (product_id) => {
+
+    //console.log(product_id, 'I feel it');
+
+    const body = JSON.stringify({
+      product_id
+    });
+    
+    axios.post(
+      api_url2 + "/v1/product/approve/product",
+      body,
+      config
+      ).then((data) => {
+        // document.getElementById(product_id).remove();
+        
+          //console.log(data.data);
+
+          if (data.data.success === true) {
+
+            return window.location.replace("/super_admin/all_products");
+          }
+
+    
+        })
+        .catch((err) => {
+          //console.log(err.response); // "oh, no!"
+        });}
+
   const days = CalcDaysConvert(product_duration);
   // setDaysAdded(days)
   const percentDays = (percentage / 100) * days;
@@ -549,139 +516,118 @@ function ItemDetailsPage({ auth, match }) {
       <section className="no-bg">
         <div className="container">
           <div className="products_area">
-            <div className="product_details_area1">
-              <div className="details_area1_cont1">
-                {" "}
-                <img
-                  src={product_image}
-                  alt=""
-                  className="product_details_img"
+          <div className="product_details_area1">
+          <div className="details_area1_cont1">
+            {' '}
+            
+            {moreImg.length == 0 ? (
+              <img src={product_image} className="image_carooooo" />
+            ) : (
+              <ProductImageCarousel
+                img={moreImg[0]}
+                img2={moreImg[1]}
+                img3={moreImg[2]}
+              />
+            )}
+          </div>
+          {/* ================ */}
+          {/* ================ */}
+          {/* ================ */}
+          {/* ================ */}
+          <div className="details_area1_cont2">
+            {' '}
+            <div className="product_details_Title">
+              {product_name}
+            </div>
+            <div className="product_details_code">
+              <span className="product_code_title">
+                Product Code:{' '}
+              </span>
+              {product_category_code}
+            </div>
+            <div
+              className="product_details_code"
+              style={{ color: '#239e54' }}
+            >
+              <span className="product_code_title">Brand: </span>
+              {product_brand}
+              {/* {props.Brand} */}
+            </div>
+            {/* ----------------- */}
+            {/* <hr className="horizontal_rule" /> */}
+            {/* -------------- */}
+            {/* {payment_type === 'INSTALLMENT' ? (
+              <>
+                <InstallmentComponent
+                  initial_deposit={initial_deposit}
+                  product_duration={product_duration}
+                  amount={amount}
+                  percentage={percentage}
+                  paymentPerday={paymentPerday}
+                  numberWithCommas={numberWithCommas}
                 />
+              </>
+            ) : (
+              <>
+                <OutrightComponent
+                  roundedAmount={amount}
+                  numberWithCommas={numberWithCommas}
+                />
+              </>
+            )} */}
+
+            <div className="amount_item_div total_amount">
+              <span className="sub_total_txt">Price: </span> ₦
+              {numberWithCommas(parseInt(amount).toFixed())}
+            </div>
+            {/* ======= */}
+            {/* ======= */}
+            {/* ======= */}
+            {/* ======= */}
+            {/* <hr className="horizontal_rule" /> */}
+            {/* ------- */}
+            <div className="buy_now_btn_div">
+              {/* <button
+                className="buy_now_button"
+                onClick={openCheckoutModal}
+              >
+                <ShoppingCartCheckoutIcon className="payment_btn_icon" />
+                Proceed to Checkout
+              </button> */}
+            </div>
+            <div className="offline_payment_div">
+              {/* <div className="offline_payment_tittle">
+                For offline bookings contact:
               </div>
-              {/* ================ */}
-              {/* ================ */}
-              {/* ================ */}
-              {/* ================ */}
-              <div className="details_area1_cont2">
-                {" "}
-                <div className="product_details_Title">{product_name}</div>
-                <div className="product_details_code">
-                  <span className="product_code_title">Product Code: </span>
-                  {product_category_code}
-                </div>
-                <div
-                  className="product_details_code"
-                  style={{ color: "#239e54" }}
+              <div className="offline_payment_para">
+                <CallIcon className="call_us_icon" /> 08164020234,
+                090234567893
+              </div> */}
+              <button
+
+                style={{width:"48%",backgroundColor:'#e4a788'}}
+                  className="buy_now_button"
+                // {/* id={productId}  */}
+                  // onClick={e => submitCallCheck(asset.id)} 
+                  onClick={()=>delete2(productId)}
                 >
-                  <span className="product_code_title">Brand: </span>
-                  {product_brand}
-                  {/* {props.Brand} */}
-                </div>
-                {/* ----------------- */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* -------------- */}
-                <div className="lll">
-                  <div className="max_dura">
-                    Savings max-duration:{" "}
-                    <div className="days_left_numb">
-                      {product_duration == 1 ? (
-                        <p className="left_num_nu">Out Right Buy</p>
-                      ) : null}
-                      {product_duration == 2 ? (
-                        <p className="left_num_nu">2</p>
-                      ) : null}
-                      {product_duration == 3 ? (
-                        <p className="left_num_nu">4</p>
-                      ) : null}
-                      {product_duration == 4 ? (
-                        <p className="left_num_nu">6</p>
-                      ) : null}
-                      {product_duration == 5 ? (
-                        <p className="left_num_nu">12</p>
-                      ) : null}
-                      {product_duration == 1 ? null : (
-                        <p className="months_class">months</p>
-                      )}
-                    </div>
-                  </div>
+                  {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
+                </button>
 
-                  {product_duration == 1 ? (
-                    <span>₦{amount}</span>
-                  ) : (
-                    <p className="amnt_per_day">
-                      Savings Amount to be paid per day:{""}
-                      <span className={["calc_amnt_div"]}>
-                        ₦{CalcAmtPerDay.toFixed()}
-                      </span>
-                    </p>
-                  )}
-                </div>
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
-                {/* <div className="quantity_div">
-                  <div className="items_left_div">
-                    Items Left:{" "}
-                    <span className="items_left_numb">
-                      {unitCount}{" "}
-                      {unitCount === 1 ? "item" : unitCount < 1 ? " " : "items"}
-                    </span>
-                  </div>
-                </div> */}
-                {product_duration !== 1 ? (
-                  <div className="quantity_div">
-                    <div className="items_left_div">
-                      This item has an upfront payment of : {percentage}%
-                    </div>
-                    {/* <span className="upfront_para">
-                      That means you are to pay #{percentMoney} before this item
-                      can be locked by you.
-                    </span> */}
-                  </div>
-                ) : null}
-                {/* ======= */}
-                {/* ======= */}
                 
-                {/* ======= */}
-                {/* ======= */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
-                <div className="buy_now_btn_div" style={{justifyContent:"space-between",display:"flex"}}>
-
                 <button
 
-                 style={{width:"48%",backgroundColor:'#e4a788'}}
-                    className="buy_now_button"
-                // {/* id={productId}  */}
-                    // onClick={e => submitCallCheck(asset.id)} 
-                    onClick={()=>delete2(productId)}
-                  >
-                    {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
-                  </button>
-               
+                  style={{width:"48%"}}
+                  className="buy_now_button"
                   
-                  <button
-
-                    style={{width:"48%"}}
-                    className="buy_now_button"
-                    // onClick={() => {
-                    //   openDetailsModal();
-                    //   //call  the checkout api here
-                    //   checkout(
-                    //     user_id,
-                    //     product_id,
-                    //     daysAdded,
-                    //     startDate,
-                    //     endDate
-                    //   );
-                    // }}
-                    onClick={e => submitCallCheck(product_id)} 
-                  >
-                    {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
-                  </button>
-               
-                </div>
-              </div>
+                  onClick={e => submitCallCheck(product_id)} 
+                >
+                  {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
+                </button>
             </div>
+            
+          </div>
+          </div>
 
             {/* <div className="product_details_area">{asset}</div> */}
             {/* =======================================879087070y707680769067 */}

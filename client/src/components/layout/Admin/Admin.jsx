@@ -178,7 +178,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                 />
                 <Route
                   exact
-                  path="/super_admin/all_products_view/:id/:name"
+                  path="/super_admin/products_view/:id/:name"
                   // path="/dashboard/products/details/:id/:name"
                   // / dashboard/products/details/:id/:name
                   component={AdminAllView}
@@ -192,7 +192,7 @@ const Admin = ({ isAuthenticated, loading }) => {
               ) : (
                 <Route
                   exact
-                  path="/super_admin/all_products_view/:id/:name"
+                  path="/super_admin/products_view/:id/:name"
                   // path="/dashboard/products/details/:id/:name"
                   // / dashboard/products/details/:id/:name
                   component={AdminAllView}
