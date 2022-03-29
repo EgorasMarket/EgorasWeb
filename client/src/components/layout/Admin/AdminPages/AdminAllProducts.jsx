@@ -157,7 +157,7 @@ const AdminAllProducts = () => {
                               ₦{asset.amount}
                             </div> */}
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                             <a href={`/super_admin/all_products_view/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} >
+                             <a href={`/super_admin/products_view/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} >
                             <button id={'yes_' + asset.id}  className="checkout_btn1 py-1 px-2 m-0">
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                               View detail{" "}
