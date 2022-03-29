@@ -12,6 +12,7 @@ import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
 import Wallet from "../Wallet/Wallet";
 import Wallet4 from "../Wallet/Wallet1";
+import Adminmakeproducts from "./AdminPages/Adminmakeproducts";
 import NewOne from "./AdminPages/newOne";
 import Transact from "./AdminPages/Transactionbybranch";
 import axios from "axios";
@@ -175,6 +176,11 @@ const Admin = ({ isAuthenticated, loading }) => {
                   exact
                   path="/super_admin/all_products"
                   component={AdminAllProducts}
+                />
+                <Route
+                  exact
+                  path="/super_admin/Approved_products"
+                  component={Adminmakeproducts}
                 />
                 <Route
                   exact

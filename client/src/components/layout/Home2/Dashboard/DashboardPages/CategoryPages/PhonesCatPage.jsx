@@ -581,10 +581,12 @@ const PhonesCatPage = ({ match }) => {
                 </div>
                 <div className="items_all_list_body_cont_head2">
                   {searchResults.length}{" "}
-                  {seeAll.length <= 1 ? "prodcut Found" : "products Found"}
-                  <span className="sort_cont">
+                  
+                  {seeAll.length === 0 ? 
+                       <span className="sort_cont">
                     <WidgetsIcon className="widgi_widgi" />
-                  </span>
+                  </span> : "products Found"}
+            
                 </div>
                 <div className="items_all_list_body">
                   {seeAll.slice(0, 100).map((asset, index11) => (
