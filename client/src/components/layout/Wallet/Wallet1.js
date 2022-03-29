@@ -15,6 +15,7 @@ import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFound
 import { Link } from "react-router-dom";
 import data from "../MockData";
 import { API_URL2 as api_url2 } from "../../../actions/types";
+import Success_Error_Component from '../../assets/Success_Error_Component'
 
 import axios from "axios";
 
@@ -35,6 +36,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   const [secureNumb, setSecureNumb] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoading3, setIsLoading3] = useState(false);
   const [allTokens, setAllTokens] = useState([]);
   const [copiedTxt, setCopiedTxt] = useState(false);
   const [copiedTxt1, setCopiedTxt1] = useState(false);
@@ -215,7 +217,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   // const hide_error = setTimeout(setAlert(""), 5000);
   const openDepositDiv = async (tokenName, tokenSymbol) => {
     setActiveBg("deposit_btn");
-
+console.log(accountExists);
     if (accountExists) {
       // console.log("accountExists");
       setShowDeposit(true);
@@ -236,26 +238,43 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   };
 
   const fundCustomer = async () => {
-    console.log(parseInt(fAmount.replace(/,/g, "")));
+    console.log(fAmount);
+    setIsLoading3(true)
+    
+    if (fAmount === null) {
+      setAlert('Please enter amount.');
+      setIsLoading3(false)
+    } else {
+      console.log(parseInt(fAmount.replace(/,/g, "")));
+      const amount = parseInt(fAmount.replace(/,/g, ""));
 
-    const amount = parseInt(fAmount.replace(/,/g, ""));
+      const body = JSON.stringify({
+        amount,
+      });
+  
+      // setAssetVal(assetVal + amount)
+  
+      try {
+        const res = await axios.post(
+          api_url2 + "/v1/wallet/fund/customer/" + userId,
+          body,
+          config
+        );
+        console.log(res.data.message);
 
-    const body = JSON.stringify({
-      amount,
-    });
-
-    try {
-      const res = await axios.post(
-        api_url2 + "/v1/wallet/fund/customer/" + userId,
-        body,
-        config
-      );
-      console.log(res.data.message);
-      setAlert(res.data.message);
-    } catch (err) {
-      console.log(err.response.data.message);
-      setAlert(err.response.data.message);
-      setAlertType("danger");
+        if (res.data.success === true) {
+          return window.location.replace("/super_admin/overview");
+        } else {
+          setAlert(res.data.message)
+          setIsLoading3(false)
+        }
+        setAlert(res.data.message);
+      } catch (err) {
+        console.log(err.response.data.message);
+        setAlert(err.response.data.message);
+        setAlertType("danger");
+        setIsLoading3(false)
+      }
     }
   };
   const closeDepositDiv = () => {
@@ -513,6 +532,7 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
                         <button
                           className="proceed_cust_funding_wallet_div mt-3"
                           onClick={fundCustomer}
+                          disabled={isLoading3}
                         >
                           Proceed
                         </button>
@@ -525,6 +545,19 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
           </div>
         </div>
       </section>
+      {/* {successDiv == true ? (
+        <div className="processing_transac_div insufficient">
+          <Success_Error_Component
+            remove_success_div={closeCheckoutOptions}
+            btn_txt="Continue"
+            // msg={success_msg}
+            msg={`${success_msg} Order-Id: ${order_id}`}
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src="/dashboard/savings"
+          />
+        </div>
+      ) : null} */}
       {alert == "" ? null : (
         <CustomAlert
           alert={alert}
