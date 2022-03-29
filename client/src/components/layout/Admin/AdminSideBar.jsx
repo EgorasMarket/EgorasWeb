@@ -337,10 +337,30 @@ const AdminSideBar = ({ auth }) => {
                       }
                     >
                       <ViewListIcon className="sidebarIcon" />
-                      All Prod
+                      All Products
                     </li>
                   </a>
                 ) : null}
+                 {role1 === "HOD_MEDIA" ? (
+                  <a
+                    href="/super_admin/Approved_products"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      Approved Products
+                    </li>
+                  </a>
+                ) : null}
+
 
                 {/* ===================== */}
                 {/* ===================== */}
@@ -391,7 +411,7 @@ const AdminSideBar = ({ auth }) => {
                     {/* :null} */}
 
                     {/* {  locate === "/super_admin/overview" ? */}
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_branch"
                       className="link"
                       id="trans"
@@ -407,10 +427,10 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         Transactions
                       </li>
-                    </a>
+                    </a> */}
                     {/* :null} */}
 
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_location"
                       className="link"
                       id="trans"
@@ -426,7 +446,7 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         TransactionBranch
                       </li>
-                    </a>
+                    </a> */}
                     {/* :null} */}
                   </>
                 ) : null}
@@ -630,7 +650,7 @@ const AdminSideBar = ({ auth }) => {
                       </li>
                     </a>
                     {/* {  locate === "/super_admin/overview" ? */}
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_branch"
                       className="link"
                       id="trans"
@@ -646,10 +666,10 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         Transactions
                       </li>
-                    </a>
+                    </a> */}
                     {/* :null} */}
 
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_location"
                       className="link"
                       id="trans"
@@ -665,7 +685,7 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         TransactionBranch
                       </li>
-                    </a>
+                    </a> */}
                   </>
                 ) : null}
 

@@ -566,6 +566,9 @@ const CheckoutModalComponent = ({
                 selectOption(option);
               }}
             >
+              
+
+              
               Proceed to Checkout
             </button>
           </div>
