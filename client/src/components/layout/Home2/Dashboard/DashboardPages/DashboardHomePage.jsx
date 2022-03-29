@@ -121,6 +121,7 @@ const DashboardHomePage = ({ auth, match }) => {
   const [userLockId, setUserLockId] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [tranPopUp, setTranPopUp] = useState(0);
+  const [paymentType, setPaymentType] = useState("");
 
   // const fetchFromCart = async (customer_id) => {
   //   //console.log('fetchfromCart', customer_id);
@@ -180,7 +181,7 @@ const DashboardHomePage = ({ auth, match }) => {
     await axios
       .get(api_url2 + "/v1/product/retrieve/products", null, config)
       .then((data) => {
-        //console.log(data.data.data, "phlip");
+        console.log(data.data.data, "phlip");
 
         setItemGalleryShow(data.data.data);
       })
@@ -270,7 +271,7 @@ const DashboardHomePage = ({ auth, match }) => {
       .get(api_url2 + "/v1/user/transactions/customer/recent", null, config)
       .then((data) => {
         // let a = data.data.payload;
-
+        setPaymentType(data.data.payload.payment_type);
         console.log(data.data.payload);
         setAllDatas(data.data.payload.reverse());
       })
@@ -455,7 +456,9 @@ const DashboardHomePage = ({ auth, match }) => {
                       </div>
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_amount_cont">
-                      ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
+                      {data.transaction_type=="DEBIT"?
+(<span>-₦{numberWithCommas(parseInt(data.amount).toFixed(2))}</span>)
+                      :(<span>+₦{numberWithCommas(parseInt(data.amount).toFixed(2))}</span>)}
                     </div>
                     <div className="dashboard_transac_body_cont1_layer1_type_cont">
                       <span className="dashboard_transac_body_cont1_layer1_type_status">
