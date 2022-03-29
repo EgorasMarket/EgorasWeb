@@ -244,7 +244,6 @@ const CheckoutModalComponent = ({
               setErrorDiv(false);
               setSuccessDiv(true);
               console.log(window.location.hostname);
-              alert(window.location.hostname);
               // window.location.replace(
               //   `${window.location.hostname}/dashboard`
               // );
