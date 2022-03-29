@@ -251,7 +251,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       setIsLoading(true);
       // console.log(adminId);
       let res3 = await depositToken(adminId, tokenSymbol);
-      // console.log(res3);
+      console.log(res3);
       setIsLoading(true);
 
       if (res3.success === true) {
@@ -263,7 +263,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       // setShowDeposit(false);
       // console.log(adminId);
       let res3 = await createWallet(adminId, tokenSymbol);
-      // console.log(res3);
+      console.log(res3);
       setIsLoading(true);
 
       if (res3.success === true) {

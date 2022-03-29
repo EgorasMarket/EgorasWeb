@@ -144,11 +144,12 @@ const ItemDetailComponent = ({
   console.log(categoryName);
   console.log('====================================');
   useEffect(() => {
+    console.log(more_image);
     if (more_image != null) {
       let splited = JSON.parse(more_image);
       setMoreImg(splited);
-      console.log(more_image.split(','));
-      console.log(JSON.parse(more_image));
+      console.log(splited);
+      // console.log(JSON.parse(more_image));
     }
   }, [more_image]);
   const text = 'No Products Found';
@@ -334,11 +335,7 @@ const ItemDetailComponent = ({
         <div className="product_details_area1">
           <div className="details_area1_cont1">
             {' '}
-            {/* <img
-              src={product_image}
-              alt=""
-              className="product_details_img"
-            /> */}
+            
             {moreImg.length == 0 ? (
               <img src={product_image} className="image_carooooo" />
             ) : (
