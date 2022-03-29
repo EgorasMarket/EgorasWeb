@@ -264,6 +264,7 @@ console.log(accountExists);
 
         if (res.data.success === true) {
           return window.location.replace("/super_admin/overview");
+          // setIsLoading3(false)
         } else {
           setAlert(res.data.message)
           setIsLoading3(false)

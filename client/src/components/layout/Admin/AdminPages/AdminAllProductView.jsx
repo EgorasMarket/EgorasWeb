@@ -65,6 +65,7 @@ function ItemDetailsPage({ auth, match }) {
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState("");
+  const [adminRole, setAdminRole] = useState("");
   const [asset, setAsset] = useState("");
   const [moreImg, setMoreImg] = useState([]);
   const [lowOutCome, setLowOutCome] = useState("");
@@ -148,7 +149,7 @@ function ItemDetailsPage({ auth, match }) {
     });
     if (auth) {
       set_user_id(auth.user.user.id);
-      console.log(auth.user.user.role);
+      setAdminRole(auth.user.user.role);
     }
 
     //console.log(body);
@@ -595,7 +596,7 @@ function ItemDetailsPage({ auth, match }) {
                 Proceed to Checkout
               </button> */}
             </div>
-            <div className="offline_payment_div">
+            <div className="offline_payment_div" style={{flexDirection: 'row'}}>
               {/* <div className="offline_payment_tittle">
                 For offline bookings contact:
               </div>
