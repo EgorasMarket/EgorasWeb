@@ -541,14 +541,6 @@ const ItemDetailComponent = ({
                               className="storeTiles_storeTileContainer__HoGEa"
                               style={{
                                 backgroundImage: `url(${asset.product_image})`,
-                                //           height: "200px",
-                                //           width: "100%",
-                                //           backgroundRepeat: "no-repeat",
-                                //           backgroundSize: "cover",
-                                //           borderRadius: "8px",
-                                //           borderBottomLeftRadius: "0px",
-                                //           borderBottomRightRadius: "0px",
-                                //   backgroundPositionY: "center",
                               }}
                             >
                               <div className="storeTiles_storeTileBottomContainer__2sWHh">
