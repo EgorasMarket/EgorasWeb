@@ -335,7 +335,6 @@ const ItemDetailComponent = ({
         <div className="product_details_area1">
           <div className="details_area1_cont1">
             {' '}
-            
             {moreImg.length == 0 ? (
               <img src={product_image} className="image_carooooo" />
             ) : (
@@ -415,24 +414,26 @@ const ItemDetailComponent = ({
                 090234567893
               </div>
             </div>
-            <div className="quantity_div">
-              <div className="Notice_Title">Notice:</div>
-              <div className="items_left_div">
-                <CreditScoreIcon className="creditCardIcon_icon" />
-                This item has an upfront payment of : {percentage}%
-              </div>
-              <span className="upfront_para">
-                <PaymentsIcon className="creditCardIcon_icon" />
-                That means you are to pay{' '}
-                <span className="percent_days_amnt">
-                  ₦
-                  {numberWithCommas(
-                    parseInt(initial_deposit).toFixed()
-                  )}
+            {payment_type === 'INSTALLMENT' ? (
+              <div className="quantity_div">
+                <div className="Notice_Title">Notice:</div>
+                <div className="items_left_div">
+                  <CreditScoreIcon className="creditCardIcon_icon" />
+                  This item has an upfront payment of : {percentage}%
+                </div>
+                <span className="upfront_para">
+                  <PaymentsIcon className="creditCardIcon_icon" />
+                  That means you are to pay{' '}
+                  <span className="percent_days_amnt">
+                    ₦
+                    {numberWithCommas(
+                      parseInt(initial_deposit).toFixed()
+                    )}
+                  </span>
+                  before this item can be locked by you.
                 </span>
-                before this item can be locked by you.
-              </span>
-            </div>
+              </div>
+            ) : null}
           </div>
         </div>
         {/* <div className="product_details_area">{asset}</div> */}
@@ -540,14 +541,6 @@ const ItemDetailComponent = ({
                               className="storeTiles_storeTileContainer__HoGEa"
                               style={{
                                 backgroundImage: `url(${asset.product_image})`,
-                                //           height: "200px",
-                                //           width: "100%",
-                                //           backgroundRepeat: "no-repeat",
-                                //           backgroundSize: "cover",
-                                //           borderRadius: "8px",
-                                //           borderBottomLeftRadius: "0px",
-                                //           borderBottomRightRadius: "0px",
-                                //   backgroundPositionY: "center",
                               }}
                             >
                               <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -625,10 +618,13 @@ const ItemDetailComponent = ({
                                   {asset.product_name}
                                 </div>
                                 <div className="asset_title">
-                                  ₦
-                                  {numberWithCommas(
-                                    parseInt(asset.roundedAmount)
-                                  )}{' '}
+                                  <span className="init_amount">
+                                    ₦
+                                    {numberWithCommas(
+                                      parseInt(asset.roundedAmount)
+                                    )}{' '}
+                                  </span>
+
                                   <span className="slashed_price">
                                     ₦
                                     {numberWithCommas(

@@ -1,27 +1,27 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "react-multi-carousel";
-import LogoutIcon from "@mui/icons-material/Logout";
-import "../DashboardStyles/dashboard_home.css";
-import { API_URL2 as api } from "../../../../../actions/types";
-import { connect, useDispatch } from "react-redux";
-import axios from "axios";
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
-import CloseIcon from "@mui/icons-material/Close";
-import CircleIcon from "@mui/icons-material/Circle";
-import LoadingIcons from "react-loading-icons";
+import React, { useState, useEffect } from 'react';
+import Carousel from 'react-multi-carousel';
+import LogoutIcon from '@mui/icons-material/Logout';
+import '../DashboardStyles/dashboard_home.css';
+import { API_URL2 as api } from '../../../../../actions/types';
+import { connect, useDispatch } from 'react-redux';
+import axios from 'axios';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import CloseIcon from '@mui/icons-material/Close';
+import CircleIcon from '@mui/icons-material/Circle';
+import LoadingIcons from 'react-loading-icons';
 // import { numberWithCommas } from "../../../../../static";
 // import { allCart } from "../../../../../actions/shop";
-import DashBoardCard from "../DashBoardCard";
-import data from "../../../MockData";
-import { retrieveCart } from "../../../../../actions/shop";
+import DashBoardCard from '../DashBoardCard';
+import data from '../../../MockData';
+import { retrieveCart } from '../../../../../actions/shop';
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from "../../../../../actions/types";
+} from '../../../../../actions/types';
 // import Nodata from "../NodataFound/NoDataFoundComponent"
-import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
+import { NoDataFoundComponent } from '../NodataFound/NoDataFoundComponent';
 
-import { numberWithCommas } from "../../../../../static";
+import { numberWithCommas } from '../../../../../static';
 // const transaction = [
 //   {
 //     id: 1,
@@ -116,11 +116,12 @@ const responsive7 = {
 };
 
 const DashboardHomePage = ({ auth, match }) => {
-  const [cus_id, setCusId] = useState("");
+  const [cus_id, setCusId] = useState('');
   const dispatch = useDispatch();
   const [userLockId, setUserLockId] = useState([]);
   const [Loading, setLoading] = useState(false);
   const [tranPopUp, setTranPopUp] = useState(0);
+  const [paymentType, setPaymentType] = useState('');
 
   // const fetchFromCart = async (customer_id) => {
   //   //console.log('fetchfromCart', customer_id);
@@ -142,18 +143,20 @@ const DashboardHomePage = ({ auth, match }) => {
   // },[])
   const [allDatas, setAllDatas] = useState([]);
   const [savedNum, setSavedNum] = useState(5);
-  const [productPage_id, setProductPageId] = useState(match.params.id);
+  const [productPage_id, setProductPageId] = useState(
+    match.params.id
+  );
   const [lock, setlock] = useState({
-    productImage: "",
-    productName: "",
-    productAmount: "",
+    productImage: '',
+    productName: '',
+    productAmount: '',
   });
 
   const { productImage, productName, productAmount } = lock;
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -165,7 +168,7 @@ const DashboardHomePage = ({ auth, match }) => {
   const closeTranPop = () => {
     // let currentTarget = e.currentTarget.id;
     setTranPopUp(0);
-    console.log("i am not here");
+    console.log('i am not here');
   };
   const [itemGalleryShow, setItemGalleryShow] = useState([]);
   const [accountInfo, setAccountInfo] = useState({
@@ -178,9 +181,9 @@ const DashboardHomePage = ({ auth, match }) => {
 
   useEffect(async () => {
     await axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .get(api_url2 + '/v1/product/retrieve/products', null, config)
       .then((data) => {
-        //console.log(data.data.data, "phlip");
+        console.log(data.data.data, 'phlip');
 
         setItemGalleryShow(data.data.data);
       })
@@ -190,7 +193,6 @@ const DashboardHomePage = ({ auth, match }) => {
   }, []);
 
   useEffect(() => {
-   
     axios
       .get(
         api_url2 + `/v1/product/retrieve/locked/${auth.user.user.id}`,
@@ -207,7 +209,6 @@ const DashboardHomePage = ({ auth, match }) => {
       });
   }, []);
 
-
   useEffect(async () => {
     setLoading(true);
     //console.log(auth.user.user.id);
@@ -216,7 +217,11 @@ const DashboardHomePage = ({ auth, match }) => {
       customer_id,
     });
     await axios
-      .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
+      .post(
+        api_url2 + '/v1/user/accounts/fetch/dashboard',
+        body,
+        config
+      )
       .then((data) => {
         setLoading(false);
         // console.log(data.data.data, "bbbbbbb");
@@ -237,7 +242,7 @@ const DashboardHomePage = ({ auth, match }) => {
       });
   }, [auth]);
 
-  const text = "No item Locked yet";
+  const text = 'No item Locked yet';
 
   // useEffect(() => {
 
@@ -267,24 +272,23 @@ const DashboardHomePage = ({ auth, match }) => {
   //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
   // };
 
-
-
-
-
-
-useEffect(() => {
+  useEffect(() => {
     axios
-      .get(api_url2 + "/v1/user/transactions/customer/recent", null, config)
+      .get(
+        api_url2 + '/v1/user/transactions/customer/recent',
+        null,
+        config
+      )
       .then((data) => {
-        // setAllDatas(data.data.payload);
-        setAllDatas([]);
-        console.log(data.data.payload)
+        // let a = data.data.payload;
+        setPaymentType(data.data.payload.payment_type);
+        console.log(data.data.payload);
+        setAllDatas(data.data.payload.reverse());
       })
       .catch((err) => {
         console.log(err);
-        })
-          
-    }, []);
+      });
+  }, []);
   return (
     <div className="other2">
       <section className="no-bg no_paddd">
@@ -306,36 +310,44 @@ useEffect(() => {
                 draggable={true}
                 swipeable={true}
                 // transitionDuration={1000}
-                style={{ height: "25em" }}
+                style={{ height: '25em' }}
               >
                 {/* {data.dashBoardHomeCard.map((asset, index) => ( */}
                 <DashBoardCard
-                  background={"/img/save_card1.svg"}
-                  title={"Total Savings"}
+                  background={'/img/save_card1.svg'}
+                  title={'Total Savings'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(total_sum).toFixed(2))}
+                  balance={numberWithCommas(
+                    parseInt(total_sum).toFixed(2)
+                  )}
                 />
                 <DashBoardCard
-                  background={"/img/save_card2.svg"}
-                  title={"Pending Payment"}
+                  background={'/img/save_card2.svg'}
+                  title={'Pending Payment'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(pending_sum).toFixed(2))}
+                  balance={numberWithCommas(
+                    parseInt(pending_sum).toFixed(2)
+                  )}
                 />
                 <DashBoardCard
-                  background={"/img/save_card3.svg"}
-                  title={"Wallet Balance"}
+                  background={'/img/save_card3.svg'}
+                  title={'Wallet Balance'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(balance).toFixed(2))}
+                  balance={numberWithCommas(
+                    parseInt(balance).toFixed(2)
+                  )}
                 />
                 <DashBoardCard
-                  background={"/img/save_card3.svg"}
-                  title={"Ledger Balance"}
+                  background={'/img/save_card3.svg'}
+                  title={'Ledger Balance'}
                   Loading={Loading}
                   LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
-                  balance={numberWithCommas(parseInt(ledger).toFixed(2))}
+                  balance={numberWithCommas(
+                    parseInt(ledger).toFixed(2)
+                  )}
                 />
 
                 {/* ))} */}
@@ -352,12 +364,16 @@ useEffect(() => {
               <NoDataFoundComponent text={text} />
             ) : (
               <div className="savings_overview">
-                <div className="savings_overview_title">Savings Overview</div>
+                <div className="savings_overview_title">
+                  Savings Overview
+                </div>
                 <div className="savings_overview_body">
                   <div className="savings_overview_body_cont1">
-                    Total Number of Locked{" "}
-                    {userLockId.length > 1 ? "items" : "item"}{" "}
-                    <span className="saved_figure">{userLockId.length}</span>
+                    Total Number of Locked{' '}
+                    {userLockId.length > 1 ? 'items' : 'item'}{' '}
+                    <span className="saved_figure">
+                      {userLockId.length}
+                    </span>
                   </div>
                   <div className="savings_overview_body_cont2">
                     {userLockId.slice(0, 3).map((item) => (
@@ -379,7 +395,9 @@ useEffect(() => {
                             </div>
                             <div className="save_overview_cont_amount">
                               Total Amount ₦
-                              {numberWithCommas(parseInt(item.sum).toFixed(2))}
+                              {numberWithCommas(
+                                parseInt(item.sum).toFixed(2)
+                              )}
                             </div>
                           </div>
                           <div className="save_item_details_btn">
@@ -400,7 +418,6 @@ useEffect(() => {
                 </div>
               </div>
             )}
-
           </div>
 
           {/* useEffect(() => {
@@ -416,94 +433,91 @@ useEffect(() => {
           
           }, []); */}
 
-
-
-
-          
-      
-
-         
-
-
-          
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           <div className="dashboard_transactions">
             <div className="dashboard_transactions_header">
-              Recent Transactions{" "}
-              <a href="/dashboard/wallet" className="see_all_transac_link">
+              Recent Transactions{' '}
+              <a
+                href="/dashboard/wallet"
+                className="see_all_transac_link"
+              >
                 See all
               </a>
             </div>
             <div className="transaction_headings">
               <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Type</div>
-              <div className="transaction_heading1 amnt_small">Amount</div>
-              <div className="transaction_heading1 center_this">Channel</div>
-              <div className="transaction_heading1 reduce_width">Status</div>
+              <div className="transaction_heading1 amnt_small">
+                Amount
+              </div>
+              <div className="transaction_heading1 center_this">
+                Channel
+              </div>
+              <div className="transaction_heading1 reduce_width">
+                Status
+              </div>
             </div>
             <div className="dashboard_transaction_body">
-
-
-              {allDatas.length<=0?( <NoDataFoundComponent text={text} />):    <>          {allDatas.slice(0,5).map((data) => (
+              {allDatas.length <= 0 ? (
+                <NoDataFoundComponent text={text} />
+              ) : (
                 <>
-                  <div
-                    className="dashboard_transaction_body_cont1"
-                    id={data.transaction_hash}
-                    // key={data.id}
-                    onClick={ChangeTranPopUp}
-                  >
-                    <div className="dashboard_transac_body_cont1_layer1">
-                      <div className="deposited_icon">
-                        <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                  {' '}
+                  {allDatas.slice(0, 5).map((data) => (
+                    <>
+                      <div
+                        className="dashboard_transaction_body_cont1"
+                        id={data.transaction_hash}
+                        // key={data.id}
+                        onClick={ChangeTranPopUp}
+                      >
+                        <div className="dashboard_transac_body_cont1_layer1">
+                          <div className="deposited_icon">
+                            <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                          </div>
+                          <div className="dashboard_transac_body_cont1_layer1_title">
+                            Deposited
+                          </div>
+                        </div>
+                        <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                          <div className="dashboard_transac_body_cont1_layer1_time">
+                            {data.transaction_type}
+                          </div>
+                        </div>
+                        <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                          {data.transaction_type == 'DEBIT' ? (
+                            <span>
+                              -₦
+                              {numberWithCommas(
+                                parseInt(data.amount).toFixed(2)
+                              )}
+                            </span>
+                          ) : (
+                            <span>
+                              +₦
+                              {numberWithCommas(
+                                parseInt(data.amount).toFixed(2)
+                              )}
+                            </span>
+                          )}
+                        </div>
+                        <div className="dashboard_transac_body_cont1_layer1_type_cont">
+                          <span className="dashboard_transac_body_cont1_layer1_type_status">
+                            {data.channel}
+                          </span>
+                        </div>
+                        <div className="dashboard_transac_body_cont1_layer1_status_cont">
+                          <span className="dashboard_transac_body_cont1_layer1_completed_status">
+                            Completed
+                          </span>
+                        </div>
                       </div>
-                      <div className="dashboard_transac_body_cont1_layer1_title">
-                        Deposited
-                      </div>
-                    </div>
-                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
-                      <div className="dashboard_transac_body_cont1_layer1_time">
-                        {data.transaction_type}
-                      </div>
-                    </div>
-                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
-                      ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
-                    </div>
-                    <div className="dashboard_transac_body_cont1_layer1_type_cont">
-                      <span className="dashboard_transac_body_cont1_layer1_type_status">
-                        {data.channel}
-                      </span>
-                    </div>
-                    <div className="dashboard_transac_body_cont1_layer1_status_cont">
-                      <span className="dashboard_transac_body_cont1_layer1_completed_status">
-                       Completed
-                      </span>
-                    </div>
-                  </div>
+                    </>
+                  ))}
                 </>
-              ))}
-</>
-              }
-              
-
-              
+              )}
             </div>
           </div>
-         
+
           {/* =================================================================================================================================================================================================================================================================== */}
 
           {/* =================================================================================================================================================================================================================================================================== */}
@@ -515,7 +529,7 @@ useEffect(() => {
             <div className="trans_div">
               <div className="tranPop_div">
                 <div className="tranPopHeading">
-                  Deposit Details{" "}
+                  Deposit Details{' '}
                   <span className="tranPopOutButton">
                     <CloseIcon
                       className="closeTranPopDiv"
@@ -524,38 +538,45 @@ useEffect(() => {
                   </span>
                 </div>
                 <div className="tranPop_div_cont1">
-                  {" "}
+                  {' '}
                   <div className="deposited_icon">
                     <ArrowDownwardIcon className="arrow_down_deposit_icon" />
                   </div>
                   <span className="transPopData">Deposited</span>
                 </div>
                 <div className="tranPop_div_cont1">
-                  Type <span className="transPopData"> {data.transaction_type}</span>{" "}
-                </div>
-                <div className="tranPop_div_cont1">
-                  Amount{" "}
+                  Type{' '}
                   <span className="transPopData">
-                    ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
-                  </span>{" "}
+                    {' '}
+                    {data.transaction_type}
+                  </span>{' '}
                 </div>
                 <div className="tranPop_div_cont1">
-                  Channel <span className="transPopData">{data.channel}</span>
+                  Amount{' '}
+                  <span className="transPopData">
+                    ₦
+                    {numberWithCommas(
+                      parseInt(data.amount).toFixed(2)
+                    )}
+                  </span>{' '}
                 </div>
                 <div className="tranPop_div_cont1">
-                  Status{" "}
+                  Channel{' '}
+                  <span className="transPopData">{data.channel}</span>
+                </div>
+                <div className="tranPop_div_cont1">
+                  Status{' '}
                   <span className="transPopData">
                     <CircleIcon className="complete_circle" />
                     Completed
                   </span>
-                </div> 
+                </div>
               </div>
             </div>
           ) : null}
         </>
       ))}
     </div>
-
   );
 };
 

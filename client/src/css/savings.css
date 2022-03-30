@@ -319,6 +319,7 @@ button.savings_area_btn {
   width: 100%;
   gap: 3px;
   justify-content: flex-end;
+  white-space: nowrap;
 }
 
 .asset_prices_div {
