@@ -17,12 +17,12 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Success_Error_Component from "../../../assets/Success_Error_Component";
 
 // import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import { numberWithCommas } from "../../../../static";
+import { numberWithCommas } from '../../../../static';
 
-import {ProductImageCarousel} from '../../Home2/item_details_page/ProductImageCarousel';
+import { ProductImageCarousel } from '../../Home2/item_details_page/ProductImageCarousel';
 
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 import {
   PRODUCT_LOADED,
@@ -36,12 +36,12 @@ const Accordion = ({ title, children }) => {
   return (
     <div className="accordion-wrapper">
       <div
-        className={`accordion-title ${isOpen ? "open" : ""}`}
+        className={`accordion-title ${isOpen ? 'open' : ''}`}
         onClick={() => setOpen(!isOpen)}
       >
         {title}
       </div>
-      <div className={`accordion-item ${!isOpen ? "collapsed" : ""}`}>
+      <div className={`accordion-item ${!isOpen ? 'collapsed' : ''}`}>
         <div className="accordion-content">{children}</div>
       </div>
     </div>
@@ -50,7 +50,7 @@ const Accordion = ({ title, children }) => {
 function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -77,12 +77,12 @@ function ItemDetailsPage({ auth, match }) {
   const [successDiv, setSuccessDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
-  const [user_id, set_user_id] = useState("");
+  const [user_id, set_user_id] = useState('');
   const [showApproval, setShowApproval] = useState(true);
-  const [asset, setAsset] = useState("");
-  const [adminRole, setAdminRole] = useState("");
+  const [asset, setAsset] = useState('');
+  const [adminRole, setAdminRole] = useState('');
   const [moreImg, setMoreImg] = useState([]);
-  const [product_route, setProduct_route] = useState("");
+  const [product_route, setProduct_route] = useState('');
   const [productRoute, setProductRoute] = useState({
     // product_route: "",
     carrier: "",
@@ -91,49 +91,49 @@ function ItemDetailsPage({ auth, match }) {
 
   const { carrier, narration } = productRoute;
 
- 
-  const [base, setBase] = useState("");
+  const [base, setBase] = useState('');
 
+  const [imeeg, setImeeg] = useState('');
 
-  const [imeeg, setImeeg] = useState("");
- 
-
-  const [activeBg, setActiveBg] = useState("descript");
+  const [activeBg, setActiveBg] = useState('descript');
 
   const [term, setTerm] = useState([]);
-  const [dailyAmount, setDailyAmount] = useState()
-  const [initialDeposit, setInitialDeposit] = useState()
+  const [dailyAmount, setDailyAmount] = useState();
+  const [initialDeposit, setInitialDeposit] = useState();
 
-  const [itemDisplay, setItemDisplay] = useState([])
+  const [itemDisplay, setItemDisplay] = useState([]);
 
-  const [more_image, setMore_image] = useState()
+  const [more_image, setMore_image] = useState();
 
   const [productDetails, setProductDetails] = useState({
-    product_image: "",
-    product_name: "",
-    product_brand: "",
-    Product_type: "",
-    unitCount: "",
-    amount: "",
+    product_image: '',
+    product_name: '',
+    product_brand: '',
+    Product_type: '',
+    unitCount: '',
+    amount: '',
     // more_image: {},
-    product_duration: "",
-    product_category_code: "",
-    product_details: "",
-    productSpecification: "",
-    percentage: "",
-    payment_type: "",
-    productId: ""
+    product_duration: '',
+    product_category_code: '',
+    product_details: '',
+    productSpecification: '',
+    percentage: '',
+    payment_type: '',
+    productId: '',
   });
   
   var addedDays = 0;
 
   const onChangeFor2 = (e) => {
-    setProduct_route(e.target.value)
+    setProduct_route(e.target.value);
     //console.log(nextKin);
   };
 
   const onChangeFor = (e) => {
-    setProductRoute({ ...productRoute, [e.target.name]: e.target.value });
+    setProductRoute({
+      ...productRoute,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const openDetailsModal = () => {
@@ -181,7 +181,7 @@ function ItemDetailsPage({ auth, match }) {
     //console.log(body);
 
     axios
-      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+      .post(api_url2 + '/v1/product/retrieve/specific', body, config)
       .then((data) => {
         //console.log(data.data.data, "king");
 
@@ -192,7 +192,7 @@ function ItemDetailsPage({ auth, match }) {
         //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
-        setMore_image(data.data.data.more_image)
+        setMore_image(data.data.data.more_image);
         setProductDetails({
           // more_image: data.data.data.more_image,
           product_image: data.data.data.product_image,
@@ -205,7 +205,7 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          productId: data.data.data.product_id
+          productId: data.data.data.product_id,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -231,6 +231,46 @@ function ItemDetailsPage({ auth, match }) {
     }
   }, [more_image]);
 
+  // const deletebro =()=>{
+  //   const body = JSON.stringify({
+  //     product_id,
+  //   });
+  //   axios
+  //   .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+  //   .then((data) => {
+  //     //console.log(data.data.data, "king");
+
+  //     const getSlid = data.data.data.product_specifications;
+  //     //  const slipVar = getSlid.split(',');
+  //     //console.log("====================================");
+  //     //console.log(getSlid);
+  //     //console.log("====================================");
+
+  //     setProductDetails({
+  //       product_image: data.data.data.product_image,
+  //       product_name: data.data.data.product_name,
+  //       product_brand: data.data.data.product_brand,
+  //       product_type: data.data.data.product_type,
+  //       unitCount: data.data.data.unitCount,
+  //       amount: data.data.data.amount,
+  //       product_duration: data.data.data.product_duration,
+  //       product_category_code: data.data.data.product_category_code,
+  //       product_details: data.data.data.product_detail,
+  //       percentage: data.data.data.percentage,
+  //       productId: data.data.data.product_id
+  //       // productSpecification:slipVar[0]
+  //     });
+  //     // setLowNumS({prod_dur:"8"});
+
+  //     //console.log("====================================");
+  //     // const NumbsAr =
+  //     // setLowNumS(NumbLow);
+  //     // //console.log(NumbLow);
+  //     //console.log(lowOutCome);
+  //   })
+  //   .catch((err) => {
+  //     //console.log(err.response); // "oh, no!"
+  //   });
 
   // const deletebro =()=>{
   //   const body = JSON.stringify({
@@ -283,26 +323,22 @@ function ItemDetailsPage({ auth, match }) {
   //console.log("====================================");
   //console.log(LowCalc);
 
-
-
-
   // const iteming = unitCount;
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
 
-
   const itemsId = {
     firstItem: {
       // the naming can be any, depends on you.
       id: 1,
-      img: "/img/samsung_tv_555.jpeg",
+      img: '/img/samsung_tv_555.jpeg',
     },
     second: {
       // the naming can be any, depends on you.
       id: 2,
-      img: "/img/BAG.jpeg",
+      img: '/img/BAG.jpeg',
     },
   };
 
@@ -326,30 +362,22 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-
- 
-
   const delete2 = (id) => {
-    
-    
-
-    axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
-      (response) => {
+    axios
+      .delete(
+        api_url2 + `/v1/product/delete/product/${id}`,
+        null,
+        config
+      )
+      .then((response) => {
         //console.log(response.data);
         // if (data.data.data.success === true) {
-
         //   return window.location.replace("/super_admin/all_products");
         // }
-  
-      
-
         // deletebro()
-      }
-    )
-  }
+      });
+  };
 
-
-    
   // const {
   //   // product_image,
   //   product_name,
@@ -372,21 +400,19 @@ function ItemDetailsPage({ auth, match }) {
       product_id,
     });
     if (auth) {
-
       set_user_id(auth.user.user.id);
       console.log(auth.user.user.role);
       const { role } = auth.user.user;
-      if (role === "LOGISTICS") {
-        setShowApproval(true)
-        setAdminRole(role)
+      if (role === 'LOGISTICS') {
+        setShowApproval(true);
+        setAdminRole(role);
       }
-      
     }
 
     //console.log(body);
 
     axios
-      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+      .post(api_url2 + '/v1/product/retrieve/specific', body, config)
       .then((data) => {
         //console.log(data.data.data, "king");
 
@@ -397,7 +423,7 @@ function ItemDetailsPage({ auth, match }) {
         //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
-        setMore_image(data.data.data.more_image)
+        setMore_image(data.data.data.more_image);
         setProductDetails({
           // more_image: data.data.data.more_image,
           product_image: data.data.data.product_image,
@@ -410,7 +436,9 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          productId: data.data.data.product_id
+          productId: data.data.data.product_id,
+          payment_type: data.data.data.payment_type,
+          product_category_desc: data.data.data.product_category_desc,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -436,17 +464,14 @@ function ItemDetailsPage({ auth, match }) {
     }
   }, [more_image]);
 
-
-
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
 
-
     setAsset(assetVal);
     setBase(baseVal);
 
-    let ticker = assetVal + "-" + baseVal;
+    let ticker = assetVal + '-' + baseVal;
     window.scrollTo(0, 0);
     // setImeeg(itemsId.map((log) => log.img));
     setImeeg(itemsId.firstItem.img);
@@ -455,7 +480,7 @@ function ItemDetailsPage({ auth, match }) {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .get(api_url2 + '/v1/product/retrieve/products', null, config)
       .then((data) => {
         //console.log(data.data.data, "phlip");
 
@@ -467,9 +492,6 @@ function ItemDetailsPage({ auth, match }) {
         //console.log(err); // "oh, no!"
       });
   }, []);
-
-
-
 
   // useEffect(() => {
 
@@ -485,36 +507,37 @@ function ItemDetailsPage({ auth, match }) {
   //     body,
   //     config
   //   ).then((data) => {
-        
+
   //     console.log(data.data);
 
   //     if (data.data.success === true) {
-            
+
   //       setShowApproval(true)
   //     }
 
-    
   //   })
   //     .catch((err) => {
 
   //     })
-
 
   // }, [])
 
   const submitRoute = async () => {
     const config = {
       headers: {
-        Accept: "*",
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        Accept: '*',
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*',
       },
     };
 
     console.log(product_id, product_route, carrier, narration);
 
     const body = JSON.stringify({
-      product_id, product_route, carrier, narration
+      product_id,
+      product_route,
+      carrier,
+      narration,
     });
 
     //console.log(body);
@@ -522,7 +545,7 @@ function ItemDetailsPage({ auth, match }) {
 
     try {
       const res = await axios.post(
-        api_url2 + "/v1/product/set/product/route",
+        api_url2 + '/v1/product/set/product/route',
         body,
         config
       );
@@ -565,8 +588,6 @@ function ItemDetailsPage({ auth, match }) {
       
     } catch (err) {
       console.log(err.response);
-
-      
     }
   };
 
@@ -595,37 +616,27 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const submitCallCheck = async (product_id) => {
-
     //console.log(product_id, 'I feel it');
 
     const body = JSON.stringify({
-      product_id
+      product_id,
     });
-    
-    axios.post(
-      api_url2 + "/v1/product/approve/product",
-      body,
-      config
-    ).then((data) => {
-      // document.getElementById(product_id).remove();
-        
-      //console.log(data.data);
 
-      if (data.data.success === true) {
+    axios
+      .post(api_url2 + '/v1/product/approve/product', body, config)
+      .then((data) => {
+        // document.getElementById(product_id).remove();
 
-        return window.location.replace("/super_admin/all_products");
-      }
+        //console.log(data.data);
 
-    
-    })
+        if (data.data.success === true) {
+          return window.location.replace('/super_admin/all_products');
+        }
+      })
       .catch((err) => {
         //console.log(err.response); // "oh, no!"
       });
-  }
-  
-  
-
-  
+  };
 
   const days = CalcDaysConvert(product_duration);
   // setDaysAdded(days)
@@ -635,7 +646,7 @@ function ItemDetailsPage({ auth, match }) {
   const percentMoney = (percentage / 100) * amount;
 
   const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
-  if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
+  if (ID === '1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b') {
     //console.log("Hello Mr King");
   }
   const OpenModal = () => {
@@ -648,7 +659,10 @@ function ItemDetailsPage({ auth, match }) {
     <div className="other2">
       {modal == false ? null : (
         <div className="checkout_main">
-          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <div
+            className="checkout_modal_out"
+            onClick={CloseModal}
+          ></div>
           {/* <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} /> */}
         </div>
       )}
@@ -659,9 +673,11 @@ function ItemDetailsPage({ auth, match }) {
             <div className="product_details_area1">
               <div className="details_area1_cont1">
                 {' '}
-            
                 {moreImg.length == 0 ? (
-                  <img src={product_image} className="image_carooooo" />
+                  <img
+                    src={product_image}
+                    className="image_carooooo"
+                  />
                 ) : (
                   <ProductImageCarousel
                     img={moreImg[0]}
@@ -679,12 +695,6 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="product_details_Title">
                   {product_name}
                 </div>
-                <div className="product_details_code">
-                  <span className="product_code_title">
-                    Product Code:{' '}
-                  </span>
-                  {product_category_code}
-                </div>
                 <div
                   className="product_details_code"
                   style={{ color: '#239e54' }}
@@ -693,39 +703,35 @@ function ItemDetailsPage({ auth, match }) {
                   {product_brand}
                   {/* {props.Brand} */}
                 </div>
-                {/* ----------------- */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* -------------- */}
-                {/* {payment_type === 'INSTALLMENT' ? (
-              <>
-                <InstallmentComponent
-                  initial_deposit={initial_deposit}
-                  product_duration={product_duration}
-                  amount={amount}
-                  percentage={percentage}
-                  paymentPerday={paymentPerday}
-                  numberWithCommas={numberWithCommas}
-                />
-              </>
-            ) : (
-              <>
-                <OutrightComponent
-                  roundedAmount={amount}
-                  numberWithCommas={numberWithCommas}
-                />
-              </>
-            )} */}
-
                 <div className="amount_item_div total_amount">
                   <span className="sub_total_txt">Price: </span> ₦
                   {numberWithCommas(parseInt(amount).toFixed())}
                 </div>
-                {/* ======= */}
-                {/* ======= */}
-                {/* ======= */}
-                {/* ======= */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
+                {/* put new code here  */}
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Percentage:
+                  </span>
+                  {percentage}%
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Paymento Type:
+                  </span>
+                  {payment_type}
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Product Category code:
+                  </span>
+                  {product_category_code}
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Product Duration:
+                  </span>
+                  {product_duration} days
+                </div>
                 <div className="buy_now_btn_div">
                   {/* <button
                 className="buy_now_button"
@@ -734,36 +740,37 @@ function ItemDetailsPage({ auth, match }) {
                 <ShoppingCartCheckoutIcon className="payment_btn_icon" />
                 Proceed to Checkout
               </button> */}
-            </div>
-           
-                
-                {
-                  adminRole === 'HOD_MEDIA' ? (
-                    <div className="offline_payment_div">
-                        <button
-                          style={{ width: "48%" }}
-                          className="buy_now_button"
-                      
-                          onClick={ e => submitCallCheck(product_id)}
-                        >
-                          {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
-                        </button>
-                      
-                        <button
+                </div>
+                {adminRole === 'HOD_MEDIA' ? (
+                  <div className="offline_payment_div">
+                    <button
+                      style={{ width: '48%' }}
+                      className="buy_now_button"
+                      onClick={(e) => submitCallCheck(product_id)}
+                    >
+                      {product_duration !== 1
+                        ? 'Approved'
+                        : 'Proceed to checkout'}
+                    </button>
 
-                          style={{ width: "48%", backgroundColor: '#e4a788' }}
-                          className="buy_now_button"
-                          // {/* id={productId}  */}
-                          // onClick={e => submitCallCheck(asset.id)} 
-                          onClick={() => delete2(productId)}
-                        >
-                          {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
-                        </button>
-
-                    </div>                  
-                  ) : (
-                    <div className="offline_payment_div">
-                        {/* <button
+                    <button
+                      style={{
+                        width: '48%',
+                        backgroundColor: '#e4a788',
+                      }}
+                      className="buy_now_button"
+                      // {/* id={productId}  */}
+                      // onClick={e => submitCallCheck(asset.id)}
+                      onClick={() => delete2(productId)}
+                    >
+                      {product_duration !== 1
+                        ? 'Delete'
+                        : 'Proceed to checkout'}
+                    </button>
+                  </div>
+                ) : (
+                  <div className="offline_payment_div">
+                    {/* <button
                           style={{ width: "48%" }}
                           className="buy_now_button"
                       
@@ -868,9 +875,9 @@ function ItemDetailsPage({ auth, match }) {
                   id="descript"
                   onClick={changeBg}
                   className={
-                    activeBg == "descript"
-                      ? "description_click1 description_click1_active"
-                      : "description_click1"
+                    activeBg == 'descript'
+                      ? 'description_click1 description_click1_active'
+                      : 'description_click1'
                   }
                 >
                   Description
@@ -888,12 +895,12 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      {spec.map((apple) => (<tr>
-                        {/* <td>Colour</td> */}
-                        <td>{apple}</td>
-                        
-                      </tr>))}
-                    
+                      {spec.map((apple) => (
+                        <tr>
+                          {/* <td>Colour</td> */}
+                          <td>{apple}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -901,7 +908,6 @@ function ItemDetailsPage({ auth, match }) {
                 {/* ====== */}
               </div>
 
-            
               {/* ====== */}
               {/* ====== */}
               {/* </div> */}
@@ -919,7 +925,9 @@ function ItemDetailsPage({ auth, match }) {
                   <div className="projectsLinea"></div>
                   <div className="projectsTitleContentsa">
                     <div className="projectTitle">
-                      <h1 className="gttitle TITE">Recent Products</h1>
+                      <h1 className="gttitle TITE">
+                        Recent Products
+                      </h1>
                     </div>
                     {/* 
               <a href="/explore_collaterals" className="projectsLink">
@@ -939,24 +947,24 @@ function ItemDetailsPage({ auth, match }) {
                     //   infinite={false}
                     autoPlay={true}
                     autoPlaySpeed={6000}
-                    transitionDelay={"2s"}
+                    transitionDelay={'2s'}
                     infinite={true}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
-                    style={{ height: "25em" }}
+                    style={{ height: '25em' }}
                   >
                     {term.map((asset) => (
-                   
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, '-')}`}
                       >
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${asset.product_image
-                                })`,
+                              backgroundImage: `url(${asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -982,12 +990,12 @@ function ItemDetailsPage({ auth, match }) {
                               <div className="asset_title">
                                 {asset.unitCount}
                                 {asset.unitCount === 1
-                                  ? "item left"
+                                  ? 'item left'
                                   : asset.unitCount <= 1
-                                    ? "no item left"
-                                    : asset.unitCount > 1
-                                      ? "items left"
-                                      : null}
+                                  ? 'no item left'
+                                  : asset.unitCount > 1
+                                  ? 'items left'
+                                  : null}
                               </div>
                             </div>
                             {/* </a> */}
@@ -1007,7 +1015,10 @@ function ItemDetailsPage({ auth, match }) {
             {detailsModal == true ? (
               <div className="detailsModal">
                 <div className="detailsModalSection1">
-                  <div className="bacKbutton" onClick={closeDetailModal}>
+                  <div
+                    className="bacKbutton"
+                    onClick={closeDetailModal}
+                  >
                     Previous
                     <ArrowForwardIosIcon className="arrow_back" />
                   </div>
@@ -1018,7 +1029,7 @@ function ItemDetailsPage({ auth, match }) {
                     <div className="delivery_cards_section">
                       <div className="delivery_card1">
                         <div className="delivery_card_title">
-                          Deliver to me{" "}
+                          Deliver to me{' '}
                           <button className="button_change_delivery_address">
                             Change Address
                           </button>
@@ -1028,8 +1039,8 @@ function ItemDetailsPage({ auth, match }) {
                             Samuel Ifeanyi
                           </div>
                           <div className="delivery_card_body_cont1">
-                            62 Harold Wilson Drive, Borokiri, RV, Port Harcourt,
-                            Rivers
+                            62 Harold Wilson Drive, Borokiri, RV, Port
+                            Harcourt, Rivers
                           </div>
                           <div className="delivery_card_body_cont1">
                             08164020234
@@ -1049,8 +1060,8 @@ function ItemDetailsPage({ auth, match }) {
                         </div>
                         <div className="delivery_card_body">
                           <div className="delivery_card_body_cont1">
-                            Select a pickup location in your area from our 32
-                            locations nationwide.
+                            Select a pickup location in your area from
+                            our 32 locations nationwide.
                           </div>
                         </div>
                       </div>
@@ -1061,7 +1072,9 @@ function ItemDetailsPage({ auth, match }) {
                     <div className="detailsModalSection1-area2_title">
                       Review Order
                     </div>
-                    <div className="review_order_div">Delivery 1 of 1</div>
+                    <div className="review_order_div">
+                      Delivery 1 of 1
+                    </div>
                     <div>
                       <div class="save_prod_deta">
                         <table className="save_item_table">
@@ -1089,7 +1102,7 @@ function ItemDetailsPage({ auth, match }) {
                             className="save_items_cat popular-categories"
                             id="popular-categories"
                           >
-                            {" "}
+                            {' '}
                             <tr className="assets-category-row">
                               <td className="save_item_data">
                                 <div className="assets-data height_data">
@@ -1116,7 +1129,11 @@ function ItemDetailsPage({ auth, match }) {
                                         className="days_left_percentage"
                                         style={{
                                           width:
-                                            100 % -((amount * 100) / unitCount),
+                                            100 %
+                                            -(
+                                              (amount * 100) /
+                                              unitCount
+                                            ),
                                         }}
                                       ></span>
                                     </div>
@@ -1153,10 +1170,12 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 <div className="detailsModalSection2">
                   <div className="details_modal_divv">
-                    <div className="cart_area2_heading">Payment Options</div>
+                    <div className="cart_area2_heading">
+                      Payment Options
+                    </div>
                     <div className="cart_area2_select">
                       <div className="wit_card">
-                        Pay via card{" "}
+                        Pay via card{' '}
                         <input
                           type="checkbox"
                           name=""
@@ -1167,7 +1186,7 @@ function ItemDetailsPage({ auth, match }) {
                     </div>
                     <div className="cart_area2_select border_down">
                       <div className="wit_card">
-                        Pay via wallet{" "}
+                        Pay via wallet{' '}
                         <input
                           type="checkbox"
                           name=""
@@ -1191,33 +1210,41 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="sub_total_div">
-                      Sub Total:{" "}
-                      <span className="sub_total_div_span">{amount * unitCount}</span>
+                      Sub Total:{' '}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
                     {/* ========== */}
                     {/* ========== */}
                     <div className="sub_total_div">
-                      Delivery Fee:{" "}
+                      Delivery Fee:{' '}
                       <span className="sub_total_div_span">₦0</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
                     <div className="secure_transac_text">
-                      {" "}
+                      {' '}
                       Transactions are 100% Safe and Secure
                     </div>
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">{amount * unitCount}</span>
+                      Total{' '}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
 
-                    <button className="checkout_btn1a" onClick={OpenModal}>
-                      Proceed to Checkout{" "}
+                    <button
+                      className="checkout_btn1a"
+                      onClick={OpenModal}
+                    >
+                      Proceed to Checkout{' '}
                     </button>
                   </div>
                 </div>
@@ -1269,12 +1296,10 @@ function ItemDetailsPage({ auth, match }) {
 
     }
 
-
-  const mapStateToProps1 = (state) => ({
-    auth: state.auth,
-    isAuthenticated: state.auth.isAuthenticated,
-    cart: state.shop.cart,
-  });
-  
+const mapStateToProps1 = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart,
+});
 
 export default connect(mapStateToProps1)(ItemDetailsPage);

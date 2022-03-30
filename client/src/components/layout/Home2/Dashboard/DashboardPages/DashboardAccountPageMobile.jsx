@@ -923,7 +923,7 @@ function DashboardAccountPageMobile({
                       <div className="toggle_body_area1_cont1">
                         <div className="toggle_body_area1_cont1_txts"></div>
                         <div className="toggle_body_area1_cont1_input">
-                          <div className="processing_transac_div insufficient">>
+                          <div className="processing_transac_div insufficient">
                            <Success_Error_Component 
                                    btn_txt="Fund Wallet"/>
                           
