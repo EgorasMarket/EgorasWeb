@@ -283,26 +283,30 @@ const CheckoutModalComponent = ({
             <div className="delivery_title1">
               Delivery / Pickup Options
             </div>
+
             <div className="delivery_cards_section">
-              <div className="delivery_card1">
-                <div className="delivery_card_title">
-                  Deliver to me{' '}
-                  <button className="button_change_delivery_address">
-                    Change Address
-                  </button>
+              {addressName === '' ? (
+                <div className="delivery_card1">
+                  <div className="delivery_card_title">
+                    Deliver to me{' '}
+                    <button className="button_change_delivery_address">
+                      Change Address
+                    </button>
+                  </div>
+                  <div className="delivery_card_body">
+                    <div className="delivery_card_body_cont1">
+                      {customer_data.name}
+                    </div>
+                    <div className="delivery_card_body_cont1">
+                      {addressName}
+                    </div>
+                    <div className="delivery_card_body_cont1">
+                      {customer_data.phonenumber}
+                    </div>
+                  </div>
                 </div>
-                <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">
-                    {customer_data.name}
-                  </div>
-                  <div className="delivery_card_body_cont1">
-                    {addressName}
-                  </div>
-                  <div className="delivery_card_body_cont1">
-                    {customer_data.phonenumber}
-                  </div>
-                </div>
-              </div>
+              ) : null}
+
               {/* ============= */}
               {/* ============= */}
               {/* ============= */}
@@ -595,9 +599,6 @@ const CheckoutModalComponent = ({
                 selectOption(option);
               }}
             >
-              
-
-              
               Proceed to Checkout
             </button>
           </div>
