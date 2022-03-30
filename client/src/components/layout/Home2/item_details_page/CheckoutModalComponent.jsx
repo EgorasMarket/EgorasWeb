@@ -285,7 +285,8 @@ const CheckoutModalComponent = ({
             </div>
 
             <div className="delivery_cards_section">
-              {addressName === '' ? (
+              {addressName === '' ? null : (
+                // added
                 <div className="delivery_card1">
                   <div className="delivery_card_title">
                     Deliver to me{' '}
@@ -305,7 +306,7 @@ const CheckoutModalComponent = ({
                     </div>
                   </div>
                 </div>
-              ) : null}
+              )}
 
               {/* ============= */}
               {/* ============= */}
