@@ -65,7 +65,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/search/new/products", null, config)
+      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
       .then((data) => {
         // console.log(data.data.data);
         setProductNamesZ(data.data.data);

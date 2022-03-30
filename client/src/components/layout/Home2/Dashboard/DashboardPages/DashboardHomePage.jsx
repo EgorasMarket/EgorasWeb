@@ -237,6 +237,7 @@ const DashboardHomePage = ({ auth, match }) => {
   }, [auth]);
 
   const text = "No item Locked yet";
+  const transText = "No transactions found";
 
   // useEffect(() => {
 
@@ -423,57 +424,69 @@ const DashboardHomePage = ({ auth, match }) => {
               <div className="transaction_heading1 center_this">Channel</div>
               <div className="transaction_heading1 reduce_width">Status</div>
             </div>
-            <div className="dashboard_transaction_body">
-              {allDatas.slice(0, 5).map((data) => (
-                <>
-                  <div
-                    className="dashboard_transaction_body_cont1"
-                    id={data.transaction_hash}
-                    // key={data.id}
-                    onClick={ChangeTranPopUp}
-                  >
-                    <div className="dashboard_transac_body_cont1_layer1">
-                      <div className="deposited_icon">
-                        <ArrowDownwardIcon
-                          style={
-                            data.transaction_type == "DEBIT"
-                              ? {
-                                  backgroundColor: " #e4a788",
-                                  transform: "rotate(180deg)",
-                                }
-                              : { backgroundColor: "#0ecb81" }
-                          }
-                          className="arrow_down_deposit_icon"
-                        />
+            {allDatas.length <= 0 ? (
+              <NoDataFoundComponent text={transText} />
+            ) : (
+              <div className="dashboard_transaction_body">
+                {allDatas.slice(0, 5).map((data) => (
+                  <>
+                    <div
+                      className="dashboard_transaction_body_cont1"
+                      id={data.transaction_hash}
+                      // key={data.id}
+                      onClick={ChangeTranPopUp}
+                    >
+                      <div className="dashboard_transac_body_cont1_layer1">
+                        <div className="deposited_icon">
+                          <ArrowDownwardIcon
+                            style={
+                              data.transaction_type == "DEBIT"
+                                ? {
+                                    backgroundColor: " #e4a788",
+                                    transform: "rotate(180deg)",
+                                  }
+                                : { backgroundColor: "#0ecb81" }
+                            }
+                            className="arrow_down_deposit_icon"
+                          />
+                        </div>
+                        <div className="dashboard_transac_body_cont1_layer1_title">
+                          {data.transaction_type}
+                        </div>
                       </div>
-                      <div className="dashboard_transac_body_cont1_layer1_title">
-                        {data.transaction_type}
+                      <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                        <div className="dashboard_transac_body_cont1_layer1_time">
+                          {data.timestamp.slice(0, 10)}
+                        </div>
+                      </div>
+                      <div className="dashboard_transac_body_cont1_layer1_amount_cont">
+                        {data.transaction_type == "DEBIT" ? (
+                          <span>
+                            -₦
+                            {numberWithCommas(parseInt(data.amount).toFixed(2))}
+                          </span>
+                        ) : (
+                          <span>
+                            +₦
+                            {numberWithCommas(parseInt(data.amount).toFixed(2))}
+                          </span>
+                        )}
+                      </div>
+                      <div className="dashboard_transac_body_cont1_layer1_type_cont">
+                        <span className="dashboard_transac_body_cont1_layer1_type_status">
+                          {data.channel}
+                        </span>
+                      </div>
+                      <div className="dashboard_transac_body_cont1_layer1_status_cont">
+                        <span className="dashboard_transac_body_cont1_layer1_completed_status">
+                          Completed
+                        </span>
                       </div>
                     </div>
-                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
-                      <div className="dashboard_transac_body_cont1_layer1_time">
-                        {data.timestamp.slice(0, 10)}
-                      </div>
-                    </div>
-                    <div className="dashboard_transac_body_cont1_layer1_amount_cont">
-                      {data.transaction_type=="DEBIT"?
-(<span>-₦{numberWithCommas(parseInt(data.amount).toFixed(2))}</span>)
-                      :(<span>+₦{numberWithCommas(parseInt(data.amount).toFixed(2))}</span>)}
-                    </div>
-                    <div className="dashboard_transac_body_cont1_layer1_type_cont">
-                      <span className="dashboard_transac_body_cont1_layer1_type_status">
-                        {data.channel}
-                      </span>
-                    </div>
-                    <div className="dashboard_transac_body_cont1_layer1_status_cont">
-                      <span className="dashboard_transac_body_cont1_layer1_completed_status">
-                        Completed
-                      </span>
-                    </div>
-                  </div>
-                </>
-              ))}
-            </div>
+                  </>
+                ))}
+              </div>
+            )}
           </div>
           {/* =================================================================================================================================================================================================================================================================== */}
 

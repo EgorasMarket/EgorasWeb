@@ -531,10 +531,13 @@ const ItemDetailComponent = ({
                                   {asset.product_name}
                                 </div>
                                 <div className="asset_title">
-                                  ₦
-                                  {numberWithCommas(
-                                    parseInt(asset.roundedAmount)
-                                  )}{" "}
+                                  <span className="init_amnt">
+                                    ₦
+                                    {numberWithCommas(
+                                      parseInt(asset.roundedAmount)
+                                    )}{" "}
+                                  </span>
+
                                   <span className="slashed_price">
                                     ₦
                                     {numberWithCommas(
