@@ -137,6 +137,7 @@ function ItemDetailsPage({ auth, match }) {
       .then((data) => {
         const {
           amount,
+          roundedAmount,
           percentage,
           product_brand,
           product_category_code,
@@ -162,6 +163,7 @@ function ItemDetailsPage({ auth, match }) {
         console.log(data.data.data, "king");
         setPayload({
           amount,
+          roundedAmount,
           percentage,
           product_brand,
           product_category_code,
