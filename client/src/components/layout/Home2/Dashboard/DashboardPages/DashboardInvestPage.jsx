@@ -206,7 +206,7 @@ function DashboardInvestPage({ auth }) {
       .then((data) => {
         console.log(data.data.data.length, "powerful");
 
-        musicalEquipmentData(data.data.data);
+        setMusicalEquipmentData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -220,7 +220,7 @@ function DashboardInvestPage({ auth }) {
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
-        industrialEquipmentsData(data.data.data);
+        setIndustrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"

@@ -179,8 +179,8 @@ const Signup = ({ getAuthentication }) => {
     setDisable(true);
     let res = await getAuthentication(
       // fullname,
-      firstname,
-      lastname,
+      firstname.trim(),
+      lastname.trim(),
       email,
       birthDate,
       password,
