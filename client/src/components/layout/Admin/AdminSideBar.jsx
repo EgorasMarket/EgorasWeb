@@ -251,7 +251,22 @@ const AdminSideBar = ({ auth }) => {
             >
               <div className="welcome_user" style={{ alignItems: "flex-end" }}>
                 Welcome
-                <span className="userName_name">Admin</span>
+                {/* <span className="userName_name">Admin</span> */}
+                <span className="userName_name">
+                  {role1 === 'BUSINESS_ADMIN' ? (
+                    <span className="userName_name">Business Admin</span>
+                  ) : role1 === 'LOGISTICS' ? (
+                    <span className="userName_name">Logistics</span>
+                  ) : role1 === 'MEDIA' ? (
+                    <span className="userName_name">Media</span>
+                  ) : role1 === 'WAREHOUSE' ? (
+                    <span className="userName_name">Warehouse</span>
+                  ) : role1 === 'CUSTOMER_SERVICE' ? (
+                    <span className="userName_name">Customer Service</span>
+                  ) : role1 === 'HOD_MEDIA' ? (
+                    <span className="userName_name">Head Of Media</span>
+                  ) : null}
+                </span>
               </div>
             </div>
           </div>
@@ -369,10 +384,30 @@ const AdminSideBar = ({ auth }) => {
                       }
                     >
                       <ViewListIcon className="sidebarIcon" />
-                      All Prod
+                      All Products
                     </li>
                   </a>
                 ) : null}
+                 {role1 === "HOD_MEDIA" ? (
+                  <a
+                    href="/super_admin/Approved_products"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      Approved Products
+                    </li>
+                  </a>
+                ) : null}
+
 
                 {/* ===================== */}
                 {/* ===================== */}
@@ -423,7 +458,7 @@ const AdminSideBar = ({ auth }) => {
                     {/* :null} */}
 
                     {/* {  locate === "/super_admin/overview" ? */}
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_branch"
                       className="link"
                       id="trans"
@@ -439,10 +474,10 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         Transactions
                       </li>
-                    </a>
+                    </a> */}
                     {/* :null} */}
 
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_location"
                       className="link"
                       id="trans"
@@ -458,7 +493,7 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         TransactionBranch
                       </li>
-                    </a>
+                    </a> */}
                     {/* :null} */}
                   </>
                 ) : null}
@@ -484,6 +519,26 @@ const AdminSideBar = ({ auth }) => {
                       <GroupAddIcon className="sidebarIcon" />
                       {/* { role1} */}
                       Register
+                    </li>
+                  </a>
+                ) : null}
+
+                {role1 === "LOGISTICS" ? (
+                   <a
+                    href="/super_admin/Approved_products"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      Approved Products
                     </li>
                   </a>
                 ) : null}
@@ -662,7 +717,7 @@ const AdminSideBar = ({ auth }) => {
                       </li>
                     </a>
                     {/* {  locate === "/super_admin/overview" ? */}
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_branch"
                       className="link"
                       id="trans"
@@ -678,10 +733,10 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         Transactions
                       </li>
-                    </a>
+                    </a> */}
                     {/* :null} */}
 
-                    <a
+                    {/* <a
                       href="/super_admin/customers_by_location"
                       className="link"
                       id="trans"
@@ -697,7 +752,7 @@ const AdminSideBar = ({ auth }) => {
                         <AccountBalanceWalletIcon className="sidebarIcon" />
                         TransactionBranch
                       </li>
-                    </a>
+                    </a> */}
                   </>
                 ) : null}
 
