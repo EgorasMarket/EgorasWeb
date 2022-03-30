@@ -140,7 +140,9 @@ const Login = ({ getLogin, isAuthenticated }) => {
               </span>
               <div className="signup_inputs_cont">
                 <div className="signup_input_field1_cont">
-                  <span className="input_title">Email address or Phone number</span>
+                  <span className="input_title">
+                    Email address or Phone number
+                  </span>
                   <input
                     type="email"
                     className="signup_input_field"
@@ -209,7 +211,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
               </div>
             </div>
             <span className="login_txt">
-              <a href="/signup" className="login_link">
+              <a href="#" className="login_link">
                 Don't have an account? Register
               </a>
             </span>
