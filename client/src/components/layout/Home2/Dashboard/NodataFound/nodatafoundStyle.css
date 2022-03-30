@@ -3,12 +3,12 @@
   flex-direction: column;
   width: 100%;
   align-items: center;
-  gap: 10px;
+  gap: 0px;
 }
 
 .nodata_txt {
   font-size: 18px;
-  color: #42a66c;
+  color: #a1a1a1;
   font-weight: 700;
 }
 .nodataImage {

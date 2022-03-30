@@ -1,4 +1,5 @@
 import React, { useEffect, useCallback, useState } from 'react';
+
 import axios from 'axios';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import verify from '../../../../flutterwave/API/Verify';
@@ -244,7 +245,6 @@ const CheckoutModalComponent = ({
               setErrorDiv(false);
               setSuccessDiv(true);
               console.log(window.location.hostname);
-              alert(window.location.hostname);
               // window.location.replace(
               //   `${window.location.hostname}/dashboard`
               // );
@@ -283,26 +283,30 @@ const CheckoutModalComponent = ({
             <div className="delivery_title1">
               Delivery / Pickup Options
             </div>
+
             <div className="delivery_cards_section">
-              <div className="delivery_card1">
-                <div className="delivery_card_title">
-                  Deliver to me{' '}
-                  <button className="button_change_delivery_address">
-                    Change Address
-                  </button>
+              {addressName === '' ? (
+                <div className="delivery_card1">
+                  <div className="delivery_card_title">
+                    Deliver to me{' '}
+                    <button className="button_change_delivery_address">
+                      Change Address
+                    </button>
+                  </div>
+                  <div className="delivery_card_body">
+                    <div className="delivery_card_body_cont1">
+                      {customer_data.name}
+                    </div>
+                    <div className="delivery_card_body_cont1">
+                      {addressName}
+                    </div>
+                    <div className="delivery_card_body_cont1">
+                      {customer_data.phonenumber}
+                    </div>
+                  </div>
                 </div>
-                <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">
-                    {customer_data.name}
-                  </div>
-                  <div className="delivery_card_body_cont1">
-                    {addressName}
-                  </div>
-                  <div className="delivery_card_body_cont1">
-                    {customer_data.phonenumber}
-                  </div>
-                </div>
-              </div>
+              ) : null}
+
               {/* ============= */}
               {/* ============= */}
               {/* ============= */}
@@ -340,9 +344,16 @@ const CheckoutModalComponent = ({
                       <th className="assets-category-titles-heading1">
                         Item Details
                       </th>
-                      <th className="assets-category-titles-heading1 quant">
-                        Amount daily
-                      </th>
+                      {payment_type == 'OUTRIGHT' ? (
+                        <th className="assets-category-titles-heading1 quant">
+                          Total Amount
+                        </th>
+                      ) : (
+                        <th className="assets-category-titles-heading1 quant">
+                          Amount daily
+                        </th>
+                      )}
+
                       {/* <th className="assets-categordata1y-titles-heading1 quant">
                               Unit Price
                             </th> */}
@@ -375,31 +386,53 @@ const CheckoutModalComponent = ({
                           <div className="save_items_details1">
                             {product_name}
                           </div>
-                          <div className="save_item_days_left">
-                            {days_left} days left
-                          </div>
+                          {payment_type == 'OUTRIGHT' ? null : (
+                            <div className="save_item_days_left">
+                              {days_left} days left
+                            </div>
+                          )}
+
                           <div className="save_total_locked_amount">
-                            <span className="items_left_amount">
-                              Total Amount Locked on Item
+                            {payment_type == 'OUTRIGHT' ? (
+                              <span className="items_left_amount">
+                                Total Amount
+                              </span>
+                            ) : (
+                              <span className="items_left_amount">
+                                Total Amount Locked on Item
+                              </span>
+                            )}
+                            <span className="init_amount">
+                              ₦
+                              {payment_type == 'OUTRIGHT'
+                                ? numberWithCommas(
+                                    parseInt(amount).toFixed(2)
+                                  )
+                                : numberWithCommas(
+                                    parseInt(initial_deposit).toFixed(
+                                      2
+                                    )
+                                  )}
                             </span>
-                            ₦
-                            {payment_type == 'OUTRIGHT'
-                              ? numberWithCommas(
-                                  parseInt(amount).toFixed(2)
-                                )
-                              : numberWithCommas(
-                                  parseInt(initial_deposit).toFixed(2)
-                                )}
                           </div>
                         </div>
                       </td>
                       <td className="save_item_data1b checked_item_data_1b">
-                        <div className="assets-data-name_last">
-                          ₦{' '}
-                          {payment_type == 'OUTRIGHT'
-                            ? 0
-                            : paymentPerday}
-                        </div>
+                        {payment_type == 'OUTRIGHT' ? (
+                          <div className="assets-data-name_last">
+                            ₦{' '}
+                            {numberWithCommas(
+                              parseInt(amount).toFixed(2)
+                            )}
+                          </div>
+                        ) : (
+                          <div className="assets-data-name_last">
+                            ₦{' '}
+                            {numberWithCommas(
+                              parseInt(paymentPerday).toFixed(2)
+                            )}
+                          </div>
+                        )}
                       </td>
                       {/* <td className="save_item_data1b">
                                 <div className="assets-data-name center_name">
@@ -566,9 +599,6 @@ const CheckoutModalComponent = ({
                 selectOption(option);
               }}
             >
-              
-
-              
               Proceed to Checkout
             </button>
           </div>
@@ -586,7 +616,7 @@ const CheckoutModalComponent = ({
             remove_success_div={closeCheckoutOptions}
             btn_txt="Continue"
             // msg={success_msg}
-            msg={`${success_msg} Order-Id: ${order_id}`}
+            msg={`${success_msg}, Order-Id: ${order_id}`}
             errorMsgDiv={errorDiv}
             link_btn={true}
             src="/dashboard/savings"
