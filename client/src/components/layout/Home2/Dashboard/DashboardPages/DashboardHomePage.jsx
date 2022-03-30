@@ -64,10 +64,10 @@ const responsive6 = {
     // the naming can be any, depends on you.
     breakpoint: { max: 4000, min: 3000 },
     items: 4,
-  },
+  }, // comment
   desktop: {
     breakpoint: { max: 3000, min: 1024 },
-    items: 3,
+    items: 3, // main
   },
   tablet: {
     breakpoint: { max: 1024, min: 600 },
@@ -418,8 +418,8 @@ const DashboardHomePage = ({ auth, match }) => {
               </a>
             </div>
             <div className="transaction_headings">
+              <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Type</div>
-              <div className="transaction_heading1">Date</div>
               <div className="transaction_heading1 amnt_small">Amount</div>
               <div className="transaction_heading1 center_this">Channel</div>
               <div className="transaction_heading1 reduce_width">Status</div>
@@ -488,6 +488,7 @@ const DashboardHomePage = ({ auth, match }) => {
               </div>
             )}
           </div>
+
           {/* =================================================================================================================================================================================================================================================================== */}
 
           {/* =================================================================================================================================================================================================================================================================== */}

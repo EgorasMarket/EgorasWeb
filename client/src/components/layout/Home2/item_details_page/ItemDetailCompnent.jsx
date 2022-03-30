@@ -552,12 +552,27 @@ const ItemDetailComponent = ({
                               </div>
                               <div class="asset_prices_div">
                                 <div className="asset_title">
-                                  <span className="init_amount">
-                                    ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                  </span>
-                                  <span className="slashed_price">
-                                    ₦{numberWithCommas(asset.roundedAmount * 2)}
-                                  </span>
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.amount)}{" "}
+                                    </span>
+                                  ) : (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                    </span>
+                                  )}
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="slashed_price">
+                                      ₦{numberWithCommas(asset.amount * 2)}
+                                    </span>
+                                  ) : (
+                                    <span className="slashed_price">
+                                      ₦
+                                      {numberWithCommas(
+                                        asset.roundedAmount * 2
+                                      )}
+                                    </span>
+                                  )}
                                 </div>
                                 {asset.payment_type == "OUTRIGHT" ? null : (
                                   <div className="amount_per_day_div">

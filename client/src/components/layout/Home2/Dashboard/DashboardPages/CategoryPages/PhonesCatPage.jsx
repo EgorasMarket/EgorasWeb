@@ -1,67 +1,67 @@
-import React, { useState, useEffect } from "react";
-import Carousel from "react-multi-carousel";
-import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
-import WidgetsIcon from "@mui/icons-material/Widgets";
-import SearchIcon from "@mui/icons-material/Search";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import { NoDataFoundComponent } from "../../NodataFound/NoDataFoundComponent";
-import "../../DashboardStyles/category.css";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import axios from "axios";
-import { connect } from "react-redux";
-import { API_URL2 as api_url2 } from "../../../../../../actions/types";
-import "./the.css";
+import React, { useState, useEffect } from 'react';
+import Carousel from 'react-multi-carousel';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+import WidgetsIcon from '@mui/icons-material/Widgets';
+import SearchIcon from '@mui/icons-material/Search';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import { NoDataFoundComponent } from '../../NodataFound/NoDataFoundComponent';
+import '../../DashboardStyles/category.css';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import axios from 'axios';
+import { connect } from 'react-redux';
+import { API_URL2 as api_url2 } from '../../../../../../actions/types';
+import './the.css';
 
-import { numberWithCommas } from "../../../../../../static";
+import { numberWithCommas } from '../../../../../../static';
 
 const assetBrand = [
   {
-    id: "apple",
-    name: "Apple",
+    id: 'apple',
+    name: 'Apple',
   },
   {
-    id: "samsung",
-    name: "Samsung",
+    id: 'samsung',
+    name: 'Samsung',
   },
   {
-    id: "oppo",
-    name: "Oppo",
+    id: 'oppo',
+    name: 'Oppo',
   },
   {
-    id: "huawei",
-    name: "HUAWEI",
+    id: 'huawei',
+    name: 'HUAWEI',
   },
   {
-    id: "tecno",
-    name: "TECNO",
+    id: 'tecno',
+    name: 'TECNO',
   },
   {
-    id: "infinix",
-    name: "Infinix",
+    id: 'infinix',
+    name: 'Infinix',
   },
   {
-    id: "nokia",
-    name: "Nokia",
+    id: 'nokia',
+    name: 'Nokia',
   },
   {
-    id: "gionee",
-    name: "Gionee",
+    id: 'gionee',
+    name: 'Gionee',
   },
   {
-    id: "itel",
-    name: "Itel",
+    id: 'itel',
+    name: 'Itel',
   },
   {
-    id: "lenovo",
-    name: "Lenovo",
+    id: 'lenovo',
+    name: 'Lenovo',
   },
   {
-    id: "vivo",
-    name: "Vivo",
+    id: 'vivo',
+    name: 'Vivo',
   },
   {
-    id: "xiaomi",
-    name: "Xiaomi",
+    id: 'xiaomi',
+    name: 'Xiaomi',
   },
 ];
 const responsive8 = {
@@ -120,26 +120,26 @@ const responsive6 = {
 };
 
 const PhonesCatPage = ({ match }) => {
-  const [totalProducts, setTotalProducts] = useState("200 ");
-  const [searchTerm, setSearchTerm] = useState("");
+  const [totalProducts, setTotalProducts] = useState('200 ');
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
-  const text = "No products found.";
+  const text = 'No products found.';
   //console.log('====================================');
   //console.log(match.params.category);
   //console.log(match.params.product_name)
   //console.log('====================================');
 
   const [category2, setCategory2] = useState([]);
-  const [erra, setErra] = useState({ cate: "" });
+  const [erra, setErra] = useState({ cate: '' });
   const { cate } = erra;
 
   const [goods, setGoods] = useState([]);
   const [phones, setPhone] = useState([]);
   const [seeAll, setSeeAll] = useState([]);
-  const [park, setPark] = useState({ imgs: "" });
+  const [park, setPark] = useState({ imgs: '' });
   const { imgs } = park;
 
   // const [mark ,setMark]= setInfo({
@@ -148,13 +148,13 @@ const PhonesCatPage = ({ match }) => {
   // })
 
   const [page, setPage] = useState({
-    categoryPhoneTablets: "",
-    categoryHomeAppliances: "",
-    categoryElectronics: "",
-    categoryComputerAccessories: "",
-    categoryFurniture: "",
-    categoryMusicalEquipment: "",
-    categoryIndustrialEquipment: "",
+    categoryPhoneTablets: '',
+    categoryHomeAppliances: '',
+    categoryElectronics: '',
+    categoryComputerAccessories: '',
+    categoryFurniture: '',
+    categoryMusicalEquipment: '',
+    categoryIndustrialEquipment: '',
   });
 
   const {
@@ -169,7 +169,7 @@ const PhonesCatPage = ({ match }) => {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -183,14 +183,14 @@ const PhonesCatPage = ({ match }) => {
     axios
       .get(
         api_url2 +
-          "/v1/product/retrieve/products/byId/" +
+          '/v1/product/retrieve/products/byId/' +
           match.params.category,
         null,
         config
       )
       .then((data) => {
         //console.log("hello mr kingsley");
-        console.log(data.data.data, "samuel_Chuks");
+        console.log(data.data.data, 'samuel_Chuks');
 
         setSeeAll(data.data.data);
 
@@ -209,7 +209,7 @@ const PhonesCatPage = ({ match }) => {
 
   function phoneTab2() {
     axios
-      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .get(api_url2 + '/v1/product/retrieve/category', null, config)
       .then((data) => {
         //console.log(data.data.data, "dominic kig King");
         setCategory2(data.data.data);
@@ -242,7 +242,7 @@ const PhonesCatPage = ({ match }) => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .get(api_url2 + '/v1/product/retrieve/products', null, config)
       .then((data) => {
         //console.log(data.data.data, "phlip");
 
@@ -268,7 +268,7 @@ const PhonesCatPage = ({ match }) => {
                 <img
                   key={rd.toString}
                   // src="/img/fake_assets/refurb_img.jpeg"
-                  src={`${api_url2 + "/" + asset.product_image[0]}`}
+                  src={`${api_url2 + '/' + asset.product_image[0]}`}
                   alt=""
                   className="refurb_img_bann"
                 />
@@ -377,7 +377,10 @@ const PhonesCatPage = ({ match }) => {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(/\s+/g, "-")}`}
+                            }/${asset.product_name.replace(
+                              /\s+/g,
+                              '-'
+                            )}`}
                             key={index5.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -402,13 +405,20 @@ const PhonesCatPage = ({ match }) => {
                                   <div className="asset_prices_div">
                                     <div className="asset_title">
                                       <span className="init_amount">
-                                        ₦{numberWithCommas(asset.amount)}{" "}
+                                        ₦
+                                        {numberWithCommas(
+                                          asset.amount
+                                        )}{' '}
                                       </span>
                                       <span className="slashed_price">
-                                        ₦{numberWithCommas(asset.amount * 2)}
+                                        ₦
+                                        {numberWithCommas(
+                                          asset.amount * 2
+                                        )}
                                       </span>
                                     </div>
-                                    {asset.payment_type == "INSTALLMENT" ? (
+                                    {asset.payment_type ==
+                                    'INSTALLMENT' ? (
                                       <div className="amount_per_day_div">
                                         ₦
                                         {numberWithCommas(
@@ -418,7 +428,7 @@ const PhonesCatPage = ({ match }) => {
                                           ).toFixed()
                                         )}
                                         <span className="per_day_symbol">
-                                          {" "}
+                                          {' '}
                                           / perday
                                         </span>
                                       </div>
@@ -443,19 +453,22 @@ const PhonesCatPage = ({ match }) => {
                       //   infinite={false}
                       autoPlay={false}
                       autoPlaySpeed={6000}
-                      transitionDelay={"2s"}
+                      transitionDelay={'2s'}
                       infinite={true}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
-                      style={{ height: "25em" }}
+                      style={{ height: '25em' }}
                     >
                       {seeAll.slice(0, 10).map((asset, index5) => {
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(/\s+/g, "-")}`}
+                            }/${asset.product_name.replace(
+                              /\s+/g,
+                              '-'
+                            )}`}
                             key={index5.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -480,21 +493,28 @@ const PhonesCatPage = ({ match }) => {
                                   <div className="asset_prices_div">
                                     <div className="asset_title">
                                       <span className="init_amount">
-                                        ₦{numberWithCommas(asset.amount)}{" "}
+                                        ₦
+                                        {numberWithCommas(
+                                          asset.amount
+                                        )}{' '}
                                       </span>
                                       <span className="slashed_price">
-                                        ₦{numberWithCommas(asset.amount * 2)}
+                                        ₦
+                                        {numberWithCommas(
+                                          asset.amount * 2
+                                        )}
                                       </span>
                                     </div>
                                     <div className="amount_per_day_div">
                                       ₦
                                       {numberWithCommas(
                                         (
-                                          asset.amount / asset.product_duration
+                                          asset.amount /
+                                          asset.product_duration
                                         ).toFixed()
                                       )}
                                       <span className="per_day_symbol">
-                                        {" "}
+                                        {' '}
                                         / perday
                                       </span>
                                     </div>
@@ -597,9 +617,9 @@ const PhonesCatPage = ({ match }) => {
               </div> */}
               <div className="items_all_list_body_cont">
                 <div className="items_all_list_body_cont_head1">
-                  Connect Your World{" "}
+                  Connect Your World{' '}
                   <span className="sort_cont">
-                    Sort by:{" "}
+                    Sort by:{' '}
                     <span className="sort_btn">
                       Popularity
                       <ArrowDropDownIcon />
@@ -607,11 +627,14 @@ const PhonesCatPage = ({ match }) => {
                   </span>
                 </div>
                 <div className="items_all_list_body_cont_head2">
-                  {searchResults.length}{" "}
-                  {seeAll.length <= 1 ? "product Found" : "products Found"}
-                  <span className="sort_cont">
-                    <WidgetsIcon className="widgi_widgi" />
-                  </span>
+                  {searchResults.length}{' '}
+                  {seeAll.length === 0 ? (
+                    <span className="sort_cont">
+                      <WidgetsIcon className="widgi_widgi" />
+                    </span>
+                  ) : (
+                    'products Found'
+                  )}
                 </div>
 
                 {seeAll.length <= 0 ? (
@@ -622,7 +645,7 @@ const PhonesCatPage = ({ match }) => {
                       <a
                         href={`/dashboard/products/details/${
                           asset.id
-                        }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        }/${asset.product_name.replace(/\s+/g, '-')}`}
                         className="category_assets_display"
                       >
                         <li className="carous_list  add_width">
@@ -647,22 +670,27 @@ const PhonesCatPage = ({ match }) => {
                               <div className="asset_prices_div">
                                 <div className="asset_title">
                                   <span className="init_amount">
-                                    ₦{numberWithCommas(asset.amount)}{" "}
+                                    ₦{numberWithCommas(asset.amount)}{' '}
                                   </span>
                                   <span className="slashed_price">
-                                    ₦{numberWithCommas(asset.amount * 2)}
+                                    ₦
+                                    {numberWithCommas(
+                                      asset.amount * 2
+                                    )}
                                   </span>
                                 </div>
-                                {asset.payment_type == "INSTALLMENT" ? (
+                                {asset.payment_type ==
+                                'INSTALLMENT' ? (
                                   <div className="amount_per_day_div">
                                     ₦
                                     {numberWithCommas(
                                       (
-                                        asset.amount / asset.product_duration
+                                        asset.amount /
+                                        asset.product_duration
                                       ).toFixed()
                                     )}
                                     <span className="per_day_symbol">
-                                      {" "}
+                                      {' '}
                                       / perday
                                     </span>
                                   </div>
