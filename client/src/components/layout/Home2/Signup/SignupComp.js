@@ -55,8 +55,8 @@ const SignupComp = ({ adminAddCustomer }) => {
 
       let res = await adminAddCustomer(
         // fullname,
-        firstname, 
-        lastname,
+        firstname.trim(), 
+        lastname.trim(),
         email,
         birthDate,
         // password,

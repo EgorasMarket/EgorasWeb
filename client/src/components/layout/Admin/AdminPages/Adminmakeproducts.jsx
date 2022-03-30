@@ -9,7 +9,7 @@ import "../AdminStyles/admin_all_products.css";
 
 const way = window.location.pathname;
 
-const AdminAllProducts = () => {
+const Adminmakeproducts = () => {
   const [itemdisplay,setItemDisplay] = useState([]);
   const [rolesInfo,setRolesInfo]= useState({
     role20:""
@@ -28,7 +28,7 @@ const AdminAllProducts = () => {
   useEffect(() => {
   
     axios.get(
-        api_url2 + "/v1/product/retrieve/new/products",
+        api_url2 + "/v1/product/retrieve/approved/products",
         null,
         config
     ).then((data) => {
@@ -79,7 +79,7 @@ const AdminAllProducts = () => {
           <div className="cart_areas">
             <div className="cart_area1">
               <div className="cart_item_num">
-                All Products
+                Make Products
               </div>
               <div className="locked_items2 locked_items2a">
                 <div class="save_prod_deta">
@@ -197,4 +197,4 @@ const AdminAllProducts = () => {
   );
 };
 
-export default AdminAllProducts;
+export default Adminmakeproducts;
