@@ -265,6 +265,8 @@ const AdminSideBar = ({ auth }) => {
                     <span className="userName_name">Customer Service</span>
                   ) : role1 === 'HOD_MEDIA' ? (
                     <span className="userName_name">Head Of Media</span>
+                  ) : role1 === 'TECH' ? (
+                    <span className="userName_name">Tech Team</span>
                   ) : null}
                 </span>
               </div>
