@@ -4,10 +4,18 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-// import "../Dashboard/DashboardStyles/dashboardCart.css";
-import { Calendar, DateRangePicker, DateRange } from "react-date-range";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { addDays, differenceInCalendarDays } from "date-fns";
+import Success_Error_Component from "../../../assets/Success_Error_Component";
+
 // import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 import { numberWithCommas } from "../../../../static";
 
@@ -22,6 +30,7 @@ import {
 } from "../../../../actions/types";
 import { connect, useDispatch } from "react-redux";
 import { fontSize } from "@mui/system";
+import { response } from "express";
 const Accordion = ({ title, children }) => {
   const [isOpen, setOpen] = React.useState(false);
   return (
@@ -62,28 +71,35 @@ function ItemDetailsPage({ auth, match }) {
   const [displayDays, setDisplayDays] = useState([]);
   const [modal, setModal] = useState(false);
   const [daysAddedDiv, setDaysAddedDiv] = useState(false);
+  const [error_msg, setErrorMsg] = useState('');
+  const [success_msg, setSuccessMsg] = useState('');
+  const [errorDiv, setErrorDiv] = useState(false);
+  const [successDiv, setSuccessDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState("");
   const [showApproval, setShowApproval] = useState(true);
   const [asset, setAsset] = useState("");
+  const [adminRole, setAdminRole] = useState("");
   const [moreImg, setMoreImg] = useState([]);
-  const [lowOutCome, setLowOutCome] = useState("");
+  const [product_route, setProduct_route] = useState("");
+  const [productRoute, setProductRoute] = useState({
+    // product_route: "",
+    carrier: "",
+    narration: ""
+  })
+
+  const { carrier, narration } = productRoute;
 
  
   const [base, setBase] = useState("");
-  const [disable, setDisable] = useState(false);
 
-  const [disable2, setDisable2] = useState(false);
 
-  const [count, setCount] = useState(0);
   const [imeeg, setImeeg] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+ 
 
   const [activeBg, setActiveBg] = useState("descript");
 
-  const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
   const [dailyAmount, setDailyAmount] = useState()
   const [initialDeposit, setInitialDeposit] = useState()
@@ -108,8 +124,17 @@ function ItemDetailsPage({ auth, match }) {
     payment_type: "",
     productId: ""
   });
-
+  
   var addedDays = 0;
+
+  const onChangeFor2 = (e) => {
+    setProduct_route(e.target.value)
+    //console.log(nextKin);
+  };
+
+  const onChangeFor = (e) => {
+    setProductRoute({ ...productRoute, [e.target.name]: e.target.value });
+  };
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -127,57 +152,146 @@ function ItemDetailsPage({ auth, match }) {
     //console.log(date.getDate() + 2, "memememe");
   }, []);
 
-    const [itemsLeft, setItemsLeft] = useState(2);
-  const [daysAdded, setDaysAdded] = useState(0);
-  const [moneyAdded, setMoneyAdded] = useState(0);
-  const [date, setDate] = useState(null);
-  const [itemDisplay2, setItemDisplay2] = useState([]);
+  const {
+    product_image,
+    product_name,
+    productId,
+    // more_image,
+    product_brand,
+    product_type,
+    unitCount,
+    amount,
+    product_duration,
+    product_category_code,
+    productSpecification,
+    product_details,
+    percentage,
+    payment_type,
+  } = productDetails;
 
-  const [workss, setWorkss] = useState([]);
+  useEffect(() => {
+    const body = JSON.stringify({
+      product_id,
+    });
+    if (auth) {
+      set_user_id(auth.user.user.id);
+      setAdminRole(auth.user.user.role);
+    }
+
+    //console.log(body);
+
+    axios
+      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+      .then((data) => {
+        //console.log(data.data.data, "king");
+
+        const getSlid = data.data.data.product_specifications;
+        //  const slipVar = getSlid.split(',');
+        //console.log("====================================");
+        //console.log(getSlid);
+        //console.log("====================================");
+        setSpec(getSlid);
+        // const slipVar = spec.split(',');
+        setMore_image(data.data.data.more_image)
+        setProductDetails({
+          // more_image: data.data.data.more_image,
+          product_image: data.data.data.product_image,
+          product_name: data.data.data.product_name,
+          product_brand: data.data.data.product_brand,
+          product_type: data.data.data.product_type,
+          unitCount: data.data.data.unitCount,
+          amount: data.data.data.amount,
+          product_duration: data.data.data.product_duration,
+          product_category_code: data.data.data.product_category_code,
+          product_details: data.data.data.product_detail,
+          percentage: data.data.data.percentage,
+          productId: data.data.data.product_id
+          // productSpecification:slipVar[0]
+        });
+        // setLowNumS({prod_dur:"8"});
+
+        //console.log("====================================");
+        // const NumbsAr =
+        // setLowNumS(NumbLow);
+        // //console.log(NumbLow);
+        //console.log(lowOutCome);
+      })
+      .catch((err) => {
+        //console.log(err.response); // "oh, no!"
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(more_image);
+    if (more_image != null) {
+      // let splited = JSON.parse(more_image);
+      // setMoreImg(more_image);
+      // console.log(more_image.split(','));
+      // console.log(JSON.parse(more_image));
+    }
+  }, [more_image]);
+
+
+  // const deletebro =()=>{
+  //   const body = JSON.stringify({
+  //     product_id,
+  //   });
+  //   axios
+  //   .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+  //   .then((data) => {
+  //     //console.log(data.data.data, "king");
+  
+  //     const getSlid = data.data.data.product_specifications;
+  //     //  const slipVar = getSlid.split(',');
+  //     //console.log("====================================");
+  //     //console.log(getSlid);
+  //     //console.log("====================================");
+         
+  
+  //     setProductDetails({
+  //       product_image: data.data.data.product_image,
+  //       product_name: data.data.data.product_name,
+  //       product_brand: data.data.data.product_brand,
+  //       product_type: data.data.data.product_type,
+  //       unitCount: data.data.data.unitCount,
+  //       amount: data.data.data.amount,
+  //       product_duration: data.data.data.product_duration,
+  //       product_category_code: data.data.data.product_category_code,
+  //       product_details: data.data.data.product_detail,
+  //       percentage: data.data.data.percentage,
+  //       productId: data.data.data.product_id
+  //       // productSpecification:slipVar[0]
+  //     });
+  //     // setLowNumS({prod_dur:"8"});
+  
+  //     //console.log("====================================");
+  //     // const NumbsAr =
+  //     // setLowNumS(NumbLow);
+  //     // //console.log(NumbLow);
+  //     //console.log(lowOutCome);
+  //   })
+  //   .catch((err) => {
+  //     //console.log(err.response); // "oh, no!"
+  //   });
+    
+  
+        
+  // }
+
+
+
+  //console.log("====================================");
+  //console.log(LowCalc);
+
+
+
+
   // const iteming = unitCount;
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
 
-  const increaseCount = () => {
-    setCount(count + 1);
-
-    setItemsLeft(itemsLeft - 1);
-    if (count >= 4) {
-      setDisable(true);
-      setDisable2(false);
-      //console.log("stop count");
-    } else {
-      setDisable(false);
-      setDisable2(false);
-    }
-
-    if (unitCount < 1 || count === unitCount || count === 0) {
-      setDisable(true);
-    } else {
-      setDisable(false);
-    }
-  };
-  // -=========--
-  // -=========--
-  // -=========--
-  const decreaseCount = () => {
-    setCount(count - 1);
-    setItemsLeft(itemsLeft + 1);
-
-    if (count <= 1) {
-      setDisable2(true);
-      setDisable(false);
-      //console.log("stop count2");
-    }
-
-    if (unitCount <= 1 || count < 1) {
-      setDisable2(true);
-    } else {
-      setDisable2(false);
-    }
-  };
 
   const itemsId = {
     firstItem: {
@@ -236,22 +350,22 @@ function ItemDetailsPage({ auth, match }) {
 
 
     
-  const {
-    product_image,
-    product_name,
-    productId,
-    // more_image,
-    product_brand,
-    product_type,
-    unitCount,
-    amount,
-    product_duration,
-    product_category_code,
-    productSpecification,
-    product_details,
-    percentage,
-    payment_type,
-  } = productDetails;
+  // const {
+  //   // product_image,
+  //   product_name,
+  //   productId,
+  //   // more_image,
+  //   product_brand,
+  //   product_type,
+  //   unitCount,
+  //   amount,
+  //   product_duration,
+  //   product_category_code,
+  //   productSpecification,
+  //   product_details,
+  //   percentage,
+  //   payment_type,
+  // } = productDetails;
 
   useEffect(() => {
     const body = JSON.stringify({
@@ -264,6 +378,7 @@ function ItemDetailsPage({ auth, match }) {
       const { role } = auth.user.user;
       if (role === "LOGISTICS") {
         setShowApproval(true)
+        setAdminRole(role)
       }
       
     }
@@ -356,61 +471,38 @@ function ItemDetailsPage({ auth, match }) {
 
 
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const body = JSON.stringify({
-      carrier :"DEMO ",
-      narration: " THIS IS A DEMO NARRATION"
+  //   const body = JSON.stringify({
+  //     product_id :"DEMO ",
+  //     route :"DEMO ",
+  //     carrier :"DEMO ",
+  //     narration: " THIS IS A DEMO NARRATION"
 
-    })
-    axios.post(
-      api_url2 + "/v1/product/set/product/route",
-      body,
-      config
-    ).then((data) => {
+  //   })
+  //   axios.post(
+  //     api_url2 + "/v1/product/set/product/route",
+  //     body,
+  //     config
+  //   ).then((data) => {
         
-      console.log(data.data);
+  //     console.log(data.data);
 
-      if (data.data.success === true) {
+  //     if (data.data.success === true) {
             
-        setShowApproval(true)
-      }
+  //       setShowApproval(true)
+  //     }
 
     
-    })
-      .catch((err) => {
+  //   })
+  //     .catch((err) => {
 
-      })
-
-
-  }, [])
+  //     })
 
 
+  // }, [])
 
-  useEffect(() => {
-  
-    axios.get(
-      api_url2 + "/v1/product/retrieve/new/products",
-      null,
-      config
-    ).then((data) => {
-       
-      //console.log(data.data.data, "chukwubuike");
-     
-       
-      setItemDisplay(data.data.data);
-
-    })
-      .catch((err) => {
-        //console.log(err); // "oh, no!"
-      });
-
-    
-  }, []);
-
-
-  
-  const admin_boy = (carrier, narration) => async (dispatch) => {
+  const submitRoute = async () => {
     const config = {
       headers: {
         Accept: "*",
@@ -419,35 +511,66 @@ function ItemDetailsPage({ auth, match }) {
       },
     };
 
+    console.log(product_id, product_route, carrier, narration);
+
     const body = JSON.stringify({
-      carrier,
-      narration,
+      product_id, product_route, carrier, narration
     });
 
     //console.log(body);
 
+
     try {
-      const res = await axios.put(
-        api_url2 + "//v1/product/set/product/route",
+      const res = await axios.post(
+        api_url2 + "/v1/product/set/product/route",
         body,
         config
       );
-      //console.log(res);
+        
+        // console.log(res);
+        // .then((response) => {
+        //   console.log(
+        //     response,
+        //     ' response after order endpoint is called'
+        //   );
+        //   setProcessingDiv(false);
+        //   setSuccessMsg(response.data.message);
+        //   setOrder_id(response.data.order_id);
+        //   setErrorDiv(false);
+        //   setSuccessDiv(true);
+        //   console.log(window.location.hostname);
+        //   alert(window.location.hostname);
+        // })
+        // .catch((err) => {
+        //   console.log(err.response);
+        //   setProcessingDiv(false);
+        //   setSuccessDiv(false);
+        //   setErrorMsg(err.response);
+        //   setErrorDiv(true);
+        //   // alert(err);
+        // });
+    
+    
+      
 
-      return {
-        success: true,
-        data: res.data,
-      };
+
+      if (res.data.data.success === true) {
+      
+      
+      } else {
+         error_msg(res.data.data.errors[0].msg, "danger");
+      
+    }
+
+      
     } catch (err) {
-      //console.log(err.response);
+      console.log(err.response);
 
-      return {
-        success: false,
-        data: err.response,
-      };
+      
     }
   };
 
+  
 
 
 
@@ -611,35 +734,121 @@ function ItemDetailsPage({ auth, match }) {
                 <ShoppingCartCheckoutIcon className="payment_btn_icon" />
                 Proceed to Checkout
               </button> */}
-                </div>
+            </div>
+           
+                
                 {
-                  showApproval ? (<div className="offline_payment_div">
-     
+                  adminRole === 'HOD_MEDIA' ? (
+                    <div className="offline_payment_div">
+                        <button
+                          style={{ width: "48%" }}
+                          className="buy_now_button"
+                      
+                          onClick={ e => submitCallCheck(product_id)}
+                        >
+                          {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
+                        </button>
+                      
+                        <button
 
-                    <button
+                          style={{ width: "48%", backgroundColor: '#e4a788' }}
+                          className="buy_now_button"
+                          // {/* id={productId}  */}
+                          // onClick={e => submitCallCheck(asset.id)} 
+                          onClick={() => delete2(productId)}
+                        >
+                          {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
+                        </button>
 
-                      style={{ width: "48%" }}
-                      className="buy_now_button"
-                  
-                      onClick={e => submitCallCheck(product_id)}
-                    >
-                      {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
-                    </button>
-                  
-                    <button
+                    </div>                  
+                  ) : (
+                    <div className="offline_payment_div">
+                        {/* <button
+                          style={{ width: "48%" }}
+                          className="buy_now_button"
+                      
+                          onClick={e => submitCallCheck(product_id)}
+                        >
+                          {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
+                        </button>
+                      
+                        <button
 
-                      style={{ width: "48%", backgroundColor: '#e4a788' }}
-                      className="buy_now_button"
-                      // {/* id={productId}  */}
-                      // onClick={e => submitCallCheck(asset.id)} 
-                      onClick={() => delete2(productId)}
-                    >
-                      {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
-                    </button>
+                          style={{ width: "48%", backgroundColor: '#e4a788' }}
+                          className="buy_now_button"
+                       
+                          onClick={() => delete2(productId)}
+                        >
+                          {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
+                        </button> */}
+                        
+                        <div className="name_input1a">
+                          <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                              Select Route
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              name="product_route"
+                              value={product_route}
+                              label="Select Route"
+                              // onChange={handleChange}
+                              onChange={onChangeFor2}
+                              // onSelect={onChangeFor2}
+                            >
+                             
+                              <MenuItem value="RUMUKWRUSHI">To Rumukwrushi</MenuItem>
+                              <MenuItem value="AGIP">To Agip</MenuItem>
+                              <MenuItem value="OYIGBO">To Oyigbo</MenuItem>
+                           
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <div className="add_cat_input_title">
+                          <span className="input_brand">Product Carrier</span>
 
-                
-                
-                  </div>) : null
+                          <TextField
+                            className=" width_incr"
+                            id="outlined-basic"
+                            label="Product Carrier"
+                            variant="outlined"
+                            name="carrier"
+                            value={carrier}
+                            onChange={(e) => onChangeFor(e)}
+                          />
+                        </div>
+                        <div className="add_cat_input_title">
+                          <span className="input_brand">Narration</span>
+
+                          <TextField
+                            className=" width_incr"
+                            id="outlined-basic"
+                            label="Narration"
+                            variant="outlined"
+                            name="narration"
+                            value={narration}
+                            onChange={(e) => onChangeFor(e)}
+                          />
+                        </div>
+                        <span className="submit_cat_btn_div">
+                          <button className="submit_cat_btn"
+                            
+                            onClick={submitRoute}
+                          
+                          >
+                            
+                            Submit
+                          </button>
+                          
+                        </span>
+                      
+                      
+
+                      </div>
+                      
+                      
+                  )
                 }
           
             
@@ -1018,13 +1227,47 @@ function ItemDetailsPage({ auth, match }) {
         </div>
       </section>
       {/* )})} */}
+       {/* {ProcessingDiv == false ? null : (
+        <div className="processing_transac_div">
+          <LoadingIcons.Bars fill="#229e54" />
+          Processing Transaction...
+        </div>
+      )}
+      {successDiv == true ? (
+        <div className="processing_transac_div insufficient">
+          <Success_Error_Component
+            remove_success_div={closeCheckoutOptions}
+            btn_txt="Continue"
+            // msg={success_msg}
+            msg={`${success_msg} Order-Id: ${order_id}`}
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src="/dashboard/savings"
+          />
+        </div>
+      ) : null}
+      {errorDiv == false ? null : (
+        <div className="processing_transac_div insufficient">
+          <Success_Error_Component
+            // remove_success_div={() => setErrorDiv(true)}
+            btn_txt="Fund Wallet"
+            msg={error_msg}
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src="/dashboard/wallet"
+          />
+        </div>
+      )} */}
+
     </div>
+    
+
   );
     
 
                             
 
-}
+    }
 
 
   const mapStateToProps1 = (state) => ({
