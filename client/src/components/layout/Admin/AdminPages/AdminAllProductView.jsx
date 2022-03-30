@@ -4,10 +4,17 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
 import axios from "axios";
-// import "../Dashboard/DashboardStyles/dashboardCart.css";
-import { Calendar, DateRangePicker, DateRange } from "react-date-range";
+import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
+import Select from "@mui/material/Select";
+import InputLabel from "@mui/material/InputLabel";
+import FormControl from "@mui/material/FormControl";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import AddAPhotoIcon from "@mui/icons-material/AddAPhoto";
+import DoDisturbIcon from "@mui/icons-material/DoDisturb";
+import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { addDays, differenceInCalendarDays } from "date-fns";
+
 // import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 import { numberWithCommas } from "../../../../static";
 
@@ -65,31 +72,35 @@ function ItemDetailsPage({ auth, match }) {
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState("");
-  const [adminRole, setAdminRole] = useState("");
+  const [showApproval, setShowApproval] = useState(true);
   const [asset, setAsset] = useState("");
+  const [adminRole, setAdminRole] = useState("");
   const [moreImg, setMoreImg] = useState([]);
-  const [lowOutCome, setLowOutCome] = useState("");
+  const [product_route, setProduct_route] = useState("");
+  const [productRoute, setProductRoute] = useState({
+    // product_route: "",
+    carrier: "", 
+    narration: ""
+  })
 
+  const { carrier, narration } = productRoute;
+
+ 
   const [base, setBase] = useState("");
-  const [disable, setDisable] = useState(false);
 
-  const [disable2, setDisable2] = useState(false);
 
-  const [count, setCount] = useState(0);
   const [imeeg, setImeeg] = useState("");
-  const [startDate, setStartDate] = useState("");
-  const [endDate, setEndDate] = useState("");
+ 
 
   const [activeBg, setActiveBg] = useState("descript");
 
-  const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
-  const [ dailyAmount , setDailyAmount ] = useState()
-  const [ initialDeposit , setInitialDeposit ] = useState()
+  const [dailyAmount, setDailyAmount] = useState()
+  const [initialDeposit, setInitialDeposit] = useState()
 
-  const [itemDisplay,setItemDisplay]=useState([])
+  const [itemDisplay, setItemDisplay] = useState([])
 
-  const [more_image, setMore_image]=useState()
+  const [more_image, setMore_image] = useState()
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -105,10 +116,19 @@ function ItemDetailsPage({ auth, match }) {
     productSpecification: "",
     percentage: "",
     payment_type: "",
-    productId:""
+    productId: ""
   });
 
   var addedDays = 0;
+
+  const onChangeFor2 = (e) => {
+    setProduct_route(e.target.value)
+    //console.log(nextKin);
+  };
+
+  const onChangeFor = (e) => {
+    setProductRoute({ ...productRoute, [e.target.name]: e.target.value });
+  };
 
   const openDetailsModal = () => {
     setDetailsModal(true);
@@ -259,67 +279,13 @@ function ItemDetailsPage({ auth, match }) {
 
 
 
-  // const food = spec[0].split('');
-  // //console.log(food[0])
 
-  const [itemsLeft, setItemsLeft] = useState(2);
-  const [daysAdded, setDaysAdded] = useState(0);
-  const [moneyAdded, setMoneyAdded] = useState(0);
-  const [date, setDate] = useState(null);
-  const [itemDisplay2, setItemDisplay2] = useState([]);
-
-  const [workss,setWorkss]=useState([]);
   // const iteming = unitCount;
-
-
-
-  //console.log("====================================");
-  //console.log(spec);
-  //console.log(productDetails);
-  //console.log("====================================");
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
 
-  const increaseCount = () => {
-    setCount(count + 1);
-
-    setItemsLeft(itemsLeft - 1);
-    if (count >= 4) {
-      setDisable(true);
-      setDisable2(false);
-      //console.log("stop count");
-    } else {
-      setDisable(false);
-      setDisable2(false);
-    }
-
-    if (unitCount < 1 || count === unitCount || count === 0) {
-      setDisable(true);
-    } else {
-      setDisable(false);
-    }
-  };
-  // -=========--
-  // -=========--
-  // -=========--
-  const decreaseCount = () => {
-    setCount(count - 1);
-    setItemsLeft(itemsLeft + 1);
-
-    if (count <= 1) {
-      setDisable2(true);
-      setDisable(false);
-      //console.log("stop count2");
-    }
-
-    if (unitCount <= 1 || count < 1) {
-      setDisable2(true);
-    } else {
-      setDisable2(false);
-    }
-  };
 
   const itemsId = {
     firstItem: {
@@ -357,27 +323,113 @@ function ItemDetailsPage({ auth, match }) {
 
  
 
-  const delete2 =(id)=>{
+  const delete2 = (id) => {
     
     
 
-        axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
-          (response)=>{
-            //console.log(response.data);
-            // if (data.data.data.success === true) {
+    axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
+      (response) => {
+        //console.log(response.data);
+        // if (data.data.data.success === true) {
 
-            //   return window.location.replace("/super_admin/all_products");
-            // }
+        //   return window.location.replace("/super_admin/all_products");
+        // }
   
       
 
-            // deletebro()
-          }
-        )
+        // deletebro()
+      }
+    )
   }
 
 
-  
+    
+  // const {
+  //   // product_image,
+  //   product_name,
+  //   productId,
+  //   // more_image,
+  //   product_brand,
+  //   product_type,
+  //   unitCount,
+  //   amount,
+  //   product_duration,
+  //   product_category_code,
+  //   productSpecification,
+  //   product_details,
+  //   percentage,
+  //   payment_type,
+  // } = productDetails;
+
+  useEffect(() => {
+    const body = JSON.stringify({
+      product_id,
+    });
+    if (auth) {
+
+      set_user_id(auth.user.user.id);
+      console.log(auth.user.user.role);
+      const { role } = auth.user.user;
+      if (role === "LOGISTICS") {
+        setShowApproval(true)
+        setAdminRole(role)
+      }
+      
+    }
+
+    //console.log(body);
+
+    axios
+      .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+      .then((data) => {
+        //console.log(data.data.data, "king");
+
+        const getSlid = data.data.data.product_specifications;
+        //  const slipVar = getSlid.split(',');
+        //console.log("====================================");
+        //console.log(getSlid);
+        //console.log("====================================");
+        setSpec(getSlid);
+        // const slipVar = spec.split(',');
+        setMore_image(data.data.data.more_image)
+        setProductDetails({
+          // more_image: data.data.data.more_image,
+          product_image: data.data.data.product_image,
+          product_name: data.data.data.product_name,
+          product_brand: data.data.data.product_brand,
+          product_type: data.data.data.product_type,
+          unitCount: data.data.data.unitCount,
+          amount: data.data.data.amount,
+          product_duration: data.data.data.product_duration,
+          product_category_code: data.data.data.product_category_code,
+          product_details: data.data.data.product_detail,
+          percentage: data.data.data.percentage,
+          productId: data.data.data.product_id
+          // productSpecification:slipVar[0]
+        });
+        // setLowNumS({prod_dur:"8"});
+
+        //console.log("====================================");
+        // const NumbsAr =
+        // setLowNumS(NumbLow);
+        // //console.log(NumbLow);
+        //console.log(lowOutCome);
+      })
+      .catch((err) => {
+        //console.log(err.response); // "oh, no!"
+      });
+  }, []);
+
+  useEffect(() => {
+    console.log(more_image);
+    if (more_image != null) {
+      // let splited = JSON.parse(more_image);
+      // setMoreImg(more_image);
+      // console.log(more_image.split(','));
+      // console.log(JSON.parse(more_image));
+    }
+  }, [more_image]);
+
 
 
   useEffect(() => {
@@ -413,26 +465,74 @@ function ItemDetailsPage({ auth, match }) {
 
 
 
-  useEffect(() => {
-  
-    axios.get(
-        api_url2 + "/v1/product/retrieve/new/products",
-        null,
-        config
-    ).then((data) => {
-       
-        //console.log(data.data.data, "chukwubuike");
-     
-       
-        setItemDisplay(data.data.data);
+  // useEffect(() => {
 
-      })
-      .catch((err) => {
-        //console.log(err); // "oh, no!"
-      });
+  //   const body = JSON.stringify({
+  //     product_id :"DEMO ",
+  //     route :"DEMO ",
+  //     carrier :"DEMO ",
+  //     narration: " THIS IS A DEMO NARRATION"
+
+  //   })
+  //   axios.post(
+  //     api_url2 + "/v1/product/set/product/route",
+  //     body,
+  //     config
+  //   ).then((data) => {
+        
+  //     console.log(data.data);
+
+  //     if (data.data.success === true) {
+            
+  //       setShowApproval(true)
+  //     }
 
     
-  }, []);
+  //   })
+  //     .catch((err) => {
+
+  //     })
+
+
+  // }, [])
+
+  const submitRoute = async () => {
+    const config = {
+      headers: {
+        Accept: "*",
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    };
+
+    console.log(product_id, product_route, carrier, narration);
+
+    const body = JSON.stringify({
+      product_id, product_route, carrier, narration
+    });
+
+    //console.log(body);
+
+    try {
+      const res = await axios.post(
+        api_url2 + "/v1/product/set/product/route",
+        body,
+        config
+      );
+      console.log(res);
+
+      
+    } catch (err) {
+      console.log(err.response);
+
+      
+    }
+  };
+
+
+
+
+  
 
 
   const ID = match.params.id;
@@ -464,21 +564,26 @@ function ItemDetailsPage({ auth, match }) {
       api_url2 + "/v1/product/approve/product",
       body,
       config
-      ).then((data) => {
-        // document.getElementById(product_id).remove();
+    ).then((data) => {
+      // document.getElementById(product_id).remove();
         
-          //console.log(data.data);
+      //console.log(data.data);
 
-          if (data.data.success === true) {
+      if (data.data.success === true) {
 
-            return window.location.replace("/super_admin/all_products");
-          }
+        return window.location.replace("/super_admin/all_products");
+      }
 
     
-        })
-        .catch((err) => {
-          //console.log(err.response); // "oh, no!"
-        });}
+    })
+      .catch((err) => {
+        //console.log(err.response); // "oh, no!"
+      });
+  }
+  
+  
+
+  
 
   const days = CalcDaysConvert(product_duration);
   // setDaysAdded(days)
@@ -486,16 +591,8 @@ function ItemDetailsPage({ auth, match }) {
   // const endDate = addDays(new Date(), percentDays - 1);
   //console.log(percentDays);
   const percentMoney = (percentage / 100) * amount;
-  //console.log(percentDays);
-  // const [cStartDate, setStartDate] = useState(new Date());
-  // const [cEndDate, setEndDate] = useState(new Date(), days);
-  // //console.log(cStartDate);
 
-  // =================
-  // =================
-  //console.log(days);
   const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
-  // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     //console.log("Hello Mr King");
   }
@@ -517,47 +614,47 @@ function ItemDetailsPage({ auth, match }) {
       <section className="no-bg">
         <div className="container">
           <div className="products_area">
-          <div className="product_details_area1">
-          <div className="details_area1_cont1">
-            {' '}
+            <div className="product_details_area1">
+              <div className="details_area1_cont1">
+                {' '}
             
-            {moreImg.length == 0 ? (
-              <img src={product_image} className="image_carooooo" />
-            ) : (
-              <ProductImageCarousel
-                img={moreImg[0]}
-                img2={moreImg[1]}
-                img3={moreImg[2]}
-              />
-            )}
-          </div>
-          {/* ================ */}
-          {/* ================ */}
-          {/* ================ */}
-          {/* ================ */}
-          <div className="details_area1_cont2">
-            {' '}
-            <div className="product_details_Title">
-              {product_name}
-            </div>
-            <div className="product_details_code">
-              <span className="product_code_title">
-                Product Code:{' '}
-              </span>
-              {product_category_code}
-            </div>
-            <div
-              className="product_details_code"
-              style={{ color: '#239e54' }}
-            >
-              <span className="product_code_title">Brand: </span>
-              {product_brand}
-              {/* {props.Brand} */}
-            </div>
-            {/* ----------------- */}
-            {/* <hr className="horizontal_rule" /> */}
-            {/* -------------- */}
-            {/* {payment_type === 'INSTALLMENT' ? (
+                {moreImg.length == 0 ? (
+                  <img src={product_image} className="image_carooooo" />
+                ) : (
+                  <ProductImageCarousel
+                    img={moreImg[0]}
+                    img2={moreImg[1]}
+                    img3={moreImg[2]}
+                  />
+                )}
+              </div>
+              {/* ================ */}
+              {/* ================ */}
+              {/* ================ */}
+              {/* ================ */}
+              <div className="details_area1_cont2">
+                {' '}
+                <div className="product_details_Title">
+                  {product_name}
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Product Code:{' '}
+                  </span>
+                  {product_category_code}
+                </div>
+                <div
+                  className="product_details_code"
+                  style={{ color: '#239e54' }}
+                >
+                  <span className="product_code_title">Brand: </span>
+                  {product_brand}
+                  {/* {props.Brand} */}
+                </div>
+                {/* ----------------- */}
+                {/* <hr className="horizontal_rule" /> */}
+                {/* -------------- */}
+                {/* {payment_type === 'INSTALLMENT' ? (
               <>
                 <InstallmentComponent
                   initial_deposit={initial_deposit}
@@ -577,18 +674,18 @@ function ItemDetailsPage({ auth, match }) {
               </>
             )} */}
 
-            <div className="amount_item_div total_amount">
-              <span className="sub_total_txt">Price: </span> ₦
-              {numberWithCommas(parseInt(amount).toFixed())}
-            </div>
-            {/* ======= */}
-            {/* ======= */}
-            {/* ======= */}
-            {/* ======= */}
-            {/* <hr className="horizontal_rule" /> */}
-            {/* ------- */}
-            <div className="buy_now_btn_div">
-              {/* <button
+                <div className="amount_item_div total_amount">
+                  <span className="sub_total_txt">Price: </span> ₦
+                  {numberWithCommas(parseInt(amount).toFixed())}
+                </div>
+                {/* ======= */}
+                {/* ======= */}
+                {/* ======= */}
+                {/* ======= */}
+                {/* <hr className="horizontal_rule" /> */}
+                {/* ------- */}
+                <div className="buy_now_btn_div">
+                  {/* <button
                 className="buy_now_button"
                 onClick={openCheckoutModal}
               >
@@ -596,39 +693,115 @@ function ItemDetailsPage({ auth, match }) {
                 Proceed to Checkout
               </button> */}
             </div>
-            <div className="offline_payment_div" style={{flexDirection: 'row'}}>
-              {/* <div className="offline_payment_tittle">
-                For offline bookings contact:
-              </div>
-              <div className="offline_payment_para">
-                <CallIcon className="call_us_icon" /> 08164020234,
-                090234567893
-              </div> */}
-              <button
-
-                style={{width:"48%",backgroundColor:'#e4a788'}}
-                  className="buy_now_button"
-                // {/* id={productId}  */}
-                  // onClick={e => submitCallCheck(asset.id)} 
-                  onClick={()=>delete2(productId)}
-                >
-                  {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
-                </button>
-
+           
                 
-                <button
+                {
+                  adminRole === 'HOD_MEDIA' ? (
+                    <div className="offline_payment_div">
+                        <button
+                          style={{ width: "48%" }}
+                          className="buy_now_button"
+                      
+                          onClick={ e => submitCallCheck(product_id)}
+                        >
+                          {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
+                        </button>
+                      
+                        <button
 
-                  style={{width:"48%"}}
-                  className="buy_now_button"
-                  
-                  onClick={e => submitCallCheck(product_id)} 
-                >
-                  {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
-                </button>
-            </div>
+                          style={{ width: "48%", backgroundColor: '#e4a788' }}
+                          className="buy_now_button"
+                          // {/* id={productId}  */}
+                          // onClick={e => submitCallCheck(asset.id)} 
+                          onClick={() => delete2(productId)}
+                        >
+                          {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
+                        </button>
+
+                    </div>                  
+                  ) : (
+                    <div className="offline_payment_div">
+                        {/* <button
+                          style={{ width: "48%" }}
+                          className="buy_now_button"
+                      
+                          onClick={e => submitCallCheck(product_id)}
+                        >
+                          {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
+                        </button>
+                      
+                        <button
+
+                          style={{ width: "48%", backgroundColor: '#e4a788' }}
+                          className="buy_now_button"
+                       
+                          onClick={() => delete2(productId)}
+                        >
+                          {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
+                        </button> */}
+                        
+                        <div className="name_input1a">
+                          <FormControl fullWidth>
+                            <InputLabel id="demo-simple-select-label">
+                              Select Route
+                            </InputLabel>
+                            <Select
+                              labelId="demo-simple-select-label"
+                              id="demo-simple-select"
+                              name="product_route"
+                              value={product_route}
+                              label="Select Route"
+                              // onChange={handleChange}
+                              onChange={onChangeFor2}
+                              // onSelect={onChangeFor2}
+                            >
+                             
+                              <MenuItem value="RUMUKWRUSHI">To Rumukwrushi</MenuItem>
+                              <MenuItem value="AGIP">To Agip</MenuItem>
+                              <MenuItem value="OYIGBO">To Oyigbo</MenuItem>
+                           
+                            </Select>
+                          </FormControl>
+                        </div>
+                        <div className="add_cat_input_title">
+                          <span className="input_brand">Product Carrier</span>
+
+                          <TextField
+                            className=" width_incr"
+                            id="outlined-basic"
+                            label="Product Carrier"
+                            variant="outlined"
+                            name="carrier"
+                            value={carrier}
+                            onChange={(e) => onChangeFor(e)}
+                          />
+                        </div>
+                        <div className="add_cat_input_title">
+                          <span className="input_brand">Narration</span>
+
+                          <TextField
+                            className=" width_incr"
+                            id="outlined-basic"
+                            label="Narration"
+                            variant="outlined"
+                            name="narration"
+                            value={narration}
+                            onChange={(e) => onChangeFor(e)}
+                          />
+                        </div>
+                        <span className="submit_cat_btn_div">
+                          <button className="submit_cat_btn" onClick={submitRoute}>
+                            Submit
+                          </button>
+                        </span>
+
+                    </div>
+                  )
+                }
+          
             
-          </div>
-          </div>
+              </div>
+            </div>
 
             {/* <div className="product_details_area">{asset}</div> */}
             {/* =======================================879087070y707680769067 */}
@@ -663,57 +836,12 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                    {spec.map((apple)=>(  <tr>
+                      {spec.map((apple) => (<tr>
                         {/* <td>Colour</td> */}
                         <td>{apple}</td>
                         
                       </tr>))}
-                      {/* <tr> */}
-                        {/* <td>Warranty Period</td> */}
-                        {/* <td>{spec[1]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr>
-                       <td>
-                       {tree[0]}
-                       </td>
-                      </tr> */}
-                      {/* <tr> */}
-                        {/* <td>Brand</td> */}
-                        {/* <td>{spec[2]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
-                        {/* <td>Display Features</td> */}
-                        {/* <td>{spec[3]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
-                        {/* <td>Display Technology</td> */}
-                        {/* <td>{spec[4]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
-                        {/* <td>TV Screen Size</td> */}
-                        {/* <td>{spec[5]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
-                      {/* <td>Television 3D Technology</td> */}
-                      {/* <td>{spec[6]}</td> */}
-                      {/* </tr> */}
-
-                      {/* <tr> */}
-                      {/* <td>Resolution</td> */}
-                      {/* <td>{spec[7]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
-                      {/* <td>Intended Display Use</td> */}
-                      {/* <td>{spec[8]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
-                      {/* <td>Television Screen Type</td> */}
-                      {/* <td>{spec[9]}</td> */}
-                      {/* </tr> */}
-                      {/* <tr> */}
-                      {/* <td>Television Refresh Rate</td> */}
-                      {/* <td>{spec[10]}</td> */}
-                      {/* </tr> */}
+                    
                     </tbody>
                   </table>
                 </div>
@@ -721,69 +849,7 @@ function ItemDetailsPage({ auth, match }) {
                 {/* ====== */}
               </div>
 
-              {/* <div className='my-4'>
-                  {spec.map((tree)=>(
-                    <span style={{display:'flex',flexDirection:'column'}}>{tree}</span>
-                  ))}
-                </div> */}
-              {/* <div className="description_body">
-                <div className="description_table">
-                  <table class="_3a09a_1e-gU">
-                    <tbody>
-                      <tr>
-                        <td>Colour</td>
-                        <td>{spec[0]}</td>
-                      </tr>
-                      <tr>
-                        <td>Warranty Period</td>
-                        <td>6 Months</td>
-                      </tr> */}
-              {/* <tr>
-                       <td>
-                       {tree[0]}
-                       </td>
-                      </tr> */}
-              {/* <tr>
-                        <td>Brand</td>
-                        <td>
-                          <a href="/brand/samsung">Samsung</a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>Display Features</td>
-                        <td>UHD</td>
-                      </tr>
-                      <tr>
-                        <td>Display Technology</td>
-                        <td>Not Specified</td>
-                      </tr>
-                      <tr>
-                        <td>TV Screen Size</td>
-                        <td>50"</td>
-                      </tr>
-                      <tr>
-                        <td>Television 3D Technology</td>
-                        <td>No Glasses</td>
-                      </tr>
-                      <tr>
-                        <td>Resolution</td>
-                        <td>4K</td>
-                      </tr>
-                      <tr>
-                        <td>Intended Display Use</td>
-                        <td>Home Entertainment</td>
-                      </tr>
-                      <tr>
-                        <td>Television Screen Type</td>
-                        <td>Flat</td>
-                      </tr>
-                      <tr>
-                        <td>Television Refresh Rate</td>
-                        <td>240 Hz</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div> */}
+            
               {/* ====== */}
               {/* ====== */}
               {/* </div> */}
@@ -829,61 +895,7 @@ function ItemDetailsPage({ auth, match }) {
                     style={{ height: "25em" }}
                   >
                     {term.map((asset) => (
-                      // <div className="cardA">
-                      //   <div className="img">
-                      //     <div
-                      //       className="img-sub"
-                      //       style={{
-                      //         backgroundImage: `url(${asset.img})`,
-                      //         height: "200px",
-                      //         width: "100%",
-                      //         backgroundRepeat: "no-repeat",
-                      //         backgroundSize: "cover",
-                      //         borderRadius: "8px",
-                      //         borderBottomLeftRadius: "0px",
-                      //         borderBottomRightRadius: "0px",
-                      //         backgroundPositionY: "center",
-                      //       }}
-                      //     >
-                      //       {/* <div className="img-amount">
-                      //       <NumberFormat
-                      //         value={1000}
-                      //         displayitems_remainings={"text"}
-                      //         thousandSeparator={true}
-                      //         prefix={"$"}
-                      //       />
-                      //     </div> */}
-                      //     </div>
-                      //   </div>
-
-                      //   <div className="cardDetails" style={{ textAlign: "left" }}>
-                      //     <h1 className="cardHeader">{asset.name}</h1>
-                      //     <h1 className="collat-category">{asset.items_remainings}</h1>
-                      //     <div className="heroSlider2">
-                      //       <div className="slider-txts1">
-                      //         <div className="h-texts">
-                      //           <h3 className="htxt1a">{asset.days_left}</h3>
-                      //           <h3 className="htxt2a">{asset.percentage}</h3>
-                      //         </div>
-                      //       </div>
-                      //       {/* <div className="slider-a"></div> */}
-                      //       <div className="slider" style={{ height: "7px" }}>
-                      //         <div
-                      //           className="sliderafter"
-                      //           style={{
-                      //             width: `5%`,
-                      //             height: "7px",
-                      //           }}
-                      //         ></div>
-                      //       </div>
-                      //       <div className="slider-txts2">
-                      //         <div className="p-texts2a">
-                      //           <p className="ptxt2a">Remaining Items: 100</p>
-                      //         </div>
-                      //       </div>
-                      //     </div>
-                      //   </div>
-                      //   </div>
+                   
                       <a
                         href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
                       >
@@ -891,9 +903,8 @@ function ItemDetailsPage({ auth, match }) {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${
-                                asset.product_image
-                              })`,
+                              backgroundImage: `url(${asset.product_image
+                                })`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -921,10 +932,10 @@ function ItemDetailsPage({ auth, match }) {
                                 {asset.unitCount === 1
                                   ? "item left"
                                   : asset.unitCount <= 1
-                                  ? "no item left"
-                                  : asset.unitCount > 1
-                                  ? "items left"
-                                  : null}
+                                    ? "no item left"
+                                    : asset.unitCount > 1
+                                      ? "items left"
+                                      : null}
                               </div>
                             </div>
                             {/* </a> */}
@@ -1148,7 +1159,7 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
+                      Total <span className="sub_total_div_span">{amount * unitCount}</span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1166,12 +1177,18 @@ function ItemDetailsPage({ auth, match }) {
       {/* )})} */}
     </div>
   );
+    
+
+                            
+
 }
 
-const mapStateToProps1 = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-  cart: state.shop.cart,
-});
+
+  const mapStateToProps1 = (state) => ({
+    auth: state.auth,
+    isAuthenticated: state.auth.isAuthenticated,
+    cart: state.shop.cart,
+  });
+  
 
 export default connect(mapStateToProps1)(ItemDetailsPage);
