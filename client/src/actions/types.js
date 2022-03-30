@@ -31,12 +31,24 @@ export const API_URL = "https://tea.egoras.com";
 // export const API_URL2 = "https://saul.egoras.com";
 // export const API_URL3 = "https://coffee.egoras.com";
 // export const API_URL3 = "http://localhost:7976";
-// export const API_URL2 = "http://localhost:4000";
-// export const API_URL2 = "http://192.168.43.179:4000";
-export const API_URL2 = "http://192.168.43.243:4015";
-// export const API_URL2 = "http://192.168.81.245:3000";
+
+// ==============================================================
+// ==============================================================
+// <================goodness api route====================>
+export const API_URL2 = "http://192.168.43.179:4000";
+
+// ==============================================================
+// ==============================================================
+// <================good luck api route====================>
+// export const API_URL2 = "http://192.168.43.243:4015";
+
+// ==============================================================
+// ==============================================================
+// <================ live server api route====================>
 // export const API_URL2 = "https://saul.egoras.com";
 
+// ==============================================================
+// ==============================================================
 // export const API_URL2 = 'http://localhost:4015';
 
 // token Symbol

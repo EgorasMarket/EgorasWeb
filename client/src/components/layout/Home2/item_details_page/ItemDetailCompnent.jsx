@@ -26,10 +26,9 @@ import { stringify } from "uuid";
 
 const InstallmentComponent = ({
   product_duration,
-  amount,
+  roundedAmount,
   percentage,
   initial_deposit,
-  roundedAmount,
   paymentPerday,
   numberWithCommas,
 }) => {
@@ -42,7 +41,7 @@ const InstallmentComponent = ({
 
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(amount)}
+        {numberWithCommas(roundedAmount)}
         <span className="per_day"></span>
       </div>
 
@@ -65,14 +64,14 @@ const OutrightComponent = ({
   rounded,
   percentage,
   initial_deposit,
-  roundedAmount,
+  amount,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(parseInt(roundedAmount).toFixed())}
+        {numberWithCommas(parseInt(amount).toFixed())}
       </div>
       <div className="max_dura">
         <div className="days_left_numb">
@@ -123,6 +122,7 @@ const ItemDetailComponent = ({
     product_id,
     product_image,
     more_image,
+    roundedAmount,
     product_name,
     product_specifications,
     product_type,
@@ -364,7 +364,7 @@ const ItemDetailComponent = ({
                 <InstallmentComponent
                   initial_deposit={initial_deposit}
                   product_duration={product_duration}
-                  amount={amount}
+                  roundedAmount={roundedAmount}
                   percentage={percentage}
                   paymentPerday={paymentPerday}
                   numberWithCommas={numberWithCommas}
@@ -373,7 +373,7 @@ const ItemDetailComponent = ({
             ) : (
               <>
                 <OutrightComponent
-                  roundedAmount={amount}
+                  amount={amount}
                   numberWithCommas={numberWithCommas}
                 />
               </>
@@ -503,56 +503,85 @@ const ItemDetailComponent = ({
             ) : (
               <>
                 <div className="show_prods_on_mobile">
-                  {term.map((asset) => {
-                    if (product_category_desc === asset.product_category_desc) {
-                      return (
-                        <a
-                          href={`/dashboard/products/details/${
-                            asset.id
-                          }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        >
-                          <li className="carous_list no_marg inventory_cards">
-                            <div
-                              className="storeTiles_storeTileContainer__HoGEa"
-                              style={{
-                                backgroundImage: `url(${asset.product_image})`,
-                                //           height: "200px",
-                                //           width: "100%",
-                                //           backgroundRepeat: "no-repeat",
-                                //           backgroundSize: "cover",
-                                //           borderRadius: "8px",
-                                //           borderBottomLeftRadius: "0px",
-                                //           borderBottomRightRadius: "0px",
-                                //   backgroundPositionY: "center",
-                              }}
-                            >
-                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                <div className="asset_name">
-                                  {asset.product_name}
-                                </div>
-                                <div className="asset_title">
-                                  <span className="init_amnt">
-                                    ₦
-                                    {numberWithCommas(
-                                      parseInt(asset.roundedAmount)
-                                    )}{" "}
-                                  </span>
-
-                                  <span className="slashed_price">
-                                    ₦
-                                    {numberWithCommas(
-                                      parseInt(asset.roundedAmount * 2)
-                                    )}
-                                  </span>
-                                </div>
+                  {term.map(
+                    (asset) => (
+                      // if (product_category_desc === asset.product_category_desc) {
+                      // return (
+                      <a
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
+                      >
+                        <li className="carous_list no_marg inventory_cards">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${asset.product_image})`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div className="out_right_install_tag">
+                                <button
+                                  className="out_right_install_tag_btn"
+                                  style={{
+                                    background: "#3ebc6e",
+                                    borderColor: "#3ebc6e",
+                                  }}
+                                >
+                                  Outright
+                                </button>
                               </div>
-                              {/* </a> */}
+                            ) : (
+                              <div className="out_right_install_tag">
+                                <button className="out_right_install_tag_btn">
+                                  Savings
+                                </button>
+                              </div>
+                            )}
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div class="asset_prices_div">
+                                <div className="asset_title">
+                                  <span className="init_amount">
+                                    ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                  </span>
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                  </span>
+                                </div>
+                                {asset.payment_type == "OUTRIGHT" ? null : (
+                                  <div className="amount_per_day_div">
+                                    ₦
+                                    {numberWithCommas(
+                                      (
+                                        asset.amount / asset.product_duration
+                                      ).toFixed()
+                                    )}
+                                    <span className="per_day_symbol">
+                                      {" "}
+                                      / perday
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
                             </div>
-                          </li>
-                        </a>
-                      );
-                    }
-                  })}
+                            {/* </a> */}
+                          </div>
+                        </li>
+                      </a>
+                    )
+                    // );
+                  )}
                 </div>
                 <Carousel
                   responsive={responsive8}
@@ -568,56 +597,92 @@ const ItemDetailComponent = ({
                   swipeable={true}
                   style={{ height: "25em" }}
                 >
-                  {term.map((asset) => {
-                    if (product_category_desc === asset.product_category_desc) {
-                      return (
-                        <a
-                          href={`/dashboard/products/details/${
-                            asset.id
-                          }/${asset.product_name.replace(/\s+/g, "-")}`}
+                  {term.map((asset) => (
+                    <a
+                      href={`/dashboard/products/details/${
+                        asset.id
+                      }/${asset.product_name.replace(/\s+/g, "-")}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${asset.product_image})`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
                         >
-                          <li className="carous_list">
-                            <div
-                              className="storeTiles_storeTileContainer__HoGEa"
-                              style={{
-                                backgroundImage: `url(${asset.product_image})`,
-                                //           height: "200px",
-                                //           width: "100%",
-                                //           backgroundRepeat: "no-repeat",
-                                //           backgroundSize: "cover",
-                                //           borderRadius: "8px",
-                                //           borderBottomLeftRadius: "0px",
-                                //           borderBottomRightRadius: "0px",
-                                //   backgroundPositionY: "center",
-                              }}
-                            >
-                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                <div className="asset_name">
-                                  {asset.product_name}
-                                </div>
-                                <div className="asset_title">
-                                  <span className="init_amount">
-                                    ₦
-                                    {numberWithCommas(
-                                      parseInt(asset.roundedAmount)
-                                    )}{" "}
-                                  </span>
-
-                                  <span className="slashed_price">
-                                    ₦
-                                    {numberWithCommas(
-                                      parseInt(asset.roundedAmount * 2)
-                                    )}
-                                  </span>
-                                </div>
-                              </div>
-                              {/* </a> */}
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <div className="out_right_install_tag">
+                              <button
+                                className="out_right_install_tag_btn"
+                                style={{
+                                  background: "#3ebc6e",
+                                  borderColor: "#3ebc6e",
+                                }}
+                              >
+                                Outright
+                              </button>
                             </div>
-                          </li>
-                        </a>
-                      );
-                    }
-                  })}
+                          ) : (
+                            <div className="out_right_install_tag">
+                              <button className="out_right_install_tag_btn">
+                                Savings
+                              </button>
+                            </div>
+                          )}
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div class="asset_prices_div">
+                              <div className="asset_title">
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <span className="init_amount">
+                                    ₦{numberWithCommas(asset.amount)}{" "}
+                                  </span>
+                                ) : (
+                                  <span className="init_amount">
+                                    ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                  </span>
+                                )}
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.amount * 2)}
+                                  </span>
+                                ) : (
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                  </span>
+                                )}
+                              </div>
+                              {asset.payment_type == "OUTRIGHT" ? null : (
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    (
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                  ))}
                 </Carousel>
               </>
             )}

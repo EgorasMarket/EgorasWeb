@@ -37,7 +37,7 @@
   border: 1px solid #229e54;
   padding: 8px 10px;
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 0px;
   font-size: 15px;
 }
 .starRateIcon_2 {
@@ -553,7 +553,7 @@ li.deposit_qr_not {
   padding: 8px 10px;
   color: black;
   background-color: #fff;
-  margin-right: 10px;
+  margin-right: 0px;
   border-radius: 5px;
   font-size: 13px;
   border: 1px solid #229e54;
@@ -564,7 +564,7 @@ li.deposit_qr_not {
   border: 1px solid #229e54;
   padding: 8px 10px;
   border-radius: 5px;
-  margin-right: 10px;
+  margin-right: 0px;
   font-size: 15px;
 }
 
