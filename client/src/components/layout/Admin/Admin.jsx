@@ -12,6 +12,7 @@ import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
 import Wallet from "../Wallet/Wallet";
 import Wallet4 from "../Wallet/Wallet1";
+import Adminmakeproducts from "./AdminPages/Adminmakeproducts";
 import NewOne from "./AdminPages/newOne";
 import Transact from "./AdminPages/Transactionbybranch";
 import axios from "axios";
@@ -178,7 +179,12 @@ const Admin = ({ isAuthenticated, loading }) => {
                 />
                 <Route
                   exact
-                  path="/super_admin/all_products_view/:id/:name"
+                  path="/super_admin/Approved_products"
+                  component={Adminmakeproducts}
+                />
+                <Route
+                  exact
+                  path="/super_admin/products_view/:id/:name"
                   // path="/dashboard/products/details/:id/:name"
                   // / dashboard/products/details/:id/:name
                   component={AdminAllView}
@@ -189,10 +195,25 @@ const Admin = ({ isAuthenticated, loading }) => {
                 component={ItemsPage2}
               /> */}
                 </>
+              ) : Role === 'LOGISTICS' ? (
+                <><Route
+                  exact
+                  path="/super_admin/Approved_products"
+                  component={Adminmakeproducts}
+                />
+                <Route
+                  exact
+                  path="/super_admin/products_view/:id/:name"
+                  // path="/dashboard/products/details/:id/:name"
+                  // / dashboard/products/details/:id/:name
+                  component={AdminAllView}
+                /></>
+                
+                
               ) : (
                 <Route
                   exact
-                  path="/super_admin/all_products_view/:id/:name"
+                  path="/super_admin/products_view/:id/:name"
                   // path="/dashboard/products/details/:id/:name"
                   // / dashboard/products/details/:id/:name
                   component={AdminAllView}

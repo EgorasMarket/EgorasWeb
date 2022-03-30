@@ -17,6 +17,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import TextField from "@mui/material/TextField";
 import "../DashboardStyles/dashboard_home.css";
+import Success_Error_Component from "../../../../assets/Success_Error_Component";
 import "../DashboardStyles/dashboard_account.css";
 import { connect } from "react-redux";
 import {
@@ -922,13 +923,20 @@ function DashboardAccountPageMobile({
                       <div className="toggle_body_area1_cont1">
                         <div className="toggle_body_area1_cont1_txts"></div>
                         <div className="toggle_body_area1_cont1_input">
+                          <div className="processing_transac_div insufficient">>
+                           <Success_Error_Component 
+                                   btn_txt="Fund Wallet"/>
+                          
+
                           <button
                             className={fold1}
                             disable={disabled2}
                             onClick={sends}
+                            onChange={onChangeFor}
                           >
                             Save Changes
                           </button>
+                          </div>
                         </div>
                       </div>
                     ) : null}
