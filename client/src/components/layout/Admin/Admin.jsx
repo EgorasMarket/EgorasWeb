@@ -122,21 +122,6 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // / dashboard/products/details/:id/:name
                     component={AdminMarket}
                   />
-                  <Route
-                    exact
-                    path="/super_admin/customers_by_branch"
-                    // path="/dashboard/products/details/:id/:name"
-                    // / dashboard/products/details/:id/:name
-                    component={NewOne}
-                  />
-
-                  <Route
-                    exact
-                    path="/super_admin/customers_by_location"
-                    // path="/dashboard/products/details/:id/:name"
-                    // / dashboard/products/details/:id/:name
-                    component={Transact}
-                  />
 
                   {/* < HEAD /> */}
 
@@ -215,8 +200,35 @@ const Admin = ({ isAuthenticated, loading }) => {
                 <>
                   <Route
                     exact
+                    path="/super_admin/Approved_products"
+                    component={Adminmakeproducts}
+                  />
+                  <Route
+                    exact
                     path="/super_admin/signup"
                     component={AdminSignup}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/customers_by_branch"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={NewOne}
+                  />
+
+                  <Route
+                    exact
+                    path="/super_admin/customers_by_location"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={Transact}
+                  />
+                   <Route
+                    exact
+                    path="/super_admin/products_view/:id/:name"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AdminAllView}
                   />
                 </>
               ) : (

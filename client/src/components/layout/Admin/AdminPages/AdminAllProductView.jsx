@@ -620,7 +620,7 @@ function ItemDetailsPage({ auth, match }) {
                 </div>
                 <div className="product_details_code">
                   <span className="product_code_title">
-                    Paymento Type:
+                    Payment Type:
                   </span>
                   {payment_type}
                 </div>
@@ -652,7 +652,8 @@ function ItemDetailsPage({ auth, match }) {
                       className="buy_now_button"
                       onClick={(e) => submitCallCheck(product_id)}
                     >
-                      {product_duration !== 1
+                      {
+                      product_duration !== 1
                         ? 'Approved'
                         : 'Proceed to checkout'}
                     </button>
@@ -672,7 +673,7 @@ function ItemDetailsPage({ auth, match }) {
                         : 'Proceed to checkout'}
                     </button>
                   </div>
-                ) : (
+                ) : adminRole === 'LOGISTICS' ? (
                   <div className="offline_payment_div">
                     {/* <button
                           style={{ width: "48%" }}
@@ -755,7 +756,7 @@ function ItemDetailsPage({ auth, match }) {
                       </button>
                     </span>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
 
