@@ -875,6 +875,7 @@ function ItemDetailsPage({ auth, match }) {
                     </span>
                   </div>
                 ) : null}
+                {/* Hello */}
               </div>
             </div>
             // here it goes
