@@ -884,7 +884,7 @@ function DashboardAccountPageMobile({
                             </div>
                           </div>
                         ) : (
-                          Usergender
+                          <span>{Usergender}</span>
                         )}
                       </div>
                     </div>
