@@ -206,7 +206,7 @@ const AdminSideBar = ({ auth }) => {
     // var divContents = document.getElementById("mainContent").innerHTML;
    
         var printWindow = window.open('', '', 'height=1200,width=1200');
-        printWindow.document.write('<html><head><title>Item Receipt</title>');
+        printWindow.document.write('<html><head><style>table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}</style><title>Item Receipt</title>');
         printWindow.document.write('</head><body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">');
         printWindow.document.write('<img width="140" src="/img/tagheader.svg" />');
         printWindow.document.write('<h6 style="margin-bottom: 5px">Customer Name:</h6>');
