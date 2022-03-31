@@ -538,7 +538,7 @@ const Header = ({ isAuthenticated, auth }) => {
                     {" "}
                     Login
                   </a>
-                  <a href="/signup" className="connectb">
+                  <a href="#" className="connectb">
                     Signup
                   </a>
                 </div>
@@ -570,7 +570,7 @@ const Header = ({ isAuthenticated, auth }) => {
                     {" "}
                     Login
                   </a>
-                  <a href="/signup" className="connectb">
+                  <a href="#" className="connectb">
                     Signup
                   </a>
                 </div>
@@ -693,7 +693,7 @@ const Header = ({ isAuthenticated, auth }) => {
                             Login
                           </a>
 
-                          <a href="/signup" className="connectb">
+                          <a href="#" className="connectb">
                             Signup
                           </a>
                         </div>
@@ -747,7 +747,7 @@ const Header = ({ isAuthenticated, auth }) => {
                             {" "}
                             Login
                           </a>
-                          <a href="/signup" className="connectb">
+                          <a href="#" className="connectb">
                             Signup
                           </a>
                         </div>

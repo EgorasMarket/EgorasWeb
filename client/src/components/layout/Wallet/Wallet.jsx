@@ -313,7 +313,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                     </div>
                   ) : (
                     <div className="arrowSpan">
-                      ₦{numberWithCommas(parseInt(assetVal).toFixed(2))}{" "}
+                      <span className="amnt_wall">
+                        ₦{numberWithCommas(parseInt(assetVal).toFixed(2))}{" "}
+                      </span>
                       <div className="usd_val">
                         ≈ $
                         {numberWithCommas(parseInt(assetVal / 560).toFixed(2))}
@@ -383,34 +385,21 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                       *******
                                     </div>
                                   </div>
-                                  {openFundDiv == true ? (
-                                    <ArrowDropDownIcon
-                                      onClick={showFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
-                                  {closeFundDiv == true ? (
-                                    <ArrowDropUpIcon
-                                      onClick={closeFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
                                 </div>
-                                {FundBtn == true ? (
-                                  <span className="fund_btn_div_cont">
-                                    <button
-                                      className="fund_wallet_btn_open"
-                                      onClick={() =>
-                                        openDepositDiv(
-                                          data.tokenName,
-                                          data.tokenSymbol
-                                        )
-                                      }
-                                    >
-                                      Fund
-                                    </button>
-                                  </span>
-                                ) : null}
+
+                                <span className="fund_btn_div_cont">
+                                  <button
+                                    className="fund_wallet_btn_open"
+                                    onClick={() =>
+                                      openDepositDiv(
+                                        data.tokenName,
+                                        data.tokenSymbol
+                                      )
+                                    }
+                                  >
+                                    Fund
+                                  </button>
+                                </span>
                               </div>
                             ) : (
                               <div
@@ -434,37 +423,22 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                         {tokenSign}
                                       </span>
                                     </div>
-                                  </div>
-
-                                  {openFundDiv == true ? (
-                                    <ArrowDropDownIcon
-                                      onClick={showFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
-
-                                  {closeFundDiv == true ? (
-                                    <ArrowDropUpIcon
-                                      onClick={closeFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
+                                  </div>{" "}
                                 </div>
-                                {FundBtn == true ? (
-                                  <span className="fund_btn_div_cont">
-                                    <button
-                                      className="fund_wallet_btn_open"
-                                      onClick={() =>
-                                        openDepositDiv(
-                                          data.tokenName,
-                                          data.tokenSymbol
-                                        )
-                                      }
-                                    >
-                                      Fund
-                                    </button>
-                                  </span>
-                                ) : null}
+
+                                <span className="fund_btn_div_cont">
+                                  <button
+                                    className="fund_wallet_btn_open"
+                                    onClick={() =>
+                                      openDepositDiv(
+                                        data.tokenName,
+                                        data.tokenSymbol
+                                      )
+                                    }
+                                  >
+                                    Fund
+                                  </button>
+                                </span>
                               </div>
                             )}
                             {secureNumb == true ? (
@@ -517,7 +491,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                               Withdraw
                             </button> */}
 
-                              <button className="buttonMenu_drop">
+                              {/* <button className="buttonMenu_drop">
                                 <MoreVertIcon
                                   className="divVan"
                                   // onClick={works2}
@@ -548,7 +522,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     Withdrawal History
                                   </div>
                                 </div>
-                              </button>
+                              </button> */}
                             </div>
                           </div>
                         </div>

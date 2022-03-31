@@ -203,7 +203,7 @@ const CheckoutModalComponent = ({
               );
               closePaymentModal();
             } catch (error) {
-              //console.log(error.response);
+              console.log(error.response);
             }
           },
           onClose: (response) => {
