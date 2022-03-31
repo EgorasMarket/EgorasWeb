@@ -80,6 +80,7 @@ function ItemDetailsPage({ auth, match }) {
   const [showApproval, setShowApproval] = useState(true);
   const [asset, setAsset] = useState("");
   const [adminRole, setAdminRole] = useState("");
+  const [success, setsuccess] = useState(false);
   const [moreImg, setMoreImg] = useState([]);
   const [product_route, setProduct_route] = useState("");
   const [productRoute, setProductRoute] = useState({
@@ -520,24 +521,19 @@ function ItemDetailsPage({ auth, match }) {
 
 
     try {
-      const res = await axios.post(
+      const res =  await  axios.post(
         api_url2 + "/v1/product/set/product/route",
         body,
         config
-      );
-      console.log(res);
+      )
+
+     console.log(res.data.data.success)
+    
 
 
-    if (res.data.data.success === true) {
-      
-    } else {
-      
-    }
 
-      
     } catch (err) {
       console.log(err.response);
-
       
     }
   };
@@ -806,7 +802,10 @@ function ItemDetailsPage({ auth, match }) {
                         <span className="submit_cat_btn_div">
                           <button className="submit_cat_btn"
                             
-                            onClick={submitRoute}
+                            onClick={() => {
+                              submitRoute();
+
+                            }}
                           
                           >
                             
@@ -815,6 +814,9 @@ function ItemDetailsPage({ auth, match }) {
                           
                         </span>
                       
+                        {
+                          success ?  (<Success_Error_Component msg={"lorem ipsum"}  btn_txt={"any text "}     />) :  null
+                      }
                       
 
                       </div>
