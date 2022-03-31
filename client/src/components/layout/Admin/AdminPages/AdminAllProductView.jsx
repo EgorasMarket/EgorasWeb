@@ -19,7 +19,7 @@ import Success_Error_Component from "../../../assets/Success_Error_Component";
 // import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 import { numberWithCommas } from "../../../../static";
 
-import {ProductImageCarousel} from '../../Home2/item_details_page/ProductImageCarousel';
+import { ProductImageCarousel } from "../../Home2/item_details_page/ProductImageCarousel";
 
 import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
@@ -70,8 +70,8 @@ function ItemDetailsPage({ auth, match }) {
   const [displayDays, setDisplayDays] = useState([]);
   const [modal, setModal] = useState(false);
   const [daysAddedDiv, setDaysAddedDiv] = useState(false);
-  const [error_msg, setErrorMsg] = useState('');
-  const [success_msg, setSuccessMsg] = useState('');
+  const [error_msg, setErrorMsg] = useState("");
+  const [success_msg, setSuccessMsg] = useState("");
   const [errorDiv, setErrorDiv] = useState(false);
   const [successDiv, setSuccessDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
@@ -84,28 +84,25 @@ function ItemDetailsPage({ auth, match }) {
   const [product_route, setProduct_route] = useState("");
   const [productRoute, setProductRoute] = useState({
     // product_route: "",
-    carrier: "", 
-    narration: ""
-  })
+    carrier: "",
+    narration: "",
+  });
 
   const { carrier, narration } = productRoute;
 
- 
   const [base, setBase] = useState("");
 
-
   const [imeeg, setImeeg] = useState("");
- 
 
   const [activeBg, setActiveBg] = useState("descript");
 
   const [term, setTerm] = useState([]);
-  const [dailyAmount, setDailyAmount] = useState()
-  const [initialDeposit, setInitialDeposit] = useState()
+  const [dailyAmount, setDailyAmount] = useState();
+  const [initialDeposit, setInitialDeposit] = useState();
 
-  const [itemDisplay, setItemDisplay] = useState([])
+  const [itemDisplay, setItemDisplay] = useState([]);
 
-  const [more_image, setMore_image] = useState()
+  const [more_image, setMore_image] = useState();
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -121,13 +118,13 @@ function ItemDetailsPage({ auth, match }) {
     productSpecification: "",
     percentage: "",
     payment_type: "",
-    productId: ""
+    productId: "",
   });
-  
+
   var addedDays = 0;
 
   const onChangeFor2 = (e) => {
-    setProduct_route(e.target.value)
+    setProduct_route(e.target.value);
     //console.log(nextKin);
   };
 
@@ -191,7 +188,7 @@ function ItemDetailsPage({ auth, match }) {
         //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
-        setMore_image(data.data.data.more_image)
+        setMore_image(data.data.data.more_image);
         setProductDetails({
           // more_image: data.data.data.more_image,
           product_image: data.data.data.product_image,
@@ -204,7 +201,7 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          productId: data.data.data.product_id
+          productId: data.data.data.product_id,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -230,67 +227,57 @@ function ItemDetailsPage({ auth, match }) {
     }
   }, [more_image]);
 
+  // const deletebro =()=>{
+  //   const body = JSON.stringify({
+  //     product_id,
+  //   });
+  //   axios
+  //   .post(api_url2 + "/v1/product/retrieve/specific", body, config)
+  //   .then((data) => {
+  //     //console.log(data.data.data, "king");
 
-      // const deletebro =()=>{
-      //   const body = JSON.stringify({
-      //     product_id,
-      //   });
-      //   axios
-      //   .post(api_url2 + "/v1/product/retrieve/specific", body, config)
-      //   .then((data) => {
-      //     //console.log(data.data.data, "king");
-  
-      //     const getSlid = data.data.data.product_specifications;
-      //     //  const slipVar = getSlid.split(',');
-      //     //console.log("====================================");
-      //     //console.log(getSlid);
-      //     //console.log("====================================");
-         
-  
-      //     setProductDetails({
-      //       product_image: data.data.data.product_image,
-      //       product_name: data.data.data.product_name,
-      //       product_brand: data.data.data.product_brand,
-      //       product_type: data.data.data.product_type,
-      //       unitCount: data.data.data.unitCount,
-      //       amount: data.data.data.amount,
-      //       product_duration: data.data.data.product_duration,
-      //       product_category_code: data.data.data.product_category_code,
-      //       product_details: data.data.data.product_detail,
-      //       percentage: data.data.data.percentage,
-      //       productId: data.data.data.product_id
-      //       // productSpecification:slipVar[0]
-      //     });
-      //     // setLowNumS({prod_dur:"8"});
-  
-      //     //console.log("====================================");
-      //     // const NumbsAr =
-      //     // setLowNumS(NumbLow);
-      //     // //console.log(NumbLow);
-      //     //console.log(lowOutCome);
-      //   })
-      //   .catch((err) => {
-      //     //console.log(err.response); // "oh, no!"
-      //   });
-    
-  
-        
-      // }
+  //     const getSlid = data.data.data.product_specifications;
+  //     //  const slipVar = getSlid.split(',');
+  //     //console.log("====================================");
+  //     //console.log(getSlid);
+  //     //console.log("====================================");
 
+  //     setProductDetails({
+  //       product_image: data.data.data.product_image,
+  //       product_name: data.data.data.product_name,
+  //       product_brand: data.data.data.product_brand,
+  //       product_type: data.data.data.product_type,
+  //       unitCount: data.data.data.unitCount,
+  //       amount: data.data.data.amount,
+  //       product_duration: data.data.data.product_duration,
+  //       product_category_code: data.data.data.product_category_code,
+  //       product_details: data.data.data.product_detail,
+  //       percentage: data.data.data.percentage,
+  //       productId: data.data.data.product_id
+  //       // productSpecification:slipVar[0]
+  //     });
+  //     // setLowNumS({prod_dur:"8"});
 
+  //     //console.log("====================================");
+  //     // const NumbsAr =
+  //     // setLowNumS(NumbLow);
+  //     // //console.log(NumbLow);
+  //     //console.log(lowOutCome);
+  //   })
+  //   .catch((err) => {
+  //     //console.log(err.response); // "oh, no!"
+  //   });
+
+  // }
 
   //console.log("====================================");
   //console.log(LowCalc);
-
-
-
 
   // const iteming = unitCount;
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
   };
-
 
   const itemsId = {
     firstItem: {
@@ -325,30 +312,18 @@ function ItemDetailsPage({ auth, match }) {
     },
   };
 
-
- 
-
   const delete2 = (id) => {
-    
-    
-
-    axios.delete(api_url2 + `/v1/product/delete/product/${id}`, null, config).then(
-      (response) => {
+    axios
+      .delete(api_url2 + `/v1/product/delete/product/${id}`, null, config)
+      .then((response) => {
         //console.log(response.data);
         // if (data.data.data.success === true) {
-
         //   return window.location.replace("/super_admin/all_products");
         // }
-  
-      
-
         // deletebro()
-      }
-    )
-  }
+      });
+  };
 
-
-    
   // const {
   //   // product_image,
   //   product_name,
@@ -371,15 +346,13 @@ function ItemDetailsPage({ auth, match }) {
       product_id,
     });
     if (auth) {
-
       set_user_id(auth.user.user.id);
       console.log(auth.user.user.role);
       const { role } = auth.user.user;
       if (role === "LOGISTICS") {
-        setShowApproval(true)
-        setAdminRole(role)
+        setShowApproval(true);
+        setAdminRole(role);
       }
-      
     }
 
     //console.log(body);
@@ -396,7 +369,7 @@ function ItemDetailsPage({ auth, match }) {
         //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
-        setMore_image(data.data.data.more_image)
+        setMore_image(data.data.data.more_image);
         setProductDetails({
           // more_image: data.data.data.more_image,
           product_image: data.data.data.product_image,
@@ -409,7 +382,7 @@ function ItemDetailsPage({ auth, match }) {
           product_category_code: data.data.data.product_category_code,
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
-          productId: data.data.data.product_id
+          productId: data.data.data.product_id,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -435,12 +408,9 @@ function ItemDetailsPage({ auth, match }) {
     }
   }, [more_image]);
 
-
-
   useEffect(() => {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
-
 
     setAsset(assetVal);
     setBase(baseVal);
@@ -467,9 +437,6 @@ function ItemDetailsPage({ auth, match }) {
       });
   }, []);
 
-
-
-
   // useEffect(() => {
 
   //   const body = JSON.stringify({
@@ -484,20 +451,18 @@ function ItemDetailsPage({ auth, match }) {
   //     body,
   //     config
   //   ).then((data) => {
-        
+
   //     console.log(data.data);
 
   //     if (data.data.success === true) {
-            
+
   //       setShowApproval(true)
   //     }
 
-    
   //   })
   //     .catch((err) => {
 
   //     })
-
 
   // }, [])
 
@@ -513,11 +478,13 @@ function ItemDetailsPage({ auth, match }) {
     console.log(product_id, product_route, carrier, narration);
 
     const body = JSON.stringify({
-      product_id, product_route, carrier, narration
+      product_id,
+      product_route,
+      carrier,
+      narration,
     });
 
     //console.log(body);
-
 
     try {
       const res = await axios.post(
@@ -527,27 +494,13 @@ function ItemDetailsPage({ auth, match }) {
       );
       console.log(res);
 
-
-    if (res.data.data.success === true) {
-      
-    } else {
-      
-    }
-
-      
+      if (res.data.data.success === true) {
+      } else {
+      }
     } catch (err) {
       console.log(err.response);
-
-      
     }
   };
-
-  
-
-
-
-  
-
 
   const ID = match.params.id;
 
@@ -567,37 +520,27 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const submitCallCheck = async (product_id) => {
-
     //console.log(product_id, 'I feel it');
 
     const body = JSON.stringify({
-      product_id
+      product_id,
     });
-    
-    axios.post(
-      api_url2 + "/v1/product/approve/product",
-      body,
-      config
-    ).then((data) => {
-      // document.getElementById(product_id).remove();
-        
-      //console.log(data.data);
 
-      if (data.data.success === true) {
+    axios
+      .post(api_url2 + "/v1/product/approve/product", body, config)
+      .then((data) => {
+        // document.getElementById(product_id).remove();
 
-        return window.location.replace("/super_admin/all_products");
-      }
+        //console.log(data.data);
 
-    
-    })
+        if (data.data.success === true) {
+          return window.location.replace("/super_admin/all_products");
+        }
+      })
       .catch((err) => {
         //console.log(err.response); // "oh, no!"
       });
-  }
-  
-  
-
-  
+  };
 
   const days = CalcDaysConvert(product_duration);
   // setDaysAdded(days)
@@ -630,8 +573,7 @@ function ItemDetailsPage({ auth, match }) {
           <div className="products_area">
             <div className="product_details_area1">
               <div className="details_area1_cont1">
-                {' '}
-            
+                {" "}
                 {moreImg.length == 0 ? (
                   <img src={product_image} className="image_carooooo" />
                 ) : (
@@ -647,19 +589,15 @@ function ItemDetailsPage({ auth, match }) {
               {/* ================ */}
               {/* ================ */}
               <div className="details_area1_cont2">
-                {' '}
-                <div className="product_details_Title">
-                  {product_name}
-                </div>
+                {" "}
+                <div className="product_details_Title">{product_name}</div>
                 <div className="product_details_code">
-                  <span className="product_code_title">
-                    Product Code:{' '}
-                  </span>
+                  <span className="product_code_title">Product Code: </span>
                   {product_category_code}
                 </div>
                 <div
                   className="product_details_code"
-                  style={{ color: '#239e54' }}
+                  style={{ color: "#239e54" }}
                 >
                   <span className="product_code_title">Brand: </span>
                   {product_brand}
@@ -687,17 +625,29 @@ function ItemDetailsPage({ auth, match }) {
                 />
               </>
             )} */}
-
                 <div className="amount_item_div total_amount">
                   <span className="sub_total_txt">Price: </span> ₦
                   {numberWithCommas(parseInt(amount).toFixed())}
                 </div>
-                {/* ======= */}
-                {/* ======= */}
-                {/* ======= */}
-                {/* ======= */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
+                {/* put new code here  */}
+                <div className="product_details_code">
+                  <span className="product_code_title">Percentage:</span>
+                  {percentage}%
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">Payment Type:</span>
+                  {payment_type}
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Product Category code:
+                  </span>
+                  {product_category_code}
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">Product Duration:</span>
+                  {product_duration} days
+                </div>
                 <div className="buy_now_btn_div">
                   {/* <button
                 className="buy_now_button"
@@ -706,36 +656,37 @@ function ItemDetailsPage({ auth, match }) {
                 <ShoppingCartCheckoutIcon className="payment_btn_icon" />
                 Proceed to Checkout
               </button> */}
-            </div>
-           
-                
-                {
-                  adminRole === 'HOD_MEDIA' ? (
-                    <div className="offline_payment_div">
-                        <button
-                          style={{ width: "48%" }}
-                          className="buy_now_button"
-                      
-                          onClick={ e => submitCallCheck(product_id)}
-                        >
-                          {product_duration !== 1 ? "Approved" : "Proceed to checkout"}
-                        </button>
-                      
-                        <button
+                </div>
+                {adminRole === "HOD_MEDIA" ? (
+                  <div className="offline_payment_div">
+                    <button
+                      style={{ width: "48%" }}
+                      className="buy_now_button"
+                      onClick={(e) => submitCallCheck(product_id)}
+                    >
+                      {product_duration !== 1
+                        ? "Approved"
+                        : "Proceed to checkout"}
+                    </button>
 
-                          style={{ width: "48%", backgroundColor: '#e4a788' }}
-                          className="buy_now_button"
-                          // {/* id={productId}  */}
-                          // onClick={e => submitCallCheck(asset.id)} 
-                          onClick={() => delete2(productId)}
-                        >
-                          {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
-                        </button>
-
-                    </div>                  
-                  ) : (
-                    <div className="offline_payment_div">
-                        {/* <button
+                    <button
+                      style={{
+                        width: "48%",
+                        backgroundColor: "#e4a788",
+                      }}
+                      className="buy_now_button"
+                      // {/* id={productId}  */}
+                      // onClick={e => submitCallCheck(asset.id)}
+                      onClick={() => delete2(productId)}
+                    >
+                      {product_duration !== 1
+                        ? "Delete"
+                        : "Proceed to checkout"}
+                    </button>
+                  </div>
+                ) : adminRole === "LOGISTICS" ? (
+                  <div className="offline_payment_div">
+                    {/* <button
                           style={{ width: "48%" }}
                           className="buy_now_button"
                       
@@ -753,77 +704,118 @@ function ItemDetailsPage({ auth, match }) {
                         >
                           {product_duration !== 1 ? "Delete" : "Proceed to checkout"}
                         </button> */}
-                        
-                        <div className="name_input1a">
-                          <FormControl fullWidth>
-                            <InputLabel id="demo-simple-select-label">
-                              Select Route
-                            </InputLabel>
-                            <Select
-                              labelId="demo-simple-select-label"
-                              id="demo-simple-select"
-                              name="product_route"
-                              value={product_route}
-                              label="Select Route"
-                              // onChange={handleChange}
-                              onChange={onChangeFor2}
-                              // onSelect={onChangeFor2}
-                            >
-                             
-                              <MenuItem value="RUMUKWRUSHI">To Rumukwrushi</MenuItem>
-                              <MenuItem value="AGIP">To Agip</MenuItem>
-                              <MenuItem value="OYIGBO">To Oyigbo</MenuItem>
-                           
-                            </Select>
-                          </FormControl>
-                        </div>
-                        <div className="add_cat_input_title">
-                          <span className="input_brand">Product Carrier</span>
 
-                          <TextField
-                            className=" width_incr"
-                            id="outlined-basic"
-                            label="Product Carrier"
-                            variant="outlined"
-                            name="carrier"
-                            value={carrier}
-                            onChange={(e) => onChangeFor(e)}
-                          />
-                        </div>
-                        <div className="add_cat_input_title">
-                          <span className="input_brand">Narration</span>
+                    <div className="name_input1a">
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Select Route
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          name="product_route"
+                          value={product_route}
+                          label="Select Route"
+                          // onChange={handleChange}
+                          onChange={onChangeFor2}
+                          // onSelect={onChangeFor2}
+                        >
+                          <MenuItem value="RUMUKWRUSHI">
+                            To Rumukwrushi
+                          </MenuItem>
+                          <MenuItem value="AGIP">To Agip</MenuItem>
+                          <MenuItem value="OYIGBO">To Oyigbo</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Product Carrier</span>
 
-                          <TextField
-                            className=" width_incr"
-                            id="outlined-basic"
-                            label="Narration"
-                            variant="outlined"
-                            name="narration"
-                            value={narration}
-                            onChange={(e) => onChangeFor(e)}
-                          />
-                        </div>
-                        <span className="submit_cat_btn_div">
-                          <button className="submit_cat_btn"
-                            
-                            onClick={submitRoute}
-                          
-                          >
-                            
-                            Submit
-                          </button>
-                          
-                        </span>
-                      
-                      
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Product Carrier"
+                        variant="outlined"
+                        name="carrier"
+                        value={carrier}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Narration</span>
 
-                      </div>
-                      
-                      
-                  )
-                }
-          
-            
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Narration"
+                        variant="outlined"
+                        name="narration"
+                        value={narration}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <span className="submit_cat_btn_div">
+                      <button className="submit_cat_btn" onClick={submitRoute}>
+                        Submit
+                      </button>
+                    </span>
+
+                    <div className="name_input1a">
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Select Route
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          name="product_route"
+                          value={product_route}
+                          label="Select Route"
+                          // onChange={handleChange}
+                          onChange={onChangeFor2}
+                          // onSelect={onChangeFor2}
+                        >
+                          <MenuItem value="RUMUKWRUSHI">
+                            To Rumukwrushi
+                          </MenuItem>
+                          <MenuItem value="AGIP">To Agip</MenuItem>
+                          <MenuItem value="OYIGBO">To Oyigbo</MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Product Carrier</span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Product Carrier"
+                        variant="outlined"
+                        name="carrier"
+                        value={carrier}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Narration</span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Narration"
+                        variant="outlined"
+                        name="narration"
+                        value={narration}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <span className="submit_cat_btn_div">
+                      <button className="submit_cat_btn" onClick={submitRoute}>
+                        Submit
+                      </button>
+                    </span>
+                  </div>
+                ) : null}
               </div>
             </div>
 
@@ -860,12 +852,12 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="description_table">
                   <table class="_3a09a_1e-gU">
                     <tbody>
-                      {spec.map((apple) => (<tr>
-                        {/* <td>Colour</td> */}
-                        <td>{apple}</td>
-                        
-                      </tr>))}
-                    
+                      {spec.map((apple) => (
+                        <tr>
+                          {/* <td>Colour</td> */}
+                          <td>{apple}</td>
+                        </tr>
+                      ))}
                     </tbody>
                   </table>
                 </div>
@@ -873,7 +865,6 @@ function ItemDetailsPage({ auth, match }) {
                 {/* ====== */}
               </div>
 
-            
               {/* ====== */}
               {/* ====== */}
               {/* </div> */}
@@ -919,16 +910,16 @@ function ItemDetailsPage({ auth, match }) {
                     style={{ height: "25em" }}
                   >
                     {term.map((asset) => (
-                   
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`}
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
                       >
                         <li className="carous_list">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${asset.product_image
-                                })`,
+                              backgroundImage: `url(${asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -956,10 +947,10 @@ function ItemDetailsPage({ auth, match }) {
                                 {asset.unitCount === 1
                                   ? "item left"
                                   : asset.unitCount <= 1
-                                    ? "no item left"
-                                    : asset.unitCount > 1
-                                      ? "items left"
-                                      : null}
+                                  ? "no item left"
+                                  : asset.unitCount > 1
+                                  ? "items left"
+                                  : null}
                               </div>
                             </div>
                             {/* </a> */}
@@ -1164,7 +1155,9 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">{amount * unitCount}</span>
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1183,7 +1176,10 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">{amount * unitCount}</span>
+                      Total{" "}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1201,18 +1197,12 @@ function ItemDetailsPage({ auth, match }) {
       {/* )})} */}
     </div>
   );
-    
-
-                            
-
 }
 
-
-  const mapStateToProps1 = (state) => ({
-    auth: state.auth,
-    isAuthenticated: state.auth.isAuthenticated,
-    cart: state.shop.cart,
-  });
-  
+const mapStateToProps1 = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart,
+});
 
 export default connect(mapStateToProps1)(ItemDetailsPage);
