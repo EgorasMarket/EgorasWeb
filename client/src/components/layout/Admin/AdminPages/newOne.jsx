@@ -38,15 +38,17 @@ const NewOne = () => {
           .toLowerCase()
           .includes(searchTerm.toLowerCase())
       );
+      console.log(results);
       setSearchResults(results);
     }
   }, [searchTerm, allCustomers]);
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/user/transactions/customer/byBranch", config, null)
+      .get(api_url2 + "/v1/user/transactions/customer/all", config, null)
       .then((data) => {
         setAllCustomers(data.data.payload);
+        // setSearchResults(data.data.payload);
         console.log(data.data.payload);
       })
       .catch((err) => {
@@ -89,7 +91,7 @@ const NewOne = () => {
                         Channel
                       </th>
                       <th className="assets-category-titles-heading1 right_align email_align">
-                        Customer Id
+                        Customer Name
                       </th>
                       <th className="assets-category-titles-heading1 right_align">
                         Officer Id
@@ -114,9 +116,8 @@ const NewOne = () => {
                       <tr className="assets-category-row">
                         <td className="assets-category-data">
                           <div className="assets-data">
-                            {/* <PhoneAndroidIcon className="assets-list-icon" /> */}
                             <div className="assets-data-name">
-                              {user.amount}
+                              {Math.round(user.amount)}
                             </div>
                           </div>
                         </td>
@@ -128,7 +129,7 @@ const NewOne = () => {
                         </td>
                         <td className="assets-category-data1b">
                           <div className="assets-data-name">
-                            {user.customer_id}
+                            {user.customer_name}
                           </div>
                         </td>
                         <td className="assets-category-data1b">
@@ -138,7 +139,7 @@ const NewOne = () => {
                         </td>
                         <td className="assets-category-data1b">
                           <div className="assets-data-name">
-                            {user.timestamp}
+                            {user.timestamp.split('T')[0]}
                           </div>
                         </td>
                         <td className="assets-category-data1b">
