@@ -1,29 +1,29 @@
-import React, { useState, useEffect } from 'react';
-import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
-import CategoryIcon from '@mui/icons-material/Category';
-import WidgetsIcon from '@mui/icons-material/Widgets';
-import ListIcon from '@mui/icons-material/List';
-import Slider from 'react-slick';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import Carousel from 'react-multi-carousel';
-import DvrIcon from '@mui/icons-material/Dvr';
-import '../DashboardStyles/dashboard_side.css';
-import '../DashboardStyles/dashboard_products.css';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from "react";
+import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
+import CategoryIcon from "@mui/icons-material/Category";
+import WidgetsIcon from "@mui/icons-material/Widgets";
+import ListIcon from "@mui/icons-material/List";
+import Slider from "react-slick";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import Carousel from "react-multi-carousel";
+import DvrIcon from "@mui/icons-material/Dvr";
+import "../DashboardStyles/dashboard_side.css";
+import "../DashboardStyles/dashboard_products.css";
+import { connect } from "react-redux";
 // import {Link} from 'react-router-dom';
-import '../DashboardStyles/dashboard_side.css';
-import '../DashboardStyles/dashboard_header.css';
+import "../DashboardStyles/dashboard_side.css";
+import "../DashboardStyles/dashboard_header.css";
 // import { Link, animateScroll as scroll } from "react-scroll";
 
-import axios from 'axios';
-import setAuthToken from '../../../../../utils/setAuthToken';
+import axios from "axios";
+import setAuthToken from "../../../../../utils/setAuthToken";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from '../../../../../actions/types';
+} from "../../../../../actions/types";
 
-import { numberWithCommas } from '../../../../../static';
-import { NoDataFoundComponent } from '../NodataFound/NoDataFoundComponent';
+import { numberWithCommas } from "../../../../../static";
+import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
 
 const responsive7 = {
   superLargeDesktop: {
@@ -89,7 +89,7 @@ function DashboardInvestPage({ auth }) {
 
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -97,33 +97,26 @@ function DashboardInvestPage({ auth }) {
 
   const [item, setItem] = useState([]);
 
-  const [furniture, setFurniture] = useState('Furnitures');
+  const [furniture, setFurniture] = useState("Furnitures");
   const [ComputerAccessories, setComputerAccessories] = useState(
-    'Computer & Accessories'
+    "Computer & Accessories"
   );
-  const [ComputerAccessoriesData, setComputerAccessoriesData] =
-    useState([]);
-  const [homeAppliances, setHomeAppliances] =
-    useState('Home Appliances');
+  const [ComputerAccessoriesData, setComputerAccessoriesData] = useState([]);
+  const [homeAppliances, setHomeAppliances] = useState("Home Appliances");
   const [homeAppliancesData, setHomeAppliancesData] = useState([]);
-  const [electronics, setElectronics] = useState('Electronics');
+  const [electronics, setElectronics] = useState("Electronics");
   const [electronicsData, setElectronicsData] = useState([]);
-  const [phonesTablets, setPhoneTablets] =
-    useState('Phones & Tablet');
+  const [phonesTablets, setPhoneTablets] = useState("Phones & Tablet");
   const [phonesTabletsData, setPhoneTabletsData] = useState([]);
-  const [musicalEquipment, setMusicalEquipment] = useState(
-    'Musical Equipments'
-  );
-  const [musicalEquipmentData, setMusicalEquipmentData] = useState(
-    []
-  );
+  const [musicalEquipment, setMusicalEquipment] =
+    useState("Musical Equipments");
+  const [musicalEquipmentData, setMusicalEquipmentData] = useState([]);
   const [industrialEquipments, setIndustrialEquipments] = useState(
-    'Industral Equipments'
+    "Industral Equipments"
   );
-  const [industrialEquipmentsData, setIndustrialEquipmentsData] =
-    useState([]);
+  const [industrialEquipmentsData, setIndustrialEquipmentsData] = useState([]);
 
-  const [wrap, setWrap] = useState({ code: '' });
+  const [wrap, setWrap] = useState({ code: "" });
   const { code } = wrap;
 
   // const [cItem,setCItem] =useState([])
@@ -133,11 +126,7 @@ function DashboardInvestPage({ auth }) {
 
   useEffect(() => {
     axios
-      .get(
-        api_url2 + '/v1/product/retrieve/search/new/products',
-        null,
-        config
-      )
+      .get(api_url2 + "/v1/product/retrieve/search/new/products", null, config)
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
@@ -154,9 +143,7 @@ function DashboardInvestPage({ auth }) {
   useEffect(() => {
     axios
       .get(
-        api_url2 +
-          '/v1/product/retrieve/products/byId/' +
-          phonesTablets,
+        api_url2 + "/v1/product/retrieve/products/byId/" + phonesTablets,
         null,
         config
       )
@@ -170,9 +157,7 @@ function DashboardInvestPage({ auth }) {
       });
     axios
       .get(
-        api_url2 +
-          '/v1/product/retrieve/products/byId/' +
-          homeAppliances,
+        api_url2 + "/v1/product/retrieve/products/byId/" + homeAppliances,
         null,
         config
       )
@@ -186,9 +171,7 @@ function DashboardInvestPage({ auth }) {
       });
     axios
       .get(
-        api_url2 +
-          '/v1/product/retrieve/products/byId/' +
-          electronics,
+        api_url2 + "/v1/product/retrieve/products/byId/" + electronics,
         null,
         config
       )
@@ -202,9 +185,7 @@ function DashboardInvestPage({ auth }) {
       });
     axios
       .get(
-        api_url2 +
-          '/v1/product/retrieve/products/byId/' +
-          ComputerAccessories,
+        api_url2 + "/v1/product/retrieve/products/byId/" + ComputerAccessories,
         null,
         config
       )
@@ -218,32 +199,28 @@ function DashboardInvestPage({ auth }) {
       });
     axios
       .get(
-        api_url2 +
-          '/v1/product/retrieve/products/byId/' +
-          musicalEquipment,
+        api_url2 + "/v1/product/retrieve/products/byId/" + musicalEquipment,
         null,
         config
       )
       .then((data) => {
-        console.log(data.data.data.length, 'powerful');
+        console.log(data.data.data.length, "powerful");
 
-        musicalEquipmentData(data.data.data);
+        setMusicalEquipmentData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
       });
     axios
       .get(
-        api_url2 +
-          '/v1/product/retrieve/products/byId/' +
-          industrialEquipments,
+        api_url2 + "/v1/product/retrieve/products/byId/" + industrialEquipments,
         null,
         config
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
-        industrialEquipmentsData(data.data.data);
+        setIndustrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -258,7 +235,7 @@ function DashboardInvestPage({ auth }) {
 
   function phoneTab() {
     axios
-      .get(api_url2 + '/v1/product/retrieve/category', null, config)
+      .get(api_url2 + "/v1/product/retrieve/category", null, config)
       .then((data) => {
         //console.log(data.data.data, "king");
         setCategory(data.data.data);
@@ -268,10 +245,10 @@ function DashboardInvestPage({ auth }) {
       });
   }
 
-  const [prodBody, setProdBody] = useState('not_product_body');
-  const [dropBtn, setDropBtn] = useState('dropHead');
-  const [height20, setHeight20] = useState('0px');
-  const [rap, setRap] = useState('#electronics');
+  const [prodBody, setProdBody] = useState("not_product_body");
+  const [dropBtn, setDropBtn] = useState("dropHead");
+  const [height20, setHeight20] = useState("0px");
+  const [rap, setRap] = useState("#electronics");
 
   const settings = {
     dots: true,
@@ -286,12 +263,12 @@ function DashboardInvestPage({ auth }) {
     slidesToScroll: 1,
   };
   const dropDown = () => {
-    setProdBody('product_body');
-    setDropBtn('not_dropHead');
+    setProdBody("product_body");
+    setDropBtn("not_dropHead");
   };
   const closeDropDown = () => {
-    setProdBody('not_product_body');
-    setDropBtn('dropHead');
+    setProdBody("not_product_body");
+    setDropBtn("dropHead");
   };
 
   //  const moveto =()=>{
@@ -300,16 +277,16 @@ function DashboardInvestPage({ auth }) {
   //  }
 
   const height = {
-    position: 'absolute',
-    top: '1000px',
+    position: "absolute",
+    top: "1000px",
   };
 
   const wash = () => {
     setHeight20(height);
-    setRap('#HomeKitchen');
+    setRap("#HomeKitchen");
   };
 
-  const text = 'No Products Found';
+  const text = "No Products Found";
 
   // const numberWithCommas = (x) => {
   //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
@@ -337,12 +314,8 @@ function DashboardInvestPage({ auth }) {
     <div className="other2">
       <div className="cat_div" id="cat_div">
         <div className="cat_body_toggle">
-          <a
-            href={`/dashboard/products/categories/Computer & Accessories`}
-          >
-            <div className="cat_body_toggle1">
-              Computers and Accessories
-            </div>
+          <a href={`/dashboard/products/categories/Computer & Accessories`}>
+            <div className="cat_body_toggle1">Computers and Accessories</div>
           </a>
           <a href={`/dashboard/products/categories/Phones & Tablet`}>
             <div className="cat_body_toggle1">Phones and Tablets</div>
@@ -351,14 +324,10 @@ function DashboardInvestPage({ auth }) {
             <div className="cat_body_toggle1">Electronics</div>
           </a>
           <div className="cat_body_toggle1">Fashion</div>
-          <a
-            href={`/dashboard/products/categories/  Home Appliances`}
-          >
+          <a href={`/dashboard/products/categories/  Home Appliances`}>
             <div className="cat_body_toggle1">Home and Kitchen</div>
           </a>
-          <a
-            href={`/dashboard/products/categories/Musical Equipments`}
-          >
+          <a href={`/dashboard/products/categories/Musical Equipments`}>
             <div className="cat_body_toggle1">Musical Equipment</div>
           </a>
         </div>
@@ -488,7 +457,7 @@ function DashboardInvestPage({ auth }) {
 
           <div className="products_display_body">
             <div className="products_display_body_heading">
-              Outright Buy{' '}
+              Outright Buy{" "}
               {/* <a
                 href={`/dashboard/products/categories/${code}`}
                 className="se_all_btnn"
@@ -504,15 +473,12 @@ function DashboardInvestPage({ auth }) {
                 <>
                   <div className="show_prods_on_mobile">
                     {item.map((asset, index5) => {
-                      if (asset.payment_type == 'OUTRIGHT')
+                      if (asset.payment_type == "OUTRIGHT")
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                             // key={index.toString()}
                           >
@@ -523,21 +489,36 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div className="asset_title">
                                     <span className="init_amount">
-                                      ₦
-                                      {numberWithCommas(asset.amount)}{' '}
+                                      ₦{numberWithCommas(asset.amount)}{" "}
                                     </span>
 
                                     <span className="slashed_price">
-                                      ₦
-                                      {numberWithCommas(
-                                        asset.amount * 2
-                                      )}
+                                      ₦{numberWithCommas(asset.amount * 2)}
                                     </span>
                                   </div>
                                 </div>
@@ -555,23 +536,20 @@ function DashboardInvestPage({ auth }) {
                     //   infinite={false}
                     autoPlay={false}
                     autoPlaySpeed={6000}
-                    transitionDelay={'2s'}
+                    transitionDelay={"2s"}
                     infinite={true}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
-                    style={{ height: '25em' }}
+                    style={{ height: "25em" }}
                   >
                     {item.map((asset, index5) => {
-                      if (asset.payment_type == 'OUTRIGHT')
+                      if (asset.payment_type == "OUTRIGHT")
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                             // key={index.toString()}
                           >
@@ -582,21 +560,37 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
+
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div className="asset_title">
                                     <span className="init_amount">
-                                      ₦
-                                      {numberWithCommas(asset.amount)}{' '}
+                                      ₦{numberWithCommas(asset.amount)}{" "}
                                     </span>
 
                                     <span className="slashed_price">
-                                      ₦
-                                      {numberWithCommas(
-                                        asset.amount * 2
-                                      )}
+                                      ₦{numberWithCommas(asset.amount * 2)}
                                     </span>
                                   </div>
                                 </div>
@@ -626,10 +620,7 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div
-            className="products_display_body no_pad"
-            id="phonesTab"
-          >
+          <div className="products_display_body no_pad" id="phonesTab">
             <div className="products_display_body_heading heading_color_2">
               {phonesTablets}
               <a
@@ -659,10 +650,7 @@ function DashboardInvestPage({ auth }) {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -672,38 +660,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -721,22 +742,19 @@ function DashboardInvestPage({ auth }) {
                       //   infinite={false}
                       autoPlay={false}
                       autoPlaySpeed={6000}
-                      transitionDelay={'2s'}
+                      transitionDelay={"2s"}
                       infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
-                      style={{ height: '25em' }}
+                      style={{ height: "25em" }}
                     >
                       {phonesTabletsData.map((asset) => {
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards inventory_cards">
@@ -746,38 +764,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -795,22 +846,19 @@ function DashboardInvestPage({ auth }) {
                       //   infinite={false}
                       autoPlay={false}
                       autoPlaySpeed={6000}
-                      transitionDelay={'2s'}
+                      transitionDelay={"2s"}
                       infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
-                      style={{ height: '25em' }}
+                      style={{ height: "25em" }}
                     >
                       {phonesTabletsData.map((asset) => {
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards inventory_cards">
@@ -820,38 +868,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -891,74 +972,98 @@ function DashboardInvestPage({ auth }) {
               ) : (
                 <>
                   <div className="show_prods_on_mobile">
-                    {homeAppliancesData
-                      .slice(0, 10)
-                      .map((asset, index5) => {
-                        return (
-                          <a
-                            href={`/dashboard/products/details/${
-                              asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
-                            key={index5.toString()}
-                          >
-                            <li className="carous_list no_marg inventory_cards">
-                              <div
-                                className="storeTiles_storeTileContainer__HoGEa"
-                                style={{
-                                  backgroundImage: `url(${asset.product_image})`,
-                                  //           height: "200px",
-                                  //           width: "100%",
-                                  //           backgroundRepeat: "no-repeat",
-                                  //           backgroundSize: "cover",
-                                  //           borderRadius: "8px",
-                                  //           borderBottomLeftRadius: "0px",
-                                  //           borderBottomRightRadius: "0px",
-                                  //   backgroundPositionY: "center",
-                                }}
-                              >
-                                <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                  <div className="asset_name">
-                                    {asset.product_name}
-                                  </div>
-                                  <div className="asset_prices_div">
-                                    <div className="asset_title">
+                    {homeAppliancesData.slice(0, 10).map((asset, index5) => {
+                      return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(/\s+/g, "-")}`}
+                          key={index5.toString()}
+                        >
+                          <li className="carous_list no_marg inventory_cards">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <div className="out_right_install_tag">
+                                  <button
+                                    className="out_right_install_tag_btn"
+                                    style={{
+                                      background: "#3ebc6e",
+                                      borderColor: "#3ebc6e",
+                                    }}
+                                  >
+                                    Outright
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="out_right_install_tag">
+                                  <button className="out_right_install_tag_btn">
+                                    Savings
+                                  </button>
+                                </div>
+                              )}
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
+                                <div className="asset_prices_div">
+                                  <div className="asset_title">
+                                    {asset.payment_type == "OUTRIGHT" ? (
                                       <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
+                                        ₦{numberWithCommas(asset.amount)}{" "}
                                       </span>
+                                    ) : (
+                                      <span className="init_amount">
+                                        ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                      </span>
+                                    )}
+                                    {asset.payment_type == "OUTRIGHT" ? (
+                                      <span className="slashed_price">
+                                        ₦{numberWithCommas(asset.amount * 2)}
+                                      </span>
+                                    ) : (
                                       <span className="slashed_price">
                                         ₦
                                         {numberWithCommas(
-                                          asset.amount * 2
+                                          asset.roundedAmount * 2
                                         )}
                                       </span>
-                                    </div>
+                                    )}
+                                  </div>
+                                  {asset.payment_type == "OUTRIGHT" ? null : (
                                     <div className="amount_per_day_div">
                                       ₦
                                       {numberWithCommas(
                                         (
-                                          asset.amount /
-                                          asset.product_duration
+                                          asset.amount / asset.product_duration
                                         ).toFixed()
                                       )}
                                       <span className="per_day_symbol">
-                                        {' '}
+                                        {" "}
                                         / perday
                                       </span>
                                     </div>
-                                  </div>
+                                  )}
                                 </div>
-                                {/* </a> */}
                               </div>
-                            </li>
-                          </a>
-                        );
-                      })}
+                              {/* </a> */}
+                            </div>
+                          </li>
+                        </a>
+                      );
+                    })}
                   </div>
                   <Carousel
                     responsive={responsive8}
@@ -967,81 +1072,105 @@ function DashboardInvestPage({ auth }) {
                     //   infinite={false}
                     autoPlay={false}
                     autoPlaySpeed={6000}
-                    transitionDelay={'2s'}
+                    transitionDelay={"2s"}
                     infinite={true}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
-                    style={{ height: '25em' }}
+                    style={{ height: "25em" }}
                   >
-                    {homeAppliancesData
-                      .slice(0, 10)
-                      .map((asset, index5) => {
-                        return (
-                          <a
-                            href={`/dashboard/products/details/${
-                              asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
-                            key={index5.toString()}
-                          >
-                            <li className="carous_list no_marg inventory_cards">
-                              <div
-                                className="storeTiles_storeTileContainer__HoGEa"
-                                style={{
-                                  backgroundImage: `url(${asset.product_image})`,
-                                  //           height: "200px",
-                                  //           width: "100%",
-                                  //           backgroundRepeat: "no-repeat",
-                                  //           backgroundSize: "cover",
-                                  //           borderRadius: "8px",
-                                  //           borderBottomLeftRadius: "0px",
-                                  //           borderBottomRightRadius: "0px",
-                                  //   backgroundPositionY: "center",
-                                }}
-                              >
-                                <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                  <div className="asset_name">
-                                    {asset.product_name}
-                                  </div>
-                                  <div className="asset_prices_div">
-                                    <div className="asset_title">
+                    {homeAppliancesData.slice(0, 10).map((asset, index5) => {
+                      return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(/\s+/g, "-")}`}
+                          key={index5.toString()}
+                        >
+                          <li className="carous_list no_marg inventory_cards">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <div className="out_right_install_tag">
+                                  <button
+                                    className="out_right_install_tag_btn"
+                                    style={{
+                                      background: "#3ebc6e",
+                                      borderColor: "#3ebc6e",
+                                    }}
+                                  >
+                                    Outright
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="out_right_install_tag">
+                                  <button className="out_right_install_tag_btn">
+                                    Savings
+                                  </button>
+                                </div>
+                              )}
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
+                                <div className="asset_prices_div">
+                                  <div className="asset_title">
+                                    {asset.payment_type == "OUTRIGHT" ? (
                                       <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
+                                        ₦{numberWithCommas(asset.amount)}{" "}
                                       </span>
+                                    ) : (
+                                      <span className="init_amount">
+                                        ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                      </span>
+                                    )}
+                                    {asset.payment_type == "OUTRIGHT" ? (
+                                      <span className="slashed_price">
+                                        ₦{numberWithCommas(asset.amount * 2)}
+                                      </span>
+                                    ) : (
                                       <span className="slashed_price">
                                         ₦
                                         {numberWithCommas(
-                                          asset.amount * 2
+                                          asset.roundedAmount * 2
                                         )}
                                       </span>
-                                    </div>
+                                    )}
+                                  </div>
+                                  {asset.payment_type == "OUTRIGHT" ? null : (
                                     <div className="amount_per_day_div">
                                       ₦
                                       {numberWithCommas(
                                         (
-                                          asset.amount /
-                                          asset.product_duration
+                                          asset.amount / asset.product_duration
                                         ).toFixed()
                                       )}
                                       <span className="per_day_symbol">
-                                        {' '}
+                                        {" "}
                                         / perday
                                       </span>
                                     </div>
-                                  </div>
+                                  )}
                                 </div>
-                                {/* </a> */}
                               </div>
-                            </li>
-                          </a>
-                        );
-                      })}
+                              {/* </a> */}
+                            </div>
+                          </li>
+                        </a>
+                      );
+                    })}
                   </Carousel>
                 </>
               )}
@@ -1062,10 +1191,7 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div
-            className="products_display_body no_pad"
-            id="Electronics"
-          >
+          <div className="products_display_body no_pad" id="Electronics">
             <div className="products_display_body_heading heading_color_2">
               {electronics}
               <a
@@ -1095,10 +1221,7 @@ function DashboardInvestPage({ auth }) {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -1108,38 +1231,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -1157,22 +1313,19 @@ function DashboardInvestPage({ auth }) {
                       //   infinite={false}
                       autoPlay={false}
                       autoPlaySpeed={6000}
-                      transitionDelay={'2s'}
+                      transitionDelay={"2s"}
                       infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
-                      style={{ height: '25em' }}
+                      style={{ height: "25em" }}
                     >
                       {electronicsData.map((asset) => {
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards inventory_cards">
@@ -1182,38 +1335,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -1231,22 +1417,19 @@ function DashboardInvestPage({ auth }) {
                       //   infinite={false}
                       autoPlay={false}
                       autoPlaySpeed={6000}
-                      transitionDelay={'2s'}
+                      transitionDelay={"2s"}
                       infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
-                      style={{ height: '25em' }}
+                      style={{ height: "25em" }}
                     >
                       {electronicsData.map((asset) => {
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards inventory_cards">
@@ -1256,38 +1439,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -1332,10 +1548,7 @@ function DashboardInvestPage({ auth }) {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -1353,38 +1566,71 @@ function DashboardInvestPage({ auth }) {
                                   //   backgroundPositionY: "center",
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div className="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                                 {/* </a> */}
@@ -1402,12 +1648,12 @@ function DashboardInvestPage({ auth }) {
                     //   infinite={false}
                     autoPlay={false}
                     autoPlaySpeed={6000}
-                    transitionDelay={'2s'}
+                    transitionDelay={"2s"}
                     infinite={true}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
-                    style={{ height: '25em' }}
+                    style={{ height: "25em" }}
                   >
                     {ComputerAccessoriesData.slice(0, 10).map(
                       (asset, index5) => {
@@ -1415,10 +1661,7 @@ function DashboardInvestPage({ auth }) {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -1436,38 +1679,71 @@ function DashboardInvestPage({ auth }) {
                                   //   backgroundPositionY: "center",
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div className="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                                 {/* </a> */}
@@ -1498,10 +1774,7 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div
-            className="products_display_body no_pad"
-            id="MusicEquip"
-          >
+          <div className="products_display_body no_pad" id="MusicEquip">
             <div className="products_display_body_heading heading_color_2">
               {musicalEquipment}
               <a
@@ -1531,10 +1804,7 @@ function DashboardInvestPage({ auth }) {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -1544,38 +1814,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -1593,22 +1896,19 @@ function DashboardInvestPage({ auth }) {
                       //   infinite={false}
                       autoPlay={false}
                       autoPlaySpeed={6000}
-                      transitionDelay={'2s'}
+                      transitionDelay={"2s"}
                       infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
-                      style={{ height: '25em' }}
+                      style={{ height: "25em" }}
                     >
                       {musicalEquipmentData.map((asset) => {
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards inventory_cards">
@@ -1618,38 +1918,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -1667,22 +2000,19 @@ function DashboardInvestPage({ auth }) {
                       //   infinite={false}
                       autoPlay={false}
                       autoPlaySpeed={6000}
-                      transitionDelay={'2s'}
+                      transitionDelay={"2s"}
                       infinite={false}
                       draggable={true}
                       // transitionDuration={500}
                       swipeable={true}
-                      style={{ height: '25em' }}
+                      style={{ height: "25em" }}
                     >
                       {musicalEquipmentData.map((asset) => {
                         return (
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards inventory_cards">
@@ -1692,38 +2022,71 @@ function DashboardInvestPage({ auth }) {
                                   backgroundImage: `url(${asset.product_image})`,
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div class="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
 
@@ -1744,10 +2107,7 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div
-            className="products_display_body"
-            id="computersAccessories"
-          >
+          <div className="products_display_body" id="computersAccessories">
             <div className="products_display_body_heading">
               {industrialEquipments}
               <a
@@ -1771,10 +2131,7 @@ function DashboardInvestPage({ auth }) {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -1792,38 +2149,71 @@ function DashboardInvestPage({ auth }) {
                                   //   backgroundPositionY: "center",
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div className="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                                 {/* </a> */}
@@ -1840,12 +2230,12 @@ function DashboardInvestPage({ auth }) {
                     //   infinite={false}
                     autoPlay={false}
                     autoPlaySpeed={6000}
-                    transitionDelay={'2s'}
+                    transitionDelay={"2s"}
                     infinite={true}
                     draggable={true}
                     // transitionDuration={500}
                     swipeable={true}
-                    style={{ height: '25em' }}
+                    style={{ height: "25em" }}
                   >
                     {industrialEquipmentsData
                       .slice(0, 10)
@@ -1854,10 +2244,7 @@ function DashboardInvestPage({ auth }) {
                           <a
                             href={`/dashboard/products/details/${
                               asset.id
-                            }/${asset.product_name.replace(
-                              /\s+/g,
-                              '-'
-                            )}`}
+                            }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -1875,38 +2262,71 @@ function DashboardInvestPage({ auth }) {
                                   //   backgroundPositionY: "center",
                                 }}
                               >
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <div className="out_right_install_tag">
+                                    <button
+                                      className="out_right_install_tag_btn"
+                                      style={{
+                                        background: "#3ebc6e",
+                                        borderColor: "#3ebc6e",
+                                      }}
+                                    >
+                                      Outright
+                                    </button>
+                                  </div>
+                                ) : (
+                                  <div className="out_right_install_tag">
+                                    <button className="out_right_install_tag_btn">
+                                      Savings
+                                    </button>
+                                  </div>
+                                )}
                                 <div className="storeTiles_storeTileBottomContainer__2sWHh">
                                   <div className="asset_name">
                                     {asset.product_name}
                                   </div>
                                   <div className="asset_prices_div">
                                     <div className="asset_title">
-                                      <span className="init_amount">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount
-                                        )}{' '}
-                                      </span>
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.amount * 2
-                                        )}
-                                      </span>
-                                    </div>
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount /
-                                          asset.product_duration
-                                        ).toFixed()
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="init_amount">
+                                          ₦{numberWithCommas(asset.amount)}{" "}
+                                        </span>
+                                      ) : (
+                                        <span className="init_amount">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount
+                                          )}{" "}
+                                        </span>
                                       )}
-                                      <span className="per_day_symbol">
-                                        {' '}
-                                        / perday
-                                      </span>
+                                      {asset.payment_type == "OUTRIGHT" ? (
+                                        <span className="slashed_price">
+                                          ₦{numberWithCommas(asset.amount * 2)}
+                                        </span>
+                                      ) : (
+                                        <span className="slashed_price">
+                                          ₦
+                                          {numberWithCommas(
+                                            asset.roundedAmount * 2
+                                          )}
+                                        </span>
+                                      )}
                                     </div>
+                                    {asset.payment_type == "OUTRIGHT" ? null : (
+                                      <div className="amount_per_day_div">
+                                        ₦
+                                        {numberWithCommas(
+                                          (
+                                            asset.amount /
+                                            asset.product_duration
+                                          ).toFixed()
+                                        )}
+                                        <span className="per_day_symbol">
+                                          {" "}
+                                          / perday
+                                        </span>
+                                      </div>
+                                    )}
                                   </div>
                                 </div>
                                 {/* </a> */}
