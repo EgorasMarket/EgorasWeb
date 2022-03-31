@@ -265,6 +265,8 @@ const AdminSideBar = ({ auth }) => {
                     <span className="userName_name">Customer Service</span>
                   ) : role1 === 'HOD_MEDIA' ? (
                     <span className="userName_name">Head Of Media</span>
+                  ) : role1 === 'TECH' ? (
+                    <span className="userName_name">Tech Team</span>
                   ) : null}
                 </span>
               </div>
@@ -345,32 +347,25 @@ const AdminSideBar = ({ auth }) => {
                 {/* =================== */}
 
                 {role1 === "MEDIA" ? (
-                  <a
-                    href="/super_admin/upload_products"
-                    id="Home"
-                    className="link"
-                    onClick={changeBg}
-                  >
-                    <li
-                      className={
-                        activeBg == "Home" && role1 === "MEDIA"
-                          ? "sidebarListItem list-item-active"
-                          : "sidebarListItem"
-                      }
+                  <>
+                    <a
+                      href="/super_admin/upload_products"
+                      id="Home"
+                      className="link"
+                      onClick={changeBg}
                     >
-                      <Inventory2Icon className="sidebarIcon" />
-                      Add Product
-                    </li>
-                  </a>
-                ) : null}
-
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-                {/* ===================== */}
-
-                {role1 === "HOD_MEDIA" ? (
-                  <a
+                      <li
+                        className={
+                          activeBg == "Home" && role1 === "MEDIA"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <Inventory2Icon className="sidebarIcon" />
+                        Add Product
+                      </li>
+                    </a>
+                    <a
                     href="/super_admin/all_products"
                     className="link"
                     id="allProd"
@@ -387,25 +382,51 @@ const AdminSideBar = ({ auth }) => {
                       All Products
                     </li>
                   </a>
+                </>
                 ) : null}
-                 {role1 === "HOD_MEDIA" ? (
-                  <a
-                    href="/super_admin/Approved_products"
-                    className="link"
-                    id="allProd"
-                    onClick={changeBg}
-                  >
-                    <li
-                      className={
-                        activeBg == "allProd" && role1 === "HOD_MEDIA"
-                          ? "sidebarListItem list-item-active"
-                          : "sidebarListItem"
-                      }
+
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                {role1 === "HOD_MEDIA" ? (
+                  <>
+                    <a
+                      href="/super_admin/all_products"
+                      className="link"
+                      id="allProd"
+                      onClick={changeBg}
                     >
-                      <GroupAddIcon className="sidebarIcon" />
-                      Approved Products
-                    </li>
-                  </a>
+                      <li
+                        className={
+                          activeBg == "allProd" && role1 === "HOD_MEDIA"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <ViewListIcon className="sidebarIcon" />
+                        All Products
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/Approved_products"
+                      className="link"
+                      id="allProd"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "allProd" && role1 === "HOD_MEDIA"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        Approved Products
+                      </li>
+                    </a>
+                  </>
                 ) : null}
 
 
@@ -495,6 +516,62 @@ const AdminSideBar = ({ auth }) => {
                       </li>
                     </a> */}
                     {/* :null} */}
+                  </>
+                ) : null}
+
+                {role1 === "MANAGER" ? (
+                  <>
+                     <a
+                      href="/super_admin/Approved_products"
+                      className="link"
+                      id="allProd"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "allProd" && role1 === "HOD_MEDIA"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        Approved Products
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/customers_by_branch"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        All Transactions
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/customers_by_location"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        TransactionBranch
+                      </li>
+                    </a>
                   </>
                 ) : null}
                 {/* ===================== */}
