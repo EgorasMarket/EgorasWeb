@@ -238,7 +238,7 @@ const AdminSideBar = ({ auth }) => {
             </div>
 
             {/* <Authenticate isHome="false" /> */}
-            {/* <button onClick={triggerPrint}>Print</button> */}
+            <button onClick={triggerPrint}>Print</button>
 
             <div
               className={
@@ -267,6 +267,8 @@ const AdminSideBar = ({ auth }) => {
                     <span className="userName_name">Head Of Media</span>
                   ) : role1 === 'TECH' ? (
                     <span className="userName_name">Tech Team</span>
+                  ) : role1 === 'MANAGER' ? (
+                    <span className="userName_name">Manager</span>
                   ) : null}
                 </span>
               </div>
