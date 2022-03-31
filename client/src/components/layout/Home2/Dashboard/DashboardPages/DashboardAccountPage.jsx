@@ -175,8 +175,7 @@ function DashboardAccountPage({
       setTokens({
         dateOfBirth: todecoded.user.birthDate,
         gender: "",
-
-      })
+      });
 
       if (todecoded.user.gender === null) {
         setGenderEmpty(true);
@@ -221,7 +220,7 @@ function DashboardAccountPage({
       .then((data) => {
         console.log(data.data);
         //console.log(data.data.cusAddress, "king");
-        setAddress(data.data.cusAddress.address)
+        setAddress(data.data.cusAddress.address);
       })
       .catch((err) => {
         console.log(err.response); // "oh, no!"
@@ -534,8 +533,6 @@ function DashboardAccountPage({
     }
   };
 
- 
-
   const sumitChangePassword = async (e) => {
     let res = await changePassword(oldpassword, newpassword);
 
@@ -699,8 +696,6 @@ function DashboardAccountPage({
     // }
   };
 
-  
-
   return (
     <div className="other2 account_body" style={{ paddingBottom: "0em" }}>
       <section
@@ -860,7 +855,7 @@ function DashboardAccountPage({
                             </div>
                           </div>
                         ) : (
-                          {Usergender}
+                          { Usergender }
                         )}
                       </div>
                     </div>
@@ -877,9 +872,7 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                       
-                          {UserdateOfBirth}
-                        
+                        {UserdateOfBirth}
                       </div>
                     </div>
                     {/* ================= */}
@@ -1357,7 +1350,6 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                    
                         <div className="bvn_btn">{Userbvn}</div>
                       </div>
                     </div>
@@ -1404,8 +1396,7 @@ function DashboardAccountPage({
                         </span>
                       </div>
                       <div className="toggle_body_area1_cont1_input">
-                        {
-                          customerAddress === '' ? (
+                        {customerAddress === "" ? (
                           <div className="input_btn_grouped_div">
                             <TextField
                               className="name_input1a"
@@ -1425,10 +1416,9 @@ function DashboardAccountPage({
                               Submit Address
                             </button>
                           </div>
-                          ) : (
-                            <div className="bvn_btn">{customerAddress}</div>
-                          )
-                        }
+                        ) : (
+                          <div className="bvn_btn">{customerAddress}</div>
+                        )}
                       </div>
                     </div>
                     {/* ================= */}
