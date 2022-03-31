@@ -76,9 +76,9 @@ const AdminSignup = ({ getAuthentication }) => {
     setAlert("");
   }, 5000);
   return (
-    <div>
+    <div className="other2">
       {isSuccessful == false ? (
-        <section className="signup_section">
+        <section className="no-bg">
           <div className="container">
             <div className="signup_area">
               <div className="signup_cont">
@@ -278,15 +278,15 @@ const AdminSignup = ({ getAuthentication }) => {
                   </button>
                 </div>
               </div>
-              <span className="login_txt">
+              {/* <span className="login_txt">
                 <a href="/login/super_admin" className="login_link">
                   Already have an account? Login
                 </a>
-              </span>
+              </span> */}
             </div>
           </div>
-          <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
         </section>
+          
       ) : (
         <section className="signup_section success_section">
           <div className="container">
