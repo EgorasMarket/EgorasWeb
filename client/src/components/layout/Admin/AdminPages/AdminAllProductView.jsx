@@ -88,6 +88,8 @@ function ItemDetailsPage({ auth, match }) {
     narration: '',
   });
 
+  const [dialog, setDialog] = useState(false);
+
   const { carrier, narration } = productRoute;
 
   const [base, setBase] = useState('');
@@ -103,7 +105,6 @@ function ItemDetailsPage({ auth, match }) {
   const [itemDisplay, setItemDisplay] = useState([]);
 
   const [more_image, setMore_image] = useState();
-  const [dialog, setDialog] = useState(false);
 
   const [productDetails, setProductDetails] = useState({
     product_image: '',
@@ -502,10 +503,8 @@ function ItemDetailsPage({ auth, match }) {
       );
       console.log(res.data.success);
 
-      if (res.data.success === true) {
-        setDialog(true);
+      if (res.data.data.success === true) {
       } else {
-        setDialog(false);
       }
     } catch (err) {
       console.log(err.response);
@@ -669,12 +668,31 @@ function ItemDetailsPage({ auth, match }) {
                   <span className="sub_total_txt">Price: </span> ₦
                   {numberWithCommas(parseInt(amount).toFixed())}
                 </div>
-                {/* ======= */}
-                {/* ======= */}
-                {/* ======= */}
-                {/* ======= */}
-                {/* <hr className="horizontal_rule" /> */}
-                {/* ------- */}
+                {/* put new code here  */}
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Percentage:
+                  </span>
+                  {percentage}%
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Payment Type:
+                  </span>
+                  {payment_type}
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Product Category code:
+                  </span>
+                  {product_category_code}
+                </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Product Duration:
+                  </span>
+                  {product_duration} days
+                </div>
                 <div className="buy_now_btn_div">
                   {/* <button
                 className="buy_now_button"
@@ -711,7 +729,7 @@ function ItemDetailsPage({ auth, match }) {
                         : 'Proceed to checkout'}
                     </button>
                   </div>
-                ) : (
+                ) : adminRole === 'LOGISTICS' ? (
                   <div className="offline_payment_div">
                     {/* <button
                           style={{ width: "48%" }}
@@ -788,15 +806,75 @@ function ItemDetailsPage({ auth, match }) {
                     <span className="submit_cat_btn_div">
                       <button
                         className="submit_cat_btn"
-                        onClick={() => {
-                          submitRoute();
-                        }}
+                        onClick={submitRoute}
+                      >
+                        Submit
+                      </button>
+                    </span>
+
+                    <div className="name_input1a">
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Select Route
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          name="product_route"
+                          value={product_route}
+                          label="Select Route"
+                          // onChange={handleChange}
+                          onChange={onChangeFor2}
+                          // onSelect={onChangeFor2}
+                        >
+                          <MenuItem value="RUMUKWRUSHI">
+                            To Rumukwrushi
+                          </MenuItem>
+                          <MenuItem value="AGIP">To Agip</MenuItem>
+                          <MenuItem value="OYIGBO">
+                            To Oyigbo
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">
+                        Product Carrier
+                      </span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Product Carrier"
+                        variant="outlined"
+                        name="carrier"
+                        value={carrier}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Narration</span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Narration"
+                        variant="outlined"
+                        name="narration"
+                        value={narration}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <span className="submit_cat_btn_div">
+                      <button
+                        className="submit_cat_btn"
+                        onClick={submitRoute}
                       >
                         Submit
                       </button>
                     </span>
                   </div>
-                )}
+                ) : null}
               </div>
             </div>
             // here it goes
