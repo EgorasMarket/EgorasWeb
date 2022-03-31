@@ -158,13 +158,38 @@ button.savings_area_btn {
   cursor: pointer;
   display: flex;
   flex-direction: column;
-  justify-content: flex-end;
+  justify-content: space-between;
   height: 14.25rem;
   height: 100%;
   padding: 0.25rem;
   width: 100%;
   grid-column: span 2 / span 2;
 }
+.out_right_install_tag {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.out_right_install_tag_btn {
+  font-size: 10px;
+  background: #e4a788;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 1px 5px;
+  border: none;
+  border-radius: 24px;
+  border: solid 1px #e4a788;
+}
+/* .out_right_install_tag_btn {
+  font-size: 10px;
+  background: #d4f8e2;
+  color: #55a675;
+  font-weight: 700;
+  padding: 1px 5px;
+  border: none;
+  border-radius: 24px;
+  border: solid 1px #55a675;
+} */
 .storeTiles_storeTileOffersContainer__3v8lC {
   display: flex;
   justify-content: space-between;
@@ -405,6 +430,16 @@ button.savings_area_btn {
     font-size: 40px;
     font-weight: 800;
     line-height: 1em;
+  }
+  .out_right_install_tag_btn {
+    font-size: 8px;
+    background: #e4a788;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 1px 5px;
+    border: none;
+    border-radius: 24px;
+    border: solid 1px #e4a788;
   }
   .asset_name {
     font-size: 10px;

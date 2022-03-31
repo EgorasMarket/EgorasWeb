@@ -1,48 +1,47 @@
-import React, { useState, useEffect, useCallback } from 'react';
-import PaymentsIcon from '@mui/icons-material/Payments';
-import Carousel from 'react-multi-carousel';
-import '../../../../css/itemsDetailsPage.css';
-import ChevronRightIcon from '@mui/icons-material/ChevronRight';
-import axios from 'axios';
-import { ProductImageCarousel } from './ProductImageCarousel';
-import '../Dashboard/DashboardStyles/dashboardCart.css';
-import CreditScoreIcon from '@mui/icons-material/CreditScore';
-import CallIcon from '@mui/icons-material/Call';
-import ShoppingCartCheckoutIcon from '@mui/icons-material/ShoppingCartCheckout';
-import { NoDataFoundComponent } from '../Dashboard/NodataFound/NoDataFoundComponent';
+import React, { useState, useEffect, useCallback } from "react";
+import PaymentsIcon from "@mui/icons-material/Payments";
+import Carousel from "react-multi-carousel";
+import "../../../../css/itemsDetailsPage.css";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
+import axios from "axios";
+import { ProductImageCarousel } from "./ProductImageCarousel";
+import "../Dashboard/DashboardStyles/dashboardCart.css";
+import CreditScoreIcon from "@mui/icons-material/CreditScore";
+import CallIcon from "@mui/icons-material/Call";
+import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { NoDataFoundComponent } from "../Dashboard/NodataFound/NoDataFoundComponent";
 // import { ProductDescription } from "./ProductDescription";
-import Dashboard_Checkout_Page from '../Dashboard/DashboardPages/Dashboard_Checkout_Page';
-import { numberWithCommas } from '../../../../static';
+import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import { numberWithCommas } from "../../../../static";
 
 // import CheckoutModalComponent from "./CheckoutModalComponent";
-import 'react-date-range/dist/styles.css'; // main style file
-import 'react-date-range/dist/theme/default.css'; // theme css file
-import Accordion from './Accordion';
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css"; // theme css file
+import Accordion from "./Accordion";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from '../../../../actions/types';
-import { stringify } from 'uuid';
+} from "../../../../actions/types";
+import { stringify } from "uuid";
 
 const InstallmentComponent = ({
   product_duration,
-  amount,
+  roundedAmount,
   percentage,
   initial_deposit,
-  roundedAmount,
   paymentPerday,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div">
-        ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}{' '}
+        ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}{" "}
         <span className="per_day"> / per-day</span>
       </div>
 
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(amount)}
+        {numberWithCommas(roundedAmount)}
         <span className="per_day"></span>
       </div>
 
@@ -65,14 +64,14 @@ const OutrightComponent = ({
   rounded,
   percentage,
   initial_deposit,
-  roundedAmount,
+  amount,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(parseInt(roundedAmount).toFixed())}
+        {numberWithCommas(parseInt(amount).toFixed())}
       </div>
       <div className="max_dura">
         <div className="days_left_numb">
@@ -97,7 +96,7 @@ const ItemDetailComponent = ({
 }) => {
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -105,7 +104,7 @@ const ItemDetailComponent = ({
   const [detailsModal, setDetailsModal] = useState(false);
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
-  const [activeBg, setActiveBg] = useState('features');
+  const [activeBg, setActiveBg] = useState("features");
   const [moreImg, setMoreImg] = useState([]);
   const [outrightProducts, setOutrightProducts] = useState([]);
   // const [categoryName, setCategoryName] = useState("");
@@ -123,6 +122,7 @@ const ItemDetailComponent = ({
     product_id,
     product_image,
     more_image,
+    roundedAmount,
     product_name,
     product_specifications,
     product_type,
@@ -136,23 +136,22 @@ const ItemDetailComponent = ({
     endDate,
   } = payload;
 
-  console.log('====================================');
+  console.log("====================================");
   console.log(payload.product_category_desc);
-  console.log('====================================');
+  console.log("====================================");
   var categoryName = payload.product_category_desc;
-  console.log('====================================');
+  console.log("====================================");
   console.log(categoryName);
-  console.log('====================================');
+  console.log("====================================");
   useEffect(() => {
-    console.log(more_image);
     if (more_image != null) {
       let splited = JSON.parse(more_image);
       setMoreImg(splited);
-      console.log(splited);
-      // console.log(JSON.parse(more_image));
+      console.log(more_image.split(","));
+      console.log(JSON.parse(more_image));
     }
   }, [more_image]);
-  const text = 'No Products Found';
+  const text = "No Products Found";
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
@@ -224,10 +223,10 @@ const ItemDetailComponent = ({
     const outrightScenario = () => {};
     const installmentScenario = () => {};
     switch (payment_type) {
-      case 'OUTRIGHT':
+      case "OUTRIGHT":
         outrightScenario();
         break;
-      case 'INSTALLMENT':
+      case "INSTALLMENT":
         installmentScenario();
         break;
     }
@@ -235,11 +234,7 @@ const ItemDetailComponent = ({
 
   useEffect(() => {
     axios
-      .get(
-        api_url2 + '/v1/product/retrieve/outright/products',
-        null,
-        config
-      )
+      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
       .then((data) => {
         //console.log(data.data.data, "phlip22278");
 
@@ -255,7 +250,7 @@ const ItemDetailComponent = ({
 
   useEffect(() => {
     axios
-      .get(api_url2 + '/v1/product/retrieve/category', null, config)
+      .get(api_url2 + "/v1/product/retrieve/category", null, config)
       .then((data) => {
         //console.log(data.data.data, "Anthonia");
 
@@ -279,17 +274,15 @@ const ItemDetailComponent = ({
 
   useEffect(() => {
     checkProductType(product_type);
-    console.log(categoryName, 'ryhtej');
+    console.log(categoryName, "ryhtej");
     axios
       .get(
-        api_url2 +
-          '/v1/product/retrieve/products/byId/' +
-          categoryName,
+        api_url2 + "/v1/product/retrieve/products/byId/" + categoryName,
         null,
         config
       )
       .then((data) => {
-        console.log(data.data, 'item detail component ');
+        console.log(data.data, "item detail component ");
 
         setTerm(data.data.data);
 
@@ -313,10 +306,7 @@ const ItemDetailComponent = ({
     <>
       {modal == false ? null : (
         <div className="checkout_main">
-          <div
-            className="checkout_modal_out"
-            onClick={CloseModal}
-          ></div>
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
             cAmount={100}
             // cAmount={parseInt(roundedAmount)}
@@ -334,7 +324,12 @@ const ItemDetailComponent = ({
         {/* </div> */}
         <div className="product_details_area1">
           <div className="details_area1_cont1">
-            {' '}
+            {" "}
+            {/* <img
+              src={product_image}
+              alt=""
+              className="product_details_img"
+            /> */}
             {moreImg.length == 0 ? (
               <img src={product_image} className="image_carooooo" />
             ) : (
@@ -350,20 +345,13 @@ const ItemDetailComponent = ({
           {/* ================ */}
           {/* ================ */}
           <div className="details_area1_cont2">
-            {' '}
-            <div className="product_details_Title">
-              {product_name}
-            </div>
+            {" "}
+            <div className="product_details_Title">{product_name}</div>
             <div className="product_details_code">
-              <span className="product_code_title">
-                Product Code:{' '}
-              </span>
+              <span className="product_code_title">Product Code: </span>
               {product_category_code}
             </div>
-            <div
-              className="product_details_code"
-              style={{ color: '#239e54' }}
-            >
+            <div className="product_details_code" style={{ color: "#239e54" }}>
               <span className="product_code_title">Brand: </span>
               {product_brand}
               {/* {props.Brand} */}
@@ -371,12 +359,12 @@ const ItemDetailComponent = ({
             {/* ----------------- */}
             {/* <hr className="horizontal_rule" /> */}
             {/* -------------- */}
-            {payment_type === 'INSTALLMENT' ? (
+            {payment_type === "INSTALLMENT" ? (
               <>
                 <InstallmentComponent
                   initial_deposit={initial_deposit}
                   product_duration={product_duration}
-                  amount={amount}
+                  roundedAmount={roundedAmount}
                   percentage={percentage}
                   paymentPerday={paymentPerday}
                   numberWithCommas={numberWithCommas}
@@ -385,7 +373,7 @@ const ItemDetailComponent = ({
             ) : (
               <>
                 <OutrightComponent
-                  roundedAmount={amount}
+                  amount={amount}
                   numberWithCommas={numberWithCommas}
                 />
               </>
@@ -397,10 +385,7 @@ const ItemDetailComponent = ({
             {/* <hr className="horizontal_rule" /> */}
             {/* ------- */}
             <div className="buy_now_btn_div">
-              <button
-                className="buy_now_button"
-                onClick={openCheckoutModal}
-              >
+              <button className="buy_now_button" onClick={openCheckoutModal}>
                 <ShoppingCartCheckoutIcon className="payment_btn_icon" />
                 Proceed to Checkout
               </button>
@@ -410,11 +395,10 @@ const ItemDetailComponent = ({
                 For offline bookings contact:
               </div>
               <div className="offline_payment_para">
-                <CallIcon className="call_us_icon" /> 08164020234,
-                090234567893
+                <CallIcon className="call_us_icon" /> 08164020234, 090234567893
               </div>
             </div>
-            {payment_type === 'INSTALLMENT' ? (
+            {payment_type === "INSTALLMENT" ? (
               <div className="quantity_div">
                 <div className="Notice_Title">Notice:</div>
                 <div className="items_left_div">
@@ -423,12 +407,9 @@ const ItemDetailComponent = ({
                 </div>
                 <span className="upfront_para">
                   <PaymentsIcon className="creditCardIcon_icon" />
-                  That means you are to pay{' '}
+                  That means you are to pay{" "}
                   <span className="percent_days_amnt">
-                    ₦
-                    {numberWithCommas(
-                      parseInt(initial_deposit).toFixed()
-                    )}
+                    ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
                   </span>
                   before this item can be locked by you.
                 </span>
@@ -447,9 +428,9 @@ const ItemDetailComponent = ({
             <div
               id="features"
               className={
-                activeBg == 'features'
-                  ? 'description_click1 description_click1_active'
-                  : 'description_click1'
+                activeBg == "features"
+                  ? "description_click1 description_click1_active"
+                  : "description_click1"
               }
               onClick={changeBg}
             >
@@ -458,9 +439,9 @@ const ItemDetailComponent = ({
             <div
               id="descript"
               className={
-                activeBg == 'descript'
-                  ? 'description_click1 description_click1_active'
-                  : 'description_click1'
+                activeBg == "descript"
+                  ? "description_click1 description_click1_active"
+                  : "description_click1"
               }
               onClick={changeBg}
             >
@@ -469,7 +450,7 @@ const ItemDetailComponent = ({
           </div>
 
           <div className="description_body">
-            {activeBg == 'features' ? (
+            {activeBg == "features" ? (
               <div className="description_table">
                 <table class="_3a09a_1e-gU">
                   <tbody>
@@ -522,53 +503,100 @@ const ItemDetailComponent = ({
             ) : (
               <>
                 <div className="show_prods_on_mobile">
-                  {term.map((asset) => {
-                    if (
-                      product_category_desc ===
-                      asset.product_category_desc
-                    ) {
-                      return (
-                        <a
-                          href={`/dashboard/products/details/${
-                            asset.id
-                          }/${asset.product_name.replace(
-                            /\s+/g,
-                            '-'
-                          )}`}
-                        >
-                          <li className="carous_list no_marg inventory_cards">
-                            <div
-                              className="storeTiles_storeTileContainer__HoGEa"
-                              style={{
-                                backgroundImage: `url(${asset.product_image})`,
-                              }}
-                            >
-                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                <div className="asset_name">
-                                  {asset.product_name}
-                                </div>
+                  {term.map(
+                    (asset) => (
+                      // if (product_category_desc === asset.product_category_desc) {
+                      // return (
+                      <a
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
+                      >
+                        <li className="carous_list no_marg inventory_cards">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${asset.product_image})`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div className="out_right_install_tag">
+                                <button
+                                  className="out_right_install_tag_btn"
+                                  style={{
+                                    background: "#3ebc6e",
+                                    borderColor: "#3ebc6e",
+                                  }}
+                                >
+                                  Outright
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="out_right_install_tag">
+                                <button className="out_right_install_tag_btn">
+                                  Savings
+                                </button>
+                              </div>
+                            )}
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div class="asset_prices_div">
                                 <div className="asset_title">
-                                  ₦
-                                  {numberWithCommas(
-                                    parseInt(asset.roundedAmount)
-                                  )}{' '}
-                                  <span className="slashed_price">
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.amount)}{" "}
+                                    </span>
+                                  ) : (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                    </span>
+                                  )}
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="slashed_price">
+                                      ₦{numberWithCommas(asset.amount * 2)}
+                                    </span>
+                                  ) : (
+                                    <span className="slashed_price">
+                                      ₦
+                                      {numberWithCommas(
+                                        asset.roundedAmount * 2
+                                      )}
+                                    </span>
+                                  )}
+                                </div>
+                                {asset.payment_type == "OUTRIGHT" ? null : (
+                                  <div className="amount_per_day_div">
                                     ₦
                                     {numberWithCommas(
-                                      parseInt(
-                                        asset.roundedAmount * 2
-                                      )
+                                      (
+                                        asset.amount / asset.product_duration
+                                      ).toFixed()
                                     )}
-                                  </span>
-                                </div>
+                                    <span className="per_day_symbol">
+                                      {" "}
+                                      / perday
+                                    </span>
+                                  </div>
+                                )}
                               </div>
-                              {/* </a> */}
                             </div>
-                          </li>
-                        </a>
-                      );
-                    }
-                  })}
+                            {/* </a> */}
+                          </div>
+                        </li>
+                      </a>
+                    )
+                    // );
+                  )}
                 </div>
                 <Carousel
                   responsive={responsive8}
@@ -577,71 +605,99 @@ const ItemDetailComponent = ({
                   //   infinite={false}
                   autoPlay={false}
                   autoPlaySpeed={6000}
-                  transitionDelay={'2s'}
+                  transitionDelay={"2s"}
                   infinite={false}
                   draggable={true}
                   // transitionDuration={500}
                   swipeable={true}
-                  style={{ height: '25em' }}
+                  style={{ height: "25em" }}
                 >
-                  {term.map((asset) => {
-                    if (
-                      product_category_desc ===
-                      asset.product_category_desc
-                    ) {
-                      return (
-                        <a
-                          href={`/dashboard/products/details/${
-                            asset.id
-                          }/${asset.product_name.replace(
-                            /\s+/g,
-                            '-'
-                          )}`}
+                  {term.map((asset) => (
+                    <a
+                      href={`/dashboard/products/details/${
+                        asset.id
+                      }/${asset.product_name.replace(/\s+/g, "-")}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${asset.product_image})`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
                         >
-                          <li className="carous_list">
-                            <div
-                              className="storeTiles_storeTileContainer__HoGEa"
-                              style={{
-                                backgroundImage: `url(${asset.product_image})`,
-                                //           height: "200px",
-                                //           width: "100%",
-                                //           backgroundRepeat: "no-repeat",
-                                //           backgroundSize: "cover",
-                                //           borderRadius: "8px",
-                                //           borderBottomLeftRadius: "0px",
-                                //           borderBottomRightRadius: "0px",
-                                //   backgroundPositionY: "center",
-                              }}
-                            >
-                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                <div className="asset_name">
-                                  {asset.product_name}
-                                </div>
-                                <div className="asset_title">
-                                  <span className="init_amount">
-                                    ₦
-                                    {numberWithCommas(
-                                      parseInt(asset.roundedAmount)
-                                    )}{' '}
-                                  </span>
-
-                                  <span className="slashed_price">
-                                    ₦
-                                    {numberWithCommas(
-                                      parseInt(
-                                        asset.roundedAmount * 2
-                                      )
-                                    )}
-                                  </span>
-                                </div>
-                              </div>
-                              {/* </a> */}
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <div className="out_right_install_tag">
+                              <button
+                                className="out_right_install_tag_btn"
+                                style={{
+                                  background: "#3ebc6e",
+                                  borderColor: "#3ebc6e",
+                                }}
+                              >
+                                Outright
+                              </button>
                             </div>
-                          </li>
-                        </a>
-                      );
-                    }
-                  })}
+                          ) : (
+                            <div className="out_right_install_tag">
+                              <button className="out_right_install_tag_btn">
+                                Savings
+                              </button>
+                            </div>
+                          )}
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div class="asset_prices_div">
+                              <div className="asset_title">
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <span className="init_amount">
+                                    ₦{numberWithCommas(asset.amount)}{" "}
+                                  </span>
+                                ) : (
+                                  <span className="init_amount">
+                                    ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                  </span>
+                                )}
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.amount * 2)}
+                                  </span>
+                                ) : (
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                  </span>
+                                )}
+                              </div>
+                              {asset.payment_type == "OUTRIGHT" ? null : (
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    (
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                  ))}
                 </Carousel>
               </>
             )}
@@ -667,56 +723,56 @@ const ItemDetailComponent = ({
           </div>
           <Accordion title="How do I save for a product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. Unde autem saepe error facilis earum beatae cum
-              dolorem commodi odio non quidem dicta iusto animi nobis
-              fugiat quae esse enim porro ab, quas fuga? Esse repellat
-              officiis accusantium? Commodi, repellat voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
             </div>
           </Accordion>
           <Accordion title="What are the duration of products luck.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. Unde autem saepe error facilis earum beatae cum
-              dolorem commodi odio non quidem dicta iusto animi nobis
-              fugiat quae esse enim porro ab, quas fuga? Esse repellat
-              officiis accusantium? Commodi, repellat voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
             </div>
           </Accordion>
           <Accordion title="what are the delivering charges attached to a product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. Unde autem saepe error facilis earum beatae cum
-              dolorem commodi odio non quidem dicta iusto animi nobis
-              fugiat quae esse enim porro ab, quas fuga? Esse repellat
-              officiis accusantium? Commodi, repellat voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
             </div>
           </Accordion>
           <Accordion title="How long does it take for me to receive my product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. Unde autem saepe error facilis earum beatae cum
-              dolorem commodi odio non quidem dicta iusto animi nobis
-              fugiat quae esse enim porro ab, quas fuga? Esse repellat
-              officiis accusantium? Commodi, repellat voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
             </div>
           </Accordion>
           <Accordion title="what are the discount attachments to product.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. Unde autem saepe error facilis earum beatae cum
-              dolorem commodi odio non quidem dicta iusto animi nobis
-              fugiat quae esse enim porro ab, quas fuga? Esse repellat
-              officiis accusantium? Commodi, repellat voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
             </div>
           </Accordion>
           <Accordion title="Are products tested before delivering.">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing
-              elit. Unde autem saepe error facilis earum beatae cum
-              dolorem commodi odio non quidem dicta iusto animi nobis
-              fugiat quae esse enim porro ab, quas fuga? Esse repellat
-              officiis accusantium? Commodi, repellat voluptas.
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
+              autem saepe error facilis earum beatae cum dolorem commodi odio
+              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
+              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
+              voluptas.
             </div>
           </Accordion>
         </section>
