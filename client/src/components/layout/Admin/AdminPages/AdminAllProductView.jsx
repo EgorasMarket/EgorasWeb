@@ -689,7 +689,7 @@ function ItemDetailsPage({ auth, match }) {
                   style={{ color: '#239e54' }}
                 >
                   <span className="product_code_title">
-                 Payment Per Day : 
+                 Payment Per Day:
                   </span>
                    ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}
                   {/* {paymentPerday} */}
@@ -701,7 +701,7 @@ function ItemDetailsPage({ auth, match }) {
                   style={{ color: '#239e54' }}
                 >
                   <span className="product_code_title">
-                    Rounded Amount : 
+                    Rounded amount:
                   </span>
                   ₦{numberWithCommas(parseInt(roundedAmount).toFixed())}
                   {/* {roundedAmount} */}

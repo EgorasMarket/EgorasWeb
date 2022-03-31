@@ -1,9 +1,10 @@
 .nodata_found_div {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  align-items: center;
-  gap: 0px;
+  display: flex !important;
+  flex-direction: column !important;
+  width: 100% !important;
+  align-items: center !important;
+  gap: 0px !important;
+  padding: 1em !important;
 }
 
 .nodata_txt {

@@ -167,6 +167,7 @@ export const getLogin = (email, password) => async (dispatch) => {
       Accept: '*',
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
+      timeout: 1000,
     },
   };
 
