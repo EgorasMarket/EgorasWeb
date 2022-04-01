@@ -11,6 +11,7 @@ import InputLabel from '@mui/material/InputLabel';
 import FormControl from '@mui/material/FormControl';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
+import Success_Error_Component from "../../../assets/Success_Error_Component";
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
@@ -109,6 +110,7 @@ function ItemDetailsPage({ auth, match }) {
     product_condition: '',
     paymentPerday: '',
     amount: '',
+    approval: '',
     roundedAmount: '',
     product_category_desc:'',
     // more_image: {},
@@ -159,7 +161,7 @@ function ItemDetailsPage({ auth, match }) {
     product_brand,
     status,
     paymentPerday,
-    
+    approval,
     admin_personnel,
     product_condition,
     product_category_desc,
@@ -189,12 +191,12 @@ function ItemDetailsPage({ auth, match }) {
     axios
       .post(api_url2 + '/v1/product/retrieve/specific', body, config)
       .then((data) => {
-        console.log(data.data.data, "king");
+        //console.log(data.data.data, "king");
 
         const getSlid = data.data.data.product_specifications;
         //  const slipVar = getSlid.split(',');
         //console.log("====================================");
-        //console.log(getSlid);
+        console.log(data.data.data);
         //console.log("====================================");
         setSpec(getSlid);
         // const slipVar = spec.split(',');
@@ -209,6 +211,7 @@ function ItemDetailsPage({ auth, match }) {
           product_condition: data.data.data.product_condition,
           unitCount: data.data.data.unitCount,
           amount: data.data.data.amount,
+          approval: data.data.data.approval,
           paymentPerday: data.data.data.paymentPerday,
           roundedAmount:data.data.data.roundedAmount,
           product_category_desc:data.data.data.product_category_desc,
@@ -411,6 +414,7 @@ function ItemDetailsPage({ auth, match }) {
           productId: data.data.data.product_id,
           payment_type: data.data.data.payment_type,
           product_category_desc: data.data.data.product_category_desc,
+
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -600,6 +604,8 @@ function ItemDetailsPage({ auth, match }) {
           <div className="products_area">
             <div className="product_details_area1">
               <div className="details_area1_cont1">
+
+                
                 {' '}
                 {moreImg.length == 0 ? (
                   <img
@@ -618,6 +624,8 @@ function ItemDetailsPage({ auth, match }) {
               {/* ================ */}
               {/* ================ */}
               {/* ================ */}
+              
+
               <div className="details_area1_cont2">
                 {' '}
                 <div className="product_details_Title">
@@ -631,17 +639,20 @@ function ItemDetailsPage({ auth, match }) {
                   {product_brand}
                   {/* {props.Brand} */}
                 </div>
-                <div className="amount_item_div total_amount">
+                 <div className="amount_item_div total_amount">
                   <span className="sub_total_txt">Price: </span> ₦
                   {numberWithCommas(parseInt(amount).toFixed())}
                 </div>
                 {/* put new code here  */}
+                
+                {payment_type === 'INSTALLMENT' ? (
                 <div className="product_details_code">
                   <span className="product_code_title">
                     Percentage:
                   </span>
                   {percentage}%
                 </div>
+                ) : null}
                 <div className="product_details_code">
                   <span className="product_code_title">
                     Payment Type:
@@ -683,7 +694,7 @@ function ItemDetailsPage({ auth, match }) {
                   {product_condition}
                 </div>
                 
-
+                {payment_type === 'INSTALLMENT' ? (
                 <div className="product_details_code"
                  className="product_details_code"
                   style={{ color: '#239e54' }}
@@ -694,8 +705,10 @@ function ItemDetailsPage({ auth, match }) {
                    ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}
                   {/* {paymentPerday} */}
                 </div>
+                ) : null}
                 
-
+                
+               {payment_type === 'INSTALLMENT' ? (
                 <div className="product_details_code"
                  className="product_details_code"
                   style={{ color: '#239e54' }}
@@ -704,9 +717,11 @@ function ItemDetailsPage({ auth, match }) {
                     Rounded amount:
                   </span>
                   ₦{numberWithCommas(parseInt(roundedAmount).toFixed())}
-                  {/* {roundedAmount} */}
+                  {roundedAmount}
                 </div>
+                ) : null}
                 
+
                 <div className="product_details_code">
                   <span className="product_code_title">
                     Product Duration:
@@ -722,8 +737,12 @@ function ItemDetailsPage({ auth, match }) {
                 Proceed to Checkout
               </button> */}
                 </div>
-                {adminRole === 'HOD_MEDIA' ? (
-                  <div className="offline_payment_div">
+                
+                {adminRole === 'HOD_MEDIA' && approval === "NEW"  ? (
+                  
+                     <div className="offline_payment_div">
+                              
+
                     <button
                       style={{ width: '48%' }}
                       className="buy_now_button"
@@ -734,6 +753,7 @@ function ItemDetailsPage({ auth, match }) {
                         ? 'Approved'
                         : 'Proceed to checkout'}
                     </button>
+                    
 
                     <button
                       style={{
@@ -750,6 +770,8 @@ function ItemDetailsPage({ auth, match }) {
                         : 'Proceed to checkout'}
                     </button>
                   </div>
+                  
+                  
                 ) : adminRole === 'LOGISTICS' ? (
                   <div className="offline_payment_div">
                     {/* <button
@@ -762,7 +784,6 @@ function ItemDetailsPage({ auth, match }) {
                         </button>
                       
                         <button
-
                           style={{ width: "48%", backgroundColor: '#e4a788' }}
                           className="buy_now_button"
                        
@@ -834,6 +855,7 @@ function ItemDetailsPage({ auth, match }) {
                     </span>
                   </div>
                 ) : null}
+                {/* Hello */}
               </div>
             </div>
 
