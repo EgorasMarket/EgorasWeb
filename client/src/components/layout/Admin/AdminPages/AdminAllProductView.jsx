@@ -647,7 +647,7 @@ function ItemDetailsPage({ auth, match }) {
                 
                 {payment_type === 'INSTALLMENT' ? (
                 <div className="product_details_code">
-                  <span className="product_code_title">
+                  <span className="product_code_title"> 
                     Percentage:
                   </span>
                   {percentage}%
