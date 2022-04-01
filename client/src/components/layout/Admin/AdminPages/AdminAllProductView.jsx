@@ -14,6 +14,7 @@ import AddAPhotoIcon from '@mui/icons-material/AddAPhoto';
 import DoDisturbIcon from '@mui/icons-material/DoDisturb';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import Success_Error_Component from '../../../assets/Success_Error_Component';
 
 // import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
 import { numberWithCommas } from '../../../../static';
@@ -26,6 +27,7 @@ import 'react-date-range/dist/theme/default.css'; // theme css file
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
+  //  this is yet another one
 } from '../../../../actions/types';
 import { connect, useDispatch } from 'react-redux';
 import { fontSize } from '@mui/system';
@@ -69,6 +71,10 @@ function ItemDetailsPage({ auth, match }) {
   const [displayDays, setDisplayDays] = useState([]);
   const [modal, setModal] = useState(false);
   const [daysAddedDiv, setDaysAddedDiv] = useState(false);
+  const [error_msg, setErrorMsg] = useState('');
+  const [success_msg, setSuccessMsg] = useState('');
+  const [errorDiv, setErrorDiv] = useState(false);
+  const [successDiv, setSuccessDiv] = useState(false);
   const [detailsModal, setDetailsModal] = useState(false);
   const [product_id, setProductId] = useState(match.params.id);
   const [user_id, set_user_id] = useState('');
@@ -82,6 +88,8 @@ function ItemDetailsPage({ auth, match }) {
     carrier: '',
     narration: '',
   });
+
+  const [dialog, setDialog] = useState(false);
 
   const { carrier, narration } = productRoute;
 
@@ -385,8 +393,6 @@ function ItemDetailsPage({ auth, match }) {
           product_details: data.data.data.product_detail,
           percentage: data.data.data.percentage,
           productId: data.data.data.product_id,
-          payment_type: data.data.data.payment_type,
-          product_category_desc: data.data.data.product_category_desc,
           // productSpecification:slipVar[0]
         });
         // setLowNumS({prod_dur:"8"});
@@ -496,7 +502,11 @@ function ItemDetailsPage({ auth, match }) {
         body,
         config
       );
-      console.log(res);
+      console.log(res.data.success);
+
+      if (res.data.data.success === true) {
+      } else {
+      }
     } catch (err) {
       console.log(err.response);
     }
@@ -570,6 +580,26 @@ function ItemDetailsPage({ auth, match }) {
           {/* <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} /> */}
         </div>
       )}
+      {dialog === true ? (
+        <Success_Error_Component
+          btn_txt={'hello btn'}
+          link_btn={'awesome'}
+          msg={'Successfull'}
+          remove_success_div={() => {
+            setDialog(false);
+          }}
+        />
+      ) : (
+        <Success_Error_Component
+          btn_txt={'hello btn'}
+          link_btn={'awesome'}
+          msg={'Successfull'}
+          errorMsgDiv
+          remove_success_div={() => {
+            setDialog(false);
+          }}
+        />
+      )}
       {/* {dataFlow.map((item)=>{return( */}
       <section className="no-bg">
         <div className="container">
@@ -599,6 +629,12 @@ function ItemDetailsPage({ auth, match }) {
                 <div className="product_details_Title">
                   {product_name}
                 </div>
+                <div className="product_details_code">
+                  <span className="product_code_title">
+                    Product Code:{' '}
+                  </span>
+                  {product_category_code}
+                </div>
                 <div
                   className="product_details_code"
                   style={{ color: '#239e54' }}
@@ -607,6 +643,28 @@ function ItemDetailsPage({ auth, match }) {
                   {product_brand}
                   {/* {props.Brand} */}
                 </div>
+                {/* ----------------- */}
+                {/* <hr className="horizontal_rule" /> */}
+                {/* -------------- */}
+                {/* {payment_type === 'INSTALLMENT' ? (
+              <>
+                <InstallmentComponent
+                  initial_deposit={initial_deposit}
+                  product_duration={product_duration}
+                  amount={amount}
+                  percentage={percentage}
+                  paymentPerday={paymentPerday}
+                  numberWithCommas={numberWithCommas}
+                />
+              </>
+            ) : (
+              <>
+                <OutrightComponent
+                  roundedAmount={amount}
+                  numberWithCommas={numberWithCommas}
+                />
+              </>
+            )} */}
                 <div className="amount_item_div total_amount">
                   <span className="sub_total_txt">Price: </span> ₦
                   {numberWithCommas(parseInt(amount).toFixed())}
@@ -652,8 +710,7 @@ function ItemDetailsPage({ auth, match }) {
                       className="buy_now_button"
                       onClick={(e) => submitCallCheck(product_id)}
                     >
-                      {
-                      product_duration !== 1
+                      {product_duration !== 1
                         ? 'Approved'
                         : 'Proceed to checkout'}
                     </button>
@@ -755,18 +812,79 @@ function ItemDetailsPage({ auth, match }) {
                         Submit
                       </button>
                     </span>
+
+                    <div className="name_input1a">
+                      <FormControl fullWidth>
+                        <InputLabel id="demo-simple-select-label">
+                          Select Route
+                        </InputLabel>
+                        <Select
+                          labelId="demo-simple-select-label"
+                          id="demo-simple-select"
+                          name="product_route"
+                          value={product_route}
+                          label="Select Route"
+                          // onChange={handleChange}
+                          onChange={onChangeFor2}
+                          // onSelect={onChangeFor2}
+                        >
+                          <MenuItem value="RUMUKWRUSHI">
+                            To Rumukwrushi
+                          </MenuItem>
+                          <MenuItem value="AGIP">To Agip</MenuItem>
+                          <MenuItem value="OYIGBO">
+                            To Oyigbo
+                          </MenuItem>
+                        </Select>
+                      </FormControl>
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">
+                        Product Carrier
+                      </span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Product Carrier"
+                        variant="outlined"
+                        name="carrier"
+                        value={carrier}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <div className="add_cat_input_title">
+                      <span className="input_brand">Narration</span>
+
+                      <TextField
+                        className=" width_incr"
+                        id="outlined-basic"
+                        label="Narration"
+                        variant="outlined"
+                        name="narration"
+                        value={narration}
+                        onChange={(e) => onChangeFor(e)}
+                      />
+                    </div>
+                    <span className="submit_cat_btn_div">
+                      <button
+                        className="submit_cat_btn"
+                        onClick={submitRoute}
+                      >
+                        Submit
+                      </button>
+                    </span>
                   </div>
                 ) : null}
               </div>
             </div>
-
+            // here it goes
             {/* <div className="product_details_area">{asset}</div> */}
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
             {/* =======================================879087070y707680769067 */}
-
             <div className="description_area">
               <div className="description_header">
                 <div

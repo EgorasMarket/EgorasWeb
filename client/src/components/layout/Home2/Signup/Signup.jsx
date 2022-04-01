@@ -1,33 +1,33 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import DatePicker from "react-date-picker";
-import { CustomAlert } from "../../../../CustomAlert";
+import React, { useState, useEffect, Fragment } from 'react';
+import { connect } from 'react-redux';
+import DatePicker from 'react-date-picker';
+import { CustomAlert } from '../../../../CustomAlert';
 // import useAlert from "@semiorbit/react-ui-tools/Containers/useAlert";
 
 // import { setAlert } from ".";
 // import Alert from "../../Alert";
-import "../../../../css/signup.css";
-import { getAuthentication } from "../../../../actions/auth";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import '../../../../css/signup.css';
+import { getAuthentication } from '../../../../actions/auth';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Signup = ({ getAuthentication }) => {
   const [userAuth, setUserAuth] = useState({
     // fullname: "",
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    BVN: "",
-    phoneNumber: "",
-    confirmPassword: "",
-    InfoReason: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    BVN: '',
+    phoneNumber: '',
+    confirmPassword: '',
+    InfoReason: '',
   });
 
-  const [dateOfBirth, setDateOfBirth] = useState("");
+  const [dateOfBirth, setDateOfBirth] = useState('');
 
   const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState('');
   // const [confirmPassword, setConfirmPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [visibility, setVisibility] = useState(false);
@@ -46,7 +46,7 @@ const Signup = ({ getAuthentication }) => {
     InfoReason,
   } = userAuth;
 
-  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : "";
+  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : '';
 
   // const weakPass = () => {
   //   setStrongPas(true);
@@ -60,25 +60,25 @@ const Signup = ({ getAuthentication }) => {
     // if (fullname === "") {
     //   setDisable(true);
     // }
-    if (firstname === "") {
+    if (firstname === '') {
       setDisable(true);
     }
-    if (lastname === "") {
+    if (lastname === '') {
       setDisable(true);
     }
-    if (email === "") {
+    if (email === '') {
       setDisable(true);
-    } else if (BVN === "") {
+    } else if (BVN === '') {
       setDisable(true);
-    } else if (birthDate === "") {
+    } else if (birthDate === '') {
       setDisable(true);
-    } else if (password === "") {
+    } else if (password === '') {
       setDisable(true);
-    } else if (phoneNumber === "") {
+    } else if (phoneNumber === '') {
       setDisable(true);
-    } else if (confirmPassword === "") {
+    } else if (confirmPassword === '') {
       setDisable(true);
-    } else if (InfoReason === "") {
+    } else if (InfoReason === '') {
       setDisable(true);
     } else if (isLoading == true) {
       setDisable(true);
@@ -94,7 +94,7 @@ const Signup = ({ getAuthentication }) => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "password":
+      case 'password':
         if (e.target.value.length <= 7) {
           setStrongPass(true);
           //console.log("password is not 8");
@@ -123,7 +123,7 @@ const Signup = ({ getAuthentication }) => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "confirmPassword":
+      case 'confirmPassword':
         if (e.target.value !== password) {
           setMismatchPass(true);
           //console.log("password not match");
@@ -168,7 +168,14 @@ const Signup = ({ getAuthentication }) => {
   //   setIsSuccessful(false);
   // });
   const submitData = async (e) => {
-    console.log(birthDate, email, firstname, lastname, BVN, "sfdbhjdfbkjdbjk");
+    console.log(
+      birthDate,
+      email,
+      firstname,
+      lastname,
+      BVN,
+      'sfdbhjdfbkjdbjk'
+    );
     if (isLoading == true) {
       //
       setDisable(true);
@@ -195,7 +202,7 @@ const Signup = ({ getAuthentication }) => {
       //console.log("okay Good Server");
       setIsLoading(false);
     } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
+      setAlert(res.data.data.errors[0].msg, 'danger');
       setIsLoading(false);
       setDisable(false);
     }
@@ -203,7 +210,7 @@ const Signup = ({ getAuthentication }) => {
     //console.log(res.data.data.errors[0].msg);
   };
   const timer = setTimeout(() => {
-    setAlert("");
+    setAlert('');
   }, 5000);
 
   // const alert = useAlert();
@@ -212,7 +219,7 @@ const Signup = ({ getAuthentication }) => {
 
   return (
     <div>
-      {isSuccessful == true ? (
+      {isSuccessful == false ? (
         <section className="signup_section">
           <div className="container">
             <div className="signup_area">
@@ -233,7 +240,7 @@ const Signup = ({ getAuthentication }) => {
                 <div className="signup_inputs_cont">
                   <div
                     className="signup_input_field1_cont"
-                    style={{ flexDirection: "row" }}
+                    style={{ flexDirection: 'row' }}
                   >
                     <div className="text-left">
                       <span className="input_title">First Name</span>
@@ -271,10 +278,12 @@ const Signup = ({ getAuthentication }) => {
 
                   <div
                     className="signup_input_field1_cont"
-                    style={{ flexDirection: "row" }}
+                    style={{ flexDirection: 'row' }}
                   >
                     <div className="text-left">
-                      <span className="input_title">Phone Number</span>
+                      <span className="input_title">
+                        Phone Number
+                      </span>
                       <input
                         type="number"
                         className="signup_input_field"
@@ -284,7 +293,9 @@ const Signup = ({ getAuthentication }) => {
                       />
                     </div>
                     <div className="text-left">
-                      <span className="input_title">Date Of Birth</span>
+                      <span className="input_title">
+                        Date Of Birth
+                      </span>
                       <DatePicker
                         onChange={setDateOfBirth}
                         value={dateOfBirth}
@@ -323,7 +334,7 @@ const Signup = ({ getAuthentication }) => {
                     <span className="input_title">Password</span>
                     <div className="passwrd_input_div">
                       <input
-                        type={visibility ? "text" : "password"}
+                        type={visibility ? 'text' : 'password'}
                         className="signup_input_field"
                         value={password}
                         name="password"
@@ -348,14 +359,18 @@ const Signup = ({ getAuthentication }) => {
                       )}
                     </div>
                     {strongPass == false ? null : (
-                      <div className="weak_pass_div">Password is weak</div>
+                      <div className="weak_pass_div">
+                        Password is weak
+                      </div>
                     )}
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">Repeat Password</span>
+                    <span className="input_title">
+                      Repeat Password
+                    </span>
                     <div className="passwrd_input_div">
                       <input
-                        type={visibility2 ? "text" : "password"}
+                        type={visibility2 ? 'text' : 'password'}
                         className="signup_input_field"
                         value={confirmPassword}
                         name="confirmPassword"
@@ -403,7 +418,9 @@ const Signup = ({ getAuthentication }) => {
                       <option value="Instagram">Instagram</option>
                       <option value="Referred">Referred</option>
                       <option value="Online Blog">Online Blog</option>
-                      <option value="Google search">Google search</option>
+                      <option value="Google search">
+                        Google search
+                      </option>
                       <option value="Others">Others</option>
                     </select>
                     {/* ==[[[[[]]]]] */}
@@ -418,7 +435,7 @@ const Signup = ({ getAuthentication }) => {
                   >
                     {isLoading ? (
                       <span>
-                        Creating account{" "}
+                        Creating account{' '}
                         <FontAwesomeIcon
                           className="ml-2"
                           icon={faSpinner}
@@ -456,27 +473,27 @@ const Signup = ({ getAuthentication }) => {
                       <h4 className="check_mail">Check your email</h4>
 
                       <p>
-                        An activation email has been sent to{" "}
-                        <span className="email_name">{email}</span> with
-                        instructions to activate your account.
+                        An activation email has been sent to{' '}
+                        <span className="email_name">{email}</span>{' '}
+                        with instructions to activate your account.
                       </p>
                       <p className="note">
-                        {" "}
-                        * If the email doesn’t show up soon, check your spam
-                        folder or make sure you enter the email you used for
-                        registration.
+                        {' '}
+                        * If the email doesn’t show up soon, check
+                        your spam folder or make sure you enter the
+                        email you used for registration.
                       </p>
                     </div>
                   </div>
 
                   <div className="sign_up_btns">
                     <a href="/login" className="login2">
-                      {" "}
+                      {' '}
                       <button
                         className="sign_up_btn"
                         // type="submit"
                       >
-                        {" "}
+                        {' '}
                         Return to login
                       </button>
                     </a>
@@ -488,7 +505,9 @@ const Signup = ({ getAuthentication }) => {
         </section>
       )}
 
-      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
+      {alert == '' ? null : (
+        <CustomAlert alert={alert} onChange={timer} />
+      )}
       {/* ========== */}
       {/* ========== */}
       {/* ========== */}
