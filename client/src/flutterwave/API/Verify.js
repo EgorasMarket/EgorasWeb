@@ -49,7 +49,7 @@ const verify = async (
         );
       })
       .catch((err) => {
-        console.log(err.message);
+        console.log(err.message, 'unsuccessful');
       });
     //console.log(res.data.data);
     return call;
