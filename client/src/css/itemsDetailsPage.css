@@ -166,6 +166,7 @@ span.per_day {
 }
 .product_code_title {
   font-size: 14px;
+  line-height: 3em;
   color: darkgrey;
   font-weight: 500;
 }
