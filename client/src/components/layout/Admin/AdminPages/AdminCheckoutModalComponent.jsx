@@ -98,7 +98,7 @@ const CheckoutModalComponent = ({
       // alert(initial_deposit);
       setTotal(amount);
     } else if (payment_type === 'INSTALLMENT') {
-      setTotal(initial_deposit + 0);
+      setTotal(initial_deposit);
     }
     // setIsLoading2(true);
     axios
@@ -214,6 +214,7 @@ const CheckoutModalComponent = ({
 
         if (tokenBal >= Number(total)) {
           setProcessingDiv(true);
+          alert('entered block');
           //
           const orderBody = JSON.stringify({
             user_id,
