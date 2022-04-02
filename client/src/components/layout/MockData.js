@@ -1,6 +1,3 @@
-
-
-
 const data = {
   dashBoardHomeCard: [
     {
@@ -48,6 +45,89 @@ const data = {
       Save_button: "Save",
     },
   ],
+  UserOrders: [
+    {
+      orderId: "w23yrh36",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Outright",
+      amount: "200,000",
+      Date: "23-10-04",
+      Status: "Completed",
+    },
+    {
+      orderId: "S23yvd36",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Outright",
+      amount: "350,000",
+      Date: "23-10-04",
+      Status: "Completed",
+    },
+    {
+      orderId: "R23yrr36",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Savings",
+      amount: "80,000",
+      Date: "23-10-04",
+      Status: "Canceled",
+    },
+    {
+      orderId: "V23yMh36",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Savings",
+      amount: "50,000",
+      Date: "23-10-04",
+      Status: "Completed",
+    },
+    {
+      orderId: "J23yrh36",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Savings",
+      amount: "100,000",
+      Date: "23-10-04",
+      Status: "Completed",
+    },
+    {
+      orderId: "A3yrhT6",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Outright",
+      amount: "250,000",
+      Date: "23-10-04",
+      Status: "Canceled",
+    },
+    {
+      orderId: "l23yr536",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Outright",
+      amount: "100,000",
+      Date: "23-10-04",
+      Status: "Pending",
+    },
+    {
+      orderId: "z23yrh36",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Outright",
+      amount: "150,000",
+      Date: "23-10-04",
+      Status: "Pending",
+    },
+    {
+      orderId: "w23yrh36",
+      img: "/img/fake_assets/apple_watch.jpeg",
+      title: "Apple Watch series7",
+      type: "Outright",
+      amount: "20,000",
+      Date: "23-10-04",
+      Status: "Pending",
+    },
+  ],
   depositTransactions: [
     {
       id: 1,
@@ -76,4 +156,3 @@ const data = {
   ],
 };
 export default data;
-

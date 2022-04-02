@@ -167,7 +167,6 @@ export const getLogin = (email, password) => async (dispatch) => {
       Accept: '*',
       'Content-Type': 'application/json',
       'Access-Control-Allow-Origin': '*',
-      timeout: 1000,
     },
   };
 
@@ -271,7 +270,7 @@ export const reset =
   };
 
 export const nextOfKING =
-  (firstname, lastname, email, phoneNumber, gender, relationship) =>
+  (firstname, lastname, email, phoneNumber, relationship, gender1) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -281,16 +280,18 @@ export const nextOfKING =
       },
     };
 
+    const gender = gender1;
+
     const body = JSON.stringify({
       firstname,
       lastname,
       email,
       phoneNumber,
-      gender,
       relationship,
+      gender,
     });
 
-    //console.log(body);
+    console.log(body);
 
     try {
       const res = await axios.post(
@@ -298,14 +299,13 @@ export const nextOfKING =
         body,
         config
       );
-      //console.log(res);
-
+      console.log(res);
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      //console.log(err.response);
+      console.log(err.response);
 
       return {
         success: false,
@@ -313,6 +313,43 @@ export const nextOfKING =
       };
     }
   };
+export const addAddress = (customerAddress) => async (dispatch) => {
+  const config = {
+    headers: {
+      Accept: '*',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
+    },
+  };
+
+  // const gender = gender1;
+
+  const body = JSON.stringify({
+    customerAddress,
+  });
+
+  console.log(body);
+
+  try {
+    const res = await axios.post(
+      api_url2 + '/v1/user/add/address',
+      body,
+      config
+    );
+    console.log(res);
+    return {
+      success: true,
+      data: res.data,
+    };
+  } catch (err) {
+    console.log(err.response);
+
+    return {
+      success: false,
+      data: err.response,
+    };
+  }
+};
 
 export const sumitGenderAndDate =
   (gender, dateOfBirth) => async (dispatch) => {
@@ -391,16 +428,15 @@ export const changePassword =
       newpassword,
     });
 
-    //console.log(body);
+    console.log(body);
 
     try {
       const res = await axios.put(
-        api_url2 + '/v1/user/update/customer/info',
+        api_url2 + '/v1/user/change/password',
         body,
         config
       );
-      //console.log(res);
-
+      console.log(res);
       return {
         success: true,
         data: res.data,

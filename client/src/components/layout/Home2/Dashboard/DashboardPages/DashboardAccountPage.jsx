@@ -23,11 +23,14 @@ import {
   sumitGenderAndDate,
   nextOfKING,
   changePassword,
+  addAddress,
 } from '../../../../../actions/auth';
 import { useParams } from 'react-router-dom';
 import './accF.css';
 import { setAlert } from '../../../../../actions/alert';
 import validator from 'validator';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {getNaame} from "../../../Signup/signup"
 
 function DashboardAccountPage({
@@ -36,6 +39,7 @@ function DashboardAccountPage({
   nextOfKING,
   auth,
   changePassword,
+  addAddress,
 }) {
   const config = {
     headers: {
@@ -59,11 +63,20 @@ function DashboardAccountPage({
     gender: '',
     dateOfBirth: '',
   });
-  const [customerAddress, setAddress] = useState('');
+  const [customerAddress1, setCustomerAddress1] = useState({
+    customerAddress: '',
+  });
+  const [customerFetchedAddress, setCustomerFetchedAddress] =
+    useState('');
   const [customer_image, setcustomer_image] = useState('');
   const [customerBvn1, setCustomerBvn1] = useState('');
   const [bvnId, setBvnId] = useState({});
-
+  const [disable, setDisable] = React.useState(false);
+  const [disable2, setDisable2] = React.useState(false);
+  const [disableKin, setDisableKin] = React.useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading2, setIsLoading2] = useState(false);
+  const [isLoadingKin, setIsLoadingKin] = useState(false);
   const [genderEmpty, setGenderEmpty] = useState(false);
   const [disabled1, setDisabled1] = useState(false);
   const [disabled2, setDisabled2] = useState(false);
@@ -90,10 +103,10 @@ function DashboardAccountPage({
     email: '',
     phoneNumber: '',
     relationship: '',
-    gender: '',
+    gender1: '',
   });
 
-  const [changePassword1, setChangePassword] = useState({
+  const [changePassword1, setChangePassword1] = useState({
     oldpassword: '',
     newpassword: '',
   });
@@ -194,7 +207,7 @@ function DashboardAccountPage({
       .get(api_url2 + '/v1/user/nextOfKin/info', null, config)
       .then((data) => {
         //console.log('eeeeee');
-        //console.log(data.data.nxtOfKin, "king");
+        console.log(data.data.nxtOfKin, 'king');
 
         if (data.data.status === true) {
           setNxtOfKinA(true);
@@ -215,16 +228,16 @@ function DashboardAccountPage({
         //console.log(err.response); // "oh, no!"
       });
 
-    axios
-      .get(api_url2 + '/v1/user/address/info', null, config)
-      .then((data) => {
-        console.log(data.data);
-        //console.log(data.data.cusAddress, "king");
-        setAddress(data.data.cusAddress.address);
-      })
-      .catch((err) => {
-        console.log(err.response); // "oh, no!"
-      });
+    // axios
+    //   .get(api_url2 + "/v1/user/address/info", null, config)
+    //   .then((data) => {
+    //     console.log(data.data);
+    //     //console.log(data.data.cusAddress, "king");
+    //     setAddress(data.data.cusAddress.address);
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.response); // "oh, no!"
+    //   });
   }, []);
 
   const [userName, setUserName] = useState({ user: '' });
@@ -244,18 +257,20 @@ function DashboardAccountPage({
     firstname,
     lastname,
     email,
-    gender1,
-    relationship,
     phoneNumber,
+    relationship,
+    gender1,
   } = nextKin;
+  const { customerAddress } = customerAddress1;
 
   const { gender, dateOfBirth } = tokens;
 
   const onChangeFor = (e) => {
     setTokens({ ...tokens, [e.target.name]: e.target.value });
+    setDisable2(false);
   };
 
-  const onChangeFor2 = (e) => {
+  const onChangeKin = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
 
     var email = e.target.value;
@@ -265,53 +280,19 @@ function DashboardAccountPage({
     } else {
       setEmailError(label4);
     }
-
+    if (
+      firstname === '' ||
+      lastname === '' ||
+      email === '' ||
+      phoneNumber === '' ||
+      // gender === "" ||
+      relationship === ''
+    ) {
+      setDisableKin(true);
+    } else {
+      setDisableKin(false);
+    }
     //console.log(nextKin);
-  };
-
-  const onChangeFor22 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-  };
-
-  const onChangeFor23 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-  };
-  const onChangeFor24 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-  };
-
-  const onChangeFor5 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-
-    if (firstname.length === null) {
-      setError4(label3);
-    } else {
-      setError4('First Name');
-    }
-  };
-
-  const onChangeFor6 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-
-    if (lastname.length === null) {
-      setError5(label3);
-    } else {
-      setError5('Last Name');
-    }
-  };
-
-  const onChangeFor7 = (e) => {
-    setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-
-    // if(phoneNumber === "" || phoneNumber.length < 10 || phoneNumber.length > 10 ){
-    //   setError6(label5)
-    // }
-    // if (phoneNumber.length === 10){
-    //   setError6('Phone Number')
-    // }
-    // if{
-    //   setError6('Phone Number')
-    // }
   };
 
   // useEffect(()=>{
@@ -319,7 +300,7 @@ function DashboardAccountPage({
   // },[phoneNumber])
 
   const onChangeFor4 = (e) => {
-    setChangePassword({
+    setChangePassword1({
       ...changePassword1,
       [e.target.name]: e.target.value,
     });
@@ -331,8 +312,8 @@ function DashboardAccountPage({
 
   // const [value, setValue] = useState("1997-02-09");
   // const [email, setEmail] = useState("samuelify225@gmail.com");
-  const [bvnNum, setBvnNum] = useState('23745672845');
-  const [phoneNo, setPhoneNo] = useState('+2348164020234');
+  // const [bvnNum, setBvnNum] = useState("23745672845");
+  // const [phoneNo, setPhoneNo] = useState("+2348164020234");
   const [phone_no2, setPhone_no2] = useState('');
   //   const [value, setValue] = useState(new Date("2014-02-09"));
   const [age, setAge] = React.useState({ relationship });
@@ -404,8 +385,11 @@ function DashboardAccountPage({
     }
   };
 
-  const onChangeaddress = (event) => {
-    setAddress(event.target.value);
+  const onChangeAddress = (e) => {
+    setCustomerAddress1({
+      ...customerAddress1,
+      [e.target.name]: e.target.value,
+    });
   };
 
   const onChangeBvn = (event) => {
@@ -448,21 +432,29 @@ function DashboardAccountPage({
   const sends = async (e) => {
     let res = await sumitGenderAndDate(gender, dateOfBirth);
 
-    setDisabled2(true);
-    setFold1('disBtn');
+    if (isLoading2 == true) {
+      setDisable2(true);
+    } else if (isLoading2 == false) {
+      setDisable2(false);
+    }
+    setIsLoading2(true);
+    setDisable2(true);
 
     // $disableMe.setAttribute('disabled','disabled')
     console.log(res);
 
-    setTimeout(() => {
-      setDisabled2(false);
-      setFold1('save_changes_btn');
-    }, 5000);
+    // setTimeout(() => {
+    //   setDisabled2(false);
+    //   setFold1("save_changes_btn");
+    // }, 5000);
 
     if (res.success === true) {
+      setIsLoading2(false);
       console.log('okay Good Server');
-      return window.location.replace('/dashboard/accounts');
+      window.location.replace('/dashboard/accounts');
     } else {
+      setIsLoading2(false);
+      setDisable2(false);
       //console.log("Something went wrong!");
       // setAlert(res.data.data.errors[0].msg, "danger");
     }
@@ -485,10 +477,24 @@ function DashboardAccountPage({
       setError9('Select Relationship');
     }
   }, [relationship]);
+  useEffect(() => {
+    if (
+      firstname === '' ||
+      lastname === '' ||
+      email === '' ||
+      phoneNumber === '' ||
+      relationship === ''
+    ) {
+      setDisableKin(true);
+    } else {
+      setDisableKin(false);
+    }
+  }, []);
 
   const nextOfKINGS = async (e) => {
     // $disableMe.setAttribute('diasbled','diasbled')
-
+    setDisableKin(true);
+    setIsLoadingKin(true);
     if (
       firstname === '' ||
       lastname === '' ||
@@ -499,24 +505,32 @@ function DashboardAccountPage({
       //  console.log('fil in')
       if (firstname === '') {
         setError4(label3);
+        setDisableKin(true);
       }
       if (lastname === '') {
         setError5(label14);
+        setDisableKin(true);
       }
       if (phoneNumber === '') {
         setError6(label5);
+        setDisableKin(true);
       }
       if (relationship === '') {
         setError9(label8);
+        setDisableKin(true);
       }
       if (email === null) {
         setEmailError(label4);
+        setDisableKin(true);
       }
       if (phoneNumber.length < 11 || phoneNumber.length > 11) {
         setError6(label5);
+        // setDisableKin(true);
       } else {
         setError6('Phone Number');
+        setDisableKin(true);
       }
+      setDisableKin(true);
     } else {
       let res = await nextOfKING(
         firstname,
@@ -524,28 +538,31 @@ function DashboardAccountPage({
         email,
         phoneNumber,
         relationship,
-        gender
+        gender1
       );
 
-      setDisabled1(true);
-      setFold('disBtn');
-
-      setTimeout(() => {
-        setDisabled1(false);
-        setFold('save_changes_btn');
-      }, 5000);
+      // setTimeout(() => {
+      //   setDisabled1(false);
+      //   setFold("save_changes_btn");
+      // }, 5000);
 
       // if(firstname === "" || firstname.length === 0 ){
       //   setError4(label3)
       // }else{
       //   setError4('First Name')
       // }
-      console.log(res.data.data.success);
 
-      if (res.data.data.success === true) {
-        //console.log("okay Good Server");
+      if (res.data.success === true) {
+        setDisableKin(false);
+        setIsLoadingKin(false);
+        window.location.reload();
+        console.log(res.data.success);
+        console.log('okay Good Server');
       } else {
         setAlert(res.data.data.errors[0].msg, 'danger');
+        setDisableKin(false);
+        setIsLoadingKin(false);
+        console.log(res.data.data.errors[0].msg);
       }
     }
   };
@@ -553,28 +570,53 @@ function DashboardAccountPage({
   const sumitChangePassword = async (e) => {
     let res = await changePassword(oldpassword, newpassword);
 
-    //console.log(res);
+    console.log(res);
 
-    if (res.data.data.success === true) {
+    if (res.data.success === true) {
+      console.log(res.data.success);
+      window.location.reload();
       //console.log("okay Good Server");
     } else {
       setAlert(res.data.data.errors[0].msg, 'danger');
     }
   };
+  useEffect(() => {
+    // setDisable2(true);
+    if (customer_image === '') {
+      setDisable(true);
+    }
+    if (gender === '') {
+      setDisable2(true);
+    }
+  });
+  // useEffect(() => {
+  //   if (Usergender === "") {
+  //     setDisable(true);
+  //   } else {
+  //     setDisable(false);
+  //   }
+  // });
 
   const AddUserPhoto = async (e) => {
     e.preventDefault();
-
+    if (isLoading == true) {
+      setDisable(true);
+    } else if (isLoading == false) {
+      setDisable(false);
+    }
+    setIsLoading(true);
+    setDisable(true);
     const formData = new FormData();
 
-    if (customer_image === '') {
+    if (gender === '') {
+      setDisable(true);
       //console.log("empty passport");
       // setAlert('Please provide a passport photo', 'danger');
     } else {
       const element = document.getElementById('customer_image');
       const file = element.files[0];
       formData.append('customer_image', file, file.name);
-
+      setDisable(false);
       //console.log(formData, "hhhh");
 
       try {
@@ -585,11 +627,16 @@ function DashboardAccountPage({
         //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
+          // setIsSuccessful(true);/
+          setIsLoading(false);
+          window.location.reload();
           // setPassportUpload(true)
         } else {
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
+        setIsLoading(false);
+        setDisable(false);
         //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
@@ -597,121 +644,42 @@ function DashboardAccountPage({
   };
 
   const submitAddress = async (e) => {
-    e.preventDefault();
+    let res = await addAddress(customerAddress);
 
-    // if (empty){
+    // setTimeout(() => {
+    //   setDisabled1(false);
+    //   setFold("save_changes_btn");
+    // }, 5000);
 
-    // if(customerAddress ===""){
-    //   setError7(label6)
+    // if(firstname === "" || firstname.length === 0 ){
+    //   setError4(label3)
+    // }else{
+    //   setError4('First Name')
     // }
-    if (
-      customerAddress === ''
-      //  ||
-      // customerBvn1 === "" ||
-      // customerBvn1.length > 11 ||
-      // customerBvn1.length < 11
-    ) {
-      if (customerAddress === '') {
-        setError7(label6);
-      }
-      // if (customerBvn1 === "") {
-      //   setError8(label7);
-      // }
 
-      // if (customerBvn1.length > 11 || customerBvn1.length < 11) {
-      //   setError8(label7);
-      // }
+    if (res.data.success === true) {
+      // setDisableKin(false);
+      // setIsLoadingKin(false);
+      window.location.reload();
+      console.log(res.data.success);
+      console.log('okay Good Server');
     } else {
-      // if(customerBvn1===""){
-      //   setError8(label7)
-      // }
-
-      // }else{
-
-      setFold2('disBtn');
-      // setDisabled3(true)
-      // setFold2('disBtn')
-      // setError7('Address')
-      // setError8('BVN')
-
-      if (customerAddress === '') {
-        //console.log("empty address");
-
-        setDisabled3(false);
-        // setFold2('add_photo')
-
-        // setAlert('Please provide a passport photo', 'danger');
-      } else {
-        const body = JSON.stringify({ customerAddress });
-        setError7('Address');
-        setDisabled3(true);
-
-        //console.log(body);
-
-        try {
-          const res = await axios.post(
-            api_url2 + '/v1/user/add/address',
-            body,
-            config
-          );
-          //console.log(res.data, "undefined");
-
-          if (res.data.success === true) {
-            // setPassportUpload(true)
-            return window.location.replace('/dashboard/accounts');
-          } else {
-            // setAlert('Something went wrong, please try again later', 'danger');
-          }
-        } catch (err) {
-          //console.log(err.response);
-          // setAlert('Check your internet connection', 'danger');
-        }
-      }
-
-      // comments for bvn
-      // if (customerBvn1 === "") {
-      //   //console.log("empty address");
-
-      //   setDisabled3(false);
-      //   // setFold2('add_photo')
-
-      //   // setAlert('Please provide a passport photo', 'danger');
-      // } else {
-      //   let BVN = customerBvn1;
-      //   let customer_id = idNum;
-      //   const body = JSON.stringify({ BVN, customer_id });
-      //   setDisabled3(true);
-      //   setError8("BVN");
-      //   // setFold2('disBtn')
-      //   // console.log(body);
-
-      //   try {
-      //     const res = await axios.post(
-      //       api_url2 + "/v1/user/add/BVN",
-      //       body,
-      //       config
-      //     );
-      //     //console.log(res.data, "undefined");
-
-      //     if (res.data.statusCode === 200) {
-      //       // setPassportUpload(true)
-      //     } else {
-      //       // setAlert('Something went wrong, please try again later', 'danger');
-      //     }
-      //   } catch (err) {
-      //     console.log(err.response);
-      //     // setAlert('Check your internet connection', 'danger');
-      //   }
-      // }
-
-      setTimeout(() => {
-        setDisabled3(false);
-        setFold2('add_photo');
-      }, 5000);
+      setAlert(res.data.data.errors[0].msg, 'danger');
+      // setDisableKin(false);
+      // setIsLoadingKin(false);
+      console.log(res.data.data.errors[0].msg);
     }
-
-    // }
   };
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + '/v1/user/address/info', null, config)
+      .then((data) => {
+        console.log(data.data.cusAddress);
+        setCustomerAddress1(data.data.cusAddress.address);
+      })
+      .catch((err) => {});
+  }, []);
 
   return (
     <div
@@ -910,10 +878,21 @@ function DashboardAccountPage({
                         <div className="toggle_body_area1_cont1_input">
                           <button
                             className={fold1}
-                            disable={disabled2}
                             onClick={sends}
+                            disabled={disable2}
                           >
-                            Save Changes
+                            {isLoading2 ? (
+                              <span>
+                                Saving
+                                <FontAwesomeIcon
+                                  className="ml-2"
+                                  icon={faSpinner}
+                                  spin
+                                />
+                              </span>
+                            ) : (
+                              <span> Save Changes</span>
+                            )}
                           </button>
                         </div>
                       </div>
@@ -1133,7 +1112,7 @@ function DashboardAccountPage({
                             variant="outlined"
                             name="firstname"
                             value={firstname}
-                            onChange={onChangeFor5}
+                            onChange={onChangeKin}
                           />
                           <TextField
                             className="name_input1"
@@ -1142,7 +1121,7 @@ function DashboardAccountPage({
                             variant="outlined"
                             name="lastname"
                             value={lastname}
-                            onChange={onChangeFor6}
+                            onChange={onChangeKin}
                           />
                         </div>
                       </div>
@@ -1163,7 +1142,7 @@ function DashboardAccountPage({
                             variant="outlined"
                             name="email"
                             value={email}
-                            onChange={onChangeFor2}
+                            onChange={onChangeKin}
                           />
                         </div>
                       </div>
@@ -1184,7 +1163,7 @@ function DashboardAccountPage({
                             variant="outlined"
                             name="phoneNumber"
                             value={phoneNumber}
-                            onChange={onChangeFor7}
+                            onChange={onChangeKin}
                           />
                         </div>
                       </div>
@@ -1229,13 +1208,10 @@ function DashboardAccountPage({
                                 value={relationship}
                                 label="Age"
                                 // onChange={handleChange}
-                                onChange={onChangeFor22}
+                                onChange={onChangeKin}
                                 // onSelect={onChangeFor2}
                               >
-                                <MenuItem
-                                  name="relationship"
-                                  value="Mother"
-                                >
+                                <MenuItem value="Mother">
                                   Mother
                                 </MenuItem>
                                 <MenuItem value="Father">
@@ -1276,34 +1252,26 @@ function DashboardAccountPage({
                           <div className="radio_group">
                             <input
                               type="radio"
-                              name="gender"
+                              name="gender1"
                               id="male"
-                              // value={Male}
                               value="Male"
-                              onChange={onChangeFor2}
+                              // value="Male"
+                              onChange={onChangeKin}
                             />
-                            <label
-                              for="male"
-                              class="radio"
-                              value={gender}
-                            >
+                            <label for="male" class="radio">
                               Male
                             </label>
                           </div>
                           <div className="radio_group">
                             <input
                               type="radio"
-                              name="gender"
+                              name="gender1"
                               id="female"
-                              // value="female"
                               value="Female"
-                              onChange={onChangeFor2}
+                              // value="female"
+                              onChange={onChangeKin}
                             />
-                            <label
-                              for="female"
-                              class="radio"
-                              value={gender}
-                            >
+                            <label for="female" class="radio">
                               Female
                             </label>
                           </div>
@@ -1321,10 +1289,21 @@ function DashboardAccountPage({
                             // className={disabled1 ? "save_changes_btn" :"disBtn"}
                             className={fold}
                             onClick={nextOfKINGS}
-                            disabled={disabled1}
+                            disabled={disableKin}
                             id="school"
                           >
-                            Save Changes
+                            {isLoadingKin ? (
+                              <span>
+                                Saving
+                                <FontAwesomeIcon
+                                  className="ml-2"
+                                  icon={faSpinner}
+                                  spin
+                                />
+                              </span>
+                            ) : (
+                              <span> Save Changes</span>
+                            )}
                           </button>
                         </div>
                       </div>
@@ -1336,18 +1315,6 @@ function DashboardAccountPage({
                   )}
                 </div>
               ) : null}
-              {/* ================= */}
-              {/* ================= */}
-
-              {/* <button
-                              className="save_changes_btn" 
-                              onClick={nextOfKINGS} disabled={disabled1}
-                              id="school"
-                            >
-                              Save Changes
-                            </button> */}
-              {/* ================= */}
-              {/* ================= */}
               {activeBg == 'security' ? (
                 <div className="account_toggle_body_area1">
                   <div className="account_toggle_body_area1_title">
@@ -1451,7 +1418,7 @@ function DashboardAccountPage({
                               variant="outlined"
                               name="customerAddress"
                               value={customerAddress}
-                              onChange={onChangeaddress}
+                              onChange={onChangeAddress}
                             />
                             <button
                               className={fold2}
@@ -1463,9 +1430,7 @@ function DashboardAccountPage({
                             </button>
                           </div>
                         ) : (
-                          <div className="bvn_btn">
-                            {customerAddress}
-                          </div>
+                          <span>{customerAddress1}</span>
                         )}
                       </div>
                     </div>
@@ -1531,8 +1496,24 @@ function DashboardAccountPage({
                 </div>{' '}
               </div>
               <div className="profile_modal_area2">
-                <button className="add_photo" onClick={AddUserPhoto}>
-                  <AddAPhotoIcon className="photo_icon" /> Add Photo
+                <button
+                  className="add_photo"
+                  onClick={AddUserPhoto}
+                  disabled={disable}
+                >
+                  <AddAPhotoIcon className="photo_icon" />{' '}
+                  {isLoading ? (
+                    <span>
+                      Submitting
+                      <FontAwesomeIcon
+                        className="ml-2"
+                        icon={faSpinner}
+                        spin
+                      />
+                    </span>
+                  ) : (
+                    <span>Submit</span>
+                  )}
                 </button>
                 <button className="cancel_photo" onClick={closeModal}>
                   <DoDisturbIcon className="cancel_icon" /> Cancel
@@ -1585,9 +1566,9 @@ function DashboardAccountPage({
                   <TextField
                     className="name_input1ab"
                     id="outlined-basic"
-                    label="Change Password"
+                    label="Old Password"
                     variant="outlined"
-                    name="changePassword"
+                    name="oldpassword"
                     type="password"
                     value={oldpassword}
                     onChange={onChangeFor4}
@@ -1595,9 +1576,9 @@ function DashboardAccountPage({
                   <TextField
                     className="name_input1ab"
                     id="outlined-basic"
-                    label="Re-Enter Password"
+                    label="New Password"
                     variant="outlined"
-                    name="changePassword"
+                    name="newpassword"
                     type="password"
                     value={newpassword}
                     onChange={onChangeFor4}
@@ -1639,4 +1620,5 @@ export default connect(mapStateToProps, {
   setAlert,
   nextOfKING,
   changePassword,
+  addAddress,
 })(DashboardAccountPage);
