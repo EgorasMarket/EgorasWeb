@@ -212,7 +212,7 @@ const Signup = ({ getAuthentication }) => {
 
   return (
     <div>
-      {isSuccessful == true ? (
+      {isSuccessful == false ? (
         <section className="signup_section">
           <div className="container">
             <div className="signup_area">
