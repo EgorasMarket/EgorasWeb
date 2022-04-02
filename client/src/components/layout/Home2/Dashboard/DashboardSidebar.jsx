@@ -17,6 +17,7 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import StoreIcon from "@mui/icons-material/Store";
+import QueueIcon from "@mui/icons-material/Queue";
 import SavingsIcon from "@mui/icons-material/Savings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
@@ -182,6 +183,10 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     }
     if (linksActive === "/dashboard/cart") {
       setActiveBg("cart");
+      setCatDiv("not_home");
+    }
+    if (linksActive === "/dashboard/orders") {
+      setActiveBg("order");
       setCatDiv("not_home");
     }
     if (linksActive === "/dashboard/products") {
@@ -580,6 +585,28 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                 {/* ===================== */}
 
                 <a
+                  href="/dashboard/orders"
+                  className="link"
+                  id="order"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "order"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <QueueIcon className="sidebarIcon" />
+                    Orders
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
                   href="/dashboard/accounts"
                   className="link"
                   id="accounts"
@@ -722,6 +749,28 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                 {/* ===================== */}
 
                 <a
+                  href="/dashboard/orders"
+                  className="link"
+                  id="order"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "order"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <QueueIcon className="sidebarIcon" />
+                    Order
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
                   href="/dashboard/accounts"
                   className="link"
                   id="accounts"
@@ -735,7 +784,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
+                    Profile
                   </li>
                 </a>
 
@@ -767,7 +816,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
             </ul>
           </div>
 
-          <img src="/egoras-favicon.svg" alt="" className="center_logo_icon" />
+          {/* <img src="/egoras-favicon.svg" alt="" className="center_logo_icon" /> */}
         </div>
       </div>
       {acctNav == false ? null : (
