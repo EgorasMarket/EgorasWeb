@@ -162,6 +162,21 @@
   border-radius: 50px;
   box-shadow: 0px 0px 10px #b4dfc5;
 }
+.logout_icon_span {
+  width: 86%;
+  display: flex;
+  background: #b4f3da;
+  padding: 1em 2em;
+  border-radius: 10px;
+  margin: auto;
+  color: #319259;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 800;
+  grid-gap: 10px;
+  gap: 10px;
+  cursor: pointer;
+}
 .ma {
   background: #e7fff0;
   padding: 6px;
