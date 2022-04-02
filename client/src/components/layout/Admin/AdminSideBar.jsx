@@ -206,22 +206,151 @@ const AdminSideBar = ({ auth }) => {
     // var divContents = document.getElementById("mainContent").innerHTML;
    
         var printWindow = window.open('', '', 'height=1200,width=1200');
-        printWindow.document.write('<html><head><title>Item Receipt</title>');
-        printWindow.document.write('</head><body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">');
-        printWindow.document.write('<img width="140" src="/img/tagheader.svg" />');
-        printWindow.document.write('<h6 style="margin-bottom: 5px">Customer Name:</h6>');
-        // printWindow.document.write('<h4 style="margin-top: 5px;font-weight: 700;font-size:14px;">' + tag.split("---")[0] + '</h4> <hr />');
-        printWindow.document.write('<h3 style="margin-bottom: 5px">Tag:</h3>');
-        // printWindow.document.write('<h5 style="margin-top: 5px;word-break: break-all;font-weight: 700;font-size:14px;">' + tag.split("---")[1] + '</h5>');
-        printWindow.document.write('<h3 style="margin-bottom: 5px">Asset:</h3>');
-        // printWindow.document.write('<h5 style="margin-top: 5px;margin-bottom: 5px;">' + name + '</h5>');
-        // printWindow.document.write('<h3 style="margin-bottom: 5px">Category:</h3>');
-        // printWindow.document.write('<h5 style="margin-top: 5px;margin-bottom: 5px;">' + category + '</h5>');
-        // printWindow.document.write('<h3 style="margin-bottom: 5px">Branch:</h3>');
-        // printWindow.document.write('<h5 style="margin-top: 5px;margin-bottom: 5px;">' + branch + '</h5>');
-        // printWindow.document.write('<h3 style="margin-bottom: 5px;">Tag Issued At:</h3>');
-        // printWindow.document.write('<h5 style="margin-top: 5px;margin-bottom: 30px;">' + today + '</h5>');
-        printWindow.document.write('</body></html>');
+        printWindow.document.write('<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>Item Receipt</title></head>');
+        printWindow.document.write('<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">');
+        printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+        printWindow.document.write('<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">');
+        printWindow.document.write('<div class="small-text">');
+        printWindow.document.write('<div class="set-flex">');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<img height="70" src="https://s2.coinmarketcap.com/static/img/coins/200x200/15368.png">');
+        printWindow.document.write('<div class="small-text"><span>ADDRESS: </span><span>No 03 Apala Road Off Aba Express Way PH.</span></div>');
+        printWindow.document.write('<div class="small-text"><span>PHONE NUMBER: </span><span>07017299153</span></div>');
+        printWindow.document.write('<div class="small-text"><span>EMAIL ADDRESS: </span><span>cs@egoras.com</span></div>');
+        printWindow.document.write('<div class="small-text"><span>COMPANY WEBSITE: </span><span>https://www.egoras.com</span></div>                   ');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<div class="small-text"><h2>INVOICE/SALES RECEIPT</h2></div>');
+        printWindow.document.write('<div class="small-text"><span>INVOICE NO: </span><span>002937</span></div>');
+        printWindow.document.write('<div class="small-text"><span>DATE: </span><span>12/05/2022</span></div>');
+        printWindow.document.write('<div class="small-text"><span>SALES REP: </span><span>MIKE BENSON</span></div>');
+        printWindow.document.write('<br>');
+        printWindow.document.write('<div class="small-text"><span>SOLD TO:</span></div>');
+        printWindow.document.write('<div class="small-text"><span>NAME: </span><span>Jame Adam</span></div>');
+        printWindow.document.write('<div class="small-text"><span>ADDRESS: </span><span>No 23B Adamawu Lane Off Aba Road PH</span></div>');
+        printWindow.document.write('<div class="small-text"><span>PHONE NUMBER: </span><span>09034753885</span></div>');
+        printWindow.document.write('<div class="small-text"><span>PRODUCT ID: </span><span>EG/AGP/SR/00001</span></div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<div class="small-text">');
+        printWindow.document.write('<table style="width: 100%;" class="GeneratedTable">');
+        printWindow.document.write('<tbody>');
+        printWindow.document.write('<tr style="height: 23px;">');
+        printWindow.document.write('<td style="width: 52.5547px;height: 23px;">QTY</td>');
+        printWindow.document.write('<td style="width: 100.445px; height: 23px;">ITEM</td>');
+        printWindow.document.write('<td style="width: 465px; height: 23px;">DESCRIPTION</td>');
+        printWindow.document.write('<td style="width: 73px; height: 23px;">UNIT PRICE</td>');
+        printWindow.document.write('<td style="width: 71px; height: 23px;">AMOUNT</td>');
+        printWindow.document.write('</tr>');
+        printWindow.document.write('<tr style="height: 80px;">');
+        printWindow.document.write('<td style="width: 52.5547px; height: 80px;">1</td>');
+        printWindow.document.write('<td style="width: 100.445px; height: 80px;">Iphone 12 Pro Max</td>');
+        printWindow.document.write('<td style="width: 465px; height: 80px;">Farely Used Iphone 12 Pro Max</td>');
+        printWindow.document.write('<td style="width: 73px; height: 80px;">#40000</td>');
+        printWindow.document.write('<td style="width: 71px; height: 80px;">#40000</td>');
+        printWindow.document.write('</tr>');
+        printWindow.document.write('<tr style="height: 22px;">');
+        printWindow.document.write('<td style="width: 52.5547px; height: 22px;"></td>');
+        printWindow.document.write('<td style="width: 100.445px; height: 22px;"></td>');
+        printWindow.document.write('<td style="width: 465px; height: 22px;"></td>');
+        printWindow.document.write('<td style="width: 73px; height: 22px;">Total</td>');
+        printWindow.document.write('<td style="width: 71px; height: 22px;">#40000</td>');
+        printWindow.document.write('</tr>');
+        printWindow.document.write('</tbody>');
+        printWindow.document.write('</table>');
+        printWindow.document.write('<div class="small-text">');
+        printWindow.document.write('<div class="set-flex">');
+        printWindow.document.write('<div class="w-50"></div>');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<div class="set-flex">');
+        printWindow.document.write('<div class="w-50"></div>');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<div class="bbt set-flex">');
+        printWindow.document.write('<span>Subtotal: </span><span>N500.00</span>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<div class="bbt set-flex"><span>VAT (7.5%): </span><span>N97.50</span></div>');
+        printWindow.document.write('<div class="bbt set-flex"><span>TOTAL: </span><span>N597.50</span></div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<div class="center-text"><h4>THANKS FOR YOUR PATRONAGE</h4></div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<h2 style="margin-bottom: 5px; margin-top: 15px">Customers Copy:</h2>');
+        printWindow.document.write('<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">');
+        printWindow.document.write('<div class="small-text">');
+        printWindow.document.write('<div class="set-flex">');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<img height="70" src="https://s2.coinmarketcap.com/static/img/coins/200x200/15368.png">');
+        printWindow.document.write('<div class="small-text"><span>ADDRESS: </span><span>No 03 Apala Road Off Aba Express Way PH.</span></div>');
+        printWindow.document.write('<div class="small-text"><span>PHONE NUMBER: </span><span>07017299153</span></div>');
+        printWindow.document.write('<div class="small-text"><span>EMAIL ADDRESS: </span><span>cs@egoras.com</span></div>');
+        printWindow.document.write('<div class="small-text"><span>COMPANY WEBSITE: </span><span>https://www.egoras.com</span></div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<div class="small-text"><h2>INVOICE/SALES RECEIPT</h2></div>');
+        printWindow.document.write('<div class="small-text"><span>DATE: </span><span>12/05/2022</span></div>');
+        printWindow.document.write('<div class="small-text"><span>SALES REP: </span><span>MIKE BENSON</span></div>');
+        printWindow.document.write('<br>');
+        printWindow.document.write('<div class="small-text"><span>SOLD TO:</span></div>');
+        printWindow.document.write('<div class="small-text"><span>NAME: </span><span>Jame Adam</span></div>');
+        printWindow.document.write('<div class="small-text"><span>ADDRESS: </span><span>No 23B Adamawu Lane Off Aba Road PH</span></div>');
+        printWindow.document.write('<div class="small-text"><span>PHONE NUMBER: </span><span>09034753885</span></div>');
+        printWindow.document.write('<div class="small-text"><span>PRODUCT ID: </span><span>EG/AGP/SR/00001</span></div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<div class="small-text">');
+        printWindow.document.write('<table style="width: 100%;" class="GeneratedTable">');
+        printWindow.document.write('<tbody>');
+        printWindow.document.write('<tr style="height: 23px;">');
+        printWindow.document.write('<td style="width: 52.5547px;height: 23px;">QTY</td>');
+        printWindow.document.write('<td style="width: 100.445px; height: 23px;">ITEM</td>');
+        printWindow.document.write('<td style="width: 465px; height: 23px;">DESCRIPTION</td>');
+        printWindow.document.write('<td style="width: 73px; height: 23px;">UNIT PRICE</td>');
+        printWindow.document.write('<td style="width: 71px; height: 23px;">AMOUNT</td>');
+        printWindow.document.write('</tr>');
+        printWindow.document.write('<tr style="height: 80px;">');
+        printWindow.document.write('<td style="width: 52.5547px; height: 80px;">1</td>');
+        printWindow.document.write('<td style="width: 100.445px; height: 80px;">Iphone 12 Pro Max</td>');
+        printWindow.document.write('<td style="width: 465px; height: 80px;">Farely Used Iphone 12 Pro Max</td>');
+        printWindow.document.write('<td style="width: 73px; height: 80px;">#40000</td>');
+        printWindow.document.write('<td style="width: 71px; height: 80px;">#40000</td>');
+        printWindow.document.write('</tr>');
+        printWindow.document.write('<tr style="height: 22px;">');
+        printWindow.document.write('<td style="width: 52.5547px; height: 22px;"></td>');
+        printWindow.document.write('<td style="width: 100.445px; height: 22px;"></td>');
+        printWindow.document.write('<td style="width: 465px; height: 22px;"></td>');
+        printWindow.document.write('<td style="width: 73px; height: 22px;">Total</td>');
+        printWindow.document.write('<td style="width: 71px; height: 22px;">#40000</td>');
+        printWindow.document.write('</tr>');
+        printWindow.document.write('</tbody>');
+        printWindow.document.write('</table>');
+        printWindow.document.write('<div class="small-text">');
+        printWindow.document.write('<div class="set-flex">');
+        printWindow.document.write('<div class="w-50"></div>');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<div class="set-flex">');
+        printWindow.document.write('<div class="w-50"></div>');
+        printWindow.document.write('<div class="w-50">');
+        printWindow.document.write('<div class="bbt set-flex">');
+        printWindow.document.write('<span>Subtotal: </span><span>N500.00</span></div>');
+        printWindow.document.write('<div class="bbt set-flex"><span>VAT (7.5%): </span><span>N97.50</span></div>');
+        printWindow.document.write('<div class="bbt set-flex"><span>TOTAL: </span><span>N597.50</span></div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('<div class="center-text">');
+        printWindow.document.write('<h4>THANKS FOR YOUR PATRONAGE</h4>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</div></body>');
+        printWindow.document.write('</html>');
         printWindow.document.close();
         printWindow.print();
     
@@ -238,7 +367,7 @@ const AdminSideBar = ({ auth }) => {
             </div>
 
             {/* <Authenticate isHome="false" /> */}
-            {/* <button onClick={triggerPrint}>Print</button> */}
+            <button onClick={triggerPrint}>Print</button>
 
             <div
               className={
@@ -267,6 +396,8 @@ const AdminSideBar = ({ auth }) => {
                     <span className="userName_name">Head Of Media</span>
                   ) : role1 === 'TECH' ? (
                     <span className="userName_name">Tech Team</span>
+                  ) : role1 === 'MANAGER' ? (
+                    <span className="userName_name">Manager</span>
                   ) : null}
                 </span>
               </div>
@@ -293,7 +424,7 @@ const AdminSideBar = ({ auth }) => {
           </div>
         </div>
       ) : (
-        <div></div>
+        <div class="small-text"></div>
       )}
 
       {/* ========== */}
@@ -601,7 +732,7 @@ const AdminSideBar = ({ auth }) => {
                 ) : null}
 
                 {role1 === "LOGISTICS" ? (
-                   <a
+                   <><a
                     href="/super_admin/Approved_products"
                     className="link"
                     id="allProd"
@@ -618,6 +749,23 @@ const AdminSideBar = ({ auth }) => {
                       Approved Products
                     </li>
                   </a>
+                  <a
+                  href="/super_admin/Approved_products"
+                  className="link"
+                  id="allProd"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "allProd" && role1 === "HOD_MEDIA"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <GroupAddIcon className="sidebarIcon" />
+                    Products Routes
+                  </li>
+                </a></>
                 ) : null}
                 {/* ===================== */}
                 {/* ===================== */}
