@@ -176,7 +176,7 @@ const AdminAllProducts = () => {
                   
                   </table>
                 </div>
-                <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div>
+                {/* <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div> */}
                 {/* <div className="total_div">
                   Total: <span className="sum_resu"> ₦{'bnbnbn'}</span>
                 </div> */}

@@ -732,7 +732,7 @@ const AdminSideBar = ({ auth }) => {
                 ) : null}
 
                 {role1 === "LOGISTICS" ? (
-                   <a
+                   <><a
                     href="/super_admin/Approved_products"
                     className="link"
                     id="allProd"
@@ -749,6 +749,23 @@ const AdminSideBar = ({ auth }) => {
                       Approved Products
                     </li>
                   </a>
+                  <a
+                  href="/super_admin/Approved_products"
+                  className="link"
+                  id="allProd"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "allProd" && role1 === "HOD_MEDIA"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <GroupAddIcon className="sidebarIcon" />
+                    Products Routes
+                  </li>
+                </a></>
                 ) : null}
                 {/* ===================== */}
                 {/* ===================== */}
