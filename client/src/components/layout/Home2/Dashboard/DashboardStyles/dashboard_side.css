@@ -144,7 +144,7 @@
   width: 100%;
   position: relative;
   padding: 1em;
-  color: #000000;
+  color: #6d8c79;
 }
 
 .social_icons {
@@ -204,7 +204,7 @@
   position: relative;
   color: #ffffff;
   background: #41ba71;
-  border-radius: 50px;
+  border-radius: 10px;
   box-shadow: 0px 10px 20px #75cd98;
   border-bottom-right-radius: 10px;
   width: 185px;
@@ -384,7 +384,7 @@
     position: relative;
     color: #ffffff;
     background: #41ba71;
-    border-radius: 50px;
+    border-radius: 10px;
     box-shadow: 0px 0px 20px #649d7b;
     border-bottom-right-radius: 10px;
     width: 126px;
@@ -417,9 +417,6 @@
     display: none;
   }
 
-  a#products {
-    margin-right: 20%;
-  }
   .click_search_btn {
     display: none;
   }
@@ -461,7 +458,7 @@
   }
 
   .sidebar {
-    background: none;
+    background: #e9fff2;
     position: fixed;
     bottom: 0;
     overflow-y: visible;
@@ -474,13 +471,13 @@
     top: auto;
     border-top-right-radius: 0px;
     border-top-left-radius: 0px;
-    background-image: radial-gradient(
+    /* background-image: radial-gradient(
       circle 45px at 50% 0px,
       #ffffff00 727px,
       #e9fff2 50px
-    );
-    -webkit-backdrop-filter: blur(26px);
-    backdrop-filter: blur(100px);
+    ); */
+    /* -webkit-backdrop-filter: blur(26px); */
+    /* backdrop-filter: blur(100px); */
     box-shadow: none;
   }
 
@@ -525,7 +522,7 @@
     position: relative;
     color: #0b7535 !important;
     background: none;
-    border-radius: 19px;
+    border-radius: 10px;
     box-shadow: none;
     border-bottom-right-radius: 17px;
     /* height: 57px; */
