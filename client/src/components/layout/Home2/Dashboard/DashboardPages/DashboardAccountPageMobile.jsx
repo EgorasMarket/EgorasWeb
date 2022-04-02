@@ -916,7 +916,7 @@ function DashboardAccountPageMobile({
                             </div>
                           </div>
                         ) : (
-                          <span>{Usergender}</span>
+                          Usergender
                         )}
                       </div>
                     </div>
@@ -956,8 +956,7 @@ function DashboardAccountPageMobile({
                         <div className="toggle_body_area1_cont1_txts"></div>
                         <div className="toggle_body_area1_cont1_input">
                           <div className="processing_transac_div insufficient">
-                            {/* <Success_Error_Component 
-                                   btn_txt="Fund Wallet"/> */}
+                            <Success_Error_Component btn_txt="Fund Wallet" />
 
                             <button
                               className={fold1}
