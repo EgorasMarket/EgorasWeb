@@ -24,13 +24,13 @@ import {
   nextOfKING,
   changePassword,
   addAddress,
-} from "../../../../../actions/auth";
-import { useParams } from "react-router-dom";
-import "./accF.css";
-import { setAlert } from "../../../../../actions/alert";
-import validator from "validator";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+} from '../../../../../actions/auth';
+import { useParams } from 'react-router-dom';
+import './accF.css';
+import { setAlert } from '../../../../../actions/alert';
+import validator from 'validator';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import {getNaame} from "../../../Signup/signup"
 
 function DashboardAccountPage({
@@ -64,11 +64,12 @@ function DashboardAccountPage({
     dateOfBirth: '',
   });
   const [customerAddress1, setCustomerAddress1] = useState({
-    customerAddress: "",
+    customerAddress: '',
   });
-  const [customerFetchedAddress, setCustomerFetchedAddress] = useState("");
-  const [customer_image, setcustomer_image] = useState("");
-  const [customerBvn1, setCustomerBvn1] = useState("");
+  const [customerFetchedAddress, setCustomerFetchedAddress] =
+    useState('');
+  const [customer_image, setcustomer_image] = useState('');
+  const [customerBvn1, setCustomerBvn1] = useState('');
   const [bvnId, setBvnId] = useState({});
   const [disable, setDisable] = React.useState(false);
   const [disable2, setDisable2] = React.useState(false);
@@ -97,17 +98,17 @@ function DashboardAccountPage({
   };
 
   const [nextKin, setNextKin] = useState({
-    firstname: "",
-    lastname: "",
-    email: "",
-    phoneNumber: "",
-    relationship: "",
-    gender1: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    phoneNumber: '',
+    relationship: '',
+    gender1: '',
   });
 
   const [changePassword1, setChangePassword1] = useState({
-    oldpassword: "",
-    newpassword: "",
+    oldpassword: '',
+    newpassword: '',
   });
 
   const [userInfo, setUserInfo] = useState({
@@ -206,7 +207,7 @@ function DashboardAccountPage({
       .get(api_url2 + '/v1/user/nextOfKin/info', null, config)
       .then((data) => {
         //console.log('eeeeee');
-        console.log(data.data.nxtOfKin, "king");
+        console.log(data.data.nxtOfKin, 'king');
 
         if (data.data.status === true) {
           setNxtOfKinA(true);
@@ -252,8 +253,14 @@ function DashboardAccountPage({
   //   },
   // };
 
-  const { firstname, lastname, email, phoneNumber, relationship, gender1 } =
-    nextKin;
+  const {
+    firstname,
+    lastname,
+    email,
+    phoneNumber,
+    relationship,
+    gender1,
+  } = nextKin;
   const { customerAddress } = customerAddress1;
 
   const { gender, dateOfBirth } = tokens;
@@ -274,12 +281,12 @@ function DashboardAccountPage({
       setEmailError(label4);
     }
     if (
-      firstname === "" ||
-      lastname === "" ||
-      email === "" ||
-      phoneNumber === "" ||
+      firstname === '' ||
+      lastname === '' ||
+      email === '' ||
+      phoneNumber === '' ||
       // gender === "" ||
-      relationship === ""
+      relationship === ''
     ) {
       setDisableKin(true);
     } else {
@@ -307,7 +314,7 @@ function DashboardAccountPage({
   // const [email, setEmail] = useState("samuelify225@gmail.com");
   // const [bvnNum, setBvnNum] = useState("23745672845");
   // const [phoneNo, setPhoneNo] = useState("+2348164020234");
-  const [phone_no2, setPhone_no2] = useState("");
+  const [phone_no2, setPhone_no2] = useState('');
   //   const [value, setValue] = useState(new Date("2014-02-09"));
   const [age, setAge] = React.useState({ relationship });
   const [activeBg, setActiveBg] = useState('accounts');
@@ -443,8 +450,8 @@ function DashboardAccountPage({
 
     if (res.success === true) {
       setIsLoading2(false);
-      console.log("okay Good Server");
-      window.location.replace("/dashboard/accounts");
+      console.log('okay Good Server');
+      window.location.replace('/dashboard/accounts');
     } else {
       setIsLoading2(false);
       setDisable2(false);
@@ -472,11 +479,11 @@ function DashboardAccountPage({
   }, [relationship]);
   useEffect(() => {
     if (
-      firstname === "" ||
-      lastname === "" ||
-      email === "" ||
-      phoneNumber === "" ||
-      relationship === ""
+      firstname === '' ||
+      lastname === '' ||
+      email === '' ||
+      phoneNumber === '' ||
+      relationship === ''
     ) {
       setDisableKin(true);
     } else {
@@ -520,7 +527,7 @@ function DashboardAccountPage({
         setError6(label5);
         // setDisableKin(true);
       } else {
-        setError6("Phone Number");
+        setError6('Phone Number');
         setDisableKin(true);
       }
       setDisableKin(true);
@@ -550,9 +557,9 @@ function DashboardAccountPage({
         setIsLoadingKin(false);
         window.location.reload();
         console.log(res.data.success);
-        console.log("okay Good Server");
+        console.log('okay Good Server');
       } else {
-        setAlert(res.data.data.errors[0].msg, "danger");
+        setAlert(res.data.data.errors[0].msg, 'danger');
         setDisableKin(false);
         setIsLoadingKin(false);
         console.log(res.data.data.errors[0].msg);
@@ -575,10 +582,10 @@ function DashboardAccountPage({
   };
   useEffect(() => {
     // setDisable2(true);
-    if (customer_image === "") {
+    if (customer_image === '') {
       setDisable(true);
     }
-    if (gender === "") {
+    if (gender === '') {
       setDisable2(true);
     }
   });
@@ -601,14 +608,14 @@ function DashboardAccountPage({
     setDisable(true);
     const formData = new FormData();
 
-    if (gender === "") {
+    if (gender === '') {
       setDisable(true);
       //console.log("empty passport");
       // setAlert('Please provide a passport photo', 'danger');
     } else {
       const element = document.getElementById('customer_image');
       const file = element.files[0];
-      formData.append("customer_image", file, file.name);
+      formData.append('customer_image', file, file.name);
       setDisable(false);
       //console.log(formData, "hhhh");
 
@@ -655,9 +662,9 @@ function DashboardAccountPage({
       // setIsLoadingKin(false);
       window.location.reload();
       console.log(res.data.success);
-      console.log("okay Good Server");
+      console.log('okay Good Server');
     } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
+      setAlert(res.data.data.errors[0].msg, 'danger');
       // setDisableKin(false);
       // setIsLoadingKin(false);
       console.log(res.data.data.errors[0].msg);
@@ -666,7 +673,7 @@ function DashboardAccountPage({
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/user/address/info", null, config)
+      .get(api_url2 + '/v1/user/address/info', null, config)
       .then((data) => {
         console.log(data.data.cusAddress);
         setCustomerAddress1(data.data.cusAddress.address);
@@ -1204,10 +1211,18 @@ function DashboardAccountPage({
                                 onChange={onChangeKin}
                                 // onSelect={onChangeFor2}
                               >
-                                <MenuItem value="Mother">Mother</MenuItem>
-                                <MenuItem value="Father">Father</MenuItem>
-                                <MenuItem value="Sister">Sister</MenuItem>
-                                <MenuItem value="Uncle">Uncle</MenuItem>
+                                <MenuItem value="Mother">
+                                  Mother
+                                </MenuItem>
+                                <MenuItem value="Father">
+                                  Father
+                                </MenuItem>
+                                <MenuItem value="Sister">
+                                  Sister
+                                </MenuItem>
+                                <MenuItem value="Uncle">
+                                  Uncle
+                                </MenuItem>
                                 <MenuItem value="Aunt">Aunt</MenuItem>
                                 <MenuItem value="Brother">
                                   Brother
@@ -1300,7 +1315,7 @@ function DashboardAccountPage({
                   )}
                 </div>
               ) : null}
-              {activeBg == "security" ? (
+              {activeBg == 'security' ? (
                 <div className="account_toggle_body_area1">
                   <div className="account_toggle_body_area1_title">
                     Verified Information
@@ -1486,11 +1501,15 @@ function DashboardAccountPage({
                   onClick={AddUserPhoto}
                   disabled={disable}
                 >
-                  <AddAPhotoIcon className="photo_icon" />{" "}
+                  <AddAPhotoIcon className="photo_icon" />{' '}
                   {isLoading ? (
                     <span>
                       Submitting
-                      <FontAwesomeIcon className="ml-2" icon={faSpinner} spin />
+                      <FontAwesomeIcon
+                        className="ml-2"
+                        icon={faSpinner}
+                        spin
+                      />
                     </span>
                   ) : (
                     <span>Submit</span>
