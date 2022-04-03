@@ -92,3 +92,7 @@
   /* height: 67vh; */
   overflow: scroll;
 }
+.order_body_table {
+  height: 70vh;
+  overflow: scroll;
+}
