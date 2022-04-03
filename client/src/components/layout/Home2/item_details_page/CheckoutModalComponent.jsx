@@ -11,7 +11,7 @@ import {
   API_URL2 as api_url2,
   API_URL2,
 } from '../../../../actions/types';
-import { numberWithCommas } from '../../../../static';
+import { numberWithCommas, colors } from '../../../../static';
 import {
   useFlutterwave,
   closePaymentModal,
