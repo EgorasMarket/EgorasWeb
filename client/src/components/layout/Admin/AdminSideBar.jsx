@@ -208,7 +208,7 @@ const AdminSideBar = ({ auth }) => {
         var printWindow = window.open('', '', 'height=1200,width=1200');
         printWindow.document.write('<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>Item Receipt</title></head>');
         printWindow.document.write('<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">');
-        printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+        // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
         printWindow.document.write('<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">');
         printWindow.document.write('<div class="small-text">');
         printWindow.document.write('<div class="set-flex">');
@@ -279,7 +279,7 @@ const AdminSideBar = ({ auth }) => {
         printWindow.document.write('</div>');
         printWindow.document.write('<div class="center-text"><h4>THANKS FOR YOUR PATRONAGE</h4></div>');
         printWindow.document.write('</div>');
-        printWindow.document.write('<h2 style="margin-bottom: 5px; margin-top: 15px">Customers Copy:</h2>');
+        // printWindow.document.write('<h2 style="margin-bottom: 5px; margin-top: 15px">Customers Copy:</h2>');
         printWindow.document.write('<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">');
         printWindow.document.write('<div class="small-text">');
         printWindow.document.write('<div class="set-flex">');

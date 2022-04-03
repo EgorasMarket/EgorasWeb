@@ -133,7 +133,11 @@ function DashboardInvestPage({ auth }) {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
+      .get(
+        api_url2 + '/v1/product/retrieve/outright/products',
+        null,
+        config
+      )
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
@@ -218,7 +222,7 @@ function DashboardInvestPage({ auth }) {
         config
       )
       .then((data) => {
-        console.log(data.data.data.length, "powerful");
+        console.log(data.data.data.length, 'powerful');
         setMusicalEquipmentData(data.data.data);
       })
       .catch((err) => {
