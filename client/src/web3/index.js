@@ -587,6 +587,32 @@ const getUserTotalSwap = async (user, signer) =>{
 }
 
 
+const addLiquidityUI = async (amount, signer) =>{
+  console.log(amount);
+  try {
+    const instance = swapcontractInstance(signer);
+  
+    let result = await instance.addLiquidity(amount);
+  console.log(result.toString(), "Allowance check!");
+    if (parseFloat(result.toString()) >= parseFloat(amount.toString())) {
+      return {
+      status: true,
+      }
+    }else{
+      return {
+        status: false,
+        }
+    }
+    
+  } catch (error) {
+    console.log(error);
+    return {
+      status: false,
+      }
+  }
+}
+
+
 
 
 
