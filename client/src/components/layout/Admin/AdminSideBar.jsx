@@ -208,7 +208,7 @@ const AdminSideBar = ({ auth }) => {
         var printWindow = window.open('', '', 'height=1200,width=1200');
         printWindow.document.write('<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>Item Receipt</title></head>');
         printWindow.document.write('<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">');
-        printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+        // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
         printWindow.document.write('<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">');
         printWindow.document.write('<div class="small-text">');
         printWindow.document.write('<div class="set-flex">');
@@ -279,7 +279,7 @@ const AdminSideBar = ({ auth }) => {
         printWindow.document.write('</div>');
         printWindow.document.write('<div class="center-text"><h4>THANKS FOR YOUR PATRONAGE</h4></div>');
         printWindow.document.write('</div>');
-        printWindow.document.write('<h2 style="margin-bottom: 5px; margin-top: 15px">Customers Copy:</h2>');
+        // printWindow.document.write('<h2 style="margin-bottom: 5px; margin-top: 15px">Customers Copy:</h2>');
         printWindow.document.write('<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">');
         printWindow.document.write('<div class="small-text">');
         printWindow.document.write('<div class="set-flex">');
@@ -392,6 +392,8 @@ const AdminSideBar = ({ auth }) => {
                     <span className="userName_name">Warehouse</span>
                   ) : role1 === 'CUSTOMER_SERVICE' ? (
                     <span className="userName_name">Customer Service</span>
+                  ) : role1 === 'CASHIER' ? (
+                    <span className="userName_name">Sales Rep</span>
                   ) : role1 === 'HOD_MEDIA' ? (
                     <span className="userName_name">Head Of Media</span>
                   ) : role1 === 'TECH' ? (
@@ -568,6 +570,26 @@ const AdminSideBar = ({ auth }) => {
 
                 {role1 === "CASHIER" || role1 === "CUSTOMER_SERVICE" ? (
                   <>
+                    <a
+                      href="/super_admin/register_user"
+                      className="link"
+                      id="products"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg ==
+                          ("products" &&
+                            (role1 === "CASHIER" ||
+                              role1 === "CUSTOMER_SERVICE"))
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupsIcon className="sidebarIcon" />
+                        Register Customer
+                      </li>
+                    </a>
                     <a
                       href="/super_admin/all_user"
                       className="link"
@@ -750,7 +772,44 @@ const AdminSideBar = ({ auth }) => {
                     </li>
                   </a>
                   <a
-                  href="/super_admin/Approved_products"
+                  href="/super_admin/route/all-products"
+                  className="link"
+                  id="allProd"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "allProd" && role1 === "HOD_MEDIA"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <Inventory2Icon className="sidebarIcon" />
+                    Products Routes
+                  </li>
+                </a></>
+                ) : null}
+
+                {role1 === "WAREHOUSE" ? (
+                   <><a
+                    href="/super_admin/Approved_products"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      Approved Products
+                    </li>
+                  </a>
+                  <a
+                  href="/super_admin/route/all-products"
                   className="link"
                   id="allProd"
                   onClick={changeBg}
