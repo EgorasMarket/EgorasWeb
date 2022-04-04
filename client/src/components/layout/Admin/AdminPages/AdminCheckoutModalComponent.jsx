@@ -250,10 +250,10 @@ const CheckoutModalComponent = ({
               setOrder_id(response.data.order_id);
               setErrorDiv(false);
               setSuccessDiv(true);
-              alert(
-                'Your order have been completed successfully, You will redirected to the market place'
-              );
-              return <Redirect to="/dashboard" />;
+              // alert(
+              //   'Your order have been completed successfully, You will redirected to the market place'
+              // );
+              // return <Redirect to="/dashboard" />;
             })
             .catch((err) => {
               console.log(err.response);
