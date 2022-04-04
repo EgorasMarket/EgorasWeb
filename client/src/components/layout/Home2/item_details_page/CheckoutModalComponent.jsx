@@ -264,6 +264,8 @@ const CheckoutModalComponent = ({
           setProcessingDiv(false);
           setSuccessDiv(false);
           // setErrorMsg("An error")
+          setErrorMsg('Insufficient funds, Please fund wallet');
+
           setErrorDiv(true);
           // alert('hiy');
         }

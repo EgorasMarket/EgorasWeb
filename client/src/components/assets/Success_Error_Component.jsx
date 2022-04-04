@@ -18,6 +18,7 @@ const Success_Error_Component = ({
               style={{ width: '100%' }}
               src="/img/error_div_heading_icon.svg"
               alt=""
+              onClick={onclick}
             />
           ) : errorMsgDiv == false ? (
             <img
