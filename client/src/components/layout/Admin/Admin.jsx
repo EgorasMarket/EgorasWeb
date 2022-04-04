@@ -7,9 +7,11 @@ import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminAllView from "./AdminPages/AdminAllProductView";
+import Newclass from "./AdminPages/managerRole";
 import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
+import Adminproduct from "./AdminPages/productRoutes";
 import Wallet from "../Wallet/Wallet";
 import Wallet4 from "../Wallet/Wallet1";
 import Adminmakeproducts from "./AdminPages/Adminmakeproducts";
@@ -102,7 +104,13 @@ const Admin = ({ isAuthenticated, loading }) => {
                     exact
                     path="/super_admin/register_user"
                     component={RegisterCustomer}
-                  />
+                      />
+                      
+                 <Route
+                    exact
+                    path="/super_admin/product_routes"
+                    component={Adminproduct}
+                  /> 
                   {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
@@ -225,6 +233,15 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // / dashboard/products/details/:id/:name
                     component={NewOne}
                   />
+
+                   <Route
+                    exact
+                    path="/super_admin/staffs_data"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={Newclass}
+                  />
+
 
                   <Route
                     exact
