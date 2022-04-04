@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 // import data from "../../../../Data/AllUsersData.json";
+import { numberWithCommas } from "../../../../static";
 
 import axios from "axios";
 import {
@@ -33,7 +34,7 @@ const Adminproduct = () => {
         config
     ).then((data) => {
        
-        //console.log(data.data.data, "chukwubuike");
+        console.log(data.data.data, "chukwubuike");
      
        
         setpdwork(data.data.data);
@@ -70,8 +71,10 @@ const Adminproduct = () => {
 
 
 
-    const triggerPrint = e => {
+    const printProductCode = (product_code) => {
     let today = new Date().toLocaleDateString();
+
+    console.log(product_code);
 
     // const getName = tag.split(" ");
     // console.log(getName);
@@ -84,7 +87,7 @@ const Adminproduct = () => {
         // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
         printWindow.document.write('<div style="text-align: center;padding: 20px;">');
         printWindow.document.write('<h3>Product ID</h3>');
-        printWindow.document.write('<h4>EGR/Iphone12/8776/89787</h4>');
+        printWindow.document.write('<h1>'+product_code+'</h1>');
         printWindow.document.write('</div>');
         printWindow.document.write('</body>');
         printWindow.document.write('</html>');
@@ -94,8 +97,10 @@ const Adminproduct = () => {
 
     }
   
-  const triggerID = e => {
+  const printProductPrice = (product_name, amount) => {
     let today = new Date().toLocaleDateString();
+
+    console.log(product_name, amount);
 
     // const getName = tag.split(" ");
     // console.log(getName);
@@ -108,8 +113,8 @@ const Adminproduct = () => {
         // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
         printWindow.document.write('<div style="text-align: center;padding: 20px;">');
         printWindow.document.write('<h2>Product Price</h2>');
-        printWindow.document.write('<h4>₦400,000</h4>');
-       printWindow.document.write('<h2>Iphone 10 pro max</h2>');
+        printWindow.document.write('<h1>₦'+numberWithCommas(parseInt(amount).toFixed(2))+'</h1>');
+       printWindow.document.write('<h2>'+product_name+'</h2>');
         printWindow.document.write('</div>');
         printWindow.document.write('</body>');
         printWindow.document.write('</html>');
@@ -204,9 +209,9 @@ const Adminproduct = () => {
                             </div> */}
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                              <a >
-                            <button id={'yes_' + asset.id} onClick={triggerID}  className="checkout_btn1 py-1 px-2 m-0">
+                            <button id={'yes_' + asset.id} onClick={() => printProductPrice(asset.product_name, asset.amount)}  className="checkout_btn1 py-1 px-2 m-0">
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              Print product DES{" "}
+                              Print product Print{" "}
                             </button>
                             </a>
                             
@@ -221,7 +226,7 @@ const Adminproduct = () => {
                             </div> */}
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                              <a >
-                            <button id={'yes_' + asset.id}  onClick={triggerPrint} className="checkout_btn1 py-1 px-2 m-0">
+                            <button id={'yes_' + asset.id}  onClick={() => printProductCode(asset.product_code)} className="checkout_btn1 py-1 px-2 m-0">
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                               Print product ID{" "}
                             </button>
