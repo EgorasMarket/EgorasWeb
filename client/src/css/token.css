@@ -20,6 +20,56 @@
   margin-bottom: 30px;
   /* justify-content: space-between; */
 }
+
+.generate_modal {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  position: fixed;
+  left: 0;
+  background: #808080b5;
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  backdrop-filter: blur(5px);
+}
+.generate_container {
+  width: 100%;
+  max-width: 410px;
+  height: 200px;
+  background: #fff;
+  padding: 2em;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px grey;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+  gap: 10px;
+}
+.token_modal_generate {
+  border-radius: 10px;
+  border: solid 1px #bfbfbf;
+  padding: 1em 1em;
+}
+
+.generate_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+}
+.generate_btn {
+  width: 100%;
+  padding: 0.5em 1em;
+  border-radius: 10px;
+  background: #1b974d;
+  color: #fff;
+  border: none;
+}
+.close_generate_btn {
+  background: #e4a788;
+}
 .tokenCardflex-txt {
   width: 100%;
   font-size: 36px;
