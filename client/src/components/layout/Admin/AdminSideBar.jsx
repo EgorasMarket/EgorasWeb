@@ -392,6 +392,8 @@ const AdminSideBar = ({ auth }) => {
                     <span className="userName_name">Warehouse</span>
                   ) : role1 === 'CUSTOMER_SERVICE' ? (
                     <span className="userName_name">Customer Service</span>
+                  ) : role1 === 'CASHIER' ? (
+                    <span className="userName_name">Sales Rep</span>
                   ) : role1 === 'HOD_MEDIA' ? (
                     <span className="userName_name">Head Of Media</span>
                   ) : role1 === 'TECH' ? (
@@ -750,7 +752,44 @@ const AdminSideBar = ({ auth }) => {
                     </li>
                   </a>
                   <a
-                  href="/super_admin/Approved_products"
+                  href="/super_admin/route/all-products"
+                  className="link"
+                  id="allProd"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "allProd" && role1 === "HOD_MEDIA"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <Inventory2Icon className="sidebarIcon" />
+                    Products Routes
+                  </li>
+                </a></>
+                ) : null}
+
+                {role1 === "WAREHOUSE" ? (
+                   <><a
+                    href="/super_admin/Approved_products"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      Approved Products
+                    </li>
+                  </a>
+                  <a
+                  href="/super_admin/route/all-products"
                   className="link"
                   id="allProd"
                   onClick={changeBg}
