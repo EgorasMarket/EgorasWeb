@@ -24,6 +24,8 @@ import AdminMarket from "./AdminPages/AdminMarket";
 import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
 import ItemsPage2 from "./AdminPages/AdminItemsDetailsPage";
 import AdminSignup from "./AdminSignup/AdminSignup";
+import AllProductRoute from "./AdminPages/AllProductRoute";
+import UniqueProductRoutes from "./AdminPages/UniqueProductRoutes";
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
@@ -193,6 +195,20 @@ const Admin = ({ isAuthenticated, loading }) => {
                   // path="/dashboard/products/details/:id/:name"
                   // / dashboard/products/details/:id/:name
                   component={AdminAllView}
+                />
+                <Route
+                  exact
+                  path="/super_admin/route/all-products"
+                  // path="/dashboard/products/details/:id/:name"
+                  // / dashboard/products/details/:id/:name
+                  component={AllProductRoute}
+                />
+                <Route
+                  exact
+                  path="/super_admin/unique-product/routes/:id"
+                  // path="/dashboard/products/details/:id/:name"
+                  // / dashboard/products/details/:id/:name
+                  component={UniqueProductRoutes}
                 /></>
                 
                 

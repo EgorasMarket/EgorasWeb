@@ -859,7 +859,7 @@ function ItemDetailsPage({ auth, match }) {
                     </div>
                     <div>
                       <div class="save_prod_deta">
-                        <table className="save_item_table">
+                        <table className="save_item_table" style={{display: 'unset'}}>
                           <thead className="assets-category-titles">
                             <tr className="assets">
                               <th className="assets-category-titles-heading1">
