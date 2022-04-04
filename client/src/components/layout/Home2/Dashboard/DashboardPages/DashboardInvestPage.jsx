@@ -134,7 +134,7 @@ function DashboardInvestPage({ auth }) {
   useEffect(() => {
     axios
       .get(
-        api_url2 + '/v1/product/retrieve/search/new/products',
+        api_url2 + '/v1/product/retrieve/outright/products',
         null,
         config
       )
@@ -178,7 +178,6 @@ function DashboardInvestPage({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
         setHomeAppliancesData(data.data.data);
       })
       .catch((err) => {
@@ -194,7 +193,6 @@ function DashboardInvestPage({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
         setElectronicsData(data.data.data);
       })
       .catch((err) => {
@@ -210,7 +208,6 @@ function DashboardInvestPage({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
         setComputerAccessoriesData(data.data.data);
       })
       .catch((err) => {
@@ -226,7 +223,6 @@ function DashboardInvestPage({ auth }) {
       )
       .then((data) => {
         console.log(data.data.data.length, 'powerful');
-
         setMusicalEquipmentData(data.data.data);
       })
       .catch((err) => {
@@ -242,7 +238,6 @@ function DashboardInvestPage({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
         setIndustrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
@@ -293,17 +288,13 @@ function DashboardInvestPage({ auth }) {
     setProdBody('not_product_body');
     setDropBtn('dropHead');
   };
-
   //  const moveto =()=>{
-
   //    scroll.scrollToTop(100);
   //  }
-
   const height = {
     position: 'absolute',
     top: '1000px',
   };
-
   const wash = () => {
     setHeight20(height);
     setRap('#HomeKitchen');

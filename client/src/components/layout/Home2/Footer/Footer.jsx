@@ -55,6 +55,9 @@ const Footer = () => {
     if (FooterHide === "/dashboard/accounts/kin") {
       document.getElementById("FooterId").style.display = "none";
     }
+    if (FooterHide === "/dashboard/orders") {
+      document.getElementById("FooterId").style.display = "none";
+    }
 
     if (FooterHide === "/dashboard/accounts/security") {
       document.getElementById("FooterId").style.display = "none";

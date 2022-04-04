@@ -83,7 +83,7 @@ const Adminmakeproducts = () => {
               </div>
               <div className="locked_items2 locked_items2a">
                 <div class="save_prod_deta">
-                  <table className="save_item_table">
+                  <table className="save_item_table" style={{display: 'unset'}}>
                     <thead className="assets-category-titles">
                       <tr className="assets">
                         <th className="assets-category-titles-heading1">
@@ -176,7 +176,7 @@ const Adminmakeproducts = () => {
                   
                   </table>
                 </div>
-                <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div>
+                {/* <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div> */}
                 {/* <div className="total_div">
                   Total: <span className="sum_resu"> ₦{'bnbnbn'}</span>
                 </div> */}

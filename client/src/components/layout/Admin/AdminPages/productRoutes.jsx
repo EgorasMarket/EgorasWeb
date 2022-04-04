@@ -9,8 +9,8 @@ import "../AdminStyles/admin_all_products.css";
 
 const way = window.location.pathname;
 
-const productRoutes = () => {
-  const [itemdisplay,setItemDisplay] = useState([]);
+const Adminproduct = () => {
+  const [pdwork,setpdwork] = useState([]);
   const [rolesInfo,setRolesInfo]= useState({
     role20:""
   })
@@ -36,7 +36,7 @@ const productRoutes = () => {
         //console.log(data.data.data, "chukwubuike");
      
        
-        setItemDisplay(data.data.data);
+        setpdwork(data.data.data);
 
       })
       .catch((err) => {
@@ -70,6 +70,58 @@ const productRoutes = () => {
 
 
 
+    const triggerPrint = e => {
+    let today = new Date().toLocaleDateString();
+
+    // const getName = tag.split(" ");
+    // console.log(getName);
+    // tag.replaceAll(' ', '')
+    // var divContents = document.getElementById("mainContent").innerHTML;
+   
+        var printWindow = window.open('', '', 'height=1200,width=1200');
+        printWindow.document.write('<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>');
+        printWindow.document.write('<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">');
+        // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+        printWindow.document.write('<div style="text-align: center;padding: 20px;">');
+        printWindow.document.write('<h3>Product ID</h3>');
+        printWindow.document.write('<h4>EGR/Iphone12/8776/89787</h4>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</body>');
+        printWindow.document.write('</html>');
+        printWindow.document.close();
+        printWindow.print();
+    
+
+    }
+  
+  const triggerID = e => {
+    let today = new Date().toLocaleDateString();
+
+    // const getName = tag.split(" ");
+    // console.log(getName);
+    // tag.replaceAll(' ', '')
+    // var divContents = document.getElementById("mainContent").innerHTML;
+   
+        var printWindow = window.open('', '', 'height=1200,width=1200');
+        printWindow.document.write('<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>');
+        printWindow.document.write('<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">');
+        // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+        printWindow.document.write('<div style="text-align: center;padding: 20px;">');
+        printWindow.document.write('<h2>Product Price</h2>');
+        printWindow.document.write('<h4>₦400,000</h4>');
+       printWindow.document.write('<h2>Iphone 10 pro max</h2>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</body>');
+        printWindow.document.write('</html>');
+        printWindow.document.close();
+        printWindow.print();
+    
+
+  }
+
+
+
+
   return (
     <>
          {/* {(role20 === "HOD_MEDIA") && (way ===  "/super_admin/all_products" )? */}
@@ -83,7 +135,8 @@ const productRoutes = () => {
               </div>
               <div className="locked_items2 locked_items2a">
                 <div class="save_prod_deta">
-                  <table className="save_item_table">
+                  <table className="save_item_table" >
+                  {/* <table className="save_item_table" style={{display: 'unset'}}> */}
                     <thead className="assets-category-titles">
                       <tr className="assets">
                         <th className="assets-category-titles-heading1">
@@ -92,24 +145,21 @@ const productRoutes = () => {
                         <th className="assets-category-titles-heading1">
                           Name
                         </th>
-                       
-                        
-                        <th className="assets-category-titles-heading1 quant">
+                      
+                        {/* <th className="assets-category-titles-heading1 quant">
                           Category
-                        </th>
+                        </th> */}
                         {/* <th className="assets-category-titles-heading1 quant">
                           Unit Price
                         </th> */}
                         <th className="assets-category-titles-heading1_last">
                           Price
                         </th>
-                        <th className="assets-category-titles-heading1_last">
-                          Action
-                        </th>
+                       
                       </tr>
                     </thead>
 
-                    {itemdisplay.slice(0,50).map((asset,index) => (
+                    {pdwork.slice(0,50).map((asset,index) => (
                       <tbody
                         className="save_items_cat  small_height popular-categories"
                         id="popular-categories" key={index.toString()}
@@ -134,35 +184,56 @@ const productRoutes = () => {
                               
                             </div>
                           </td>
-                        
-                          <td className="save_item_data1b">
+                          
+                          {/* <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
                               {asset.product_category_desc}
                             </div>
-                          </td>
+                          </td> */}
                           
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div>
                           </td>
+                          
 
-                          <td className="save_item_data1b">
+                            <td className="save_item_data1b">
                             {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                             <a href={`/super_admin/products_view/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} >
-                            <button id={'yes_' + asset.id}  className="checkout_btn1 py-1 px-2 m-0">
+                             <a >
+                            <button id={'yes_' + asset.id} onClick={triggerID}  className="checkout_btn1 py-1 px-2 m-0">
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              View detail{" "}
+                              Print product ID{" "}
                             </button>
                             </a>
+                            
                         
                             {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
                             </button> */}
                           </td>
+                            <td className="save_item_data1b">
+                            {/* <div className="assets-data-name center_name">
+                              ₦{asset.amount}
+                            </div> */}
+                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                             <a >
+                            <button id={'yes_' + asset.id}  onClick={triggerPrint} className="checkout_btn1 py-1 px-2 m-0">
+                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                              Print product ID{" "}
+                            </button>
+                            </a>
+                            
+                        
+                            {/* <button className="checkout_btn1 py-1 px-2 ml-1">
+                              Refuse{" "}
+                            </button> */}
+                          </td>
+
+
                          
                         </tr>
                       </tbody>
@@ -171,7 +242,7 @@ const productRoutes = () => {
                   
                   </table>
                 </div>
-                <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div>
+                {/* <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div> */}
                 {/* <div className="total_div">
                   Total: <span className="sum_resu"> ₦{'bnbnbn'}</span>
                 </div> */}
@@ -192,6 +263,5 @@ const productRoutes = () => {
   );
 };
 
-export default productRoutes;
-
+export default Adminproduct;
 

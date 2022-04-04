@@ -9,7 +9,7 @@ import "../AdminStyles/admin_all_products.css";
 
 const way = window.location.pathname;
 
-const AdminAllProducts = () => {
+const AllProductRoute = () => {
   const [itemdisplay,setItemDisplay] = useState([]);
   const [rolesInfo,setRolesInfo]= useState({
     role20:""
@@ -26,14 +26,14 @@ const AdminAllProducts = () => {
 
 
   useEffect(() => {
-  
+
     axios.get(
-        api_url2 + "/v1/product/retrieve/new/products",
+        api_url2 + "/v1/product/retrieve/products/routes",
         null,
         config
     ).then((data) => {
        
-        //console.log(data.data.data, "chukwubuike");
+        console.log(data.data.data, "chukwubuike");
      
        
         setItemDisplay(data.data.data);
@@ -83,7 +83,7 @@ const AdminAllProducts = () => {
               </div>
               <div className="locked_items2 locked_items2a">
                 <div class="save_prod_deta">
-                  <table className="save_item_table">
+                  <table className="save_item_table" style={{display: 'unset'}} style={{display: 'unset'}}>
                     <thead className="assets-category-titles">
                       <tr className="assets">
                         <th className="assets-category-titles-heading1">
@@ -93,16 +93,16 @@ const AdminAllProducts = () => {
                           Name
                         </th>
                         <th className="assets-category-titles-heading1">
-                          Brand
+                          Admin Officer
                         </th>
                         <th className="assets-category-titles-heading1 quant">
-                          Category
+                          Carrier
                         </th>
                         {/* <th className="assets-category-titles-heading1 quant">
                           Unit Price
                         </th> */}
                         <th className="assets-category-titles-heading1_last">
-                          Price
+                          Date
                         </th>
                         <th className="assets-category-titles-heading1_last">
                           Action
@@ -110,12 +110,19 @@ const AdminAllProducts = () => {
                       </tr>
                     </thead>
 
+                    <tbody
+                    className="save_items_cat  small_height popular-categories"
+                    id="popular-categories" 
+                    // key={index.toString()}
+                    >
+                    {" "}
+                    {/* 
+                    carrier: "HAPPY"
+                    id: "291e4470-8b09-495b-a2bb-21dfab3a8882"
+                    officer: "Mick Smith"
+                    product_id: "157a9225-f9e9-455e-91c9-0d5u81870232"
+                     */}
                     {itemdisplay.slice(0,50).map((asset,index) => (
-                      <tbody
-                        className="save_items_cat  small_height popular-categories"
-                        id="popular-categories" key={index.toString()}
-                      >
-                        {" "}
                         <tr id={asset.id} className="assets-category-row">
                           <td className="save_item_data_cart small_height">
                             <div className="assets-data height_data height_data1">
@@ -137,41 +144,34 @@ const AdminAllProducts = () => {
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
-                              {asset.product_brand}
+                              {asset.officer}
                             </div>
                           </td>
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
-                              {asset.product_category_desc}
+                              {asset.carrier}
                             </div>
                           </td>
                           
                           <td className="save_item_data1b">
                             <div className="assets-data-name center_name">
-                              ₦{asset.amount}
+                              {asset.createdAt.split('T')[0]}
                             </div>
                           </td>
 
                           <td className="save_item_data1b">
-                            {/* <div className="assets-data-name center_name">
-                              ₦{asset.amount}
-                            </div> */}
-                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                             <a href={`/super_admin/products_view/${asset.id}/${asset.product_name.replace(/\s+/g, '-')}`} >
+                           
+                             <a href={`/super_admin/unique-product/routes/${asset.product_id}`} >
                             <button id={'yes_' + asset.id}  className="checkout_btn1 py-1 px-2 m-0">
-                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                               View detail{" "}
                             </button>
                             </a>
-                        
-                            {/* <button className="checkout_btn1 py-1 px-2 ml-1">
-                              Refuse{" "}
-                            </button> */}
+                  
                           </td>
                          
                         </tr>
-                      </tbody>
                     ))}
+                      </tbody>
 
                   
                   </table>
@@ -197,4 +197,4 @@ const AdminAllProducts = () => {
   );
 };
 
-export default AdminAllProducts;
+export default AllProductRoute;

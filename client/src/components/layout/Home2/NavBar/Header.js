@@ -225,6 +225,11 @@ const Header = ({ isAuthenticated, auth }) => {
         document.getElementById("Header").style.display = "none";
       });
     }
+    if (currentPage === "/dashboard/orders") {
+      setshowHeader(() => {
+        document.getElementById("Header").style.display = "none";
+      });
+    }
     if (currentPage === "/dashboard/egr-") {
       setshowHeader(() => {
         document.getElementById("Header").style.display = "none";
