@@ -143,12 +143,6 @@ const Admin = ({ isAuthenticated, loading }) => {
                     component={AdminSavingsOverview}
                   />
 
-                  {/* <Route
->>>>>>> c5fd9c3b4b94f24cd588c4df26c55d4862d46995
-                exact
-                path="/admin/products/details/:id/:name"
-                component={ItemsPage2}
-              /> */}
                   <Route
                     exact
                     path="/super_admin/user_wallet"
@@ -262,6 +256,14 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // path="/dashboard/products/details/:id/:name"
                     // / dashboard/products/details/:id/:name
                     component={AdminAllView}
+                  />
+                </>
+              ) : Role === 'CASHIER' ? (
+                <>
+                  <Route
+                    exact
+                    path="/super_admin/register_user"
+                    component={RegisterCustomer}
                   />
                 </>
               ) : (

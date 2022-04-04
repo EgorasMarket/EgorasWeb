@@ -572,6 +572,26 @@ const AdminSideBar = ({ auth }) => {
                 {role1 === "CASHIER" || role1 === "CUSTOMER_SERVICE" ? (
                   <>
                     <a
+                      href="/super_admin/register_user"
+                      className="link"
+                      id="products"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg ==
+                          ("products" &&
+                            (role1 === "CASHIER" ||
+                              role1 === "CUSTOMER_SERVICE"))
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupsIcon className="sidebarIcon" />
+                        Register Customer
+                      </li>
+                    </a>
+                    <a
                       href="/super_admin/all_user"
                       className="link"
                       id="products"
