@@ -206,7 +206,7 @@ const Adminproduct = () => {
                              <a >
                             <button id={'yes_' + asset.id} onClick={triggerID}  className="checkout_btn1 py-1 px-2 m-0">
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              Print product ID{" "}
+                              Print product DES{" "}
                             </button>
                             </a>
                             
