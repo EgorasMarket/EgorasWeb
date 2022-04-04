@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
 
 import "../../../../css/token.css";
 const TokenEUSD = () => {
+  const [generateModal, setGenerateModal] = useState(false);
+  const toggleModal = () => {
+    if (generateModal === false) {
+      setGenerateModal(true);
+    } else if (generateModal === true) {
+      setGenerateModal(false);
+    }
+    // else()
+  };
   return (
     <div>
       {/* =================================================================================================================================================================================================================================================================== */}
@@ -25,17 +34,32 @@ const TokenEUSD = () => {
               class="eusd-token-page coin"
             />
             <div class="eusd-token-page d-flex flex-column align-items-center">
-              <div class="eusd-token-page ticker-symbol">EgorasUSD (EUSD)</div>
+              <div class="eusd-token-page ticker-symbol">
+                Egoras Naira (eNGN)
+              </div>
               <h1 class="eusd-token-page">
                 The first decentralised stablecoin that is built for emerging
                 markets
               </h1>
-              <button
-                style={{ marginTop: "50px" }}
-                class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+              <div
+                className="swap_engn_btns"
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
               >
-                Get EUSD
-              </button>
+                {/* <button
+                  style={{ marginTop: "50px" }}
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  onClick={toggleModal}
+                >
+                  swap egc
+                </button> */}
+                <button
+                  style={{ marginTop: "50px" }}
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  onClick={toggleModal}
+                >
+                  Generate eNGN
+                </button>
+              </div>
             </div>
           </div>
 
@@ -71,7 +95,7 @@ const TokenEUSD = () => {
               <p className="span1-txts">NFT-based reward</p>
               <p className="span2-txts"> Earn Redeemable NFT </p>
               <p className="span4-txts">
-                Convert your USDT, USDC, and Fiat to EUSD to start earning NFTs
+                Convert your USDT, USDC, and Fiat to eNGN to start earning NFTs
                 immediately
               </p>
             </div>
@@ -93,7 +117,7 @@ const TokenEUSD = () => {
                 </p>
                 <p className="span4b-txts">
                   All yields are automatically converted to eNFTs  which can be
-                  redeemed for real product.  EUSD balance compounds multiple
+                  redeemed for real product.  eNGN balance compounds multiple
                   times per day. 
                 </p>
               </div>
@@ -160,8 +184,9 @@ const TokenEUSD = () => {
                 <p className="span4a-txts">Elastic supply, stable price</p>
 
                 <p className="span4b-txts">
-                  EgorasUSD is pegged to the US Dollar. Returns are used to buy
-                  back EGC. Supply buy back happens multiple times per day. 
+                  EgorasNaira is pegged to the Nigerian Naira. Returns are used
+                  to buy back EGC. Supply buy back happens multiple times per
+                  day. 
                 </p>
               </div>
             </div>
@@ -204,7 +229,7 @@ const TokenEUSD = () => {
 
                 <p className="span4b-txts">
                   A community of EGR token holders govern the Egoras Protocol,
-                  the smart contracts that power EUSD.
+                  the smart contracts that power eNGN.
                 </p>
               </div>
             </div>
@@ -214,6 +239,30 @@ const TokenEUSD = () => {
         <img src="/img/shape-egg2.svg" alt="" class="gteggShape2a" />
       </section>
       {/* fourth section end */}
+      {generateModal == true ? (
+        <div className="generate_modal">
+          <div className="generate_container">
+            <div className="generate_title">Input Amount</div>
+            <div className="generate_input_div">
+              <input
+                type="text"
+                className="token_modal_generate"
+                style={{ width: "100%" }}
+                placeHolder="000"
+              />
+            </div>
+            <div className="generate_button">
+              <button className="generate_btn">Generate</button>{" "}
+              <button
+                className="generate_btn close_generate_btn"
+                onClick={toggleModal}
+              >
+                Close
+              </button>{" "}
+            </div>
+          </div>
+        </div>
+      ) : null}
     </div>
   );
 };
