@@ -7,6 +7,7 @@ import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminAllView from "./AdminPages/AdminAllProductView";
+import Newclass from "./AdminPages/managerRole";
 import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
@@ -238,6 +239,15 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // / dashboard/products/details/:id/:name
                     component={NewOne}
                   />
+
+                   <Route
+                    exact
+                    path="/super_admin/staffs_data"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={Newclass}
+                  />
+
 
                   <Route
                     exact
