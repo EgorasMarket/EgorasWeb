@@ -10,6 +10,7 @@ import AdminAllView from "./AdminPages/AdminAllProductView";
 import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
+import Adminproduct from "./AdminPages/productRoutes";
 import Wallet from "../Wallet/Wallet";
 import Wallet4 from "../Wallet/Wallet1";
 import Adminmakeproducts from "./AdminPages/Adminmakeproducts";
@@ -24,6 +25,8 @@ import AdminMarket from "./AdminPages/AdminMarket";
 import AdminSavingsOverview from "./AdminPages/AdminSavingsOverview";
 import ItemsPage2 from "./AdminPages/AdminItemsDetailsPage";
 import AdminSignup from "./AdminSignup/AdminSignup";
+import AllProductRoute from "./AdminPages/AllProductRoute";
+import UniqueProductRoutes from "./AdminPages/UniqueProductRoutes";
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
@@ -100,7 +103,13 @@ const Admin = ({ isAuthenticated, loading }) => {
                     exact
                     path="/super_admin/register_user"
                     component={RegisterCustomer}
-                  />
+                      />
+                      
+                 <Route
+                    exact
+                    path="/super_admin/product_routes"
+                    component={Adminproduct}
+                  /> 
                   {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
@@ -193,6 +202,20 @@ const Admin = ({ isAuthenticated, loading }) => {
                   // path="/dashboard/products/details/:id/:name"
                   // / dashboard/products/details/:id/:name
                   component={AdminAllView}
+                />
+                <Route
+                  exact
+                  path="/super_admin/route/all-products"
+                  // path="/dashboard/products/details/:id/:name"
+                  // / dashboard/products/details/:id/:name
+                  component={AllProductRoute}
+                />
+                <Route
+                  exact
+                  path="/super_admin/unique-product/routes/:id"
+                  // path="/dashboard/products/details/:id/:name"
+                  // / dashboard/products/details/:id/:name
+                  component={UniqueProductRoutes}
                 /></>
                 
                 

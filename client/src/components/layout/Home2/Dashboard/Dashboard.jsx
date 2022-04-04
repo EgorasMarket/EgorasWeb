@@ -13,6 +13,7 @@ import DashboardSidebar from "./DashboardSidebar";
 import DashboardAccountPageMobile from "./DashboardPages/DashboardAccountPageMobile";
 import ItemDetailsPage from "../item_details_page/ItemDetailsPage";
 // import ItemDetailsPage1 from "../item_details_page/detail";
+import DashboardOrderPage from "./DashboardPages/DashboardOrderPage";
 import DashboardSavingsPage from "./DashboardPages/DashboardSavingsPage";
 import CheckoutModalComponent from "../item_details_page/CheckoutModalComponent";
 // import DashboardCart from "./DashboardPages/DashboardCart";
@@ -85,6 +86,11 @@ const Dashboard = ({ isAuthenticated, loading }) => {
                 exact
                 path="/dashboard/products"
                 component={DashboardInvestPage}
+              />
+              <Route
+                exact
+                path="/dashboard/orders"
+                component={DashboardOrderPage}
               />
               {/* <Route
                 exact

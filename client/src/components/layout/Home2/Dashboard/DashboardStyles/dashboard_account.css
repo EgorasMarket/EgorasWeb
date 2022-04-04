@@ -206,6 +206,26 @@ label.radio::before {
   font-weight: 600;
   box-shadow: 0px 4px 10px #8abf9f;
 }
+.save_changes_btn {
+  background: #41ba71;
+  color: #fff;
+  padding: 0.8em 1.5em;
+  border: none;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  box-shadow: 0px 4px 10px #8abf9f;
+}
+.save_changes_btn:disabled {
+  background: #d6d6d6;
+  color: #797979;
+  cursor: not-allowed;
+}
+.disBtn {
+  background: #d6d6d6;
+  color: #797979;
+  cursor: not-allowed;
+}
 .select_input_area_fieeld {
   width: 45%;
 }
@@ -337,6 +357,11 @@ input[type="file"] {
   align-items: center;
   justify-content: center;
   gap: 10px;
+}
+.add_photo:disabled {
+  background: #d6d6d6;
+  color: #797979;
+  cursor: not-allowed;
 }
 .cancel_photo {
   width: 100%;

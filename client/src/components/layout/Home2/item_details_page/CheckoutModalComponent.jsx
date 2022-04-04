@@ -172,8 +172,8 @@ const CheckoutModalComponent = ({
       eventType: '1',
     },
     customizations: {
-      title: 'Payment from Egoras savings',
-      description: 'Payment for items in cart',
+      title: 'Payment for Egoras savings',
+      description: `Payment for ${product_name}`,
       logo: 'https://egoras.com/img/egoras-logo.svg',
     },
   };
@@ -252,10 +252,10 @@ const CheckoutModalComponent = ({
             })
             .catch((err) => {
               console.log(err.response);
-              setProcessingDiv(false);
-              setSuccessDiv(false);
-              setErrorMsg(err.response);
-              setErrorDiv(true);
+              // setProcessingDiv(false);
+              // setSuccessDiv(false);
+              // setErrorMsg(err.response);
+              // setErrorDiv(true);
               // alert(err);
             });
           //
@@ -620,7 +620,11 @@ const CheckoutModalComponent = ({
             msg={`${success_msg}, Order-Id: ${order_id}`}
             errorMsgDiv={errorDiv}
             link_btn={true}
-            src="/dashboard/savings"
+            src={
+              payment_type === 'OUTRIGHT'
+                ? '/dashboard/savings'
+                : '/dashboard/products'
+            }
           />
         </div>
       ) : null}
