@@ -706,6 +706,24 @@ const AdminSideBar = ({ auth }) => {
                         TransactionBranch
                       </li>
                     </a>
+
+                     <a
+                      href="/super_admin/staffs_data"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        Staff ACC
+                      </li>
+                    </a>
                   </>
                 ) : null}
                 {/* ===================== */}

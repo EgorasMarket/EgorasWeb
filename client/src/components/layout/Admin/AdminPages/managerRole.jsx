@@ -85,7 +85,7 @@ const Newclass = () => {
                         Gender
                       </th>
                       <th className="assets-category-titles-heading1">
-                        Email
+                        Name
                       </th>
                       <th className="assets-category-titles-heading1">
                         Phone number
@@ -93,13 +93,15 @@ const Newclass = () => {
                       <th className="assets-category-titles-heading1 right_align email_align">
                          Role
                       </th>
+
+                     <th className="assets-category-titles-heading1 right_align">
+                        Id
+                      </th> 
                      
                       <th className="assets-category-titles-heading1 right_align">
                         Staff ID
                       </th>
-                      <th className="assets-category-titles-heading1 right_align">
-                        
-                      </th> 
+       
                     </tr>
                   </thead>
                   {searchResults.map((user) => (
@@ -136,7 +138,11 @@ const Newclass = () => {
                           <div className="assets-data-name">{user.role}</div>
                         </td>
 
-                         
+                         <td className="assets-category-data1">
+                          <div className="assets-data-name">{user.id}</div>
+                        </td>
+
+
                          <td className="assets-category-data1">
                           <div className="assets-data-name">{user.staffId}</div>
                         </td>
