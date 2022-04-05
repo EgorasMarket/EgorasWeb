@@ -235,7 +235,7 @@ const Footer = () => {
                   EGR
                 </a> */}
                 <a href="/eusd-token" className="c1link1" target="_blank">
-                  EUSD
+                  eNGN
                 </a>
                 <a href="/egc_token" className="c1link1" target="_blank">
                   EGC
@@ -355,7 +355,7 @@ const Footer = () => {
                       EGR
                     </a> */}
                     <a href="/eusd-token" className="c1link1" target="_blank">
-                      EUSD
+                      eNGN
                     </a>
                     <a href="/egc_token" className="c1link1" target="_blank">
                       EGC

@@ -1,35 +1,31 @@
-import React, { useState, useEffect, useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from "react";
 // import data from "../../../../Data/AllUsersData.json";
-import { numberWithCommas } from '../../../../static';
+import { numberWithCommas } from "../../../../static";
 
-import axios from 'axios';
-import { API_URL2 as api_url2 } from '../../../../actions/types';
-import '../AdminStyles/admin_all_products.css';
+import axios from "axios";
+import { API_URL2 as api_url2 } from "../../../../actions/types";
+import "../AdminStyles/admin_all_products.css";
 
 const way = window.location.pathname;
 
 const ProductRoutes = () => {
   const [pdwork, setpdwork] = useState([]);
   const [rolesInfo, setRolesInfo] = useState({
-    role20: '',
+    role20: "",
   });
 
   const { role20 } = rolesInfo;
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
   useEffect(() => {
     axios
-      .get(
-        api_url2 + '/v1/product/retrieve/approved/products',
-        null,
-        config
-      )
+      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
       .then((data) => {
-        console.log(data.data.data, 'chukwubuike');
+        console.log(data.data.data, "chukwubuike");
 
         setpdwork(data.data.data);
       })
@@ -40,7 +36,7 @@ const ProductRoutes = () => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + '/v1/admin/info', null, config)
+      .get(api_url2 + "/v1/admin/info", null, config)
       .then((data) => {
         //console.log(data.data.user, "line_ful");
         setRolesInfo({
@@ -62,9 +58,9 @@ const ProductRoutes = () => {
     // tag.replaceAll(' ', '')
     // var divContents = document.getElementById("mainContent").innerHTML;
 
-    var printWindow = window.open('', '', 'height=1200,width=1200');
+    var printWindow = window.open("", "", "height=1200,width=1200");
     printWindow.document.write(
-      '<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>'
+      "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
     );
     printWindow.document.write(
       '<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
@@ -73,11 +69,11 @@ const ProductRoutes = () => {
     printWindow.document.write(
       '<div style="text-align: center;padding: 20px;">'
     );
-    printWindow.document.write('<h3>Product ID</h3>');
-    printWindow.document.write('<h1>' + product_code + '</h1>');
-    printWindow.document.write('</div>');
-    printWindow.document.write('</body>');
-    printWindow.document.write('</html>');
+    printWindow.document.write("<h3>Product ID</h3>");
+    printWindow.document.write("<h1>" + product_code + "</h1>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</body>");
+    printWindow.document.write("</html>");
     printWindow.document.close();
     printWindow.print();
   };
@@ -92,9 +88,9 @@ const ProductRoutes = () => {
     // tag.replaceAll(' ', '')
     // var divContents = document.getElementById("mainContent").innerHTML;
 
-    var printWindow = window.open('', '', 'height=1200,width=1200');
+    var printWindow = window.open("", "", "height=1200,width=1200");
     printWindow.document.write(
-      '<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>'
+      "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
     );
     printWindow.document.write(
       '<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
@@ -103,12 +99,12 @@ const ProductRoutes = () => {
     printWindow.document.write(
       '<div style="text-align: center;padding: 20px;">'
     );
-    printWindow.document.write('<h2>Product Price</h2>');
-    printWindow.document.write('<h1>₦' + amount + '</h1>');
-    printWindow.document.write('<h2>' + product_name + '</h2>');
-    printWindow.document.write('</div>');
-    printWindow.document.write('</body>');
-    printWindow.document.write('</html>');
+    printWindow.document.write("<h2>Product Price</h2>");
+    printWindow.document.write("<h1>₦" + amount + "</h1>");
+    printWindow.document.write("<h2>" + product_name + "</h2>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</body>");
+    printWindow.document.write("</html>");
     printWindow.document.close();
     printWindow.print();
   };
@@ -153,11 +149,8 @@ const ProductRoutes = () => {
                           id="popular-categories"
                           key={index.toString()}
                         >
-                          {' '}
-                          <tr
-                            id={asset.id}
-                            className="assets-category-row"
-                          >
+                          {" "}
+                          <tr id={asset.id} className="assets-category-row">
                             <td className="save_item_data_cart small_height">
                               <div className="assets-data height_data height_data1">
                                 <img
@@ -170,7 +163,7 @@ const ProductRoutes = () => {
 
                             <td
                               className="save_item_data1"
-                              style={{ width: 'unset' }}
+                              style={{ width: "unset" }}
                             >
                               <div className="save_items_detailssss">
                                 <div className="save_items_details1 small_tetxt">
@@ -198,7 +191,7 @@ const ProductRoutes = () => {
                               {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                               <a>
                                 <button
-                                  id={'yes_' + asset.id}
+                                  id={"yes_" + asset.id}
                                   onClick={() =>
                                     printProductPrice(
                                       asset.product_name,
@@ -208,7 +201,7 @@ const ProductRoutes = () => {
                                   className="checkout_btn1 py-1 px-2 m-0"
                                 >
                                   {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                  Print product Print{' '}
+                                  Print product Print{" "}
                                 </button>
                               </a>
 
@@ -223,16 +216,14 @@ const ProductRoutes = () => {
                               {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                               <a>
                                 <button
-                                  id={'yes_' + asset.id}
+                                  id={"yes_" + asset.id}
                                   onClick={() =>
-                                    printProductCode(
-                                      asset.product_code
-                                    )
+                                    printProductCode(asset.product_code)
                                   }
                                   className="checkout_btn1 py-1 px-2 m-0"
                                 >
                                   {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                  Print product ID{' '}
+                                  Print product ID{" "}
                                 </button>
                               </a>
 
