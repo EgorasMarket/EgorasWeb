@@ -721,58 +721,43 @@ const ItemDetailComponent = ({
           <div className="accordion_title">
             Frequently Asked Questions(FAQ).
           </div>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="What is Egoras Smart savings all about?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              The Egoras smart savings plan is a platform that lets you save
+              over a period of time to get any desired item. Seeing as most
+              persons do not have the instant funding to buy off items, how
+              about a platform that lets you gather up the funds in a couple
+              months and become an asset owner.
             </div>
           </Accordion>
-          <Accordion title="What are the duration of products luck.">
+          <Accordion title="How do I save on the platform?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Saving on the Egoras platform is super easy and straightforward.
+              Sign up with the click of a button, connect your wallet/bank,
+              search your desired items, then proceed to save with a payment
+              structure/plan of your choice. Items are all budget friendly at
+              affordable prices.
             </div>
           </Accordion>
-          <Accordion title="what are the delivering charges attached to a product.">
+          <Accordion title="How long is the savings package?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              The savings package is for a two months duration, users have the
+              luxury of choosing how to save within the two months, whether
+              daily or weekly, e.t.c
             </div>
           </Accordion>
-          <Accordion title="How long does it take for me to receive my product.">
+          <Accordion title="Are the discounts attached real?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              The discount attached to items are as real as can be. The idea is
+              to make this items affordable and accessible to anyone and
+              everyone.
             </div>
           </Accordion>
-          <Accordion title="what are the discount attachments to product.">
+          <Accordion title="How do I get to confirm my product is working before delivery?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
-            </div>
-          </Accordion>
-          <Accordion title="Are products tested before delivering.">
-            <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Products would be tested and confirmed at the office before being
+              shipped out and buyer would be notified of the products working
+              condition.
             </div>
           </Accordion>
         </section>

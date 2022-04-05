@@ -11,7 +11,7 @@ import {
   API_URL2 as api_url2,
   API_URL2,
 } from '../../../../actions/types';
-import { numberWithCommas, colors } from '../../../../static';
+import { numberWithCommas } from '../../../../static';
 import {
   useFlutterwave,
   closePaymentModal,
@@ -177,6 +177,10 @@ const CheckoutModalComponent = ({
       logo: 'https://egoras.com/img/egoras-logo.svg',
     },
   };
+
+  const closeErrorDiv = () => {
+    setErrorDiv(false);
+  };
   const handleFlutterPayment = useFlutterwave(flutterConfig);
   const openProcessingDiv = () => {
     setProcessingDiv(true);
@@ -254,8 +258,8 @@ const CheckoutModalComponent = ({
               console.log(err.response);
               // setProcessingDiv(false);
               // setSuccessDiv(false);
-              // setErrorMsg(err.response);
-              // setErrorDiv(true);
+              setErrorMsg(err.response);
+              setErrorDiv(true);
               // alert(err);
             });
           //
@@ -263,9 +267,9 @@ const CheckoutModalComponent = ({
           console.log('something happened');
           setProcessingDiv(false);
           setSuccessDiv(false);
-          // setErrorMsg("An error")
-          setErrorMsg('Insufficient funds, Please fund wallet');
-
+          setErrorMsg(
+            'Insufficient wallet balance, fund your wallet to continue.'
+          );
           setErrorDiv(true);
           // alert('hiy');
         }
@@ -614,33 +618,34 @@ const CheckoutModalComponent = ({
         </div>
       )}
       {successDiv == true ? (
-        <div className="processing_transac_div insufficient">
-          <Success_Error_Component
-            remove_success_div={closeCheckoutOptions}
-            btn_txt="Continue"
-            // msg={success_msg}
-            msg={`${success_msg}, Order-Id: ${order_id}`}
-            errorMsgDiv={errorDiv}
-            link_btn={true}
-            src={
-              payment_type === 'OUTRIGHT'
-                ? '/dashboard/savings'
-                : '/dashboard/products'
-            }
-          />
-        </div>
-      ) : null}
+        // <div>
+        <Success_Error_Component
+          remove_success_div={closeCheckoutOptions}
+          btn_txt="Continue"
+          // msg={success_msg}
+          msg={`${success_msg}, Order-Id: ${order_id}`}
+          errorMsgDiv={errorDiv}
+          link_btn={true}
+          src={
+            payment_type === 'OUTRIGHT'
+              ? '/dashboard/savings'
+              : '/dashboard/products'
+          }
+        />
+      ) : // </div>
+      null}
       {errorDiv == false ? null : (
-        <div className="processing_transac_div insufficient">
-          <Success_Error_Component
-            // remove_success_div={() => setErrorDiv(true)}
-            btn_txt="Fund Wallet"
-            msg={error_msg}
-            errorMsgDiv={errorDiv}
-            link_btn={true}
-            src="/dashboard/wallet"
-          />
-        </div>
+        // <div className="processing_transac_div insufficient">
+        <Success_Error_Component
+          // remove_success_div={() => setErrorDiv(true)}
+          btn_txt="Fund Wallet"
+          msg={error_msg}
+          errorMsgDiv={errorDiv}
+          removeTransDiv={closeErrorDiv}
+          link_btn={true}
+          src="/dashboard/wallet"
+        />
+        // </div>
       )}
     </>
   );

@@ -760,6 +760,24 @@ const AdminSideBar = ({ auth }) => {
                         TransactionBranch
                       </li>
                     </a>
+
+                     <a
+                      href="/super_admin/staffs_data"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        Staff ACC
+                      </li>
+                    </a>
                   </>
                 ) : null}
                 {/* ===================== */}
@@ -941,6 +959,8 @@ const AdminSideBar = ({ auth }) => {
                         Accounts
                       </li>
                     </a>
+
+                    
 
                     {locate === "/super_admin/overview" ||
                     locate === "/super_admin/cus_user_wallet" ? (
