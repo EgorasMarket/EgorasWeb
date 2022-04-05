@@ -113,7 +113,7 @@ const Adminproduct = () => {
         // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
         printWindow.document.write('<div style="text-align: center;padding: 20px;">');
         printWindow.document.write('<h2>Product Price</h2>');
-        printWindow.document.write('<h1>₦'+numberWithCommas(parseInt(amount).toFixed(2))+'</h1>');
+        printWindow.document.write('<h1>₦'+amount+'</h1>');
        printWindow.document.write('<h2>'+product_name+'</h2>');
         printWindow.document.write('</div>');
         printWindow.document.write('</body>');

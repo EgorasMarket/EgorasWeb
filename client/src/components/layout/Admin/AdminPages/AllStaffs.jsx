@@ -8,7 +8,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
-const Newclass = () => {
+const AllStaffs = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
@@ -55,6 +55,13 @@ const Newclass = () => {
         console.log(err);
       });
   }, []);
+
+  const saveCustomerId = (id) => {
+    console.log(id);
+    localStorage.setItem("adminStaffId", id);
+    return window.location.replace("/super_admin/fund/accountant");
+  }
+
   return (
     <>
       {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
@@ -141,13 +148,13 @@ const Newclass = () => {
                           <div className="assets-data-name">{user.staffId}</div>
                         </td>
 
-                         <td className="save_item_data1b">
+                         <td className="save_item_data1b" style={{width: 'unset'}}>
                             {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                              <a >
-                            <button   className="checkout_btn1 py-1 px-2 m-0">
+                            <button onClick={e => saveCustomerId(user.id)} className="checkout_btn1 py-1 px-2 m-0">
                             {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                               See Wallet{" "}
                             </button>
@@ -182,7 +189,7 @@ const Newclass = () => {
 // =========
 // =========
 
-export default Newclass;
+export default AllStaffs;
 // export default function Newone(){
 //   const url = '/v1/user/transactions/customer/byBranch';
 

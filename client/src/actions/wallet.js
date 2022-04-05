@@ -15,7 +15,7 @@ import setAuthToken from "../utils/setAuthToken";
 
 
 
-export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
+export const createWallet = (customer_id, tokenSymbol, transType) => async (dispatch) => {
   //   console.log(payload1, pin);
     const config = {
       headers: {
@@ -25,7 +25,7 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
   
       try {
   
-          const payload = JSON.stringify({customer_id, tokenSymbol});
+          const payload = JSON.stringify({customer_id, tokenSymbol, transType});
     
           // console.log(payload);
   
@@ -48,7 +48,7 @@ export const createWallet = (customer_id, tokenSymbol) => async (dispatch) => {
     }
   };
 
-export const depositToken = (customer_id, tokenSymbol) => async (dispatch) => {
+export const depositToken = (customer_id, tokenSymbol, transType) => async (dispatch) => {
 //   console.log(payload1, pin);
   const config = {
     headers: {
@@ -58,7 +58,7 @@ export const depositToken = (customer_id, tokenSymbol) => async (dispatch) => {
 
     try {
 
-        const payload = JSON.stringify({customer_id, tokenSymbol});
+        const payload = JSON.stringify({customer_id, tokenSymbol, transType});
   
         // console.log(payload);
 
