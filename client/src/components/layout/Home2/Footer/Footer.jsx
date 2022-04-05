@@ -215,7 +215,11 @@ const Footer = () => {
                 <a href="/terms-conditions" className="c1link1" target="_blank">
                   Terms & conditions
                 </a>
-                <a href="/terms-conditions" className="c1link1" target="_blank">
+                <a
+                  href="/img/bye law/Scan.pdf"
+                  className="c1link1"
+                  target="_blank"
+                >
                   Co-operative Bye law
                 </a>
                 {/* <a href="#partners" className="c1link1" target="_blank">
@@ -323,6 +327,13 @@ const Footer = () => {
                       target="_blank"
                     >
                       Terms & conditions
+                    </a>
+                    <a
+                      href="/img/bye law/Scan.pdf"
+                      className="c1link1"
+                      target="_blank"
+                    >
+                      Co-operative Bye law
                     </a>
                     {/* <a href="#partners" className="c1link1" target="_blank">
                       Partners
