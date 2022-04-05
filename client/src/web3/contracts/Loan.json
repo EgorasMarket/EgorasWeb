@@ -3,17 +3,41 @@
   "abi": [
     {
       "inputs": [
-        { "internalType": "address", "name": "_egorasEusd", "type": "address" },
-        { "internalType": "address", "name": "_egorasEgr", "type": "address" },
-        { "internalType": "address", "name": "_egorasEGC", "type": "address" },
+        {
+          "internalType": "address",
+          "name": "_egorasEusd",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_egorasEgr",
+          "type": "address"
+        },
+        {
+          "internalType": "address",
+          "name": "_egorasEGC",
+          "type": "address"
+        },
         {
           "internalType": "uint256",
           "name": "_votingThreshold",
           "type": "uint256"
         },
-        { "internalType": "uint256", "name": "_backers", "type": "uint256" },
-        { "internalType": "uint256", "name": "_company", "type": "uint256" },
-        { "internalType": "uint256", "name": "_branch", "type": "uint256" },
+        {
+          "internalType": "uint256",
+          "name": "_backers",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_company",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_branch",
+          "type": "uint256"
+        },
         {
           "internalType": "uint256",
           "name": "_dailyIncentive",
@@ -427,7 +451,11 @@
     },
     {
       "inputs": [
-        { "internalType": "address", "name": "_branch", "type": "address" },
+        {
+          "internalType": "address",
+          "name": "_branch",
+          "type": "address"
+        },
         {
           "internalType": "address",
           "name": "_branchRewardAddress",
@@ -435,32 +463,72 @@
         }
       ],
       "name": "addBranch",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "address", "name": "_eNFTAddress", "type": "address" }
+        {
+          "internalType": "address",
+          "name": "_eNFTAddress",
+          "type": "address"
+        }
       ],
       "name": "addNFTAddress",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "string", "name": "_title", "type": "string" },
-        { "internalType": "uint256", "name": "_amount", "type": "uint256" },
-        { "internalType": "uint256", "name": "_length", "type": "uint256" },
+        {
+          "internalType": "string",
+          "name": "_title",
+          "type": "string"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_amount",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_length",
+          "type": "uint256"
+        },
         {
           "internalType": "uint256",
           "name": "_inventoryFee",
           "type": "uint256"
         },
-        { "internalType": "string", "name": "_image_url", "type": "string" },
-        { "internalType": "bool", "name": "_isloan", "type": "bool" },
-        { "internalType": "string", "name": "_loanMetaData", "type": "string" }
+        {
+          "internalType": "string",
+          "name": "_image_url",
+          "type": "string"
+        },
+        {
+          "internalType": "bool",
+          "name": "_isloan",
+          "type": "bool"
+        },
+        {
+          "internalType": "string",
+          "name": "_loanMetaData",
+          "type": "string"
+        }
       ],
       "name": "applyForLoan",
       "outputs": [],
@@ -469,7 +537,11 @@
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_loanID", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "_loanID",
+          "type": "uint256"
+        }
       ],
       "name": "approveLoan",
       "outputs": [],
@@ -478,8 +550,16 @@
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_loanID", "type": "uint256" },
-        { "internalType": "string", "name": "_buyerMetadata", "type": "string" }
+        {
+          "internalType": "uint256",
+          "name": "_loanID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_buyerMetadata",
+          "type": "string"
+        }
       ],
       "name": "auction",
       "outputs": [],
@@ -489,21 +569,41 @@
     {
       "inputs": [],
       "name": "backers",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [],
       "name": "branch",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_id", "type": "uint256" },
-        { "internalType": "string", "name": "_buyerMetadata", "type": "string" }
+        {
+          "internalType": "uint256",
+          "name": "_id",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_buyerMetadata",
+          "type": "string"
+        }
       ],
       "name": "buy",
       "outputs": [],
@@ -513,13 +613,23 @@
     {
       "inputs": [],
       "name": "company",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_loanID", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "_loanID",
+          "type": "uint256"
+        }
       ],
       "name": "confirmLoan",
       "outputs": [],
@@ -533,12 +643,36 @@
           "name": "_requestType",
           "type": "uint256"
         },
-        { "internalType": "uint256", "name": "_threshold", "type": "uint256" },
-        { "internalType": "uint256", "name": "_incentive", "type": "uint256" },
-        { "internalType": "uint256", "name": "_backers", "type": "uint256" },
-        { "internalType": "uint256", "name": "_company", "type": "uint256" },
-        { "internalType": "uint256", "name": "_branch", "type": "uint256" },
-        { "internalType": "string", "name": "_reason", "type": "string" }
+        {
+          "internalType": "uint256",
+          "name": "_threshold",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_incentive",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_backers",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_company",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_branch",
+          "type": "uint256"
+        },
+        {
+          "internalType": "string",
+          "name": "_reason",
+          "type": "string"
+        }
       ],
       "name": "createRequest",
       "outputs": [],
@@ -548,14 +682,28 @@
     {
       "inputs": [],
       "name": "dailyIncentive",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_requestID", "type": "uint256" },
-        { "internalType": "uint256", "name": "_votePower", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "_requestID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_votePower",
+          "type": "uint256"
+        }
       ],
       "name": "governanceVote",
       "outputs": [],
@@ -564,24 +712,46 @@
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_loanID", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "_loanID",
+          "type": "uint256"
+        }
       ],
       "name": "isDue",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [],
       "name": "nextRewardDate",
-      "outputs": [{ "internalType": "uint256", "name": "", "type": "uint256" }],
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
     {
       "inputs": [],
       "name": "owner",
-      "outputs": [{ "internalType": "address", "name": "", "type": "address" }],
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
       "stateMutability": "view",
       "type": "function"
     },
@@ -594,7 +764,11 @@
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_loanID", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "_loanID",
+          "type": "uint256"
+        }
       ],
       "name": "repayLoan",
       "outputs": [],
@@ -610,16 +784,30 @@
     },
     {
       "inputs": [
-        { "internalType": "address", "name": "_branch", "type": "address" }
+        {
+          "internalType": "address",
+          "name": "_branch",
+          "type": "address"
+        }
       ],
       "name": "suspendBranch",
-      "outputs": [{ "internalType": "bool", "name": "", "type": "bool" }],
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
       "stateMutability": "nonpayable",
       "type": "function"
     },
     {
       "inputs": [
-        { "internalType": "address", "name": "newOwner", "type": "address" }
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
       ],
       "name": "transferOwnership",
       "outputs": [],
@@ -628,7 +816,11 @@
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_requestID", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "_requestID",
+          "type": "uint256"
+        }
       ],
       "name": "validateRequest",
       "outputs": [],
@@ -637,8 +829,16 @@
     },
     {
       "inputs": [
-        { "internalType": "uint256", "name": "_loanID", "type": "uint256" },
-        { "internalType": "uint256", "name": "_votePower", "type": "uint256" }
+        {
+          "internalType": "uint256",
+          "name": "_loanID",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_votePower",
+          "type": "uint256"
+        }
       ],
       "name": "vote",
       "outputs": [],

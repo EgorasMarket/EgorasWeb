@@ -252,10 +252,10 @@ const CheckoutModalComponent = ({
             })
             .catch((err) => {
               console.log(err.response);
-              setProcessingDiv(false);
-              setSuccessDiv(false);
-              setErrorMsg(err.response);
-              setErrorDiv(true);
+              // setProcessingDiv(false);
+              // setSuccessDiv(false);
+              // setErrorMsg(err.response);
+              // setErrorDiv(true);
               // alert(err);
             });
           //
