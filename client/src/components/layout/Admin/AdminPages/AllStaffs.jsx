@@ -1,20 +1,20 @@
-import React, { useState, useEffect } from "react";
-import SearchIcon from "@mui/icons-material/Search";
-import "../AdminStyles/allCustomer.css";
-import axios from "axios";
+import React, { useState, useEffect } from 'react';
+import SearchIcon from '@mui/icons-material/Search';
+import '../AdminStyles/allCustomer.css';
+import axios from 'axios';
 
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from "../../../../actions/types";
+} from '../../../../actions/types';
 
 const AllStaffs = () => {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -27,13 +27,13 @@ const AllStaffs = () => {
     //console.log(event.target.value);
   };
   useEffect(() => {
-    if (searchTerm === "") {
+    if (searchTerm === '') {
       setSearchResults(allCustomers);
       //console.log("tttt");
     } else {
       console.log(allCustomers);
       const results = allCustomers.filter((userInfo) =>
-        userInfo.branch
+        userInfo.fullname
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase())
@@ -45,7 +45,7 @@ const AllStaffs = () => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/admin/retrieve/staff/all", config, null)
+      .get(api_url2 + '/v1/admin/retrieve/staff/all', config, null)
       .then((data) => {
         setAllCustomers(data.data.data);
         // setSearchResults(data.data.payload);
@@ -58,9 +58,9 @@ const AllStaffs = () => {
 
   const saveCustomerId = (id) => {
     console.log(id);
-    localStorage.setItem("adminStaffId", id);
-    return window.location.replace("/super_admin/fund/accountant");
-  }
+    localStorage.setItem('adminStaffId', id);
+    return window.location.replace('/super_admin/fund/accountant');
+  };
 
   return (
     <>
@@ -77,7 +77,7 @@ const AllStaffs = () => {
                     type="search"
                     name=""
                     id=""
-                    placeholder="Search"
+                    placeholder="Search name"
                     className="user_search"
                     value={searchTerm}
                     onChange={handleSearchChange}
@@ -88,25 +88,26 @@ const AllStaffs = () => {
                 <table className="assets-table s_table">
                   <thead className="assets-category-titles">
                     <tr className="assets">
-                       <th className="assets-category-titles-heading1">
+                      <th className="assets-category-titles-heading1">
                         Gender
                       </th>
                       <th className="assets-category-titles-heading1">
-                        Email
+                        Name
                       </th>
                       <th className="assets-category-titles-heading1">
                         Phone number
                       </th>
                       <th className="assets-category-titles-heading1 right_align email_align">
-                         Role
+                        Role
                       </th>
-                     
+
+                      <th className="assets-category-titles-heading1 right_align">
+                        Id
+                      </th>
+
                       <th className="assets-category-titles-heading1 right_align">
                         Staff ID
                       </th>
-                      <th className="assets-category-titles-heading1 right_align">
-                        
-                      </th> 
                     </tr>
                   </thead>
                   {searchResults.map((user) => (
@@ -114,59 +115,65 @@ const AllStaffs = () => {
                       className="assets-table-body popular-categories"
                       id="popular-categories"
                     >
-                      {" "}
+                      {' '}
                       <tr className="assets-category-row">
                         <td className="assets-category-data">
                           <div className="assets-data">
                             <div className="assets-data-name">
                               {user.gender}
                             </div>
-                            
                           </div>
                         </td>
-                         <td className="assets-category-data1">
-                          <div className="assets-data-name">{user.fullname}</div>
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">
+                            {user.fullname}
+                          </div>
                         </td>
 
-                         
-                         <td className="assets-category-data1">
-                          <div className="assets-data-name">{user.mobile}</div>
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">
+                            {user.mobile}
+                          </div>
                         </td>
 
-                         
-                         {/* <td className="assets-category-data1">
+                        {/* <td className="assets-category-data1">
                           <div className="assets-data-name">{user.id}</div>
                         </td> */}
 
-                         
-                         <td className="assets-category-data1">
-                          <div className="assets-data-name">{user.role}</div>
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">
+                            {user.role}
+                          </div>
                         </td>
 
-                         
-                         <td className="assets-category-data1">
-                          <div className="assets-data-name">{user.staffId}</div>
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">
+                            {user.id}
+                          </div>
                         </td>
 
-                         <td className="save_item_data1b" style={{width: 'unset'}}>
-                            {/* <div className="assets-data-name center_name">
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">
+                            {user.staffId}
+                          </div>
+                        </td>
+
+                        <td className="save_item_data1b">
+                          {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
-                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                             <a >
-                            <button onClick={e => saveCustomerId(user.id)} className="checkout_btn1 py-1 px-2 m-0">
-                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              See Wallet{" "}
+                          {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                          <a>
+                            <button className="checkout_btn1 py-1 px-2 m-0">
+                              {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                              See Wallet{' '}
                             </button>
-                            </a>
-                            
-                        
-                            {/* <button className="checkout_btn1 py-1 px-2 ml-1">
+                          </a>
+
+                          {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
                             </button> */}
-                          </td>
-                     
-                      
+                        </td>
                       </tr>
                     </tbody>
                   ))}

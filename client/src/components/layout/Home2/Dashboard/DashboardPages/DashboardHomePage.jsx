@@ -418,8 +418,8 @@ const DashboardHomePage = ({ auth, match }) => {
               </a>
             </div>
             <div className="transaction_headings">
-              <div className="transaction_heading1">Title</div>
               <div className="transaction_heading1">Type</div>
+              <div className="transaction_heading1">Date</div>
               <div className="transaction_heading1 amnt_small">Amount</div>
               <div className="transaction_heading1 center_this">Channel</div>
               <div className="transaction_heading1 reduce_width">Status</div>
@@ -432,7 +432,7 @@ const DashboardHomePage = ({ auth, match }) => {
                   <>
                     <div
                       className="dashboard_transaction_body_cont1"
-                      id={data.transaction_hash}
+                      id={data.id}
                       // key={data.id}
                       onClick={ChangeTranPopUp}
                     >
@@ -496,7 +496,7 @@ const DashboardHomePage = ({ auth, match }) => {
       </section>
       {allDatas.map((data) => (
         <>
-          {tranPopUp == data.transaction_hash ? (
+          {tranPopUp == data.id ? (
             <div className="trans_div">
               <div className="tranPop_div">
                 <div className="tranPopHeading">
@@ -511,18 +511,41 @@ const DashboardHomePage = ({ auth, match }) => {
                 <div className="tranPop_div_cont1">
                   {" "}
                   <div className="deposited_icon">
-                    <ArrowDownwardIcon className="arrow_down_deposit_icon" />
+                    <ArrowDownwardIcon
+                      style={
+                        data.transaction_type == "DEBIT"
+                          ? {
+                              backgroundColor: " #e4a788",
+                              transform: "rotate(180deg)",
+                            }
+                          : { backgroundColor: "#0ecb81" }
+                      }
+                      className="arrow_down_deposit_icon"
+                    />
                   </div>
-                  <span className="transPopData">Deposited</span>
+                  <span className="transPopData"> {data.transaction_type}</span>
                 </div>
                 <div className="tranPop_div_cont1">
-                  Type{" "}
-                  <span className="transPopData"> {data.transaction_type}</span>{" "}
+                  Date{" "}
+                  <span className="transPopData">
+                    {" "}
+                    {data.timestamp.slice(0, 10)}
+                  </span>{" "}
                 </div>
                 <div className="tranPop_div_cont1">
                   Amount{" "}
                   <span className="transPopData">
-                    ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
+                    {data.transaction_type == "DEBIT" ? (
+                      <span>
+                        -₦
+                        {numberWithCommas(parseInt(data.amount).toFixed(2))}
+                      </span>
+                    ) : (
+                      <span>
+                        +₦
+                        {numberWithCommas(parseInt(data.amount).toFixed(2))}
+                      </span>
+                    )}
                   </span>{" "}
                 </div>
                 <div className="tranPop_div_cont1">
