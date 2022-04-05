@@ -1,11 +1,37 @@
-import React from "react";
-import CheckCircleOutlineIcon from "@mui/icons-material/CheckCircleOutline";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
-import "../DashboardStyles/dashboardOrderPage.css";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import data from "../../../MockData";
+import React, { useEffect, useState } from 'react';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import HighlightOffIcon from '@mui/icons-material/HighlightOff';
+import '../DashboardStyles/dashboardOrderPage.css';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import data from '../../../MockData';
+import axios from 'axios';
+
+import { API_URL2 as api_url2 } from '../../../../../actions/types';
 const DashboardOrderPage = () => {
+  //states
+  const [data2, setData] = useState([]);
+  const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+
+  useEffect(async () => {
+    try {
+      const call = await axios.get(
+        api_url2 + '/v1/order/allOrders',
+        null,
+        config
+      );
+
+      setData(call.data);
+      console.log(data);
+    } catch (err) {
+      console.log(err.message);
+      alert('here');
+    }
+  }, []);
   return (
     <div className="other2">
       <section className="no-bg">
@@ -20,8 +46,12 @@ const DashboardOrderPage = () => {
                   </div>
                   <div className="order_cont1_heading_txt">Title</div>
                   <div className="order_cont1_heading_txt">Type</div>
-                  <div className="order_cont1_heading_txt">Amount</div>
-                  <div className="order_cont1_heading_txt">Order Id</div>
+                  <div className="order_cont1_heading_txt">
+                    Amount
+                  </div>
+                  <div className="order_cont1_heading_txt">
+                    Order Id
+                  </div>
                   <div className="order_cont1_heading_txt">Date</div>
                   <div className="order_cont1_heading_txt order_cont1_heading_txt_last">
                     Status
@@ -42,30 +72,30 @@ const DashboardOrderPage = () => {
                           {order.title}
                         </div>
                         <div className="order_cont_body_data">
-                          {order.type == "Outright" ? (
+                          {order.type == 'Outright' ? (
                             <span
                               className="order_type"
                               style={{
-                                color: "#ffffff",
-                                fontWeight: "700",
-                                background: "#41ba71",
-                                padding: " 0.3em 1em",
-                                borderRadius: "50px",
-                                fontSize: "11px",
+                                color: '#ffffff',
+                                fontWeight: '700',
+                                background: '#41ba71',
+                                padding: ' 0.3em 1em',
+                                borderRadius: '50px',
+                                fontSize: '11px',
                               }}
                             >
                               {order.type}
                             </span>
-                          ) : order.type == "Savings" ? (
+                          ) : order.type == 'Savings' ? (
                             <span
                               className="order_type"
                               style={{
-                                color: "#ffffff",
-                                fontWeight: "700",
-                                background: "#e4a788",
-                                padding: " 0.3em 1em",
-                                borderRadius: "50px",
-                                fontSize: "11px",
+                                color: '#ffffff',
+                                fontWeight: '700',
+                                background: '#e4a788',
+                                padding: ' 0.3em 1em',
+                                borderRadius: '50px',
+                                fontSize: '11px',
                               }}
                             >
                               {order.type}
@@ -78,37 +108,39 @@ const DashboardOrderPage = () => {
                         <div className="order_cont_body_data">
                           {order.orderId}
                         </div>
-                        <div className="order_cont_body_data">{order.Date}</div>
                         <div className="order_cont_body_data">
-                          {order.Status == "Pending" ? (
+                          {order.Date}
+                        </div>
+                        <div className="order_cont_body_data">
+                          {order.Status == 'Pending' ? (
                             <span
                               className="order_status"
                               style={{
-                                background: "#fff3cf",
-                                color: "#c19000",
+                                background: '#fff3cf',
+                                color: '#c19000',
                               }}
                             >
-                              {order.Status}{" "}
+                              {order.Status}{' '}
                               <FontAwesomeIcon
                                 className="ml-2"
                                 icon={faSpinner}
                                 spin
                               />
                             </span>
-                          ) : order.Status == "Completed" ? (
+                          ) : order.Status == 'Completed' ? (
                             <span className="order_status">
-                              {order.Status}{" "}
+                              {order.Status}{' '}
                               <CheckCircleOutlineIcon className="cancel_icon" />
                             </span>
-                          ) : order.Status == "Canceled" ? (
+                          ) : order.Status == 'Canceled' ? (
                             <span
                               className="order_status"
                               style={{
-                                background: "#ffd6d6",
-                                color: "#ed5c5c",
+                                background: '#ffd6d6',
+                                color: '#ed5c5c',
                               }}
                             >
-                              {order.Status}{" "}
+                              {order.Status}{' '}
                               <HighlightOffIcon className="cancel_icon" />
                             </span>
                           ) : null}
