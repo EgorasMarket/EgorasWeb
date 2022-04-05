@@ -349,13 +349,14 @@ const AdminSideBar = ({ auth }) => {
         printWindow.document.write('<div class="center-text">');
         printWindow.document.write('<h4>THANKS FOR YOUR PATRONAGE</h4>');
         printWindow.document.write('</div>');
-        printWindow.document.write('</div></body>');
+        printWindow.document.write('</div>');
+        printWindow.document.write('</body>');
         printWindow.document.write('</html>');
         printWindow.document.close();
         printWindow.print();
     
 
-}
+  }
 
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
@@ -725,6 +726,24 @@ const AdminSideBar = ({ auth }) => {
                         TransactionBranch
                       </li>
                     </a>
+
+                     <a
+                      href="/super_admin/staffs_data"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        Staff ACC
+                      </li>
+                    </a>
                   </>
                 ) : null}
                 {/* ===================== */}
@@ -733,7 +752,11 @@ const AdminSideBar = ({ auth }) => {
                 {/* ===================== */}
 
                 {role1 === "BUSINESS_ADMIN" ? (
-                  <a
+
+
+                  <>
+                  
+                                    <a
                     href="/super_admin/register_user"
                     className="link"
                     id="register"
@@ -751,6 +774,33 @@ const AdminSideBar = ({ auth }) => {
                       Register
                     </li>
                   </a>
+                                    <a
+                    href="/super_admin/product_routes"
+                    className="link"
+                    id="register"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "register" && role1 === "BUSINESS_ADMIN"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <ViewListIcon className="sidebarIcon" />
+                      {/* { role1} */}
+                      print
+                    </li>
+                  </a>
+
+                  
+        
+                  </>
+
+
+                  // jfhfkf
+
+                  
                 ) : null}
 
                 {role1 === "LOGISTICS" ? (
@@ -875,6 +925,8 @@ const AdminSideBar = ({ auth }) => {
                         Accounts
                       </li>
                     </a>
+
+                    
 
                     {locate === "/super_admin/overview" ||
                     locate === "/super_admin/cus_user_wallet" ? (
@@ -1046,6 +1098,7 @@ const AdminSideBar = ({ auth }) => {
                 {/* ===================== */}
 
                 {role1 === "BUSINESS_ADMIN" ? (
+                  <>
                   <a
                     href="/super_admin/register_user"
                     className="link"
@@ -1059,12 +1112,36 @@ const AdminSideBar = ({ auth }) => {
                           : "sidebarListItem"
                       }
                     >
+                      
                       <GroupAddIcon className="sidebarIcon" />
                       {/* <GroupIcon className="sidebarIcon" /> */}
                       {/* { role1} */}
                       Register
                     </li>
                   </a>
+
+                         <a
+                    href="/super_admin/product_routes"
+                    className="link"
+                    id="register"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "register"
+                          ? "sidebarListItem small_list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <ViewListIcon className="sidebarIcon" />
+                      {/* <GroupIcon className="sidebarIcon" /> */}
+                      {/* { role1} */}
+                      Link
+                    </li>
+                  </a>
+
+
+                  </>
                 ) : null}
 
                 {/* ===================== */}

@@ -641,7 +641,7 @@ h1.eusd-token-page {
     grid-row-gap: 20px;
   }
   .nft-area2 {
-    flex-direction: column-reverse;
+    flex-direction: column;
     grid-row-gap: 20px;
   }
 
