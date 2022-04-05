@@ -57,7 +57,6 @@ const DashboardOrderPage = () => {
                   <div className="order_cont1_heading_txt">
                     Order Id
                   </div>
-                  <div className="order_cont1_heading_txt">Date</div>
                   <div className="order_cont1_heading_txt order_cont1_heading_txt_last">
                     Status
                   </div>
@@ -118,9 +117,7 @@ const DashboardOrderPage = () => {
                           <div className="order_cont_body_data">
                             {order.order_id}
                           </div>
-                          <div className="order_cont_body_data">
-                            {order.date}
-                          </div>
+
                           <div className="order_cont_body_data">
                             {order.order_status_code == 'PENDING' ? (
                               <span
@@ -138,7 +135,7 @@ const DashboardOrderPage = () => {
                                 />
                               </span>
                             ) : order.order_status_code ==
-                              'COMPLETED' ? (
+                              'DELIVERED' ? (
                               <span className="order_status">
                                 {order.order_status_code}{' '}
                                 <CheckCircleOutlineIcon className="cancel_icon" />
