@@ -11,9 +11,11 @@ import AdminAllProducts from './AdminPages/AdminAllProducts';
 import RegisterCustomer from './AdminPages/RegisterCustomer';
 import AdminCustomer from './AdminPages/AdminCustomer';
 import AdminAllView from './AdminPages/AdminAllProductView';
+import AllStaffs from './AdminPages/AllStaffs';
 import Admin_homePage from './AdminPages/Admin_homePage';
 import AdminSideBar from './AdminSideBar';
 import { SplashScreen } from '../SplashScreen/SplashScreen';
+import Adminproduct from './AdminPages/ProductRoutes';
 import Wallet from '../Wallet/Wallet';
 import Wallet4 from '../Wallet/Wallet1';
 import Adminmakeproducts from './AdminPages/Adminmakeproducts';
@@ -36,6 +38,8 @@ import UniqueProductRoutes from './AdminPages/UniqueProductRoutes';
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
+  const [managerCashierCusCare, setManagerCashierCusCare] =
+    useState(false);
   const [roleDisplay, setRoleDisplay] = useState({
     Role: '',
   });
@@ -48,6 +52,7 @@ const Admin = ({ isAuthenticated, loading }) => {
       'Content-Type': 'application/json',
     },
   };
+
   useEffect(() => {
     // //console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
@@ -63,9 +68,6 @@ const Admin = ({ isAuthenticated, loading }) => {
     // setSplashScreen(true);
   }, [isAuthenticated]);
 
-  const dapp = window.location.pathname;
-  const dapp2 = window.location.pathname;
-
   useEffect(() => {
     axios
       .get(api_url2 + '/v1/admin/info', null, config)
@@ -74,11 +76,35 @@ const Admin = ({ isAuthenticated, loading }) => {
         setRoleDisplay({
           Role: data.data.user.role,
         });
+
+        if (
+          data.data.user.role === 'CASHIER' ||
+          data.data.user.role === 'CUSTOMER_SERVICE' ||
+          data.data.user.role === 'MANAGER'
+        ) {
+          setManagerCashierCusCare(true);
+        } else {
+          setManagerCashierCusCare(false);
+        }
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
       });
   }, []);
+
+  // useEffect(() => {
+  //   console.log(Role);
+  //   // //console.log(isAuthenticated,'77777');
+  //   if (Role === "CASHIER" || Role === "CUSTOMER_SERVICE" || Role === "MANAGER") {
+  //     setManagerCashierCusCare(true)
+  //   } else {
+  //     setManagerCashierCusCare(false)
+  //   }
+
+  //   // setSplashScreen(true);
+  // }, []);
+
+  console.log(managerCashierCusCare);
 
   return (
     <div>
@@ -113,6 +139,12 @@ const Admin = ({ isAuthenticated, loading }) => {
                     exact
                     path="/super_admin/register_user"
                     component={RegisterCustomer}
+                  />
+
+                  <Route
+                    exact
+                    path="/super_admin/product_routes"
+                    component={Adminproduct}
                   />
                   {/* <Route
                 exact
@@ -233,6 +265,16 @@ const Admin = ({ isAuthenticated, loading }) => {
                   />
                   <Route
                     exact
+                    path="/super_admin/fund/accountant"
+                    component={Wallet}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/user_wallet"
+                    component={Wallet}
+                  />
+                  <Route
+                    exact
                     path="/super_admin/signup"
                     component={AdminSignup}
                   />
@@ -242,6 +284,14 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // path="/dashboard/products/details/:id/:name"
                     // / dashboard/products/details/:id/:name
                     component={NewOne}
+                  />
+
+                  <Route
+                    exact
+                    path="/super_admin/staffs_data"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AllStaffs}
                   />
 
                   <Route
