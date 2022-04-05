@@ -582,34 +582,34 @@ const CheckoutModalComponent = ({
         </div>
       )}
       {successDiv == true ? (
-        <div className="processing_transac_div insufficient">
-          <Success_Error_Component
-            remove_success_div={closeCheckoutOptions}
-            btn_txt="Continue"
-            // msg={success_msg}
-            msg={`${success_msg}, Order-Id: ${order_id}`}
-            errorMsgDiv={errorDiv}
-            link_btn={true}
-            src={
-              payment_type === "OUTRIGHT"
-                ? "/dashboard/savings"
-                : "/dashboard/products"
-            }
-          />
-        </div>
-      ) : null}
+        // <div>
+        <Success_Error_Component
+          remove_success_div={closeCheckoutOptions}
+          btn_txt="Continue"
+          // msg={success_msg}
+          msg={`${success_msg}, Order-Id: ${order_id}`}
+          errorMsgDiv={errorDiv}
+          link_btn={true}
+          src={
+            payment_type === "OUTRIGHT"
+              ? "/dashboard/savings"
+              : "/dashboard/products"
+          }
+        />
+      ) : // </div>
+      null}
       {errorDiv == false ? null : (
-        <div className="processing_transac_div insufficient">
-          <Success_Error_Component
-            // remove_success_div={() => setErrorDiv(true)}
-            btn_txt="Fund Wallet"
-            msg={error_msg}
-            errorMsgDiv={errorDiv}
-            removeTransDiv={closeErrorDiv}
-            link_btn={true}
-            src="/dashboard/wallet"
-          />
-        </div>
+        // <div className="processing_transac_div insufficient">
+        <Success_Error_Component
+          // remove_success_div={() => setErrorDiv(true)}
+          btn_txt="Fund Wallet"
+          msg={error_msg}
+          errorMsgDiv={errorDiv}
+          removeTransDiv={closeErrorDiv}
+          link_btn={true}
+          src="/dashboard/wallet"
+        />
+        // </div>
       )}
     </>
   );

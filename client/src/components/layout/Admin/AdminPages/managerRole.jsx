@@ -8,7 +8,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
-const NewOne = () => {
+const Newclass = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
@@ -22,18 +22,6 @@ const NewOne = () => {
   //   //console.log(event.target.id);
   //   localStorage.setItem("adminCusId", event.target.id);
   // };
-  useEffect(() => {
-    axios
-      .get(api_url2 + "/v1/user/transactions/customer/all", config, null)
-      .then((data) => {
-        setAllCustomers(data.data.payload);
-        // setSearchResults(data.data.payload);
-        console.log(data.data.payload);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
     //console.log(event.target.value);
@@ -45,7 +33,7 @@ const NewOne = () => {
     } else {
       console.log(allCustomers);
       const results = allCustomers.filter((userInfo) =>
-        userInfo.customer_name
+        userInfo.fullname
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase())
@@ -55,6 +43,18 @@ const NewOne = () => {
     }
   }, [searchTerm, allCustomers]);
 
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/admin/retrieve/staff/all", config, null)
+      .then((data) => {
+        setAllCustomers(data.data.data);
+        // setSearchResults(data.data.payload);
+        console.log(data.data.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
   return (
     <>
       {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
@@ -82,28 +82,22 @@ const NewOne = () => {
                   <thead className="assets-category-titles">
                     <tr className="assets">
                       <th className="assets-category-titles-heading1">
-                        Amount
+                        Gender
                       </th>
+                      <th className="assets-category-titles-heading1">Name</th>
                       <th className="assets-category-titles-heading1">
-                        Branch
-                      </th>
-                      <th className="assets-category-titles-heading1">
-                        Channel
+                        Phone number
                       </th>
                       <th className="assets-category-titles-heading1 right_align email_align">
-                        Customer Name
+                        Role
                       </th>
+
                       <th className="assets-category-titles-heading1 right_align">
-                        Officer Id
+                        Id
                       </th>
+
                       <th className="assets-category-titles-heading1 right_align">
-                        Date
-                      </th>
-                      <th className="assets-category-titles-heading1 right_align">
-                        Transac hash
-                      </th>
-                      <th className="assets-category-titles-heading1 right_align">
-                        Transac Type
+                        Staff ID
                       </th>
                     </tr>
                   </thead>
@@ -117,44 +111,51 @@ const NewOne = () => {
                         <td className="assets-category-data">
                           <div className="assets-data">
                             <div className="assets-data-name">
-                              {Math.round(user.amount)}
+                              {user.gender}
                             </div>
                           </div>
                         </td>
                         <td className="assets-category-data1">
-                          <div className="assets-data-name">{user.branch}</div>
-                        </td>
-                        <td className="assets-category-data1b">
-                          <div className="assets-data-name">{user.channel}</div>
-                        </td>
-                        <td className="assets-category-data1b">
                           <div className="assets-data-name">
-                            {user.customer_name}
+                            {user.fullname}
                           </div>
                         </td>
-                        <td className="assets-category-data1b">
-                          <div className="assets-data-name">
-                            {user.officer_id}
-                          </div>
+
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">{user.mobile}</div>
                         </td>
-                        <td className="assets-category-data1b">
-                          <div className="assets-data-name">
-                            {user.timestamp.split("T")[0]}
-                          </div>
+
+                        {/* <td className="assets-category-data1">
+                          <div className="assets-data-name">{user.id}</div>
+                        </td> */}
+
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">{user.role}</div>
                         </td>
-                        <td className="assets-category-data1b">
-                          <div className="assets-data-name">
-                            {user.transaction_hash.substring(0, 10) +
-                              "..." +
-                              user.transaction_hash.substr(
-                                user.transaction_hash.length - 7
-                              )}
-                          </div>
+
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">{user.id}</div>
                         </td>
-                        <td className="assets-category-data1b">
-                          <div className="assets-data-name">
-                            {user.transaction_type}
-                          </div>
+
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">{user.staffId}</div>
+                        </td>
+
+                        <td className="save_item_data1b">
+                          {/* <div className="assets-data-name center_name">
+                              ₦{asset.amount}
+                            </div> */}
+                          {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                          <a>
+                            <button className="checkout_btn1 py-1 px-2 m-0">
+                              {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                              See Wallet{" "}
+                            </button>
+                          </a>
+
+                          {/* <button className="checkout_btn1 py-1 px-2 ml-1">
+                              Refuse{" "}
+                            </button> */}
                         </td>
                       </tr>
                     </tbody>
@@ -178,7 +179,7 @@ const NewOne = () => {
 // =========
 // =========
 
-export default NewOne;
+export default Newclass;
 // export default function Newone(){
 //   const url = '/v1/user/transactions/customer/byBranch';
 

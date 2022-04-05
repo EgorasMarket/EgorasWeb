@@ -11,7 +11,7 @@ const Success_Error_Component = ({
   onclick,
 }) => {
   return (
-    <div>
+    <div className="processing_transac_div insufficient">
       <div className="success_container">
         <div className="success_heading">
           {errorMsgDiv == true ? (

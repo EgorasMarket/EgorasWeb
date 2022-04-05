@@ -1,5 +1,5 @@
-import { textAlign } from "@mui/system";
 import React from "react";
+import { textAlign } from "@mui/system";
 import {
   LineChart,
   Line,
@@ -12,7 +12,8 @@ import {
   PieChart,
   Pie,
 } from "recharts";
-import FlipCountdown from "@rumess/react-flip-countdown";
+// import FlipCountdown from "@rumess/react-flip-countdown";
+// import FlipCountdown
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 import "./egc.css";
@@ -31,7 +32,7 @@ const Egc = () => {
     <div>
       <section className="earning-section padding-high">
         <div className="container">
-          <div className="nft-area2 ma">
+          <div className="nft-area2">
             <div
               className="nft-txt-area2  "
               style={{ width: "100%", position: "relative", zIndex: "5" }}
@@ -47,12 +48,12 @@ const Egc = () => {
                   stability of eUSD.
                 </p>
                 <p className="span4b-txts odd-color">
-                  <div className="next-claim">
+                  {/* <div className="next-claim">
                     NEXT CLAIM IN{" "}
                     <ArrowDownwardIcon className="next-claim-icon" />{" "}
-                  </div>
+                  </div> */}
                 </p>
-                <FlipCountdown
+                {/* <FlipCountdown
                   theme="light"
                   titlePosition="bottom"
                   hideYear
@@ -66,8 +67,8 @@ const Egc = () => {
                   // hideHour
                   // hideMinute
                   // hideSecond
-                  endAt={"2021-12-12 00:00:00"} // Date/Time
-                />
+                  // endAt={"2022-12-12 00:00:00"} // Date/Time
+                /> */}
                 <div className="count-down-section-btns">
                   <button className="count-down-btn1">Distribute EGC</button>
                   <a href="/whitepaper" className="count-down-btn2">
@@ -139,7 +140,7 @@ const Egc = () => {
       >
         <div className="container">
           <div className="earning2">
-            <div className="earning3 filter3 reverse2">
+            <div className="earning3 filter3 reverse2 reverse2a">
               <div className="widthAjustB">
                 <div className="widthAjust1A">
                   <div className="allNone">eNFT Farming</div>
@@ -330,7 +331,7 @@ const Egc = () => {
           </div>
         </div>
       </section>
-      
+
       {/* ==================== */}
       {/*third div*/}
 
