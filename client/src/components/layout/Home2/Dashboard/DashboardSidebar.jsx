@@ -491,7 +491,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <StoreIcon className="sidebarIcon" />
-                    Market
+                    Inventory
                   </li>
                 </a>
 
@@ -655,7 +655,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   >
                     <StoreIcon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
-                    Market
+                    Inventory
                   </li>
                   <span className="hover_link_txt">Market</span>
                 </a>
