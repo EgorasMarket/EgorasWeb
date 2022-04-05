@@ -8,6 +8,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 
 import { API_URL2 as api_url2 } from '../../../../../actions/types';
+import data from '../../../MockData';
 const DashboardOrderPage = () => {
   //states
   const [item, setItem] = useState([]);
@@ -42,7 +43,9 @@ const DashboardOrderPage = () => {
       <section className="no-bg">
         <div className="container">
           <div className="order_area">
-            <div className="order_heading">Order History</div>
+            <div className="order_heading">
+              Order History ({item.length})
+            </div>
             <div className="order_body">
               <div className="order_cont1">
                 <div className="order_cont1_headings">
@@ -77,7 +80,7 @@ const DashboardOrderPage = () => {
                           </div>
 
                           <div className="order_cont_body_data">
-                            {order.spread}
+                            {order.product_name}
                           </div>
                           <div className="order_cont_body_data">
                             {order.payment_type == 'OUTRIGHT' ? (
