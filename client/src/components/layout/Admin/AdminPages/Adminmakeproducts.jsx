@@ -83,7 +83,7 @@ const Adminmakeproducts = () => {
               </div>
               <div className="locked_items2 locked_items2a">
                 <div class="save_prod_deta">
-                  <table className="save_item_table" style={{display: 'unset'}}>
+                  <table className="save_item_table" >
                     <thead className="assets-category-titles">
                       <tr className="assets">
                         <th className="assets-category-titles-heading1">
