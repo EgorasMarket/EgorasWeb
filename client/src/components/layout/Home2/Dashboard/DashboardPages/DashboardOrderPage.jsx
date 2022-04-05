@@ -4,13 +4,17 @@ import HighlightOffIcon from '@mui/icons-material/HighlightOff';
 import '../DashboardStyles/dashboardOrderPage.css';
 import { faSpinner } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import data from '../../../MockData';
+// import data from '../../../MockData';
 import axios from 'axios';
 
 import { API_URL2 as api_url2 } from '../../../../../actions/types';
 const DashboardOrderPage = () => {
   //states
-  const [data2, setData] = useState([]);
+  const [item, setItem] = useState([]);
+
+  //DESTRUCTURE THE DATA OBJECT
+
+  const [success, setSuccess] = useState();
   const config = {
     headers: {
       'Content-Type': 'application/json',
@@ -24,14 +28,15 @@ const DashboardOrderPage = () => {
         null,
         config
       );
-
-      setData(call.data);
-      console.log(data);
+      console.log(call);
+      setSuccess(call.data.success);
+      setItem(call.data.payloads);
     } catch (err) {
       console.log(err.message);
-      alert('here');
+      alert(err.message);
     }
   }, []);
+
   return (
     <div className="other2">
       <section className="no-bg">
@@ -42,7 +47,7 @@ const DashboardOrderPage = () => {
               <div className="order_cont1">
                 <div className="order_cont1_headings">
                   <div className="order_cont1_heading_txt order_cont1_heading_txt_first ">
-                    Asset
+                    Asset {success}
                   </div>
                   <div className="order_cont1_heading_txt">Title</div>
                   <div className="order_cont1_heading_txt">Type</div>
@@ -59,94 +64,102 @@ const DashboardOrderPage = () => {
                 </div>
                 <div className="order_body_table">
                   <div className="order_cont1_body_container">
-                    {data.UserOrders.map((order) => (
-                      <div className="order_cont1_body">
-                        <div className="order_cont_body_data order_cont_body_data_first">
-                          <img
-                            src={order.img}
-                            alt=""
-                            className="order_cont_body_img"
-                          />
+                    {item.length <= 0 ? (
+                      <p> No data</p>
+                    ) : (
+                      item.map((order) => (
+                        <div className="order_cont1_body">
+                          <div className="order_cont_body_data order_cont_body_data_first">
+                            <img
+                              src={order.product_img}
+                              alt=""
+                              className="order_cont_body_img"
+                            />
+                          </div>
+
+                          <div className="order_cont_body_data">
+                            {order.spread}
+                          </div>
+                          <div className="order_cont_body_data">
+                            {order.payment_type == 'OUTRIGHT' ? (
+                              <span
+                                className="order_type"
+                                style={{
+                                  color: '#ffffff',
+                                  fontWeight: '700',
+                                  background: '#41ba71',
+                                  padding: ' 0.3em 1em',
+                                  borderRadius: '50px',
+                                  fontSize: '11px',
+                                }}
+                              >
+                                {order.payment_type}
+                              </span>
+                            ) : order.payment_type ===
+                              'INSTALLMENT' ? (
+                              <span
+                                className="order_type"
+                                style={{
+                                  color: '#ffffff',
+                                  fontWeight: '700',
+                                  background: '#e4a788',
+                                  padding: ' 0.3em 1em',
+                                  borderRadius: '50px',
+                                  fontSize: '11px',
+                                }}
+                              >
+                                {order.payment_type}
+                              </span>
+                            ) : null}
+                          </div>
+                          <div className="order_cont_body_data">
+                            ₦{order.total_sum}
+                          </div>
+                          <div className="order_cont_body_data">
+                            {order.order_id}
+                          </div>
+                          <div className="order_cont_body_data">
+                            {order.date}
+                          </div>
+                          <div className="order_cont_body_data">
+                            {order.order_status_code == 'PENDING' ? (
+                              <span
+                                className="order_status"
+                                style={{
+                                  background: '#fff3cf',
+                                  color: '#c19000',
+                                }}
+                              >
+                                {order.order_status_code}{' '}
+                                <FontAwesomeIcon
+                                  className="ml-2"
+                                  icon={faSpinner}
+                                  spin
+                                />
+                              </span>
+                            ) : order.order_status_code ==
+                              'COMPLETED' ? (
+                              <span className="order_status">
+                                {order.order_status_code}{' '}
+                                <CheckCircleOutlineIcon className="cancel_icon" />
+                              </span>
+                            ) : order.order_status_code ==
+                              'CANCELED' ? (
+                              <span
+                                className="order_status"
+                                style={{
+                                  background: '#ffd6d6',
+                                  color: '#ed5c5c',
+                                }}
+                              >
+                                {order.order_status_code}{' '}
+                                <HighlightOffIcon className="cancel_icon" />
+                              </span>
+                            ) : null}
+                          </div>
                         </div>
-                        <div className="order_cont_body_data">
-                          {order.title}
-                        </div>
-                        <div className="order_cont_body_data">
-                          {order.type == 'Outright' ? (
-                            <span
-                              className="order_type"
-                              style={{
-                                color: '#ffffff',
-                                fontWeight: '700',
-                                background: '#41ba71',
-                                padding: ' 0.3em 1em',
-                                borderRadius: '50px',
-                                fontSize: '11px',
-                              }}
-                            >
-                              {order.type}
-                            </span>
-                          ) : order.type == 'Savings' ? (
-                            <span
-                              className="order_type"
-                              style={{
-                                color: '#ffffff',
-                                fontWeight: '700',
-                                background: '#e4a788',
-                                padding: ' 0.3em 1em',
-                                borderRadius: '50px',
-                                fontSize: '11px',
-                              }}
-                            >
-                              {order.type}
-                            </span>
-                          ) : null}
-                        </div>
-                        <div className="order_cont_body_data">
-                          ₦{order.amount}
-                        </div>
-                        <div className="order_cont_body_data">
-                          {order.orderId}
-                        </div>
-                        <div className="order_cont_body_data">
-                          {order.Date}
-                        </div>
-                        <div className="order_cont_body_data">
-                          {order.Status == 'Pending' ? (
-                            <span
-                              className="order_status"
-                              style={{
-                                background: '#fff3cf',
-                                color: '#c19000',
-                              }}
-                            >
-                              {order.Status}{' '}
-                              <FontAwesomeIcon
-                                className="ml-2"
-                                icon={faSpinner}
-                                spin
-                              />
-                            </span>
-                          ) : order.Status == 'Completed' ? (
-                            <span className="order_status">
-                              {order.Status}{' '}
-                              <CheckCircleOutlineIcon className="cancel_icon" />
-                            </span>
-                          ) : order.Status == 'Canceled' ? (
-                            <span
-                              className="order_status"
-                              style={{
-                                background: '#ffd6d6',
-                                color: '#ed5c5c',
-                              }}
-                            >
-                              {order.Status}{' '}
-                              <HighlightOffIcon className="cancel_icon" />
-                            </span>
-                          ) : null}
-                        </div>
-                      </div>
-                    ))}
+                      ))
+                    )}
                   </div>
                 </div>
               </div>
