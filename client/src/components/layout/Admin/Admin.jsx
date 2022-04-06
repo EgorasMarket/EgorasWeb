@@ -146,6 +146,11 @@ const Admin = ({ isAuthenticated, loading }) => {
                 <>
                   <Route
                     exact
+                    path="/super_admin/register_user"
+                    component={RegisterCustomer}
+                      />
+                  <Route
+                    exact
                     path="/super_admin/all_user"
                     component={AdminCustomer}
                   />

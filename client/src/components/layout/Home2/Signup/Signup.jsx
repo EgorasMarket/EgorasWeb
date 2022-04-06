@@ -68,11 +68,13 @@ const Signup = ({ getAuthentication }) => {
     }
     if (email === '') {
       setDisable(true);
-    } else if (BVN === '') {
-      setDisable(true);
-    } else if (birthDate === '') {
-      setDisable(true);
-    } else if (password === '') {
+    } else 
+    // if (BVN === '') {
+    //   setDisable(true);
+    // } else if (birthDate === '') {
+    //   setDisable(true);
+    // } else 
+    if (password === '') {
       setDisable(true);
     } else if (phoneNumber === '') {
       setDisable(true);

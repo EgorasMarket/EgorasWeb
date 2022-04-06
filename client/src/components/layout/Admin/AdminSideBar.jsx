@@ -392,13 +392,15 @@ const AdminSideBar = ({ auth }) => {
                   ) : role1 === 'WAREHOUSE' ? (
                     <span className="userName_name">Warehouse</span>
                   ) : role1 === 'CUSTOMER_SERVICE' ? (
-                    <span className="userName_name">Customer Service</span>
+                    <span className="userName_name">Sales Rep</span>
                   ) : role1 === 'CASHIER' ? (
                     <span className="userName_name">Sales Rep</span>
                   ) : role1 === 'HOD_MEDIA' ? (
                     <span className="userName_name">Head Of Media</span>
                   ) : role1 === 'TECH' ? (
                     <span className="userName_name">Tech Team</span>
+                  ) : role1 === 'ACCOUNTANT' ? (
+                    <span className="userName_name">Accounts</span>
                   ) : role1 === 'MANAGER' ? (
                     <span className="userName_name">Manager</span>
                   ) : null}
@@ -608,7 +610,7 @@ const AdminSideBar = ({ auth }) => {
                         }
                       >
                         <GroupsIcon className="sidebarIcon" />
-                        Customer
+                        Customers
                       </li>
                     </a>
 
@@ -726,6 +728,96 @@ const AdminSideBar = ({ auth }) => {
                         Approved Products
                       </li>
                     </a>
+                    <a
+                      href="/super_admin/customers_by_branch"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        All Transactions
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/customers_by_location"
+                      className="link"
+                      id="trans"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "trans"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        TransactionBranch
+                      </li>
+                    </a>
+                  </>
+                ) : null}
+
+                {role1 === "ACCOUNTANT" ? (
+                  <>
+                    <a
+                    href="/super_admin/staffs_data"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      All Staffs
+                    </li>
+                  </a>
+                  <a
+                      href="/super_admin/user_wallet"
+                      className="link"
+                      id="wallet"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "wallet"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        My Wallet
+                      </li>
+                    </a>
+                     {/* <a
+                      href="/super_admin/Approved_products"
+                      className="link"
+                      id="allProd"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "allProd" && role1 === "HOD_MEDIA"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        Approved Products
+                      </li>
+                    </a> */}
                     <a
                       href="/super_admin/customers_by_branch"
                       className="link"
