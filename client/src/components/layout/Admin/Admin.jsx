@@ -11,8 +11,7 @@ import AllStaffs from "./AdminPages/AllStaffs";
 import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
-// import ProductRoutes from "./AdminPages/ProductRoutes";
-import ProductRoutes from "./AdminPages/ProductRoutes";
+import Adminproduct from "./AdminPages/ProductRoutes";
 import Wallet from "../Wallet/Wallet";
 import Wallet4 from "../Wallet/Wallet1";
 import Adminmakeproducts from "./AdminPages/Adminmakeproducts";
@@ -133,7 +132,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                   <Route
                     exact
                     path="/super_admin/product_routes"
-                    component={ProductRoutes}
+                    component={Adminproduct}
                   />
                   {/* <Route
                 exact
@@ -143,6 +142,11 @@ const Admin = ({ isAuthenticated, loading }) => {
                 </>
               ) : Role === "CASHIER" || Role === "CUSTOMER_SERVICE" ? (
                 <>
+                  <Route
+                    exact
+                    path="/super_admin/register_user"
+                    component={RegisterCustomer}
+                      />
                   <Route
                     exact
                     path="/super_admin/all_user"
@@ -241,11 +245,6 @@ const Admin = ({ isAuthenticated, loading }) => {
                 </>
               ) : Role === "TECH" || Role === "MANAGER" ? (
                 <>
-                  <Route
-                    exact
-                    path="/super_admin/user_wallet"
-                    component={Wallet}
-                  />
                   <Route
                     exact
                     path="/super_admin/Approved_products"
