@@ -610,7 +610,7 @@ function ItemDetailsPage({ auth, match }) {
                     Rounded amount:
                   </span>
                   ₦{numberWithCommas(parseInt(roundedAmount).toFixed())}
-                  {roundedAmount}
+                 
                 </div>
                 ) : null}
                 
@@ -724,6 +724,7 @@ function ItemDetailsPage({ auth, match }) {
                       <button
                         className="submit_cat_btn"
                         onClick={submitRoute}
+                        onClick={() => alert("You clicked the button")}
                       >
                         Submit
                       </button>
