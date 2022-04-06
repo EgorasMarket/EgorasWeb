@@ -92,59 +92,55 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
 
   useEffect(() => {
     console.log(linksActive);
-   
-    if (linksActive === '/super_admin/fund/accountant') {
-      console.log('Ok');
+
+    if (linksActive === "/super_admin/fund/accountant") {
+      console.log("Ok");
       let adminStaffId = localStorage.getItem("adminStaffId");
-      setAdminId(adminStaffId)
-      // 
+      setAdminId(adminStaffId);
+      //
     } else {
       var Authorized = auth.user;
       var userId = Authorized.user.id;
-      setAdminId(userId)
-      
+      setAdminId(userId);
     }
 
-    if (linksActive === '/dashboard/wallet') {
-      setTransType(2)
+    if (linksActive === "/dashboard/wallet") {
+      setTransType(2);
     } else {
-      setTransType(1)
+      setTransType(1);
     }
   }, [auth]);
- 
+
   useEffect(() => {
-    if (adminId !== '') {
+    if (adminId !== "") {
       axios
-      .get(api_url2 + "/v1/wallet/get/wallet/info/" + adminId, null, config)
-      .then((data) => {
-        // console.log(data.data.data.balance);
-        setTokenBal(data.data.data.balance);
-        setAssetVal(data.data.data.balance * 1);
-      })
-      .catch((err) => {
-        console.log(err.response);
-      });
+        .get(api_url2 + "/v1/wallet/get/wallet/info/" + adminId, null, config)
+        .then((data) => {
+          // console.log(data.data.data.balance);
+          setTokenBal(data.data.data.balance);
+          setAssetVal(data.data.data.balance * 1);
+        })
+        .catch((err) => {
+          console.log(err.response);
+        });
     }
-    
   }, [adminId]);
   useEffect(() => {
-
-    if (adminId !== '') {
+    if (adminId !== "") {
       axios
-      .get(
-        api_url2 + "/v1/wallet/get/wallet/fetch/deposits/" + adminId,
-        null,
-        config
-      )
-      .then((data) => {
-        // console.log(data.data.data);
-        setDeposits(data.data.data);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
+        .get(
+          api_url2 + "/v1/wallet/get/wallet/fetch/deposits/" + adminId,
+          null,
+          config
+        )
+        .then((data) => {
+          // console.log(data.data.data);
+          setDeposits(data.data.data);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     }
-    
   }, [adminId]);
   useEffect(() => {
     setIsLoading2(true);
@@ -165,24 +161,18 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       });
   }, []);
   useEffect(async () => {
-    if (adminId !== '') {
-      console.log(adminId, 'ooows');
+    if (adminId !== "") {
+      console.log(adminId, "ooows");
       await axios
-      .get(
-        api_url2 + "/v1/wallet/check/wallet/" + adminId,
-        null,
-        config
-      )
-      .then((data) => {
-        //  console.log(data.data, "powerful");
-        setAccountExists(data.data.accountExists);
-      })
-      .catch((err) => {
-        console.log(err.response); // "oh, no!"
-      });
+        .get(api_url2 + "/v1/wallet/check/wallet/" + adminId, null, config)
+        .then((data) => {
+          //  console.log(data.data, "powerful");
+          setAccountExists(data.data.accountExists);
+        })
+        .catch((err) => {
+          console.log(err.response); // "oh, no!"
+        });
     }
-     
-    
   }, [adminId]);
 
   const openVisibility = () => {
@@ -237,7 +227,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     setIsLoading(true);
 
     console.log(transType);
-    
+
     if (accountExists) {
       // console.log("accountExists");
       setShowDeposit(true);
@@ -306,7 +296,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                     </div>
                   ) : (
                     <div className="arrowSpan">
-                      ₦{numberWithCommas(parseInt(assetVal).toFixed(2))}{" "}
+                      <span className="amnt_wall">
+                        ₦{numberWithCommas(parseInt(assetVal).toFixed(2))}{" "}
+                      </span>
                       <div className="usd_val">
                         ≈ $
                         {numberWithCommas(parseInt(assetVal / 560).toFixed(2))}
@@ -376,34 +368,21 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                       *******
                                     </div>
                                   </div>
-                                  {openFundDiv == true ? (
-                                    <ArrowDropDownIcon
-                                      onClick={showFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
-                                  {closeFundDiv == true ? (
-                                    <ArrowDropUpIcon
-                                      onClick={closeFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
                                 </div>
-                                {FundBtn == true ? (
-                                  <span className="fund_btn_div_cont">
-                                    <button
-                                      className="fund_wallet_btn_open"
-                                      onClick={() =>
-                                        openDepositDiv(
-                                          data.tokenName,
-                                          data.tokenSymbol
-                                        )
-                                      }
-                                    >
-                                      Fund
-                                    </button>
-                                  </span>
-                                ) : null}
+
+                                <span className="fund_btn_div_cont">
+                                  <button
+                                    className="fund_wallet_btn_open"
+                                    onClick={() =>
+                                      openDepositDiv(
+                                        data.tokenName,
+                                        data.tokenSymbol
+                                      )
+                                    }
+                                  >
+                                    Fund
+                                  </button>
+                                </span>
                               </div>
                             ) : (
                               <div
@@ -428,36 +407,21 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                       </span>
                                     </div>
                                   </div>
-
-                                  {openFundDiv == true ? (
-                                    <ArrowDropDownIcon
-                                      onClick={showFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
-
-                                  {closeFundDiv == true ? (
-                                    <ArrowDropUpIcon
-                                      onClick={closeFundButton}
-                                      className="arrow_down_show_fund_div"
-                                    />
-                                  ) : null}
                                 </div>
-                                {FundBtn == true ? (
-                                  <span className="fund_btn_div_cont">
-                                    <button
-                                      className="fund_wallet_btn_open"
-                                      onClick={() =>
-                                        openDepositDiv(
-                                          data.tokenName,
-                                          data.tokenSymbol
-                                        )
-                                      }
-                                    >
-                                      Fund
-                                    </button>
-                                  </span>
-                                ) : null}
+
+                                <span className="fund_btn_div_cont">
+                                  <button
+                                    className="fund_wallet_btn_open"
+                                    onClick={() =>
+                                      openDepositDiv(
+                                        data.tokenName,
+                                        data.tokenSymbol
+                                      )
+                                    }
+                                  >
+                                    Fund
+                                  </button>
+                                </span>
                               </div>
                             )}
                             {secureNumb == true ? (
@@ -509,39 +473,6 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                               {" "}
                               Withdraw
                             </button> */}
-
-                              <button className="buttonMenu_drop">
-                                <MoreVertIcon
-                                  className="divVan"
-                                  // onClick={works2}
-                                  id="tab1"
-                                />
-                                <MoreVertIcon
-                                  className="divVan"
-                                  // onClick={works}
-                                  id="tab2"
-                                />
-                                <div className="downContent" id="downContent1">
-                                  <div
-                                    className="depo"
-                                    // onClick={changePage5}
-                                  >
-                                    Deposit History
-                                  </div>
-                                  <div
-                                    className="depo"
-                                    // onClick={changePage6}
-                                  >
-                                    Transaction History
-                                  </div>
-                                  <div
-                                    className="depo"
-                                    // onClick={changePage4}
-                                  >
-                                    Withdrawal History
-                                  </div>
-                                </div>
-                              </button>
                             </div>
                           </div>
                         </div>
