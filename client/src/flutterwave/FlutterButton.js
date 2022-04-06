@@ -1,28 +1,36 @@
-import React from "react";
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
-import LinkCard from "./API/LinkCard";
+import React from 'react';
+import {
+  useFlutterwave,
+  closePaymentModal,
+} from 'flutterwave-react-v3';
+import LinkCard from './API/LinkCard';
 
-export default function App({ email, phonenumber, fullname, orderId }) {
+export default function App({
+  email,
+  phonenumber,
+  fullname,
+  orderId,
+}) {
   const config = {
-    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
-    tx_ref: "EGC-" + Date.now(),
+    public_key: process.env.REACT_APP_FLUTTER_KEY,
+    tx_ref: 'EGC-' + Date.now(),
     amount: 1, //change to #20 for production
-    redirect_url: "https://saul.egoras.com/v1/webhooks/all",
-    currency: "NGN",
-    payment_options: "card",
+    redirect_url: 'https://saul.egoras.com/v1/webhooks/all',
+    currency: 'NGN',
+    payment_options: 'card',
     customer: {
       email,
       phonenumber,
       name: fullname,
     },
     meta: {
-      eventType: "2",
+      eventType: '2',
     },
 
     customizations: {
-      title: "Link a card for your order " + orderId,
-      description: "we will charge you a token for this transaction",
-      logo: "https://egoras.com/img/egoras-logo.svg",
+      title: 'Link a card for your order ' + orderId,
+      description: 'we will charge you a token for this transaction',
+      logo: 'https://egoras.com/img/egoras-logo.svg',
     },
   };
 
@@ -51,7 +59,7 @@ export default function App({ email, phonenumber, fullname, orderId }) {
               }
             },
             onClose: () => {
-              console.log("modal closed");
+              console.log('modal closed');
             },
           });
         }}
