@@ -207,6 +207,7 @@ const AdminSignup = ({ getAuthentication }) => {
                             <MenuItem value={7}>HOD_MEDIA</MenuItem>
                             <MenuItem value={8}>TECH</MenuItem>
                             <MenuItem value={9}>WAREHOUSE</MenuItem>
+                            <MenuItem value={10}>ACCOUNTANT</MenuItem>
                           </Select>
                         </FormControl>
                       </div>

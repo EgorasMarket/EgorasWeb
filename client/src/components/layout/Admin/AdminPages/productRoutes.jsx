@@ -8,7 +8,7 @@ import "../AdminStyles/admin_all_products.css";
 
 const way = window.location.pathname;
 
-const ProductRoutes = () => {
+const Adminproduct = () => {
   const [pdwork, setpdwork] = useState([]);
   const [rolesInfo, setRolesInfo] = useState({
     role20: "",
@@ -63,14 +63,14 @@ const ProductRoutes = () => {
       "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
     );
     printWindow.document.write(
-      '<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
+      '<body style="height: min-content;font-family: roboto;margin: 0; border-bottom: 1px solid black;font-weight:400;">'
     );
     // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+    printWindow.document.write("<div>");
+    printWindow.document.write('<h6 style="margin: 0;">Product ID</h6>');
     printWindow.document.write(
-      '<div style="text-align: center;padding: 20px;">'
+      '<h3 style="margin: 0;">' + product_code + "</h3>"
     );
-    printWindow.document.write("<h3>Product ID</h3>");
-    printWindow.document.write("<h1>" + product_code + "</h1>");
     printWindow.document.write("</div>");
     printWindow.document.write("</body>");
     printWindow.document.write("</html>");
@@ -93,15 +93,15 @@ const ProductRoutes = () => {
       "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
     );
     printWindow.document.write(
-      '<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
+      '<body style="height: min-content;font-family: roboto;margin: 0; border-bottom: 1px solid black;font-weight:400;">'
     );
     // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+    printWindow.document.write("<div>");
+    printWindow.document.write('<h2 style="margin: 0;">Product Price</h2>');
+    printWindow.document.write('<h1 style="margin: 0;">₦' + amount + "</h1>");
     printWindow.document.write(
-      '<div style="text-align: center;padding: 20px;">'
+      '<h5 style="margin: 0;">' + product_name + "</h5>"
     );
-    printWindow.document.write("<h2>Product Price</h2>");
-    printWindow.document.write("<h1>₦" + amount + "</h1>");
-    printWindow.document.write("<h2>" + product_name + "</h2>");
     printWindow.document.write("</div>");
     printWindow.document.write("</body>");
     printWindow.document.write("</html>");
@@ -118,6 +118,7 @@ const ProductRoutes = () => {
             <div className="cart_areas">
               <div className="cart_area1">
                 <div className="cart_item_num">All Products</div>
+
                 <div className="locked_items2 locked_items2a">
                   <div class="save_prod_deta">
                     <table className="save_item_table">
@@ -257,4 +258,4 @@ const ProductRoutes = () => {
   );
 };
 
-export default ProductRoutes;
+export default Adminproduct;

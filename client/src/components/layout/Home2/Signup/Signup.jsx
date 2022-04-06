@@ -273,7 +273,7 @@ const Signup = ({ getAuthentication }) => {
                       onChange={onChange}
                       placeHolder="@gmail.com"
                     />
-                    {/* <div className="weak_pass_div text-muted">* Optional</div> */}
+                    <div className="weak_pass_div text-muted">* Optional</div>
                   </div>
 
                   <div
@@ -302,6 +302,7 @@ const Signup = ({ getAuthentication }) => {
                         format="yyyy-MM-dd"
                       />
                     </div>
+                    <div className="weak_pass_div text-muted">* Optional</div>
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">
@@ -315,7 +316,7 @@ const Signup = ({ getAuthentication }) => {
                       onChange={onChange}
                       placeHolder="***********"
                     />
-                    {/* <div className="weak_pass_div text-muted">* Optional</div> */}
+                    <div className="weak_pass_div text-muted">* Optional</div>
                   </div>
 
                   {/* <div className="signup_input_field1_cont">
