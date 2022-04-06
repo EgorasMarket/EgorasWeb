@@ -2,14 +2,16 @@ import React, { useState, useEffect } from "react";
 import SearchIcon from "@mui/icons-material/Search";
 import "../AdminStyles/allCustomer.css";
 import axios from "axios";
+import { connect } from "react-redux";
 
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
-const AllStaffs = () => {
+const AllStaffs = ({auth}) => {
   const [searchTerm, setSearchTerm] = useState("");
+  const [user_id, set_user_id] = useState('');
   const [searchResults, setSearchResults] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
   const config = {
@@ -17,6 +19,18 @@ const AllStaffs = () => {
       "Content-Type": "application/json",
     },
   };
+
+
+
+  useEffect(() => {
+    
+    if (auth) {
+      set_user_id(auth.user.user.id);
+      
+    }
+
+   
+  }, [auth]);
 
   // const saveCustomerId = (event) => {
   //   //console.log(event.target.id);
@@ -89,10 +103,10 @@ const AllStaffs = () => {
                   <thead className="assets-category-titles">
                     <tr className="assets">
                        <th className="assets-category-titles-heading1">
-                        Gender
+                        Fullname
                       </th>
-                      <th className="assets-category-titles-heading1">
-                        Email
+                       <th className="assets-category-titles-heading1">
+                        Gender
                       </th>
                       <th className="assets-category-titles-heading1">
                         Phone number
@@ -119,16 +133,20 @@ const AllStaffs = () => {
                         <td className="assets-category-data">
                           <div className="assets-data">
                             <div className="assets-data-name">
+                              {user.fullname}
+                            </div>
+                            
+                          </div>
+                        </td>
+                        <td className="assets-category-data">
+                          <div className="assets-data">
+                            <div className="assets-data-name">
                               {user.gender}
                             </div>
                             
                           </div>
                         </td>
-                         <td className="assets-category-data1">
-                          <div className="assets-data-name">{user.fullname}</div>
-                        </td>
-
-                         
+                  
                          <td className="assets-category-data1">
                           <div className="assets-data-name">{user.mobile}</div>
                         </td>
@@ -149,16 +167,20 @@ const AllStaffs = () => {
                         </td>
 
                          <td className="save_item_data1b" style={{width: 'unset'}}>
-                            {/* <div className="assets-data-name center_name">
-                              ₦{asset.amount}
-                            </div> */}
-                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                             <a >
-                            <button onClick={e => saveCustomerId(user.id)} className="checkout_btn1 py-1 px-2 m-0">
-                            {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              See Wallet{" "}
-                            </button>
+                          {
+                            user_id === user.id ? (
+                              <button style={{background: "#87ddab"}} disabled={true} className="checkout_btn1 py-1 px-2 m-0">
+                                Current User{" "}
+                              </button>
+                            ) : (
+                            <a>
+                              <button id={user.id} onClick={e => saveCustomerId(user.id)} className="checkout_btn1 py-1 px-2 m-0">
+                                See Wallet{" "}
+                              </button>
                             </a>
+                            )
+                          }
+                             
                             
                         
                             {/* <button className="checkout_btn1 py-1 px-2 ml-1">
@@ -181,19 +203,14 @@ const AllStaffs = () => {
   );
 };
 
-//console.log(searchResults);
 
-// =========
-// =========
 
-// =========
-// =========
+// export default AllStaffs;
 
-export default AllStaffs;
-// export default function Newone(){
-//   const url = '/v1/user/transactions/customer/byBranch';
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.auth.loading,
+});
 
-//   const paper = () => {
-//     axios.get(`${url}notes`)
-//   }
-// }
+export default connect(mapStateToProps, {})(AllStaffs);
