@@ -8,8 +8,9 @@ import "../AdminStyles/admin_all_products.css";
 
 const way = window.location.pathname;
 
-const ProductRoutes = () => {
+const Adminproduct = () => {
   const [pdwork, setpdwork] = useState([]);
+  const [roleRemove, setRoleRemove] = useState('');
   const [rolesInfo, setRolesInfo] = useState({
     role20: "",
   });
@@ -22,6 +23,19 @@ const ProductRoutes = () => {
   };
 
   useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "chukwubuike");
+
+        setpdwork(data.data.data);
+      })
+      .catch((err) => {
+        //console.log(err); // "oh, no!"
+      });
+  }, []);
+
+   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
       .then((data) => {
@@ -48,6 +62,45 @@ const ProductRoutes = () => {
       });
   }, []);
 
+  //   useEffect(() => {
+  
+     
+  // }, [product_id]);
+   const pie = (id) => {
+           let today = new Date().toLocaleDateString();
+   }
+
+ const markPrinted = (product_id) => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products/printed/"+product_id, null, config)
+      .then((data) => {
+        console.log(data.data, "line_ful");
+        setRoleRemove(product_id)
+        
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+ }
+
+
+  useEffect(() => {
+    if (roleRemove === "") {
+      setpdwork(pdwork);
+      //console.log("tttt");
+    } else {
+      console.log(pdwork);
+      const results = pdwork.filter((userInfo) =>
+        !userInfo.id
+          .toString()
+          .toLowerCase()
+          .includes(roleRemove.toLowerCase())
+      );
+      console.log(results);
+      setpdwork(results);
+    }
+  }, [roleRemove, pdwork]);
+
   const printProductCode = (product_code) => {
     let today = new Date().toLocaleDateString();
 
@@ -63,14 +116,14 @@ const ProductRoutes = () => {
       "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
     );
     printWindow.document.write(
-      '<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
+      '<body style="height: min-content;font-family: roboto;margin: 0; border-bottom: 1px solid black;font-weight:400;">'
     );
     // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+    printWindow.document.write("<div>");
+    printWindow.document.write('<h6 style="margin: 0;">Product ID</h6>');
     printWindow.document.write(
-      '<div style="text-align: center;padding: 20px;">'
+      '<h3 style="margin: 0;">' + product_code + "</h3>"
     );
-    printWindow.document.write("<h3>Product ID</h3>");
-    printWindow.document.write("<h1>" + product_code + "</h1>");
     printWindow.document.write("</div>");
     printWindow.document.write("</body>");
     printWindow.document.write("</html>");
@@ -93,15 +146,15 @@ const ProductRoutes = () => {
       "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
     );
     printWindow.document.write(
-      '<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
+      '<body style="height: min-content;font-family: roboto;margin: 0; border-bottom: 1px solid black;font-weight:400;">'
     );
     // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+    printWindow.document.write("<div>");
+    printWindow.document.write('<h2 style="margin: 0;">Product Price</h2>');
+    printWindow.document.write('<h1 style="margin: 0;">₦' + amount + "</h1>");
     printWindow.document.write(
-      '<div style="text-align: center;padding: 20px;">'
+      '<h5 style="margin: 0;">' + product_name + "</h5>"
     );
-    printWindow.document.write("<h2>Product Price</h2>");
-    printWindow.document.write("<h1>₦" + amount + "</h1>");
-    printWindow.document.write("<h2>" + product_name + "</h2>");
     printWindow.document.write("</div>");
     printWindow.document.write("</body>");
     printWindow.document.write("</html>");
@@ -118,6 +171,7 @@ const ProductRoutes = () => {
             <div className="cart_areas">
               <div className="cart_area1">
                 <div className="cart_item_num">All Products</div>
+
                 <div className="locked_items2 locked_items2a">
                   <div class="save_prod_deta">
                     <table className="save_item_table">
@@ -152,104 +206,16 @@ const ProductRoutes = () => {
                           </th>
                         </tr>
                       </thead>
-
-                      {pdwork.slice(0, 50).map((asset, index) => (
-                        // <tbody
-                        //   className="save_items_cat  small_height popular-categories"
-                        //   id="popular-categories"
-                        //   key={index.toString()}
-                        // >
-                        //   {" "}
-                        //   <tr id={asset.id} className="assets-category-row">
-                        //     <td className="save_item_data_cart small_height">
-                        //       <div className="assets-data height_data height_data1">
-                        //         <img
-                        //           src={`${asset.product_image}`}
-                        //           alt=""
-                        //           className="save_item_img_img"
-                        //         />
-                        //       </div>
-                        //     </td>
-
-                        //     <td
-                        //       className="save_item_data1"
-                        //       style={{ width: "unset" }}
-                        //     >
-                        //       <div className="save_items_detailssss">
-                        //         <div className="save_items_details1 small_tetxt">
-                        //           {asset.product_name}
-                        //         </div>
-                        //       </div>
-                        //     </td>
-
-                        //     {/* <td className="save_item_data1b">
-                        //     <div className="assets-data-name center_name">
-                        //       {asset.product_category_desc}
-                        //     </div>
-                        //   </td> */}
-
-                        //     <td className="save_item_data1b">
-                        //       <div className="assets-data-name center_name">
-                        //         ₦{asset.amount}
-                        //       </div>
-                        //     </td>
-
-                        //     <td className="save_item_data1b">
-                        //       {/* <div className="assets-data-name center_name">
-                        //       ₦{asset.amount}
-                        //     </div> */}
-                        //       {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                        //       <a>
-                        //         <button
-                        //           id={"yes_" + asset.id}
-                        //           onClick={() =>
-                        //             printProductPrice(
-                        //               asset.product_name,
-                        //               asset.amount
-                        //             )
-                        //           }
-                        //           className="checkout_btn1 py-1 px-2 m-0"
-                        //         >
-                        //           {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                        //           Print product Print{" "}
-                        //         </button>
-                        //       </a>
-
-                        //       {/* <button className="checkout_btn1 py-1 px-2 ml-1">
-                        //       Refuse{" "}
-                        //     </button> */}
-                        //     </td>
-                        //     <td className="save_item_data1b">
-                        //       {/* <div className="assets-data-name center_name">
-                        //       ₦{asset.amount}
-                        //     </div> */}
-                        //       {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                        //       <a>
-                        //         <button
-                        //           id={"yes_" + asset.id}
-                        //           onClick={() =>
-                        //             printProductCode(asset.product_code)
-                        //           }
-                        //           className="checkout_btn1 py-1 px-2 m-0"
-                        //         >
-                        //           {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                        //           Print product ID{" "}
-                        //         </button>
-                        //       </a>
-
-                        //       {/* <button className="checkout_btn1 py-1 px-2 ml-1">
-                        //       Refuse{" "}
-                        //     </button> */}
-                        //     </td>
-                        //   </tr>
-                        // </tbody>
-                         <tbody
+                       <tbody
                           className="save_items_cat popular-categories"
                           id="popular-categories"
-                          key={index.toString()}
+                          // key={index.toString()}
                         >
-                          {" "}
-                          <tr
+                      {pdwork.map((asset, index) => (
+                         asset.printed === 0 ? (
+
+                          
+                         <tr
                             id={asset.id}
                             className="assets-category-row saving_assets_row"
                           >
@@ -341,6 +307,9 @@ const ProductRoutes = () => {
                                    <a>
                                 <button
                                   id={"yes_" + asset.id}
+                                  onClick={() =>
+                                    markPrinted(asset.id)
+                                  }
                                   
                                   className="checkout_btn1 py-1 px-2 m-0"
                                 >
@@ -350,14 +319,13 @@ const ProductRoutes = () => {
                               </a>                          
                                
                             </td>
-                             
-                             
-                  
-                  
+ 
                 
                           </tr>
-                        </tbody>
+                         ) : null
+                        
                       ))}
+                       </tbody>
                     </table>
                   </div>
                   {/* <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div> */}
@@ -381,4 +349,4 @@ const ProductRoutes = () => {
   );
 };
 
-export default ProductRoutes;
+export default Adminproduct;
