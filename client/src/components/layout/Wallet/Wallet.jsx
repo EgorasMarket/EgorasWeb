@@ -35,6 +35,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   const [openFundDiv, setOpenFundDiv] = useState(true);
   const [closeFundDiv, setCloseFundDiv] = useState(false);
   const [adminId, setAdminId] = useState("");
+  const [adminName, setAdminName] = useState("");
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -96,7 +97,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     if (linksActive === '/super_admin/fund/accountant') {
       console.log('Ok');
       let adminStaffId = localStorage.getItem("adminStaffId");
+      let adminStaffName = localStorage.getItem("adminStaffName");
       setAdminId(adminStaffId)
+      setAdminName(adminStaffName)
       // 
     } else {
       var Authorized = auth.user;
@@ -276,7 +279,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
         <div className="container">
           <div className="walletClass3">
             <div className="walletSubClass3ng">
-              <div className="wallet_heading">Wallet Overview</div>
+              <div className="wallet_heading"><span>Wallet Overview</span><span className='float-right'>{' '}{adminName}</span></div>
               <div className="spanEstimated">
                 Estimated balance
                 {visible == false ? (
