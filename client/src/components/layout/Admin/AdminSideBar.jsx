@@ -544,17 +544,17 @@ const AdminSideBar = ({ auth }) => {
                     <span className="userName_name">Media</span>
                   ) : role1 === "WAREHOUSE" ? (
                     <span className="userName_name">Warehouse</span>
-                  ) : role1 === 'CUSTOMER_SERVICE' ? (
+                  ) : role1 === "CUSTOMER_SERVICE" ? (
                     <span className="userName_name">Sales Rep</span>
-                  ) : role1 === 'CASHIER' ? (
+                  ) : role1 === "CASHIER" ? (
                     <span className="userName_name">Sales Rep</span>
                   ) : role1 === "HOD_MEDIA" ? (
                     <span className="userName_name">Head Of Media</span>
                   ) : role1 === "TECH" ? (
                     <span className="userName_name">Tech Team</span>
-                  ) : role1 === 'ACCOUNTANT' ? (
+                  ) : role1 === "ACCOUNTANT" ? (
                     <span className="userName_name">Accounts</span>
-                  ) : role1 === 'MANAGER' ? (
+                  ) : role1 === "MANAGER" ? (
                     <span className="userName_name">Manager</span>
                   ) : null}
                 </span>
@@ -733,10 +733,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ("register" &&
-                            (role1 === "CASHIER" ||
-                              role1 === "CUSTOMER_SERVICE"))
+                          activeBg == "register"
                             ? "sidebarListItem list-item-active"
                             : "sidebarListItem"
                         }
@@ -753,10 +750,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ("products" &&
-                            (role1 === "CASHIER" ||
-                              role1 === "CUSTOMER_SERVICE"))
+                          activeBg == "products"
                             ? "sidebarListItem list-item-active"
                             : "sidebarListItem"
                         }
@@ -920,23 +914,23 @@ const AdminSideBar = ({ auth }) => {
                 {role1 === "ACCOUNTANT" ? (
                   <>
                     <a
-                    href="/super_admin/staffs_data"
-                    className="link"
-                    id="allProd"
-                    onClick={changeBg}
-                  >
-                    <li
-                      className={
-                        activeBg == "allProd" && role1 === "HOD_MEDIA"
-                          ? "sidebarListItem list-item-active"
-                          : "sidebarListItem"
-                      }
+                      href="/super_admin/staffs_data"
+                      className="link"
+                      id="allProd"
+                      onClick={changeBg}
                     >
-                      <GroupAddIcon className="sidebarIcon" />
-                      All Staffs
-                    </li>
-                  </a>
-                  <a
+                      <li
+                        className={
+                          activeBg == "allProd" && role1 === "HOD_MEDIA"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        All Staffs
+                      </li>
+                    </a>
+                    <a
                       href="/super_admin/user_wallet"
                       className="link"
                       id="wallet"
@@ -953,7 +947,7 @@ const AdminSideBar = ({ auth }) => {
                         My Wallet
                       </li>
                     </a>
-                     {/* <a
+                    {/* <a
                       href="/super_admin/Approved_products"
                       className="link"
                       id="allProd"
@@ -1316,10 +1310,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ("register" &&
-                            (role1 === "CASHIER" ||
-                              role1 === "CUSTOMER_SERVICE"))
+                          activeBg == "register"
                             ? "sidebarListItem small_list-item-active"
                             : "sidebarListItem"
                         }
@@ -1336,10 +1327,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ("products" &&
-                            (role1 === "CASHIER" ||
-                              role1 === "CUSTOMER_SERVICE"))
+                          activeBg == "products"
                             ? "sidebarListItem small_list-item-active"
                             : "sidebarListItem"
                         }
