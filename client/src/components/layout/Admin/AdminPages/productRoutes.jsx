@@ -10,6 +10,7 @@ const way = window.location.pathname;
 
 const Adminproduct = () => {
   const [pdwork, setpdwork] = useState([]);
+  const [roleRemove, setRoleRemove] = useState('');
   const [rolesInfo, setRolesInfo] = useState({
     role20: "",
   });
@@ -22,6 +23,19 @@ const Adminproduct = () => {
   };
 
   useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
+      .then((data) => {
+        console.log(data.data.data, "chukwubuike");
+
+        setpdwork(data.data.data);
+      })
+      .catch((err) => {
+        //console.log(err); // "oh, no!"
+      });
+  }, []);
+
+   useEffect(() => {
     axios
       .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
       .then((data) => {
@@ -47,6 +61,45 @@ const Adminproduct = () => {
         //console.log(err); // "oh, no!"
       });
   }, []);
+
+  //   useEffect(() => {
+  
+     
+  // }, [product_id]);
+   const pie = (id) => {
+           let today = new Date().toLocaleDateString();
+   }
+
+ const markPrinted = (product_id) => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/products/printed/"+product_id, null, config)
+      .then((data) => {
+        console.log(data.data, "line_ful");
+        setRoleRemove(product_id)
+        
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+ }
+
+
+  useEffect(() => {
+    if (roleRemove === "") {
+      setpdwork(pdwork);
+      //console.log("tttt");
+    } else {
+      console.log(pdwork);
+      const results = pdwork.filter((userInfo) =>
+        !userInfo.id
+          .toString()
+          .toLowerCase()
+          .includes(roleRemove.toLowerCase())
+      );
+      console.log(results);
+      setpdwork(results);
+    }
+  }, [roleRemove, pdwork]);
 
   const printProductCode = (product_code) => {
     let today = new Date().toLocaleDateString();
@@ -132,6 +185,16 @@ const Adminproduct = () => {
                             Name
                           </th>
 
+                           <th className="assets-category-titles-heading1">
+                            Product id
+                          </th>
+
+                           <th className="assets-category-titles-heading1">
+                            Description
+                          </th>
+
+
+
                           {/* <th className="assets-category-titles-heading1 quant">
                           Category
                         </th> */}
@@ -143,17 +206,21 @@ const Adminproduct = () => {
                           </th>
                         </tr>
                       </thead>
-
-                      {pdwork.slice(0, 50).map((asset, index) => (
-                        <tbody
-                          className="save_items_cat  small_height popular-categories"
+                       <tbody
+                          className="save_items_cat popular-categories"
                           id="popular-categories"
-                          key={index.toString()}
+                          // key={index.toString()}
                         >
-                          {" "}
-                          <tr id={asset.id} className="assets-category-row">
-                            <td className="save_item_data_cart small_height">
-                              <div className="assets-data height_data height_data1">
+                      {pdwork.map((asset, index) => (
+                         asset.printed === 0 ? (
+
+                          
+                         <tr
+                            id={asset.id}
+                            className="assets-category-row saving_assets_row"
+                          >
+                            <td className="save_item_data width_thin">
+                              <div className="assets-data height_data">
                                 <img
                                   src={`${asset.product_image}`}
                                   alt=""
@@ -162,22 +229,23 @@ const Adminproduct = () => {
                               </div>
                             </td>
 
-                            <td
-                              className="save_item_data1"
-                              style={{ width: "unset" }}
-                            >
-                              <div className="save_items_detailssss">
-                                <div className="save_items_details1 small_tetxt">
+                            <td className="save_item_data1">
+                              <div className="save_items_details">
+                                <div className="save_items_details1">
                                   {asset.product_name}
                                 </div>
                               </div>
                             </td>
-
-                            {/* <td className="save_item_data1b">
-                            <div className="assets-data-name center_name">
-                              {asset.product_category_desc}
-                            </div>
-                          </td> */}
+                            <td className="save_item_data1b">
+                              <div className="assets-data-name center_name">
+                                {asset.id}
+                              </div>
+                            </td>
+                            <td className="save_item_data1b">
+                              <div className="assets-data-name center_name">
+                                {asset.product_category_desc}
+                              </div>
+                            </td>
 
                             <td className="save_item_data1b">
                               <div className="assets-data-name center_name">
@@ -190,7 +258,7 @@ const Adminproduct = () => {
                               ₦{asset.amount}
                             </div> */}
                               {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              <a>
+                                                           <a>
                                 <button
                                   id={"yes_" + asset.id}
                                   onClick={() =>
@@ -205,17 +273,17 @@ const Adminproduct = () => {
                                   Print product Print{" "}
                                 </button>
                               </a>
-
                               {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
                             </button> */}
                             </td>
+
                             <td className="save_item_data1b">
                               {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
                               {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              <a>
+                                   <a>
                                 <button
                                   id={"yes_" + asset.id}
                                   onClick={() =>
@@ -226,15 +294,38 @@ const Adminproduct = () => {
                                   {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
                                   Print product ID{" "}
                                 </button>
-                              </a>
-
-                              {/* <button className="checkout_btn1 py-1 px-2 ml-1">
-                              Refuse{" "}
-                            </button> */}
+                              </a>                          
+                               
                             </td>
+
+                            <td className="save_item_data1b" >
+                              
+                              {/* <div className="assets-data-name center_name">
+                              ₦{asset.amount}
+                            </div> */}
+                              {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                   <a>
+                                <button
+                                  id={"yes_" + asset.id}
+                                  onClick={() =>
+                                    markPrinted(asset.id)
+                                  }
+                                  
+                                  className="checkout_btn1 py-1 px-2 m-0"
+                                >
+                                  {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                  Completed{" "}
+                                </button>
+                              </a>                          
+                               
+                            </td>
+ 
+                
                           </tr>
-                        </tbody>
+                         ) : null
+                        
                       ))}
+                       </tbody>
                     </table>
                   </div>
                   {/* <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div> */}
