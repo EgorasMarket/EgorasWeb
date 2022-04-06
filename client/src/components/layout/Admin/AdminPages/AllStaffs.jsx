@@ -9,9 +9,9 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
-const AllStaffs = ({auth}) => {
+const AllStaffs = ({ auth }) => {
   const [searchTerm, setSearchTerm] = useState("");
-  const [user_id, set_user_id] = useState('');
+  const [user_id, set_user_id] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
   const config = {
@@ -20,16 +20,10 @@ const AllStaffs = ({auth}) => {
     },
   };
 
-
-
   useEffect(() => {
-    
     if (auth) {
       set_user_id(auth.user.user.id);
-      
     }
-
-   
   }, [auth]);
 
   // const saveCustomerId = (event) => {
@@ -47,7 +41,7 @@ const AllStaffs = ({auth}) => {
     } else {
       console.log(allCustomers);
       const results = allCustomers.filter((userInfo) =>
-        userInfo.branch
+        userInfo.fullname
           .toString()
           .toLowerCase()
           .includes(searchTerm.toLowerCase())
@@ -74,7 +68,7 @@ const AllStaffs = ({auth}) => {
     console.log(id);
     localStorage.setItem("adminStaffId", id);
     return window.location.replace("/super_admin/fund/accountant");
-  }
+  };
 
   return (
     <>
@@ -91,7 +85,7 @@ const AllStaffs = ({auth}) => {
                     type="search"
                     name=""
                     id=""
-                    placeholder="Search"
+                    placeholder="Search name"
                     className="user_search"
                     value={searchTerm}
                     onChange={handleSearchChange}
@@ -102,25 +96,26 @@ const AllStaffs = ({auth}) => {
                 <table className="assets-table s_table">
                   <thead className="assets-category-titles">
                     <tr className="assets">
-                       <th className="assets-category-titles-heading1">
+                      <th className="assets-category-titles-heading1">
                         Fullname
                       </th>
-                       <th className="assets-category-titles-heading1">
+                      <th className="assets-category-titles-heading1">
                         Gender
                       </th>
                       <th className="assets-category-titles-heading1">
                         Phone number
                       </th>
                       <th className="assets-category-titles-heading1 right_align email_align">
-                         Role
+                        Role
                       </th>
-                     
+
+                      <th className="assets-category-titles-heading1 right_align">
+                        Id
+                      </th>
+
                       <th className="assets-category-titles-heading1 right_align">
                         Staff ID
                       </th>
-                      <th className="assets-category-titles-heading1 right_align">
-                        
-                      </th> 
                     </tr>
                   </thead>
                   {searchResults.map((user) => (
@@ -135,7 +130,6 @@ const AllStaffs = ({auth}) => {
                             <div className="assets-data-name">
                               {user.fullname}
                             </div>
-                            
                           </div>
                         </td>
                         <td className="assets-category-data">
@@ -143,52 +137,57 @@ const AllStaffs = ({auth}) => {
                             <div className="assets-data-name">
                               {user.gender}
                             </div>
-                            
                           </div>
                         </td>
-                  
-                         <td className="assets-category-data1">
+
+                        <td className="assets-category-data1">
                           <div className="assets-data-name">{user.mobile}</div>
                         </td>
 
-                         
-                         {/* <td className="assets-category-data1">
+                        {/* <td className="assets-category-data1">
                           <div className="assets-data-name">{user.id}</div>
                         </td> */}
 
-                         
-                         <td className="assets-category-data1">
+                        <td className="assets-category-data1">
                           <div className="assets-data-name">{user.role}</div>
                         </td>
 
-                         
-                         <td className="assets-category-data1">
+                        <td className="assets-category-data1">
+                          <div className="assets-data-name">{user.id}</div>
+                        </td>
+
+                        <td className="assets-category-data1">
                           <div className="assets-data-name">{user.staffId}</div>
                         </td>
 
-                         <td className="save_item_data1b" style={{width: 'unset'}}>
-                          {
-                            user_id === user.id ? (
-                              <button style={{background: "#87ddab"}} disabled={true} className="checkout_btn1 py-1 px-2 m-0">
-                                Current User{" "}
-                              </button>
-                            ) : (
+                        <td
+                          className="save_item_data1b"
+                          style={{ width: "unset" }}
+                        >
+                          {user_id === user.id ? (
+                            <button
+                              style={{ background: "#87ddab" }}
+                              disabled={true}
+                              className="checkout_btn1 py-1 px-2 m-0"
+                            >
+                              Current User{" "}
+                            </button>
+                          ) : (
                             <a>
-                              <button id={user.id} onClick={e => saveCustomerId(user.id)} className="checkout_btn1 py-1 px-2 m-0">
+                              <button
+                                id={user.id}
+                                onClick={(e) => saveCustomerId(user.id)}
+                                className="checkout_btn1 py-1 px-2 m-0"
+                              >
                                 See Wallet{" "}
                               </button>
                             </a>
-                            )
-                          }
-                             
-                            
-                        
-                            {/* <button className="checkout_btn1 py-1 px-2 ml-1">
+                          )}
+
+                          {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
                             </button> */}
-                          </td>
-                     
-                      
+                        </td>
                       </tr>
                     </tbody>
                   ))}
@@ -202,8 +201,6 @@ const AllStaffs = ({auth}) => {
     </>
   );
 };
-
-
 
 // export default AllStaffs;
 

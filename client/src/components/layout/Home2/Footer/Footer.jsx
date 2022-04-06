@@ -215,6 +215,13 @@ const Footer = () => {
                 <a href="/terms-conditions" className="c1link1" target="_blank">
                   Terms & conditions
                 </a>
+                <a
+                  href="/img/bye law/Scan.pdf"
+                  className="c1link1"
+                  target="_blank"
+                >
+                  Co-operative Bye law
+                </a>
                 {/* <a href="#partners" className="c1link1" target="_blank">
                   Partners
                 </a> */}
@@ -228,9 +235,9 @@ const Footer = () => {
                   EGR
                 </a> */}
                 <a href="/eusd-token" className="c1link1" target="_blank">
-                  EUSD
+                  eNGN
                 </a>
-                <a href="/egc" className="c1link1" target="_blank">
+                <a href="/egc_token" className="c1link1" target="_blank">
                   EGC
                 </a>
               </div>
@@ -321,6 +328,13 @@ const Footer = () => {
                     >
                       Terms & conditions
                     </a>
+                    <a
+                      href="/img/bye law/Scan.pdf"
+                      className="c1link1"
+                      target="_blank"
+                    >
+                      Co-operative Bye law
+                    </a>
                     {/* <a href="#partners" className="c1link1" target="_blank">
                       Partners
                     </a> */}
@@ -341,9 +355,9 @@ const Footer = () => {
                       EGR
                     </a> */}
                     <a href="/eusd-token" className="c1link1" target="_blank">
-                      EUSD
+                      eNGN
                     </a>
-                    <a href="/egc" className="c1link1" target="_blank">
+                    <a href="/egc_token" className="c1link1" target="_blank">
                       EGC
                     </a>
                   </div>
@@ -373,6 +387,28 @@ const Footer = () => {
               </Accordion>
             </div>
           </div>
+          <span className="law_write_up">
+            “Egoras” and “Egoras.com” are trademarks of Egoras Technologies
+            Limited, a company duly registered with CAC with{" "}
+            <span className="add_color">RC Number: 1832671. </span>
+            Egoras.com is a platform used for the provision of financial
+            services under a Multipurpose Co-operative License with registration
+            number <span className="add_color">34052</span>. The Co-operative
+            and Egoras Technologies Limited are duly registered legal entities
+            in Nigeria.
+            <br />
+            <br /> By the Co-operative’s Bye Law, every member of the
+            Co-operative shall subscribe to a minimum of one share and may
+            subscribe to additional shares subject to 20% maximum holding in
+            accordance with the provision of section 27 of the Nigerian
+            Co-operative Societies Act. Members of the Co-operative have their
+            shareholding represented in{" "}
+            <a href="/egc_token" className="add_color">
+              {" "}
+              Egoras Credit (EGC)
+            </a>
+            . However, possession of EGC is not proof of membership.
+          </span>
           <hr></hr>
           <h5 className="footerBottomPara">
             ©️ 2022 Egoras Technologies LTD(RC - 1832671). All rights reserved .

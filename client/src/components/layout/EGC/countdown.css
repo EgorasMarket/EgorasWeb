@@ -39,7 +39,7 @@
   .flip-countdown-card-sec
   .card__back::after {
   color: #ffffff !important;
-  background: #229e54 !important; 
+  background: #229e54 !important;
 }
 
 .flip-countdown {
@@ -144,7 +144,7 @@
   /* transform: translate(-50%); */
   border-radius: 305px;
   animation: circle-grow-eusd-token-page8 6s linear infinite;
-  background: #7bdba1 ;
+  background: #7bdba1;
   filter: drop-shadow(2px 4px 10px rgb(0, 0, 0));
 }
 @keyframes circle-grow-eusd-token-page8 {
@@ -215,6 +215,8 @@
   .ma {
     flex-direction: column;
     grid-row-gap: 20px;
+    width: 100%;
+    height: 100%;
   }
 
   .span4b-txts {
@@ -229,11 +231,10 @@
     flex-direction: column-reverse;
   }
 
-
   .reverse2 {
     display: flex;
     flex-direction: column;
-}
+  }
   .count-down-section-btns {
     justify-content: center;
   }

@@ -3,6 +3,8 @@ import axios from 'axios';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import verify from '../../../../flutterwave/API/Verify';
 import adminVerify from '../../../../flutterwave/API/AdminVerify';
+import LoadingIcons from 'react-loading-icons';
+import Success_Error_Component from '../../../assets/Success_Error_Component';
 
 import {
   PRODUCT_LOADED,
@@ -58,6 +60,7 @@ const CheckoutModalComponent = ({
   const [phone_no, setPhoneNo] = useState('');
   const [walletBalance, setWalletBalance] = useState(false);
   const [ProcessingDiv, setProcessingDiv] = useState(false);
+
   const [name, setName] = useState('');
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
@@ -65,6 +68,11 @@ const CheckoutModalComponent = ({
   const [assetVal, setAssetVal] = useState('0.000');
   const [tokenSign, setTokenSign] = useState();
   const [errorDiv, setErrorDiv] = useState(false);
+  const [successDiv, setSuccessDiv] = useState(false);
+  const [order_id, setOrder_id] = useState('');
+  const [success_msg, setSuccessMsg] = useState('');
+  const [error_msg, setErrorMsg] = useState('');
+
   const [total, setTotal] = useState('');
 
   // console.log(phone_no, name, option)
@@ -98,7 +106,7 @@ const CheckoutModalComponent = ({
       // alert(initial_deposit);
       setTotal(amount);
     } else if (payment_type === 'INSTALLMENT') {
-      setTotal(initial_deposit + 0);
+      setTotal(initial_deposit);
     }
     // setIsLoading2(true);
     axios
@@ -236,26 +244,35 @@ const CheckoutModalComponent = ({
                 response,
                 ' response after order endpoint is called'
               );
+
               setProcessingDiv(false);
-              alert(
-                'Your order have been completed successfully, You will redirected to the market place'
-              );
-              return <Redirect to="/dashboard" />;
+              setSuccessMsg(response.data.message);
+              setOrder_id(response.data.order_id);
+              setErrorDiv(false);
+              setSuccessDiv(true);
+              // alert(
+              //   'Your order have been completed successfully, You will redirected to the market place'
+              // );
+              // return <Redirect to="/dashboard" />;
             })
             .catch((err) => {
               console.log(err.response);
               setProcessingDiv(false);
+              setSuccessDiv(false);
+              setErrorMsg(err.response);
               setErrorDiv(true);
             });
           //
         } else {
-          console.log('something happened');
+          console.log(
+            'This user dont have enough balance to carry this transaction '
+          );
           setProcessingDiv(false);
-          alert('something happened' + total + 'token' + tokenBal);
-          // setSuccessDiv(false);
+          setSuccessDiv(false);
+          setErrorMsg('Insufficient funds');
+
           // setErrorMsg("An error")
-          // setErrorDiv(true);
-          // alert('hiy');
+          setErrorDiv(true);
         }
         break;
     }
@@ -528,6 +545,46 @@ const CheckoutModalComponent = ({
           </div>
         </div>
       </div>
+      {ProcessingDiv == false ? null : (
+        <div className="processing_transac_div">
+          <LoadingIcons.Bars fill="#229e54" />
+          Processing Transaction...
+        </div>
+      )}
+
+      {successDiv == true ? (
+        <div className="processing_transac_div insufficient">
+          <Success_Error_Component
+            remove_success_div={closeCheckoutOptions}
+            btn_txt="Continue"
+            // msg={success_msg}
+            msg={`${success_msg}, Order-Id: ${order_id}`}
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src={
+              payment_type === 'OUTRIGHT'
+                ? '/dashboard/savings'
+                : '/dashboard/products'
+            }
+          />
+        </div>
+      ) : null}
+
+      {errorDiv == false ? null : (
+        <div className="processing_transac_div insufficient">
+          <Success_Error_Component
+            // remove_success_div={() => setErrorDiv(true)}
+            btn_txt="Fund Wallet"
+            msg={error_msg}
+            errorMsgDiv={errorDiv}
+            link_btn={true}
+            src="/dashboard/wallet"
+            onclick={() => {
+              setErrorDiv(false);
+            }}
+          />
+        </div>
+      )}
     </>
   );
 };
