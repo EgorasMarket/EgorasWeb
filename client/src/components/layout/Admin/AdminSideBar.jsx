@@ -675,6 +675,40 @@ const AdminSideBar = ({ auth }) => {
 
                 {role1 === "MANAGER" ? (
                   <>
+                    <a
+                    href="/super_admin/staffs_data"
+                    className="link"
+                    id="allProd"
+                    onClick={changeBg}
+                  >
+                    <li
+                      className={
+                        activeBg == "allProd" && role1 === "HOD_MEDIA"
+                          ? "sidebarListItem list-item-active"
+                          : "sidebarListItem"
+                      }
+                    >
+                      <GroupAddIcon className="sidebarIcon" />
+                      All Staffs
+                    </li>
+                  </a>
+                  <a
+                      href="/super_admin/user_wallet"
+                      className="link"
+                      id="wallet"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "wallet"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <AccountBalanceWalletIcon className="sidebarIcon" />
+                        My Wallet
+                      </li>
+                    </a>
                      <a
                       href="/super_admin/Approved_products"
                       className="link"
@@ -727,23 +761,7 @@ const AdminSideBar = ({ auth }) => {
                       </li>
                     </a>
 
-                     <a
-                      href="/super_admin/staffs_data"
-                      className="link"
-                      id="trans"
-                      onClick={changeBg}
-                    >
-                      <li
-                        className={
-                          activeBg == "trans"
-                            ? "sidebarListItem list-item-active"
-                            : "sidebarListItem"
-                        }
-                      >
-                        <AccountBalanceWalletIcon className="sidebarIcon" />
-                        Staff ACC
-                      </li>
-                    </a>
+            
                   </>
                 ) : null}
                 {/* ===================== */}

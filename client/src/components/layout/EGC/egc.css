@@ -23,7 +23,9 @@ body {
   padding-bottom: 50px;
   margin-top: 10px;
 }
-
+.reverse2a {
+  flex-direction: row-reverse;
+}
 .egc-holders-section {
   position: relative;
   overflow: hidden;

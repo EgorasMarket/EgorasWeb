@@ -405,25 +405,6 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
       {/* =============''''''''' */}
       {/* =============''''''''' */}
       {/* =============''''''''' */}
-      {/* {catDiv == "home" ? (
-        <div className="cat_div" id="cat_div">
-          <div className="cat_body_toggle">
-          <div className="cat_body_toggle1">
-              All Categories
-              <ListIcon className="cat_icon" />
-               </div>
-           
-            <div className="cat_body_toggle1">Computers and Accessories</div>
-            <div className="cat_body_toggle1">Phones and Tablets</div>
-            <div className="cat_body_toggle1">Electronics</div>
-            <div className="cat_body_toggle1">Konga Fashion</div>
-            <div className="cat_body_toggle1">Home and Kitchen</div>
-            <div className="cat_body_toggle1">Other Categories</div>
-          </div>
-        </div>
-      ) : (
-        <div></div>
-      )} */}
 
       {/* ========== */}
       {/* ========== */}
@@ -510,7 +491,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <StoreIcon className="sidebarIcon" />
-                    Market
+                    Inventory
                   </li>
                 </a>
 
@@ -639,7 +620,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                 <a
                   href="/dashboard"
                   id="Home"
-                  className="link"
+                  className="link hover_link"
                   onClick={changeBg}
                 >
                   <li
@@ -652,6 +633,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     <HomeIcon className="sidebarIcon" />
                     Home
                   </li>
+                  <span className="hover_link_txt">Home</span>
                 </a>
                 {/* ===================== */}
                 {/* ===================== */}
@@ -660,7 +642,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/products"
-                  className="link"
+                  className="link hover_link"
                   id="products"
                   onClick={changeBg}
                 >
@@ -673,8 +655,9 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   >
                     <StoreIcon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
-                    Market
+                    Inventory
                   </li>
+                  <span className="hover_link_txt">Market</span>
                 </a>
 
                 {/* ===================== */}
@@ -706,7 +689,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/savings"
-                  className="link"
+                  className="link hover_link"
                   id="savings"
                   onClick={changeBg}
                 >
@@ -720,6 +703,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     <SavingsIcon className="sidebarIcon" />
                     Savings
                   </li>
+                  <span className="hover_link_txt">Savings</span>
                 </a>
                 {/* ===================== */}
                 {/* ===================== */}
@@ -728,7 +712,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/wallet"
-                  className="link"
+                  className="link hover_link"
                   id="wallet"
                   onClick={changeBg}
                 >
@@ -742,6 +726,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     <AccountBalanceWalletIcon className="sidebarIcon" />
                     Wallet
                   </li>
+                  <span className="hover_link_txt">Wallet</span>
                 </a>
                 {/* ===================== */}
                 {/* ===================== */}
@@ -750,7 +735,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/orders"
-                  className="link"
+                  className="link hover_link"
                   id="order"
                   onClick={changeBg}
                 >
@@ -762,8 +747,9 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <QueueIcon className="sidebarIcon" />
-                    Order
+                    Orders
                   </li>
+                  <span className="hover_link_txt">Orders</span>
                 </a>
                 {/* ===================== */}
                 {/* ===================== */}
@@ -772,7 +758,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/accounts"
-                  className="link"
+                  className="link hover_link"
                   id="accounts"
                   onClick={changeBg}
                 >
@@ -786,6 +772,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     <AccountCircleIcon className="sidebarIcon" />
                     Profile
                   </li>
+                  <span className="hover_link_txt">Profile</span>
                 </a>
 
                 {/* ===================== */}

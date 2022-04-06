@@ -142,7 +142,9 @@ import Explore_Loans_Page2 from "./components/layout/Explore_Loan/exploreLoanSec
 import Explore_Loans_Page3 from "./components/layout/Explore_Loan/exploreLoanSection10";
 import Explore_Loans_Page4 from "./components/layout/Explore_Loan/exploreLoanSection11";
 import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSection12";
-import EGC from "./components/layout/EGC/egc";
+// import Egc from "./components/layout/EGC/Egc";
+// import Egc from "./components/layout/EGC/Egc.jsx";
+import Egc from "./components/layout/EGC/EGC.jsx";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
 import Item_details_main from "./components/layout/Home2/item_details_page/Item_details_main";
@@ -152,8 +154,6 @@ import Whitepaper from "./components/layout/Home2/Whitepaper/Whitepaper";
 import PrivateRoute2 from "./components/routing/PrivateRoute2";
 import PrivateRoute3 from "./components/routing/PrivateRoute3";
 import ResetPassword from "./components/layout/Home2/PasswordReset/ResetPassword";
-
-
 
 // import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage.jsx";
 if (localStorage.token) {
@@ -276,7 +276,7 @@ const App = () => {
                     component={ResetPassword}
                   />
                   <Route exact path="/savings" component={Savings} />
-                 
+
                   {/* <Route
                     exact
                     path="/products/details/:id"
@@ -320,7 +320,7 @@ const App = () => {
                   {/* <Route exact path='/about' component={About} /> */}
                   <Route exact path="/about" component={About} />
                   {/* <Route exact path="/market" component={MarketHome} /> */}
-                  <Route exact path="/egc" component={EGC} />
+                  <Route exact path="/egc_token" component={Egc} />
                   <Route exact path="/createloan2" component={Createloan} />
                   <Route exact path="/createloan" component={Createloan2} />
                   <Route

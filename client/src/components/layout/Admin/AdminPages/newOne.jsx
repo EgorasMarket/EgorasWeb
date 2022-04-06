@@ -22,27 +22,6 @@ const NewOne = () => {
   //   //console.log(event.target.id);
   //   localStorage.setItem("adminCusId", event.target.id);
   // };
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    //console.log(event.target.value);
-  };
-  useEffect(() => {
-    if (searchTerm === "") {
-      setSearchResults(allCustomers);
-      //console.log("tttt");
-    } else {
-      console.log(allCustomers);
-      const results = allCustomers.filter((userInfo) =>
-        userInfo.branch
-          .toString()
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      );
-      console.log(results);
-      setSearchResults(results);
-    }
-  }, [searchTerm, allCustomers]);
-
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/user/transactions/customer/all", config, null)
@@ -55,6 +34,27 @@ const NewOne = () => {
         console.log(err);
       });
   }, []);
+  const handleSearchChange = (event) => {
+    setSearchTerm(event.target.value);
+    //console.log(event.target.value);
+  };
+  useEffect(() => {
+    if (searchTerm === "") {
+      setSearchResults(allCustomers);
+      //console.log("tttt");
+    } else {
+      console.log(allCustomers);
+      const results = allCustomers.filter((userInfo) =>
+        userInfo.customer_name
+          .toString()
+          .toLowerCase()
+          .includes(searchTerm.toLowerCase())
+      );
+      console.log(results);
+      setSearchResults(results);
+    }
+  }, [searchTerm, allCustomers]);
+
   return (
     <>
       {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
@@ -70,7 +70,7 @@ const NewOne = () => {
                     type="search"
                     name=""
                     id=""
-                    placeholder="Search"
+                    placeholder="Search name"
                     className="user_search"
                     value={searchTerm}
                     onChange={handleSearchChange}
@@ -139,7 +139,7 @@ const NewOne = () => {
                         </td>
                         <td className="assets-category-data1b">
                           <div className="assets-data-name">
-                            {user.timestamp.split('T')[0]}
+                            {user.timestamp.split("T")[0]}
                           </div>
                         </td>
                         <td className="assets-category-data1b">

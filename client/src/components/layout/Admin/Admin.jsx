@@ -7,11 +7,12 @@ import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminAllView from "./AdminPages/AdminAllProductView";
-import Newclass from "./AdminPages/managerRole";
+import AllStaffs from "./AdminPages/AllStaffs";
 import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
-import Adminproduct from "./AdminPages/productRoutes";
+// import ProductRoutes from "./AdminPages/ProductRoutes";
+import ProductRoutes from "./AdminPages/ProductRoutes";
 import Wallet from "../Wallet/Wallet";
 import Wallet4 from "../Wallet/Wallet1";
 import Adminmakeproducts from "./AdminPages/Adminmakeproducts";
@@ -31,6 +32,7 @@ import UniqueProductRoutes from "./AdminPages/UniqueProductRoutes";
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
+  const [managerCashierCusCare, setManagerCashierCusCare] = useState(false);
   const [roleDisplay, setRoleDisplay] = useState({
     Role: "",
   });
@@ -43,6 +45,7 @@ const Admin = ({ isAuthenticated, loading }) => {
       "Content-Type": "application/json",
     },
   };
+
   useEffect(() => {
     // //console.log(isAuthenticated,'77777');
     if (isAuthenticated == false) {
@@ -58,9 +61,6 @@ const Admin = ({ isAuthenticated, loading }) => {
     // setSplashScreen(true);
   }, [isAuthenticated]);
 
-  const dapp = window.location.pathname;
-  const dapp2 = window.location.pathname;
-
   useEffect(() => {
     axios
       .get(api_url2 + "/v1/admin/info", null, config)
@@ -69,11 +69,35 @@ const Admin = ({ isAuthenticated, loading }) => {
         setRoleDisplay({
           Role: data.data.user.role,
         });
+
+        if (
+          data.data.user.role === "CASHIER" ||
+          data.data.user.role === "CUSTOMER_SERVICE" ||
+          data.data.user.role === "MANAGER"
+        ) {
+          setManagerCashierCusCare(true);
+        } else {
+          setManagerCashierCusCare(false);
+        }
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
       });
   }, []);
+
+  // useEffect(() => {
+  //   console.log(Role);
+  //   // //console.log(isAuthenticated,'77777');
+  //   if (Role === "CASHIER" || Role === "CUSTOMER_SERVICE" || Role === "MANAGER") {
+  //     setManagerCashierCusCare(true)
+  //   } else {
+  //     setManagerCashierCusCare(false)
+  //   }
+
+  //   // setSplashScreen(true);
+  // }, []);
+
+  console.log(managerCashierCusCare);
 
   return (
     <div>
@@ -104,13 +128,13 @@ const Admin = ({ isAuthenticated, loading }) => {
                     exact
                     path="/super_admin/register_user"
                     component={RegisterCustomer}
-                      />
-                      
-                 <Route
+                  />
+
+                  <Route
                     exact
                     path="/super_admin/product_routes"
-                    component={Adminproduct}
-                  /> 
+                    component={ProductRoutes}
+                  />
                   {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
@@ -162,64 +186,80 @@ const Admin = ({ isAuthenticated, loading }) => {
                   />
                 </>
               ) : Role === "HOD_MEDIA" ? (
-                <><Route
-                  exact
-                  path="/super_admin/all_products"
-                  component={AdminAllProducts}
-                />
-                <Route
-                  exact
-                  path="/super_admin/Approved_products"
-                  component={Adminmakeproducts}
-                />
-                <Route
-                  exact
-                  path="/super_admin/products_view/:id/:name"
-                  // path="/dashboard/products/details/:id/:name"
-                  // / dashboard/products/details/:id/:name
-                  component={AdminAllView}
-                />
-                {/* <Route
+                <>
+                  <Route
+                    exact
+                    path="/super_admin/all_products"
+                    component={AdminAllProducts}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/Approved_products"
+                    component={Adminmakeproducts}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/products_view/:id/:name"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AdminAllView}
+                  />
+                  {/* <Route
                 exact
                 path="/admin/products/details/:id/:name"
                 component={ItemsPage2}
               /> */}
                 </>
-              ) : Role === 'LOGISTICS' ? (
-                <><Route
-                  exact
-                  path="/super_admin/Approved_products"
-                  component={Adminmakeproducts}
-                />
-                <Route
-                  exact
-                  path="/super_admin/products_view/:id/:name"
-                  // path="/dashboard/products/details/:id/:name"
-                  // / dashboard/products/details/:id/:name
-                  component={AdminAllView}
-                />
-                <Route
-                  exact
-                  path="/super_admin/route/all-products"
-                  // path="/dashboard/products/details/:id/:name"
-                  // / dashboard/products/details/:id/:name
-                  component={AllProductRoute}
-                />
-                <Route
-                  exact
-                  path="/super_admin/unique-product/routes/:id"
-                  // path="/dashboard/products/details/:id/:name"
-                  // / dashboard/products/details/:id/:name
-                  component={UniqueProductRoutes}
-                /></>
-                
-                
-              ) : Role === 'TECH' || Role === 'MANAGER' ? (
+              ) : Role === "LOGISTICS" ? (
                 <>
                   <Route
                     exact
                     path="/super_admin/Approved_products"
                     component={Adminmakeproducts}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/products_view/:id/:name"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AdminAllView}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/route/all-products"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AllProductRoute}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/unique-product/routes/:id"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={UniqueProductRoutes}
+                  />
+                </>
+              ) : Role === "TECH" || Role === "MANAGER" ? (
+                <>
+                  <Route
+                    exact
+                    path="/super_admin/user_wallet"
+                    component={Wallet}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/Approved_products"
+                    component={Adminmakeproducts}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/fund/accountant"
+                    component={Wallet}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/user_wallet"
+                    component={Wallet}
                   />
                   <Route
                     exact
@@ -234,14 +274,13 @@ const Admin = ({ isAuthenticated, loading }) => {
                     component={NewOne}
                   />
 
-                   <Route
+                  <Route
                     exact
                     path="/super_admin/staffs_data"
                     // path="/dashboard/products/details/:id/:name"
                     // / dashboard/products/details/:id/:name
-                    component={Newclass}
+                    component={AllStaffs}
                   />
-
 
                   <Route
                     exact
@@ -250,7 +289,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // / dashboard/products/details/:id/:name
                     component={Transact}
                   />
-                   <Route
+                  <Route
                     exact
                     path="/super_admin/products_view/:id/:name"
                     // path="/dashboard/products/details/:id/:name"
@@ -258,7 +297,7 @@ const Admin = ({ isAuthenticated, loading }) => {
                     component={AdminAllView}
                   />
                 </>
-              ) : Role === 'CASHIER' ? (
+              ) : Role === "CASHIER" ? (
                 <>
                   <Route
                     exact
