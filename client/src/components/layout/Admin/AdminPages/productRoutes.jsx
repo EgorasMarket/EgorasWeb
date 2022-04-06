@@ -138,6 +138,8 @@ const Adminproduct = () => {
               <div className="cart_item_num">
                 All Products
               </div>
+
+              
               <div className="locked_items2 locked_items2a">
                 <div class="save_prod_deta">
                   <table className="save_item_table" >
