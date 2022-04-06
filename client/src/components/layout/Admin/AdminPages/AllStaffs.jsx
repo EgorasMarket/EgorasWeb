@@ -1,22 +1,30 @@
-import React, { useState, useEffect } from 'react';
-import SearchIcon from '@mui/icons-material/Search';
-import '../AdminStyles/allCustomer.css';
-import axios from 'axios';
+import React, { useState, useEffect } from "react";
+import SearchIcon from "@mui/icons-material/Search";
+import "../AdminStyles/allCustomer.css";
+import axios from "axios";
+import { connect } from "react-redux";
 
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from '../../../../actions/types';
+} from "../../../../actions/types";
 
-const AllStaffs = () => {
-  const [searchTerm, setSearchTerm] = useState('');
+const AllStaffs = ({ auth }) => {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [user_id, set_user_id] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [allCustomers, setAllCustomers] = useState([]);
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
+
+  useEffect(() => {
+    if (auth) {
+      set_user_id(auth.user.user.id);
+    }
+  }, [auth]);
 
   // const saveCustomerId = (event) => {
   //   //console.log(event.target.id);
@@ -27,7 +35,7 @@ const AllStaffs = () => {
     //console.log(event.target.value);
   };
   useEffect(() => {
-    if (searchTerm === '') {
+    if (searchTerm === "") {
       setSearchResults(allCustomers);
       //console.log("tttt");
     } else {
@@ -45,7 +53,7 @@ const AllStaffs = () => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + '/v1/admin/retrieve/staff/all', config, null)
+      .get(api_url2 + "/v1/admin/retrieve/staff/all", config, null)
       .then((data) => {
         setAllCustomers(data.data.data);
         // setSearchResults(data.data.payload);
@@ -58,8 +66,8 @@ const AllStaffs = () => {
 
   const saveCustomerId = (id) => {
     console.log(id);
-    localStorage.setItem('adminStaffId', id);
-    return window.location.replace('/super_admin/fund/accountant');
+    localStorage.setItem("adminStaffId", id);
+    return window.location.replace("/super_admin/fund/accountant");
   };
 
   return (
@@ -89,10 +97,10 @@ const AllStaffs = () => {
                   <thead className="assets-category-titles">
                     <tr className="assets">
                       <th className="assets-category-titles-heading1">
-                        Gender
+                        Fullname
                       </th>
                       <th className="assets-category-titles-heading1">
-                        Name
+                        Gender
                       </th>
                       <th className="assets-category-titles-heading1">
                         Phone number
@@ -115,8 +123,15 @@ const AllStaffs = () => {
                       className="assets-table-body popular-categories"
                       id="popular-categories"
                     >
-                      {' '}
+                      {" "}
                       <tr className="assets-category-row">
+                        <td className="assets-category-data">
+                          <div className="assets-data">
+                            <div className="assets-data-name">
+                              {user.fullname}
+                            </div>
+                          </div>
+                        </td>
                         <td className="assets-category-data">
                           <div className="assets-data">
                             <div className="assets-data-name">
@@ -124,16 +139,9 @@ const AllStaffs = () => {
                             </div>
                           </div>
                         </td>
-                        <td className="assets-category-data1">
-                          <div className="assets-data-name">
-                            {user.fullname}
-                          </div>
-                        </td>
 
                         <td className="assets-category-data1">
-                          <div className="assets-data-name">
-                            {user.mobile}
-                          </div>
+                          <div className="assets-data-name">{user.mobile}</div>
                         </td>
 
                         {/* <td className="assets-category-data1">
@@ -141,34 +149,40 @@ const AllStaffs = () => {
                         </td> */}
 
                         <td className="assets-category-data1">
-                          <div className="assets-data-name">
-                            {user.role}
-                          </div>
+                          <div className="assets-data-name">{user.role}</div>
                         </td>
 
                         <td className="assets-category-data1">
-                          <div className="assets-data-name">
-                            {user.id}
-                          </div>
+                          <div className="assets-data-name">{user.id}</div>
                         </td>
 
                         <td className="assets-category-data1">
-                          <div className="assets-data-name">
-                            {user.staffId}
-                          </div>
+                          <div className="assets-data-name">{user.staffId}</div>
                         </td>
 
-                        <td className="save_item_data1b">
-                          {/* <div className="assets-data-name center_name">
-                              ₦{asset.amount}
-                            </div> */}
-                          {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                          <a>
-                            <button className="checkout_btn1 py-1 px-2 m-0">
-                              {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              See Wallet{' '}
+                        <td
+                          className="save_item_data1b"
+                          style={{ width: "unset" }}
+                        >
+                          {user_id === user.id ? (
+                            <button
+                              style={{ background: "#87ddab" }}
+                              disabled={true}
+                              className="checkout_btn1 py-1 px-2 m-0"
+                            >
+                              Current User{" "}
                             </button>
-                          </a>
+                          ) : (
+                            <a>
+                              <button
+                                id={user.id}
+                                onClick={(e) => saveCustomerId(user.id)}
+                                className="checkout_btn1 py-1 px-2 m-0"
+                              >
+                                See Wallet{" "}
+                              </button>
+                            </a>
+                          )}
 
                           {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
@@ -188,19 +202,12 @@ const AllStaffs = () => {
   );
 };
 
-//console.log(searchResults);
+// export default AllStaffs;
 
-// =========
-// =========
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  loading: state.auth.loading,
+});
 
-// =========
-// =========
-
-export default AllStaffs;
-// export default function Newone(){
-//   const url = '/v1/user/transactions/customer/byBranch';
-
-//   const paper = () => {
-//     axios.get(`${url}notes`)
-//   }
-// }
+export default connect(mapStateToProps, {})(AllStaffs);
