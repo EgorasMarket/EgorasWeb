@@ -154,7 +154,7 @@ const CheckoutModalComponent = ({
   }, []);
 
   const flutterConfig = {
-    public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
+    public_key: process.env.REACT_APP_FLUTTER_KEY,
     tx_ref: 'EGC-' + Date.now(),
     amount: 1,
     currency: 'NGN',
