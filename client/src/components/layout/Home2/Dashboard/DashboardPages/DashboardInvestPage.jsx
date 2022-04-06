@@ -361,22 +361,22 @@ function DashboardInvestPage({ auth }) {
             <div className="products_area1">
               <Slider {...settings}>
                 <img
-                  src="/img/fake_assets/fake_assets_img.jpeg"
+                  src="/img/fake_assets/March web banners A.jpg"
                   alt=""
                   className="products_hero_img"
                 />
                 <img
-                  src="/img/fake_assets/fake_assets_img2.jpeg"
+                  src="/img/fake_assets/March web banners B.jpg"
                   alt=""
                   className="products_hero_img"
                 />
                 <img
-                  src="/img/fake_assets/fake_assets_img3.jpeg"
+                  src="/img/fake_assets/March web banners C.jpg"
                   alt=""
                   className="products_hero_img"
                 />
                 <img
-                  src="/img/fake_assets/fake_assets_img4.jpeg"
+                  src="/img/fake_assets/March web banners D.jpg"
                   alt=""
                   className="products_hero_img"
                 />

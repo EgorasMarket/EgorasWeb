@@ -12,6 +12,15 @@ export const numberWithCommas = (x) => {
   );
 };
 
+export const colors = {
+  light: {
+    primary: '#000',
+  },
+  dark: {
+    primary: '#eee',
+  },
+};
+
 // module.exports = {
 //   numberWithCommas,
 // };
