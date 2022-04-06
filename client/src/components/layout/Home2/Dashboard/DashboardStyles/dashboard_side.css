@@ -4,7 +4,7 @@
   background-color: rgb(255, 255, 255);
   position: relative;
   top: 0;
-  overflow-x: hidden;
+  overflow-x: visible;
   width: 100%;
   transition: 0.5s linear;
   box-shadow: 0px 0px 20px #d8ebe0;
@@ -48,7 +48,7 @@
   display: flex;
   align-items: center;
   /* justify-content: space-between; */
-  padding: 0em 2em;
+  padding: 1em 2em;
   margin-bottom: 50px;
   padding-left: 2.5em;
 }
@@ -69,12 +69,13 @@
   box-shadow: 0px 0px 0px 7px #dbede2 !important;
   transition: all 0.3s linear;
 }
+
 .sidebarWrapper {
   color: #555;
   width: 100%;
   transition: 0.5s linear;
   /* padding: 1em; */
-  padding-top: 1.5em;
+  padding-top: 1em;
   height: 100%;
   position: relative;
 }
@@ -135,7 +136,28 @@
 .link:hover {
   color: #41ba71;
 }
-
+.hover_link {
+  position: relative;
+}
+.hover_link:hover .hover_link_txt {
+  display: block;
+}
+.hover_link_txt {
+  position: absolute;
+}
+.hover_link_txt {
+  display: none;
+  -webkit-backdrop-filter: blur(1px);
+  backdrop-filter: blur(1px);
+  position: absolute;
+  background: #929292b0;
+  top: 23%;
+  left: 114%;
+  padding: 0.25em 1.5em;
+  color: #fff;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+}
 .sidebarListItem {
   font-weight: 700;
   font-size: 14px;
@@ -145,6 +167,7 @@
   position: relative;
   padding: 1em;
   color: #6d8c79;
+  overflow: hidden;
 }
 
 .social_icons {
@@ -161,6 +184,21 @@
   padding: 6px;
   border-radius: 50px;
   box-shadow: 0px 0px 10px #b4dfc5;
+}
+.logout_icon_span {
+  width: 86%;
+  display: flex;
+  background: #b4f3da;
+  padding: 1em 1em;
+  border-radius: 10px;
+  margin: auto;
+  color: #319259;
+  align-items: center;
+  justify-content: flex-start;
+  font-weight: 800;
+  gap: 15px;
+  cursor: pointer;
+  overflow: hidden;
 }
 .ma {
   background: #e7fff0;
@@ -327,9 +365,10 @@
   display: flex;
   align-items: center;
   /* justify-content: space-between; */
-  padding: 0em 2em;
+  padding: 1.5em 2em;
   margin-bottom: 50px;
   padding-left: 1em;
+  overflow: hidden;
 }
 .small_list-item-active {
   position: relative;
@@ -404,7 +443,7 @@
     display: flex;
     align-items: center;
     /* justify-content: space-between; */
-    padding: 0em 2em;
+    padding: 1em 2em;
     margin-bottom: 50px;
     padding-left: 0.5em;
   }
@@ -517,6 +556,7 @@
     flex-direction: column;
     justify-content: space-around;
     color: #90bea3;
+    overflow: hidden;
   }
   .list-item-active {
     position: relative;

@@ -10,7 +10,6 @@
   overflow: hidden;
   color: #000;
   animation: fade_in 0.5s ease-in-out;
-  width: 100%;
   margin: auto;
   text-align: center;
 }
@@ -49,6 +48,21 @@
   align-items: center;
   justify-content: center;
   padding: 0.5em 2em;
+  gap: 20px;
+}
+.cancel_success_btn {
+  /* padding: 0.5em 1em; */
+  font-weight: 700;
+  font-size: 12px;
+  padding: 0.5em 1em;
+  border-radius: 7px;
+  border: none;
+  background: #323232;
+  color: #ffffff;
+  /* height: 100%; */
+  box-shadow: 0px 4px 10px #e0b49e;
+  line-height: -3px;
+  /* margin-top: 7px; */
 }
 .success_btn {
   font-weight: 700;

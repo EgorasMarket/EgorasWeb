@@ -291,6 +291,14 @@ span.items_left_amount {
   font-weight: 800;
   color: #316d48;
 }
+.width_thin {
+  width: 40% !important;
+}
+.overFlow {
+  height: 70vh;
+  overflow: scroll;
+  padding: 1em;
+}
 .savings_overview_card1 {
   background: #ffff;
   width: 30%;
