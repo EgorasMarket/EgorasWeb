@@ -4,15 +4,23 @@ import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { TokenModal } from "./TokenModal/TokenModal";
 import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
+import axios from "axios";
 import CloseIcon from "@mui/icons-material/Close";
 import data from "../../MockData";
 // ================
 // ================
 // ================
+import { API_URL3 as api_url3 } from "../../../../actions/types";
 
 import { ConnectWallet } from "../../../auth/ConnectWallet";
 import "./AddLiquidity.css";
 const AddLiquidity = ({ match, closeModal }) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [tokenBtn, setTokenBtn] = useState(false);
@@ -77,6 +85,7 @@ const AddLiquidity = ({ match, closeModal }) => {
     }
     setTokenBtn2(true);
   };
+
   const toggleModal = (id) => {
     // let target = e.currentTarget.id;
     console.log(id);
@@ -107,12 +116,12 @@ const AddLiquidity = ({ match, closeModal }) => {
             <div className="liquidity_cont">
               <div className="liquidity_cont_head">
                 <CloseIcon className="settings_icon" onClick={closeModal} />
-                <div className="liquidity_cont_head_text">Add Liquidity</div>
-                <SettingsIcon className="settings_icon" />
+                <div className="liquidity_cont_head_text"></div>
+                {/* <SettingsIcon className="settings_icon" /> */}
               </div>
               <div className="liquidity_cont_body">
                 <div className="liquidity_cont_body_conts">
-                  <div className="tips_layer">
+                  {/* <div className="tips_layer">
                     <div className="tips_writeUp">
                       <span className="tip_sub_head">Tip: </span> When you add
                       liquidity, you will receive pool tokens representing your
@@ -120,9 +129,10 @@ const AddLiquidity = ({ match, closeModal }) => {
                       proportional to your share of the pool, and can be
                       redeemed at any time.
                     </div>
-                  </div>
+                  </div> */}
                   {inputToggle == false ? (
                     <div className="input_amnt_layer">
+                      <span className="input_txt">From</span>
                       <div className="amnt_input">
                         <input
                           type="number"
@@ -132,7 +142,7 @@ const AddLiquidity = ({ match, closeModal }) => {
                           placeholder="000"
                           className="amnt_input_field"
                           autocomplete="off"
-                          value={tokenBtn == true ? inputVal : null}
+                          value={tokenBtn == true ? inputVal : inputVal}
                         />
 
                         <button className="display_tokens_drop">
@@ -148,6 +158,7 @@ const AddLiquidity = ({ match, closeModal }) => {
                     </div>
                   ) : (
                     <div className="input_amnt_layer">
+                      <span className="input_txt">From</span>
                       <div className="amnt_input">
                         <input
                           type="number"
@@ -157,7 +168,9 @@ const AddLiquidity = ({ match, closeModal }) => {
                           className="amnt_input_field"
                           autocomplete="off"
                           // value={inputVal * 200}
-                          value={tokenBtn2 == true ? inputVal * 200 : inputVal}
+                          value={
+                            tokenBtn2 == true ? inputVal * 213535 : inputVal
+                          }
                         />
                         {tokenBtn2 == false ? (
                           <button
@@ -198,6 +211,7 @@ const AddLiquidity = ({ match, closeModal }) => {
                   />
                   {inputToggle == false ? (
                     <div className="input_amnt_layer">
+                      <span className="input_txt">To</span>
                       <div className="amnt_input">
                         <input
                           type="number"
@@ -207,7 +221,9 @@ const AddLiquidity = ({ match, closeModal }) => {
                           className="amnt_input_field"
                           autocomplete="off"
                           // value={inputVal * 200}
-                          value={tokenBtn2 == true ? inputVal * 200 : inputVal}
+                          value={
+                            tokenBtn2 == true ? inputVal * 213535 : inputVal
+                          }
                         />
                         {tokenBtn2 == false ? (
                           <button
@@ -241,6 +257,7 @@ const AddLiquidity = ({ match, closeModal }) => {
                     </div>
                   ) : (
                     <div className="input_amnt_layer">
+                      <span className="input_txt">To</span>
                       <div className="amnt_input">
                         <input
                           type="number"
@@ -250,7 +267,7 @@ const AddLiquidity = ({ match, closeModal }) => {
                           placeholder="000"
                           className="amnt_input_field"
                           autocomplete="off"
-                          value={tokenBtn == true ? inputVal : null}
+                          value={tokenBtn == true ? inputVal : inputVal}
                         />
 
                         <button className="display_tokens_drop">
@@ -275,7 +292,13 @@ const AddLiquidity = ({ match, closeModal }) => {
                       connect_btn_class="connect_btn_div"
                       onClick={() => setConnected(true)}
                       className="connect_btn"
-                      btn_txt="Enter an amount"
+                      btn_txt={
+                        inputVal > 0 && tokenBtn2 == true
+                          ? "Convert"
+                          : inputVal > 0 && tokenBtn2 == false
+                          ? "Invalid Pair"
+                          : "Enter an amount"
+                      }
                     />
                   </div>
                 </div>
