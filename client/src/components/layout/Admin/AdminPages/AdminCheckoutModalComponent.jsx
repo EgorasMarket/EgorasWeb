@@ -643,7 +643,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           <div className="detailsModalSection1_area2">
             <div className="detailsModalSection1-area2_title">Review Order</div>
             <div className="review_order_div">Delivery 1 of 1</div>
-            <div className="signup_input_field1_cont">
+            {/* <div className="signup_input_field1_cont">
                     <span className="input_title">Role</span>
                     <div className="toggle_body_area1_cont1_input">
                       <div className="name_input1a lar_widthh">
@@ -662,15 +662,14 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                           >
                             <MenuItem value={'kilometer 7 Ikwerre Rd, Rumueme, Agip, Port Harcourt'}>Agip</MenuItem>
                             <MenuItem value={'No 282 Aba Express Way, Port Harcourt'}>RUMUKWRUSHI</MenuItem>
-                            {/* <MenuItem value={2}>BUSINESS_ADMIN</MenuItem>
-                            <MenuItem value={3}>MEDIA</MenuItem> */}
+                          
                             
                           </Select>
                         </FormControl>
                       </div>
                     </div>
                   </div>
-            <button className="checkout_btn1 py-1 px-2 m-0" onClick={triggerPrint}>Print</button>
+            <button className="checkout_btn1 py-1 px-2 m-0" onClick={triggerPrint}>Print</button> */}
             <div>
               <div class="save_prod_deta">
                 <table className="save_item_table">
