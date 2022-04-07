@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-
+import AddLiquidity from "../LiquidityPage/AddLiquidity";
 import "../../../../css/token.css";
 const TokenEUSD = () => {
   const [generateModal, setGenerateModal] = useState(false);
@@ -57,7 +57,14 @@ const TokenEUSD = () => {
                   class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
                   onClick={toggleModal}
                 >
-                  Generate eNGN
+                  Convert eNGN
+                </button>
+                <button
+                  style={{ marginTop: "50px" }}
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  onClick={toggleModal}
+                >
+                  Redeem eNGN
                 </button>
               </div>
             </div>
@@ -239,30 +246,7 @@ const TokenEUSD = () => {
         <img src="/img/shape-egg2.svg" alt="" class="gteggShape2a" />
       </section>
       {/* fourth section end */}
-      {generateModal == true ? (
-        <div className="generate_modal">
-          <div className="generate_container">
-            <div className="generate_title">Input Amount</div>
-            <div className="generate_input_div">
-              <input
-                type="text"
-                className="token_modal_generate"
-                style={{ width: "100%" }}
-                placeHolder="000"
-              />
-            </div>
-            <div className="generate_button">
-              <button className="generate_btn">Generate</button>{" "}
-              <button
-                className="generate_btn close_generate_btn"
-                onClick={toggleModal}
-              >
-                Close
-              </button>{" "}
-            </div>
-          </div>
-        </div>
-      ) : null}
+      {generateModal == true ? <AddLiquidity /> : null}
     </div>
   );
 };
