@@ -197,9 +197,9 @@ const CheckoutModalComponent = ({
             //console.log(response);
             try {
               if (!response.transaction_id) {
-                alert(
-                  "We couldn't return any information from this payment please try again."
-                );
+                // alert(
+                //   "We couldn't return any information from this payment please try again."
+                // );
               }
               const verification = await verify(
                 response.transaction_id,
