@@ -108,11 +108,11 @@ const CheckoutModalComponent = ({
       });
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     var Authorized = auth.user;
     var userId = Authorized.user.id;
 
-    axios
+    await axios
       .get(
         api_url2 + '/v1/wallet/get/wallet/info/' + userId,
         null,
@@ -127,9 +127,9 @@ const CheckoutModalComponent = ({
         console.log(err.response);
       });
   }, [auth]);
-  useEffect(() => {
+  useEffect(async () => {
     // setIsLoading2(true);
-    axios
+    await axios
       .get(api_url2 + '/v1/wallet/get/all/tokens', null, config)
       .then((data) => {
         console.log(data.data.data, 'powerful');
@@ -364,8 +364,8 @@ const CheckoutModalComponent = ({
                       )}
 
                       {/* <th className="assets-categordata1y-titles-heading1 quant">
-                              Unit Price
-                            </th> */}
+                        Unit Price
+                      </th> */}
                       <th className="assets-category-titles-heading1_last">
                         Sub Total
                       </th>
@@ -444,10 +444,10 @@ const CheckoutModalComponent = ({
                         )}
                       </td>
                       {/* <td className="save_item_data1b">
-                                <div className="assets-data-name center_name">
-                                  ₦{amount}
-                                </div>
-                              </td> */}
+                          <div className="assets-data-name center_name">
+                            ₦{amount}
+                          </div>
+                        </td> */}
                       <td className="save_item_data1b checked_item_data_1b">
                         <div className="assets-data-name_last">
                           ₦{' '}
@@ -467,16 +467,14 @@ const CheckoutModalComponent = ({
             </div>
           </div>
         </div>
+
+        {/* second block here */}
+
         <div className="detailsModalSection2">
           <div className="details_modal_divv">
             {/* ======================= */}
 
-            <div
-              onClick={setOption(2)}
-              className="cart_area2_heading"
-            >
-              Payment Options
-            </div>
+            <div className="cart_area2_heading">Payment Options</div>
             {/* ===================== */}
             <div className="cart_area2_select">
               <div className="wit_card">
@@ -520,25 +518,25 @@ const CheckoutModalComponent = ({
             </div>
 
             {/* <FlutterButton 
-             payment_plan={showPayment}
-             user_id ={user_id}
-             amount={1}
-             payload = {userPayload}
-             payment_title={"Payment From Egoras savings "}
-            //  payment_options={"ussd"}
-             customer={
-                 {
-               email:"gibbywise@gmail.com", 
-               phonenumber:"07026782437", 
-               name:"Chidoro  Ndubueze"}
-             } /> */}
+       payment_plan={showPayment}
+       user_id ={user_id}
+       amount={1}
+       payload = {userPayload}
+       payment_title={"Payment From Egoras savings "}
+      //  payment_options={"ussd"}
+       customer={
+           {
+         email:"gibbywise@gmail.com", 
+         phonenumber:"07026782437", 
+         name:"Chidoro  Ndubueze"}
+       } /> */}
 
             {/* <div className="cart_area2_select border_down">
-              <div className="wit_card">
-                Pay via wallet{" "}
-                <input type="checkbox" name="" id="" classNam="checkBox" />
-              </div>
-            </div> */}
+        <div className="wit_card">
+          Pay via wallet{" "}
+          <input type="checkbox" name="" id="" classNam="checkBox" />
+        </div>
+      </div> */}
             {/* ========= */}
             {/* ========= */}
             {/* ========= */}
@@ -618,6 +616,7 @@ const CheckoutModalComponent = ({
           </div>
         </div>
       </div>
+
       {ProcessingDiv == false ? null : (
         <div className="processing_transac_div">
           <LoadingIcons.Bars fill="#229e54" />
@@ -648,10 +647,10 @@ const CheckoutModalComponent = ({
           btn_txt="Fund Wallet"
           msg={error_msg}
           errorMsgDiv={errorDiv}
-          removeTransDiv={closeErrorDiv}
+          // removeTransDiv={closeErrorDiv}
           link_btn={true}
           src="/dashboard/wallet"
-          onclick={closeErrorDiv}
+          // onclick={closeErrorDiv}
         />
         // </div>
       )}
