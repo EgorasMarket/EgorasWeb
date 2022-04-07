@@ -246,7 +246,7 @@ const TokenEUSD = () => {
         <img src="/img/shape-egg2.svg" alt="" class="gteggShape2a" />
       </section>
       {/* fourth section end */}
-      {generateModal == true ? <AddLiquidity /> : null}
+      {generateModal == true ? <AddLiquidity closeModal={toggleModal} /> : null}
     </div>
   );
 };

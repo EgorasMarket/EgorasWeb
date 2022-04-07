@@ -136,7 +136,9 @@
 .plus_icon_layer {
   align-items: center;
   width: 100% !important;
-  font-size: 16px !important;
+  font-size: 24px !important;
+  cursor: pointer;
+  color: #229e54;
 }
 .connect_btn_div {
   display: flex;
