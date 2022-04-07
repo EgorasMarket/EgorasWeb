@@ -1,31 +1,36 @@
-import React, { useState, useEffect, useMemo } from "react";
+import React, { useState, useEffect, useMemo } from 'react';
 // import data from "../../../../Data/AllUsersData.json";
-import { numberWithCommas } from "../../../../static";
+import { numberWithCommas } from '../../../../static';
 
-import axios from "axios";
-import { API_URL2 as api_url2 } from "../../../../actions/types";
-import "../AdminStyles/admin_all_products.css";
+import axios from 'axios';
+import { API_URL2 as api_url2 } from '../../../../actions/types';
+import '../AdminStyles/admin_all_products.css';
 
 const way = window.location.pathname;
 
 const Adminproduct = () => {
   const [pdwork, setpdwork] = useState([]);
+  const [roleRemove, setRoleRemove] = useState('');
   const [rolesInfo, setRolesInfo] = useState({
-    role20: "",
+    role20: '',
   });
 
   const { role20 } = rolesInfo;
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
+      .get(
+        api_url2 + '/v1/product/retrieve/approved/products',
+        null,
+        config
+      )
       .then((data) => {
-        console.log(data.data.data, "chukwubuike");
+        console.log(data.data.data, 'chukwubuike');
 
         setpdwork(data.data.data);
       })
@@ -36,7 +41,24 @@ const Adminproduct = () => {
 
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/admin/info", null, config)
+      .get(
+        api_url2 + '/v1/product/retrieve/approved/products',
+        null,
+        config
+      )
+      .then((data) => {
+        console.log(data.data.data, 'chukwubuike');
+
+        setpdwork(data.data.data);
+      })
+      .catch((err) => {
+        //console.log(err); // "oh, no!"
+      });
+  }, []);
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + '/v1/admin/info', null, config)
       .then((data) => {
         //console.log(data.data.user, "line_ful");
         setRolesInfo({
@@ -48,6 +70,49 @@ const Adminproduct = () => {
       });
   }, []);
 
+  //   useEffect(() => {
+
+  // }, [product_id]);
+  const pie = (id) => {
+    let today = new Date().toLocaleDateString();
+  };
+
+  const markPrinted = (product_id) => {
+    axios
+      .get(
+        api_url2 +
+          '/v1/product/retrieve/products/printed/' +
+          product_id,
+        null,
+        config
+      )
+      .then((data) => {
+        console.log(data.data, 'line_ful');
+        setRoleRemove(product_id);
+      })
+      .catch((err) => {
+        console.log(err); // "oh, no!"
+      });
+  };
+
+  useEffect(() => {
+    if (roleRemove === '') {
+      setpdwork(pdwork);
+      //console.log("tttt");
+    } else {
+      console.log(pdwork);
+      const results = pdwork.filter(
+        (userInfo) =>
+          !userInfo.id
+            .toString()
+            .toLowerCase()
+            .includes(roleRemove.toLowerCase())
+      );
+      console.log(results);
+      setpdwork(results);
+    }
+  }, [roleRemove, pdwork]);
+
   const printProductCode = (product_code) => {
     let today = new Date().toLocaleDateString();
 
@@ -58,22 +123,24 @@ const Adminproduct = () => {
     // tag.replaceAll(' ', '')
     // var divContents = document.getElementById("mainContent").innerHTML;
 
-    var printWindow = window.open("", "", "height=1200,width=1200");
+    var printWindow = window.open('', '', 'height=1200,width=1200');
     printWindow.document.write(
-      "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
+      '<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>'
     );
     printWindow.document.write(
       '<body style="height: min-content;font-family: roboto;margin: 0; border-bottom: 1px solid black;font-weight:400;">'
     );
     // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
-    printWindow.document.write("<div>");
-    printWindow.document.write('<h6 style="margin: 0;">Product ID</h6>');
+    printWindow.document.write('<div>');
     printWindow.document.write(
-      '<h3 style="margin: 0;">' + product_code + "</h3>"
+      '<h6 style="margin: 0;">Product ID</h6>'
     );
-    printWindow.document.write("</div>");
-    printWindow.document.write("</body>");
-    printWindow.document.write("</html>");
+    printWindow.document.write(
+      '<h3 style="margin: 0;">' + product_code + '</h3>'
+    );
+    printWindow.document.write('</div>');
+    printWindow.document.write('</body>');
+    printWindow.document.write('</html>');
     printWindow.document.close();
     printWindow.print();
   };
@@ -88,23 +155,27 @@ const Adminproduct = () => {
     // tag.replaceAll(' ', '')
     // var divContents = document.getElementById("mainContent").innerHTML;
 
-    var printWindow = window.open("", "", "height=1200,width=1200");
+    var printWindow = window.open('', '', 'height=1200,width=1200');
     printWindow.document.write(
-      "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>"
+      '<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>PRINT PRODUCT ID</title></head>'
     );
     printWindow.document.write(
       '<body style="height: min-content;font-family: roboto;margin: 0; border-bottom: 1px solid black;font-weight:400;">'
     );
     // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
-    printWindow.document.write("<div>");
-    printWindow.document.write('<h2 style="margin: 0;">Product Price</h2>');
-    printWindow.document.write('<h1 style="margin: 0;">₦' + amount + "</h1>");
+    printWindow.document.write('<div>');
     printWindow.document.write(
-      '<h5 style="margin: 0;">' + product_name + "</h5>"
+      '<h2 style="margin: 0;">Product Price</h2>'
     );
-    printWindow.document.write("</div>");
-    printWindow.document.write("</body>");
-    printWindow.document.write("</html>");
+    printWindow.document.write(
+      '<h1 style="margin: 0;">₦' + amount + '</h1>'
+    );
+    printWindow.document.write(
+      '<h5 style="margin: 0;">' + product_name + '</h5>'
+    );
+    printWindow.document.write('</div>');
+    printWindow.document.write('</body>');
+    printWindow.document.write('</html>');
     printWindow.document.close();
     printWindow.print();
   };
@@ -132,6 +203,14 @@ const Adminproduct = () => {
                             Name
                           </th>
 
+                          <th className="assets-category-titles-heading1">
+                            Product id
+                          </th>
+
+                          <th className="assets-category-titles-heading1">
+                            Description
+                          </th>
+
                           {/* <th className="assets-category-titles-heading1 quant">
                           Category
                         </th> */}
@@ -143,98 +222,119 @@ const Adminproduct = () => {
                           </th>
                         </tr>
                       </thead>
-
-                      {pdwork.slice(0, 50).map((asset, index) => (
-                        <tbody
-                          className="save_items_cat  small_height popular-categories"
-                          id="popular-categories"
-                          key={index.toString()}
-                        >
-                          {" "}
-                          <tr id={asset.id} className="assets-category-row">
-                            <td className="save_item_data_cart small_height">
-                              <div className="assets-data height_data height_data1">
-                                <img
-                                  src={`${asset.product_image}`}
-                                  alt=""
-                                  className="save_item_img_img"
-                                />
-                              </div>
-                            </td>
-
-                            <td
-                              className="save_item_data1"
-                              style={{ width: "unset" }}
+                      <tbody
+                        className="save_items_cat popular-categories"
+                        id="popular-categories"
+                        // key={index.toString()}
+                      >
+                        {pdwork.map((asset, index) =>
+                          asset.printed === 0 ? (
+                            <tr
+                              id={asset.id}
+                              className="assets-category-row saving_assets_row"
                             >
-                              <div className="save_items_detailssss">
-                                <div className="save_items_details1 small_tetxt">
-                                  {asset.product_name}
+                              <td className="save_item_data width_thin">
+                                <div className="assets-data height_data">
+                                  <img
+                                    src={`${asset.product_image}`}
+                                    alt=""
+                                    className="save_item_img_img"
+                                  />
                                 </div>
-                              </div>
-                            </td>
+                              </td>
 
-                            {/* <td className="save_item_data1b">
-                            <div className="assets-data-name center_name">
-                              {asset.product_category_desc}
-                            </div>
-                          </td> */}
+                              <td className="save_item_data1">
+                                <div className="save_items_details">
+                                  <div className="save_items_details1">
+                                    {asset.product_name}
+                                  </div>
+                                </div>
+                              </td>
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  {asset.id}
+                                </div>
+                              </td>
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  {asset.product_category_desc}
+                                </div>
+                              </td>
 
-                            <td className="save_item_data1b">
-                              <div className="assets-data-name center_name">
-                                ₦{asset.amount}
-                              </div>
-                            </td>
+                              <td className="save_item_data1b">
+                                <div className="assets-data-name center_name">
+                                  ₦{asset.amount}
+                                </div>
+                              </td>
 
-                            <td className="save_item_data1b">
-                              {/* <div className="assets-data-name center_name">
+                              <td className="save_item_data1b">
+                                {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
-                              {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              <a>
-                                <button
-                                  id={"yes_" + asset.id}
-                                  onClick={() =>
-                                    printProductPrice(
-                                      asset.product_name,
-                                      asset.amount
-                                    )
-                                  }
-                                  className="checkout_btn1 py-1 px-2 m-0"
-                                >
-                                  {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                  Print product Print{" "}
-                                </button>
-                              </a>
-
-                              {/* <button className="checkout_btn1 py-1 px-2 ml-1">
+                                {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                <a>
+                                  <button
+                                    id={'yes_' + asset.id}
+                                    onClick={() =>
+                                      printProductPrice(
+                                        asset.product_name,
+                                        asset.amount
+                                      )
+                                    }
+                                    className="checkout_btn1 py-1 px-2 m-0"
+                                  >
+                                    {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                    Print product Print{' '}
+                                  </button>
+                                </a>
+                                {/* <button className="checkout_btn1 py-1 px-2 ml-1">
                               Refuse{" "}
                             </button> */}
-                            </td>
-                            <td className="save_item_data1b">
-                              {/* <div className="assets-data-name center_name">
+                              </td>
+
+                              <td className="save_item_data1b">
+                                {/* <div className="assets-data-name center_name">
                               ₦{asset.amount}
                             </div> */}
-                              {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                              <a>
-                                <button
-                                  id={"yes_" + asset.id}
-                                  onClick={() =>
-                                    printProductCode(asset.product_code)
-                                  }
-                                  className="checkout_btn1 py-1 px-2 m-0"
-                                >
-                                  {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                  Print product ID{" "}
-                                </button>
-                              </a>
+                                {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                <a>
+                                  <button
+                                    id={'yes_' + asset.id}
+                                    onClick={() =>
+                                      printProductCode(
+                                        asset.product_code
+                                      )
+                                    }
+                                    className="checkout_btn1 py-1 px-2 m-0"
+                                  >
+                                    {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                    Print product ID{' '}
+                                  </button>
+                                </a>
+                              </td>
 
-                              {/* <button className="checkout_btn1 py-1 px-2 ml-1">
-                              Refuse{" "}
-                            </button> */}
-                            </td>
-                          </tr>
-                        </tbody>
-                      ))}
+                              <td className="save_item_data1b">
+                                {/* <div className="assets-data-name center_name">
+                              ₦{asset.amount}
+                            </div> */}
+                                {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                <a>
+                                  <button
+                                    id={'yes_' + asset.id}
+                                    onClick={() =>
+                                      markPrinted(asset.id)
+                                    }
+                                    className="checkout_btn1 py-1 px-2 m-0"
+                                  >
+                                    {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
+                                    Completed{' '}
+                                  </button>
+                                </a>
+                              </td>
+                            </tr>
+                          ) : null
+                        )}
+                      </tbody>
                     </table>
                   </div>
                   {/* <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div> */}
