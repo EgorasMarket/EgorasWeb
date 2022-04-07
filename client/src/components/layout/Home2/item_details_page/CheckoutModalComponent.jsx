@@ -5,6 +5,7 @@ import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
 import verify from '../../../../flutterwave/API/Verify';
 import CloseIcon from '@mui/icons-material/Close';
 // import Wallet1 from "../../Wallet/Wallet1";
+import { useHistory } from 'react-router-dom';
 import Success_Error_Component from '../../../assets/Success_Error_Component';
 import {
   PRODUCT_LOADED,
@@ -25,7 +26,6 @@ import { createOrder } from '../../../../actions/shop';
 import { connect } from 'react-redux';
 import initPayment from '../../../../flutterwave/initPayment';
 import initializePayment from '../../../../flutterwave/API/initializePayment';
-import { Redirect, useHistory } from 'react-router-dom';
 
 const CheckoutModalComponent = ({
   payload,
@@ -89,6 +89,7 @@ const CheckoutModalComponent = ({
   };
 
   const [addressName, setAddressName] = useState('');
+  const history = useHistory();
 
   useEffect(async () => {
     if (payment_type === 'OUTRIGHT') {
@@ -108,6 +109,9 @@ const CheckoutModalComponent = ({
       });
   }, []);
 
+  const redirect = (direction) => {
+    history.push(direction);
+  };
   useEffect(async () => {
     var Authorized = auth.user;
     var userId = Authorized.user.id;
@@ -682,6 +686,7 @@ const CheckoutModalComponent = ({
           msg={error_msg}
           errorMsgDiv={errorDiv}
           removeTransDiv={() => {
+            redirect('/home');
             closeErrorDiv();
           }}
           link_btn={true}
