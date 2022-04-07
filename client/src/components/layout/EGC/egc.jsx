@@ -1,5 +1,5 @@
-import React from "react";
-import { textAlign } from "@mui/system";
+import React from 'react';
+import { textAlign } from '@mui/system';
 import {
   LineChart,
   Line,
@@ -11,20 +11,20 @@ import {
   ResponsiveContainer,
   PieChart,
   Pie,
-} from "recharts";
+} from 'recharts';
 // import FlipCountdown from "@rumess/react-flip-countdown";
 // import FlipCountdown
-import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
 
-import "./egc.css";
+import './egc.css';
 
-import "./countdown.css";
+import './countdown.css';
 
 const data01 = [
-  { name: "EGC Holder", value: 100000, fill: "#229e54" },
-  { name: "Founders", value: 10000, fill: "#e4a788" },
-  { name: "Ecosystem Rewards", value: 300000, fill: "#82ca9d" },
-  { name: "Liquidity", value: 90000, fill: "#245838" },
+  { name: 'EGC Holder', value: 100000, fill: '#229e54' },
+  { name: 'Founders', value: 10000, fill: '#e4a788' },
+  { name: 'Ecosystem Rewards', value: 300000, fill: '#82ca9d' },
+  { name: 'Liquidity', value: 90000, fill: '#245838' },
 ];
 
 const Egc = () => {
@@ -36,9 +36,9 @@ const Egc = () => {
             <div
               className="nft-txt-area2  "
               style={{
-                width: "100%",
-                position: "relative",
-                zIndex: "5",
+                width: '100%',
+                position: 'relative',
+                zIndex: '5',
               }}
             >
               <div className="span-txts">
@@ -46,10 +46,10 @@ const Egc = () => {
                   Egoras Credit-The Utility Token Of Egoras Protocol
                 </p>
                 <p className="span4b-txts">
-                  As a utility token, EGC is required for paying the inventory
-                  fees accrued on Loans that have been used to generate eNGN in
-                  the Egoras Protocol. its main purpose is to help maintain the
-                  stability of eNGN.
+                  As a utility token, EGC is required for paying the
+                  inventory fees accrued on Loans that have been used
+                  to generate eNGN in the Egoras Protocol. its main
+                  purpose is to help maintain the stability of eNGN.
                 </p>
                 <p className="span4b-txts odd-color">
                   {/* <div className="next-claim">
@@ -74,7 +74,9 @@ const Egc = () => {
                   // endAt={"2022-12-12 00:00:00"} // Date/Time
                 /> */}
                 <div className="count-down-section-btns">
-                  <button className="count-down-btn1">Distribute EGC</button>
+                  <button className="count-down-btn1">
+                    Distribute EGC
+                  </button>
                   <a href="/whitepaper" className="count-down-btn2">
                     Read White Paper
                   </a>
@@ -83,7 +85,7 @@ const Egc = () => {
             </div>
             <div
               className="nft-img-area2 position-it"
-              style={{ display: "inline-flex", width: "100%" }}
+              style={{ display: 'inline-flex', width: '100%' }}
             >
               {/* <div class="eNGN-token-page hero text-center">
                 <div class="eNGN-token-page  circle"></div>
@@ -106,7 +108,11 @@ const Egc = () => {
             </div>
           </div>
         </div>
-        <img src="/img/blur-drop.png" alt="" className="blurDrop-token" />
+        <img
+          src="/img/blur-drop.png"
+          alt=""
+          className="blurDrop-token"
+        />
       </section>
       {/* =================== */}
       {/* =================== */}
@@ -129,9 +135,9 @@ const Egc = () => {
             <div className="widthAjustBA">
               <div className="earn1">Claim Excess eNGN</div>
               <p className="earn3">
-                EGC is elementary in the stability of eNGN. It is held in a
-                reserve smart-contract and exchanged for eNGN to balance demand
-                excess or shortage.
+                EGC is elementary in the stability of eNGN. It is held
+                in a reserve smart-contract and exchanged for eNGN to
+                balance demand excess or shortage.
               </p>
             </div>
           </div>
@@ -140,7 +146,7 @@ const Egc = () => {
       {/* second div term #7bdba1*/}
       <div
         className="egc-holders-section"
-        style={{ backgroundColor: "#f2fbf6" }}
+        style={{ backgroundColor: '#f2fbf6' }}
       >
         <div className="container">
           <div className="earning2">
@@ -149,10 +155,10 @@ const Egc = () => {
                 <div className="widthAjust1A">
                   <div className="allNone">eNFT Farming</div>
                   <div className="allNone1">
-                    {" "}
-                    EGC holders can claim collaterals of bad debt easily.
-                    Holders can send EGC to the Egoras smart contract to claim
-                    redeemable NFTs.
+                    {' '}
+                    EGC holders can claim collaterals of bad debt
+                    easily. Holders can send EGC to the Egoras smart
+                    contract to claim redeemable NFTs.
                   </div>
                 </div>
               </div>
@@ -178,7 +184,11 @@ const Egc = () => {
           </div>
         </div>
 
-        <img src="/img/blur-drop.png" alt="" className="blurDrop-token" />
+        <img
+          src="/img/blur-drop.png"
+          alt=""
+          className="blurDrop-token"
+        />
         <img src="/img/shape-egg2.svg" alt="" class="gteggShape2a" />
       </div>
       {/* =================== */}
@@ -226,28 +236,33 @@ const Egc = () => {
           <div className="nft-area2 reverse">
             <div
               className="nft-img-area2"
-              style={{ display: "inline-flex", width: "100%" }}
+              style={{ display: 'inline-flex', width: '100%' }}
             >
               <img
                 src="/img/earn-egc.svg"
                 alt=""
-                style={{ width: "75%", margin: "auto" }}
+                style={{ width: '75%', margin: 'auto' }}
               />
             </div>
-            <div className="nft-txt-area2 " style={{ width: "100%" }}>
+            <div className="nft-txt-area2 " style={{ width: '100%' }}>
               <div className="span-txts">
                 <p className="span4a-txts">Pay Inventory Fees </p>
 
                 <p className="span4b-txts">
-                  Organizations  pays for inventory fees on Egoras protocol with
-                  Egoras Credit(EGC)and this means that as the demand for Egoras
-                  loans increases so as the demand for Egoras Credit(EGC).
+                  Organizations  pays for inventory fees on Egoras
+                  protocol with Egoras Credit(EGC)and this means that
+                  as the demand for Egoras loans increases so as the
+                  demand for Egoras Credit(EGC).
                 </p>
               </div>
             </div>
           </div>
         </div>
-        <img src="/img/blur-drop.png" alt="" className="blurDrop-token" />
+        <img
+          src="/img/blur-drop.png"
+          alt=""
+          className="blurDrop-token"
+        />
       </section>
       {/* third section end */}
       {/* ==================== */}
@@ -258,11 +273,16 @@ const Egc = () => {
         <div className="container">
           <div className="row">
             <div class="col-lg-6">
-              <h3 className="staked-title">Staked amount by duration</h3>
+              <h3 className="staked-title">
+                Staked amount by duration
+              </h3>
               <div class="desc">
-                Staked EGC is included as part of the circulating supply. You
-                can <a href="https://www.egoras.com/stake">stake your EGC</a> on
-                egoras.com
+                Staked EGC is included as part of the circulating
+                supply. You can{' '}
+                <a href="https://www.egoras.com/stake">
+                  stake your EGC
+                </a>{' '}
+                on egoras.com
               </div>
               <div class="row staked-chart  align-items-center">
                 <div className="col-md-5">
@@ -281,14 +301,26 @@ const Egc = () => {
                 </div>
 
                 <div class="col">
-                  <h3 className="chartTitile font-bg"> Token Distribution </h3>
+                  <h3 className="chartTitile font-bg">
+                    {' '}
+                    Token Distribution{' '}
+                  </h3>
                   <div class="desc">
-                    <div className="egc_distr m"> EGR Holders: 100,000EGC </div>
-                    <div className="egc_distr m"> Founders: 10,000EGC </div>
                     <div className="egc_distr m">
-                      Ecosystem Rewards: 300,000 EGC{" "}
+                      {' '}
+                      EGR Holders: 100,000EGC{' '}
                     </div>
-                    <div className="egc_distr m"> Liquidity: 90,000EGC </div>
+                    <div className="egc_distr m">
+                      {' '}
+                      Founders: 10,000EGC{' '}
+                    </div>
+                    <div className="egc_distr m">
+                      Ecosystem Rewards: 300,000 EGC{' '}
+                    </div>
+                    <div className="egc_distr m">
+                      {' '}
+                      Liquidity: 90,000EGC{' '}
+                    </div>
                   </div>
                 </div>
               </div>
