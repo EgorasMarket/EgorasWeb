@@ -64,9 +64,10 @@ const AllStaffs = ({ auth }) => {
       });
   }, []);
 
-  const saveCustomerId = (id) => {
+  const saveCustomerId = (id, fullname) => {
     console.log(id);
     localStorage.setItem('adminStaffId', id);
+    localStorage.setItem('adminStaffName', fullname);
     return window.location.replace('/super_admin/fund/accountant');
   };
 
@@ -152,7 +153,10 @@ const AllStaffs = ({ auth }) => {
 
                         <td className="assets-category-data1">
                           <div className="assets-data-name">
-                            {user.role}
+                            {user.role === 'CASHIER' ||
+                            user.role === 'CUSTOMER_SERVICE'
+                              ? 'SALES REP'
+                              : user.role}
                           </div>
                         </td>
 
@@ -185,7 +189,10 @@ const AllStaffs = ({ auth }) => {
                               <button
                                 id={user.id}
                                 onClick={(e) =>
-                                  saveCustomerId(user.id)
+                                  saveCustomerId(
+                                    user.id,
+                                    user.fullname
+                                  )
                                 }
                                 className="checkout_btn1 py-1 px-2 m-0"
                               >
