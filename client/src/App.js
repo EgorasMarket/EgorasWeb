@@ -144,7 +144,7 @@ import Explore_Loans_Page4 from "./components/layout/Explore_Loan/exploreLoanSec
 import Explore_Loans_Page5 from "./components/layout/Explore_Loan/exploreLoanSection12";
 // import Egc from "./components/layout/EGC/Egc";
 // import Egc from "./components/layout/EGC/Egc.jsx";
-import Egc from "./components/layout/EGC/EGC.jsx";
+import Egc from "./components/layout/EGC/Egc.jsx";
 // import MarketHome from "./components/layout/Home2/EgorasMarket/MarketHome";
 
 import Item_details_main from "./components/layout/Home2/item_details_page/Item_details_main";

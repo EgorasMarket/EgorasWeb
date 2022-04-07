@@ -65,6 +65,9 @@
   transition: all 0.3s linear;
   /* width: 45px; */
 }
+.immmgg_mobile {
+  display: none;
+}
 .menu_icon_toggle:hover {
   box-shadow: 0px 0px 0px 7px #dbede2 !important;
   transition: all 0.3s linear;
@@ -453,6 +456,12 @@
 }
 @media screen and (max-width: 991px) {
   .side_bar_head {
+    display: none;
+  }
+  .immmgg_mobile {
+    display: block;
+  }
+  .immmgg_desktop {
     display: none;
   }
 
