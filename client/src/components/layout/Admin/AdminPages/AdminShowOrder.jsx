@@ -10,94 +10,28 @@ import {
 const way = window.location.pathname;
 
 const AdminShowOrder = () => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [searchResults, setSearchResults] = useState([]);
-  const [rolesInfos, setRolesInfos] = useState({
-    role201: '',
-  });
+  // const [searchTerm, setSearchTerm] = useState('');
+  const [data, setData] = useState([]);
 
-  const { role201 } = rolesInfos;
-
-  const [allCustomers, setAllCustomers] = useState([]);
+  // const [allCustomers, setAllCustomers] = useState([]);
   const config = {
     headers: {
       'Content-Type': 'application/json',
     },
   };
 
-  useEffect(() => {
-    // //console.log('ttttrr');
-    axios
-      .get(api_url2 + 'v1/order/admin/allOrders', null, config)
+  useEffect(async () => {
+    await axios
+      .get(api_url2 + '/v1/order/admin/allOrders', null, config)
       .then((data) => {
-        setAllCustomers(data.data.data);
+        console.log(data, 'line_ful');
+        setData(data.data.payloads);
       })
       .catch((err) => {
-        console.log(err.message, 'ooooo'); // "oh, no!"
-      });
-
-    //console.log("my naem");
-    // ============
-  }, []);
-  // useEffect(() => {
-  //   axios
-  //     .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
-  //     .then((data) => {
-  //       //console.log(data.data.data);
-
-  //       // setCustomerId(data.data.data.id);
-  //     })
-  //     .catch((err) => {
-  //       //console.log(err); // "oh, no!"
-  //     });
-  // }, []);
-
-  useEffect(() => {
-    axios
-      .get(api_url2 + '/v1/admin/info', null, config)
-      .then((data) => {
-        //console.log(data.data.user, "line_ful");
-        setRolesInfos({
-          role201: data.data.user.role,
-        });
-      })
-      .catch((err) => {
-        //console.log(err); // "oh, no!"
+        console.log(err); // "oh, no!"
       });
   }, []);
 
-  const handleSearchChange = (event) => {
-    setSearchTerm(event.target.value);
-    //console.log(event.target.value);
-  };
-  useEffect(() => {
-    if (searchTerm === '') {
-      setSearchResults(allCustomers);
-      //console.log("tttt");
-    } else {
-      console.log(allCustomers);
-      const results = allCustomers.filter((userInfo) =>
-        userInfo.fullname
-          .toString()
-          .toLowerCase()
-          .includes(searchTerm.toLowerCase())
-      );
-      setSearchResults(results);
-    }
-  }, [searchTerm, allCustomers]);
-
-  //console.log(searchResults);
-
-  // =========
-  // =========
-
-  // =========
-  // =========
-
-  const saveCustomerId = (event) => {
-    //console.log(event.target.id);
-    localStorage.setItem('adminCusId', event.target.id);
-  };
   return (
     <>
       {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
@@ -105,7 +39,7 @@ const AdminShowOrder = () => {
         <section className="no-bg">
           <div className="container">
             <div className="all_user_data_area">
-              <div className="all_users_search">
+              {/* <div className="all_users_search">
                 Search Orders
                 <div className="search_container">
                   <SearchIcon className="user_search_icon" />
@@ -119,7 +53,7 @@ const AdminShowOrder = () => {
                     onChange={handleSearchChange}
                   />
                 </div>
-              </div>
+              </div> */}
               <div className="all_users_body">
                 <table className="assets-table s_table">
                   <thead className="assets-category-titles">
@@ -139,58 +73,65 @@ const AdminShowOrder = () => {
                       <th className="assets-category-titles-heading1 right_align">
                         Total Sum
                       </th>
+                      <th className="assets-category-titles-heading1 right_align">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
-                  {searchResults.map((user) => (
+                  {data.map((payload, index) => (
                     <tbody
+                      key={index}
                       className="assets-table-body popular-categories"
                       id="popular-categories"
                     >
-                      {' '}
                       <tr className="assets-category-row">
                         <td className="assets-category-data">
                           <div className="assets-data">
                             {/* <PhoneAndroidIcon className="assets-list-icon" /> */}
                             <div className="assets-data-name">
-                              {user.fullname}
+                              {payload.customer_name}
                             </div>
                           </div>
                         </td>
                         <td className="assets-category-data1">
                           <div className="assets-data-name">
-                            {user.phoneNumber}
+                            {payload.order_id}
                           </div>
                         </td>
                         <td className="assets-category-data1b">
                           <div className="assets-data-name">
-                            {user.gender}
+                            {payload.order_status_code}
                           </div>
                         </td>
                         <td className="assets-category-data1b">
                           <div className="assets-data-name">
-                            {user.email}
+                            {payload.payment_channel}
+                          </div>
+                        </td>
+                        <td className="assets-category-data1b">
+                          <div className="assets-data-name">
+                            {payload.total_sum}
                           </div>
                         </td>
                         <td className="assets-category-data-last">
                           <div className="assets-data-name-last">
                             <a
-                              href={`/super_admin/user_overview/${user.id}`}
+                              // href={`/super_admin/user_overview/${payload.id}`}
                               className="mr-2"
                             >
                               <button
-                                // id={user.id}
+                                // id={payload.id}
                                 className="btn btn-primary"
                               >
-                                View
+                                DETAILS
                               </button>
                             </a>
                             <a href={`/super_admin/overview`}>
                               <button
-                                id={user.id}
-                                onClick={saveCustomerId}
+                                // id={payload.id}
                                 className="btn btn-success"
                               >
-                                Book
+                                FULFIL
                               </button>
                             </a>
                           </div>
