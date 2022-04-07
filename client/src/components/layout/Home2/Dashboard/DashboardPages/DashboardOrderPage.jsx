@@ -34,7 +34,7 @@ const DashboardOrderPage = () => {
       setItem(call.data.payloads);
     } catch (err) {
       console.log(err.message);
-      alert(err.message);
+      // alert(err.message);
     }
   }, []);
 

@@ -37,9 +37,9 @@ const AdminShowOrder = () => {
       .post(api_url2 + '/v1/order/fulfil/' + order_id, null, config)
       .then((response) => {
         if (response.data.success === true) {
-          alert('successfully updated');
+          // alert('successfully updated');
         } else {
-          alert('failure');
+          // alert('failure');
         }
       })
       .catch((err) => {
