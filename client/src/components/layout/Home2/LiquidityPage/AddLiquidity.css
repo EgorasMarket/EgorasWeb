@@ -133,6 +133,14 @@
   border-radius: 50%;
   margin-right: 8px;
 }
+.input_txt {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  padding-top: 0;
+  padding-bottom: 5px;
+}
 .plus_icon_layer {
   align-items: center;
   width: 100% !important;
