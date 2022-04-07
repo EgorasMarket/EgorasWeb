@@ -190,37 +190,71 @@ const CheckoutModalComponent = ({
   const selectOption = async (value) => {
     switch (value) {
       case 0:
-        // alert('payment set as card', product_id)
-
-        handleFlutterPayment({
-          callback: async (response) => {
-            //console.log(response);
-            try {
-              if (!response.transaction_id) {
-                // alert(
-                //   "We couldn't return any information from this payment please try again."
-                // );
-              }
-              const verification = await verify(
-                response.transaction_id,
-                product_id,
-                startDate,
-                endDate,
-                days_left
-              );
-              closePaymentModal();
-            } catch (error) {
-              console.log(error.response);
+        if (!product_id) {
+          console.log('This item is out of the market');
+          setErrorMsg('This product is off the market');
+          setErrorDiv(true);
+          return;
+        }
+        const verifyProduct = await axios
+          .get(
+            `${api_url2}/v1/product/verify/product/${product_id}`,
+            null,
+            config
+          )
+          .then((response) => {
+            const { message, success } = response.data;
+            console.log(success);
+            if (success != true) {
+              // setErrorMsg(message);
+              // setErrorDiv(true);
+              alert('an error occured');
             }
-          },
-          onClose: (response) => {
-            // window.location.replace('google.com');
-          },
-        });
+
+            // setProcessingDiv(false);
+            handleFlutterPayment({
+              callback: async (response) => {
+                //console.log(response);
+                try {
+                  if (!response.transaction_id) {
+                    // alert(
+                    //   "We couldn't return any information from this payment please try again."
+                    // );
+                  }
+                  const verification = await verify(
+                    response.transaction_id,
+                    product_id,
+                    startDate,
+                    endDate,
+                    days_left
+                  );
+                  closePaymentModal();
+                } catch (error) {
+                  console.log(error.response);
+                }
+              },
+              onClose: (response) => {
+                // window.location.replace('google.com');
+              },
+            });
+          })
+          .catch((err) => {
+            setProcessingDiv(false);
+            setErrorMsg(err.response);
+            setErrorDiv(true);
+            console.log(err.response);
+          });
+
         break;
 
       case 1:
         setProcessingDiv(true);
+
+        // const verif = await axios.get(
+        //   `${api_url2}/v1/product/verify/product/${product_id}`,
+        //   null,
+        //   config
+        // );
 
         if (tokenBal >= Number(total)) {
           //
@@ -647,7 +681,9 @@ const CheckoutModalComponent = ({
           btn_txt="Fund Wallet"
           msg={error_msg}
           errorMsgDiv={errorDiv}
-          // removeTransDiv={closeErrorDiv}
+          removeTransDiv={() => {
+            closeErrorDiv();
+          }}
           link_btn={true}
           src="/dashboard/wallet"
           // onclick={closeErrorDiv}
