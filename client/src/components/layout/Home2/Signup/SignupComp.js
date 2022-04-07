@@ -1,7 +1,7 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { connect } from "react-redux";
 // import { setAlert } from "../../../../actions/alert";
-import DatePicker from 'react-date-picker';
+import DatePicker from "react-date-picker";
 import "../../../../css/signup.css";
 import { CustomAlert } from "../../../../CustomAlert";
 import { adminAddCustomer } from "../../../../actions/adminAuth";
@@ -12,8 +12,8 @@ const SignupComp = ({ adminAddCustomer }) => {
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [userAuth, setUserAuth] = useState({
     // fullname: "",
-    firstname: '',
-    lastname: '',
+    firstname: "",
+    lastname: "",
     email: "",
     // password: "",
     BVN: "",
@@ -22,12 +22,11 @@ const SignupComp = ({ adminAddCustomer }) => {
     InfoReason: "",
   });
 
-  const [dateOfBirth, setDateOfBirth] = useState('');
-
+  const [dateOfBirth, setDateOfBirth] = useState("");
 
   const { firstname, lastname, email, phoneNumber, BVN, InfoReason } = userAuth;
 
-  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : '';
+  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : "";
 
   const onChange = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
@@ -41,15 +40,18 @@ const SignupComp = ({ adminAddCustomer }) => {
 
   const submitData = async (e) => {
     // //console.log('ggg');
-    if (firstname === '' || lastname === '' || phoneNumber === ''
-    //  || BVN === '' 
-     || InfoReason === '') {
+    if (
+      firstname === "" ||
+      lastname === "" ||
+      phoneNumber === "" ||
+      //  || BVN === ''
+      InfoReason === ""
+    ) {
       //console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
-      setAlert('All supply all fields.');
-      setAlertType('danger')
+      setAlert("All supply all fields.");
+      setAlertType("danger");
       //console.log('All supply all fields.');
     } else {
-
       // if (password !== confirmpassword) {
       //   setAlert('Password do not match.');
       //   setAlertType('danger')
@@ -57,7 +59,7 @@ const SignupComp = ({ adminAddCustomer }) => {
 
       let res = await adminAddCustomer(
         // fullname,
-        firstname.trim(), 
+        firstname.trim(),
         lastname.trim(),
         email,
         birthDate,
@@ -69,16 +71,14 @@ const SignupComp = ({ adminAddCustomer }) => {
       );
       //console.log(res);
       if (res.data.success === true) {
-          setIsSuccessful(true);
+        setIsSuccessful(true);
         //console.log("okay Good Server");
       } else {
         console.log(res.data.data);
         setAlert(res.data.data.errors[0].msg);
-        setAlertType('danger')
+        setAlertType("danger");
       }
     }
-
-    
   };
 
   const timer = setTimeout(() => {
@@ -86,94 +86,90 @@ const SignupComp = ({ adminAddCustomer }) => {
   }, 5000);
   return (
     <div>
-    {isSuccessful == false ? (
-      <div className="signup_area">
-        <div className="signup_cont">
-          <div className="signup_title">Create User Account</div>
-          <span className="signup_para">
-            Welcome to the future of savings & investments.
-          </span>
-          <div className="signup_inputs_cont">
-            <div
-              className="signup_input_field1_cont"
-              style={{ flexDirection: 'row' }}
-            >
-              <div className="text-left">
-                <span className="input_title">First Name</span>
-                <input
-                  type="text"
-                  name="firstname"
-                  className="signup_input_field"
-                  value={firstname}
-                  onChange={onChange}
-                />
+      {isSuccessful == false ? (
+        <div className="signup_area">
+          <div className="signup_cont">
+            <div className="signup_title">Create User Account</div>
+            <span className="signup_para">
+              Welcome to the future of savings & investments.
+            </span>
+            <div className="signup_inputs_cont">
+              <div
+                className="signup_input_field1_cont"
+                style={{ flexDirection: "row" }}
+              >
+                <div className="text-left">
+                  <span className="input_title">First Name</span>
+                  <input
+                    type="text"
+                    name="firstname"
+                    className="signup_input_field"
+                    value={firstname}
+                    onChange={onChange}
+                  />
+                </div>
+                <div className="text-left">
+                  <span className="input_title">Last Name</span>
+                  <input
+                    type="text"
+                    name="lastname"
+                    className="signup_input_field"
+                    value={lastname}
+                    onChange={onChange}
+                  />
+                </div>
               </div>
-              <div className="text-left">
-                <span className="input_title">Last Name</span>
+              <div className="signup_input_field1_cont">
+                <span className="input_title">Email address</span>
                 <input
-                  type="text"
-                  name="lastname"
+                  type="email"
                   className="signup_input_field"
-                  value={lastname}
+                  value={email}
+                  name="email"
                   onChange={onChange}
+                  placeHolder="@gmail.com"
                 />
+                {/* <div className="weak_pass_div text-muted">* Optional</div> */}
               </div>
-            </div>
-            <div className="signup_input_field1_cont">
-              <span className="input_title">Email address</span>
-              <input
-                type="email"
-                className="signup_input_field"
-                value={email}
-                name="email"
-                onChange={onChange}
-                placeHolder="@gmail.com"
-              />
-              {/* <div className="weak_pass_div text-muted">* Optional</div> */}
-            </div>
-            <div
-              className="signup_input_field1_cont"
-              style={{ flexDirection: 'row' }}
-            >
-              <div className="text-left">
-                <span className="input_title d-block">
-                  Phone Number
+              <div
+                className="signup_input_field1_cont"
+                style={{ flexDirection: "row" }}
+              >
+                <div className="text-left">
+                  <span className="input_title d-block">Phone Number</span>
+                  <input
+                    type="number"
+                    className="signup_input_field"
+                    value={phoneNumber}
+                    name="phoneNumber"
+                    onChange={onChange}
+                  />
+                </div>
+                <div className="text-left">
+                  <span className="input_title d-block">Date Of Birth</span>
+                  <DatePicker
+                    onChange={setDateOfBirth}
+                    value={dateOfBirth}
+                    format="yyyy-MM-dd"
+                  />
+                </div>
+                <div className="weak_pass_div text-muted">* Optional</div>
+              </div>
+              <div className="signup_input_field1_cont">
+                <span className="input_title">
+                  Bank Verification Number (BVN)
                 </span>
                 <input
                   type="number"
                   className="signup_input_field"
-                  value={phoneNumber}
-                  name="phoneNumber"
+                  value={BVN}
+                  name="BVN"
                   onChange={onChange}
+                  placeHolder="***********"
                 />
+                <div className="weak_pass_div text-muted">* Optional</div>
               </div>
-              <div className="text-left">
-                <span className="input_title d-block">
-                  Date Of Birth
-                </span>
-                <DatePicker
-                  onChange={setDateOfBirth}
-                  value={dateOfBirth}
-                  format="yyyy-MM-dd"
-                />
-              </div>
-              <div className="weak_pass_div text-muted">* Optional</div>
-            </div>
-            <div className="signup_input_field1_cont">
-              <span className="input_title">
-                Bank Verification Number (BVN)
-              </span>
-              <input
-                type="number"
-                className="signup_input_field"
-                value={BVN}
-                name="BVN"
-                onChange={onChange}
-                placeHolder="***********"
-              />
-              <div className="weak_pass_div text-muted">* Optional</div>
-            </div>
-            {/* <div className="signup_input_field1_cont">
+              {/* <div className="signup_input_field1_cont">
               <span className="input_title">Password</span>
               <input
                 type="password"
@@ -197,41 +193,45 @@ const SignupComp = ({ adminAddCustomer }) => {
                   placeHolder="****"
               />
             </div> */}
-            <div className="signup_input_field1_cont">
-              <span className="input_title">How did you hear about us?</span>
+              <div className="signup_input_field1_cont">
+                <span className="input_title">How did you hear about us?</span>
 
-              <select
-                className="cust_select"
-                name="InfoReason"
-                onChange={onChange}
-                value={InfoReason}
+                <select
+                  className="cust_select"
+                  name="InfoReason"
+                  onChange={onChange}
+                  value={InfoReason}
+                >
+                  <option value="0" className="opt">
+                    Click to select:
+                  </option>
+                  <option value="Facebook">Facebook</option>
+                  <option value="Twitter">Twitter</option>
+                  <option value="Instagram">Instagram</option>
+                  <option value="Referred">Referred</option>
+                  <option value="Online Blog">Online Blog</option>
+                  <option value="Google search">Google search</option>
+                  <option value="Others">Others</option>
+                </select>
+                {/* ==[[[[[]]]]] */}
+
+                {/* <input type="" className="signup_input_field" /> */}
+              </div>
+              <button
+                type="submit"
+                className="sign_up_btn"
+                onClick={submitData}
               >
-                <option value="0" className="opt">
-                  Click to select:
-                </option>
-                <option value="Facebook">Facebook</option>
-                <option value="Twitter">Twitter</option>
-                <option value="Instagram">Instagram</option>
-                <option value="Referred">Referred</option>
-                <option value="Online Blog">Online Blog</option>
-                <option value="Google search">Google search</option>
-                <option value="Others">Others</option>
-              </select>
-              {/* ==[[[[[]]]]] */}
-
-              {/* <input type="" className="signup_input_field" /> */}
+                Create account
+              </button>
             </div>
-            <button type="submit" className="sign_up_btn" onClick={submitData}>
-              Create account
-            </button>
           </div>
+          {/* <span className="login_txt">
+            <a href="/super_admin/user/login" className="login_link">
+              Already have an account? Login
+            </a>
+          </span> */}
         </div>
-        <span className="login_txt">
-          <a href="/super_admin/user/login" className="login_link">
-            Already have an account? Login
-          </a>
-        </span>
-      </div>
       ) : (
         <section className="signup_section success_section">
           <div className="container">
@@ -245,11 +245,11 @@ const SignupComp = ({ adminAddCustomer }) => {
                         alt=""
                         className="success_img"
                       />
-                      <h4 className="check_mail">Account creation was successful</h4>
+                      <h4 className="check_mail">
+                        Account creation was successful
+                      </h4>
 
-                      <p>
-                        A confirmation email have been sent to the customer
-                      </p>
+                      <p>A confirmation email have been sent to the customer</p>
                       {/* <p className="note">
                         {" "}
                         * If the email doesn’t show up soon, check your spam
@@ -258,7 +258,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                       </p> */}
                     </div>
                   </div>
-
+                  {/* 
                   <div className="sign_up_btns">
                     <a href="/login" className="login2">
                       {" "}
@@ -270,16 +270,15 @@ const SignupComp = ({ adminAddCustomer }) => {
                         Return to login
                       </button>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
           </div>
         </section>
       )}
-        {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
+      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
     </div>
-
   );
 };
 

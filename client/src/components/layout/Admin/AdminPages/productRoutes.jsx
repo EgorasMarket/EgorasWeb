@@ -176,49 +176,58 @@ const Adminproduct = () => {
 
                 <div className="locked_items2 locked_items2a">
                   <div class="save_prod_deta">
-                    <table className="save_item_table">
-                      {/* <table className="save_item_table" style={{display: 'unset'}}> */}
-                      <thead className="assets-category-titles">
-                        <tr className="assets">
-                          <th className="assets-category-titles-heading1">
-                            Image
-                          </th>
-                          <th className="assets-category-titles-heading1">
-                            Name
-                          </th>
+                    {/* <table className="save_item_table" style={{display: 'unset'}}> */}
+                    <thead className="assets-category-titles save_list_titles">
+                      <tr className="assets save_list_assets_head ">
+                        <th className="assets-category-titles-heading1">
+                          Image
+                        </th>
+                        <th className="assets-category-titles-heading1">
+                          Name
+                        </th>
 
-                          <th className="assets-category-titles-heading1">
-                            Product id
-                          </th>
+                        <th className="assets-category-titles-heading1">
+                          Product id
+                        </th>
 
-                          <th className="assets-category-titles-heading1">
-                            Description
-                          </th>
+                        <th className="assets-category-titles-heading1">
+                          Description
+                        </th>
 
-                          {/* <th className="assets-category-titles-heading1 quant">
+                        {/* <th className="assets-category-titles-heading1 quant">
                           Category
                         </th> */}
-                          {/* <th className="assets-category-titles-heading1 quant">
+                        {/* <th className="assets-category-titles-heading1 quant">
                           Unit Price
                         </th> */}
-                          <th className="assets-category-titles-heading1_last">
-                            Price
-                          </th>
-                        </tr>
-                      </thead>
-                      <tbody
-                        className="save_items_cat popular-categories"
-                        id="popular-categories"
-                        // key={index.toString()}
-                      >
-                        {pdwork.map((asset, index) =>
-                          asset.printed === 0 ? (
+                        <th className="assets-category-titles-heading1_last">
+                          Price
+                        </th>
+                        <th className="assets-category-titles-heading1_last">
+                          Price
+                        </th>
+                        <th className="assets-category-titles-heading1_last">
+                          Price
+                        </th>
+                        <th className="assets-category-titles-heading1_last">
+                          Price
+                        </th>
+                      </tr>
+                    </thead>
+                    <table className="save_item_table">
+                      {pdwork.map((asset, index) => (
+                        <tbody
+                          className="save_items_cat popular-categories"
+                          id="popular-categories"
+                          // key={index.toString()}
+                        >
+                          {asset.printed === 0 ? (
                             <tr
                               id={asset.id}
                               className="assets-category-row saving_assets_row"
                             >
                               <td className="save_item_data width_thin">
-                                <div className="assets-data height_data">
+                                <div className="assets-data height_data height_data1">
                                   <img
                                     src={`${asset.product_image}`}
                                     alt=""
@@ -235,7 +244,7 @@ const Adminproduct = () => {
                                 </div>
                               </td>
                               <td className="save_item_data1b">
-                                <div className="assets-data-name center_name">
+                                <div className="assets-data-name center_name center_name_elipsis">
                                   {asset.id}
                                 </div>
                               </td>
@@ -256,7 +265,7 @@ const Adminproduct = () => {
                               ₦{asset.amount}
                             </div> */}
                                 {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                <a>
+                                <a className="assets-data-name center_name">
                                   <button
                                     id={"yes_" + asset.id}
                                     onClick={() =>
@@ -268,7 +277,7 @@ const Adminproduct = () => {
                                     className="checkout_btn1 py-1 px-2 m-0"
                                   >
                                     {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                    Print product Print{" "}
+                                    Print Price{" "}
                                   </button>
                                 </a>
                                 {/* <button className="checkout_btn1 py-1 px-2 ml-1">
@@ -281,7 +290,7 @@ const Adminproduct = () => {
                               ₦{asset.amount}
                             </div> */}
                                 {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                <a>
+                                <a className="assets-data-name center_name">
                                   <button
                                     id={"yes_" + asset.id}
                                     onClick={() =>
@@ -290,7 +299,7 @@ const Adminproduct = () => {
                                     className="checkout_btn1 py-1 px-2 m-0"
                                   >
                                     {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                    Print product ID{" "}
+                                    Print ID{" "}
                                   </button>
                                 </a>
                               </td>
@@ -300,7 +309,7 @@ const Adminproduct = () => {
                               ₦{asset.amount}
                             </div> */}
                                 {/* <button id={'yes_' + asset.id} onClick={e => submitCallCheck(asset.id)} className="checkout_btn1 py-1 px-2 m-0"> */}
-                                <a>
+                                <a className="assets-data-name_last">
                                   <button
                                     id={"yes_" + asset.id}
                                     onClick={() => markPrinted(asset.id)}
@@ -312,9 +321,9 @@ const Adminproduct = () => {
                                 </a>
                               </td>
                             </tr>
-                          ) : null
-                        )}
-                      </tbody>
+                          ) : null}
+                        </tbody>
+                      ))}
                     </table>
                   </div>
                   {/* <div style={{float:"right",backgroundColor:"#41ba71",color:"white",padding:"8px 10px",borderRadius:"6px",marginTop:"5px"}}>See More</div> */}
