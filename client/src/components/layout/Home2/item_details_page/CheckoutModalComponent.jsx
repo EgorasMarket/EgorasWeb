@@ -276,16 +276,6 @@ const CheckoutModalComponent = ({
           // alert('hiy');
         }
         break;
-      case 2:
-        const body = {
-          product_id,
-        };
-        const validate = await axios.get(
-          `${api_url2}/v1/product/verify/product`,
-          body,
-          config
-        );
-        break;
     }
   };
 

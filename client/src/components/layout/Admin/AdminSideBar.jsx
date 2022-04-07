@@ -766,10 +766,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ('register' &&
-                            (role1 === 'CASHIER' ||
-                              role1 === 'CUSTOMER_SERVICE'))
+                          activeBg == 'register'
                             ? 'sidebarListItem list-item-active'
                             : 'sidebarListItem'
                         }
@@ -786,10 +783,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ('products' &&
-                            (role1 === 'CASHIER' ||
-                              role1 === 'CUSTOMER_SERVICE'))
+                          activeBg == 'products'
                             ? 'sidebarListItem list-item-active'
                             : 'sidebarListItem'
                         }
@@ -1085,7 +1079,6 @@ const AdminSideBar = ({ auth }) => {
                         print
                       </li>
                     </a>
-
                   </>
                 ) : // jfhfkf
 
@@ -1371,10 +1364,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ('register' &&
-                            (role1 === 'CASHIER' ||
-                              role1 === 'CUSTOMER_SERVICE'))
+                          activeBg == 'register'
                             ? 'sidebarListItem small_list-item-active'
                             : 'sidebarListItem'
                         }
@@ -1391,10 +1381,7 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg ==
-                          ('products' &&
-                            (role1 === 'CASHIER' ||
-                              role1 === 'CUSTOMER_SERVICE'))
+                          activeBg == 'products'
                             ? 'sidebarListItem small_list-item-active'
                             : 'sidebarListItem'
                         }
