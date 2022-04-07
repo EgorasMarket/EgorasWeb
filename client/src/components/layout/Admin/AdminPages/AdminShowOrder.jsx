@@ -32,6 +32,21 @@ const AdminShowOrder = () => {
       });
   }, []);
 
+  const fulfilOrder = async (order_id) => {
+    await axios
+      .post(api_url2 + '/v1/order/fulfil/' + order_id, null, config)
+      .then((response) => {
+        if (response.data.success === true) {
+          alert('successfully updated');
+        } else {
+          alert('failure');
+        }
+      })
+      .catch((err) => {
+        console.log(err.message); // "oh, no!"
+      });
+  };
+
   return (
     <>
       {/* {((role201 === "CASHIER") || (role201 === "CUSTOMER_SERVICE" ) && (way === "/super_admin/all_user"))? */}
@@ -126,14 +141,21 @@ const AdminShowOrder = () => {
                                 DETAILS
                               </button>
                             </a>
-                            <a href={`/super_admin/overview`}>
-                              <button
-                                // id={payload.id}
-                                className="btn btn-success"
-                              >
-                                FULFIL
-                              </button>
-                            </a>
+
+                            {payload.order_status_code ===
+                            'DELIVERED' ? null : (
+                              <a>
+                                <button
+                                  // id={payload.id}
+                                  className="btn btn-success"
+                                  onClick={() => {
+                                    fulfilOrder(payload.order_id);
+                                  }}
+                                >
+                                  FULFIL
+                                </button>
+                              </a>
+                            )}
                           </div>
                         </td>
                       </tr>
