@@ -314,7 +314,7 @@ function AdminMarket({ auth }) {
   };
   return (
     <div className="other2">
-      <div className="cat_div" id="cat_div">
+      {/* <div className="cat_div" id="cat_div">
         <div className="cat_body_toggle">
           <a
             href={`/dashboard/products/categories/Computer & Accessories`}
@@ -341,7 +341,7 @@ function AdminMarket({ auth }) {
             <div className="cat_body_toggle1">Musical Equipment</div>
           </a>
         </div>
-      </div>
+      </div> */}
 
       <section className="no-bg no_pad">
         <div className="container">
