@@ -35,6 +35,7 @@ import ItemsPage2 from './AdminPages/AdminItemsDetailsPage';
 import AdminSignup from './AdminSignup/AdminSignup';
 import AllProductRoute from './AdminPages/AllProductRoute';
 import UniqueProductRoutes from './AdminPages/UniqueProductRoutes';
+import AdminShowOrder from './AdminPages/AdminShowOrder';
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
@@ -157,6 +158,11 @@ const Admin = ({ isAuthenticated, loading }) => {
                 <>
                   <Route
                     exact
+                    path="/super_admin/register_user"
+                    component={RegisterCustomer}
+                  />
+                  <Route
+                    exact
                     path="/super_admin/all_user"
                     component={AdminCustomer}
                   />
@@ -250,14 +256,16 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // / dashboard/products/details/:id/:name
                     component={UniqueProductRoutes}
                   />
+                  <Route
+                    exact
+                    path="/super_admin/orders/all"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AdminShowOrder}
+                  />
                 </>
               ) : Role === 'TECH' || Role === 'MANAGER' ? (
                 <>
-                  <Route
-                    exact
-                    path="/super_admin/user_wallet"
-                    component={Wallet}
-                  />
                   <Route
                     exact
                     path="/super_admin/Approved_products"
@@ -300,6 +308,13 @@ const Admin = ({ isAuthenticated, loading }) => {
                     // path="/dashboard/products/details/:id/:name"
                     // / dashboard/products/details/:id/:name
                     component={Transact}
+                  />
+                  <Route
+                    exact
+                    path="/super_admin/orders/all"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AdminShowOrder}
                   />
                   <Route
                     exact

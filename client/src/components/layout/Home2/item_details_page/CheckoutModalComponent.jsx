@@ -54,6 +54,7 @@ const CheckoutModalComponent = ({
     no_of_days_paid,
     startDate,
     endDate,
+    status,
   } = payload;
 
   const [user_id, setUserId] = useState('');
@@ -106,6 +107,7 @@ const CheckoutModalComponent = ({
         //  //console.log(addressName,"Bk is good for development")
       });
   }, []);
+
   useEffect(() => {
     var Authorized = auth.user;
     var userId = Authorized.user.id;
@@ -189,6 +191,7 @@ const CheckoutModalComponent = ({
     switch (value) {
       case 0:
         // alert('payment set as card', product_id)
+
         handleFlutterPayment({
           callback: async (response) => {
             //console.log(response);
@@ -214,7 +217,6 @@ const CheckoutModalComponent = ({
             // window.location.replace('google.com');
           },
         });
-
         break;
 
       case 1:
@@ -273,6 +275,16 @@ const CheckoutModalComponent = ({
           setErrorDiv(true);
           // alert('hiy');
         }
+        break;
+      case 2:
+        const body = {
+          product_id,
+        };
+        const validate = await axios.get(
+          `${api_url2}/v1/product/verify/product`,
+          body,
+          config
+        );
         break;
     }
   };
@@ -469,7 +481,12 @@ const CheckoutModalComponent = ({
           <div className="details_modal_divv">
             {/* ======================= */}
 
-            <div className="cart_area2_heading">Payment Options</div>
+            <div
+              onClick={setOption(2)}
+              className="cart_area2_heading"
+            >
+              Payment Options
+            </div>
             {/* ===================== */}
             <div className="cart_area2_select">
               <div className="wit_card">
@@ -644,6 +661,7 @@ const CheckoutModalComponent = ({
           removeTransDiv={closeErrorDiv}
           link_btn={true}
           src="/dashboard/wallet"
+          onclick={closeErrorDiv}
         />
         // </div>
       )}
