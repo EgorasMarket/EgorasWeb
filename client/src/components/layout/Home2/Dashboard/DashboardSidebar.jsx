@@ -83,7 +83,12 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const results = productNamesZ.filter((car) =>
     car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  const triggerLogout = (event) => {
+    // setBusinessDuration(event.target.value);
+    // //console.log('okkkk');
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
     Userlastname: "",
@@ -281,19 +286,29 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   </button>
                 </div> */}
                 {searchBar == false ? (
-                  <div className="immmgg">
-                    <img
-                      src={image}
-                      alt=""
-                      className="user_profile"
-                      onClick={toggleAccountNav}
-                    />
-                    {/* <img
+                  <>
+                    <div className="immmgg immmgg_desktop">
+                      <img src={image} alt="" className="user_profile" />
+                      {/* <img
                     src="/img/profile_icon2.svg"
                     alt=""
                     className="user_profile2"
                   /> */}
-                  </div>
+                    </div>
+                    <div className="immmgg immmgg_mobile">
+                      <img
+                        src={image}
+                        alt=""
+                        className="user_profile"
+                        onClick={toggleAccountNav}
+                      />
+                      {/* <img
+                    src="/img/profile_icon2.svg"
+                    alt=""
+                    className="user_profile2"
+                  /> */}
+                    </div>
+                  </>
                 ) : null}
               </div>
               {searchBar == true ? (
@@ -808,7 +823,12 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
       </div>
       {acctNav == false ? null : (
         <div className="account_div_navigatons">
-          <AccountNavigation closeAcctNavDiv={toggleAccountNav} />
+          <AccountNavigation
+            closeAcctNavDiv={toggleAccountNav}
+            LoGout={triggerLogout}
+            UserEmail={Useremail}
+            UserLastName={Userlastname}
+          />
         </div>
       )}
     </div>
