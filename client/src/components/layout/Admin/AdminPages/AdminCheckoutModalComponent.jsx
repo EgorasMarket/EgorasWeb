@@ -1,34 +1,27 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import axios from 'axios';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import verify from '../../../../flutterwave/API/Verify';
-import adminVerify from '../../../../flutterwave/API/AdminVerify';
-import LoadingIcons from 'react-loading-icons';
-import Success_Error_Component from '../../../assets/Success_Error_Component';
+import React, { useEffect, useCallback, useState } from "react";
+import axios from "axios";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import verify from "../../../../flutterwave/API/Verify";
+import adminVerify from "../../../../flutterwave/API/AdminVerify";
+import LoadingIcons from "react-loading-icons";
+import Success_Error_Component from "../../../assets/Success_Error_Component";
 
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from '../../../../actions/types';
-import {
-  useFlutterwave,
-  closePaymentModal,
-} from 'flutterwave-react-v3';
-import FlutterButton from '../../../../flutterwave/FlutterButton';
+} from "../../../../actions/types";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import FlutterButton from "../../../../flutterwave/FlutterButton";
 // import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import PaymentPlan from '../../../../flutterwave/API/PaymentPlan';
+import PaymentPlan from "../../../../flutterwave/API/PaymentPlan";
 // import verifyTransaction from '../../../../flutterwave/API/Verify'
-import { createOrder } from '../../../../actions/shop';
-import { connect } from 'react-redux';
-import initPayment from '../../../../flutterwave/initPayment';
-import initializePayment from '../../../../flutterwave/API/initializePayment';
-import { Redirect } from 'react-router-dom';
+import { createOrder } from "../../../../actions/shop";
+import { connect } from "react-redux";
+import initPayment from "../../../../flutterwave/initPayment";
+import initializePayment from "../../../../flutterwave/API/initializePayment";
+import { Redirect } from "react-router-dom";
 
-const CheckoutModalComponent = ({
-  payload,
-  closeCheckoutOptions,
-  auth,
-}) => {
+const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   //destructure the payload and return values
   const {
     amount,
@@ -52,34 +45,32 @@ const CheckoutModalComponent = ({
     endDate,
   } = payload;
 
-  const [user_id, setUserId] = useState(
-    localStorage.getItem('adminCusId')
-  );
+  const [user_id, setUserId] = useState(localStorage.getItem("adminCusId"));
   const [isloading, setIsLoading] = useState(true);
-  const [email, setEmail] = useState('');
-  const [phone_no, setPhoneNo] = useState('');
+  const [email, setEmail] = useState("");
+  const [phone_no, setPhoneNo] = useState("");
   const [walletBalance, setWalletBalance] = useState(false);
   const [ProcessingDiv, setProcessingDiv] = useState(false);
 
-  const [name, setName] = useState('');
+  const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
-  const [tokenBal, setTokenBal] = useState('0.000');
-  const [assetVal, setAssetVal] = useState('0.000');
+  const [tokenBal, setTokenBal] = useState("0.000");
+  const [assetVal, setAssetVal] = useState("0.000");
   const [tokenSign, setTokenSign] = useState();
   const [errorDiv, setErrorDiv] = useState(false);
   const [successDiv, setSuccessDiv] = useState(false);
-  const [order_id, setOrder_id] = useState('');
-  const [success_msg, setSuccessMsg] = useState('');
-  const [error_msg, setErrorMsg] = useState('');
+  const [order_id, setOrder_id] = useState("");
+  const [success_msg, setSuccessMsg] = useState("");
+  const [error_msg, setErrorMsg] = useState("");
 
-  const [total, setTotal] = useState('');
+  const [total, setTotal] = useState("");
 
   // console.log(phone_no, name, option)
 
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -87,11 +78,7 @@ const CheckoutModalComponent = ({
 
   useEffect(() => {
     axios
-      .get(
-        api_url2 + '/v1/wallet/get/wallet/info/' + user_id,
-        null,
-        config
-      )
+      .get(api_url2 + "/v1/wallet/get/wallet/info/" + user_id, null, config)
       .then((data) => {
         console.log(data.data.data.balance);
         setTokenBal(data.data.data.balance);
@@ -102,17 +89,17 @@ const CheckoutModalComponent = ({
       });
   }, []);
   useEffect(() => {
-    if (payment_type === 'OUTRIGHT') {
+    if (payment_type === "OUTRIGHT") {
       // alert(initial_deposit);
       setTotal(amount);
-    } else if (payment_type === 'INSTALLMENT') {
+    } else if (payment_type === "INSTALLMENT") {
       setTotal(initial_deposit);
     }
     // setIsLoading2(true);
     axios
-      .get(api_url2 + '/v1/wallet/get/all/tokens', null, config)
+      .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
       .then((data) => {
-        console.log(data.data.data, 'powerful');
+        console.log(data.data.data, "powerful");
         setTokenSign(data.data.data[0].tokenSymbol);
       })
       .catch((err) => {
@@ -122,9 +109,9 @@ const CheckoutModalComponent = ({
 
   useEffect(() => {
     axios
-      .get(api_url2 + '/v1/user/info/byId/' + user_id, null, config)
+      .get(api_url2 + "/v1/user/info/byId/" + user_id, null, config)
       .then((data) => {
-        console.log(data.data, 'Admin cus info');
+        console.log(data.data, "Admin cus info");
         setEmail(data.data.user.email);
         setPhoneNo(data.data.user.phoneNumber);
         setName(data.data.user.fullname);
@@ -142,13 +129,13 @@ const CheckoutModalComponent = ({
   }, []);
 
   const flutterConfig = {
-    public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
-    tx_ref: 'EGC-' + Date.now(),
+    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
+    tx_ref: "EGC-" + Date.now(),
     amount: 1,
 
-    currency: 'NGN',
+    currency: "NGN",
     // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
-    payment_options: 'card',
+    payment_options: "card",
     // payment_plan:63558,
     customer: {
       phonenumber: phone_no,
@@ -157,12 +144,12 @@ const CheckoutModalComponent = ({
     },
     meta: {
       customer_id: user_id,
-      info: 'this is an addtional information',
+      info: "this is an addtional information",
     },
     customizations: {
-      title: 'Payment from Egoras savings',
-      description: 'Payment for items in cart',
-      logo: 'https://egoras.com/img/egoras-logo.svg',
+      title: "Payment from Egoras savings",
+      description: "Payment for items in cart",
+      logo: "https://egoras.com/img/egoras-logo.svg",
     },
   };
   const handleFlutterPayment = useFlutterwave(flutterConfig);
@@ -200,10 +187,7 @@ const CheckoutModalComponent = ({
                 endDate
               );
 
-              console.log(
-                verification.data.data.data.amount,
-                'from me  '
-              );
+              console.log(verification.data.data.data.amount, "from me  ");
               closePaymentModal();
             } catch (error) {
               console.log(error.response);
@@ -235,15 +219,12 @@ const CheckoutModalComponent = ({
           console.log(orderBody);
           const res = await axios
             .post(
-              api_url2 + '/v1/order/add/order/crypto/admin',
+              api_url2 + "/v1/order/add/order/crypto/admin",
               orderBody,
               config
             )
             .then((response) => {
-              console.log(
-                response,
-                ' response after order endpoint is called'
-              );
+              console.log(response, " response after order endpoint is called");
 
               setProcessingDiv(false);
               setSuccessMsg(response.data.message);
@@ -265,11 +246,11 @@ const CheckoutModalComponent = ({
           //
         } else {
           console.log(
-            'This user dont have enough balance to carry this transaction '
+            "This user dont have enough balance to carry this transaction "
           );
           setProcessingDiv(false);
           setSuccessDiv(false);
-          setErrorMsg('Insufficient funds');
+          setErrorMsg("Insufficient funds");
 
           // setErrorMsg("An error")
           setErrorDiv(true);
@@ -277,7 +258,9 @@ const CheckoutModalComponent = ({
         break;
     }
   };
-
+  const closeErrorDiv = () => {
+    setErrorDiv(false);
+  };
   return (
     <>
       <div className="detailsModal">
@@ -323,18 +306,14 @@ const CheckoutModalComponent = ({
           </div> */}
 
           <div className="detailsModalSection1_area2">
-            <div className="detailsModalSection1-area2_title">
-              Review Order
-            </div>
+            <div className="detailsModalSection1-area2_title">Review Order</div>
             <div className="review_order_div">Delivery 1 of 1</div>
             <div>
               <div class="save_prod_deta">
                 <table className="save_item_table">
                   <thead className="assets-category-titles">
                     <tr className="assets">
-                      <th className="assets-category-titles-heading1">
-                        Item
-                      </th>
+                      <th className="assets-category-titles-heading1">Item</th>
                       <th className="assets-category-titles-heading1">
                         Item Details
                       </th>
@@ -354,7 +333,7 @@ const CheckoutModalComponent = ({
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
-                    {' '}
+                    {" "}
                     <tr className="assets-category-row">
                       <td className="save_item_data">
                         <div className="assets-data height_data">
@@ -396,9 +375,7 @@ const CheckoutModalComponent = ({
                                 </div>
                               </td> */}
                       <td className="save_item_data1b">
-                        <div className="assets-data-name_last">
-                          ₦{amount}
-                        </div>
+                        <div className="assets-data-name_last">₦{amount}</div>
                       </td>
                     </tr>
                   </tbody>
@@ -423,13 +400,13 @@ const CheckoutModalComponent = ({
             </div> */}
             <div className="cart_area2_select">
               <div className="wit_card">
-                Pay via card{' '}
+                Pay via card{" "}
                 <input
                   type="radio"
                   name="payment"
                   id=""
                   className="checkBox"
-                  style={{ display: 'block', cursor: 'pointer' }}
+                  style={{ display: "block", cursor: "pointer" }}
                   onClick={() => {
                     setOption(0);
                     setWalletBalance(false);
@@ -449,13 +426,13 @@ const CheckoutModalComponent = ({
 
             <div className="cart_area2_select">
               <div className="wit_card">
-                Pay via wallet{' '}
+                Pay via wallet{" "}
                 <input
                   type="radio"
                   name="payment"
                   id=""
                   className="checkBox"
-                  style={{ display: 'block', cursor: 'pointer' }}
+                  style={{ display: "block", cursor: "pointer" }}
                   onClick={() => {
                     setOption(1);
                     setWalletBalance(true);
@@ -464,8 +441,7 @@ const CheckoutModalComponent = ({
               </div>
               {walletBalance == true ? (
                 <div className="wallet_bal_acct">
-                  Wallet Bal: {parseInt(tokenBal).toFixed(3)}{' '}
-                  {tokenSign}
+                  Wallet Bal: {parseInt(tokenBal).toFixed(3)} {tokenSign}
                   {/* Wallet Bal: {hardNumb} {tokenSign} */}
                 </div>
               ) : null}
@@ -499,36 +475,32 @@ const CheckoutModalComponent = ({
               . No minimum or maximum order.
               <br />
               . Make sure your card is still valid.
-              <br />. Ensure sufficient balance to cover this
-              transaction.
+              <br />. Ensure sufficient balance to cover this transaction.
             </div>
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
-              Sub Total:{' '}
-              <span className="sub_total_div_span">₦{amount}</span>
+              Sub Total: <span className="sub_total_div_span">₦{amount}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
-              Delivery Fee:{' '}
-              <span className="sub_total_div_span">₦0</span>
+              Delivery Fee: <span className="sub_total_div_span">₦0</span>
             </div>
             {/* ========== */}
             {/* ========== */}
             <div className="secure_transac_text">
-              {' '}
+              {" "}
               Transactions are 100% Safe and Secure
             </div>
             {/* ========== */}
             {/* ========== */}
             <div className="transac_secure_div">
-              Total{' '}
-              <span className="sub_total_div_span">₦{amount}</span>
+              Total <span className="sub_total_div_span">₦{amount}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -562,9 +534,9 @@ const CheckoutModalComponent = ({
             errorMsgDiv={errorDiv}
             link_btn={true}
             src={
-              payment_type === 'OUTRIGHT'
-                ? '/dashboard/savings'
-                : '/dashboard/products'
+              payment_type === "OUTRIGHT"
+                ? "/dashboard/savings"
+                : "/dashboard/products"
             }
           />
         </div>
@@ -577,11 +549,12 @@ const CheckoutModalComponent = ({
             btn_txt="Fund Wallet"
             msg={error_msg}
             errorMsgDiv={errorDiv}
+            removeTransDiv={closeErrorDiv}
             link_btn={true}
             src="/dashboard/wallet"
-            onclick={() => {
-              setErrorDiv(false);
-            }}
+            // onclick={() => {
+            //   setErrorDiv(false);
+            // }}
           />
         </div>
       )}

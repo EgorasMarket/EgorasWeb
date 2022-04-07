@@ -123,7 +123,7 @@ function ItemDetailsPage({ auth, match }) {
     }
   }, []);
 
-  useEffect(() => {
+  useEffect(async () => {
     console.log(auth, auth.isAuthenticated, auth.user);
     const body = JSON.stringify({
       product_id,
@@ -136,7 +136,7 @@ function ItemDetailsPage({ auth, match }) {
       //console.log('rrrrr');
     }
 
-    axios
+    await axios
       .post(api_url2 + '/v1/product/retrieve/specific', body, config)
       .then((data) => {
         const {
