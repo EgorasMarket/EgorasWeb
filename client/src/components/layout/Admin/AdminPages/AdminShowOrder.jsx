@@ -33,18 +33,19 @@ const AdminShowOrder = () => {
   }, []);
 
   const fulfilOrder = async (order_id) => {
-    await axios
-      .post(api_url2 + '/v1/order/fulfil/' + order_id, null, config)
-      .then((response) => {
-        if (response.data.success === true) {
-          // alert('successfully updated');
-        } else {
-          // alert('failure');
-        }
-      })
-      .catch((err) => {
-        console.log(err.message); // "oh, no!"
-      });
+    alert(order_id);
+    // await axios
+    //   .post(api_url2 + '/v1/order/fulfil/' + order_id, null, config)
+    //   .then((response) => {
+    //     if (response.data.success === true) {
+    //       // alert('successfully updated');
+    //     } else {
+    //       // alert('failure');
+    //     }
+    //   })
+    //   .catch((err) => {
+    //     console.log(err.message); // "oh, no!"
+    //   });
   };
 
   return (
