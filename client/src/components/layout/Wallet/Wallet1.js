@@ -216,6 +216,8 @@ const Wallet1 = ({ auth, createWallet, depositToken }) => {
   }, 5000);
   // const hide_error = setTimeout(setAlert(""), 5000);
   const openDepositDiv = async (tokenName, tokenSymbol) => {
+
+    let transType = 1
     setActiveBg("deposit_btn");
 console.log(accountExists);
     if (accountExists) {
@@ -226,7 +228,7 @@ console.log(accountExists);
       console.log("not accountExists");
       setShowDeposit(true);
       // console.log(userId);
-      let res3 = await createWallet(userId, tokenSymbol);
+      let res3 = await createWallet(userId, tokenSymbol, transType);
       // console.log(res3);
       setIsLoading(true);
 
