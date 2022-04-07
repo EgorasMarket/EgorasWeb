@@ -41,7 +41,9 @@ const SignupComp = ({ adminAddCustomer }) => {
 
   const submitData = async (e) => {
     // //console.log('ggg');
-    if (firstname === '' || lastname === '' || phoneNumber === '' || BVN === '' || InfoReason === '') {
+    if (firstname === '' || lastname === '' || phoneNumber === ''
+    //  || BVN === '' 
+     || InfoReason === '') {
       //console.log(fullname, email, password, confirmpassword, BVN, phoneNumber, InfoReason);
       setAlert('All supply all fields.');
       setAlertType('danger')
@@ -155,6 +157,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                   format="yyyy-MM-dd"
                 />
               </div>
+              <div className="weak_pass_div text-muted">* Optional</div>
             </div>
             <div className="signup_input_field1_cont">
               <span className="input_title">
@@ -168,7 +171,7 @@ const SignupComp = ({ adminAddCustomer }) => {
                 onChange={onChange}
                 placeHolder="***********"
               />
-              {/* <div className="weak_pass_div text-muted">* Optional</div> */}
+              <div className="weak_pass_div text-muted">* Optional</div>
             </div>
             {/* <div className="signup_input_field1_cont">
               <span className="input_title">Password</span>
