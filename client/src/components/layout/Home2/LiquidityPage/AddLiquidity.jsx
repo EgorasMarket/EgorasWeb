@@ -3,6 +3,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { TokenModal } from "./TokenModal/TokenModal";
+import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
+import CloseIcon from "@mui/icons-material/Close";
 import data from "../../MockData";
 // ================
 // ================
@@ -10,7 +12,7 @@ import data from "../../MockData";
 
 import { ConnectWallet } from "../../../auth/ConnectWallet";
 import "./AddLiquidity.css";
-const AddLiquidity = ({ match }) => {
+const AddLiquidity = ({ match, closeModal }) => {
   const [modal, setModal] = useState(false);
   const [modal2, setModal2] = useState(false);
   const [tokenBtn, setTokenBtn] = useState(false);
@@ -19,6 +21,7 @@ const AddLiquidity = ({ match }) => {
   const [tokenName, setTokenName] = useState(0);
   const [base, setBase] = useState("");
   const [tokenName2, setTokenName2] = useState(0);
+  const [inputToggle, setInputToggle] = useState(false);
 
   const [inputVal, setInputVal] = useState();
   // const [inputVal, setInputVal] = useState();
@@ -42,6 +45,13 @@ const AddLiquidity = ({ match }) => {
   const [connected, setConnected] = useState(false);
   const onChange = (e) => {
     setInputVal(e.target.value);
+  };
+  const toggleInput = () => {
+    if (inputToggle == true) {
+      setInputToggle(false);
+    } else if (inputToggle == false) {
+      setInputToggle(true);
+    }
   };
   const TokenData = (e) => {
     let currentTarget = e.currentTarget.id;
@@ -96,6 +106,7 @@ const AddLiquidity = ({ match }) => {
           <div className="liquidity_area">
             <div className="liquidity_cont">
               <div className="liquidity_cont_head">
+                <CloseIcon className="settings_icon" onClick={closeModal} />
                 <div className="liquidity_cont_head_text">Add Liquidity</div>
                 <SettingsIcon className="settings_icon" />
               </div>
@@ -110,76 +121,153 @@ const AddLiquidity = ({ match }) => {
                       redeemed at any time.
                     </div>
                   </div>
-                  <div className="input_amnt_layer">
-                    <div className="amnt_input">
-                      <input
-                        type="number"
-                        name="number"
-                        id="number"
-                        onChange={onChange}
-                        placeholder="000"
-                        className="amnt_input_field"
-                        autocomplete="off"
-                        value={tokenBtn == true ? inputVal : null}
-                      />
-
-                      <button className="display_tokens_drop">
-                        <img
-                          src={data.base[0].img}
-                          alt=""
-                          className="asset_icon"
+                  {inputToggle == false ? (
+                    <div className="input_amnt_layer">
+                      <div className="amnt_input">
+                        <input
+                          type="number"
+                          name="number"
+                          id="number"
+                          onChange={onChange}
+                          placeholder="000"
+                          className="amnt_input_field"
+                          autocomplete="off"
+                          value={tokenBtn == true ? inputVal : null}
                         />
-                        {data.base[0].symbol}
-                        <ArrowDropDownIcon className="drop_down_icon" />
-                      </button>
-                    </div>
-                  </div>
-                  {/* <div className="plus_icon_layer"> */}
-                  <AddIcon className="plus_icon_layer" />
 
-                  {/* </div> */}
-                  <div className="input_amnt_layer">
-                    <div className="amnt_input">
-                      <input
-                        type="number"
-                        name="number"
-                        id="number"
-                        placeholder="000"
-                        className="amnt_input_field"
-                        autocomplete="off"
-                        // value={inputVal * 200}
-                        value={tokenBtn2 == true ? inputVal * 200 : inputVal}
-                      />
-                      {tokenBtn2 == false ? (
-                        <button
-                          className="display_tokens_drop display_tokens_drop_not_select "
-                          onClick={toggleModal2}
-                        >
-                          Select a token{" "}
+                        <button className="display_tokens_drop">
+                          <img
+                            src={data.base[0].img}
+                            alt=""
+                            className="asset_icon"
+                          />
+                          {data.base[0].symbol}
                           <ArrowDropDownIcon className="drop_down_icon" />
                         </button>
-                      ) : (
-                        <>
-                          {data.assets.map((token) =>
-                            tokenName2 == token.id ? (
-                              <button
-                                className="display_tokens_drop"
-                                onClick={toggleModal2}
-                              >
-                                <img
-                                  src={token.img}
-                                  alt=""
-                                  className="asset_icon"
-                                />
-                                {token.symbol}
-                                <ArrowDropDownIcon className="drop_down_icon" />
-                              </button>
-                            ) : null
-                          )}
-                        </>
-                      )}
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="input_amnt_layer">
+                      <div className="amnt_input">
+                        <input
+                          type="number"
+                          name="number"
+                          id="number"
+                          placeholder="000"
+                          className="amnt_input_field"
+                          autocomplete="off"
+                          // value={inputVal * 200}
+                          value={tokenBtn2 == true ? inputVal * 200 : inputVal}
+                        />
+                        {tokenBtn2 == false ? (
+                          <button
+                            className="display_tokens_drop display_tokens_drop_not_select "
+                            onClick={toggleModal2}
+                          >
+                            Select a token{" "}
+                            <ArrowDropDownIcon className="drop_down_icon" />
+                          </button>
+                        ) : (
+                          <>
+                            {data.assets.map((token) =>
+                              tokenName2 == token.id ? (
+                                <button
+                                  className="display_tokens_drop"
+                                  onClick={toggleModal2}
+                                >
+                                  <img
+                                    src={token.img}
+                                    alt=""
+                                    className="asset_icon"
+                                  />
+                                  {token.symbol}
+                                  <ArrowDropDownIcon className="drop_down_icon" />
+                                </button>
+                              ) : null
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  )}
+
+                  {/* <div className="plus_icon_layer"> */}
+                  <SwapVerticalCircleIcon
+                    className="plus_icon_layer"
+                    onClick={toggleInput}
+                  />
+                  {inputToggle == false ? (
+                    <div className="input_amnt_layer">
+                      <div className="amnt_input">
+                        <input
+                          type="number"
+                          name="number"
+                          id="number"
+                          placeholder="000"
+                          className="amnt_input_field"
+                          autocomplete="off"
+                          // value={inputVal * 200}
+                          value={tokenBtn2 == true ? inputVal * 200 : inputVal}
+                        />
+                        {tokenBtn2 == false ? (
+                          <button
+                            className="display_tokens_drop display_tokens_drop_not_select "
+                            onClick={toggleModal2}
+                          >
+                            Select a token{" "}
+                            <ArrowDropDownIcon className="drop_down_icon" />
+                          </button>
+                        ) : (
+                          <>
+                            {data.assets.map((token) =>
+                              tokenName2 == token.id ? (
+                                <button
+                                  className="display_tokens_drop"
+                                  onClick={toggleModal2}
+                                >
+                                  <img
+                                    src={token.img}
+                                    alt=""
+                                    className="asset_icon"
+                                  />
+                                  {token.symbol}
+                                  <ArrowDropDownIcon className="drop_down_icon" />
+                                </button>
+                              ) : null
+                            )}
+                          </>
+                        )}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="input_amnt_layer">
+                      <div className="amnt_input">
+                        <input
+                          type="number"
+                          name="number"
+                          id="number"
+                          onChange={onChange}
+                          placeholder="000"
+                          className="amnt_input_field"
+                          autocomplete="off"
+                          value={tokenBtn == true ? inputVal : null}
+                        />
+
+                        <button className="display_tokens_drop">
+                          <img
+                            src={data.base[0].img}
+                            alt=""
+                            className="asset_icon"
+                          />
+                          {data.base[0].symbol}
+                          <ArrowDropDownIcon className="drop_down_icon" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
+
+                  {/* </div> */}
+
                   <div className="connect_btn_div">
                     <ConnectWallet
                       isHome="false"
@@ -196,53 +284,6 @@ const AddLiquidity = ({ match }) => {
           </div>
         </div>
       </section>
-
-      {/* {allDatas.map((data) => (
-        <>
-          {tokenData == data.transaction_hash ? (
-            <div className="trans_div">
-              <div className="tranPop_div">
-                <div className="tranPopHeading">
-                  Deposit Details{" "}
-                  <span className="tranPopOutButton">
-                    <CloseIcon
-                      className="closeTranPopDiv"
-                      onClick={closeTranPop}
-                    />
-                  </span>
-                </div>
-                <div className="tranPop_div_cont1">
-                  {" "}
-                  <div className="deposited_icon">
-                    <ArrowDownwardIcon className="arrow_down_deposit_icon" />
-                  </div>
-                  <span className="transPopData">Deposited</span>
-                </div>
-                <div className="tranPop_div_cont1">
-                  Type{" "}
-                  <span className="transPopData"> {data.transaction_type}</span>{" "}
-                </div>
-                <div className="tranPop_div_cont1">
-                  Amount{" "}
-                  <span className="transPopData">
-                    ₦{numberWithCommas(parseInt(data.amount).toFixed(2))}
-                  </span>{" "}
-                </div>
-                <div className="tranPop_div_cont1">
-                  Channel <span className="transPopData">{data.channel}</span>
-                </div>
-                <div className="tranPop_div_cont1">
-                  Status{" "}
-                  <span className="transPopData">
-                    <CircleIcon className="complete_circle" />
-                    Completed
-                  </span>
-                </div>
-              </div>
-            </div>
-          ) : null}
-        </>
-      ))} */}
       {modal == true ? (
         <TokenModal
           toggleTokenModal={toggleModal}

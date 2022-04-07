@@ -178,7 +178,7 @@ export const ConnectWallet = (props) => {
   }, []);
 
   return (
-    <div>
+    <div style={{ width: "100%" }}>
       <Modal
         isOpen={modal}
         toggle={toggle}
