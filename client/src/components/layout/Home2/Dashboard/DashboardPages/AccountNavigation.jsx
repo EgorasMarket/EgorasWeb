@@ -8,7 +8,12 @@ import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import NotificationsActiveIcon from "@mui/icons-material/NotificationsActive";
 import SecurityIcon from "@mui/icons-material/Security";
 import "../DashboardStyles/account_navigation_styles.css";
-export const AccountNavigation = ({ closeAcctNavDiv }) => {
+export const AccountNavigation = ({
+  closeAcctNavDiv,
+  LoGout,
+  UserEmail,
+  UserLastName,
+}) => {
   return (
     <div className="account_nav_page">
       <section className="account_navigation_section">
@@ -36,10 +41,8 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
           {/* ============ */}
           <div className="acct_nav_body">
             <div className="account_nav_area1">
-              <div className="accnt_nav_profile_Name">Samuel</div>
-              <div className="accnt_nav_profile_email">
-                samuelify225@gmail.com
-              </div>
+              <div className="accnt_nav_profile_Name">{UserLastName}</div>
+              <div className="accnt_nav_profile_email">{UserEmail}</div>
               {/* <div className="accnt_profile_acct_num"></div> */}
             </div>
             {/* ============ */}
@@ -114,7 +117,7 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <a
+            {/* <a
               className="account_nav_other_areas"
               href="dash_account_param"
               // onClick={closeAcctNavDiv}
@@ -135,7 +138,7 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
-            <a
+            {/* <a
               className="account_nav_other_areas"
               href="dash_account_param"
               onClick={closeAcctNavDiv}
@@ -149,7 +152,7 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
               <span className="other_area_btn">
                 <ArrowForwardIosIcon className="arrow_nav_link_btn" />
               </span>
-            </a>
+            </a> */}
             {/* ============ */}
             {/* ============ */}
             {/* ============ */}
@@ -157,7 +160,9 @@ export const AccountNavigation = ({ closeAcctNavDiv }) => {
             {/* ============ */}
             {/* ============ */}
             <div className="acct_nav_log_out_btn_div">
-              <button className="acct_nav_log_out_btn">Log Out</button>
+              <button className="acct_nav_log_out_btn" onClick={LoGout}>
+                Log Out
+              </button>
             </div>
           </div>
         </div>
