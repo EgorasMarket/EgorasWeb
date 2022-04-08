@@ -5,6 +5,10 @@ import verify from "../../../../flutterwave/API/Verify";
 import adminVerify from "../../../../flutterwave/API/AdminVerify";
 import LoadingIcons from "react-loading-icons";
 import Success_Error_Component from "../../../assets/Success_Error_Component";
+import InputLabel from "@mui/material/InputLabel";
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
 
 import {
   PRODUCT_LOADED,
@@ -51,6 +55,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [phone_no, setPhoneNo] = useState("");
   const [walletBalance, setWalletBalance] = useState(false);
   const [ProcessingDiv, setProcessingDiv] = useState(false);
+  const [branch, setBranch] = useState("");
 
   const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
@@ -63,6 +68,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const [order_id, setOrder_id] = useState("");
   const [success_msg, setSuccessMsg] = useState("");
   const [error_msg, setErrorMsg] = useState("");
+  const [adminFullname, setAdminFullname] = useState("");
 
   const [total, setTotal] = useState("");
 
@@ -72,6 +78,10 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     headers: {
       "Content-Type": "application/json",
     },
+  };
+
+  const onChange = (e) => {
+    setBranch(e.target.value);
   };
 
   // const [addressName, setAddressName] = useState("")
@@ -261,6 +271,358 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   const closeErrorDiv = () => {
     setErrorDiv(false);
   };
+
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, "0");
+  var mm = String(today.getMonth() + 1).padStart(2, "0"); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = mm + "/" + dd + "/" + yyyy;
+
+  var vat = amount * 0.075;
+  var totals = parseInt(vat) + parseInt(amount);
+
+  var min = 100000;
+  var max = 900000;
+  var invoiceNo = Math.floor(Math.random() * min) + max;
+
+  useEffect(() => {
+    if (auth) {
+      setAdminFullname(auth.user.user.fullname);
+    }
+  }, [auth]);
+  // var invoiceNo = Math.random().toString(36).slice(2);
+
+  const triggerPrint = (e) => {
+    // let today = new Date().toLocaleDateString();
+
+    // const getName = tag.split(" ");
+    // console.log(getName);
+    // tag.replaceAll(' ', '')
+    // var divContents = document.getElementById("mainContent").innerHTML;
+
+    var printWindow = window.open("", "", "height=1200,width=1200");
+    printWindow.document.write(
+      "<html><head><style>.small-text{font-size: 12px;}table.GeneratedTable {width: 100%;background-color: #ffffff; border-collapse: collapse; border-width: 1px; border-color: #000000; border-style: solid; color: #000000;}table.GeneratedTable td, table.GeneratedTable th { border-width: 1px; border-color: #000000; border-style: solid;}.center-text{text-align: center;} .center-text h4{margin: 4px;}.set-flex {display: flex; justify-content: space-between;}.w-50{width: 45%;margin:5px;}.bbt{border-bottom: 1px solid black;}</style><title>Item Receipt</title></head>"
+    );
+    printWindow.document.write(
+      '<body style="margin-top: 15px;margin-bottom: 45px;height: min-content;font-family: roboto;margin-right: 25px;  border-bottom: 1px solid black;font-weight:400;">'
+    );
+    // printWindow.document.write('<h2 style="margin-bottom: 5px">Companys Copy:</h2>');
+    printWindow.document.write(
+      '<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">'
+    );
+    printWindow.document.write('<div class="small-text">');
+    printWindow.document.write('<div class="set-flex">');
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write(
+      '<img height="70" src="https://s2.coinmarketcap.com/static/img/coins/200x200/15368.png">'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>ADDRESS: </span><span>' +
+        branch +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>PHONE NUMBER: </span><span>09123183924</span></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>EMAIL ADDRESS: </span><span>cs@egoras.com</span></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>COMPANY WEBSITE: </span><span>https://www.egoras.com</span></div>                   '
+    );
+    printWindow.document.write("</div>");
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write(
+      '<div class="small-text"><h2>INVOICE/SALES RECEIPT</h2></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>INVOICE NO: </span><span>' +
+        invoiceNo +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>DATE: </span><span>' +
+        today +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>SALES REP: </span><span>' +
+        adminFullname +
+        "</span></div>"
+    );
+    printWindow.document.write("<br>");
+    printWindow.document.write(
+      '<div class="small-text"><span>SOLD TO:</span></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>NAME: </span><span>' +
+        name +
+        "</span></div>"
+    );
+    // printWindow.document.write(
+    //   '<div class="small-text"><span>ADDRESS: </span><span>No 23B Adamawu Lane Off Aba Road PH</span></div>'
+    // );
+    printWindow.document.write(
+      '<div class="small-text"><span>PHONE NUMBER: </span><span>' +
+        phone_no +
+        "</span></div>"
+    );
+    // printWindow.document.write(
+    //   '<div class="small-text"><span>PRODUCT ID: </span><span>EG/AGP/SR/00001</span></div>'
+    // );
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write('<div class="small-text">');
+    printWindow.document.write(
+      '<table style="width: 100%;" class="GeneratedTable">'
+    );
+    printWindow.document.write("<tbody>");
+    printWindow.document.write('<tr style="height: 23px;">');
+    printWindow.document.write(
+      '<td style="width: 52.5547px;height: 23px;">QTY</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 100.445px; height: 23px;">ITEM</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 465px; height: 23px;">DESCRIPTION</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 73px; height: 23px;">UNIT PRICE</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 71px; height: 23px;">AMOUNT</td>'
+    );
+    printWindow.document.write("</tr>");
+    printWindow.document.write('<tr style="height: 80px;">');
+    printWindow.document.write(
+      '<td style="width: 52.5547px; height: 80px;">1</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 100.445px; height: 80px;">' + product_name + "</td>"
+    );
+    printWindow.document.write(
+      '<td style="width: 465px; height: 80px;">' + product_name + "</td>"
+    );
+    printWindow.document.write(
+      '<td style="width: 73px; height: 80px;">₦' + amount + "</td>"
+    );
+    printWindow.document.write(
+      '<td style="width: 71px; height: 80px;">₦' + amount + "</td>"
+    );
+    printWindow.document.write("</tr>");
+    printWindow.document.write('<tr style="height: 22px;">');
+    printWindow.document.write(
+      '<td style="width: 52.5547px; height: 22px;"></td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 100.445px; height: 22px;"></td>'
+    );
+    printWindow.document.write('<td style="width: 465px; height: 22px;"></td>');
+    printWindow.document.write(
+      '<td style="width: 73px; height: 22px;">Total</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 71px; height: 22px;">₦' + amount + "</td>"
+    );
+    printWindow.document.write("</tr>");
+    printWindow.document.write("</tbody>");
+    printWindow.document.write("</table>");
+    printWindow.document.write('<div class="small-text">');
+    printWindow.document.write('<div class="set-flex">');
+    printWindow.document.write('<div class="w-50"></div>');
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write('<div class="set-flex">');
+    printWindow.document.write('<div class="w-50"></div>');
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write('<div class="bbt set-flex">');
+    printWindow.document.write(
+      "<span>Subtotal: </span><span>₦" + amount + "</span>"
+    );
+    printWindow.document.write("</div>");
+    printWindow.document.write(
+      '<div class="bbt set-flex"><span>VAT (7.5%): </span><span>' +
+        vat +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="bbt set-flex"><span>TOTAL: </span><span>₦' +
+        totals +
+        "</span></div>"
+    );
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write(
+      '<div class="center-text"><h4>THANKS FOR YOUR PATRONAGE</h4></div>'
+    );
+    printWindow.document.write("</div>");
+    // printWindow.document.write('<h2 style="margin-bottom: 5px; margin-top: 15px">Customers Copy:</h2>');
+    printWindow.document.write(
+      '<div style="border: 1px solid black;padding: 8px;margin-top: 15px;">'
+    );
+    printWindow.document.write('<div class="small-text">');
+    printWindow.document.write('<div class="set-flex">');
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write(
+      '<img height="70" src="https://s2.coinmarketcap.com/static/img/coins/200x200/15368.png">'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>ADDRESS: </span><span>' +
+        branch +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>PHONE NUMBER: </span><span>09123183924</span></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>EMAIL ADDRESS: </span><span>cs@egoras.com</span></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>COMPANY WEBSITE: </span><span>https://www.egoras.com</span></div>'
+    );
+    printWindow.document.write("</div>");
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write(
+      '<div class="small-text"><h2>INVOICE/SALES RECEIPT</h2></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>INVOICE NO: </span><span>' +
+        invoiceNo +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>DATE: </span><span>' +
+        today +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>SALES REP: </span><span>' +
+        adminFullname +
+        "</span></div>"
+    );
+    printWindow.document.write("<br>");
+    printWindow.document.write(
+      '<div class="small-text"><span>SOLD TO:</span></div>'
+    );
+    printWindow.document.write(
+      '<div class="small-text"><span>NAME: </span><span>' +
+        name +
+        "</span></div>"
+    );
+    // printWindow.document.write(
+    //   '<div class="small-text"><span>ADDRESS: </span><span>No 23B Adamawu Lane Off Aba Road PH</span></div>'
+    // );
+    printWindow.document.write(
+      '<div class="small-text"><span>PHONE NUMBER: </span><span>' +
+        phone_no +
+        "</span></div>"
+    );
+    // printWindow.document.write(
+    //   '<div class="small-text"><span>PRODUCT ID: </span><span>EG/AGP/SR/00001</span></div>'
+    // );
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write('<div class="small-text">');
+    printWindow.document.write(
+      '<table style="width: 100%;" class="GeneratedTable">'
+    );
+    printWindow.document.write("<tbody>");
+    printWindow.document.write('<tr style="height: 23px;">');
+    printWindow.document.write(
+      '<td style="width: 52.5547px;height: 23px;">QTY</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 100.445px; height: 23px;">ITEM</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 465px; height: 23px;">DESCRIPTION</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 73px; height: 23px;">UNIT PRICE</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 71px; height: 23px;">AMOUNT</td>'
+    );
+    printWindow.document.write("</tr>");
+    printWindow.document.write('<tr style="height: 80px;">');
+    printWindow.document.write(
+      '<td style="width: 52.5547px; height: 80px;">1</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 100.445px; height: 80px;">' + product_name + "</td>"
+    );
+    printWindow.document.write(
+      '<td style="width: 465px; height: 80px;">' + product_name + "</td>"
+    );
+    printWindow.document.write(
+      '<td style="width: 73px; height: 80px;">₦' + amount + "</td>"
+    );
+    printWindow.document.write(
+      '<td style="width: 71px; height: 80px;">₦' + amount + "</td>"
+    );
+    printWindow.document.write("</tr>");
+    printWindow.document.write('<tr style="height: 22px;">');
+    printWindow.document.write(
+      '<td style="width: 52.5547px; height: 22px;"></td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 100.445px; height: 22px;"></td>'
+    );
+    printWindow.document.write('<td style="width: 465px; height: 22px;"></td>');
+    printWindow.document.write(
+      '<td style="width: 73px; height: 22px;">Total</td>'
+    );
+    printWindow.document.write(
+      '<td style="width: 71px; height: 22px;">₦' + amount + "</td>"
+    );
+    printWindow.document.write("</tr>");
+    printWindow.document.write("</tbody>");
+    printWindow.document.write("</table>");
+    printWindow.document.write('<div class="small-text">');
+    printWindow.document.write('<div class="set-flex">');
+    printWindow.document.write('<div class="w-50"></div>');
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write('<div class="set-flex">');
+    printWindow.document.write('<div class="w-50"></div>');
+    printWindow.document.write('<div class="w-50">');
+    printWindow.document.write('<div class="bbt set-flex">');
+    printWindow.document.write(
+      "<span>Subtotal: </span><span>₦" + amount + "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="bbt set-flex"><span>VAT (7.5%): </span><span>' +
+        vat +
+        "</span></div>"
+    );
+    printWindow.document.write(
+      '<div class="bbt set-flex"><span>TOTAL: </span><span>₦' +
+        totals +
+        "</span></div>"
+    );
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write('<div class="center-text">');
+    printWindow.document.write("<h4>THANKS FOR YOUR PATRONAGE</h4>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</div>");
+    printWindow.document.write("</body>");
+    printWindow.document.write("</html>");
+    printWindow.document.close();
+    printWindow.print();
+  };
+
   return (
     <>
       <div className="detailsModal">
@@ -308,6 +670,33 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           <div className="detailsModalSection1_area2">
             <div className="detailsModalSection1-area2_title">Review Order</div>
             <div className="review_order_div">Delivery 1 of 1</div>
+            {/* <div className="signup_input_field1_cont">
+                    <span className="input_title">Role</span>
+                    <div className="toggle_body_area1_cont1_input">
+                      <div className="name_input1a lar_widthh">
+                        <FormControl fullWidth>
+                          <InputLabel id="demo-simple-select-label">
+                            Select Role
+                          </InputLabel>
+                          <Select
+                            labelId="demo-simple-select-label"
+                            id="demo-simple-select"
+                            name="branch"
+                            value={branch}
+                            label="branch"
+                            onChange={onChange}
+                            // onSelect={onChange}
+                          >
+                            <MenuItem value={'kilometer 7 Ikwerre Rd, Rumueme, Agip, Port Harcourt'}>Agip</MenuItem>
+                            <MenuItem value={'No 282 Aba Express Way, Port Harcourt'}>RUMUKWRUSHI</MenuItem>
+                          
+                            
+                          </Select>
+                        </FormControl>
+                      </div>
+                    </div>
+                  </div>
+            <button className="checkout_btn1 py-1 px-2 m-0" onClick={triggerPrint}>Print</button> */}
             <div>
               <div class="save_prod_deta">
                 <table className="save_item_table">
@@ -489,6 +878,13 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
+              VAT: <span className="sub_total_div_span">₦{vat}</span>
+            </div>
+            {/* ========== */}
+            {/* ========== */}
+            {/* ========== */}
+            {/* ========== */}
+            <div className="sub_total_div">
               Delivery Fee: <span className="sub_total_div_span">₦0</span>
             </div>
             {/* ========== */}
@@ -500,7 +896,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             {/* ========== */}
             {/* ========== */}
             <div className="transac_secure_div">
-              Total <span className="sub_total_div_span">₦{amount}</span>
+              Total <span className="sub_total_div_span">₦{totals}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
