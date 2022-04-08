@@ -47,7 +47,13 @@ const Footer = () => {
     if (FooterHide === "/dashboard") {
       document.getElementById("FooterId").style.display = "none";
     }
-    if (FooterHide === "/super_admin/signup") {
+ 
+    if (FooterHide === "/super_admin/user_wallet"
+    ) {
+      document.getElementById("FooterId").style.display = "none";
+    }
+    if (FooterHide === "/dashboard/user_wallet"
+    ) {
       document.getElementById("FooterId").style.display = "none";
     }
     if (FooterHide === "/super_admin/login") {

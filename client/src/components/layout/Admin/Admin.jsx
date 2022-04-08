@@ -7,6 +7,7 @@ import AdminAllProducts from "./AdminPages/AdminAllProducts";
 import RegisterCustomer from "./AdminPages/RegisterCustomer";
 import AdminCustomer from "./AdminPages/AdminCustomer";
 import AdminAllView from "./AdminPages/AdminAllProductView";
+import Admin_homePage from "./AdminPages/Admin_homePage";
 import AdminSideBar from "./AdminSideBar";
 import { SplashScreen } from "../SplashScreen/SplashScreen";
 import Wallet from "../Wallet/Wallet";
@@ -67,12 +68,19 @@ const Admin = ({ isAuthenticated, loading }) => {
           <div className="admin">
             <AdminSideBar />
             <Switch>
+            <Route
+                exact
+                path="/super_admin"
+                component={Admin_homePage}
+              />
               {Role === "MEDIA" ? (
                 <Route
                   exact
-                  path="/super_admin"
+                  path="/super_admin/upload_products"
                   component={AdminUploadProducts}
                 />
+        
+                
               ) : Role === "BUSINESS_ADMIN" ? (
                 <Route
                   exact

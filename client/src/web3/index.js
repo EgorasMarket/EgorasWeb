@@ -1,18 +1,32 @@
 import { Contract } from '@ethersproject/contracts'
 import loanABI  from "./contracts/Loan.json";
+import egorasSwapABI  from "./contracts/egorasSwap.json";
+import Contract_Address  from "./contracts/Contract_Address.json";
+import EgorasLoanDao  from "./contracts/EgorasLoanDao.json";
+import EgorasLoanFacet  from "./contracts/EgorasLoanFacet.json";
+import EgorasLoanHelperFacet  from "./contracts/EgorasLoanHelperFacet.json";
+import EgorasPriceOracleFacet  from "./contracts/EgorasPriceOracleFacet.json";
+import EgorasSwapFacet  from "./contracts/EgorasSwapFacet.json";
 import erc20  from "./contracts/erc20.json";
 
 
+const dynamicInstance = (signer, abi, address) => {
+  return new Contract(address, abi, signer);
+}
   const contractInstance = (signer) => {
     return new Contract(loanABI.address, loanABI.abi, signer);
   };
-  
+
+
   const erc20Instance = (signer, coin) => {
     let address = "";
     switch (coin) {
       case "egr":
         address = erc20.egr;
         break;
+        case "engn":
+          address = erc20.engn;
+          break;
         case "egc":
           address = erc20.egc;
           break;
@@ -24,10 +38,90 @@ import erc20  from "./contracts/erc20.json";
     }
     return new Contract(address, erc20.abi, signer);
   };
+//// Diamond Smart Contract Functions ////
+
+  const initContract = async (baseAddress, tokenAddress, ticker, signer) => {
+    try {
+     
+      const instance =  dynamicInstance(signer, EgorasSwapFacet.abi, Contract_Address.address);
+     
+      let result = await instance.initContructor(Contract_Address.address, baseAddress, tokenAddress, ticker);
+      return {
+        message: result.hash,
+      status: true,
+      }
+     } catch (error) {
+       console.log(error);
+      return {
+        message:  typeof error.data === "undefined" ?  error.message : error.data.message,
+        status: false,
+      };
+     }
+  }
+
+  const setPythiaImpl = async (pythia, signer) => {
+    console.log(pythia);
+    try {
+      const instance = dynamicInstance(signer, EgorasPriceOracleFacet.abi, Contract_Address.address);
+      let result = await instance.setPythia(pythia);
+      return {
+        message: result.hash,
+      status: true,
+      }
+     } catch (error) {
+      return {
+        message:  typeof error.data == "undefined" ?  error.message : error.data.message,
+        status: false,
+      };
+     }
+  }
+
+
+  const updateTickerPricesImpl = async (prices, tickers, signer) => {
+   
+
+    try {
+      const instance = dynamicInstance(signer, EgorasPriceOracleFacet.abi, Contract_Address.address);
+      let result = await instance.updateTickerPrices(prices,tickers);
+      return {
+        message: result.hash,
+      status: true,
+      }
+     } catch (error) {
+      return {
+        message:  typeof error.data == "undefined" ?  error.message : error.data.message,
+        status: false,
+      };
+     }
+  }
+
+  const addLiquidityImpl = async (amount, signer) => {
+  
+    
+    try {
+      const instance = dynamicInstance(signer, EgorasSwapFacet.abi, Contract_Address.address);
+      let result = await instance.addLiquidity(amount);
+      return {
+        message: result.hash,
+      status: true,
+      }
+     } catch (error) {
+      return {
+        message:  typeof error.data == "undefined" ?  error.message : error.data.message,
+        status: false,
+      };
+     }
+  }
+
+
+//// Diamond Smart Contract Functions ////
+
+
 
   const approveCompany = async (address, signer) =>{
     try {
       const instance = contractInstance(signer);
+     
       let result = await instance.approveLoanCompany(address);
       return {
         message: result.hash,
@@ -217,7 +311,7 @@ const activateLoan = async (loanID, signer) => {
   const unluckToken = async(amount, signer, coin) => {
     try {
       const instance = erc20Instance(signer, coin);
-      let result = await instance.approve(loanABI.address, amount);
+      let result = await instance.approve(Contract_Address.address, amount);
       return {
         message: result.hash,
       status: true,
@@ -225,7 +319,7 @@ const activateLoan = async (loanID, signer) => {
     } catch (error) {
       console.log(error);
       return {
-        message:  error.data.message,
+        message:  typeof error.data == "undefined" ?  error.message : error.data.message,
         status: false,
       };
     }
@@ -417,6 +511,12 @@ const activateLoan = async (loanID, signer) => {
     claimable,
     addUploader,
     confirmLoan,
-    loanInfo
+    loanInfo,
+    /// Diamond ///
+    initContract,
+    setPythiaImpl,
+    updateTickerPricesImpl,
+    addLiquidityImpl
+     /// End of Diamond ///
     
    };

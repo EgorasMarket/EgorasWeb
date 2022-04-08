@@ -1,8 +1,17 @@
-import React from "react";
+import React, { useState } from "react";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-
+import AddLiquidity from "../LiquidityPage/AddLiquidity";
 import "../../../../css/token.css";
 const TokenEUSD = () => {
+  const [generateModal, setGenerateModal] = useState(false);
+  const toggleModal = () => {
+    if (generateModal === false) {
+      setGenerateModal(true);
+    } else if (generateModal === true) {
+      setGenerateModal(false);
+    }
+    // else()
+  };
   return (
     <div>
       {/* =================================================================================================================================================================================================================================================================== */}
@@ -25,17 +34,39 @@ const TokenEUSD = () => {
               class="eusd-token-page coin"
             />
             <div class="eusd-token-page d-flex flex-column align-items-center">
-              <div class="eusd-token-page ticker-symbol">EgorasUSD (EUSD)</div>
+              <div class="eusd-token-page ticker-symbol">
+                Egoras Naira (eNGN)
+              </div>
               <h1 class="eusd-token-page">
                 The first decentralised stablecoin that is built for emerging
                 markets
               </h1>
-              <button
-                style={{ marginTop: "50px" }}
-                class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+              <div
+                className="swap_engn_btns"
+                style={{ display: "flex", alignItems: "center", gap: "10px" }}
               >
-                Get EUSD
-              </button>
+                {/* <button
+                  style={{ marginTop: "50px" }}
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  onClick={toggleModal}
+                >
+                  swap egc
+                </button> */}
+                <button
+                  style={{ marginTop: "50px" }}
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  onClick={toggleModal}
+                >
+                  Convert eNGN
+                </button>
+                <button
+                  style={{ marginTop: "50px" }}
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  onClick={toggleModal}
+                >
+                  Redeem eNGN
+                </button>
+              </div>
             </div>
           </div>
 
@@ -71,7 +102,7 @@ const TokenEUSD = () => {
               <p className="span1-txts">NFT-based reward</p>
               <p className="span2-txts"> Earn Redeemable NFT </p>
               <p className="span4-txts">
-                Convert your USDT, USDC, and Fiat to EUSD to start earning NFTs
+                Convert your USDT, USDC, and Fiat to eNGN to start earning NFTs
                 immediately
               </p>
             </div>
@@ -92,9 +123,9 @@ const TokenEUSD = () => {
                   All NFTs are Redemmable for real products
                 </p>
                 <p className="span4b-txts">
-                  All yields are automatically converted to eNFTs  which can be
-                  redeemed for real product.  EUSD balance compounds multiple
-                  times per day. 
+                  All yields are automatically converted to eNFTs  which can be
+                  redeemed for real product.  eNGN balance compounds multiple
+                  times per day. 
                 </p>
               </div>
             </div>
@@ -160,8 +191,9 @@ const TokenEUSD = () => {
                 <p className="span4a-txts">Elastic supply, stable price</p>
 
                 <p className="span4b-txts">
-                  EgorasUSD is pegged to the US Dollar. Returns are used to buy
-                  back EGC. Supply buy back happens multiple times per day. 
+                  EgorasNaira is pegged to the Nigerian Naira. Returns are used
+                  to buy back EGC. Supply buy back happens multiple times per
+                  day. 
                 </p>
               </div>
             </div>
@@ -204,7 +236,7 @@ const TokenEUSD = () => {
 
                 <p className="span4b-txts">
                   A community of EGR token holders govern the Egoras Protocol,
-                  the smart contracts that power EUSD.
+                  the smart contracts that power eNGN.
                 </p>
               </div>
             </div>
@@ -214,6 +246,7 @@ const TokenEUSD = () => {
         <img src="/img/shape-egg2.svg" alt="" class="gteggShape2a" />
       </section>
       {/* fourth section end */}
+      {generateModal == true ? <AddLiquidity closeModal={toggleModal} /> : null}
     </div>
   );
 };
