@@ -152,6 +152,9 @@ const CheckoutModalComponent = ({
     }
   }, []);
 
+  var vat = amount * 0.075;
+  var totals = parseInt(vat) + parseInt(amount);
+
   const flutterConfig = {
     public_key: process.env.REACT_APP_FLUTTER_KEY,
     tx_ref: "EGC-" + Date.now(),
@@ -574,6 +577,13 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
+              VAT: <span className="sub_total_div_span">₦{vat}</span>
+            </div>
+            {/* ========== */}
+            {/* ========== */}
+            {/* ========== */}
+            {/* ========== */}
+            <div className="sub_total_div">
               Delivery Fee: <span className="sub_total_div_span">₦0</span>
             </div>
             {/* ========== */}
@@ -590,7 +600,7 @@ const CheckoutModalComponent = ({
                 ₦
                 {payment_type == "OUTRIGHT"
                   ? numberWithCommas(
-                      (parseInt(amount) + deliveryFee).toFixed(2)
+                      (parseInt(totals) + deliveryFee).toFixed(2)
                     )
                   : numberWithCommas(
                       (parseInt(initial_deposit) + deliveryFee).toFixed(2)
