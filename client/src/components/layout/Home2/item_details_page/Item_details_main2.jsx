@@ -31,7 +31,7 @@ const Item_details_main = ({ match, auth }) => {
   //console.log(match.params.id);
   //console.log(auth);
 
-  const [loginSuccess,setLoginSuccess]= useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   // const handleSelect = (ranges) => {
   //   //console.log(ranges);
@@ -179,7 +179,6 @@ const Item_details_main = ({ match, auth }) => {
   }, []);
 
   useEffect(() => {
-
     // setCartNum(cart.length)
     // fetchDepositLinks();
     //console.log(auth);
@@ -188,19 +187,15 @@ const Item_details_main = ({ match, auth }) => {
       // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
-      
+
       // //console.log('====================================');
       //console.log(todecodedn);
       // //console.log('====================================');
-      
-      
-      const getName = todecoded.user.fullname
-      const splitName = getName.split(' ');
-      
-      
-  
-      set_user_id(todecoded.user.id)
-      
+
+      const getName = todecoded.user.fullname;
+      const splitName = getName.split(" ");
+
+      set_user_id(todecoded.user.id);
     }
   }, [auth]);
 
@@ -220,7 +215,6 @@ const Item_details_main = ({ match, auth }) => {
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
-
         //console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
@@ -351,7 +345,6 @@ const Item_details_main = ({ match, auth }) => {
       items: 2,
     },
   };
-  
 
   useEffect(() => {
     let assetVal = match.params.img;
@@ -413,7 +406,7 @@ const Item_details_main = ({ match, auth }) => {
   // =================
   // =================
   //console.log(days);
-  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+  const CalcAmtperweek = amount / CalcDaysConvert(product_duration);
   // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     //console.log("Hello Mr King");
@@ -426,19 +419,11 @@ const Item_details_main = ({ match, auth }) => {
   };
 
   const OpenLoginModal = () => {
-    
     if (auth.user !== null) {
       openDetailsModal();
-      checkout(
-        user_id,
-        product_id,
-        daysAdded,
-        startDate,
-        endDate
-        );
-      } else {
+      checkout(user_id, product_id, daysAdded, startDate, endDate);
+    } else {
       setLoginModal(true);
-      
     }
   };
 
@@ -450,8 +435,8 @@ const Item_details_main = ({ match, auth }) => {
     setLoginSuccess(loginSuccess);
 
     if (loginSuccess === true) {
-      CloseLoginModal()
-      window.location.reload()
+      CloseLoginModal();
+      window.location.reload();
       // openDetailsModal();
       // checkout(
       //   user_id,
@@ -461,14 +446,11 @@ const Item_details_main = ({ match, auth }) => {
       //   endDate
       // );
     } else {
-      
     }
-
   }, []);
   //console.log(loginSuccess);
   return (
     <div className="other2">
-
       {loginModal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
@@ -481,99 +463,100 @@ const Item_details_main = ({ match, auth }) => {
         </div>
       )}
 
-      {modal ===  true   ? (
-        <div style={{background: 'unset'}} className="checkout_main">
+      {modal === true ? (
+        <div style={{ background: "unset" }} className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
           <Dashboard_Checkout_Page
             cAmount={parseInt(productDetails.amount)}
             click={CloseModal}
           />
         </div>
-      ): (
-        
-
-        <> 
-
-<section className="no-bg">
-<div className="container">
-  <div className="products_area">
-    
-    {detailsModal == false ? (
-      <div className="product_details_area1">
-        <div className="details_area1_cont1">
-          {" "}
-          <img
-            src={product_image}
-            alt=""
-            className="product_details_img"
-          />
-        </div>
-        {/* ================ */}
-        {/* ================ */}
-        {/* ================ */}
-        {/* ================ */}
-        <div className="details_area1_cont2">
-          {" "}
-          <div className="product_details_Title">{product_name}</div>
-          <div className="product_details_code">
-            <span className="product_code_title">Product Code: </span>
-            {product_category_code}
-          </div>
-          <div
-            className="product_details_code"
-            style={{ color: "#000000" }}
-          >
-            <span className="product_code_title">Brand: </span>
-            {product_brand}
-            {/* {props.Brand} */}
-          </div>
-          {/* ----------------- */}
-          {payment_type == "OUTRIGHT" ? null : (
-            <div className="amount_item_div">
-              ₦{parseInt(amount_per_day).toFixed()}{" "}
-              <span className="per_day"> / per-day</span>
-            </div>
-          )}
-          {/* // =========================== */}
-          <div className="amount_item_div total_amount">
-            <span className="sub_total_txt">Total: </span> ₦
-            {amount}{" "}
-            {/* {numberWithCommas(numberWithCommas(amount))}{" "} */}
-            <span className="per_day"></span>
-          </div>
-          {/* <hr className="horizontal_rule" /> */}
-          {/* -------------- */}
-          <div className="lll">
-            <div className="max_dura">
-              {payment_type == "OUTRIGHT" ? null : (
-                <p className="no_margg">Savings Max Duration:</p>
-              )}
-              <div className="days_left_numb">
-                {payment_type == "OUTRIGHT" ? (
-                  <p className="no_margg">Outright Buy</p>
-                ) : (
-                  <p className="no_margg">{product_duration}day(s)</p>
-                )}
-              </div>
-            </div>
-          </div>
-          {/* <hr className="horizontal_rule" /> */}
-          {/* ------- */}
-          {payment_type !== "OUTRIGHT" ? (
-            <div className="quantity_div">
-              <div className="items_left_div">
-                This item has an upfront payment of : {percentage}%
-              </div>
-              <span className="upfront_para">
-                That means you are to pay #
-                {numberWithCommas(percentMoney)} before this item can be
-                locked by you.
-              </span>
-            </div>
-          ) : null}
-          {/* ======= */}
-          {/* ======= */}
-          {/* {product_duration !== 1 ? (
+      ) : (
+        <>
+          <section className="no-bg">
+            <div className="container">
+              <div className="products_area">
+                {detailsModal == false ? (
+                  <div className="product_details_area1">
+                    <div className="details_area1_cont1">
+                      {" "}
+                      <img
+                        src={product_image}
+                        alt=""
+                        className="product_details_img"
+                      />
+                    </div>
+                    {/* ================ */}
+                    {/* ================ */}
+                    {/* ================ */}
+                    {/* ================ */}
+                    <div className="details_area1_cont2">
+                      {" "}
+                      <div className="product_details_Title">
+                        {product_name}
+                      </div>
+                      <div className="product_details_code">
+                        <span className="product_code_title">
+                          Product Code:{" "}
+                        </span>
+                        {product_category_code}
+                      </div>
+                      <div
+                        className="product_details_code"
+                        style={{ color: "#000000" }}
+                      >
+                        <span className="product_code_title">Brand: </span>
+                        {product_brand}
+                        {/* {props.Brand} */}
+                      </div>
+                      {/* ----------------- */}
+                      {payment_type == "OUTRIGHT" ? null : (
+                        <div className="amount_item_div">
+                          ₦{parseInt(amount_per_day).toFixed()}{" "}
+                          <span className="per_day"> / per-day</span>
+                        </div>
+                      )}
+                      {/* // =========================== */}
+                      <div className="amount_item_div total_amount">
+                        <span className="sub_total_txt">Total: </span> ₦{amount}{" "}
+                        {/* {numberWithCommas(numberWithCommas(amount))}{" "} */}
+                        <span className="per_day"></span>
+                      </div>
+                      {/* <hr className="horizontal_rule" /> */}
+                      {/* -------------- */}
+                      <div className="lll">
+                        <div className="max_dura">
+                          {payment_type == "OUTRIGHT" ? null : (
+                            <p className="no_margg">Savings Max Duration:</p>
+                          )}
+                          <div className="days_left_numb">
+                            {payment_type == "OUTRIGHT" ? (
+                              <p className="no_margg">Outright Buy</p>
+                            ) : (
+                              <p className="no_margg">
+                                {product_duration}day(s)
+                              </p>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      {/* <hr className="horizontal_rule" /> */}
+                      {/* ------- */}
+                      {payment_type !== "OUTRIGHT" ? (
+                        <div className="quantity_div">
+                          <div className="items_left_div">
+                            This item has an upfront payment of : {percentage}%
+                          </div>
+                          <span className="upfront_para">
+                            That means you are to pay #
+                            {numberWithCommas(percentMoney)} before this item
+                            can be locked by you.
+                          </span>
+                        </div>
+                      ) : null}
+                      {/* ======= */}
+                      {/* ======= */}
+                      {/* {product_duration !== 1 ? (
             <div className="date_picky">
               <div className="date_picky_note">
                 Note: the below calendar shows the total amount of days to
@@ -587,135 +570,137 @@ const Item_details_main = ({ match, auth }) => {
               </div>
             </div>
           ) : null} */}
-          {/* ======= */}
-          {/* ======= */}
-          {/* <hr className="horizontal_rule" /> */}
-          {/* ------- */}
-          <div className="buy_now_btn_div">
-            <button
-              className="buy_now_button"
-              onClick={() => {
-                // openDetailsModal();
-                OpenLoginModal()
-                //call  the checkout api here
-                // checkout(
-                //   user_id,
-                //   product_id,
-                //   daysAdded,
-                //   startDate,
-                //   endDate
-                // );
-              }}
-            >
-              {product_duration !== 1 ? "Proceed" : "Proceed to checkout"}
-            </button>
+                      {/* ======= */}
+                      {/* ======= */}
+                      {/* <hr className="horizontal_rule" /> */}
+                      {/* ------- */}
+                      <div className="buy_now_btn_div">
+                        <button
+                          className="buy_now_button"
+                          onClick={() => {
+                            // openDetailsModal();
+                            OpenLoginModal();
+                            //call  the checkout api here
+                            // checkout(
+                            //   user_id,
+                            //   product_id,
+                            //   daysAdded,
+                            //   startDate,
+                            //   endDate
+                            // );
+                          }}
+                        >
+                          {product_duration !== 1
+                            ? "Proceed"
+                            : "Proceed to checkout"}
+                        </button>
 
-            {/* <div className="save_later">
+                        {/* <div className="save_later">
               <button className="save_later_btn">
                 <FavoriteIcon className="favorite_icon" />
               </button>
               <div className="save_later_txt">Add to favorites.</div>
             </div> */}
-          </div>
-        </div>
-      </div>
-    ): null}
-    {/* <div className="product_details_area">{asset}</div> */}
-    {/* =======================================879087070y707680769067 */}
-    {/* =======================================879087070y707680769067 */}
-    {/* =======================================879087070y707680769067 */}
-    {/* =======================================879087070y707680769067 */}
-    {/* =======================================879087070y707680769067 */}
-    {detailsModal == false ? (
-    <div className="description_area">
-      <div className="description_header">
-        <div
-          id="descript"
-          onClick={changeBg}
-          className={
-            activeBg == "descript"
-              ? "description_click1 description_click1_active"
-              : "description_click1"
-          }
-        >
-          Description
-        </div>
-      </div>
-      {/* {spec.map((tree)=>( */}
+                      </div>
+                    </div>
+                  </div>
+                ) : null}
+                {/* <div className="product_details_area">{asset}</div> */}
+                {/* =======================================879087070y707680769067 */}
+                {/* =======================================879087070y707680769067 */}
+                {/* =======================================879087070y707680769067 */}
+                {/* =======================================879087070y707680769067 */}
+                {/* =======================================879087070y707680769067 */}
+                {detailsModal == false ? (
+                  <div className="description_area">
+                    <div className="description_header">
+                      <div
+                        id="descript"
+                        onClick={changeBg}
+                        className={
+                          activeBg == "descript"
+                            ? "description_click1 description_click1_active"
+                            : "description_click1"
+                        }
+                      >
+                        Description
+                      </div>
+                    </div>
+                    {/* {spec.map((tree)=>( */}
 
-      {/* <div className='my-4'>
+                    {/* <div className='my-4'>
           {spec.map((tree)=>(
             <span style={{display:'flex',flexDirection:'column'}}>{tree}</span>
           ))}
         </div> */}
 
-      <div className="description_body">
-        <div className="description_table">
-          <table class="_3a09a_1e-gU">
-            <tbody>
-              <tr>
-                {/* <td>Colour</td> */}
-                <td>{spec[0]}</td>
-              </tr>
-              <tr>
-                {/* <td>Warranty Period</td> */}
-                <td>{spec[1]}</td>
-              </tr>
-              {/* <tr>
+                    <div className="description_body">
+                      <div className="description_table">
+                        <table class="_3a09a_1e-gU">
+                          <tbody>
+                            <tr>
+                              {/* <td>Colour</td> */}
+                              <td>{spec[0]}</td>
+                            </tr>
+                            <tr>
+                              {/* <td>Warranty Period</td> */}
+                              <td>{spec[1]}</td>
+                            </tr>
+                            {/* <tr>
                <td>
                {tree[0]}
                </td>
               </tr> */}
-              <tr>
-                {/* <td>Brand</td> */}
-                <td>{spec[2]}</td>
-              </tr>
-              <tr>
-                {/* <td>Display Features</td> */}
-                <td>{spec[3]}</td>
-              </tr>
-              <tr>
-                {/* <td>Display Technology</td> */}
-                <td>{spec[4]}</td>
-              </tr>
-              <tr>
-                {/* <td>TV Screen Size</td> */}
-                <td>{spec[5]}</td>
-              </tr>
-              {/* <tr> */}
-              {/* <td>Television 3D Technology</td> */}
-              {/* <td>{spec[6]}</td> */}
-              {/* </tr> */}
+                            <tr>
+                              {/* <td>Brand</td> */}
+                              <td>{spec[2]}</td>
+                            </tr>
+                            <tr>
+                              {/* <td>Display Features</td> */}
+                              <td>{spec[3]}</td>
+                            </tr>
+                            <tr>
+                              {/* <td>Display Technology</td> */}
+                              <td>{spec[4]}</td>
+                            </tr>
+                            <tr>
+                              {/* <td>TV Screen Size</td> */}
+                              <td>{spec[5]}</td>
+                            </tr>
+                            {/* <tr> */}
+                            {/* <td>Television 3D Technology</td> */}
+                            {/* <td>{spec[6]}</td> */}
+                            {/* </tr> */}
 
-              {/* <tr> */}
-              {/* <td>Resolution</td> */}
-              {/* <td>{spec[7]}</td> */}
-              {/* </tr> */}
-              {/* <tr> */}
-              {/* <td>Intended Display Use</td> */}
-              {/* <td>{spec[8]}</td> */}
-              {/* </tr> */}
-              {/* <tr> */}
-              {/* <td>Television Screen Type</td> */}
-              {/* <td>{spec[9]}</td> */}
-              {/* </tr> */}
-              {/* <tr> */}
-              {/* <td>Television Refresh Rate</td> */}
-              {/* <td>{spec[10]}</td> */}
-              {/* </tr> */}
-            </tbody>
-          </table>
-        </div>
-        {/* ====== */}
-        {/* ====== */}
-      </div>
+                            {/* <tr> */}
+                            {/* <td>Resolution</td> */}
+                            {/* <td>{spec[7]}</td> */}
+                            {/* </tr> */}
+                            {/* <tr> */}
+                            {/* <td>Intended Display Use</td> */}
+                            {/* <td>{spec[8]}</td> */}
+                            {/* </tr> */}
+                            {/* <tr> */}
+                            {/* <td>Television Screen Type</td> */}
+                            {/* <td>{spec[9]}</td> */}
+                            {/* </tr> */}
+                            {/* <tr> */}
+                            {/* <td>Television Refresh Rate</td> */}
+                            {/* <td>{spec[10]}</td> */}
+                            {/* </tr> */}
+                          </tbody>
+                        </table>
+                      </div>
+                      {/* ====== */}
+                      {/* ====== */}
+                    </div>
 
-      {/* <div className='my-4'>
+                    {/* <div className='my-4'>
           {spec.map((tree)=>(
             <span style={{display:'flex',flexDirection:'column'}}>{tree}</span>
           ))}
         </div> */}
-      {/* <div className="description_body">
+                    {/* <div className="description_body">
         <div className="description_table">
           <table class="_3a09a_1e-gU">
             <tbody>
@@ -727,12 +712,12 @@ const Item_details_main = ({ match, auth }) => {
                 <td>Warranty Period</td>
                 <td>6 Months</td>
               </tr> */}
-      {/* <tr>
+                    {/* <tr>
                <td>
                {tree[0]}
                </td>
               </tr> */}
-      {/* <tr>
+                    {/* <tr>
                 <td>Brand</td>
                 <td>
                   <a href="/brand/samsung">Samsung</a>
@@ -773,354 +758,351 @@ const Item_details_main = ({ match, auth }) => {
             </tbody>
           </table>
         </div> */}
-      {/* ====== */}
-      {/* ====== */}
-      {/* </div> */}
+                    {/* ====== */}
+                    {/* ====== */}
+                    {/* </div> */}
 
-      {/* ))} */}
-    </div>
-    ): null}
-    {/* ================ */}
-    {/* ================ */}
-    {/* =================================================================================================================================================================================================================================================================== */}
-    {/* =================================================================================================================================================================================================================================================================== */}
-    {/*  Projects Section start*/}
-    {detailsModal == false ? (
-    <section className="projectsSection" id="projects">
-      <div className="container">
-        <div className="projectsArea">
-          <div className="projectsLinea"></div>
-          <div className="projectsTitleContentsa">
-            <div className="projectTitle">
-              <h1 className="gttitle TITE">Recent Products</h1>
-            </div>
-            {/* 
+                    {/* ))} */}
+                  </div>
+                ) : null}
+                {/* ================ */}
+                {/* ================ */}
+                {/* =================================================================================================================================================================================================================================================================== */}
+                {/* =================================================================================================================================================================================================================================================================== */}
+                {/*  Projects Section start*/}
+                {detailsModal == false ? (
+                  <section className="projectsSection" id="projects">
+                    <div className="container">
+                      <div className="projectsArea">
+                        <div className="projectsLinea"></div>
+                        <div className="projectsTitleContentsa">
+                          <div className="projectTitle">
+                            <h1 className="gttitle TITE">Recent Products</h1>
+                          </div>
+                          {/* 
       <a href="/explore_collaterals" className="projectsLink">
         Explore collaterals
         <div className="projectsLinkHover"></div>
       </a> */}
-          </div>
-
-          {/* Carousel start==============================
-==============================================
-============================= */}
-
-          <Carousel
-            responsive={responsive6}
-            className="partnerCards LEFTARROW"
-            showDots={false}
-            //   infinite={false}
-            autoPlay={true}
-            autoPlaySpeed={6000}
-            transitionDelay={"2s"}
-            infinite={true}
-            draggable={true}
-            // transitionDuration={500}
-            swipeable={true}
-            style={{ height: "25em" }}
-          >
-            {term.map((asset) => (
-              
-              <a
-                href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
-              >
-                <li className="carous_list">
-                  <div
-                    className="storeTiles_storeTileContainer__HoGEa"
-                    style={{
-                      backgroundImage: `url(${
-                        asset.product_image
-                      })`,
-                      //           height: "200px",
-                      //           width: "100%",
-                      //           backgroundRepeat: "no-repeat",
-                      //           backgroundSize: "cover",
-                      //           borderRadius: "8px",
-                      //           borderBottomLeftRadius: "0px",
-                      //           borderBottomRightRadius: "0px",
-                      //   backgroundPositionY: "center",
-                    }}
-                  >
-                    <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                      <button className="items_remaining_btn">
-                        save now
-                      </button>
-                      <button className="items_remaining_btn2">
-                        20% off
-                      </button>
-                    </div>
-                    <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                      <div className="asset_name">
-                        {asset.product_name}
-                      </div>
-                      <div className="asset_title">
-                        {asset.unitCount}
-                        {asset.unitCount === 1
-                          ? "item left"
-                          : asset.unitCount <= 1
-                          ? "no item left"
-                          : asset.unitCount > 1
-                          ? "items left"
-                          : null}
-                      </div>
-                    </div>
-                    {/* </a> */}
-                  </div>
-                </li>
-              </a>
-            ))}
-          </Carousel>
-          {/* Carousel end==============================
-==============================================
-============================= */}
-        </div>
-      </div>
-    </section>
-    ): null}
-    {/*  Projects Section end*/}
-    {/* =================================================================================================================================================================================================================================================================== */}
-    {detailsModal == true ? (
-      <div className="detailsModal">
-        <div className="detailsModalSection1">
-          <div className="bacKbutton" onClick={closeDetailModal}>
-            Previous
-            <ArrowForwardIosIcon className="arrow_back" />
-          </div>
-          <div className="detailsModalSection1_area1">
-            <div className="delivery_title1">
-              Delivery / Pickup Options
-            </div>
-            <div className="delivery_cards_section">
-              <div className="delivery_card1">
-                <div className="delivery_card_title">
-                  Deliver to me{" "}
-                  <button className="button_change_delivery_address">
-                    Change Address
-                  </button>
-                </div>
-                <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">
-                    Samuel Ifeanyi
-                  </div>
-                  <div className="delivery_card_body_cont1">
-                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt,
-                    Rivers
-                  </div>
-                  <div className="delivery_card_body_cont1">
-                    08164020234
-                  </div>
-                </div>
-              </div>
-              {/* ============= */}
-              {/* ============= */}
-              {/* ============= */}
-              {/* ============= */}
-              <div className="delivery_card2">
-                <div className="delivery_card_title">
-                  Pickup from our agents
-                  <button className="button_change_delivery_address pickup_btn">
-                    Select Pickup Location
-                  </button>
-                </div>
-                <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">
-                    Select a pickup location in your area from our 32
-                    locations nationwide.
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div className="detailsModalSection1_area2">
-            <div className="detailsModalSection1-area2_title">
-              Review Order
-            </div>
-            <div className="review_order_div">Delivery 1 of 1</div>
-            <div>
-              <div class="save_prod_deta">
-                <table className="save_item_table">
-                  <thead className="assets-category-titles">
-                    <tr className="assets">
-                      <th className="assets-category-titles-heading1">
-                        Item
-                      </th>
-                      <th className="assets-category-titles-heading1">
-                        Item Details
-                      </th>
-                      <th className="assets-category-titles-heading1 quant">
-                        Amount daily
-                      </th>
-                      {/* <th className="assets-category-titles-heading1 quant">
-                      Unit Price
-                    </th> */}
-                      <th className="assets-category-titles-heading1_last">
-                        Sub Total
-                      </th>
-                    </tr>
-                  </thead>
-
-                  <tbody
-                    className="save_items_cat popular-categories"
-                    id="popular-categories"
-                  >
-                    {" "}
-                    <tr className="assets-category-row">
-                      <td className="save_item_data">
-                        <div className="assets-data height_data">
-                          <img
-                            src={product_image}
-                            alt=""
-                            className="save_item_img_img"
-                          />
                         </div>
-                      </td>
-                      {/* ======== */}
-                      {/* ======== */}
-                      {/* ======== */}
-                      {/* ======== */}
-                      <td className="save_item_data1">
-                        <div className="save_items_details">
-                          <div className="save_items_details1">
-                            {product_name}
-                          </div>
-                          <div className="save_item_days_left">
-                            {unitCount} days left
-                            <div className="days_left_percentage_cont">
-                              <span
-                                className="days_left_percentage"
-                                style={{
-                                  width:
-                                    100 % -((amount * 100) / unitCount),
-                                }}
-                              ></span>
+
+                        {/* Carousel start==============================
+==============================================
+============================= */}
+
+                        <Carousel
+                          responsive={responsive6}
+                          className="partnerCards LEFTARROW"
+                          showDots={false}
+                          //   infinite={false}
+                          autoPlay={true}
+                          autoPlaySpeed={6000}
+                          transitionDelay={"2s"}
+                          infinite={true}
+                          draggable={true}
+                          // transitionDuration={500}
+                          swipeable={true}
+                          style={{ height: "25em" }}
+                        >
+                          {term.map((asset) => (
+                            <a
+                              href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                            >
+                              <li className="carous_list">
+                                <div
+                                  className="storeTiles_storeTileContainer__HoGEa"
+                                  style={{
+                                    backgroundImage: `url(${asset.product_image})`,
+                                    //           height: "200px",
+                                    //           width: "100%",
+                                    //           backgroundRepeat: "no-repeat",
+                                    //           backgroundSize: "cover",
+                                    //           borderRadius: "8px",
+                                    //           borderBottomLeftRadius: "0px",
+                                    //           borderBottomRightRadius: "0px",
+                                    //   backgroundPositionY: "center",
+                                  }}
+                                >
+                                  <div className="storeTiles_storeTileOffersContainer__3v8lC">
+                                    <button className="items_remaining_btn">
+                                      save now
+                                    </button>
+                                    <button className="items_remaining_btn2">
+                                      20% off
+                                    </button>
+                                  </div>
+                                  <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                    <div className="asset_name">
+                                      {asset.product_name}
+                                    </div>
+                                    <div className="asset_title">
+                                      {asset.unitCount}
+                                      {asset.unitCount === 1
+                                        ? "item left"
+                                        : asset.unitCount <= 1
+                                        ? "no item left"
+                                        : asset.unitCount > 1
+                                        ? "items left"
+                                        : null}
+                                    </div>
+                                  </div>
+                                  {/* </a> */}
+                                </div>
+                              </li>
+                            </a>
+                          ))}
+                        </Carousel>
+                        {/* Carousel end==============================
+==============================================
+============================= */}
+                      </div>
+                    </div>
+                  </section>
+                ) : null}
+                {/*  Projects Section end*/}
+                {/* =================================================================================================================================================================================================================================================================== */}
+                {detailsModal == true ? (
+                  <div className="detailsModal">
+                    <div className="detailsModalSection1">
+                      <div className="bacKbutton" onClick={closeDetailModal}>
+                        Previous
+                        <ArrowForwardIosIcon className="arrow_back" />
+                      </div>
+                      <div className="detailsModalSection1_area1">
+                        <div className="delivery_title1">
+                          Delivery / Pickup Options
+                        </div>
+                        <div className="delivery_cards_section">
+                          <div className="delivery_card1">
+                            <div className="delivery_card_title">
+                              Deliver to me{" "}
+                              <button className="button_change_delivery_address">
+                                Change Address
+                              </button>
+                            </div>
+                            <div className="delivery_card_body">
+                              <div className="delivery_card_body_cont1">
+                                Samuel Ifeanyi
+                              </div>
+                              <div className="delivery_card_body_cont1">
+                                62 Harold Wilson Drive, Borokiri, RV, Port
+                                Harcourt, Rivers
+                              </div>
+                              <div className="delivery_card_body_cont1">
+                                08164020234
+                              </div>
                             </div>
                           </div>
-                          <div className="save_total_locked_amount">
-                            <span className="items_left_amount">
-                              Total Amount Locked on Item
-                            </span>
-                            #{initialDeposit}
+                          {/* ============= */}
+                          {/* ============= */}
+                          {/* ============= */}
+                          {/* ============= */}
+                          <div className="delivery_card2">
+                            <div className="delivery_card_title">
+                              Pickup from our agents
+                              <button className="button_change_delivery_address pickup_btn">
+                                Select Pickup Location
+                              </button>
+                            </div>
+                            <div className="delivery_card_body">
+                              <div className="delivery_card_body_cont1">
+                                Select a pickup location in your area from our
+                                32 locations nationwide.
+                              </div>
+                            </div>
                           </div>
                         </div>
-                      </td>
-                      <td className="save_item_data1b">
-                        <div className="assets-data-name_last">
-                          #{dailyAmount}
+                      </div>
+
+                      <div className="detailsModalSection1_area2">
+                        <div className="detailsModalSection1-area2_title">
+                          Review Order
                         </div>
-                      </td>
-                      {/* <td className="save_item_data1b">
+                        <div className="review_order_div">Delivery 1 of 1</div>
+                        <div>
+                          <div class="save_prod_deta">
+                            <table className="save_item_table">
+                              <thead className="assets-category-titles">
+                                <tr className="assets">
+                                  <th className="assets-category-titles-heading1">
+                                    Item
+                                  </th>
+                                  <th className="assets-category-titles-heading1">
+                                    Item Details
+                                  </th>
+                                  <th className="assets-category-titles-heading1 quant">
+                                    Amount daily
+                                  </th>
+                                  {/* <th className="assets-category-titles-heading1 quant">
+                      Unit Price
+                    </th> */}
+                                  <th className="assets-category-titles-heading1_last">
+                                    Sub Total
+                                  </th>
+                                </tr>
+                              </thead>
+
+                              <tbody
+                                className="save_items_cat popular-categories"
+                                id="popular-categories"
+                              >
+                                {" "}
+                                <tr className="assets-category-row">
+                                  <td className="save_item_data">
+                                    <div className="assets-data height_data">
+                                      <img
+                                        src={product_image}
+                                        alt=""
+                                        className="save_item_img_img"
+                                      />
+                                    </div>
+                                  </td>
+                                  {/* ======== */}
+                                  {/* ======== */}
+                                  {/* ======== */}
+                                  {/* ======== */}
+                                  <td className="save_item_data1">
+                                    <div className="save_items_details">
+                                      <div className="save_items_details1">
+                                        {product_name}
+                                      </div>
+                                      <div className="save_item_days_left">
+                                        {unitCount} days left
+                                        <div className="days_left_percentage_cont">
+                                          <span
+                                            className="days_left_percentage"
+                                            style={{
+                                              width:
+                                                100 %
+                                                -((amount * 100) / unitCount),
+                                            }}
+                                          ></span>
+                                        </div>
+                                      </div>
+                                      <div className="save_total_locked_amount">
+                                        <span className="items_left_amount">
+                                          Total Amount Locked on Item
+                                        </span>
+                                        #{initialDeposit}
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td className="save_item_data1b">
+                                    <div className="assets-data-name_last">
+                                      #{dailyAmount}
+                                    </div>
+                                  </td>
+                                  {/* <td className="save_item_data1b">
                         <div className="assets-data-name center_name">
                           #{amount}
                         </div>
                       </td> */}
-                      <td className="save_item_data1b">
-                        <div className="assets-data-name_last">
-                          #{amount}
+                                  <td className="save_item_data1b">
+                                    <div className="assets-data-name_last">
+                                      #{amount}
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
                         </div>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="detailsModalSection2">
-          <div className="details_modal_divv">
-            <div className="cart_area2_heading">Payment Options</div>
-            <div className="cart_area2_select">
-              <div className="wit_card">
-                Pay via card{" "}
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  classNam="checkBox"
-                />
-              </div>
-            </div>
-            <div className="cart_area2_select border_down">
-              <div className="wit_card">
-                Pay via wallet{" "}
-                <input
-                  type="checkbox"
-                  name=""
-                  id=""
-                  classNam="checkBox"
-                />
-              </div>
-            </div>
-            {/* ========= */}
-            {/* ========= */}
-            {/* ========= */}
-            <div className="cart_area2_notes">
-              . No minimum or maximum order.
-              <br />
-              . Make sure your card is still valid.
-              <br />. Ensure sufficient balance to cover this
-              transaction.
-            </div>
-            {/* ========== */}
-            {/* ========== */}
-            {/* ========== */}
-            {/* ========== */}
-            <div className="sub_total_div">
-              Sub Total:{" "}
-              <span className="sub_total_div_span">
-                {amount * unitCount}
-              </span>
-            </div>
-            {/* ========== */}
-            {/* ========== */}
-            {/* ========== */}
-            {/* ========== */}
-            <div className="sub_total_div">
-              Delivery Fee:{" "}
-              <span className="sub_total_div_span">₦0</span>
-            </div>
-            {/* ========== */}
-            {/* ========== */}
-            <div className="secure_transac_text">
-              {" "}
-              Transactions are 100% Safe and Secure
-            </div>
-            {/* ========== */}
-            {/* ========== */}
-            <div className="transac_secure_div">
-              Total{" "}
-              <span className="sub_total_div_span">
-                {amount * unitCount}
-              </span>
-            </div>
-            {/* ========== */}
-            {/* ========== */}
+                      </div>
+                    </div>
+                    <div className="detailsModalSection2">
+                      <div className="details_modal_divv">
+                        <div className="cart_area2_heading">
+                          Payment Options
+                        </div>
+                        <div className="cart_area2_select">
+                          <div className="wit_card">
+                            Pay via card{" "}
+                            <input
+                              type="checkbox"
+                              name=""
+                              id=""
+                              classNam="checkBox"
+                            />
+                          </div>
+                        </div>
+                        <div className="cart_area2_select border_down">
+                          <div className="wit_card">
+                            Pay via wallet{" "}
+                            <input
+                              type="checkbox"
+                              name=""
+                              id=""
+                              classNam="checkBox"
+                            />
+                          </div>
+                        </div>
+                        {/* ========= */}
+                        {/* ========= */}
+                        {/* ========= */}
+                        <div className="cart_area2_notes">
+                          . No minimum or maximum order.
+                          <br />
+                          . Make sure your card is still valid.
+                          <br />. Ensure sufficient balance to cover this
+                          transaction.
+                        </div>
+                        {/* ========== */}
+                        {/* ========== */}
+                        {/* ========== */}
+                        {/* ========== */}
+                        <div className="sub_total_div">
+                          Sub Total:{" "}
+                          <span className="sub_total_div_span">
+                            {amount * unitCount}
+                          </span>
+                        </div>
+                        {/* ========== */}
+                        {/* ========== */}
+                        {/* ========== */}
+                        {/* ========== */}
+                        <div className="sub_total_div">
+                          Delivery Fee:{" "}
+                          <span className="sub_total_div_span">₦0</span>
+                        </div>
+                        {/* ========== */}
+                        {/* ========== */}
+                        <div className="secure_transac_text">
+                          {" "}
+                          Transactions are 100% Safe and Secure
+                        </div>
+                        {/* ========== */}
+                        {/* ========== */}
+                        <div className="transac_secure_div">
+                          Total{" "}
+                          <span className="sub_total_div_span">
+                            {amount * unitCount}
+                          </span>
+                        </div>
+                        {/* ========== */}
+                        {/* ========== */}
 
-            <button className="checkout_btn1a" onClick={OpenModal}>
-              Proceed to Checkout{" "}
-            </button>
-          </div>
-        </div>
-      </div>
-    ) : 
-    
-    <> 
-   
-    
-    </> }
-  </div>
-</div>
-</section>
+                        <button className="checkout_btn1a" onClick={OpenModal}>
+                          Proceed to Checkout{" "}
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                ) : (
+                  <></>
+                )}
+              </div>
+            </div>
+          </section>
         </>
       )}
       {/* {dataFlow.map((item)=>{return( */}
- 
+
       {/* )})} */}
     </div>
   );
 };
 const mapStateToProps1 = (state) => ({
-    auth: state.auth,
+  auth: state.auth,
   //   isAuthenticated: state.auth.isAuthenticated,
   cart: state.shop.cart,
 });

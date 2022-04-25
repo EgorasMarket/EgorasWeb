@@ -1,30 +1,23 @@
-import React, { useEffect, useCallback, useState } from 'react';
-import axios from 'axios';
-import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import verify from '../../../../flutterwave/API/Verify';
+import React, { useEffect, useCallback, useState } from "react";
+import axios from "axios";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import verify from "../../../../flutterwave/API/Verify";
 
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from '../../../../actions/types';
-import {
-  useFlutterwave,
-  closePaymentModal,
-} from 'flutterwave-react-v3';
-import FlutterButton from '../../../../flutterwave/FlutterButton';
-import Dashboard_Checkout_Page from '../Dashboard/DashboardPages/Dashboard_Checkout_Page';
-import PaymentPlan from '../../../../flutterwave/API/PaymentPlan';
-import verifyTransaction from '../../../../flutterwave/API/Verify';
-import { createOrder } from '../../../../actions/shop';
-import { connect } from 'react-redux';
-import initPayment from '../../../../flutterwave/initPayment';
-import initializePayment from '../../../../flutterwave/API/initializePayment';
+} from "../../../../actions/types";
+import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import FlutterButton from "../../../../flutterwave/FlutterButton";
+import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import PaymentPlan from "../../../../flutterwave/API/PaymentPlan";
+import verifyTransaction from "../../../../flutterwave/API/Verify";
+import { createOrder } from "../../../../actions/shop";
+import { connect } from "react-redux";
+import initPayment from "../../../../flutterwave/initPayment";
+import initializePayment from "../../../../flutterwave/API/initializePayment";
 
-const CheckoutModalComponent = ({
-  payload,
-  closeCheckoutOptions,
-  auth,
-}) => {
+const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   //destructure the payload and return values
   const {
     amount,
@@ -39,7 +32,7 @@ const CheckoutModalComponent = ({
     product_specifications,
     product_type,
     initial_deposit,
-    paymentPerday,
+    paymentperweek,
     payment_type,
     days_left,
     no_of_days,
@@ -48,11 +41,11 @@ const CheckoutModalComponent = ({
     endDate,
   } = payload;
 
-  const [user_id, setUserId] = useState('');
+  const [user_id, setUserId] = useState("");
   const [isloading, setIsLoading] = useState(true);
-  const [email, setEmail] = useState('');
-  const [phone_no, setPhoneNo] = useState('');
-  const [name, setName] = useState('');
+  const [email, setEmail] = useState("");
+  const [phone_no, setPhoneNo] = useState("");
+  const [name, setName] = useState("");
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
   //console.log(phone_no, name, option)
@@ -73,13 +66,13 @@ const CheckoutModalComponent = ({
   }, []);
 
   const flutterConfig = {
-    public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
+    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
     tx_ref: Date.now(),
     amount: 1,
 
-    currency: 'NGN',
+    currency: "NGN",
     // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
-    payment_options: 'card',
+    payment_options: "card",
     // payment_plan:63558,
     customer: {
       phonenumber: phone_no,
@@ -87,9 +80,9 @@ const CheckoutModalComponent = ({
       name: name,
     },
     customizations: {
-      title: 'Payment from Egoras savings',
-      description: 'Payment for items in cart',
-      logo: 'https://egoras.com/img/egoras-logo.svg',
+      title: "Payment from Egoras savings",
+      description: "Payment for items in cart",
+      logo: "https://egoras.com/img/egoras-logo.svg",
     },
   };
   const handleFlutterPayment = useFlutterwave(flutterConfig);
@@ -130,7 +123,7 @@ const CheckoutModalComponent = ({
         break;
 
       case 1:
-        alert('wallet method selected');
+        alert("wallet method selected");
         break;
     }
   };
@@ -144,28 +137,21 @@ const CheckoutModalComponent = ({
             <ArrowForwardIosIcon className="arrow_back" />
           </div>
           <div className="detailsModalSection1_area1">
-            <div className="delivery_title1">
-              Delivery / Pickup Options
-            </div>
+            <div className="delivery_title1">Delivery / Pickup Options</div>
             <div className="delivery_cards_section">
               <div className="delivery_card1">
                 <div className="delivery_card_title">
-                  Deliver to me{' '}
+                  Deliver to me{" "}
                   <button className="button_change_delivery_address">
                     Change Address
                   </button>
                 </div>
                 <div className="delivery_card_body">
+                  <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
                   <div className="delivery_card_body_cont1">
-                    Samuel Ifeanyi
+                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
                   </div>
-                  <div className="delivery_card_body_cont1">
-                    62 Harold Wilson Drive, Borokiri, RV, Port
-                    Harcourt, Rivers
-                  </div>
-                  <div className="delivery_card_body_cont1">
-                    08164020234
-                  </div>
+                  <div className="delivery_card_body_cont1">08164020234</div>
                 </div>
               </div>
               {/* ============= */}
@@ -181,8 +167,8 @@ const CheckoutModalComponent = ({
                 </div>
                 <div className="delivery_card_body">
                   <div className="delivery_card_body_cont1">
-                    Select a pickup location in your area from our 32
-                    locations nationwide.
+                    Select a pickup location in your area from our 32 locations
+                    nationwide.
                   </div>
                 </div>
               </div>
@@ -190,18 +176,14 @@ const CheckoutModalComponent = ({
           </div>
 
           <div className="detailsModalSection1_area2">
-            <div className="detailsModalSection1-area2_title">
-              Review Order
-            </div>
+            <div className="detailsModalSection1-area2_title">Review Order</div>
             <div className="review_order_div">Delivery 1 of 1</div>
             <div>
               <div class="save_prod_deta">
                 <table className="save_item_table">
                   <thead className="assets-category-titles">
                     <tr className="assets">
-                      <th className="assets-category-titles-heading1">
-                        Item
-                      </th>
+                      <th className="assets-category-titles-heading1">Item</th>
                       <th className="assets-category-titles-heading1">
                         Item Details
                       </th>
@@ -221,12 +203,12 @@ const CheckoutModalComponent = ({
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
-                    {' '}
+                    {" "}
                     <tr className="assets-category-row">
                       <td className="save_item_data">
                         <div className="assets-data height_data">
                           <img
-                            src={api_url2 + '/' + product_image}
+                            src={api_url2 + "/" + product_image}
                             alt=""
                             className="save_item_img_img"
                           />
@@ -263,7 +245,7 @@ const CheckoutModalComponent = ({
                       </td>
                       <td className="save_item_data1b">
                         <div className="assets-data-name_last">
-                          ₦{paymentPerday}
+                          ₦{paymentperweek}
                         </div>
                       </td>
                       {/* <td className="save_item_data1b">
@@ -272,9 +254,7 @@ const CheckoutModalComponent = ({
                                 </div>
                               </td> */}
                       <td className="save_item_data1b">
-                        <div className="assets-data-name_last">
-                          ₦{amount}
-                        </div>
+                        <div className="assets-data-name_last">₦{amount}</div>
                       </td>
                     </tr>
                   </tbody>
@@ -296,13 +276,8 @@ const CheckoutModalComponent = ({
                   setOption(0);
                 }}
               >
-                Pay via card{' '}
-                <input
-                  type="radio"
-                  name="payment"
-                  id=""
-                  className="checkBox"
-                />
+                Pay via card{" "}
+                <input type="radio" name="payment" id="" className="checkBox" />
               </div>
             </div>
             {/* ===================== */}
@@ -313,13 +288,8 @@ const CheckoutModalComponent = ({
               }}
             >
               <div className="wit_card">
-                Pay via wallet{' '}
-                <input
-                  type="radio"
-                  name="payment"
-                  id=""
-                  className="checkBox"
-                />
+                Pay via wallet{" "}
+                <input type="radio" name="payment" id="" className="checkBox" />
               </div>
             </div>
 
@@ -351,36 +321,32 @@ const CheckoutModalComponent = ({
               . No minimum or maximum order.
               <br />
               . Make sure your card is still valid.
-              <br />. Ensure sufficient balance to cover this
-              transaction.
+              <br />. Ensure sufficient balance to cover this transaction.
             </div>
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
-              Sub Total:{' '}
-              <span className="sub_total_div_span">₦{amount}</span>
+              Sub Total: <span className="sub_total_div_span">₦{amount}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
-              Delivery Fee:{' '}
-              <span className="sub_total_div_span">₦0</span>
+              Delivery Fee: <span className="sub_total_div_span">₦0</span>
             </div>
             {/* ========== */}
             {/* ========== */}
             <div className="secure_transac_text">
-              {' '}
+              {" "}
               Transactions are 100% Safe and Secure
             </div>
             {/* ========== */}
             {/* ========== */}
             <div className="transac_secure_div">
-              Total{' '}
-              <span className="sub_total_div_span">₦{amount}</span>
+              Total <span className="sub_total_div_span">₦{amount}</span>
             </div>
             {/* ========== */}
             {/* ========== */}

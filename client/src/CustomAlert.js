@@ -13,9 +13,26 @@ export const CustomAlert = (props) => {
   //   }
   // };
 
+  // const timer = () =>
+  //   setTimeout(function () {
+  //     props.closeAlert();
+  //     console.log("66");
+  //   }, 10000);
+  useEffect(() => {
+    setTimeout(function () {
+      // closeAlert();
+      props.closeAlert();
+    }, 5000);
+  }, [props.closeAlert]);
   return (
     <div className="alert_cont">
-      <div  className={props.alertType === 'danger' ? 'setAlertErr' : 'setAlertSuccess'}>{props.alert}</div>
+      <div
+        className={
+          props.alertType === "danger" ? "setAlertErr" : "setAlertSuccess"
+        }
+      >
+        {props.alert}
+      </div>
     </div>
   );
 };

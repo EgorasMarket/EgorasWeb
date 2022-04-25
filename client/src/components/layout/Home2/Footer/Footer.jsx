@@ -234,7 +234,7 @@ const Footer = () => {
                 {/* <a href="/egr-token" className="c1link1" target="_blank">
                   EGR
                 </a> */}
-                <a href="/eusd-token" className="c1link1" target="_blank">
+                <a href="/engn-token" className="c1link1" target="_blank">
                   eNGN
                 </a>
                 <a href="/egc_token" className="c1link1" target="_blank">
@@ -354,7 +354,7 @@ const Footer = () => {
                     {/* <a href="/egr-token" className="c1link1 a" target="_blank">
                       EGR
                     </a> */}
-                    <a href="/eusd-token" className="c1link1" target="_blank">
+                    <a href="/eengn-token" className="c1link1" target="_blank">
                       eNGN
                     </a>
                     <a href="/egc_token" className="c1link1" target="_blank">

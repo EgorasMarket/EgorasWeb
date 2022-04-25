@@ -108,7 +108,7 @@ function ItemDetailsPage({ auth, match }) {
     Product_type: "",
     unitCount: "",
     product_condition: "",
-    paymentPerday: "",
+    paymentperweek: "",
     amount: "",
     approval: "",
     roundedAmount: "",
@@ -160,7 +160,7 @@ function ItemDetailsPage({ auth, match }) {
     // more_image,
     product_brand,
     status,
-    paymentPerday,
+    paymentperweek,
     approval,
     admin_personnel,
     product_condition,
@@ -211,7 +211,7 @@ function ItemDetailsPage({ auth, match }) {
           product_name: data.data.data.product_name,
           product_brand: data.data.data.product_brand,
           status: data.data.data.status,
-          paymentPerday: data.data.data.paymentPerday,
+          paymentperweek: data.data.data.paymentperweek,
           product_condition: data.data.data.product_condition,
           product_type: data.data.data.product_type,
           unitCount: data.data.data.unitCount,
@@ -340,7 +340,7 @@ function ItemDetailsPage({ auth, match }) {
   //         product_name: data.data.data.product_name,
   //         product_brand: data.data.data.product_brand,
   //         status: data.data.data.status,
-  //         paymentPerday:data.data.data.paymentPerday,
+  //         paymentperweek:data.data.data.paymentperweek,
   //         product_condition: data.data.data.product_condition,
   //         product_type: data.data.data.product_type,
   //         unitCount: data.data.data.unitCount,
@@ -464,7 +464,7 @@ function ItemDetailsPage({ auth, match }) {
   //console.log(percentDays);
   const percentMoney = (percentage / 100) * amount;
 
-  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+  const CalcAmtperweek = amount / CalcDaysConvert(product_duration);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     //console.log("Hello Mr King");
   }
@@ -561,8 +561,8 @@ function ItemDetailsPage({ auth, match }) {
                     style={{ color: "#239e54" }}
                   >
                     <span className="product_code_title">Payment Per Day:</span>
-                    ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}
-                    {/* {paymentPerday} */}
+                    ₦{numberWithCommas(parseInt(paymentperweek).toFixed())}
+                    {/* {paymentperweek} */}
                   </div>
                 ) : null}
                 {payment_type === "INSTALLMENT" ? (

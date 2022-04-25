@@ -20,7 +20,7 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
-import {numberWithCommas} from '../../../../static'
+import { numberWithCommas } from "../../../../static";
 
 const InstallmentComponent = ({
   product_duration,
@@ -28,13 +28,13 @@ const InstallmentComponent = ({
   percentage,
   initial_deposit,
   roundedAmount,
-  paymentPerday,
+  paymentperweek,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div">
-        ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}{" "}
+        ₦{numberWithCommas(parseInt(paymentperweek).toFixed())}{" "}
         <span className="per_day"> / per-day</span>
       </div>
 
@@ -123,15 +123,15 @@ const ItemDetailComponent = ({
     product_specifications,
     product_type,
     initial_deposit,
-    paymentPerday,
+    paymentperweek,
     payment_type,
     days_left,
     no_of_days,
-    no_of_days_paid, 
-    startDate, 
-    endDate
+    no_of_days_paid,
+    startDate,
+    endDate,
   } = payload;
-  
+
   useEffect(() => {
     if (more_image != null) {
       let splited = JSON.parse(more_image);
@@ -304,10 +304,7 @@ const ItemDetailComponent = ({
               className="product_details_img"
             /> */}
             {moreImg.length == 0 ? (
-              <img
-                src={product_image}
-                className="image_carooooo"
-              />
+              <img src={product_image} className="image_carooooo" />
             ) : (
               <ProductImageCarousel
                 img={moreImg[0]}
@@ -343,7 +340,7 @@ const ItemDetailComponent = ({
                   amount={amount}
                   percentage={percentage}
                   amount={amount}
-                  paymentPerday={paymentPerday}
+                  paymentperweek={paymentperweek}
                   numberWithCommas={numberWithCommas}
                 />
               </>
@@ -458,7 +455,6 @@ const ItemDetailComponent = ({
         {/* {spec.map((pad) => (
               <div style={{ display: "inline-block" }}>{pad}</div>
             ))} */}
-
       </div>
       {/* </div>
       </section> */}
@@ -466,8 +462,6 @@ const ItemDetailComponent = ({
     </>
   );
 };
-
-
 
 const mapStateToProps1 = (state) => ({
   auth: state.auth,

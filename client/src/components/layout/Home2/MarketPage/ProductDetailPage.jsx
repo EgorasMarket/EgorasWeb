@@ -1,27 +1,9 @@
-import React, { useState, useEffect, useCallback } from "react";
-
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import Carousel from "react-multi-carousel";
-import "../../../../css/itemsDetailsPage.css";
-import axios from "axios";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
-import { Calendar, DateRangePicker, DateRange } from "react-date-range";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { addDays, differenceInCalendarDays } from "date-fns";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import Checkout from "./CheckoutModalComponent";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
-
+import React from "react";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
-import { connect, useDispatch } from "react-redux";
-import ItemDetailComponent from "./ItemDetailCompnent";
-import LoginComp from "../Login/LoginComp";
-
-function ItemDetailsPage({ auth, match }) {
+const ProductDetailPage = ({ auth, match }) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -191,7 +173,8 @@ function ItemDetailsPage({ auth, match }) {
         const getSpecs = data.data.data.product_details;
         // const myArray = getSlid.split(",");
 
-        //console.log(getSlid);
+        console.log(getSlid);
+        console.log(getSlid);
         //console.log(getSpecs);
 
         setSpec(getSlid);
@@ -223,9 +206,9 @@ function ItemDetailsPage({ auth, match }) {
           <LoginComp parentCallback={callback} />
         </div>
       )}
-      <div className="other2">
-        <section className="no-bg">
-          <div className="container">
+      <div>
+        <section className="market_page_section">
+          <div className="custom_container">
             {detailsModal === true ? (
               <Checkout
                 payload={payload}
@@ -249,12 +232,6 @@ function ItemDetailsPage({ auth, match }) {
       </div>
     </>
   );
-}
+};
 
-const mapStateToProps1 = (state) => ({
-  auth: state.auth,
-  isAuthenticated: state.auth.isAuthenticated,
-  cart: state.shop.cart,
-});
-
-export default connect(mapStateToProps1)(ItemDetailsPage);
+export default ProductDetailPage;

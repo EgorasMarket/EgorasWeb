@@ -40,7 +40,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     product_specifications,
     product_type,
     initial_deposit,
-    paymentPerday,
+    paymentperweek,
     payment_type,
     days_left,
     no_of_days,
@@ -755,7 +755,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                       </td>
                       <td className="save_item_data1b">
                         <div className="assets-data-name_last">
-                          ₦{paymentPerday}
+                          ₦{paymentperweek}
                         </div>
                       </td>
                       {/* <td className="save_item_data1b">

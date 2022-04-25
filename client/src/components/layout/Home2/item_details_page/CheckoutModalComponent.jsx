@@ -44,7 +44,7 @@ const CheckoutModalComponent = ({
     product_specifications,
     product_type,
     initial_deposit,
-    paymentPerday,
+    paymentperweek,
     payment_type,
     days_left,
     no_of_days,
@@ -453,7 +453,7 @@ const CheckoutModalComponent = ({
                           <div className="assets-data-name_last">
                             ₦{" "}
                             {numberWithCommas(
-                              parseInt(paymentPerday).toFixed(2)
+                              parseInt(paymentperweek).toFixed(2)
                             )}
                           </div>
                         )}
@@ -667,7 +667,7 @@ const CheckoutModalComponent = ({
           }}
           link_btn={true}
           src="/dashboard/wallet"
-          // onclick={closeErrorDiv}
+          onclick={closeErrorDiv}
         />
         // </div>
       )}
