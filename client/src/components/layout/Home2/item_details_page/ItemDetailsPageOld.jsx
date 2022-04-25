@@ -78,8 +78,8 @@ function ItemDetailsPage({ auth, match }) {
 
   const [dataFlow, setDataFlow] = useState([]);
   const [term, setTerm] = useState([]);
-  const [ dailyAmount , setDailyAmount ] = useState()
-  const [ initialDeposit , setInitialDeposit ] = useState()
+  const [dailyAmount, setDailyAmount] = useState();
+  const [initialDeposit, setInitialDeposit] = useState();
 
   const [productDetails, setProductDetails] = useState({
     product_image: "",
@@ -193,7 +193,6 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
-
         //console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
@@ -228,13 +227,12 @@ function ItemDetailsPage({ auth, match }) {
 
         //console.log(response.data.details);
         setDailyAmount(response.data.details.rounded);
-        setInitialDeposit(response.data.details.initial_deposit)
+        setInitialDeposit(response.data.details.initial_deposit);
       })
       .catch((err) => {
         alert(err.response.data.message);
         //console.log("error reported", err.response);
       });
-
   };
   // const food = spec[0].split('');
   // //console.log(food[0])
@@ -330,7 +328,6 @@ function ItemDetailsPage({ auth, match }) {
     let assetVal = match.params.img;
     let baseVal = match.params.name;
 
-
     setAsset(assetVal);
     setBase(baseVal);
 
@@ -387,7 +384,7 @@ function ItemDetailsPage({ auth, match }) {
   // =================
   // =================
   //console.log(days);
-  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+  const CalcAmtperweek = amount / CalcDaysConvert(product_duration);
   // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     //console.log("Hello Mr King");
@@ -403,7 +400,10 @@ function ItemDetailsPage({ auth, match }) {
       {modal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
-          <Dashboard_Checkout_Page cAmount={parseInt(productDetails.amount)} click={CloseModal} />
+          <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          />
         </div>
       )}
       {/* {dataFlow.map((item)=>{return( */}
@@ -472,7 +472,7 @@ function ItemDetailsPage({ auth, match }) {
                     <p className="amnt_per_day">
                       Savings Amount to be paid per day:{""}
                       <span className="calc_amnt_div">
-                        ₦{CalcAmtPerDay.toFixed()}
+                        ₦{CalcAmtperweek.toFixed()}
                       </span>
                     </p>
                   )}
@@ -874,9 +874,7 @@ function ItemDetailsPage({ auth, match }) {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${
-                                asset.product_image
-                              })`,
+                              backgroundImage: `url(${asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -1112,7 +1110,9 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     <div className="sub_total_div">
                       Sub Total:{" "}
-                      <span className="sub_total_div_span">{amount * unitCount}</span>
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}
@@ -1131,7 +1131,10 @@ function ItemDetailsPage({ auth, match }) {
                     {/* ========== */}
                     {/* ========== */}
                     <div className="transac_secure_div">
-                      Total <span className="sub_total_div_span">{amount * unitCount }</span>
+                      Total{" "}
+                      <span className="sub_total_div_span">
+                        {amount * unitCount}
+                      </span>
                     </div>
                     {/* ========== */}
                     {/* ========== */}

@@ -4,20 +4,66 @@
   z-index: 100;
   font-family: Roboto;
   box-shadow: 0px 0px 15px #efefef;
-  padding: 0.5em 2em;
+  /* padding: 0.5em 2em; */
   background-color: #fff;
   position: fixed;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+.header_category_area {
+  background: #eaeaea;
+  /* padding: 1em 0em; */
+}
+.header_category_area {
+  background: #f3f3f3;
+}
+.header_hr {
+  margin-bottom: 0;
+}
+.header_categories {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* gap: 31px; */
+  font-size: 14px;
+  /* color: #000; */
+}
+.header_cat_link {
+  height: 100%;
+  background: #f3f3f3;
+  padding: 1em 2em;
+  color: #000;
+  position: relative;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 .header-area {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0.5em 0em;
+  gap: 20px;
+}
+.header_cat_link:hover.header_cat_link::after {
+  content: "";
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  height: 1px;
+  background-color: #000;
+  left: 0;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.header_cat_link:hover {
+  background: #dfdfdf;
+  color: #000;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
 }
 
 .egr-logo {
   width: 150px;
-  margin-right: 50px;
+  margin-right: 0px;
 }
 .egr-logo2 {
   width: 180px;
@@ -92,7 +138,7 @@
 .docs,
 .market,
 .about {
-  margin-right: 30px;
+  margin-right: 15px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
@@ -100,7 +146,40 @@
   color: #383838;
   position: relative;
 }
+.header_search {
+  width: 60%;
+  position: relative;
+}
+.header_search_bar {
+  width: 100%;
+  border-radius: 6px;
+  border: solid 1px #000000;
+  padding: 0.6em 1em;
+  font-size: 14px;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
 
+.header_search_icon {
+  cursor: pointer;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  bottom: 50%;
+  margin: auto;
+  font-size: 4px !important;
+  color: #ffffff;
+  background: #000000;
+  height: 100% !important;
+  width: 5% !important;
+  padding: 9px;
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.header_search_bar:focus-visible + .header_search_icon {
+  background: #4fcb81;
+  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
 .product {
   font-size: 13px;
   font-weight: 600;
@@ -118,6 +197,8 @@
   position: relative;
   color: #383838;
   position: relative;
+  display: flex;
+  align-items: center;
 }
 
 .products-menu {

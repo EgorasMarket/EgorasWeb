@@ -29,7 +29,7 @@ const Item_details_main = ({ match, auth }) => {
   //console.log(match.params.id);
   //console.log(auth);
 
-  const [loginSuccess,setLoginSuccess]= useState(false);
+  const [loginSuccess, setLoginSuccess] = useState(false);
 
   // const handleSelect = (ranges) => {
   //   //console.log(ranges);
@@ -177,7 +177,6 @@ const Item_details_main = ({ match, auth }) => {
   }, []);
 
   useEffect(() => {
-
     // setCartNum(cart.length)
     // fetchDepositLinks();
     //console.log(auth);
@@ -186,19 +185,15 @@ const Item_details_main = ({ match, auth }) => {
       // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
-      
+
       // //console.log('====================================');
       //console.log(todecodedn);
       // //console.log('====================================');
-      
-      
-      const getName = todecoded.user.fullname
-      const splitName = getName.split(' ');
-      
-      
-  
-      set_user_id(todecoded.user.id)
-      
+
+      const getName = todecoded.user.fullname;
+      const splitName = getName.split(" ");
+
+      set_user_id(todecoded.user.id);
     }
   }, [auth]);
 
@@ -218,7 +213,6 @@ const Item_details_main = ({ match, auth }) => {
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
-
         //console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
@@ -410,7 +404,7 @@ const Item_details_main = ({ match, auth }) => {
   // =================
   // =================
   //console.log(days);
-  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+  const CalcAmtperweek = amount / CalcDaysConvert(product_duration);
   // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     //console.log("Hello Mr King");
@@ -423,19 +417,11 @@ const Item_details_main = ({ match, auth }) => {
   };
 
   const OpenLoginModal = () => {
-    
     if (auth.user !== null) {
       openDetailsModal();
-      checkout(
-        user_id,
-        product_id,
-        daysAdded,
-        startDate,
-        endDate
-        );
-      } else {
+      checkout(user_id, product_id, daysAdded, startDate, endDate);
+    } else {
       setLoginModal(true);
-      
     }
   };
 
@@ -447,8 +433,8 @@ const Item_details_main = ({ match, auth }) => {
     setLoginSuccess(loginSuccess);
 
     if (loginSuccess === true) {
-      CloseLoginModal()
-      window.location.reload()
+      CloseLoginModal();
+      window.location.reload();
       // openDetailsModal();
       // checkout(
       //   user_id,
@@ -458,14 +444,11 @@ const Item_details_main = ({ match, auth }) => {
       //   endDate
       // );
     } else {
-      
     }
-
   }, []);
   //console.log(loginSuccess);
   return (
     <div className="other2">
-
       {loginModal == false ? null : (
         <div className="checkout_main">
           <div className="checkout_modal_out" onClick={CloseModal}></div>
@@ -478,15 +461,15 @@ const Item_details_main = ({ match, auth }) => {
         </div>
       )}
 
-      {modal  ?  (
-         <div className="checkout_main">
-         <div className="checkout_modal_out" onClick={CloseModal}></div>
-         <Dashboard_Checkout_Page
-           cAmount={parseInt(productDetails.amount)}
-           click={CloseModal}
-         />
-       </div>
-      ): null}
+      {modal ? (
+        <div className="checkout_main">
+          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <Dashboard_Checkout_Page
+            cAmount={parseInt(productDetails.amount)}
+            click={CloseModal}
+          />
+        </div>
+      ) : null}
 
       {/* {modal == false ? null : (
         <div className="checkout_main">
@@ -597,7 +580,7 @@ const Item_details_main = ({ match, auth }) => {
                     className="buy_now_button"
                     onClick={() => {
                       // openDetailsModal();
-                      OpenLoginModal()
+                      OpenLoginModal();
                       //call  the checkout api here
                       // checkout(
                       //   user_id,
@@ -881,9 +864,7 @@ const Item_details_main = ({ match, auth }) => {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${
-                                asset.product_image
-                              })`,
+                              backgroundImage: `url(${asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -1163,7 +1144,7 @@ const Item_details_main = ({ match, auth }) => {
   );
 };
 const mapStateToProps1 = (state) => ({
-    auth: state.auth,
+  auth: state.auth,
   //   isAuthenticated: state.auth.isAuthenticated,
   cart: state.shop.cart,
 });

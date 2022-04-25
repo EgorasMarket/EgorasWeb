@@ -9,6 +9,7 @@ import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { connect } from "react-redux";
+import Market from "./components/layout/Home2/MarketPage/Market";
 // import Aos from "aos";
 // import "aos/dist/aos.css";
 
@@ -276,6 +277,7 @@ const App = () => {
                     component={ResetPassword}
                   />
                   <Route exact path="/savings" component={Savings} />
+                  <Route exact path="/market" component={Market} />
 
                   {/* <Route
                     exact
@@ -310,7 +312,16 @@ const App = () => {
                     path="/login/super_admin"
                     component={AdminLogin}
                   />
-
+                  <Route
+                    exact
+                    // path ={`/dashboard/products/details/:id/:${"name".replace( '','-')}`}
+                    path={`/products/details/:id/:${"name".replace(
+                      /\s+/g,
+                      ""
+                    )}`}
+                    // path={dapp }
+                    component={ItemDetailsPage}
+                  />
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />
                   <Route exact path="/signup" component={Signup} />
@@ -488,7 +499,7 @@ const App = () => {
                     component={Documentation19}
                   />
                   <Route exact path="/egr-token" component={TokenEGR} />
-                  <Route exact path="/eusd-token" component={TokenEUSD} />
+                  <Route exact path="/engn-token" component={TokenEUSD} />
                   <Route exact path="/whitepaper" component={Whitepaper} />
 
                   <Route exact path="/login" component={Login} />

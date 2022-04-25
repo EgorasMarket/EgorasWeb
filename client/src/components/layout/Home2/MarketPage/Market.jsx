@@ -1,55 +1,17 @@
 import React, { useState, useEffect } from "react";
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import CategoryIcon from "@mui/icons-material/Category";
-import WidgetsIcon from "@mui/icons-material/Widgets";
-import ListIcon from "@mui/icons-material/List";
 import Slider from "react-slick";
 import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import Carousel from "react-multi-carousel";
-import DvrIcon from "@mui/icons-material/Dvr";
-import "../../Home2/Dashboard/DashboardStyles/dashboard_side.css";
-import "../../Home2/Dashboard/DashboardStyles/dashboard_products.css";
 import { connect } from "react-redux";
-// import {Link} from 'react-router-dom';
-import "../../Home2/Dashboard/DashboardStyles/dashboard_side.css";
-// import "../../../DashboardStyles/dashboard_side.css";
-import "../../Home2/Dashboard/DashboardStyles/dashboard_header.css";
-// import { Link, animateScroll as scroll } from "react-scroll";
-
-import axios from "axios";
-import setAuthToken from "../../../../utils/setAuthToken";
+import "./market.css";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+import axios from "axios";
 
 import { numberWithCommas } from "../../../../static";
-// import { NoDataFoundComponent } from "../NodataFound/NoDataFoundComponent";
-import { NoDataFoundComponent } from "../../Home2/Dashboard/NodataFound/NoDataFoundComponent";
-
-const responsive7 = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 8,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1480 },
-    items: 6,
-  },
-  desktopMedium: {
-    breakpoint: { max: 1480, min: 1024 },
-    items: 5,
-  },
-  tablet: {
-    breakpoint: { max: 1024, min: 600 },
-    items: 4,
-  },
-  mobile: {
-    breakpoint: { max: 600, min: 0 },
-    items: 2,
-  },
-};
+import { NoDataFoundComponent } from "../Dashboard/NodataFound/NoDataFoundComponent";
 const responsive8 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -85,8 +47,7 @@ const responsive8 = {
     items: 2,
   },
 };
-
-function AdminMarket({ auth }) {
+const Market = ({ auth }) => {
   // const [item,setItem]=useState({})
 
   const config = {
@@ -125,10 +86,9 @@ function AdminMarket({ auth }) {
 
   const [img, setImg] = useState();
   const [category, setCategory] = useState([]);
-
   useEffect(() => {
     axios
-      .get(api_url2 + "/v1/product/retrieve/search/new/products", null, config)
+      .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
       .then((data) => {
         // console.log(data.data.data, "powerful");
 
@@ -165,7 +125,6 @@ function AdminMarket({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
         setHomeAppliancesData(data.data.data);
       })
       .catch((err) => {
@@ -179,7 +138,6 @@ function AdminMarket({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
         setElectronicsData(data.data.data);
       })
       .catch((err) => {
@@ -193,7 +151,6 @@ function AdminMarket({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
         setComputerAccessoriesData(data.data.data);
       })
       .catch((err) => {
@@ -207,8 +164,7 @@ function AdminMarket({ auth }) {
       )
       .then((data) => {
         console.log(data.data.data.length, "powerful");
-
-        musicalEquipmentData(data.data.data);
+        setMusicalEquipmentData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
@@ -221,16 +177,12 @@ function AdminMarket({ auth }) {
       )
       .then((data) => {
         // console.log(data.data.data, "powerful");
-
-        industrialEquipmentsData(data.data.data);
+        setIndustrialEquipmentsData(data.data.data);
       })
       .catch((err) => {
         //console.log(err); // "oh, no!"
       });
   }, []);
-
-  // const industrialsEquipment,MusicalEquipment,phoneTablet,Electronics,Furniture,ComputerAccessories,HomeApplinces;
-
   useEffect(() => {
     phoneTab();
   }, []);
@@ -251,7 +203,6 @@ function AdminMarket({ auth }) {
   const [dropBtn, setDropBtn] = useState("dropHead");
   const [height20, setHeight20] = useState("0px");
   const [rap, setRap] = useState("#electronics");
-
   const settings = {
     dots: true,
     fade: true,
@@ -264,35 +215,15 @@ function AdminMarket({ auth }) {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  const dropDown = () => {
-    setProdBody("product_body");
-    setDropBtn("not_dropHead");
-  };
-  const closeDropDown = () => {
-    setProdBody("not_product_body");
-    setDropBtn("dropHead");
-  };
-
-  //  const moveto =()=>{
-
-  //    scroll.scrollToTop(100);
-  //  }
-
   const height = {
     position: "absolute",
     top: "1000px",
   };
-
-  const wash = () => {
-    setHeight20(height);
-    setRap("#HomeKitchen");
-  };
-
-  const text = "No Products Found";
-
-  // const numberWithCommas = (x) => {
-  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  // };
+  const text = "No Products Yet.";
+  // ==============
+  // ==============
+  // ==============
+  // ==============
   const responsive6 = {
     superLargeDesktop: {
       // the naming can be any, depends on you.
@@ -313,58 +244,29 @@ function AdminMarket({ auth }) {
     },
   };
   return (
-    <div className="other2">
-      {/* <div className="cat_div" id="cat_div">
-        <div className="cat_body_toggle">
-          <a
-            href={`/dashboard/products/categories/Computer & Accessories`}
-          >
-            <div className="cat_body_toggle1">
-              Computers and Accessories
-            </div>
-          </a>
-          <a href={`/dashboard/products/categories/Phones & Tablet`}>
-            <div className="cat_body_toggle1">Phones and Tablets</div>
-          </a>
-          <a href={`/dashboard/products/categories/Electronics`}>
-            <div className="cat_body_toggle1">Electronics</div>
-          </a>
-          <div className="cat_body_toggle1">Fashion</div>
-          <a
-            href={`/dashboard/products/categories/  Home Appliances`}
-          >
-            <div className="cat_body_toggle1">Home and Kitchen</div>
-          </a>
-          <a
-            href={`/dashboard/products/categories/Musical Equipments`}
-          >
-            <div className="cat_body_toggle1">Musical Equipment</div>
-          </a>
-        </div>
-      </div> */}
-
-      <section className="no-bg no_pad">
-        <div className="container">
+    <div>
+      <section className="market_page_section">
+        <div className="custom_container">
           <div className="products_hero_area">
             <div className="products_area1">
               <Slider {...settings}>
                 <img
-                  src="/img/fake_assets/fake_assets_img.jpeg"
+                  src="/img/fake_assets/March web banners A.jpg"
                   alt=""
                   className="products_hero_img"
                 />
                 <img
-                  src="/img/fake_assets/fake_assets_img2.jpeg"
+                  src="/img/fake_assets/March web banners B.jpg"
                   alt=""
                   className="products_hero_img"
                 />
                 <img
-                  src="/img/fake_assets/fake_assets_img3.jpeg"
+                  src="/img/fake_assets/March web banners C.jpg"
                   alt=""
                   className="products_hero_img"
                 />
                 <img
-                  src="/img/fake_assets/fake_assets_img4.jpeg"
+                  src="/img/fake_assets/March web banners D.jpg"
                   alt=""
                   className="products_hero_img"
                 />
@@ -486,10 +388,10 @@ function AdminMarket({ auth }) {
                       if (asset.payment_type == "OUTRIGHT")
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
-                            // href={`/super_admin/details/${asset.id}/${asset.product_name.replace( '','-')}`}
+                            // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -557,10 +459,10 @@ function AdminMarket({ auth }) {
                       if (asset.payment_type == "OUTRIGHT")
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
-                            // href={`/super_admin/details/${asset.id}/${asset.product_name.replace( '','-')}`}
+                            // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -658,7 +560,7 @@ function AdminMarket({ auth }) {
                       {phonesTabletsData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -762,7 +664,7 @@ function AdminMarket({ auth }) {
                       {phonesTabletsData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -866,7 +768,7 @@ function AdminMarket({ auth }) {
                       {phonesTabletsData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -985,7 +887,7 @@ function AdminMarket({ auth }) {
                     {homeAppliancesData.slice(0, 10).map((asset, index5) => {
                       return (
                         <a
-                          href={`/super_admin/details/${
+                          href={`/dashboard/products/details/${
                             asset.id
                           }/${asset.product_name.replace(/\s+/g, "-")}`}
                           key={index5.toString()}
@@ -1092,7 +994,7 @@ function AdminMarket({ auth }) {
                     {homeAppliancesData.slice(0, 10).map((asset, index5) => {
                       return (
                         <a
-                          href={`/super_admin/details/${
+                          href={`/dashboard/products/details/${
                             asset.id
                           }/${asset.product_name.replace(/\s+/g, "-")}`}
                           key={index5.toString()}
@@ -1229,7 +1131,7 @@ function AdminMarket({ auth }) {
                       {electronicsData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -1333,7 +1235,7 @@ function AdminMarket({ auth }) {
                       {electronicsData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -1437,7 +1339,7 @@ function AdminMarket({ auth }) {
                       {electronicsData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -1556,7 +1458,7 @@ function AdminMarket({ auth }) {
                       (asset, index5) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
@@ -1669,7 +1571,7 @@ function AdminMarket({ auth }) {
                       (asset, index5) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
@@ -1812,7 +1714,7 @@ function AdminMarket({ auth }) {
                       {musicalEquipmentData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -1916,7 +1818,7 @@ function AdminMarket({ auth }) {
                       {musicalEquipmentData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -2020,7 +1922,7 @@ function AdminMarket({ auth }) {
                       {musicalEquipmentData.map((asset) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             // key={index.toString()}
@@ -2139,7 +2041,7 @@ function AdminMarket({ auth }) {
                       .map((asset, index5) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
@@ -2252,7 +2154,7 @@ function AdminMarket({ auth }) {
                       .map((asset, index5) => {
                         return (
                           <a
-                            href={`/super_admin/details/${
+                            href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
                             key={index5.toString()}
@@ -2365,31 +2267,12 @@ function AdminMarket({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
         </div>
-
-        {/* 
-        <div>
-          {names.filter(name => name.includes('p')).map(filteredName => (
-           <li>
-            {filteredName}
-          </li>
-          ))}
-         </div> */}
-
-        <div className="fixed_pop">
-          <img
-            src="/img/fake_assets/pop_pic.gif"
-            alt=""
-            className="fixed_pop_img"
-          />
-        </div>
       </section>
     </div>
   );
-}
-
+};
 const mapStateToProps1 = (state) => ({
   auth: state.auth,
   isAuthenticated: state.auth.isAuthenticated,
 });
-
-export default connect(mapStateToProps1)(AdminMarket);
+export default connect(mapStateToProps1)(Market);

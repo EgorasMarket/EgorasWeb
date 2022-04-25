@@ -29,14 +29,14 @@ const InstallmentComponent = ({
   roundedAmount,
   percentage,
   initial_deposit,
-  paymentPerday,
+  paymentperweek,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div">
-        ₦{numberWithCommas(parseInt(paymentPerday).toFixed())}{" "}
-        <span className="per_day"> / per-day</span>
+        ₦{numberWithCommas(parseInt(paymentperweek).toFixed())}{" "}
+        <span className="per_day"> / per-wk</span>
       </div>
 
       <div className="amount_item_div total_amount">
@@ -127,7 +127,7 @@ const ItemDetailComponent = ({
     product_specifications,
     product_type,
     initial_deposit,
-    paymentPerday,
+    paymentperweek,
     payment_type,
     days_left,
     no_of_days,
@@ -366,7 +366,7 @@ const ItemDetailComponent = ({
                   product_duration={product_duration}
                   roundedAmount={roundedAmount}
                   percentage={percentage}
-                  paymentPerday={paymentPerday}
+                  paymentperweek={paymentperweek}
                   numberWithCommas={numberWithCommas}
                 />
               </>
@@ -584,7 +584,7 @@ const ItemDetailComponent = ({
                                     )}
                                     <span className="per_day_symbol">
                                       {" "}
-                                      / perday
+                                      / perweek
                                     </span>
                                   </div>
                                 )}
@@ -687,7 +687,7 @@ const ItemDetailComponent = ({
                                   )}
                                   <span className="per_day_symbol">
                                     {" "}
-                                    / perday
+                                    / perweek
                                   </span>
                                 </div>
                               )}
