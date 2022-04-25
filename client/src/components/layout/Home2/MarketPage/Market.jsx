@@ -247,7 +247,7 @@ const Market = ({ auth }) => {
     <div>
       <section className="market_page_section">
         <div className="custom_container">
-          <div className="products_hero_area">
+          <div className="products_hero_area market_area">
             <div className="products_area1">
               <Slider {...settings}>
                 <img

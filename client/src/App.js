@@ -136,6 +136,7 @@ import Dashboard from "./components/layout/Home2/Dashboard/Dashboard";
 import Explore_Loans from "./components/layout/Explore_Loan/explore_loans";
 import Savings from "./components/layout/Home2/Savings/Savings";
 // import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
+import ProductDetailPage from "./components/layout/Home2/MarketPage/ProductDetailPage";
 import HomeUpdate from "./components/layout/HomeUpdate/HomeUpdate";
 import Explore_Loans_Page from "./components/layout/Explore_Loan/exploreLoanSection5";
 import Explore_Loans_Page1 from "./components/layout/Explore_Loan/exploreLoanSection7";
@@ -320,7 +321,7 @@ const App = () => {
                       ""
                     )}`}
                     // path={dapp }
-                    component={ItemDetailsPage}
+                    component={ProductDetailPage}
                   />
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />

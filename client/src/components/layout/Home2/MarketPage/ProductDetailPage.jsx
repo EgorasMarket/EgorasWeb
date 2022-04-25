@@ -1,8 +1,18 @@
-import React from "react";
+import React, { useState, useEffect, useCallback } from "react";
+import axios from "axios";
+import { connect, useDispatch } from "react-redux";
+
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+import LoginComp from "../Login/LoginComp";
+import ItemDetailComponent from "../item_details_page/ItemDetailCompnent";
+import Checkout from "../item_details_page/CheckoutModalComponent";
+
+import "react-date-range/dist/styles.css"; // main style file
+import "react-date-range/dist/theme/default.css";
+
 const ProductDetailPage = ({ auth, match }) => {
   const config = {
     headers: {
@@ -233,5 +243,9 @@ const ProductDetailPage = ({ auth, match }) => {
     </>
   );
 };
-
-export default ProductDetailPage;
+const mapStateToProps1 = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart,
+});
+export default connect(mapStateToProps1)(ProductDetailPage);
