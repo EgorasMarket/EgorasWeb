@@ -1,15 +1,15 @@
-import React, { useState, useEffect, Fragment } from 'react';
+import React, { useState, useEffect, Fragment } from "react";
 // import "../../../../css/signup.css";
-import { connect } from 'react-redux';
-import '../../../../css/login.css';
-import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import { CustomAlert } from '../../../../CustomAlert';
-import { faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import './Kcl.css';
+import { connect } from "react-redux";
+import "../../../../css/login.css";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+import { CustomAlert } from "../../../../CustomAlert";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import "./Kcl.css";
 
-import { getLogin } from '../../../../actions/auth';
+import { getLogin } from "../../../../actions/auth";
 // import { getAuthentication } from "../../../../actions/auth";
 // import { setAlert } from "../../../../actions/alert";
 
@@ -18,24 +18,43 @@ const Login = ({ getLogin, isAuthenticated }) => {
   const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [visibility, setVisibility] = useState(false);
-  const [toke, setToke] = useState({ email: '', password: '' });
+  const [toke, setToke] = useState({ email: "", password: "" });
   const [strongPass, setStrongPass] = useState(false);
-  const [alert, setAlert] = useState('');
-  const [alertType, setAlertType] = useState('');
+  const [alert, setAlert] = useState("");
+  const [customAlert, setCustomAlert] = useState(false);
+  const [alertType, setAlertType] = useState("");
   const { email, password } = toke;
   const [isSuccessful, setIsSuccessful] = useState(false);
+
+  // ===============
+  // ===============
+  // ===============
+  // ===============
+  // useEffect(() => {
+  //   setAlert("");
+  //   const closeAlert = () => setAlert("");
+  //   setTimeout(function () {
+  //     closeAlert();
+  //     console.log("66");
+  //   }, 10000);
+  // }, [alert]);
+  // ===============
+  // ===============
+  // ===============
+  // ===============
+
   const onChange2 = (e) => {
     setToke({ ...toke, [e.target.name]: e.target.value });
     const { name, value } = e.target;
 
     switch (name) {
-      case 'password':
+      case "password":
         if (e.target.value.length <= 7) {
           setStrongPass(true);
-          console.log('password is not 8');
+          console.log("password is not 8");
         } else if (password.length >= 7) {
           setStrongPass(false);
-          console.log('password is 8');
+          console.log("password is 8");
         }
         break;
       default:
@@ -49,17 +68,17 @@ const Login = ({ getLogin, isAuthenticated }) => {
   };
 
   useEffect(() => {
-    if (email === '') {
+    if (email === "") {
       setDisable(true);
-    } else if (password === '') {
+    } else if (password === "") {
       setDisable(true);
     } else if (isLoading == true) {
       setDisable(true);
     } else if (isLoading == false) {
       setDisable(false);
-    } else if (email != '') {
+    } else if (email != "") {
       setDisable(false);
-    } else if (password != '') {
+    } else if (password != "") {
       setDisable(false);
     } else {
       setDisable(false);
@@ -85,11 +104,12 @@ const Login = ({ getLogin, isAuthenticated }) => {
       setIsSuccessful(true);
       setIsLoading(false);
       // setDisable(false);
-      console.log('okay Good Server');
+      console.log("okay Good Server");
     } else {
-      console.log('ffff');
+      console.log("ffff");
+      setCustomAlert(true);
       setAlert(res3.data);
-      setAlertType('danger');
+      setAlertType("danger");
       setIsLoading(false);
       setDisable(false);
     }
@@ -114,11 +134,16 @@ const Login = ({ getLogin, isAuthenticated }) => {
   // Redirect if logged in
   if (isAuthenticated) {
     // return <Redirect to="/dashboard" />;
-    return window.location.replace('/dashboard');
+    return window.location.replace("/dashboard");
   }
-  const timer = setTimeout(() => {
-    setAlert('');
-  }, 5000);
+  // const timer = setTimeout(() => {
+  //   setAlert("");
+  // }, 5000);
+
+  // const timer = () => {
+  //   setTimeout(closeAlert, 10000);
+  // };
+
   return (
     <div>
       <section className="signup_section">
@@ -134,9 +159,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
               </a>
             </div>
             <div className="signup_cont">
-              <div className="signup_title">
-                Login to your account
-              </div>
+              <div className="signup_title">Login to your account</div>
               <span className="signup_para">
                 Securely login to your Egoras Savings account.
               </span>
@@ -162,7 +185,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
                   <span className="input_title">Password</span>
                   <div className="passwrd_input_div">
                     <input
-                      type={visibility ? 'text' : 'password'}
+                      type={visibility ? "text" : "password"}
                       className="signup_input_field"
                       value={password}
                       name="password"
@@ -187,9 +210,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
                     )}
                   </div>
                   {strongPass == false ? null : (
-                    <div className="weak_pass_div">
-                      Password is weak
-                    </div>
+                    <div className="weak_pass_div">Password is weak</div>
                   )}
                 </div>
 
@@ -205,12 +226,8 @@ const Login = ({ getLogin, isAuthenticated }) => {
                 >
                   {isLoading ? (
                     <span>
-                      Logging in{' '}
-                      <FontAwesomeIcon
-                        className="ml-2"
-                        icon={faSpinner}
-                        spin
-                      />
+                      Logging in{" "}
+                      <FontAwesomeIcon className="ml-2" icon={faSpinner} spin />
                     </span>
                   ) : (
                     <span>Login</span>
@@ -219,7 +236,7 @@ const Login = ({ getLogin, isAuthenticated }) => {
               </div>
             </div>
             <span className="login_txt">
-              <a href="#" className="login_link">
+              <a href="/signup" className="login_link">
                 Don't have an account? Register
               </a>
             </span>
@@ -228,13 +245,21 @@ const Login = ({ getLogin, isAuthenticated }) => {
         <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
       </section>
 
-      {alert == '' ? null : (
+      {/* {alert === "" ? null : (
+        <CustomAlert
+          closeAlert={() => setCustomAlert(false)}
+          alert={alert}
+          alertType={alertType}
+        />
+      )} */}
+
+      {customAlert === true ? (
         <CustomAlert
           alert={alert}
           alertType={alertType}
-          onChange={timer}
+          closeAlert={() => setCustomAlert(false)}
         />
-      )}
+      ) : null}
     </div>
 
     // :null}

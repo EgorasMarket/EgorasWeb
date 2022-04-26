@@ -54,14 +54,14 @@ const TokenEUSD = () => {
                 </button> */}
                 <button
                   style={{ marginTop: "50px" }}
-                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  class="h_update_hero_area1_para_btn1"
                   onClick={toggleModal}
                 >
                   Convert eNGN
                 </button>
                 <button
                   style={{ marginTop: "50px" }}
-                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
+                  class="h_update_hero_area1_para_btn2"
                   onClick={toggleModal}
                 >
                   Redeem eNGN

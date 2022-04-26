@@ -9,6 +9,7 @@ import AdminSignup from "./components/layout/Admin/AdminSignup/AdminSignup";
 import "aos/dist/aos.css";
 import axios from "axios";
 import { connect } from "react-redux";
+import Market from "./components/layout/Home2/MarketPage/Market";
 // import Aos from "aos";
 // import "aos/dist/aos.css";
 
@@ -135,6 +136,7 @@ import Dashboard from "./components/layout/Home2/Dashboard/Dashboard";
 import Explore_Loans from "./components/layout/Explore_Loan/explore_loans";
 import Savings from "./components/layout/Home2/Savings/Savings";
 // import ItemDetailsPage from "./components/layout/Home2/item_details_page/ItemDetailsPage";
+import ProductDetailPage from "./components/layout/Home2/MarketPage/ProductDetailPage";
 import HomeUpdate from "./components/layout/HomeUpdate/HomeUpdate";
 import Explore_Loans_Page from "./components/layout/Explore_Loan/exploreLoanSection5";
 import Explore_Loans_Page1 from "./components/layout/Explore_Loan/exploreLoanSection7";
@@ -276,6 +278,7 @@ const App = () => {
                     component={ResetPassword}
                   />
                   <Route exact path="/savings" component={Savings} />
+                  <Route exact path="/market" component={Market} />
 
                   {/* <Route
                     exact
@@ -310,7 +313,16 @@ const App = () => {
                     path="/login/super_admin"
                     component={AdminLogin}
                   />
-
+                  <Route
+                    exact
+                    // path ={`/dashboard/products/details/:id/:${"name".replace( '','-')}`}
+                    path={`/products/details/:id/:${"name".replace(
+                      /\s+/g,
+                      ""
+                    )}`}
+                    // path={dapp }
+                    component={ProductDetailPage}
+                  />
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />
                   <Route exact path="/signup" component={Signup} />
@@ -488,7 +500,7 @@ const App = () => {
                     component={Documentation19}
                   />
                   <Route exact path="/egr-token" component={TokenEGR} />
-                  <Route exact path="/eusd-token" component={TokenEUSD} />
+                  <Route exact path="/engn-token" component={TokenEUSD} />
                   <Route exact path="/whitepaper" component={Whitepaper} />
 
                   <Route exact path="/login" component={Login} />

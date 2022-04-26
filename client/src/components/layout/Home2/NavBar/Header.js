@@ -7,6 +7,7 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CloseIcon from "@material-ui/icons/Close";
 import clsx from "clsx";
+import SearchIcon from "@mui/icons-material/Search";
 import Drawer from "@material-ui/core/Drawer";
 import AppsIcon from "@mui/icons-material/Apps";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -293,6 +294,8 @@ const Header = ({ isAuthenticated, auth }) => {
       setPage1("/validator");
     } else if (currentPage === "/savings") {
       setPage1("/savings");
+    } else if (currentPage === "/market") {
+      setPage1("/market");
     }
   });
 
@@ -453,7 +456,14 @@ const Header = ({ isAuthenticated, auth }) => {
             <a href="#" className="egrLogo2Cont">
               <img src="/img/egoras-logo.svg" alt="..." className="egr-logo2" />
             </a>
-
+            <div className="header_search">
+              <input
+                type="search"
+                className="header_search_bar"
+                placeholder="Search products, brands and categories"
+              />
+              <SearchIcon className="header_search_icon" />
+            </div>
             <ul className="headerButtons">
               {/* ========== */}
               {/* ========== */}
@@ -474,8 +484,9 @@ const Header = ({ isAuthenticated, auth }) => {
 
                 <a
                   href="/savings"
-                  className={page1 === "/market" ? "docs activeLink" : "about"}
+                  className={page1 === "/savings" ? "docs activeLink" : "about"}
                   // onClick={clickMe2}
+                  id="savings"
                 >
                   Savings
                   {page1 === "/savings" ? <span className="Line"></span> : null}
@@ -490,7 +501,24 @@ const Header = ({ isAuthenticated, auth }) => {
                 Validator
                 {page1 === "/validator" ? <span className="Line"></span> : null}
               </a>
+              <a
+                href="/market"
+                className={page1 === "/market" ? "docs activeLink" : "about"}
+                // onClick={clickMe2}
+                id="market"
+              >
+                Buy Now
+                {page1 === "/market" ? <span className="Line"></span> : null}
+              </a>
+              {/* <a href="https://sell.egoras.com/" className="about">
+                Sell Now
+              </a> */}
 
+              {/* ===================================================
+              ===========================
+              ========================================== */}
+
+              <vl></vl>
               <div
                 style={{ cursor: "pointer" }}
                 className="company"
@@ -523,15 +551,6 @@ const Header = ({ isAuthenticated, auth }) => {
                   </a>
                 </div>
               </div>
-
-              {/* ===================================================
-              ===========================
-              ========================================== */}
-
-              <vl></vl>
-              <a href="https://t.me/egorasmarket" className="about">
-                Support
-              </a>
               {/* <a href="/appointment" className="connect">
                 {" "}
                 Apply for loan
@@ -765,6 +784,31 @@ const Header = ({ isAuthenticated, auth }) => {
                   </div>
                 ) : null}
               </Drawer>
+            </div>
+          </div>
+        </div>
+        {/* <hr className="header_hr" /> */}
+        <div className="header_category_area">
+          <div className="container-fluid header">
+            <div className="header_categories">
+              <a href="#" className="header_cat_link">
+                Computers and Accessories
+              </a>
+              <a href="#" className="header_cat_link">
+                Phones and Tablets
+              </a>
+              <a href="#" className="header_cat_link">
+                Electronics
+              </a>
+              <a href="#" className="header_cat_link">
+                Fashion
+              </a>
+              <a href="#" className="header_cat_link">
+                Home and Kitchen
+              </a>
+              <a href="#" className="header_cat_link">
+                Musical Equipment
+              </a>
             </div>
           </div>
         </div>

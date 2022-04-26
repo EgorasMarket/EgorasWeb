@@ -1,201 +1,196 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import DatePicker from "react-date-picker";
-import { CustomAlert } from "../../../../CustomAlert";
-// import useAlert from "@semiorbit/react-ui-tools/Containers/useAlert";
-
-// import { setAlert } from ".";
-// import Alert from "../../Alert";
-import "../../../../css/signup.css";
-import { getAuthentication } from "../../../../actions/auth";
+import React, { useState, useEffect, useCallback } from "react";
+// import "../../../../css/signup.css";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-const Signup = ({ getAuthentication }) => {
-  const [userAuth, setUserAuth] = useState({
-    // fullname: "",
-    firstname: "",
-    lastname: "",
-    email: "",
-    password: "",
-    BVN: "",
-    phoneNumber: "",
-    confirmPassword: "",
-    InfoReason: "",
-  });
+import { connect } from "react-redux";
+import "../../../../css/login.css";
+import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+// import {CustomAlert} from "./alert";
+import { CustomAlert } from "../Login/alert";
+import DatePicker from "react-date-picker";
 
-  const [dateOfBirth, setDateOfBirth] = useState("");
+import { getLogin, getAuthentication } from "../../../../actions/auth";
+// import { getAuthentication } from "../../../../actions/auth";
+// import { setAlert } from "../../../../actions/alert";
 
-  const [disable, setDisable] = React.useState(false);
-  const [isLoading, setIsLoading] = useState(false);
-  const [alert, setAlert] = useState("");
-  const [customAlert, setCustomAlert] = useState(false);
-  const [alertType, setAlertType] = useState("");
-  // const [confirmPassword, setConfirmPassword] = useState("");
-  const [isSuccessful, setIsSuccessful] = useState(false);
-  const [visibility, setVisibility] = useState(false);
-  const [strongPass, setStrongPass] = useState(false);
-  const [mismatchPass, setMismatchPass] = useState(false);
-  const [visibility2, setVisibility2] = useState(false);
-  const {
-    // fullname,
-    firstname,
-    lastname,
-    email,
-    password,
-    BVN,
-    phoneNumber,
-    confirmPassword,
-    InfoReason,
-  } = userAuth;
-
-  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : "";
-
-
-  useEffect(() => {
-    // if (fullname === "") {
-    //   setDisable(true);
-    // }
-    if (firstname === "") {
-      setDisable(true);
-    }
-    if (lastname === "") {
-      setDisable(true);
-    }
-    if (email === "") {
-      setDisable(true);
-    } else if (password === "") {
-      setDisable(true);
-    } else if (phoneNumber === "") {
-      setDisable(true);
-    } else if (confirmPassword === "") {
-      setDisable(true);
-    } else if (InfoReason === "") {
-      setDisable(true);
-    } else if (isLoading == true) {
-      setDisable(true);
-    } else if (isLoading == false) {
-      setDisable(false);
-    } else {
-      setDisable(false);
-    }
-  });
-  const onChange = (e) => {
-    setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
-
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "password":
-        if (e.target.value.length <= 7) {
-          setStrongPass(true);
-          //console.log("password is not 8");
-        } else if (password.length >= 7) {
-          setStrongPass(false);
-          //console.log("password is 8");
+const UserSignUpComp = ({ getLogin, getAuthentication, isAuthenticated, parentCallback }) => {
+    const [userAuth, setUserAuth] = useState({
+        // fullname: "",
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        BVN: "",
+        phoneNumber: "",
+        confirmPassword: "",
+        InfoReason: "",
+      });
+    
+      const [dateOfBirth, setDateOfBirth] = useState("");
+    
+      const [disable, setDisable] = React.useState(false);
+      const [isLoading, setIsLoading] = useState(false);
+      const [alert, setAlert] = useState("");
+      const [customAlert, setCustomAlert] = useState(false);
+      const [alertType, setAlertType] = useState("");
+      // const [confirmPassword, setConfirmPassword] = useState("");
+      const [isSuccessful, setIsSuccessful] = useState(false);
+      const [visibility, setVisibility] = useState(false);
+      const [strongPass, setStrongPass] = useState(false);
+      const [mismatchPass, setMismatchPass] = useState(false);
+      const [visibility2, setVisibility2] = useState(false);
+      const {
+        // fullname,
+        firstname,
+        lastname,
+        email,
+        password,
+        BVN,
+        phoneNumber,
+        confirmPassword,
+        InfoReason,
+      } = userAuth;
+    
+      let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : "";
+    
+    
+      useEffect(() => {
+        // if (fullname === "") {
+        //   setDisable(true);
+        // }
+        if (firstname === "") {
+          setDisable(true);
         }
-        break;
-      default:
-        break;
-    }
-
-  };
-  const onChange2 = (e) => {
-    setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
-
-    const { name, value } = e.target;
-
-    switch (name) {
-      case "confirmPassword":
-        if (e.target.value !== password) {
-          setMismatchPass(true);
-          //console.log("password not match");
-        } else if (e.target.value === password) {
-          setMismatchPass(false);
-          //console.log("password match");
+        if (lastname === "") {
+          setDisable(true);
         }
-        break;
-      default:
-        break;
-    }
+        if (email === "") {
+          setDisable(true);
+        } else if (password === "") {
+          setDisable(true);
+        } else if (phoneNumber === "") {
+          setDisable(true);
+        } else if (confirmPassword === "") {
+          setDisable(true);
+        } else if (InfoReason === "") {
+          setDisable(true);
+        } else if (isLoading == true) {
+          setDisable(true);
+        } else if (isLoading == false) {
+          setDisable(false);
+        } else {
+          setDisable(false);
+        }
+      });
+      const onChange = (e) => {
+        setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
+    
+        const { name, value } = e.target;
+    
+        switch (name) {
+          case "password":
+            if (e.target.value.length <= 7) {
+              setStrongPass(true);
+              //console.log("password is not 8");
+            } else if (password.length >= 7) {
+              setStrongPass(false);
+              //console.log("password is 8");
+            }
+            break;
+          default:
+            break;
+        }
+    
+      };
+      const onChange2 = (e) => {
+        setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
+    
+        const { name, value } = e.target;
+    
+        switch (name) {
+          case "confirmPassword":
+            if (e.target.value !== password) {
+              setMismatchPass(true);
+              //console.log("password not match");
+            } else if (e.target.value === password) {
+              setMismatchPass(false);
+              //console.log("password match");
+            }
+            break;
+          default:
+            break;
+        }
+    
+      };
+      const setPasswordVisibilty = () => {
+        setVisibility(true);
+        // setPassImg("hide_pass");
+      };
+      const closetPasswordVisibilty = () => {
+        setVisibility(false);
+        // setPassImg("show_pass");
+      };
+      const setPasswordVisibilty2 = () => {
+        setVisibility2(true);
+        // setPassImg2("hide_pass2");
+      };
+      const closetPasswordVisibilty2 = () => {
+        setVisibility2(false);
+    
+        // setPassImg2("show_pass2");
+      };
+    
+      // useEffect(() => {
+      //   setIsSuccessful(false);
+      // });
+      const submitData = async (e) => {
+        console.log(birthDate, email, firstname, lastname, BVN, "sfdbhjdfbkjdbjk");
+        if (isLoading == true) {
+          //
+          setDisable(true);
+        } else if (isLoading == false) {
+          setDisable(false);
+        }
+        setIsLoading(true);
+        setDisable(true);
+        let res = await getAuthentication(
+          // fullname,
+          firstname.trim(),
+          lastname.trim(),
+          email,
+          birthDate,
+          password,
+          BVN,
+          phoneNumber,
+          InfoReason
+          //   localStorage.referrer
+        );
+        //console.log(res);
+        if (res.data.success === true) {
+          setIsSuccessful(true);
+          //console.log("okay Good Server");
+          setIsLoading(false);
+        } else {
+          setAlert(res.data.data.errors[0].msg, "danger");
+          setIsLoading(false);
+          setDisable(false);
+          setCustomAlert(true);
+          setAlertType("danger");
+        }
+    
+        //console.log(res.data.data.errors[0].msg);
+      };
 
-  };
-  const setPasswordVisibilty = () => {
-    setVisibility(true);
-    // setPassImg("hide_pass");
-  };
-  const closetPasswordVisibilty = () => {
-    setVisibility(false);
-    // setPassImg("show_pass");
-  };
-  const setPasswordVisibilty2 = () => {
-    setVisibility2(true);
-    // setPassImg2("hide_pass2");
-  };
-  const closetPasswordVisibilty2 = () => {
-    setVisibility2(false);
-
-    // setPassImg2("show_pass2");
-  };
-
-  // useEffect(() => {
-  //   setIsSuccessful(false);
-  // });
-  const submitData = async (e) => {
-    console.log(birthDate, email, firstname, lastname, BVN, "sfdbhjdfbkjdbjk");
-    if (isLoading == true) {
-      //
-      setDisable(true);
-    } else if (isLoading == false) {
-      setDisable(false);
-    }
-    setIsLoading(true);
-    setDisable(true);
-    let res = await getAuthentication(
-      // fullname,
-      firstname.trim(),
-      lastname.trim(),
-      email,
-      birthDate,
-      password,
-      BVN,
-      phoneNumber,
-      InfoReason
-      //   localStorage.referrer
-    );
-    //console.log(res);
-    if (res.data.success === true) {
-      setIsSuccessful(true);
-      //console.log("okay Good Server");
-      setIsLoading(false);
-    } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
-      setIsLoading(false);
-      setDisable(false);
-      setCustomAlert(true);
-      setAlertType("danger");
-    }
-
-    //console.log(res.data.data.errors[0].msg);
-  };
-
-
+//   const timer = setTimeout(() => {
+//     setAlert2("");
+//   }, 5000);
 
   return (
     <div>
-      {isSuccessful == false ? (
-        <section className="signup_section">
-          <div className="container">
-            <div className="signup_area">
-              <div className="signup_cont_head">
-                <a href="/">
-                  <img
-                    src="/img/egoras-logo.svg"
-                    alt=""
-                    className="signup_title_img"
-                  />
-                </a>
-              </div>
-              <div className="signup_cont">
+      <div style={{zIndex: '10000'}} className="signup_area">
+        <div style={{width: '100vw', height: '100vh', borderRadius: 'unset'}} className="signup_cont">
+            <div className="mt-5">
                 <div className="signup_title">Create an Account</div>
                 <span className="signup_para">Welcome to Egoras Savings.</span>
                 <div className="signup_inputs_cont">
@@ -251,15 +246,15 @@ const Signup = ({ getAuthentication }) => {
                         onChange={onChange}
                       />
                     </div>
-                    <div className="text-left">
+                    <div className="text-left" style={{width: '-webkit-fill-available'}}>
                       <span className="input_title">Date Of Birth</span>
                       <DatePicker
                         onChange={setDateOfBirth}
                         value={dateOfBirth}
                         format="yyyy-MM-dd"
                       />
-                    </div>
                     <div className="weak_pass_div text-muted">* Optional</div>
+                    </div>
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">
@@ -400,77 +395,23 @@ const Signup = ({ getAuthentication }) => {
                   </button>
                 </div>
               </div>
-              <span className="login_txt">
-                <a href="/login" className="login_link">
-                  Already have an account? Login
-                </a>
-              </span>
-            </div>
-          </div>
-          <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
-        </section>
-      ) : (
-        <section className="signup_section success_section">
-          <div className="container">
-            <div className="sign_up_area">
-              <div className="sign_up_cont  success_div">
-                <div className="sign_up_area2 ">
-                  <div className="sign_up_area1_cont1">
-                    <div className="forgot_password_div center_me">
-                      <img
-                        src="/img/success-mail-icon.svg"
-                        alt=""
-                        className="success_img"
-                      />
-                      <h4 className="check_mail">Check your email</h4>
+        </div>
+        
+      </div>
 
-                      <p>
-                        An activation email has been sent to{" "}
-                        <span className="email_name">{email}</span> with
-                        instructions to activate your account.
-                      </p>
-                      <p className="note">
-                        {" "}
-                        * If the email doesn’t show up soon, check your spam
-                        folder or make sure you enter the email you used for
-                        registration.
-                      </p>
-                    </div>
-                  </div>
-
-                  <div className="sign_up_btns">
-                    <a href="/login" className="login2">
-                      {" "}
-                      <button
-                        className="sign_up_btn"
-                        // type="submit"
-                      >
-                        {" "}
-                        Return to login
-                      </button>
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      )}
-
-      {customAlert === true ? (
-        <CustomAlert
-          alert={alert}
-          alertType={alertType}
-          closeAlert={() => setCustomAlert(false)}
-        />
-      ) : null}
-      {/* ========== */}
-      {/* ========== */}
-      {/* ========== */}
+      {/* {alert2 == "" ? null : <CustomAlert alert={alert2} alertType={alertType} onChange={timer} />} */}
     </div>
   );
 };
 
-export default connect(null, { getAuthentication })(Signup);
+UserSignUpComp.propTypes = {
+  // getLoginAuthentication: PropTypes.func.isRequired,
+  // setAlert: PropTypes.func.isRequired,
+  isAuthenticated: PropTypes.bool,
+};
 
-// export const getName =props.fullname;
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
+
+export default connect(mapStateToProps, { getAuthentication })(UserSignUpComp);

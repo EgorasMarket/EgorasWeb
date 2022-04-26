@@ -83,9 +83,6 @@ const AdminSignup = ({ getAuthentication }) => {
             <div className="signup_area">
               <div className="signup_cont">
                 <div className="signup_title">Create an Account</div>
-                <span className="signup_para">
-                  Welcome to the future of savings & investments.
-                </span>
                 <div className="signup_inputs_cont">
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Full Name</span>
@@ -287,7 +284,6 @@ const AdminSignup = ({ getAuthentication }) => {
             </div>
           </div>
         </section>
-          
       ) : (
         <section className="signup_section success_section">
           <div className="container">
@@ -317,7 +313,7 @@ const AdminSignup = ({ getAuthentication }) => {
                     </div>
                   </div>
 
-                  <div className="sign_up_btns">
+                  {/* <div className="sign_up_btns">
                     <a href="/login/super_admin" className="login2">
                       {" "}
                       <button
@@ -328,7 +324,7 @@ const AdminSignup = ({ getAuthentication }) => {
                         Return to login
                       </button>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>
