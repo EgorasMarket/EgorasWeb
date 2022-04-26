@@ -84,18 +84,12 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const OpenLoginModal = () => {
-    // //console.log(auth.user.user);
+  
     if (auth.user !== null) {
-      //console.log(auth.user.user);
-      // set_user_id(customer_id);
+
       openDetailsModal();
-      // checkout(
-      //   user_id,
-      //   product_id,
-      //   daysAdded,
-      //   startDate,
-      //   endDate
-      //   );
+      // setLoginModal(true);
+   
     } else {
       setLoginModal(true);
     }

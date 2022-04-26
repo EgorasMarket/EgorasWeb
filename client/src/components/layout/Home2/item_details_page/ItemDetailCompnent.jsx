@@ -395,7 +395,7 @@ const ItemDetailComponent = ({
                 For offline bookings contact:
               </div>
               <div className="offline_payment_para">
-                <CallIcon className="call_us_icon" /> 08164020234, 090234567893
+                <CallIcon className="call_us_icon" /> <a href='https://web.whatsapp.com/send?phone=08164020234'>08164020234</a>, <a href='https://web.whatsapp.com/send?phone=090234567893'>090234567893</a>
               </div>
             </div>
             {payment_type === "INSTALLMENT" ? (

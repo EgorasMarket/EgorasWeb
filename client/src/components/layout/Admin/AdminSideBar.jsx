@@ -56,6 +56,7 @@ import {
 import Logout from '../Home2/Logout/Logout';
 import NewOne from './AdminPages/newOne';
 import Transact from './AdminPages/Transactionbybranch';
+import { Inventory } from '@mui/icons-material';
 const AdminSideBar = ({ auth }) => {
   const dddd = localStorage.getItem('smallSidetoken');
 
@@ -493,6 +494,25 @@ const AdminSideBar = ({ auth }) => {
                       >
                         <GroupsIcon className="sidebarIcon" />
                         Customers
+                      </li>
+                    </a>
+
+                    {/* {  locate === "/super_admin/overview" ? */}
+                    <a
+                      href="/super_admin/products/for-sell"
+                      className="link"
+                      id="sellProducts"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == 'sellProducts'
+                            ? 'sidebarListItem list-item-active'
+                            : 'sidebarListItem'
+                        }
+                      >
+                        <Inventory className="sidebarIcon" />
+                        Sell Products
                       </li>
                     </a>
 
@@ -1091,6 +1111,25 @@ const AdminSideBar = ({ auth }) => {
                       >
                         <GroupsIcon className="sidebarIcon" />
                         Customer
+                      </li>
+                    </a>
+
+                    {/* {  locate === "/super_admin/overview" ? */}
+                    <a
+                      href="/super_admin/products/for-sell"
+                      className="link"
+                      id="sellProducts"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == 'sellProducts'
+                            ? 'sidebarListItem small_list-item-active'
+                            : 'sidebarListItem'
+                        }
+                      >
+                        <Inventory className="sidebarIcon" />
+                        Sell Products
                       </li>
                     </a>
 
