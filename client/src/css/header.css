@@ -12,12 +12,9 @@
   flex-direction: column;
   gap: 0px;
 }
+
 .header_category_area {
-  background: #eaeaea;
-  /* padding: 1em 0em; */
-}
-.header_category_area {
-  background: #f3f3f3;
+  background: #e5e5e5;
 }
 .header_hr {
   margin-bottom: 0;
@@ -32,11 +29,11 @@
 }
 .header_cat_link {
   height: 100%;
-  background: #f3f3f3;
+  /* background: #f3f3f3; */
   padding: 1em 2em;
   color: #000;
   position: relative;
-  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  transition: 0.3s ease-in-out;
 }
 .header-area {
   display: flex;
@@ -45,20 +42,25 @@
   padding: 0.5em 0em;
   gap: 20px;
 }
-.header_cat_link:hover.header_cat_link::after {
+.header_cat_link:hover {
+  background: #ffffff;
+  color: #000;
+  transition: 0.3s ease-in-out;
+}
+.header_cat_link::after {
   content: "";
   position: absolute;
   width: 100%;
   bottom: 0;
   height: 1px;
-  background-color: #000;
+  background: #000;
   left: 0;
-  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  transition: 0.3s ease-in-out;
+  display: none;
 }
-.header_cat_link:hover {
-  background: #dfdfdf;
-  color: #000;
-  transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+.header_cat_link:hover.header_cat_link::after {
+  display: block;
+  transition: 0.3s ease-in-out;
 }
 
 .egr-logo {
@@ -147,13 +149,13 @@
   position: relative;
 }
 .header_search {
-  width: 60%;
+  width: 100%;
   position: relative;
 }
 .header_search_bar {
   width: 100%;
   border-radius: 6px;
-  border: solid 1px #000000;
+  border: solid 1px #229e54;
   padding: 0.6em 1em;
   font-size: 14px;
   transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
@@ -168,7 +170,7 @@
   margin: auto;
   font-size: 4px !important;
   color: #ffffff;
-  background: #000000;
+  background: #229e54;
   height: 100% !important;
   width: 5% !important;
   padding: 9px;
