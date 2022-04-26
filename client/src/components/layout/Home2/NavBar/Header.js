@@ -16,6 +16,7 @@ import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
+import { API_URL2 as api_url2 } from "../../../../actions/types";
 
 // =======================
 import List from "@material-ui/core/List";
@@ -25,6 +26,7 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import ListItem from "@material-ui/core/ListItem";
 import Login from "../Login/Login";
+import axios from "axios";
 
 // styles
 import "../../../../css/header.css";
@@ -121,9 +123,18 @@ const useStyles2 = makeStyles((theme) => ({
 // }));
 
 const Header = ({ isAuthenticated, auth }) => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
   const [showHeader, setshowHeader] = useState("/");
   const [isAuth, setIsAuth] = useState(false);
   // const [showHeader, setshowHeader] = useState("/");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [searchDiv, setSearchDiv] = useState(false);
+  const [productNames, setProductNames] = useState([]);
 
   const currentPage = window.location.pathname;
 
@@ -281,12 +292,6 @@ const Header = ({ isAuthenticated, auth }) => {
   // class change on click functions
   const [page1, setPage1] = useState("/");
 
-  // const [weed,setWeed]= useState( false);
-
-  // const pad =()=>{
-  //   setWeed(!weed)
-  // }
-
   useEffect(() => {
     if (currentPage === "/loan") {
       setPage1("/loan");
@@ -322,42 +327,9 @@ const Header = ({ isAuthenticated, auth }) => {
   // =============
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [anchorEl1, setAnchorEl1] = React.useState(null);
-  const open1 = Boolean(anchorEl);
-  const open2 = Boolean(anchorEl1);
-  const handleClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-  const handleClick1 = (event) => {
-    setAnchorEl1(event.currentTarget);
-  };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
-  const handleClose1 = () => {
-    setAnchorEl1(null);
-  };
 
   const [open12, setOpen12] = React.useState(false);
   const anchorRef12 = React.useRef(null);
-
-  const handleToggle12 = () => {
-    setOpen12((prevOpen12) => !prevOpen12);
-  };
-
-  const handleClose12 = (event) => {
-    if (anchorRef12.current && anchorRef12.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen12(false);
-  };
-
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen12(false);
-    }
-  }
 
   // return focus to the button when we transitioned from !open12 -> open12
   const prevOpen12 = React.useRef(open12);
@@ -372,25 +344,6 @@ const Header = ({ isAuthenticated, auth }) => {
   const [open13, setOpen13] = React.useState(false);
   const anchorRef13 = React.useRef(null);
 
-  const handleToggle13 = () => {
-    setOpen13((prevOpen13) => !prevOpen13);
-  };
-
-  const handleClose13 = (event) => {
-    if (anchorRef13.current && anchorRef13.current.contains(event.target)) {
-      return;
-    }
-
-    setOpen13(false);
-  };
-
-  function handleListKeyDown(event) {
-    if (event.key === "Tab") {
-      event.preventDefault();
-      setOpen13(false);
-    }
-  }
-
   // return focus to the button when we transitioned from !open13 -> open13
   const prevOpen13 = React.useRef(open13);
   React.useEffect(() => {
@@ -401,27 +354,6 @@ const Header = ({ isAuthenticated, auth }) => {
     prevOpen13.current = open13;
   }, [open13]);
 
-  // open dropdown menu
-  const dropDownOpen1 = () => {
-    // const dropUpIcon = document.getElementById("ArrowUpIcon");
-    const dropDownIcon = document.getElementById("ArrowDownIcon");
-    const dropMenu = document.getElementById("products-menu");
-
-    dropDownIcon.classList.add("rotate");
-    // dropUpIcon.style.display = "inline-block";
-
-    dropMenu.style.display = "block";
-  };
-  const dropDownClose1 = () => {
-    // const dropUpIcon = document.getElementById("ArrowUpIcon");
-    const dropDownIcon = document.getElementById("ArrowDownIcon");
-    const dropMenu = document.getElementById("products-menu");
-
-    dropDownIcon.classList.remove("rotate");
-    // dropUpIcon.style.display = "none";
-
-    dropMenu.style.display = "none";
-  };
   // open dropdown menu
   const dropDownOpen2 = () => {
     // const dropUpIcon = document.getElementById("ArrowUpIcon2");
@@ -443,6 +375,27 @@ const Header = ({ isAuthenticated, auth }) => {
 
     dropMenu.style.display = "none";
   };
+  useEffect(() => {
+    axios
+      .get(
+        api_url2 + "/v1/product/retrieve/products/search/" + searchTerm,
+        null,
+        config
+      )
+      .then((data) => {
+        console.log(data.data.data);
+        setProductNames(data.data.data);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }, [searchTerm]);
+  const handler = (event) => {
+    setSearchTerm(event.target.value);
+  };
+  const results = productNames.filter((car) =>
+    car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div id="Header">
@@ -459,18 +412,89 @@ const Header = ({ isAuthenticated, auth }) => {
             <div className="header_search">
               <input
                 type="search"
+                value={searchTerm}
+                name="search"
+                id="search"
                 className="header_search_bar"
                 placeholder="Search products, brands and categories"
+                onChange={handler}
+                autocomplete="off"
+
+                // onMouseOut={() => {
+                //   setSearchDiv(false);
+                // }}
               />
               <SearchIcon className="header_search_icon" />
+              {searchTerm.length === 0 ? null : (
+                <div
+                  id="fodo"
+                  style={{
+                    position: "absolute",
+                    zIndex: "500",
+                    width: "100%",
+                    top: "40px",
+                    maxHeight: "500px",
+                    height: "auto",
+                    backgroundColor: "#fff",
+                    overflowY: "scroll",
+                    borderRadius: "10px",
+                    cursor: "pointer",
+                    boxShadow: "0px 13px 23px 0px #00000026",
+                  }}
+                  className="scr"
+                >
+                  {productNames.length === 0 ? (
+                    <span> Search result not found.</span>
+                  ) : (
+                    <ul style={{ margin: "0" }}>
+                      {results.map((item, index) => (
+                        <li
+                          className="hover_div"
+                          style={{
+                            padding: "1em 2em",
+                          }}
+                        >
+                          <a
+                            href={`/products/details/${
+                              item.id
+                            }/${item.product_name.replace(/\s+/g, "-")}`}
+                            key={index.toString()}
+                            style={{
+                              color: "#000",
+                              fontSize: "12px",
+                              fontWeight: "400",
+                            }}
+                          >
+                            {" "}
+                            {item.product_name}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  )}
+                </div>
+              )}
             </div>
             <ul className="headerButtons">
               {/* ========== */}
               {/* ========== */}
-              {/* ========== */}
-              {/* ========== */}
-              <ul className="headerLinks">
-                <div className="boroowww" id="borrow">
+
+              <div
+                style={{ cursor: "pointer" }}
+                className="company"
+                id="company1"
+                onMouseOver={dropDownOpen2}
+                onMouseOut={dropDownClose2}
+              >
+                Products
+                <img
+                  src="/img/arrow-down-icon.svg"
+                  alt="..."
+                  id="ArrowDownIcon2"
+                  className="ArrowDownIcon2"
+                />
+                {/* <ArrowDropUpIcon id="ArrowUpIcon2" className="ArrowUpIcon2" /> */}
+                <div className="products-menu menu2" id="products-menu2">
                   <a
                     href="/loan"
                     id="borrow"
@@ -480,40 +504,50 @@ const Header = ({ isAuthenticated, auth }) => {
                     Loan
                     {page1 === "/loan" ? <span className="Line"></span> : null}
                   </a>
+                  <hr />
+                  <a
+                    href="/savings"
+                    className={
+                      page1 === "/savings" ? "docs activeLink" : "about"
+                    }
+                    // onClick={clickMe2}
+                    id="savings"
+                  >
+                    Savings
+                    {page1 === "/savings" ? (
+                      <span className="Line"></span>
+                    ) : null}
+                  </a>
+                  <hr />
+                  <a
+                    href="/validator"
+                    className={
+                      page1 === "/validator" ? "docs activeLink" : "about"
+                    }
+                    // onClick={clickMe2}
+                    id="valid"
+                  >
+                    Validator
+                    {page1 === "/validator" ? (
+                      <span className="Line"></span>
+                    ) : null}
+                  </a>
+                  <hr />
+                  <a
+                    href="/market"
+                    className={
+                      page1 === "/market" ? "docs activeLink" : "about"
+                    }
+                    // onClick={clickMe2}
+                    id="market"
+                  >
+                    Buy Now
+                    {page1 === "/market" ? (
+                      <span className="Line"></span>
+                    ) : null}
+                  </a>
                 </div>
-
-                <a
-                  href="/savings"
-                  className={page1 === "/savings" ? "docs activeLink" : "about"}
-                  // onClick={clickMe2}
-                  id="savings"
-                >
-                  Savings
-                  {page1 === "/savings" ? <span className="Line"></span> : null}
-                </a>
-              </ul>
-              <a
-                href="/validator"
-                className={page1 === "/validator" ? "docs activeLink" : "about"}
-                // onClick={clickMe2}
-                id="valid"
-              >
-                Validator
-                {page1 === "/validator" ? <span className="Line"></span> : null}
-              </a>
-              <a
-                href="/market"
-                className={page1 === "/market" ? "docs activeLink" : "about"}
-                // onClick={clickMe2}
-                id="market"
-              >
-                Buy Now
-                {page1 === "/market" ? <span className="Line"></span> : null}
-              </a>
-              {/* <a href="https://sell.egoras.com/" className="about">
-                Sell Now
-              </a> */}
-
+              </div>
               {/* ===================================================
               ===========================
               ========================================== */}
@@ -808,6 +842,9 @@ const Header = ({ isAuthenticated, auth }) => {
               </a>
               <a href="#" className="header_cat_link">
                 Musical Equipment
+              </a>
+              <a href="#" className="header_cat_link">
+                Gaming
               </a>
             </div>
           </div>
