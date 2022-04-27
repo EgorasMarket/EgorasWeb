@@ -15,6 +15,7 @@ import { getLogin, getAuthentication } from "../../../../actions/auth";
 // import { setAlert } from "../../../../actions/alert";
 
 const UserSignUpComp = ({ getLogin, getAuthentication, isAuthenticated, parentCallback }) => {
+    // New Changes
     const [userAuth, setUserAuth] = useState({
         // fullname: "",
         firstname: "",
