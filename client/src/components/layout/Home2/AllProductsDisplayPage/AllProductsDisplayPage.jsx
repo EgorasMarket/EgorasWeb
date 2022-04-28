@@ -12,39 +12,82 @@ function Items({ currentItems }) {
   return (
     <div className="product_display_cards_body">
       {currentItems &&
-        currentItems.map((item) => (
+        currentItems.map((asset, index5) => (
           <div className="product_display_cards_cont">
-            <a href="" className="product_display_card">
-              <li className="carous_list">
+            <a
+              href={`/products/details/${asset.id}/${asset.product_name.replace(
+                /\s+/g,
+                "-"
+              )}`}
+              key={index5.toString()}
+              className="product_display_card"
+            >
+              <li className="carous_list no_marg inventory_cards">
                 <div
                   className="storeTiles_storeTileContainer__HoGEa"
                   style={{
-                    background: "#000",
+                    backgroundImage: `url(${asset.product_image})`,
+                    //           height: "200px",
+                    //           width: "100%",
+                    //           backgroundRepeat: "no-repeat",
+                    //           backgroundSize: "cover",
+                    //           borderRadius: "8px",
+                    //           borderBottomLeftRadius: "0px",
+                    //           borderBottomRightRadius: "0px",
+                    //   backgroundPositionY: "center",
                   }}
                 >
-                  <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                    <button className="items_remaining_btn">
-                      <p className="no_margg"> Buy now</p>
-                    </button>
-
-                    <button className="items_remaining_btn2">
-                      {" "}
-                      {item.percentage}% locked
-                    </button>
-                  </div>
+                  {asset.payment_type == "OUTRIGHT" ? (
+                    <div className="out_right_install_tag">
+                      <button
+                        className="out_right_install_tag_btn"
+                        style={{
+                          background: "#3ebc6e",
+                          borderColor: "#3ebc6e",
+                        }}
+                      >
+                        Outright
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="out_right_install_tag">
+                      <button className="out_right_install_tag_btn">
+                        Savings
+                      </button>
+                    </div>
+                  )}
                   <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                    <div className="asset_name">{item.product_name}</div>
-                    <div className="asset_prices_div">
+                    <div className="asset_name">{asset.product_name}</div>
+                    <div class="asset_prices_div">
                       <div className="asset_title">
-                        ₦{numberWithCommas(item.amount)}{" "}
-                        <span className="slashed_price">
-                          ₦{numberWithCommas(item.amount * 2)}
-                        </span>
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <span className="init_amount">
+                            ₦{numberWithCommas(asset.amount)}{" "}
+                          </span>
+                        ) : (
+                          <span className="init_amount">
+                            ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                          </span>
+                        )}
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <span className="slashed_price">
+                            ₦{numberWithCommas(asset.amount * 2)}
+                          </span>
+                        ) : (
+                          <span className="slashed_price">
+                            ₦{numberWithCommas(asset.roundedAmount * 2)}
+                          </span>
+                        )}
                       </div>
-                      <div className="amount_per_day_div">
-                        ₦{numberWithCommas(item.paymentPerday.toFixed())}
-                        <span className="per_day_symbol">/ perday</span>
-                      </div>
+                      {asset.payment_type == "OUTRIGHT" ? null : (
+                        <div className="amount_per_day_div">
+                          ₦
+                          {numberWithCommas(
+                            (asset.amount / asset.product_duration).toFixed()
+                          )}
+                          <span className="per_day_symbol"> / perday</span>
+                        </div>
+                      )}
                     </div>
                   </div>
                   {/* </a> */}
@@ -87,12 +130,12 @@ function PaginatedItems({ itemsPerPage, items }) {
     <>
       <Items currentItems={currentItems} />
       <ReactPaginate
-        nextLabel="next >"
+        nextLabel="Next >"
         onPageChange={handlePageClick}
         pageRangeDisplayed={3}
-        marginPagesDisplayed={2}
+        marginPagesDisplayed={1}
         pageCount={pageCount}
-        previousLabel="< previous"
+        previousLabel="< Previous"
         pageClassName="page-item"
         pageLinkClassName="page-link"
         previousClassName="page-item"
@@ -110,14 +153,16 @@ function PaginatedItems({ itemsPerPage, items }) {
   );
 }
 
-const AllProductsDisplayPage = () => {
+const AllProductsDisplayPage = ({ match }) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
+  console.log(match.params.tag);
   const [items, setItems] = useState([]);
-  const [searchVal, setSearchVal] = useState("n");
+  const [searchVal, setSearchVal] = useState(match.params.tag);
 
   useEffect(() => {
     axios
@@ -139,7 +184,7 @@ const AllProductsDisplayPage = () => {
       <section className="market_page_section">
         <div className="custom_container">
           <div className="pagination_body">
-            <PaginatedItems itemsPerPage={20} items={items} />
+            <PaginatedItems itemsPerPage={40} items={items} />
           </div>
         </div>{" "}
       </section>
