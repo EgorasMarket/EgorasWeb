@@ -1,0 +1,28 @@
+.product_display_cards_body {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  gap: 10px;
+}
+.product_display_cards_cont {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.product_display_card {
+  width: 300px;
+}
+.pagination_body {
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  /* background: grey; */
+  /* padding: 2em 1em; */
+  /* border-radius: 10px; */
+}
+.pagination {
+  display: flex;
+  padding-left: 0;
+  list-style: none;
+  border-radius: 0.25rem;
+  justify-content: flex-end;
+}

@@ -54,6 +54,13 @@ const responsive1 = {
     items: 1,
   },
 };
+const responsive3 = {
+  desktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 0 },
+    items: 1,
+  },
+};
 const HomeUpdate = () => {
   const settings = {
     dots: false,
@@ -72,74 +79,358 @@ const HomeUpdate = () => {
     <div style={{ overflow: "hidden" }}>
       <section className="h_update_hero_section">
         <div className="container">
-          <div className="h_update_hero_area">
-            <div className="h_update_hero_area1">
-              <div className="h_update_hero_area1_title">
-                BETTER WAYS TO BORROW & SAVE MONEY.
+          <Carousel
+            responsive={responsive3}
+            className="home_page_carousel"
+            showDots={true}
+            //   infinite={false}
+            autoPlay={true}
+            autoPlaySpeed={12000}
+            infinite={true}
+            draggable={true}
+            swipeable={true}
+          >
+            <div className="h_update_hero_area">
+              <div className="h_update_hero_area1">
+                <div className="h_update_hero_area1_title">
+                  BETTER WAYS TO BORROW & SAVE MONEY.
+                </div>
+                <div className="h_update_hero_area1_para">
+                  Pledge your assets to access interest-free loans while saving
+                  up to get any desired item.
+                </div>{" "}
+                <div className="h_update_hero_area1_para_btns">
+                  <a href="/loan">
+                    <button className="h_update_hero_area1_para_btn1">
+                      Borrow Now <ArrowRightIcon />
+                    </button>
+                  </a>
+                  <a href="/savings">
+                    <button className="h_update_hero_area1_para_btn2">
+                      <ArrowRightIcon /> Save Now
+                    </button>
+                  </a>
+                </div>
               </div>
-              <div className="h_update_hero_area1_para">
-                Pledge your assets to access interest-free loans while saving up
-                to get any desired item.
-              </div>{" "}
-              <div className="h_update_hero_area1_para_btns">
-                <a href="/loan">
-                  <button className="h_update_hero_area1_para_btn1">
-                    Borrow Now <ArrowRightIcon />
-                  </button>
-                </a>
-                <a href="/savings">
-                  <button className="h_update_hero_area1_para_btn2">
-                    <ArrowRightIcon /> Save Now
-                  </button>
-                </a>
+              <div className="h_update_hero_area2">
+                <Slider {...settings}>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv1.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv2.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv3.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv4.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                </Slider>
+                <img
+                  src="/img/img_circles_slide.svg"
+                  alt=""
+                  className="circle_slides"
+                />
               </div>
             </div>
-            <div className="h_update_hero_area2">
-              <Slider {...settings}>
-                <div className="imggss">
-                  <div>
-                    <img
-                      src="/img/sv1.svg"
-                      alt=""
-                      className="h_update_hero_area_img"
-                    />
-                  </div>
+            <div className="h_update_hero_area">
+              <div className="h_update_hero_area1">
+                <div className="h_update_hero_area1_title">
+                  BETTER WAYS TO BORROW & SAVE MONEY.
                 </div>
-                <div className="imggss">
-                  <div>
-                    <img
-                      src="/img/sv2.svg"
-                      alt=""
-                      className="h_update_hero_area_img"
-                    />
-                  </div>
+                <div className="h_update_hero_area1_para">
+                  Pledge your assets to access interest-free loans while saving
+                  up to get any desired item.
+                </div>{" "}
+                <div className="h_update_hero_area1_para_btns">
+                  <a href="/loan">
+                    <button className="h_update_hero_area1_para_btn1">
+                      Borrow Now <ArrowRightIcon />
+                    </button>
+                  </a>
+                  <a href="/savings">
+                    <button className="h_update_hero_area1_para_btn2">
+                      <ArrowRightIcon /> Save Now
+                    </button>
+                  </a>
                 </div>
-                <div className="imggss">
-                  <div>
-                    <img
-                      src="/img/sv3.svg"
-                      alt=""
-                      className="h_update_hero_area_img"
-                    />
+              </div>
+              <div className="h_update_hero_area2">
+                <Slider {...settings}>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv1.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
                   </div>
-                </div>
-                <div className="imggss">
-                  <div>
-                    <img
-                      src="/img/sv4.svg"
-                      alt=""
-                      className="h_update_hero_area_img"
-                    />
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv2.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
                   </div>
-                </div>
-              </Slider>
-              <img
-                src="/img/img_circles_slide.svg"
-                alt=""
-                className="circle_slides"
-              />
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv3.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv4.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                </Slider>
+                <img
+                  src="/img/img_circles_slide.svg"
+                  alt=""
+                  className="circle_slides"
+                />
+              </div>
             </div>
-          </div>
+            <div className="h_update_hero_area">
+              <div className="h_update_hero_area1">
+                <div className="h_update_hero_area1_title">
+                  BETTER WAYS TO BORROW & SAVE MONEY.
+                </div>
+                <div className="h_update_hero_area1_para">
+                  Pledge your assets to access interest-free loans while saving
+                  up to get any desired item.
+                </div>{" "}
+                <div className="h_update_hero_area1_para_btns">
+                  <a href="/loan">
+                    <button className="h_update_hero_area1_para_btn1">
+                      Borrow Now <ArrowRightIcon />
+                    </button>
+                  </a>
+                  <a href="/savings">
+                    <button className="h_update_hero_area1_para_btn2">
+                      <ArrowRightIcon /> Save Now
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <div className="h_update_hero_area2">
+                <Slider {...settings}>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv1.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv2.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv3.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv4.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                </Slider>
+                <img
+                  src="/img/img_circles_slide.svg"
+                  alt=""
+                  className="circle_slides"
+                />
+              </div>
+            </div>
+            <div className="h_update_hero_area">
+              <div className="h_update_hero_area1">
+                <div className="h_update_hero_area1_title">
+                  BETTER WAYS TO BORROW & SAVE MONEY.
+                </div>
+                <div className="h_update_hero_area1_para">
+                  Pledge your assets to access interest-free loans while saving
+                  up to get any desired item.
+                </div>{" "}
+                <div className="h_update_hero_area1_para_btns">
+                  <a href="/loan">
+                    <button className="h_update_hero_area1_para_btn1">
+                      Borrow Now <ArrowRightIcon />
+                    </button>
+                  </a>
+                  <a href="/savings">
+                    <button className="h_update_hero_area1_para_btn2">
+                      <ArrowRightIcon /> Save Now
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <div className="h_update_hero_area2">
+                <Slider {...settings}>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv1.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv2.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv3.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv4.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                </Slider>
+                <img
+                  src="/img/img_circles_slide.svg"
+                  alt=""
+                  className="circle_slides"
+                />
+              </div>
+            </div>
+            <div className="h_update_hero_area">
+              <div className="h_update_hero_area1">
+                <div className="h_update_hero_area1_title">
+                  BETTER WAYS TO BORROW & SAVE MONEY.
+                </div>
+                <div className="h_update_hero_area1_para">
+                  Pledge your assets to access interest-free loans while saving
+                  up to get any desired item.
+                </div>{" "}
+                <div className="h_update_hero_area1_para_btns">
+                  <a href="/loan">
+                    <button className="h_update_hero_area1_para_btn1">
+                      Borrow Now <ArrowRightIcon />
+                    </button>
+                  </a>
+                  <a href="/savings">
+                    <button className="h_update_hero_area1_para_btn2">
+                      <ArrowRightIcon /> Save Now
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <div className="h_update_hero_area2">
+                <Slider {...settings}>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv1.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv2.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv3.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                  <div className="imggss">
+                    <div>
+                      <img
+                        src="/img/sv4.svg"
+                        alt=""
+                        className="h_update_hero_area_img"
+                      />
+                    </div>
+                  </div>
+                </Slider>
+                <img
+                  src="/img/img_circles_slide.svg"
+                  alt=""
+                  className="circle_slides"
+                />
+              </div>
+            </div>
+          </Carousel>
         </div>
         <img
           src="/img/new_hero_bg_blur.png"

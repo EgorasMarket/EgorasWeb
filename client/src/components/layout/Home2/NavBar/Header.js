@@ -7,11 +7,19 @@ import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CloseIcon from "@material-ui/icons/Close";
 import clsx from "clsx";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import SearchIcon from "@mui/icons-material/Search";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Drawer from "@material-ui/core/Drawer";
-import AppsIcon from "@mui/icons-material/Apps";
+import SellIcon from "@mui/icons-material/Sell";
+import PaidIcon from "@mui/icons-material/Paid";
+import HowToRegIcon from "@mui/icons-material/HowToReg";
 import Toolbar from "@material-ui/core/Toolbar";
+import ArticleIcon from "@mui/icons-material/Article";
+import SavingsIcon from "@mui/icons-material/Savings";
+import RssFeedIcon from "@mui/icons-material/RssFeed";
 import Accordion from "@material-ui/core/Accordion";
+import GroupsIcon from "@mui/icons-material/Groups";
 import AccordionSummary from "@material-ui/core/AccordionSummary";
 import AccordionDetails from "@material-ui/core/AccordionDetails";
 import Typography from "@material-ui/core/Typography";
@@ -32,6 +40,7 @@ import axios from "axios";
 import "../../../../css/header.css";
 import "../../../../css/headerMobile.css";
 import { Authenticate } from "../../../auth/Authenticate";
+import zIndex from "@material-ui/core/styles/zIndex";
 
 const drawerWidth = 240;
 
@@ -325,8 +334,9 @@ const Header = ({ isAuthenticated, auth }) => {
   };
 
   // =============
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [anchorEl1, setAnchorEl1] = React.useState(null);
+
+  const [dropDown1, setDropDown1] = useState(false);
+  const [dropDown2, setDropDown2] = useState(false);
 
   const [open12, setOpen12] = React.useState(false);
   const anchorRef12 = React.useRef(null);
@@ -355,30 +365,34 @@ const Header = ({ isAuthenticated, auth }) => {
   }, [open13]);
 
   // open dropdown menu
+  const dropDownOpen1 = () => {
+    setDropDown1(true);
+    setDropDown2(false);
+  };
   const dropDownOpen2 = () => {
-    // const dropUpIcon = document.getElementById("ArrowUpIcon2");
-    const dropDownIcon = document.getElementById("ArrowDownIcon2");
-    const dropMenu = document.getElementById("products-menu2");
-
-    dropDownIcon.classList.add("rotate");
-    // dropUpIcon.style.display = "inline-block";
-
-    dropMenu.style.display = "block";
+    setDropDown2(true);
+    setDropDown1(false);
+  };
+  const toggleDrop = () => {
+    if (dropDown1 == true) {
+      setDropDown1(false);
+    } else if (dropDown1 == false) {
+      setDropDown1(true);
+    }
+  };
+  const dropDownClose1 = () => {
+    setDropDown1(false);
+    setDropDown2(false);
   };
   const dropDownClose2 = () => {
-    // const dropUpIcon = document.getElementById("ArrowUpIcon2");
-    const dropDownIcon = document.getElementById("ArrowDownIcon2");
-    const dropMenu = document.getElementById("products-menu2");
-
-    dropDownIcon.classList.remove("rotate");
-    // dropUpIcon.style.display = "none";
-
-    dropMenu.style.display = "none";
+    setDropDown2(false);
+    setDropDown1(false);
   };
+
   useEffect(() => {
     axios
       .get(
-        api_url2 + "/v1/product/retrieve/products/search/" + searchTerm,
+        api_url2 + "/v1/product/retrieve/products/tag/search/" + searchTerm,
         null,
         config
       )
@@ -394,7 +408,7 @@ const Header = ({ isAuthenticated, auth }) => {
     setSearchTerm(event.target.value);
   };
   const results = productNames.filter((car) =>
-    car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+    car.tag.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -432,19 +446,24 @@ const Header = ({ isAuthenticated, auth }) => {
                     position: "absolute",
                     zIndex: "500",
                     width: "100%",
-                    top: "40px",
+                    top: "46px",
                     maxHeight: "500px",
                     height: "auto",
                     backgroundColor: "#fff",
                     overflowY: "scroll",
                     borderRadius: "10px",
+                    borderTopLeftRadius: "0px",
+                    borderTopRightRadius: "0px",
                     cursor: "pointer",
-                    boxShadow: "0px 13px 23px 0px #00000026",
+                    boxShadow: "#0000000f 0px 20px 20px 0px",
                   }}
                   className="scr"
                 >
                   {productNames.length === 0 ? (
-                    <span> Search result not found.</span>
+                    <span className="search_result_not_found">
+                      {" "}
+                      Search result not found.
+                    </span>
                   ) : (
                     <ul style={{ margin: "0" }}>
                       {results.map((item, index) => (
@@ -455,9 +474,10 @@ const Header = ({ isAuthenticated, auth }) => {
                           }}
                         >
                           <a
-                            href={`/products/details/${
-                              item.id
-                            }/${item.product_name.replace(/\s+/g, "-")}`}
+                            href={`/products/tag/${item.id}/${item.tag.replace(
+                              /\s+/g,
+                              "-"
+                            )}`}
                             key={index.toString()}
                             style={{
                               color: "#000",
@@ -466,7 +486,7 @@ const Header = ({ isAuthenticated, auth }) => {
                             }}
                           >
                             {" "}
-                            {item.product_name}
+                            {item.tag}
                           </a>
                         </li>
                       ))}
@@ -479,111 +499,215 @@ const Header = ({ isAuthenticated, auth }) => {
               {/* ========== */}
               {/* ========== */}
 
-              <div
-                style={{ cursor: "pointer" }}
-                className="company"
-                id="company1"
-                onMouseOver={dropDownOpen2}
-                onMouseOut={dropDownClose2}
-              >
-                Products
-                <img
-                  src="/img/arrow-down-icon.svg"
-                  alt="..."
-                  id="ArrowDownIcon2"
-                  className="ArrowDownIcon2"
-                />
-                {/* <ArrowDropUpIcon id="ArrowUpIcon2" className="ArrowUpIcon2" /> */}
-                <div className="products-menu menu2" id="products-menu2">
-                  <a
-                    href="/loan"
-                    id="borrow"
-                    className={page1 === "/loan" ? "docs activeLink" : "about"}
-                    // onClick={clickMe1}
-                  >
-                    Loan
-                    {page1 === "/loan" ? <span className="Line"></span> : null}
-                  </a>
-                  <hr />
-                  <a
-                    href="/savings"
-                    className={
-                      page1 === "/savings" ? "docs activeLink" : "about"
-                    }
-                    // onClick={clickMe2}
-                    id="savings"
-                  >
-                    Savings
-                    {page1 === "/savings" ? (
-                      <span className="Line"></span>
-                    ) : null}
-                  </a>
-                  <hr />
-                  <a
-                    href="/validator"
-                    className={
-                      page1 === "/validator" ? "docs activeLink" : "about"
-                    }
-                    // onClick={clickMe2}
-                    id="valid"
-                  >
-                    Validator
-                    {page1 === "/validator" ? (
-                      <span className="Line"></span>
-                    ) : null}
-                  </a>
-                  <hr />
-                  <a
-                    href="/market"
-                    className={
-                      page1 === "/market" ? "docs activeLink" : "about"
-                    }
-                    // onClick={clickMe2}
-                    id="market"
-                  >
-                    Buy Now
-                    {page1 === "/market" ? (
-                      <span className="Line"></span>
-                    ) : null}
-                  </a>
+              <div div className="company">
+                <div
+                  style={{
+                    cursor: "pointer",
+                    position: "relative",
+                    zIndex: "2",
+                    margin: "0px",
+                  }}
+                  className="company"
+                  id="company1"
+                  onMouseOver={dropDownOpen1}
+                  // onMouseOut={dropDownClose1}
+                >
+                  Products
+                  <img
+                    src="/img/arrow-down-icon.svg"
+                    alt="..."
+                    id="ArrowDownIcon2"
+                    className="ArrowDownIcon2"
+                  />
                 </div>
+                {dropDown1 === true ? (
+                  <>
+                    <div
+                      className="close_drop_div"
+                      onMouseOver={dropDownClose1}
+                    ></div>
+                    <div
+                      className="products-menu menu2"
+                      // onMouseOver={dropDownOpen1}
+                      // onMouseOut={dropDownClose1}
+                    >
+                      <a
+                        href="/loan"
+                        id="borrow"
+                        className={
+                          page1 === "/loan" ? "docs activeLink" : "about"
+                        }
+                        // onClick={clickMe1}
+                      >
+                        <div className="header_drop_txt_div">
+                          <PaidIcon className="header_drop_icons" />
+                          Loan
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+
+                        {page1 === "/loan" ? (
+                          <span className="Line"></span>
+                        ) : null}
+                      </a>
+                      {/* <hr /> */}
+                      <a
+                        href="/savings"
+                        className={
+                          page1 === "/savings" ? "docs activeLink" : "about"
+                        }
+                        // onClick={clickMe2}
+                        id="savings"
+                      >
+                        <div className="header_drop_txt_div">
+                          <SavingsIcon className="header_drop_icons" />
+                          Savings
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+
+                        {page1 === "/savings" ? (
+                          <span className="Line"></span>
+                        ) : null}
+                      </a>
+                      {/* <hr /> */}
+                      <a
+                        href="/validator"
+                        className={
+                          page1 === "/validator" ? "docs activeLink" : "about"
+                        }
+                        // onClick={clickMe2}
+                        id="valid"
+                      >
+                        <div className="header_drop_txt_div">
+                          <HowToRegIcon className="header_drop_icons" />
+                          Validator
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+
+                        {page1 === "/validator" ? (
+                          <span className="Line"></span>
+                        ) : null}
+                      </a>
+                      {/* <hr /> */}
+                      <a
+                        href="/market"
+                        className={
+                          page1 === "/market" ? "docs activeLink" : "about"
+                        }
+                        // onClick={clickMe2}
+                        id="market"
+                      >
+                        <div className="header_drop_txt_div">
+                          <ShoppingCartIcon className="header_drop_icons" />
+                          Buy Now
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+                        {page1 === "/market" ? (
+                          <span className="Line"></span>
+                        ) : null}
+                      </a>
+                      <a href="https://sell.egoras.com/" className="about">
+                        <div className="header_drop_txt_div">
+                          <SellIcon className="header_drop_icons" />
+                          Sell Now
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+                      </a>
+                    </div>
+                  </>
+                ) : null}
               </div>
+
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+              {/* ========== */}
+
               {/* ===================================================
               ===========================
               ========================================== */}
 
               <vl></vl>
-              <div
-                style={{ cursor: "pointer" }}
-                className="company"
-                id="company1"
-                onMouseOver={dropDownOpen2}
-                onMouseOut={dropDownClose2}
-              >
-                Company
-                <img
-                  src="/img/arrow-down-icon.svg"
-                  alt="..."
-                  id="ArrowDownIcon2"
-                  className="ArrowDownIcon2"
-                />
-                {/* <ArrowDropUpIcon id="ArrowUpIcon2" className="ArrowUpIcon2" /> */}
-                <div className="products-menu menu2" id="products-menu2">
-                  <a href="/about" className="drop-borrow-link">
-                    About Us
-                  </a>
-                  <hr />
-                  <a
-                    href="https://egoras.medium.com/"
-                    className="drop-borrow-link"
-                  >
-                    Blog
-                  </a>
-                  <hr />
-                  <a href="/whitepaper" className="drop-borrow-link">
-                    White Paper
-                  </a>
+              <div div className="company">
+                <div
+                  style={{
+                    cursor: "pointer",
+                    position: "relative",
+                    zIndex: "2",
+                    margin: "0px",
+                  }}
+                  className="company"
+                  id="company1"
+                  onMouseOver={dropDownOpen2}
+                  // onMouseOut={dropDownClose1}
+                >
+                  Company
+                  <img
+                    src="/img/arrow-down-icon.svg"
+                    alt="..."
+                    id="ArrowDownIcon2"
+                    className="ArrowDownIcon2"
+                  />
                 </div>
+                {dropDown2 === true ? (
+                  <>
+                    <div
+                      className="close_drop_div"
+                      onMouseOver={dropDownClose2}
+                    ></div>
+                    <div
+                      className="products-menu menu2"
+                      // onMouseOver={dropDownOpen1}
+                      // onMouseOut={dropDownClose1}
+                    >
+                      <a
+                        href="/about"
+                        className={
+                          page1 === "/about" ? "docs activeLink" : "about"
+                        }
+                        // onClick={clickMe2}
+                        id="aboutUs"
+                      >
+                        <div className="header_drop_txt_div">
+                          <GroupsIcon className="header_drop_icons" />
+                          About Us
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+
+                        {page1 === "/about" ? (
+                          <span className="Line"></span>
+                        ) : null}
+                      </a>
+                      {/* <hr /> */}
+                      <a href="https://egoras.medium.com/" className="about">
+                        <div className="header_drop_txt_div">
+                          <RssFeedIcon className="header_drop_icons" />
+                          Blog
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+                      </a>
+                      {/* <hr /> */}
+                      <a
+                        href="/whitepaper"
+                        id="whitepaper"
+                        className={
+                          page1 === "/whitepaper" ? "docs activeLink" : "about"
+                        }
+                        // onClick={clickMe1}
+                      >
+                        <div className="header_drop_txt_div">
+                          <ArticleIcon className="header_drop_icons" />
+                          WhitePaper
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+
+                        {page1 === "/whitepaper" ? (
+                          <span className="Line"></span>
+                        ) : null}
+                      </a>
+                      {/* <hr /> */}
+                    </div>
+                  </>
+                ) : null}
               </div>
               {/* <a href="/appointment" className="connect">
                 {" "}

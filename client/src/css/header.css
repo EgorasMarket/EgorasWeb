@@ -27,6 +27,15 @@
   font-size: 14px;
   /* color: #000; */
 }
+
+.search_result_not_found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2em;
+  font-size: 14px;
+  /* color: #686868; */
+}
 .header_cat_link {
   height: 100%;
   /* background: #f3f3f3; */
@@ -140,13 +149,25 @@
 .docs,
 .market,
 .about {
-  margin-right: 15px;
   font-size: 13px;
   font-weight: 600;
   cursor: pointer;
   position: relative;
   color: #383838;
   position: relative;
+  margin: 0;
+  width: 100%;
+  padding: 1.5em 1em;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  justify-content: space-between;
+}
+.header_drop_txt_div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
 }
 .header_search {
   width: 100%;
@@ -159,6 +180,15 @@
   padding: 0.6em 1em;
   font-size: 14px;
   transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+.close_drop_div {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  background: #ffffff00;
+  top: 0;
+  z-index: 1;
 }
 
 .header_search_icon {
@@ -206,15 +236,31 @@
 .products-menu {
   position: absolute;
   background: #fff;
-  padding: 1em;
-  right: -4px;
-  left: -95px;
-  box-shadow: 2px 1px 4px #d5d5d5;
+  padding: 0em;
+  /* right: -4px; */
+  /* left: -95px; */
+  box-shadow: 2px 9px 24px #c6e4d2;
   border-radius: 0px 0px 5px 5px;
   transition: 1.5s linear;
   top: 35px;
-  display: none;
+  display: flex;
+  flex-direction: column;
+  min-width: 350px;
+  z-index: 20;
+  animation: fadeIn 0.5s linear;
 }
+
+@keyframes fadeIn {
+  0% {
+    top: 55px;
+    opacity: 0;
+  }
+  100% {
+    top: 35px;
+    opacity: 1;
+  }
+}
+
 .products-menu::before {
   content: "";
   position: absolute;
@@ -226,10 +272,13 @@
   border-right: 10px solid #ffffff00;
   border-bottom: 10px solid #ebebeb;
 }
+.header_drop_arrow_icon {
+  font-size: 14px !important;
+}
 .menu2 {
   top: 35px;
-  right: -5px;
-  left: -60px;
+  right: -9%;
+  animation: fadeIn 0.5s linear;
 }
 
 .rotate {
@@ -259,6 +308,13 @@
 .market:hover,
 .about:hover {
   color: #229e54;
+  background: #f1f1f1;
+}
+.header_drop_icons {
+  background: #e3e3e3;
+  padding: 4px;
+  border-radius: 50px;
+  font-size: 30px !important;
 }
 .product:hover,
 .company:hover {
@@ -278,9 +334,10 @@
   width: 100% !important;
   height: 3.5px;
   background: #229e54;
-  bottom: -9px;
-  left: 2%;
-  border-radius: 100px;
+  bottom: 0;
+  left: 0;
+  border-radius: 0;
+  height: 1.5px;
 }
 vl {
   width: 1px;
