@@ -484,9 +484,9 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg == 'sellProducts'
-                            ? 'sidebarListItem list-item-active'
-                            : 'sidebarListItem'
+                          activeBg == "sellProducts"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
                         }
                       >
                         <Inventory className="sidebarIcon" />
@@ -1097,9 +1097,9 @@ const AdminSideBar = ({ auth }) => {
                     >
                       <li
                         className={
-                          activeBg == 'sellProducts'
-                            ? 'sidebarListItem small_list-item-active'
-                            : 'sidebarListItem'
+                          activeBg == "sellProducts"
+                            ? "sidebarListItem small_list-item-active"
+                            : "sidebarListItem"
                         }
                       >
                         <Inventory className="sidebarIcon" />

@@ -9,7 +9,6 @@ import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-import AdminSuccessModalComponent from "../../../assets/AdminSuccessModalComponent";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -911,7 +910,10 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               Proceed to Checkout
             </button>
           </div>
-          <div className="signup_input_field1_cont" style={{marginTop: '15px'}}>
+          <div
+            className="signup_input_field1_cont"
+            style={{ marginTop: "15px" }}
+          >
             <span className="input_title">Select Branch</span>
             <div className="toggle_body_area1_cont1_input">
               <div className="name_input1a lar_widthh">
@@ -928,10 +930,16 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                     onChange={onChange}
                     // onSelect={onChange}
                   >
-                    <MenuItem value={'kilometer 7 Ikwerre Rd, Rumueme, Agip, Port Harcourt'}>Agip</MenuItem>
-                    <MenuItem value={'No 282 Aba Express Way, Port Harcourt'}>RUMUKWRUSHI</MenuItem>
-                  
-                    
+                    <MenuItem
+                      value={
+                        "kilometer 7 Ikwerre Rd, Rumueme, Agip, Port Harcourt"
+                      }
+                    >
+                      Agip
+                    </MenuItem>
+                    <MenuItem value={"No 282 Aba Express Way, Port Harcourt"}>
+                      RUMUKWRUSHI
+                    </MenuItem>
                   </Select>
                 </FormControl>
               </div>
@@ -948,14 +956,13 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
 
       {successDiv == true ? (
         <div className="processing_transac_div insufficient">
-          <AdminSuccessModalComponent
+          <Success_Error_Component
             remove_success_div={closeCheckoutOptions}
             btn_txt="Continue"
             // msg={success_msg}
             msg={`${success_msg}, Order-Id: ${order_id}`}
             errorMsgDiv={errorDiv}
             link_btn={true}
-            print={triggerPrint}
             src={
               payment_type === "OUTRIGHT"
                 ? "/dashboard/savings"
@@ -967,7 +974,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
 
       {errorDiv == false ? null : (
         <div className="processing_transac_div insufficient">
-          <AdminSuccessModalComponent
+          <Success_Error_Component
             // remove_success_div={() => setErrorDiv(true)}
             btn_txt="Fund Wallet"
             msg={error_msg}

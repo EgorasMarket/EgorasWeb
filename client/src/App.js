@@ -62,7 +62,7 @@ import {
 // Redux
 import { Provider } from "react-redux";
 import store from "./store";
-
+import AllProductsDisplayPage from "./components/layout/Home2/AllProductsDisplayPage/AllProductsDisplayPage.jsx";
 import "./css/App.css";
 import "./css/Dark.css";
 import "./css/apexcharts.css";
@@ -322,6 +322,12 @@ const App = () => {
                     )}`}
                     // path={dapp }
                     component={ProductDetailPage}
+                  />
+                  <Route
+                    exact
+                    path={`/products/tag/:id/:${"tag".replace(/\s+/g, "")}`}
+                    // path={dapp }
+                    component={AllProductsDisplayPage}
                   />
                   <Route exact path="/category/:name" component={Categories} />
                   <Route exact path="/status/:name" component={Status} />

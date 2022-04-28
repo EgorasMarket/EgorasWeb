@@ -50,7 +50,6 @@ const Signup = ({ getAuthentication }) => {
 
   let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : "";
 
-
   useEffect(() => {
     // if (fullname === "") {
     //   setDisable(true);
@@ -97,7 +96,6 @@ const Signup = ({ getAuthentication }) => {
       default:
         break;
     }
-
   };
   const onChange2 = (e) => {
     setUserAuth({ ...userAuth, [e.target.name]: e.target.value });
@@ -117,7 +115,6 @@ const Signup = ({ getAuthentication }) => {
       default:
         break;
     }
-
   };
   const setPasswordVisibilty = () => {
     setVisibility(true);
@@ -177,8 +174,6 @@ const Signup = ({ getAuthentication }) => {
 
     //console.log(res.data.data.errors[0].msg);
   };
-
-
 
   return (
     <div>

@@ -80,12 +80,9 @@ function ItemDetailsPage({ auth, match }) {
   };
 
   const OpenLoginModal = () => {
-  
     if (auth.user !== null) {
-
       openDetailsModal();
       // setLoginModal(true);
-   
     } else {
       setLoginModal(true);
     }
