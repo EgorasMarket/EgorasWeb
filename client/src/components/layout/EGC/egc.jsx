@@ -1,5 +1,5 @@
-import { textAlign } from "@mui/system";
 import React from "react";
+import { textAlign } from "@mui/system";
 import {
   LineChart,
   Line,
@@ -12,7 +12,8 @@ import {
   PieChart,
   Pie,
 } from "recharts";
-import FlipCountdown from "@rumess/react-flip-countdown";
+// import FlipCountdown from "@rumess/react-flip-countdown";
+// import FlipCountdown
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 
 import "./egc.css";
@@ -31,10 +32,14 @@ const Egc = () => {
     <div>
       <section className="earning-section padding-high">
         <div className="container">
-          <div className="nft-area2 ma">
+          <div className="nft-area2">
             <div
               className="nft-txt-area2  "
-              style={{ width: "100%", position: "relative", zIndex: "5" }}
+              style={{
+                width: "100%",
+                position: "relative",
+                zIndex: "5",
+              }}
             >
               <div className="span-txts">
                 <p className="span4a-txts strong-font">
@@ -42,17 +47,17 @@ const Egc = () => {
                 </p>
                 <p className="span4b-txts">
                   As a utility token, EGC is required for paying the inventory
-                  fees accrued on Loans that have been used to generate EUSD in
+                  fees accrued on Loans that have been used to generate eNGN in
                   the Egoras Protocol. its main purpose is to help maintain the
-                  stability of eUSD.
+                  stability of eNGN.
                 </p>
                 <p className="span4b-txts odd-color">
-                  <div className="next-claim">
+                  {/* <div className="next-claim">
                     NEXT CLAIM IN{" "}
                     <ArrowDownwardIcon className="next-claim-icon" />{" "}
-                  </div>
+                  </div> */}
                 </p>
-                <FlipCountdown
+                {/* <FlipCountdown
                   theme="light"
                   titlePosition="bottom"
                   hideYear
@@ -66,8 +71,8 @@ const Egc = () => {
                   // hideHour
                   // hideMinute
                   // hideSecond
-                  endAt={"2021-12-12 00:00:00"} // Date/Time
-                />
+                  // endAt={"2022-12-12 00:00:00"} // Date/Time
+                /> */}
                 <div className="count-down-section-btns">
                   <button className="count-down-btn1">Distribute EGC</button>
                   <a href="/whitepaper" className="count-down-btn2">
@@ -80,15 +85,15 @@ const Egc = () => {
               className="nft-img-area2 position-it"
               style={{ display: "inline-flex", width: "100%" }}
             >
-              {/* <div class="eusd-token-page hero text-center">
-                <div class="eusd-token-page  circle"></div>
-                <div class="eusd-token-page  circle circle2"></div>
-                <div class="eusd-token-page  circle circle3"></div>
-                <div class="eusd-token-page  circle circle4"></div>
+              {/* <div class="eNGN-token-page hero text-center">
+                <div class="eNGN-token-page  circle"></div>
+                <div class="eNGN-token-page  circle circle2"></div>
+                <div class="eNGN-token-page  circle circle3"></div>
+                <div class="eNGN-token-page  circle circle4"></div>
                 <img
                   src="/img/EGC-LOGO.svg"
                   alt="OUSD coin"
-                  class="eusd-token-page coin place-egc"
+                  class="eNGN-token-page coin place-egc"
                 />
               </div> */}
 
@@ -122,10 +127,10 @@ const Egc = () => {
               />
             </div>
             <div className="widthAjustBA">
-              <div className="earn1">Claim Excess eUSD</div>
+              <div className="earn1">Claim Excess eNGN</div>
               <p className="earn3">
-                EGC is elementary in the stability of EUSD. It is held in a
-                reserve smart-contract and exchanged for eUSD to balance demand
+                EGC is elementary in the stability of eNGN. It is held in a
+                reserve smart-contract and exchanged for eNGN to balance demand
                 excess or shortage.
               </p>
             </div>
@@ -139,7 +144,7 @@ const Egc = () => {
       >
         <div className="container">
           <div className="earning2">
-            <div className="earning3 filter3 reverse2">
+            <div className="earning3 filter3 reverse2 reverse2a">
               <div className="widthAjustB">
                 <div className="widthAjust1A">
                   <div className="allNone">eNFT Farming</div>
@@ -216,7 +221,7 @@ const Egc = () => {
       {/* =================== */}
       {/* =================== */}
       {/* third section start */}
-      <section className="second-eusd-token-section">
+      <section className="second-eNGN-token-section">
         <div className="container">
           <div className="nft-area2 reverse">
             <div
@@ -330,7 +335,7 @@ const Egc = () => {
           </div>
         </div>
       </section>
-      
+
       {/* ==================== */}
       {/*third div*/}
 

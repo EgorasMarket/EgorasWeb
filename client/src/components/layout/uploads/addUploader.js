@@ -16,7 +16,7 @@ import { API_URL as api_url } from "../../../actions/types";
 import htmlToDraft from 'html-to-draftjs';
 import {addUploader, initContract,unluckToken, setPythiaImpl,updateTickerPricesImpl,addLiquidityImpl, checkAllowance}  from "../../../web3/index"
 import { parseEther } from "@ethersproject/units";
-
+import { Authenticate } from '../../auth/Authenticate';
 import {
   TabContent,
   TabPane,
@@ -365,7 +365,7 @@ const isStageTwoIsValid = address.length > 9;
 const isStageThreeIsValid =   address.length > 9 && !isLoading;
   return (
     <div className='mt-6'>
-   
+  
       <div className='container py-5'>
         <div className='row'>
           <div className='col-md-8 offset-md-2'>

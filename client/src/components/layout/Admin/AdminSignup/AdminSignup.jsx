@@ -64,10 +64,10 @@ const AdminSignup = ({ getAuthentication }) => {
       branch
       //   localStorage.referrer
     );
-    console.log(res);
+    //console.log(res);
     if (res.data.success === true) {
       setIsSuccessful(true);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
     } else {
       setAlert(res.data.data.errors[0].msg, "danger");
     }
@@ -76,16 +76,13 @@ const AdminSignup = ({ getAuthentication }) => {
     setAlert("");
   }, 5000);
   return (
-    <div>
+    <div className="other2">
       {isSuccessful == false ? (
-        <section className="signup_section">
+        <section className="no-bg">
           <div className="container">
             <div className="signup_area">
               <div className="signup_cont">
                 <div className="signup_title">Create an Account</div>
-                <span className="signup_para">
-                  Welcome to the future of savings & investments.
-                </span>
                 <div className="signup_inputs_cont">
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Full Name</span>
@@ -201,9 +198,13 @@ const AdminSignup = ({ getAuthentication }) => {
                             <MenuItem value={1}>MANAGER</MenuItem>
                             <MenuItem value={2}>BUSINESS_ADMIN</MenuItem>
                             <MenuItem value={3}>MEDIA</MenuItem>
-                            <MenuItem value={6}>HOD_MEDIA</MenuItem>
                             <MenuItem value={4}>CASHIER</MenuItem>
                             <MenuItem value={5}>CUSTOMER_SERVICE</MenuItem>
+                            <MenuItem value={6}>LOGISTICS</MenuItem>
+                            <MenuItem value={7}>HOD_MEDIA</MenuItem>
+                            <MenuItem value={8}>TECH</MenuItem>
+                            <MenuItem value={9}>WAREHOUSE</MenuItem>
+                            <MenuItem value={10}>ACCOUNTANT</MenuItem>
                           </Select>
                         </FormControl>
                       </div>
@@ -275,14 +276,13 @@ const AdminSignup = ({ getAuthentication }) => {
                   </button>
                 </div>
               </div>
-              <span className="login_txt">
-                <a href="/login" className="login_link">
+              {/* <span className="login_txt">
+                <a href="/login/super_admin" className="login_link">
                   Already have an account? Login
                 </a>
-              </span>
+              </span> */}
             </div>
           </div>
-          <img src="/img/piggy_bg.svg" alt="" className="piggy_bg" />
         </section>
       ) : (
         <section className="signup_section success_section">
@@ -313,8 +313,8 @@ const AdminSignup = ({ getAuthentication }) => {
                     </div>
                   </div>
 
-                  <div className="sign_up_btns">
-                    <a href="/login" className="login2">
+                  {/* <div className="sign_up_btns">
+                    <a href="/login/super_admin" className="login2">
                       {" "}
                       <button
                         className="sign_up_btn"
@@ -324,7 +324,7 @@ const AdminSignup = ({ getAuthentication }) => {
                         Return to login
                       </button>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

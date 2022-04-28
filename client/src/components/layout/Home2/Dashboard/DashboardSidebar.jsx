@@ -3,20 +3,27 @@ import HomeIcon from "@mui/icons-material/Home";
 import { API_URL2 as api_url2 } from "../../../../actions/types";
 // import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 // import SecurityIcon from "@mui/icons-material/Security";
+import { AccountNavigation } from "./DashboardPages/AccountNavigation";
+import SearchIcon from "@mui/icons-material/Search";
 import BarChartIcon from "@mui/icons-material/BarChart";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import MenuIcon from "@mui/icons-material/Menu";
+import ReceiptLongIcon from "@mui/icons-material/ReceiptLong";
+// import ListIcon from "@mui/icons-material/List";
 import ListIcon from "@mui/icons-material/List";
 import { connect } from "react-redux";
+import NotificationsIcon from "@mui/icons-material/Notifications";
 // import ImportExportIcon from "@mui/icons-material/ImportExport";
 import DescriptionIcon from "@mui/icons-material/Description";
 import StoreIcon from "@mui/icons-material/Store";
+import QueueIcon from "@mui/icons-material/Queue";
 import SavingsIcon from "@mui/icons-material/Savings";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import GitHubIcon from "@mui/icons-material/GitHub";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import axios from "axios";
 import TelegramIcon from "@mui/icons-material/Telegram";
 import FileCopyIcon from "@mui/icons-material/FileCopy";
 // import InstagramIcon from "@mui/icons-material/Instagram";
@@ -41,8 +48,47 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   const [smallSide, setSmallSide] = useState(dddd);
   const [cartNum, setCartNum] = useState("");
   const [image, setImage] = useState("");
+  const [searchBar, setSearchBar] = useState(false);
+  const [acctNav, setAcctNav] = useState(false);
+
+  const [productNamesZ, setProductNamesZ] = useState([]);
+  const [searchTerm, setSearchTerm] = useState("");
+
   const linksActive = window.location.pathname;
 
+  const toggleAccountNav = () => {
+    if (acctNav == true) {
+      setAcctNav(false);
+    } else if (acctNav == false) {
+      setAcctNav(true);
+    }
+  };
+
+  useEffect(() => {
+    axios
+      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
+      .then((data) => {
+        // console.log(data.data.data);
+        setProductNamesZ(data.data.data);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }, []);
+
+  const handler = (event) => {
+    setSearchTerm(event.target.value);
+  };
+
+  const results = productNamesZ.filter((car) =>
+    car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+  const triggerLogout = (event) => {
+    // setBusinessDuration(event.target.value);
+    // //console.log('okkkk');
+    localStorage.removeItem("token");
+    window.location.href = "/login";
+  };
   const [userInfo, setUserInfo] = useState({
     Userfirstname: "",
     Userlastname: "",
@@ -68,18 +114,23 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
   } = userInfo;
 
   useEffect(() => {
+    if (linksActive == "/dashboard/products") {
+      setSearchBar(true);
+    }
+  });
+  useEffect(() => {
     // setCartNum(cart.length)
     // fetchDepositLinks();
-    console.log(auth);
+    //console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
+      // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
 
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
+      // //console.log('====================================');
+      //console.log(todecodedn);
+      // //console.log('====================================');
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
@@ -109,7 +160,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     setCartNum(cart.length);
   }, [cart]);
 
-  // console.log(dddd);
+  // //console.log(dddd);
   const changeBg = (e) => {
     let currentId = e.currentTarget.id;
     setActiveBg(currentId);
@@ -137,6 +188,10 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     }
     if (linksActive === "/dashboard/cart") {
       setActiveBg("cart");
+      setCatDiv("not_home");
+    }
+    if (linksActive === "/dashboard/orders") {
+      setActiveBg("order");
       setCatDiv("not_home");
     }
     if (linksActive === "/dashboard/products") {
@@ -177,6 +232,16 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
     }
   };
 
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
+
+  // const close = () => {
+  //   document.getElementById("fodo").style.display = "none";
+  // };
+
   return (
     <div className={smallSide == "not_small" ? "side" : "small_side"}>
       <section className="DashBoardHeaderSection">
@@ -198,10 +263,12 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               //   onMouseOut={closeLogoutDiv}
             >
               <div className="together">
-                <div className="save_numb_div">
-                  <SavingsIcon className="cart_icon" />
-                  <div className="cart_num">{cartNum}</div>
-                </div>
+                {searchBar == false ? (
+                  <div className="save_numb_div">
+                    <NotificationsIcon className="cart_icon" />
+                    <div className="cart_num">{cartNum}</div>
+                  </div>
+                ) : null}
 
                 {/* <div
                   className="logout_div"
@@ -218,20 +285,134 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     Logout
                   </button>
                 </div> */}
-                <div className="immmgg">
-                  <img src={image} alt="" className="user_profile" />
-                  {/* <img
+                {searchBar == false ? (
+                  <>
+                    <div className="immmgg immmgg_desktop">
+                      <img src={image} alt="" className="user_profile" />
+                      {/* <img
                     src="/img/profile_icon2.svg"
                     alt=""
                     className="user_profile2"
                   /> */}
-                </div>
+                    </div>
+                    <div className="immmgg immmgg_mobile">
+                      <img
+                        src={image}
+                        alt=""
+                        className="user_profile"
+                        onClick={toggleAccountNav}
+                      />
+                      {/* <img
+                    src="/img/profile_icon2.svg"
+                    alt=""
+                    className="user_profile2"
+                  /> */}
+                    </div>
+                  </>
+                ) : null}
               </div>
+              {searchBar == true ? (
+                <>
+                  <div
+                    style={{ width: "100%", position: "relative" }}
+                    // onClick={close}
+                  >
+                    <div className="dash_board_header_search_bar">
+                      {/* <div className="all_cat_link">
+                        All Categories
+                        <ListIcon className="all_cat_list_icon" />
+                      </div> */}
+                      <div className="search_input_cont">
+                        <input
+                          type="search"
+                          name="search"
+                          value={searchTerm}
+                          id="search"
+                          className="dash_board_header_search_input"
+                          placeholder="Search products, brands and categories"
+                          onChange={handler}
+                          autocomplete="off"
+                        />
 
-              <div className="welcome_user">
-                Welcome
-                <span className="userName_name">{Userlastname}</span>
-              </div>
+                        <button className="search_button">
+                          {" "}
+                          <SearchIcon className="search_bar_icon" />
+                        </button>
+                        {searchTerm.length === 0 ? null : (
+                          <div
+                            id="fodo"
+                            style={{
+                              position: "absolute",
+                              zIndex: "500",
+                              width: "100%",
+                              top: "56px",
+                              maxHeight: "500px",
+                              height: "auto",
+                              backgroundColor: "#fff",
+                              overflowY: "scroll",
+                              borderBottomRightRadius: "20px",
+                              borderBottomLeftRadius: "20px",
+                            }}
+                            className="scr"
+                          >
+                            {/* <a
+                     href={`/dashboard/products/categories/${item.product_name}`} */}
+
+                            <ul style={{ margin: "0" }}>
+                              {results.map((item, index) => (
+                                <li
+                                  className="hover_div"
+                                  style={{
+                                    padding: "4px 25px",
+                                    borderBottomStyle: "solid",
+                                    borderBottomColor: "#f0f0f0",
+                                    borderBottomWidth: "1px",
+                                  }}
+                                >
+                                  <a
+                                    href={`/dashboard/products/details/${
+                                      item.id
+                                    }/${item.product_name.replace(
+                                      /\s+/g,
+                                      "-"
+                                    )}`}
+                                    key={index.toString()}
+                                    style={{
+                                      color: "#255839",
+                                      fontSize: "14px",
+                                      fontWeight: "700",
+                                    }}
+                                  >
+                                    {" "}
+                                    {item.product_name}
+                                  </a>
+                                </li>
+                              ))}
+                            </ul>
+                          </div>
+                        )}
+                      </div>
+
+                      <button className="click_search_btn">Search</button>
+                    </div>
+                  </div>
+                </>
+              ) : null}
+              {searchBar == false ? (
+                <div className="welcome_user">
+                  <span className="userName_name">{Userlastname}</span>
+                  <span
+                    style={{
+                      fontSize: "16px",
+                      fontWeight: "700",
+                      color: "#000",
+                    }}
+                  >
+                    {" "}
+                    Welcome
+                  </span>
+                </div>
+              ) : null}
             </div>
           </div>
         </div>
@@ -239,25 +420,6 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
       {/* =============''''''''' */}
       {/* =============''''''''' */}
       {/* =============''''''''' */}
-      {/* {catDiv == "home" ? (
-        <div className="cat_div" id="cat_div">
-          <div className="cat_body_toggle">
-          <div className="cat_body_toggle1">
-              All Categories
-              <ListIcon className="cat_icon" />
-               </div>
-           
-            <div className="cat_body_toggle1">Computers and Accessories</div>
-            <div className="cat_body_toggle1">Phones and Tablets</div>
-            <div className="cat_body_toggle1">Electronics</div>
-            <div className="cat_body_toggle1">Konga Fashion</div>
-            <div className="cat_body_toggle1">Home and Kitchen</div>
-            <div className="cat_body_toggle1">Other Categories</div>
-          </div>
-        </div>
-      ) : (
-        <div></div>
-      )} */}
 
       {/* ========== */}
       {/* ========== */}
@@ -344,7 +506,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <StoreIcon className="sidebarIcon" />
-                    Market
+                    Inventory
                   </li>
                 </a>
 
@@ -419,6 +581,28 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                 {/* ===================== */}
 
                 <a
+                  href="/dashboard/orders"
+                  className="link"
+                  id="order"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "order"
+                        ? "sidebarListItem list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <QueueIcon className="sidebarIcon" />
+                    Orders
+                  </li>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
                   href="/dashboard/accounts"
                   className="link"
                   id="accounts"
@@ -432,7 +616,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
+                    Profile
                   </li>
                 </a>
 
@@ -451,7 +635,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                 <a
                   href="/dashboard"
                   id="Home"
-                  className="link"
+                  className="link hover_link"
                   onClick={changeBg}
                 >
                   <li
@@ -464,6 +648,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     <HomeIcon className="sidebarIcon" />
                     Home
                   </li>
+                  <span className="hover_link_txt">Home</span>
                 </a>
                 {/* ===================== */}
                 {/* ===================== */}
@@ -472,7 +657,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/products"
-                  className="link"
+                  className="link hover_link"
                   id="products"
                   onClick={changeBg}
                 >
@@ -485,8 +670,9 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                   >
                     <StoreIcon className="sidebarIcon" />
                     {/* <GroupIcon className="sidebarIcon" /> */}
-                    Market
+                    Inventory
                   </li>
+                  <span className="hover_link_txt">Market</span>
                 </a>
 
                 {/* ===================== */}
@@ -518,7 +704,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/savings"
-                  className="link"
+                  className="link hover_link"
                   id="savings"
                   onClick={changeBg}
                 >
@@ -532,6 +718,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     <SavingsIcon className="sidebarIcon" />
                     Savings
                   </li>
+                  <span className="hover_link_txt">Savings</span>
                 </a>
                 {/* ===================== */}
                 {/* ===================== */}
@@ -540,7 +727,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/wallet"
-                  className="link"
+                  className="link hover_link"
                   id="wallet"
                   onClick={changeBg}
                 >
@@ -554,6 +741,30 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     <AccountBalanceWalletIcon className="sidebarIcon" />
                     Wallet
                   </li>
+                  <span className="hover_link_txt">Wallet</span>
+                </a>
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+
+                <a
+                  href="/dashboard/orders"
+                  className="link hover_link"
+                  id="order"
+                  onClick={changeBg}
+                >
+                  <li
+                    className={
+                      activeBg == "order"
+                        ? "sidebarListItem small_list-item-active"
+                        : "sidebarListItem"
+                    }
+                  >
+                    <QueueIcon className="sidebarIcon" />
+                    Orders
+                  </li>
+                  <span className="hover_link_txt">Orders</span>
                 </a>
                 {/* ===================== */}
                 {/* ===================== */}
@@ -562,7 +773,7 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
 
                 <a
                   href="/dashboard/accounts"
-                  className="link"
+                  className="link hover_link"
                   id="accounts"
                   onClick={changeBg}
                 >
@@ -574,8 +785,9 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
                     }
                   >
                     <AccountCircleIcon className="sidebarIcon" />
-                    Accounts
+                    Profile
                   </li>
+                  <span className="hover_link_txt">Profile</span>
                 </a>
 
                 {/* ===================== */}
@@ -605,8 +817,20 @@ const DashboardSidebar = ({ auth, cart, retrieveCart }) => {
               <Logout />
             </ul>
           </div>
+
+          {/* <img src="/egoras-favicon.svg" alt="" className="center_logo_icon" /> */}
         </div>
       </div>
+      {acctNav == false ? null : (
+        <div className="account_div_navigatons">
+          <AccountNavigation
+            closeAcctNavDiv={toggleAccountNav}
+            LoGout={triggerLogout}
+            UserEmail={Useremail}
+            UserLastName={Userlastname}
+          />
+        </div>
+      )}
     </div>
   );
 };

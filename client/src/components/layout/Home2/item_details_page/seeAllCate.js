@@ -13,6 +13,8 @@ import {
   API_URL2 as api_url2,
 } from "../../../../actions/types";
 
+import {numberWithCommas} from '../../../../static'
+
 const assetBrand = [
   {
     id: "apple",
@@ -92,10 +94,10 @@ const PhonesCatPage = ({match}) => {
     setSearchTerm(event.target.value);
   };
 
-  console.log('====================================');
-  console.log(match.params.category);
-  console.log(match.params.product_name)
-  console.log('====================================');
+  //console.log('====================================');
+  //console.log(match.params.category);
+  //console.log(match.params.product_name)
+  //console.log('====================================');
 
     const [category2,setCategory2]=useState([]);
     const [erra,setErra]=useState({cate:""});
@@ -139,8 +141,8 @@ const PhonesCatPage = ({match}) => {
         config
     ).then((data) => {
        
-      console.log("hello mr kingsley");
-        console.log(data.data.data, "samuel_Chuks");
+      //console.log("hello mr kingsley");
+        //console.log(data.data.data, "samuel_Chuks");
 
         setSeeAll(data.data.data);
 
@@ -151,7 +153,7 @@ const PhonesCatPage = ({match}) => {
      
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
 
     
@@ -172,14 +174,14 @@ const PhonesCatPage = ({match}) => {
       config
   ).then((data) => {
      
-      console.log(data.data.data, "dominic kig King");
+      //console.log(data.data.data, "dominic kig King");
       setCategory2(data.data.data)
        
       //  cate:category2.product_category_code;
-      //  console.log(cate);
+      //  //console.log(cate);
     })
     .catch((err) => {
-      console.log(err); // "oh, no!"
+      //console.log(err); // "oh, no!"
     });
 
   }
@@ -209,7 +211,7 @@ const PhonesCatPage = ({match}) => {
         config
     ).then((data) => {
        
-        console.log(data.data.data, "phlip");
+        //console.log(data.data.data, "phlip");
      
        
         setPhone(data.data.data)
@@ -217,15 +219,15 @@ const PhonesCatPage = ({match}) => {
        
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
 
     
   }, []);
 
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
+  // const numberWithCommas = (x) => {
+  //   return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
 
 
   return (
@@ -364,7 +366,7 @@ const PhonesCatPage = ({match}) => {
                     className="storeTiles_storeTileContainer__HoGEa"
                     style={{
                       backgroundImage: `url(${
-                        api_url2 + "/" + asset.product_image
+                        asset.product_image
                       })`,
                       //           height: "200px",
                       //           width: "100%",
@@ -479,7 +481,7 @@ const PhonesCatPage = ({match}) => {
                       className="storeTiles_storeTileContainer__HoGEa"
                       style={{
                         backgroundImage: `url(${
-                          api_url2 + "/" + asset.product_image
+                          asset.product_image
                         })`,
                         //           height: "200px",
                         //           width: "100%",
@@ -649,7 +651,7 @@ const PhonesCatPage = ({match}) => {
     className="storeTiles_storeTileContainer__HoGEa"
     style={{
       backgroundImage: `url(${
-        api_url2 + "/" + asset.product_image
+        asset.product_image
       })`,
       //           height: "200px",
       //           width: "100%",

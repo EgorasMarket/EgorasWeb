@@ -3,6 +3,19 @@
   padding-top: 12em;
   position: relative;
 }
+.left_savings_icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 568px;
+  z-index: -1;
+}
+.right_savings_icon {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 568px;
+}
 /* .savings_section .container {
   max-width: 1274px;
   /* overflow: hidden; */
@@ -12,6 +25,8 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  position: relative;
+  z-index: 5;
 }
 
 .savings_area1 {
@@ -20,14 +35,22 @@
 .savings_area2 {
   width: 150%;
 }
+.relate_div {
+  position: relative !important;
+}
 
 .savings_area1_title {
-  font-size: 62px;
-  font-weight: 700;
+  font-size: 50px;
+  font-weight: 800;
+  line-height: 1em;
+}
+.innnn {
+  width: 65%;
+  position: relative;
 }
 
 .savings_area1_para {
-  width: 83%;
+  width: 100%;
   margin-bottom: 25px;
   margin-top: 20px;
 }
@@ -38,6 +61,13 @@ button.savings_area_btn {
   font-weight: 600;
   color: #fff;
   background: #239e54;
+}
+.section_writeup_divs {
+  display: flex;
+  align-items: center;
+  gap: 10px px;
+  justify-content: space-between;
+  margin-top: 4em;
 }
 .save_app_phone {
   width: 110%;
@@ -115,7 +145,7 @@ button.savings_area_btn {
   transition: transform 0.4s linear 0s;
   vertical-align: top;
   width: 95%;
-  background: #f2fff7;
+  background: #ffffff;
   border-radius: 15px;
   box-shadow: 0px 0px 5px #b1cbbb;
 }
@@ -135,6 +165,31 @@ button.savings_area_btn {
   width: 100%;
   grid-column: span 2 / span 2;
 }
+.out_right_install_tag {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+.out_right_install_tag_btn {
+  font-size: 10px;
+  background: #e4a788;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 1px 5px;
+  border: none;
+  border-radius: 24px;
+  border: solid 1px #e4a788;
+}
+/* .out_right_install_tag_btn {
+  font-size: 10px;
+  background: #d4f8e2;
+  color: #55a675;
+  font-weight: 700;
+  padding: 1px 5px;
+  border: none;
+  border-radius: 24px;
+  border: solid 1px #55a675;
+} */
 .storeTiles_storeTileOffersContainer__3v8lC {
   display: flex;
   justify-content: space-between;
@@ -149,7 +204,7 @@ button.savings_area_btn {
   align-items: center;
   justify-content: space-between;
   min-height: 3.2rem;
-  padding: 0.25rem 0.5rem;
+  padding: 0.15rem 0.25rem;
   position: relative;
   box-shadow: 0px 0px 3px grey;
   bottom: -1px;
@@ -289,6 +344,7 @@ button.savings_area_btn {
   width: 100%;
   gap: 3px;
   justify-content: flex-end;
+  white-space: nowrap;
 }
 
 .asset_prices_div {
@@ -309,7 +365,7 @@ button.savings_area_btn {
   .storeTiles_storeTileBottomContainer__2sWHh {
     min-height: 0rem;
   }
-  .products_display_body_conts_banner_cont {
+  /* .products_display_body_conts_banner_cont {
     width: 100%;
   }
   .products_display_body_conts2 {
@@ -319,5 +375,92 @@ button.savings_area_btn {
     grid-gap: 15px;
     gap: 15px;
     width: 55%;
+  } */
+}
+
+@media (max-width: 991px) {
+  .section_writeup_divs {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px px;
+    gap: 10px px;
+    justify-content: space-between;
+    margin-top: 4em;
+    flex-direction: column-reverse;
+    gap: 24px;
+  }
+  .section_writeup_div_controls {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    grid-gap: 15px;
+    gap: 15px;
+    text-align: right;
+    justify-content: space-between;
+    padding-right: 0em;
+  }
+}
+@media (max-width: 767px) {
+  .savings_area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    z-index: 5;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .savings_area2 {
+    width: 100%;
+  }
+  .save_app_phone {
+    width: 100%;
+  }
+  .section_writeup_divs {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px px;
+    gap: 10px px;
+    justify-content: space-between;
+    margin-top: 0em;
+  }
+}
+@media (max-width: 550px) {
+  .savings_area1_title {
+    font-size: 40px;
+    font-weight: 800;
+    line-height: 1em;
+  }
+  .out_right_install_tag_btn {
+    font-size: 8px;
+    background: #e4a788;
+    color: #ffffff;
+    font-weight: 700;
+    padding: 1px 5px;
+    border: none;
+    border-radius: 24px;
+    border: solid 1px #e4a788;
+  }
+  .asset_name {
+    font-size: 10px;
+    font-weight: 600;
+  }
+  .asset_title {
+    font-size: 10px;
+  }
+  .slashed_price {
+    font-size: 7px;
+  }
+  .amount_per_day_div {
+    font-size: 9px;
+    font-weight: 700;
+    gap: 0px;
+    justify-content: flex-end;
+    /* flex-direction: column; */
+    white-space: nowrap;
+    flex-flow: wrap;
+  }
+  .per_day_symbol {
+    font-size: 7px;
   }
 }

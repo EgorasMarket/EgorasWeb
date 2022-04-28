@@ -18,7 +18,7 @@ const ExploreLoanSection2 = ({ loans, fetch }) => {
       setIsLoading(false);
       setLoanData(loans.data);
 
-      console.log(loans.data);
+      //console.log(loans.data);
     }
   }, [loans]);
 

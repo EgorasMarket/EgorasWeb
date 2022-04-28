@@ -227,7 +227,7 @@ export const Authenticate = (props) => {
       {context.active ? (<span className='wallet-id'>{props.isHome == "false" ? context.account.substring(0, 6) + "..." + context.account.substring(38, 42) : null} <button onClick={() => {
         deactivate();
       }} className={props.isHome == "false" ? "auto btn btn-success btn-sm connect-btn" : "btn-black i custom-btn"}> Logout <FontAwesomeIcon icon={faSignOutAlt} /> </button></span>) : (<button onClick={toggle} className={props.isHome == "false" ? "auto btn btn-success btn-sm connect-btn" : "btn-black i custom-btn"}> Connect Wallet </button>
-        )}
+      )}
 
 
     </div>

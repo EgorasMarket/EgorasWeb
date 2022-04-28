@@ -1,27 +1,33 @@
-import React, { useState, useEffect, Fragment } from "react";
-import { connect } from "react-redux";
-import { CustomAlert } from "../../../../CustomAlert";
+import React, { useState, useEffect, Fragment } from 'react';
+import { connect } from 'react-redux';
+import DatePicker from 'react-date-picker';
+import { CustomAlert } from '../../../../CustomAlert';
 // import useAlert from "@semiorbit/react-ui-tools/Containers/useAlert";
 
 // import { setAlert } from ".";
 // import Alert from "../../Alert";
-import "../../../../css/signup.css";
-import { getAuthentication } from "../../../../actions/auth";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import '../../../../css/signup.css';
+import { getAuthentication } from '../../../../actions/auth';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Signup = ({ getAuthentication }) => {
   const [userAuth, setUserAuth] = useState({
-    fullname: "",
-    email: "",
-    password: "",
-    BVN: "",
-    phoneNumber: "",
-    confirmPassword: "",
-    InfoReason: "",
+    // fullname: "",
+    firstname: '',
+    lastname: '',
+    email: '',
+    password: '',
+    BVN: '',
+    phoneNumber: '',
+    confirmPassword: '',
+    InfoReason: '',
   });
+
+  const [dateOfBirth, setDateOfBirth] = useState('');
+
   const [disable, setDisable] = React.useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [alert, setAlert] = useState("");
+  const [alert, setAlert] = useState('');
   // const [confirmPassword, setConfirmPassword] = useState("");
   const [isSuccessful, setIsSuccessful] = useState(false);
   const [visibility, setVisibility] = useState(false);
@@ -29,7 +35,9 @@ const Signup = ({ getAuthentication }) => {
   const [mismatchPass, setMismatchPass] = useState(false);
   const [visibility2, setVisibility2] = useState(false);
   const {
-    fullname,
+    // fullname,
+    firstname,
+    lastname,
     email,
     password,
     BVN,
@@ -37,6 +45,8 @@ const Signup = ({ getAuthentication }) => {
     confirmPassword,
     InfoReason,
   } = userAuth;
+
+  let birthDate = dateOfBirth ? dateOfBirth.toLocaleDateString() : '';
 
   // const weakPass = () => {
   //   setStrongPas(true);
@@ -47,19 +57,30 @@ const Signup = ({ getAuthentication }) => {
   //   }
   // }, []);
   useEffect(() => {
-    if (fullname === "") {
+    // if (fullname === "") {
+    //   setDisable(true);
+    // }
+    if (firstname === '') {
       setDisable(true);
-    } else if (email === "") {
+    }
+    if (lastname === '') {
       setDisable(true);
-    } else if (password === "") {
+    }
+    if (email === '') {
       setDisable(true);
-    } else if (BVN === "") {
+    } else 
+    // if (BVN === '') {
+    //   setDisable(true);
+    // } else if (birthDate === '') {
+    //   setDisable(true);
+    // } else 
+    if (password === '') {
       setDisable(true);
-    } else if (phoneNumber === "") {
+    } else if (phoneNumber === '') {
       setDisable(true);
-    } else if (confirmPassword === "") {
+    } else if (confirmPassword === '') {
       setDisable(true);
-    } else if (InfoReason === "") {
+    } else if (InfoReason === '') {
       setDisable(true);
     } else if (isLoading == true) {
       setDisable(true);
@@ -75,13 +96,13 @@ const Signup = ({ getAuthentication }) => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "password":
+      case 'password':
         if (e.target.value.length <= 7) {
           setStrongPass(true);
-          console.log("password is not 8");
+          //console.log("password is not 8");
         } else if (password.length >= 7) {
           setStrongPass(false);
-          console.log("password is 8");
+          //console.log("password is 8");
         }
         break;
       default:
@@ -93,9 +114,9 @@ const Signup = ({ getAuthentication }) => {
     // }
 
     // if (e.target.value === "") {
-    //   console.log("input something here");
+    //   //console.log("input something here");
     // } else {
-    //   console.log("something is here");
+    //   //console.log("something is here");
     // }
   };
   const onChange2 = (e) => {
@@ -104,13 +125,13 @@ const Signup = ({ getAuthentication }) => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "confirmPassword":
+      case 'confirmPassword':
         if (e.target.value !== password) {
           setMismatchPass(true);
-          console.log("password not match");
+          //console.log("password not match");
         } else if (e.target.value === password) {
           setMismatchPass(false);
-          console.log("password match");
+          //console.log("password match");
         }
         break;
       default:
@@ -122,9 +143,9 @@ const Signup = ({ getAuthentication }) => {
     // }
 
     // if (e.target.value === "") {
-    //   console.log("input something here");
+    //   //console.log("input something here");
     // } else {
-    //   console.log("something is here");
+    //   //console.log("something is here");
     // }
   };
   const setPasswordVisibilty = () => {
@@ -149,7 +170,16 @@ const Signup = ({ getAuthentication }) => {
   //   setIsSuccessful(false);
   // });
   const submitData = async (e) => {
+    console.log(
+      birthDate,
+      email,
+      firstname,
+      lastname,
+      BVN,
+      'sfdbhjdfbkjdbjk'
+    );
     if (isLoading == true) {
+      //
       setDisable(true);
     } else if (isLoading == false) {
       setDisable(false);
@@ -157,29 +187,32 @@ const Signup = ({ getAuthentication }) => {
     setIsLoading(true);
     setDisable(true);
     let res = await getAuthentication(
-      fullname,
+      // fullname,
+      firstname.trim(),
+      lastname.trim(),
       email,
+      birthDate,
       password,
       BVN,
       phoneNumber,
       InfoReason
       //   localStorage.referrer
     );
-    console.log(res);
+    //console.log(res);
     if (res.data.success === true) {
       setIsSuccessful(true);
-      console.log("okay Good Server");
+      //console.log("okay Good Server");
       setIsLoading(false);
     } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
+      setAlert(res.data.data.errors[0].msg, 'danger');
       setIsLoading(false);
       setDisable(false);
     }
 
-    console.log(res.data.data.errors[0].msg);
+    //console.log(res.data.data.errors[0].msg);
   };
   const timer = setTimeout(() => {
-    setAlert("");
+    setAlert('');
   }, 5000);
 
   // const alert = useAlert();
@@ -193,11 +226,13 @@ const Signup = ({ getAuthentication }) => {
           <div className="container">
             <div className="signup_area">
               <div className="signup_cont_head">
-                <img
-                  src="/img/egoras-logo.svg"
-                  alt=""
-                  className="signup_title_img"
-                />
+                <a href="/">
+                  <img
+                    src="/img/egoras-logo.svg"
+                    alt=""
+                    className="signup_title_img"
+                  />
+                </a>
               </div>
               <div className="signup_cont">
                 <div className="signup_title">Create an Account</div>
@@ -205,15 +240,30 @@ const Signup = ({ getAuthentication }) => {
                   Welcome to the future of savings & investments.
                 </span>
                 <div className="signup_inputs_cont">
-                  <div className="signup_input_field1_cont">
-                    <span className="input_title">Full Name</span>
-                    <input
-                      type="text"
-                      name="fullname"
-                      className="signup_input_field"
-                      value={fullname}
-                      onChange={onChange}
-                    />
+                  <div
+                    className="signup_input_field1_cont"
+                    style={{ flexDirection: 'row' }}
+                  >
+                    <div className="text-left">
+                      <span className="input_title">First Name</span>
+                      <input
+                        type="text"
+                        name="firstname"
+                        className="signup_input_field"
+                        value={firstname}
+                        onChange={onChange}
+                      />
+                    </div>
+                    <div className="text-left">
+                      <span className="input_title">Last Name</span>
+                      <input
+                        type="text"
+                        name="lastname"
+                        className="signup_input_field"
+                        value={lastname}
+                        onChange={onChange}
+                      />
+                    </div>
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Email address</span>
@@ -223,17 +273,38 @@ const Signup = ({ getAuthentication }) => {
                       value={email}
                       name="email"
                       onChange={onChange}
+                      placeHolder="@gmail.com"
                     />
+                    <div className="weak_pass_div text-muted">* Optional</div>
                   </div>
-                  <div className="signup_input_field1_cont">
-                    <span className="input_title">Phone Number</span>
-                    <input
-                      type="number"
-                      className="signup_input_field"
-                      value={phoneNumber}
-                      name="phoneNumber"
-                      onChange={onChange}
-                    />
+
+                  <div
+                    className="signup_input_field1_cont"
+                    style={{ flexDirection: 'row' }}
+                  >
+                    <div className="text-left">
+                      <span className="input_title">
+                        Phone Number
+                      </span>
+                      <input
+                        type="number"
+                        className="signup_input_field"
+                        value={phoneNumber}
+                        name="phoneNumber"
+                        onChange={onChange}
+                      />
+                    </div>
+                    <div className="text-left">
+                      <span className="input_title">
+                        Date Of Birth
+                      </span>
+                      <DatePicker
+                        onChange={setDateOfBirth}
+                        value={dateOfBirth}
+                        format="yyyy-MM-dd"
+                      />
+                    </div>
+                    <div className="weak_pass_div text-muted">* Optional</div>
                   </div>
                   <div className="signup_input_field1_cont">
                     <span className="input_title">
@@ -245,17 +316,33 @@ const Signup = ({ getAuthentication }) => {
                       value={BVN}
                       name="BVN"
                       onChange={onChange}
+                      placeHolder="***********"
                     />
+                    <div className="weak_pass_div text-muted">* Optional</div>
                   </div>
+
+                  {/* <div className="signup_input_field1_cont">
+                    <span className="input_title">
+                      Bank Verification Number (BVN)
+                    </span>
+                    <input
+                      type="number"
+                      className="signup_input_field"
+                      value={BVN}
+                      name="BVN"
+                      onChange={onChange}
+                    />
+                  </div> */}
                   <div className="signup_input_field1_cont">
                     <span className="input_title">Password</span>
                     <div className="passwrd_input_div">
                       <input
-                        type={visibility ? "text" : "password"}
+                        type={visibility ? 'text' : 'password'}
                         className="signup_input_field"
                         value={password}
                         name="password"
                         onChange={onChange}
+                        placeHolder="****"
                         // onInput={onChangeMisMatch}
                       />
                       {visibility == false ? (
@@ -275,18 +362,23 @@ const Signup = ({ getAuthentication }) => {
                       )}
                     </div>
                     {strongPass == false ? null : (
-                      <div className="weak_pass_div">Password is weak</div>
+                      <div className="weak_pass_div">
+                        Password is weak
+                      </div>
                     )}
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">Repeat Password</span>
+                    <span className="input_title">
+                      Repeat Password
+                    </span>
                     <div className="passwrd_input_div">
                       <input
-                        type={visibility2 ? "text" : "password"}
+                        type={visibility2 ? 'text' : 'password'}
                         className="signup_input_field"
                         value={confirmPassword}
                         name="confirmPassword"
                         onChange={onChange2}
+                        placeHolder="****"
                       />
                       {visibility2 == false ? (
                         <img
@@ -329,7 +421,9 @@ const Signup = ({ getAuthentication }) => {
                       <option value="Instagram">Instagram</option>
                       <option value="Referred">Referred</option>
                       <option value="Online Blog">Online Blog</option>
-                      <option value="Google search">Google search</option>
+                      <option value="Google search">
+                        Google search
+                      </option>
                       <option value="Others">Others</option>
                     </select>
                     {/* ==[[[[[]]]]] */}
@@ -344,7 +438,7 @@ const Signup = ({ getAuthentication }) => {
                   >
                     {isLoading ? (
                       <span>
-                        Creating account{" "}
+                        Creating account{' '}
                         <FontAwesomeIcon
                           className="ml-2"
                           icon={faSpinner}
@@ -382,27 +476,27 @@ const Signup = ({ getAuthentication }) => {
                       <h4 className="check_mail">Check your email</h4>
 
                       <p>
-                        An activation email has been sent to{" "}
-                        <span className="email_name">{email}</span> with
-                        instructions to activate your account.
+                        An activation email has been sent to{' '}
+                        <span className="email_name">{email}</span>{' '}
+                        with instructions to activate your account.
                       </p>
                       <p className="note">
-                        {" "}
-                        * If the email doesn’t show up soon, check your spam
-                        folder or make sure you enter the email you used for
-                        registration.
+                        {' '}
+                        * If the email doesn’t show up soon, check
+                        your spam folder or make sure you enter the
+                        email you used for registration.
                       </p>
                     </div>
                   </div>
 
                   <div className="sign_up_btns">
                     <a href="/login" className="login2">
-                      {" "}
+                      {' '}
                       <button
                         className="sign_up_btn"
                         // type="submit"
                       >
-                        {" "}
+                        {' '}
                         Return to login
                       </button>
                     </a>
@@ -414,7 +508,9 @@ const Signup = ({ getAuthentication }) => {
         </section>
       )}
 
-      {alert == "" ? null : <CustomAlert alert={alert} onChange={timer} />}
+      {alert == '' ? null : (
+        <CustomAlert alert={alert} onChange={timer} />
+      )}
       {/* ========== */}
       {/* ========== */}
       {/* ========== */}

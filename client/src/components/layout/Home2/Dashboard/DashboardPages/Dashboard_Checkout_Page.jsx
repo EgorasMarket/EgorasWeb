@@ -45,8 +45,8 @@ const Dashboard_Checkout_Page = ({
   });
   const [amount, setAmount] = useState(cAmount);
 
-  console.log(cAmount);
-  console.log(getProductId);
+  //console.log(cAmount);
+  //console.log(getProductId);
 
   const { card_numberVar, cardExDate, cvv } = cardInfoOne;
   const [modal, setModal] = useState(false);
@@ -108,19 +108,19 @@ const Dashboard_Checkout_Page = ({
   } = userInfo;
 
   useEffect(() => {
-    console.log(cAmount);
+    //console.log(cAmount);
     // setCartNum(cart.length)
     // fetchDepositLinks();
-    console.log(auth);
+    //console.log(auth);
     if (auth.user !== null) {
       // let dataa = 'stackabuse.com';
-      // console.log( new Buffer(dataa));
+      // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
 
-      // console.log('====================================');
-      console.log(todecodedn);
-      // console.log('====================================');
+      // //console.log('====================================');
+      //console.log(todecodedn);
+      // //console.log('====================================');
 
       const getName = todecoded.user.fullname;
       const splitName = getName.split(" ");
@@ -151,7 +151,7 @@ const Dashboard_Checkout_Page = ({
     const getExDate = cardExDate.split("/");
     let expiry_month = getExDate[0];
     let expiry_year = getExDate[1];
-    // console.log(card_numberVar.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
+    // //console.log(card_numberVar.replace(/ /g, ''), expiry_month, expiry_year, cvv, Userfullname, Useremail, UserphoneNumber, cAmount);
     let card_number = card_numberVar.replace(/ /g, "");
     setLoading(true);
     let res3 = await proceedToCheckout(
@@ -165,13 +165,13 @@ const Dashboard_Checkout_Page = ({
       amount
       
     );
-    console.log(res3.data.data, "response from dashboard checkout ");
+    //console.log(res3.data.data, "response from dashboard checkout ");
 
     if (res3.success === true) {
       setTrnMode(res3.data.data.mode);
       if (res3.data.data.mode === "pin") {
         setIsSuccessful(true);
-        console.log(res3.data.data.stringify);
+        //console.log(res3.data.data.stringify);
         setPayload1(res3.data.data.stringify);
         setLoading(false);
       } else {
@@ -183,25 +183,25 @@ const Dashboard_Checkout_Page = ({
 
   const show_otp_modal = async () => {
     setLoading(true);
-    // console.log(payload1, pin);
+    // //console.log(payload1, pin);
     let sendP1 = await sendPin(payload1, pin);
-    // console.log(sendP1);
+    // //console.log(sendP1);
 
     if (sendP1.success === true) {
       setIsOtp(true);
       setIsSuccessful(!isSuccessful);
       setLoading(false);
-      // console.log(sendP1.data.res_stringified);
+      // //console.log(sendP1.data.res_stringified);
       setPayload2(sendP1.data.res_stringified);
     }
   };
 
   const submitOtp = async () => {
     setLoading(true);
-    // console.log(payload2, otp, UserId);
+    // //console.log(payload2, otp, UserId);
     if (trnMode === "pin") {
       let sendO1 = await sendOtp(payload2, otp, UserId, getProductId);
-      // console.log(sendO1);
+      // //console.log(sendO1);
 
       if (sendO1.success === true) {
         setSuccessPop(true);
@@ -250,7 +250,7 @@ const Dashboard_Checkout_Page = ({
                     <img
                       src="/img/egoras-logo.svg"
                       alt=""
-                      className="egoras_logo_checkout"
+                      className="egorasconfig_logo_checkout"
                     />
                   </div>
                   <div className="checkout_header_btn">

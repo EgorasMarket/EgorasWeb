@@ -43,7 +43,7 @@ var web3 = new Web3(bscMainNet);
 //       }
 //       }
 //     }).then((res) => {
-//       console.log(res);
+//       //console.log(res);
 //     })
 
 // //UPDATE `companies` SET `isActiveVotingPeriod`= 1 WHERE NOW() >= ``
@@ -65,7 +65,7 @@ var web3 = new Web3(bscMainNet);
 
     
 
-//      //contract.getPastEvents("LoanCreated", {fromBlock: 0}, function(err, events){console.log(events)});
+//      //contract.getPastEvents("LoanCreated", {fromBlock: 0}, function(err, events){//console.log(events)});
      
 //     contract
 //       .getPastEvents("allEvents", {
@@ -99,7 +99,7 @@ var web3 = new Web3(bscMainNet);
 //                 declined: 0, accepted: 0, countDown: new Date(event.returnValues._votingPeriod * 1000)
 //                 } ).then((res) => {
 //                   Blocks.create({block_no: event.blockNumber})
-//                   console.log(res);
+//                   //console.log(res);
 //                 })
 //             // insert
 //             return Requests.create(
@@ -113,7 +113,7 @@ var web3 = new Web3(bscMainNet);
 //                 }
 //             ).then((res) => {
 //               Blocks.create({block_no: event.blockNumber})
-//               console.log(res);
+//               //console.log(res);
 //             })
 //         })
               
@@ -129,7 +129,7 @@ var web3 = new Web3(bscMainNet);
 //                   }
 //                 }).then((res) => {
 //                   Blocks.create({block_no: event.blockNumber})
-//                   console.log(res);
+//                   //console.log(res);
 //                 })
 
 //               break;
@@ -153,7 +153,7 @@ var web3 = new Web3(bscMainNet);
 //                   }
 //                 }).then((res) => {
 //                   Blocks.create({block_no: event.blockNumber})
-//                   console.log(res);
+//                   //console.log(res);
 //                 })
   
   
@@ -203,7 +203,7 @@ var web3 = new Web3(bscMainNet);
 //                   }
 //                 }).then((res) => {
 //                   Blocks.create({block_no: event.blockNumber})
-//                   console.log(res);
+//                   //console.log(res);
 //                 })
 
 
@@ -216,7 +216,7 @@ var web3 = new Web3(bscMainNet);
             
 //               let meta = JSON.parse(event.returnValues._metadata);
               
-//               console.log(meta);
+//               //console.log(meta);
 //                Loans.create(
 //                  {
 //                   loanID: event.returnValues.newLoanID,
@@ -240,13 +240,13 @@ var web3 = new Web3(bscMainNet);
             
 //                 ).then((res) => {
 //                   Blocks.create({block_no: event.blockNumber})
-//                   console.log(res);
+//                   //console.log(res);
 //                 })
                 
 //               break;
 
 //               case "Voted":
-//               console.log(event);
+//               //console.log(event);
 //               Loans.update({
 //                 backed: web3.utils.fromWei(event.returnValues._totalBackedAmount.toString()),
                
@@ -301,12 +301,12 @@ var web3 = new Web3(bscMainNet);
 //         // } } });
        
 //       }).catch(er =>{
-//         console.log(er);
+//         //console.log(er);
 //       })
-//     console.log("Running", blockNo);
+//     //console.log("Running", blockNo);
 //   })
 //  } catch (error) {
-//    console.log(error.message, "Topel");
+//    //console.log(error.message, "Topel");
 //  }
 
 
@@ -350,7 +350,7 @@ router.get("/loan-created", async (req, res) => {
             
               let meta = JSON.parse(event.returnValues._metadata);
               
-              console.log(meta);
+              //console.log(meta);
                Loans.create(
                  {
                   loanID: event.returnValues.newLoanID,
@@ -374,7 +374,7 @@ router.get("/loan-created", async (req, res) => {
             
                 ).then((res) => {
                   Blocks.create({block_no: event.blockNumber})
-                  console.log(res);
+                  //console.log(res);
                 })
                 
             
@@ -402,7 +402,7 @@ router.get("/loan-created", async (req, res) => {
   } catch (error) {
       res.status(500).send({ status: false, events: [], message: "internal error"});
      
-    console.log(error);
+    //console.log(error);
   }
 
 
@@ -414,7 +414,7 @@ router.get("/loan-created", async (req, res) => {
 // @desc Get all managers on the system
 // @access Private
 router.get("/directors/:limit", async (req, res) => {
-  console.log("directors requests");
+  //console.log("directors requests");
 
   let limit = req.params.limit;
   try {
@@ -430,7 +430,7 @@ router.get("/directors/:limit", async (req, res) => {
     });
     res.status(200).send({ data: loans });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -468,7 +468,7 @@ router.get("/get/total/supply", async (req, res) => {
     }))
    
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -507,7 +507,7 @@ router.get("/get/balance/ngnc", async (req, res) => {
     }))
    
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -528,7 +528,7 @@ router.get("/get/by/category/:name", async (req, res) => {
     });
     res.status(200).send({ data: loans });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -565,7 +565,7 @@ router.get("/get/by/status/:status", async (req, res) => {
         });
         res.status(200).send({ data: loans });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
     
         res.status(400).send({ errors: [{ msg: "No Data" }] });
       }
@@ -594,7 +594,7 @@ router.get("/get/by/status/:status", async (req, res) => {
         });
         res.status(200).send({ data: loans });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
     
         res.status(400).send({ errors: [{ msg: "No Data" }] });
       }
@@ -623,7 +623,7 @@ router.get("/get/by/status/:status", async (req, res) => {
         });
         res.status(200).send({ data: loans });
       } catch (error) {
-        console.log(error);
+        //console.log(error);
     
         res.status(400).send({ errors: [{ msg: "No Data" }] });
       }
@@ -646,7 +646,7 @@ router.get("/get/by/id/:id", async (req, res) => {
     });
     res.status(200).send({ data: loans });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -684,7 +684,7 @@ router.get("/get/balance/egr", async (req, res) => {
     }))
    
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -759,7 +759,7 @@ router.get("/pending/:limit", async (req, res) => {
 });
 
 router.get("/requests/:limit", async (req, res) => {
-  console.log("HOME requests");
+  //console.log("HOME requests");
   let limit = req.params.limit;
   try {
     let requests = await Requests.findAll({
@@ -770,7 +770,7 @@ router.get("/requests/:limit", async (req, res) => {
     });
     res.status(200).send({ data: requests });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -799,7 +799,7 @@ router.get("/companies/:limit", async (req, res) => {
     });
     res.status(200).send({ data: companies });
   } catch (error) {
-    console.log(error);
+    //console.log(error);
 
     res.status(400).send({ errors: [{ msg: "No Data" }] });
   }
@@ -901,23 +901,23 @@ router.post(
               payment_model,
             })
               .then(function (data) {
-                //console.log(data);
+                ////console.log(data);
                 res.status(200).send({cover_image: data.cover_image});
               })
               .catch(function (err) {
-                console.log(err);
+                //console.log(err);
 
                 res.status(500).send({ errors: [{ msg: "Server Error! #1" }] });
               });
           })
           .catch(function (err) {
-            console.log(err);
+            //console.log(err);
 
             res.status(500).send({ errors: [{ msg: "Server Error! #2" }] });
           });
      
     } catch (error) {
-      console.log(error);
+      //console.log(error);
 
       res.status(500).send({ errors: [{ msg: "Server Error! #3" }] });
     }
@@ -1058,7 +1058,7 @@ router.post(
             res.status(200).send({image: json.data.link})
           })
           .catch(function (err) {
-            console.log(err, "the upper");
+            //console.log(err, "the upper");
 
             res.status(500).send({ errors: [{ msg: "Server Error!" }] });
           });

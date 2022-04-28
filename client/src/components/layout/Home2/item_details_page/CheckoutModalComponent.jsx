@@ -1,152 +1,315 @@
 import React, { useEffect, useCallback, useState } from "react";
+
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import verify from "../../../../flutterwave/API/Verify";
+import CloseIcon from "@mui/icons-material/Close";
+// import Wallet1 from "../../Wallet/Wallet1";
+import { useHistory } from "react-router-dom";
+import Success_Error_Component from "../../../assets/Success_Error_Component";
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
+  API_URL2,
 } from "../../../../actions/types";
+import { numberWithCommas } from "../../../../static";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import FlutterButton from "../../../../flutterwave/FlutterButton";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import LoadingIcons from "react-loading-icons";
+import PaymentPlan from "../../../../flutterwave/API/PaymentPlan";
+import verifyTransaction from "../../../../flutterwave/API/Verify";
+import { createOrder } from "../../../../actions/shop";
+import { connect } from "react-redux";
+import initPayment from "../../../../flutterwave/initPayment";
+import initializePayment from "../../../../flutterwave/API/initializePayment";
 
 const CheckoutModalComponent = ({
-  startDate,
-  endDate,
-  product_id,
-  customer_id,
-  installation_days,
+  payload,
   closeCheckoutOptions,
-  previousBtn,
-  CheckBtn,
+  auth,
+  props,
 }) => {
-  //use states
-  const [isloading, setIsLoading] = useState(true);
-  const [dailyAmount, setDailyAmount] = useState();
-  const [payload, setPayload] = useState({});
-  const [amount_per_day, setAmountPerDay] = useState("");
-  const [days_left, setDaysLeft] = useState("");
-  const [initial_deposit, setInitialDeposit] = useState("");
-  const [installemnt_days, setInstallmentDays] = useState("");
-  const [no_of_days, setNoOfDays] = useState("");
-  const [product_name, setProductName] = useState("");
-  const [product_brand, setProductBrand] = useState("");
-  const [product_details, setProductDetails] = useState("");
-  const [product_duration, setProductDuration] = useState("");
-  const [product_image, setProductImage] = useState("");
-  const [amount, setAmount] = useState("");
-  const [total, setTotal] = useState("");
-  const [deliveryFee, setDeliveryFee] = useState(0);
-  const [unitCount, setUnitCount] = useState("");
-
-  const sub_total = 0;
-
-  const [showPayment, setShowPayment] = useState(false);
-
-  const openPayment = () => {
-    setShowPayment(true);
-  };
-
-  const closePayment = () => {
-    setShowPayment(false);
-  };
-
-  const checkout = async (
-    customer_id,
+  //destructure the payload and return values
+  const {
+    amount,
+    percentage,
+    product_brand,
+    product_category_code,
+    product_details,
+    product_duration,
     product_id,
-    installment_days,
+    product_image,
+    product_name,
+    product_specifications,
+    product_type,
+    initial_deposit,
+    paymentPerday,
+    payment_type,
+    days_left,
+    no_of_days,
+    no_of_days_paid,
     startDate,
-    endDate
-  ) => {
-    const payload_data = {
-      customer_id,
-      product_id,
-      installment_days,
-      startDate,
-      endDate,
-      // spread_balance,
-    };
+    endDate,
+    status,
+  } = payload;
 
-    console.log(payload_data);
+  const [user_id, setUserId] = useState("");
+  const [isloading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState("");
+  const [phone_no, setPhoneNo] = useState("");
+  const [walletBalance, setWalletBalance] = useState(false);
+  const [walletModal, setWalletModal] = useState(false);
+  const [ProcessingDiv, setProcessingDiv] = useState(false);
+  const [fullname, setName] = useState("");
+  const [option, setOption] = useState(-1);
+  const [customer_data, setCustomerData] = useState({});
+  const [tokenBal, setTokenBal] = useState("");
+  const [assetVal, setAssetVal] = useState("");
+  const [error_msg, setErrorMsg] = useState("");
+  const [success_msg, setSuccessMsg] = useState("");
+  const [order_id, setOrder_id] = useState("");
 
-    let call = await axios
-      .post(api_url2 + "/v1/checkout/add", payload_data, config)
-      .then((response) => {
-        console.log(response.data);
-        setDailyAmount(response.data.details.rounded);
-
-        const {
-          amount_per_day,
-          days_left,
-          initial_deposit,
-          installment_days,
-          no_of_days,
-        } = response.data.details;
-        const {
-          product_name,
-          product_brand,
-          product_details,
-          product_duration,
-          product_image,
-          amount,
-        } = response.data.details.payloads;
-
-        setAmountPerDay(amount_per_day);
-        setDaysLeft(days_left);
-        setInitialDeposit(initial_deposit);
-        setInstallmentDays(installment_days);
-        setNoOfDays(no_of_days);
-        setProductName(response.data.items.product_name);
-        setProductBrand(product_brand);
-        setProductDetails(product_details);
-        setProductDuration(product_duration);
-        setProductImage(response.data.items.product_image);
-        setAmount(response.data.items.amount);
-        setTotal(parseInt(response.data.items.amount) + parseInt(deliveryFee));
-        setUnitCount(response.data.items.unitCount);
-      })
-      .catch((err) => {
-        alert(err.response.data.message);
-        console.log("error reported", err.response);
-      });
-  };
+  const [tokenSign, setTokenSign] = useState();
+  const [hardNumb, setHardNum] = useState(300);
+  const [errorDiv, setErrorDiv] = useState(false);
+  const [successDiv, setSuccessDiv] = useState(false);
+  const [total, setTotal] = useState("");
+  // //console.log(phone_no, name, option);
+  // //console.log(phone_no, name, option)
+  let deliveryFee = 0;
 
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
+
+  const [addressName, setAddressName] = useState("");
+  const history = useHistory();
+
+  useEffect(async () => {
+    if (payment_type === "OUTRIGHT") {
+      // alert(initial_deposit);
+      setTotal(amount);
+    } else if (payment_type === "INSTALLMENT") {
+      setTotal(initial_deposit + deliveryFee);
+    }
+    await axios
+      .get(api_url2 + "/v1/user/address/info", null, config)
+      .then((response) => {
+        //console.log(response , "wewter kings")
+        //console.log(response.data.cusAddress. address,"market")
+
+        setAddressName(response.data.cusAddress.address);
+        //  //console.log(addressName,"Bk is good for development")
+      });
+  }, []);
+
+  const redirect = (direction) => {
+    history.push(direction);
+  };
+  useEffect(async () => {
+    var Authorized = auth.user;
+    var userId = Authorized.user.id;
+
+    await axios
+      .get(api_url2 + "/v1/wallet/get/wallet/info/" + userId, null, config)
+      .then((data) => {
+        console.log(data.data.data.balance);
+        setTokenBal(data.data.data.balance);
+        setAssetVal(data.data.data.balance * 1);
+      })
+      .catch((err) => {
+        console.log(err.response);
+      });
+  }, [auth]);
+  useEffect(async () => {
+    // setIsLoading2(true);
+    await axios
+      .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
+      .then((data) => {
+        console.log(data.data.data, "powerful");
+        setTokenSign(data.data.data[0].tokenSymbol);
+      })
+      .catch((err) => {
+        console.log(err.response); // "oh, no!"
+      });
+  }, []);
+  useEffect(() => {
+    if (auth.user !== null) {
+      //console.log(auth.user, "user  exist ");
+      setEmail(auth.user.user.email);
+      setPhoneNo(auth.user.user.phoneNumber);
+      setName(auth.user.user.fullname);
+      const { fullname, email, phoneNumber, id } = auth.user.user;
+      setCustomerData({
+        name: fullname,
+        email,
+        phonenumber: phoneNumber,
+        customer_id: id,
+      });
+    }
+  }, []);
+
+  var vat = amount * 0.075;
+  var totals = parseInt(vat) + parseInt(amount);
+
   const flutterConfig = {
-    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
-    tx_ref: Date.now(),
-    amount: 100,
+    public_key: process.env.REACT_APP_FLUTTER_KEY,
+    tx_ref: "EGC-" + Date.now(),
+    amount: 1,
     currency: "NGN",
-    payment_options: "card,mobilemoney,ussd",
+    // redirect_url: 'https://saul.egoras.com/v1/webhooks/all',
+
+    payment_options: "card",
+    // payment_plan:63558,
     customer: {
-      email: "user@gmail.com",
-      phonenumber: "07064586146",
-      name: "joel ugwumadu",
+      phone_number: phone_no,
+      email: email,
+      name: fullname,
+    },
+    meta: {
+      customer_id: customer_data.customer_id,
+      eventType: "1",
     },
     customizations: {
-      title: "my Payment Title",
-      description: "Payment for items in cart",
-      logo: "https://st2.depositphotos.com/4403291/7418/v/450/depositphotos_74189661-stock-illustration-online-shop-log.jpg",
+      title: "Payment for Egoras savings",
+      description: `Payment for ${product_name}`,
+      logo: "https://egoras.com/img/egoras-logo.svg",
     },
   };
 
-  const options = {
-    method: "GET",
-    headers: { Accept: "application/json", "Content-Type": "application/json" },
+  const closeErrorDiv = () => {
+    setErrorDiv(false);
   };
-
   const handleFlutterPayment = useFlutterwave(flutterConfig);
+  const openProcessingDiv = () => {
+    setProcessingDiv(true);
+  };
+  const selectOption = async (value) => {
+    switch (value) {
+      case 0:
+        if (!product_id) {
+          console.log("This item is out of the market");
+          setErrorMsg("This product is off the market");
+          setErrorDiv(true);
+          return;
+        }
 
-  useEffect(() => {
-    checkout(customer_id, product_id, installation_days, startDate, endDate);
-  }, []);
+        const verifyProduct = await axios
+          .get(
+            `${api_url2}/v1/product/verify/product/${product_id}`,
+            null,
+            config
+          )
+          .then((response) => {
+            const { message, success } = response.data;
+            console.log(success);
+            if (success != true) {
+              // setErrorMsg(message);
+              // setErrorDiv(true);
+              alert("an error occured");
+            }
+
+            handleFlutterPayment({
+              callback: async (response) => {
+                //console.log(response);
+                try {
+                  if (!response.transaction_id) {
+                    // alert(
+                    //   "We couldn't return any information from this payment please try again."
+                    // );
+                  }
+                  const verification = await verify(
+                    response.transaction_id,
+                    product_id,
+                    startDate,
+                    endDate,
+                    days_left
+                  );
+                  closePaymentModal();
+                } catch (error) {
+                  console.log(error.response);
+                }
+              },
+              onClose: (response) => {
+                // window.location.replace('google.com');
+              },
+            });
+            // setProcessingDiv(false);
+          })
+          .catch((err) => {
+            setProcessingDiv(false);
+            setErrorMsg(err.response);
+            setErrorDiv(true);
+            console.log(err.response);
+          });
+
+        break;
+
+      case 1:
+        setProcessingDiv(true);
+
+        // const verif = await axios.get(
+        //   `${api_url2}/v1/product/verify/product/${product_id}`,
+        //   null,
+        //   config
+        // );
+
+        if (tokenBal >= Number(total)) {
+          //
+          const orderBody = JSON.stringify({
+            product_id,
+            initial_pay: initial_deposit,
+            startDate,
+            endDate,
+            days_left,
+          });
+
+          console.log(orderBody);
+          const res = await axios
+            .post(API_URL2 + "/v1/order/add/order/crypto", orderBody, config)
+            .then((response) => {
+              console.log(response, " response after order endpoint is called");
+
+              setProcessingDiv(false);
+              setSuccessMsg(response.data.message);
+              setOrder_id(response.data.order_id);
+              setErrorDiv(false);
+              setSuccessDiv(true);
+              console.log(window.location.hostname);
+              // window.location.replace(
+              //   `${window.location.hostname}/dashboard`
+              // );
+              // return <Redirect to="/dashboard" />;
+            })
+            .catch((err) => {
+              console.log(err.response);
+              // setProcessingDiv(false);
+              // setSuccessDiv(false);
+              setErrorMsg(err.response);
+              setErrorDiv(true);
+              // alert(err);
+            });
+          //
+        } else {
+          console.log("something happened");
+          setProcessingDiv(false);
+          setSuccessDiv(false);
+          setErrorMsg(
+            "Insufficient wallet balance, fund your wallet to continue."
+          );
+          setErrorDiv(true);
+          // alert('hiy');
+        }
+        break;
+    }
+  };
 
   return (
     <>
-      <div className="detailsModal">
+      <div className="detailsModal" style={{ position: "relative" }}>
         <div className="detailsModalSection1">
           <div className="bacKbutton" onClick={closeCheckoutOptions}>
             Previous
@@ -154,22 +317,31 @@ const CheckoutModalComponent = ({
           </div>
           <div className="detailsModalSection1_area1">
             <div className="delivery_title1">Delivery / Pickup Options</div>
+
             <div className="delivery_cards_section">
-              <div className="delivery_card1">
-                <div className="delivery_card_title">
-                  Deliver to me{" "}
-                  <button className="button_change_delivery_address">
-                    Change Address
-                  </button>
-                </div>
-                <div className="delivery_card_body">
-                  <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
-                  <div className="delivery_card_body_cont1">
-                    62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
+              {addressName === "" ? null : (
+                // added
+                <div className="delivery_card1">
+                  <div className="delivery_card_title">
+                    Deliver to me{" "}
+                    <button className="button_change_delivery_address">
+                      Change Address
+                    </button>
                   </div>
-                  <div className="delivery_card_body_cont1">08164020234</div>
+                  <div className="delivery_card_body">
+                    <div className="delivery_card_body_cont1">
+                      {customer_data.name}
+                    </div>
+                    <div className="delivery_card_body_cont1">
+                      {addressName}
+                    </div>
+                    <div className="delivery_card_body_cont1">
+                      {customer_data.phonenumber}
+                    </div>
+                  </div>
                 </div>
-              </div>
+              )}
+
               {/* ============= */}
               {/* ============= */}
               {/* ============= */}
@@ -198,17 +370,24 @@ const CheckoutModalComponent = ({
               <div class="save_prod_deta">
                 <table className="save_item_table">
                   <thead className="assets-category-titles">
-                    <tr className="assets">
+                    <tr className="assets checked_item">
                       <th className="assets-category-titles-heading1">Item</th>
                       <th className="assets-category-titles-heading1">
                         Item Details
                       </th>
-                      <th className="assets-category-titles-heading1 quant">
-                        Amount daily
-                      </th>
-                      {/* <th className="assets-category-titles-heading1 quant">
-                              Unit Price
-                            </th> */}
+                      {payment_type == "OUTRIGHT" ? (
+                        <th className="assets-category-titles-heading1 quant">
+                          Total Amount
+                        </th>
+                      ) : (
+                        <th className="assets-category-titles-heading1 quant">
+                          Amount daily
+                        </th>
+                      )}
+
+                      {/* <th className="assets-categordata1y-titles-heading1 quant">
+                        Unit Price
+                      </th> */}
                       <th className="assets-category-titles-heading1_last">
                         Sub Total
                       </th>
@@ -219,12 +398,11 @@ const CheckoutModalComponent = ({
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
-                    {" "}
-                    <tr className="assets-category-row">
-                      <td className="save_item_data">
+                    <tr className=" checked_item_row">
+                      <td className="save_item_data checked_item">
                         <div className="assets-data height_data">
                           <img
-                            src={api_url2 + "/" + product_image}
+                            src={product_image}
                             alt=""
                             className="save_item_img_img"
                           />
@@ -234,43 +412,66 @@ const CheckoutModalComponent = ({
                       {/* ======== */}
                       {/* ======== */}
                       {/* ======== */}
-                      <td className="save_item_data1">
+                      <td className="save_item_data1 checked_item_1">
                         <div className="save_items_details">
                           <div className="save_items_details1">
                             {product_name}
                           </div>
-                          <div className="save_item_days_left">
-                            {days_left} days left
-                            {/* <div className="days_left_percentage_cont">
-                              <span
-                                className="days_left_percentage"
-                                // style={{
-                                //   width:
-                                //     100 % -((amount * 100) / unitCount),
-                                // }}
-                              ></span>
-                            </div> */}
-                          </div>
+                          {payment_type == "OUTRIGHT" ? null : (
+                            <div className="save_item_days_left">
+                              {days_left} days left
+                            </div>
+                          )}
+
                           <div className="save_total_locked_amount">
-                            <span className="items_left_amount">
-                              Total Amount Locked on Item
+                            {payment_type == "OUTRIGHT" ? (
+                              <span className="items_left_amount">
+                                Total Amount
+                              </span>
+                            ) : (
+                              <span className="items_left_amount">
+                                Total Amount Locked on Item
+                              </span>
+                            )}
+                            <span className="init_amount">
+                              ₦
+                              {payment_type == "OUTRIGHT"
+                                ? numberWithCommas(parseInt(amount).toFixed(2))
+                                : numberWithCommas(
+                                    parseInt(initial_deposit).toFixed(2)
+                                  )}
                             </span>
-                            ₦{initial_deposit}
                           </div>
                         </div>
                       </td>
-                      <td className="save_item_data1b">
-                        <div className="assets-data-name_last">
-                          ₦{dailyAmount}
-                        </div>
+                      <td className="save_item_data1b checked_item_data_1b">
+                        {payment_type == "OUTRIGHT" ? (
+                          <div className="assets-data-name_last">
+                            ₦ {numberWithCommas(parseInt(amount).toFixed(2))}
+                          </div>
+                        ) : (
+                          <div className="assets-data-name_last">
+                            ₦{" "}
+                            {numberWithCommas(
+                              parseInt(paymentPerday).toFixed(2)
+                            )}
+                          </div>
+                        )}
                       </td>
                       {/* <td className="save_item_data1b">
-                                <div className="assets-data-name center_name">
-                                  ₦{amount}
-                                </div>
-                              </td> */}
-                      <td className="save_item_data1b">
-                        <div className="assets-data-name_last">₦{amount}</div>
+                          <div className="assets-data-name center_name">
+                            ₦{amount}
+                          </div>
+                        </td> */}
+                      <td className="save_item_data1b checked_item_data_1b">
+                        <div className="assets-data-name_last">
+                          ₦{" "}
+                          {payment_type == "OUTRIGHT"
+                            ? numberWithCommas(parseInt(amount).toFixed(2))
+                            : numberWithCommas(
+                                parseInt(initial_deposit).toFixed(2)
+                              )}
+                        </div>
                       </td>
                     </tr>
                   </tbody>
@@ -279,6 +480,9 @@ const CheckoutModalComponent = ({
             </div>
           </div>
         </div>
+
+        {/* second block here */}
+
         <div className="detailsModalSection2">
           <div className="details_modal_divv">
             {/* ======================= */}
@@ -287,35 +491,68 @@ const CheckoutModalComponent = ({
             {/* ===================== */}
             <div className="cart_area2_select">
               <div className="wit_card">
-                Pay via wallet{" "}
-                <input type="checkbox" name="" id="" classNam="checkBox" />
+                Pay via card{" "}
+                <input
+                  type="radio"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(0);
+                    setWalletBalance(false);
+                  }}
+                />
               </div>
             </div>
-      
-              <FlutterButton
-                amount={1}
-                payment_title={"Payment From Egoras savings "}
-                //  payment_options={"ussd"}
-                customer={{
-                  email: "goodluckcanhelp@gmail.com",
-                  phonenumber: "08165226413",
-                  name: "Kingsley goodluck",
-                }}
-                select={
-                  <input type="checkbox" name="" id="" classNam="checkBox" />
-                }
-              />
-      
-
-            {/* <div className="cart_area2_select border_down">
+            {/* ===================== */}
+            <div className="cart_area2_select">
               <div className="wit_card">
                 Pay via wallet{" "}
-                <input type="checkbox" name="" id="" classNam="checkBox" />
+                <input
+                  type="radio"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                  style={{ display: "block", cursor: "pointer" }}
+                  onClick={() => {
+                    setOption(1);
+                    setWalletBalance(true);
+                  }}
+                />
               </div>
-            </div> */}
+              {walletBalance == true ? (
+                <div className="wallet_bal_acct">
+                  Wallet Bal: {parseInt(tokenBal).toFixed(3)} {tokenSign}
+                  {/* Wallet Bal: {hardNumb} {tokenSign} */}
+                </div>
+              ) : null}
+            </div>
+
+            {/* <FlutterButton 
+       payment_plan={showPayment}
+       user_id ={user_id}
+       amount={1}
+       payload = {userPayload}
+       payment_title={"Payment From Egoras savings "}
+      //  payment_options={"ussd"}
+       customer={
+           {
+         email:"gibbywise@gmail.com", 
+         phonenumber:"07026782437", 
+         name:"Chidoro  Ndubueze"}
+       } /> */}
+
+            {/* <div className="cart_area2_select border_down">
+        <div className="wit_card">
+          Pay via wallet{" "}
+          <input type="checkbox" name="" id="" classNam="checkBox" />
+        </div>
+      </div> */}
             {/* ========= */}
             {/* ========= */}
             {/* ========= */}
+
             <div className="cart_area2_notes">
               . No minimum or maximum order.
               <br />
@@ -328,7 +565,19 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             <div className="sub_total_div">
               Sub Total:{" "}
-              <span className="sub_total_div_span">₦{sub_total}</span>
+              <span className="sub_total_div_span">
+                ₦{" "}
+                {payment_type == "OUTRIGHT"
+                  ? numberWithCommas(parseInt(amount).toFixed(2))
+                  : numberWithCommas(parseInt(initial_deposit).toFixed(2))}
+              </span>
+            </div>
+            {/* ========== */}
+            {/* ========== */}
+            {/* ========== */}
+            {/* ========== */}
+            <div className="sub_total_div">
+              VAT: <span className="sub_total_div_span">₦{vat}</span>
             </div>
             {/* ========== */}
             {/* ========== */}
@@ -346,15 +595,33 @@ const CheckoutModalComponent = ({
             {/* ========== */}
             {/* ========== */}
             <div className="transac_secure_div">
-              Total <span className="sub_total_div_span">₦{amount}</span>
+              Total{" "}
+              <span className="sub_total_div_span">
+                ₦
+                {payment_type == "OUTRIGHT"
+                  ? numberWithCommas(
+                      (parseInt(totals) + deliveryFee).toFixed(2)
+                    )
+                  : numberWithCommas(
+                      (parseInt(initial_deposit) + deliveryFee).toFixed(2)
+                    )}
+              </span>
             </div>
             {/* ========== */}
             {/* ========== */}
-
             <button
               className="checkout_btn1a"
+              // onClick={() => {
+
+              //   <Loader/>
+
+              //   // openPayment();
+              //   selectOption(option);
+
+              // }}
               onClick={() => {
-                openPayment();
+                // return( <Loader/>)
+                selectOption(option);
               }}
             >
               Proceed to Checkout
@@ -363,15 +630,55 @@ const CheckoutModalComponent = ({
         </div>
       </div>
 
-      {showPayment ? (
-        <Dashboard_Checkout_Page
-          cAmount={1}
-          getProductId={product_id}
-          closePaymentModal={closePayment}
+      {ProcessingDiv == false ? null : (
+        <div className="processing_transac_div">
+          <LoadingIcons.Bars fill="#229e54" />
+          Processing Transaction...
+        </div>
+      )}
+      {successDiv == true ? (
+        // <div>
+        <Success_Error_Component
+          remove_success_div={closeCheckoutOptions}
+          btn_txt="Continue"
+          // msg={success_msg}
+          msg={`${success_msg}, Order-Id: ${order_id}`}
+          errorMsgDiv={errorDiv}
+          link_btn={true}
+          src={
+            payment_type === "OUTRIGHT"
+              ? "/dashboard/savings"
+              : "/dashboard/products"
+          }
         />
-      ) : null}
+      ) : // </div>
+      null}
+      {errorDiv == false ? null : (
+        // <div className="processing_transac_div insufficient">
+        <Success_Error_Component
+          // remove_success_div={() => setErrorDiv(true)}
+          btn_txt="Fund Wallet"
+          // msg={<div>Stupid boy</div>}
+          msg={error_msg}
+          errorMsgDiv={errorDiv}
+          removeTransDiv={() => {
+            redirect("/dashboard/products");
+            closeErrorDiv();
+          }}
+          link_btn={true}
+          src="/dashboard/wallet"
+          // onclick={closeErrorDiv}
+        />
+        // </div>
+      )}
     </>
   );
 };
 
-export default CheckoutModalComponent;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, {
+  createOrder,
+})(CheckoutModalComponent);

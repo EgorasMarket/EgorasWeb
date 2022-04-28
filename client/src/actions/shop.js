@@ -14,7 +14,7 @@ import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const retrieveCart = (customer_id) => async (dispatch) => {
-  console.log(customer_id);
+  //console.log(customer_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -26,14 +26,14 @@ export const retrieveCart = (customer_id) => async (dispatch) => {
       null,
       config
     );
-    console.log(res.data.data);
-    // console.log("Yes I call You because i can", res.data.data);
+    //console.log(res.data.data);
+    // //console.log("Yes I call You because i can", res.data.data);
     dispatch({
       type: FETCH_CART,
       payload: res.data.data,
     });
   } catch (error) {
-    console.log("not registered");
+    //console.log("not registered");
     // dispatch({
     //   type: AUTH_ERROR,
     // });
@@ -41,7 +41,7 @@ export const retrieveCart = (customer_id) => async (dispatch) => {
 };
 // Load Locked items
 // export const retrieveSaved = (customer_id) => async (dispatch) => {
-//   console.log(customer_id);
+//   //console.log(customer_id);
 //   const config = {
 //     headers: {
 //       "Content-Type": "application/json",
@@ -53,14 +53,14 @@ export const retrieveCart = (customer_id) => async (dispatch) => {
 //       null,
 //       config
 //     );
-//     console.log("from retrieve saved", res.data.data);
-//     // console.log("Yes I call You because i can", res.data.data);
+//     //console.log("from retrieve saved", res.data.data);
+//     // //console.log("Yes I call You because i can", res.data.data);
 //     dispatch({
 //       type: FETCH_LOCKED,
 //       payload: res.data.data,
 //     });
 //   } catch (error) {
-//     console.log("not registered");
+//     //console.log("not registered");
 //     // dispatch({
 //     //   type: AUTH_ERROR,
 //     // });
@@ -83,7 +83,7 @@ export const removeCart = (item) => {
 
 
 export const createOrder = (product_id) => async (dispatch) => {
-  console.log(product_id);
+  //console.log(product_id);
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -96,15 +96,15 @@ export const createOrder = (product_id) => async (dispatch) => {
 
   try {
     const res = await axios.post(api_url2 + "/v1/order/add/order", body, config);
-    console.log(res.data.data);
-    // console.log("Yes I call You because i can", res.data.data);
+    //console.log(res.data.data);
+    // //console.log("Yes I call You because i can", res.data.data);
     // dispatch({
     //   type: FETCH_CART,
     //   payload: res.data.data,
     // });
   } catch (error) {
-    console.log(error.response);
-    console.log("not registered");
+    //console.log(error.response);
+    //console.log("not registered");
     // dispatch({
     //   type: AUTH_ERROR,
     // });

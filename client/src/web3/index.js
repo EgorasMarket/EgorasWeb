@@ -76,7 +76,21 @@ const dynamicInstance = (signer, abi, address) => {
      }
   }
 
-
+  const getPriceImpl = async (ticker, signer) =>{
+    try {
+      const instance = dynamicInstance(signer, EgorasPriceOracleFacet.abi, Contract_Address.address);
+      let result = await instance.price(ticker);
+      return {
+        message: result,
+      status: true,
+      }
+     } catch (error) {
+      return {
+        message:  typeof error.data == "undefined" ?  error.message : error.data.message,
+        status: false,
+      };
+     }
+  }
   const updateTickerPricesImpl = async (prices, tickers, signer) => {
    
 
@@ -94,6 +108,25 @@ const dynamicInstance = (signer, abi, address) => {
       };
      }
   }
+  
+  const swapImpl = async (amount, isBase, signer) => {
+  
+    
+    try {
+      const instance = dynamicInstance(signer, EgorasSwapFacet.abi, Contract_Address.address);
+      let result = await instance.swap(amount, isBase);
+      return {
+        message: result.hash,
+      status: true,
+      }
+     } catch (error) {
+      return {
+        message:  typeof error.data == "undefined" ?  error.message : error.data.message,
+        status: false,
+      };
+     }
+  }
+
 
   const addLiquidityImpl = async (amount, signer) => {
   
@@ -289,7 +322,7 @@ const activateLoan = async (loanID, signer) => {
     try {
       const instance = erc20Instance(signer, coin);
     
-      let result = await instance.allowance(owner, loanABI.address);
+      let result = await instance.allowance(owner, Contract_Address.address);
     console.log(result.toString(), "Allowance check!");
       if (parseFloat(result.toString()) >= parseFloat(amount.toString())) {
         return {
@@ -516,7 +549,9 @@ const activateLoan = async (loanID, signer) => {
     initContract,
     setPythiaImpl,
     updateTickerPricesImpl,
-    addLiquidityImpl
+    addLiquidityImpl,
+    swapImpl,
+    getPriceImpl 
      /// End of Diamond ///
     
    };

@@ -2,14 +2,21 @@
   padding: 2em 0em;
   position: relative;
   background-color: #fbfffc;
-    overflow: hidden;
+  overflow: hidden;
 }
-
+.law_write_up {
+  font-size: 12px;
+  color: #8f8f8f;
+}
 .footerArea {
   display: flex;
   display: flex;
   justify-content: space-between;
   align-items: baseline;
+}
+.add_color {
+  color: #229e54;
+  font-weight: 700;
 }
 .egr2-logo {
   width: 150px;
@@ -61,6 +68,8 @@
   margin-top: 10px;
   color: #525252;
   font-size: 13px;
+  width: 100% !important;
+  text-align: left;
 }
 .c1link1:hover {
   color: #55bc7e;

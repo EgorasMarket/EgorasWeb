@@ -1,50 +1,72 @@
-import React from "react";
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
+import React from 'react';
+import {
+  useFlutterwave,
+  closePaymentModal,
+} from 'flutterwave-react-v3';
+import LinkCard from './API/LinkCard';
 
-const FlutterButton = ({
-  amount,
-  customer,
-  payment_title,
-  payment_options,
-  select,
-}) => {
-  const flutterConfig = {
-    public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
-    tx_ref: Date.now(),
-    amount: amount,
-    currency: "NGN",
-    redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
-    // payment_options:"0",
-    customer: customer,
+export default function App({
+  email,
+  phonenumber,
+  fullname,
+  orderId,
+}) {
+  const config = {
+    public_key: process.env.REACT_APP_FLUTTER_KEY,
+    tx_ref: 'EGC-' + Date.now(),
+    amount: 1, //change to #20 for production
+    redirect_url: 'https://saul.egoras.com/v1/webhooks/all',
+    currency: 'NGN',
+    payment_options: 'card',
+    customer: {
+      email,
+      phonenumber,
+      name: fullname,
+    },
+    meta: {
+      eventType: '2',
+    },
+
     customizations: {
-      title: payment_title,
-      description: "Payment for items in cart",
-      logo: "https://egoras.com/img/egoras-logo.svg",
+      title: 'Link a card for your order ' + orderId,
+      description: 'we will charge you a token for this transaction',
+      logo: 'https://egoras.com/img/egoras-logo.svg',
     },
   };
 
-  const handleFlutterPayment = useFlutterwave(flutterConfig);
+  const handleFlutterPayment = useFlutterwave(config);
 
   return (
-    <div className="cart_area2_select">
-      <div
-        className="wit_card"
+    <div className="App">
+      <button
         onClick={() => {
           handleFlutterPayment({
-            callback: (response) => {
+            callback: async (response) => {
               console.log(response);
-              closePaymentModal();
+              try {
+                if (!response.transaction_id) {
+                  alert(
+                    "We couldn't return any information from this payment please try again."
+                  );
+                }
+                const verification = await LinkCard(
+                  response.transaction_id,
+                  orderId
+                );
+                closePaymentModal();
+              } catch (error) {
+                //console.log(error.response);
+              }
             },
-            onClose: (response) => {
-              console.log(response, "response from onclose ");
+            onClose: () => {
+              console.log('modal closed');
             },
           });
         }}
+        className="flutter_btn"
       >
-        Pay via Flutterwave {select}
-      </div>
+        Relink card
+      </button>
     </div>
   );
-};
-
-export default FlutterButton;
+}

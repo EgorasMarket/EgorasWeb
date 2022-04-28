@@ -17,16 +17,16 @@ import setAuthToken from "../utils/setAuthToken";
 
 // Load User
 export const loadAdminUser = () => async (dispatch) => {
-  console.log("okkkkkkk");
+  //console.log("okkkkkkk");
 
   if (localStorage.token) {
     setAuthToken(localStorage.token);
-    // console.log('ffff');
+    // //console.log('ffff');
   }
 
   // const res = await axios.get(api_url2 + "/v1/admin/info");
-  // // console.log(res);
-  // // console.log("Yes I call You because i can", res.data);
+  // // //console.log(res);
+  // // //console.log("Yes I call You because i can", res.data);
   // dispatch({
   //   type: USER_LOADED,
   //   payload: res.data,
@@ -34,21 +34,21 @@ export const loadAdminUser = () => async (dispatch) => {
 
   try {
     const res = await axios.get(api_url2 + "/v1/admin/info");
-    console.log(res);
-    // console.log("Yes I call You because i can", res.data);
+    //console.log(res);
+    // //console.log("Yes I call You because i can", res.data);
     dispatch({
       type: USER_LOADED,
       payload: res.data,
     });
   } catch (error) {
-    console.log("not registered");
+    //console.log("not registered");
     dispatch({
       type: AUTH_ERROR,
     });
   }
 };
 // export const retrieveCustData = (customer_id) => async (dispatch) => {
-//   console.log(customer_id);
+//   //console.log(customer_id);
 //   const config = {
 //     headers: {
 //       "Content-Type": "application/json",
@@ -60,14 +60,14 @@ export const loadAdminUser = () => async (dispatch) => {
 //       null,
 //       config
 //     );
-//     console.log(res.data.data);
-//     // console.log("Yes I call You because i can", res.data.data);
+//     //console.log(res.data.data);
+//     // //console.log("Yes I call You because i can", res.data.data);
 //     dispatch({
 //       type: FETCH_CART,
 //       payload: res.data.data,
 //     });
 //   } catch (error) {
-//     console.log("not registered");
+//     //console.log("not registered");
 //     // dispatch({
 //     //   type: AUTH_ERROR,
 //     // });
@@ -96,7 +96,7 @@ export const getAuthentication =
       branch,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.post(
@@ -104,14 +104,14 @@ export const getAuthentication =
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
 
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,
@@ -134,7 +134,7 @@ export const getLogin = (email, password) => async (dispatch) => {
     password,
   });
 
-  console.log(body);
+  //console.log(body);
 
   try {
     const res = await axios.post(
@@ -142,12 +142,12 @@ export const getLogin = (email, password) => async (dispatch) => {
       body,
       config
     );
-    console.log(res);
+    //console.log(res);
 
     if (res.data.success === false) {
-      //console.log(res.data);
+      ////console.log(res.data);
       const errors = res.data.errors;
-      //console.log(errors);
+      ////console.log(errors);
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
@@ -171,7 +171,7 @@ export const getLogin = (email, password) => async (dispatch) => {
       };
     }
   } catch (err) {
-    console.log(err.response);
+    //console.log(err.response);
 
     return {
       success: false,
@@ -200,7 +200,7 @@ export const nextOfKING =
       relationship,
     });
 
-    console.log(body);
+    //console.log(body);
 
     try {
       const res = await axios.post(
@@ -208,14 +208,14 @@ export const nextOfKING =
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
       // /v1/admin/add/customer/next-of-kin/{customer_id}
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,
@@ -238,7 +238,7 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
     dateOfBirth,
   });
 
-  console.log(body);
+  //console.log(body);
 
   try {
     const res = await axios.put(
@@ -246,14 +246,14 @@ export const sumitGenderAndDate = (gender, dateOfBirth) => async (dispatch) => {
       body,
       config
     );
-    console.log(res);
+    //console.log(res);
 
     return {
       success: true,
       data: res.data,
     };
   } catch (err) {
-    console.log(err.response);
+    //console.log(err.response);
 
     return {
       success: false,
@@ -278,23 +278,23 @@ export const reset =
       email_auth,
     });
 
-    //console.log(body);
+    ////console.log(body);
 
     try {
       const res = await axios.post(api_url2 + "/v1/admin/reset", body, config);
-      //console.log(res);
+      ////console.log(res);
 
       return {
         status: true,
         data: res.data,
       };
     } catch (err) {
-      //console.log(err.response);
+      ////console.log(err.response);
 
-      //console.log("ok");
+      ////console.log("ok");
 
       const errors = err.response.data.errors;
-      // //console.log(errors);
+      // ////console.log(errors);
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
@@ -322,7 +322,7 @@ export const changePassword =
       newpassword,
     });
 
-    //console.log(body);
+    ////console.log(body);
 
     try {
       const res = await axios.post(
@@ -330,15 +330,15 @@ export const changePassword =
         body,
         config
       );
-      //console.log(res);
-      // //console.log("yyyyy");
+      ////console.log(res);
+      // ////console.log("yyyyy");
 
       return res;
     } catch (err) {
-      //console.log(err.response);
-      //console.log("ok");
+      ////console.log(err.response);
+      ////console.log("ok");
       // const errors = err.response.data.errors;
-      // //console.log(errors);
+      // ////console.log(errors);
       // if (errors) {
       //   errors.forEach((error) => dispatch(setAlert(error.msg, "danger")));
       // }
@@ -362,18 +362,18 @@ export const ForgetPassword = (email) => async (dispatch) => {
     email,
   });
 
-  // console.log(body);
+  // //console.log(body);
 
   try {
     const res = await axios.post(api_url2 + "/v1/admin/forgot", body, config);
-    console.log(res);
+    //console.log(res);
 
     return {
       success: true,
       data: res.data,
     };
   } catch (err) {
-    console.log(err.response.data);
+    //console.log(err.response.data);
 
     return {
       success: false,
@@ -385,7 +385,7 @@ export const ForgetPassword = (email) => async (dispatch) => {
 // Admin Register Customer
 
 export const adminAddCustomer =
-  (fullname, email, password, BVN, phoneNumber, InfoReason) =>
+  (firstname, lastname, email, birthDate, BVN, phoneNumber, InfoReason) =>
   async (dispatch) => {
     const config = {
       headers: {
@@ -396,9 +396,10 @@ export const adminAddCustomer =
     };
 
     const body = JSON.stringify({
-      fullname,
+      firstname, 
+      lastname,
       email,
-      password,
+      birthDate,
       BVN,
       phoneNumber,
       InfoReason,
@@ -412,14 +413,14 @@ export const adminAddCustomer =
         body,
         config
       );
-      console.log(res);
+      //console.log(res);
 
       return {
         success: true,
         data: res.data,
       };
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
 
       return {
         success: false,
@@ -442,7 +443,7 @@ export const adminAddCustomer =
 //     customerAddress,
 //   });
 
-//   console.log(body);
+//   //console.log(body);
 
 //   try {
 //     const res = await axios.post(
@@ -450,14 +451,14 @@ export const adminAddCustomer =
 //       body,
 //       config
 //     );
-//     console.log(res);
+//     //console.log(res);
 
 //     return {
 //       success: true,
 //       data: res.data,
 //     };
 //   } catch (err) {
-//     console.log(err.response);
+//     //console.log(err.response);
 
 //     return {
 //       success: false,

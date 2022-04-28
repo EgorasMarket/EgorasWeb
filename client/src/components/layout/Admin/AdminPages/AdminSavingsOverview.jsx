@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Carousel from "react-multi-carousel";
 import LogoutIcon from "@mui/icons-material/Logout";
+
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
@@ -14,6 +15,13 @@ import LockIcon from "@mui/icons-material/Lock";
 import axios from "axios";
 import { connect } from "react-redux";
 import "../AdminStyles/custArea.css";
+import LoadingIcons from "react-loading-icons";
+// import DashBoardCard from "../DashBoardCard";
+import DashBoardCard from "../../Home2/Dashboard/DashBoardCard";
+
+// import { numberWithCommas } from "../../../../../static";
+import { numberWithCommas } from "../../../../static";
+
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -23,36 +31,36 @@ import data from "../../MockData";
 
 // import
 
-const cards = [
-  {
-    id: 1,
-    img: "/img/save_card1.svg",
-    title: "Total Savings",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-  {
-    id: 1,
-    img: "/img/save_card2.svg",
-    title: "Item Savings",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-  {
-    id: 1,
-    img: "/img/save_card3.svg",
-    title: "Flex Savings",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-  {
-    id: 1,
-    img: "/img/save_card4.svg",
-    title: "Dollar Savings",
-    Balance: "50,000",
-    Save_button: "Save",
-  },
-];
+// const cards = [
+//   {
+//     id: 1,
+//     img: "/img/save_card1.svg",
+//     title: "Total Savings",
+//     Balance: "50,000",
+//     Save_button: "Save",
+//   },
+//   {
+//     id: 1,
+//     img: "/img/save_card2.svg",
+//     title: "Item Savings",
+//     Balance: "50,000",
+//     Save_button: "Save",
+//   },
+//   {
+//     id: 1,
+//     img: "/img/save_card3.svg",
+//     title: "Flex Savings",
+//     Balance: "50,000",
+//     Save_button: "Save",
+//   },
+//   {
+//     id: 1,
+//     img: "/img/save_card4.svg",
+//     title: "Dollar Savings",
+//     Balance: "50,000",
+//     Save_button: "Save",
+//   },
+// ];
 const responsive6 = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -72,7 +80,8 @@ const responsive6 = {
     items: 1,
   },
 };
-const AdminSavingsOverview = ({ match }) => {
+const AdminSavingsOverview = ({ user, match }) => {
+  const [Loading, setLoading] = useState(false);
   const [customerId, setCustomerId] = useState(match.params.id);
   const [image, setImage] = useState("/img/BAG.jpeg");
   const [activeBg, setActiveBg] = useState("accounts");
@@ -130,7 +139,7 @@ const AdminSavingsOverview = ({ match }) => {
     setActiveBg(currentId);
   };
   useEffect(() => {
-    console.log(match.params.id);
+    //console.log(match.params.id);
 
     axios
       .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
@@ -151,9 +160,11 @@ const AdminSavingsOverview = ({ match }) => {
         });
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
+  
+
   const onChangeaddress = (event) => {
     setAddress(event.target.value);
   };
@@ -171,12 +182,12 @@ const AdminSavingsOverview = ({ match }) => {
           let passportFile = document.getElementById("customer_image").files[0];
 
           let fileExtension = passportFile.name.split(".").pop();
-          console.log(passportFile);
+          //console.log(passportFile);
 
           if (!types.includes(fileExtension)) {
           } else {
             if (passportFile.size > 1000000) {
-              console.log("file too large.");
+              //console.log("file too large.");
             }
             // else {
             setcustomer_image(passportFile);
@@ -186,13 +197,22 @@ const AdminSavingsOverview = ({ match }) => {
       }
     }
   };
+  
+  const [accountInfo, setAccountInfo] = useState({
+    ledger: 0,
+    balance: 0,
+    pending_sum: 0,
+    total_sum: 0,
+  });
+  const { ledger, pending_sum, balance, total_sum } = accountInfo;
+
   const AddUserPhoto = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
 
     if (customer_image === "") {
-      console.log("empty passport");
+      //console.log("empty passport");
 
       // setAlert('Please provide a passport photo', 'danger');
     } else {
@@ -200,14 +220,14 @@ const AdminSavingsOverview = ({ match }) => {
       const file = element.files[0];
       formData.append("customer_image", file, file.name);
 
-      console.log(formData, "hhhh");
+      //console.log(formData, "hhhh");
 
       try {
         const res = await axios.put(
           api_url2 + "/v1/admin/add/customer/image/" + customerId,
           formData
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -215,7 +235,7 @@ const AdminSavingsOverview = ({ match }) => {
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -224,10 +244,10 @@ const AdminSavingsOverview = ({ match }) => {
     e.preventDefault();
 
     if (customerAddress === "") {
-      console.log("empty address");
+      //console.log("empty address");
     } else {
       const body = JSON.stringify({ customerAddress });
-      console.log(body);
+      //console.log(body);
 
       try {
         const res = await axios.post(
@@ -235,7 +255,7 @@ const AdminSavingsOverview = ({ match }) => {
           body,
           config
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -243,7 +263,7 @@ const AdminSavingsOverview = ({ match }) => {
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -252,10 +272,10 @@ const AdminSavingsOverview = ({ match }) => {
     e.preventDefault();
 
     if (secondaryPhoneNumber === "") {
-      console.log("empty address");
+      //console.log("empty address");
     } else {
       const body = JSON.stringify({ secondaryPhoneNumber });
-      console.log(body);
+      //console.log(body);
 
       try {
         const res = await axios.put(
@@ -263,7 +283,7 @@ const AdminSavingsOverview = ({ match }) => {
           body,
           config
         );
-        console.log(res.data, "undefined");
+        //console.log(res.data, "undefined");
 
         if (res.data.statusCode === 200) {
           // setPassportUpload(true)
@@ -271,7 +291,7 @@ const AdminSavingsOverview = ({ match }) => {
           // setAlert('Something went wrong, please try again later', 'danger');
         }
       } catch (err) {
-        console.log(err.response);
+        //console.log(err.response);
         // setAlert('Check your internet connection', 'danger');
       }
     }
@@ -295,7 +315,7 @@ const AdminSavingsOverview = ({ match }) => {
         body,
         config
       );
-      console.log(res.data, "undefined");
+      //console.log(res.data, "undefined");
 
       if (res.data.statusCode === 200) {
         // setPassportUpload(true)
@@ -303,10 +323,43 @@ const AdminSavingsOverview = ({ match }) => {
         // setAlert('Something went wrong, please try again later', 'danger');
       }
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
       // setAlert('Check your internet connection', 'danger');
     }
   };
+
+  useEffect(async () => {
+    setLoading(true);
+    //console.log(auth.user.user.id);
+    const customer_id = customerId;
+    const body = JSON.stringify({
+      customer_id,
+    });
+    await axios
+      .post(api_url2 + "/v1/user/accounts/fetch/dashboard", body, config)
+      .then((data) => {
+        setLoading(false);
+        // console.log(data.data.data, "bbbbbbb");
+        // console.log(Number('78.77'));
+
+        setAccountInfo({
+          ledger: data.data.data.ledger,
+          balance: Number(data.data.data.balance).toFixed(3),
+          pending_sum: data.data.data.pending_sum,
+          total_sum: data.data.data.total_sum,
+        });
+
+        // setItemGalleryShow(data.data.data);
+      })
+      .catch((err) => {
+        setLoading(false);
+        //console.log(err.response); // "oh, no!"
+      });
+  }, []);
+
+
+
+
   const submitGender = async (e) => {
     e.preventDefault();
     const { gender1, dateOfBirth } = genderDate;
@@ -321,7 +374,7 @@ const AdminSavingsOverview = ({ match }) => {
         body,
         config
       );
-      console.log(res.data, "undefined");
+      //console.log(res.data, "undefined");
 
       if (res.data.statusCode === 200) {
         // setPassportUpload(true)
@@ -329,7 +382,7 @@ const AdminSavingsOverview = ({ match }) => {
         // setAlert('Something went wrong, please try again later', 'danger');
       }
     } catch (err) {
-      console.log(err.response);
+      //console.log(err.response);
       // setAlert('Check your internet connection', 'danger');
     }
   };
@@ -343,14 +396,14 @@ const AdminSavingsOverview = ({ match }) => {
 
   const onChangeFor2 = (e) => {
     setNextKin({ ...nextKin, [e.target.name]: e.target.value });
-    console.log(nextKin);
+    //console.log(nextKin);
   };
 
   // const firstName = allCustomers.fullName.slice(0);
 
   // const lastName = allCustomers.fullName.slice(1);
-  // console.log(firstName);
-  // console.log(allCustomers.fullName.slice(0));
+  // //console.log(firstName);
+  // //console.log(allCustomers.fullName.slice(0));
   const openModal2 = () => {
     setModal2(true);
   };
@@ -370,6 +423,8 @@ const AdminSavingsOverview = ({ match }) => {
     setModal3(false);
   };
 
+
+
   return (
     <div className="other2">
       <section className="no-bg">
@@ -380,7 +435,7 @@ const AdminSavingsOverview = ({ match }) => {
                 {/* Carousel start==============================
                  ==============================================
                  ============================= */}
-
+{/* 
                 <Carousel
                   responsive={responsive6}
                   className="partnerCards LEFTARROW gtr"
@@ -393,22 +448,22 @@ const AdminSavingsOverview = ({ match }) => {
                   swipeable={true}
                   // transitionDuration={1000}
                   style={{ height: "25em" }}
-                >
-                  {cards.map((asset) => (
+                > */}
+                  {/* {cards.map((asset) => (
                     <div className="card_cont1">
-                      <div className="card_cont_txtxs">
+                      <div className="card_cont_txtxs"> */}
                         {/* <div className="save_card_cont_txt1">
                         <span className="savings_caption">Title</span>
                         <div className="card_cont_txt_tittle">
                           Total Savings
                         </div>
                       </div> */}
-                        <div className="save_card_cont_txt1">
+                        {/* <div className="save_card_cont_txt1">
                           <span className="savings_caption">{asset.title}</span>
                           <div className="card_cont_txt_tittle">
                             ₦{asset.Balance}
-                          </div>
-                        </div>
+                          </div> */}
+                        {/* </div>
                         <div className="to_save_btn">
                           <LogoutIcon className="to_save_area_icon" /> Start
                           saving
@@ -417,10 +472,59 @@ const AdminSavingsOverview = ({ match }) => {
                       <img src={asset.img} alt="" className="savings_card" />
                     </div>
                   ))}
-                </Carousel>
+                </Carousel> */}
                 {/* Carousel end==============================
 ==============================================
 ============================= */}
+                
+
+              <Carousel
+                responsive={responsive6}
+                className="partnerCards LEFTARROW gtr"
+                showDots={true}
+                //   infinite={false}
+                autoPlay={false}
+                autoPlaySpeed={9000}
+                infinite={false}
+                draggable={true}
+                swipeable={true}
+                // transitionDuration={1000}
+                style={{ height: "25em" }}
+              >
+                {/* {data.dashBoardHomeCard.map((asset, index) => ( */}
+                <DashBoardCard
+                  background={"/img/save_card1.svg"}
+                  title={"Total Savings"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(total_sum).toFixed(2))}
+                />
+                <DashBoardCard
+                  background={"/img/save_card2.svg"}
+                  title={"Item savings"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(pending_sum).toFixed(2))}
+                />
+                <DashBoardCard
+                  background={"/img/save_card3.svg"}
+                  title={"Flex Savings"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(balance).toFixed(2))}
+                />
+                <DashBoardCard
+                  background={"/img/save_card4.svg"}
+                  title={"Ledger Balance"}
+                  Loading={Loading}
+                  LoadingIcon={<LoadingIcons.Oval fill="#fff" />}
+                  balance={numberWithCommas(parseInt(ledger).toFixed(2))}
+                />
+
+                {/* ))} */}
+              </Carousel>
+
+
               </div>
               {/* [===================] */}
               {/* [===================] */}

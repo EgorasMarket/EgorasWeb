@@ -28,11 +28,11 @@ const AdminCustomer = () => {
   };
  
   useEffect(() => {
-    // console.log('ttttrr');
+    // //console.log('ttttrr');
     axios
-      .get(api_url2 + "/v1/admin/retrieve/customers/byBranch/", null, config)
+      .get(api_url2 + "/v1/admin/retrieve/customers/byBranch", null, config)
       .then((data) => {
-        console.log(data.data.data, "king");
+        //console.log(data.data.data, "king");
 
         setAllCustomers(data.data.data);
       })
@@ -40,19 +40,19 @@ const AdminCustomer = () => {
         console.log(err.response, 'ooooo'); // "oh, no!"
       });
 
-    console.log("my naem");
+    //console.log("my naem");
     // ============
   }, []);
   // useEffect(() => {
   //   axios
   //     .get(api_url2 + "/v1/admin/get/customer/byId/" + customerId, null, config)
   //     .then((data) => {
-  //       console.log(data.data.data);
+  //       //console.log(data.data.data);
 
   //       // setCustomerId(data.data.data.id);
   //     })
   //     .catch((err) => {
-  //       console.log(err); // "oh, no!"
+  //       //console.log(err); // "oh, no!"
   //     });
   // }, []);
 
@@ -67,7 +67,7 @@ const AdminCustomer = () => {
         config
     ).then((data) => {
        
-        console.log(data.data.user, "line_ful");
+        //console.log(data.data.user, "line_ful");
         setRolesInfos({
           role201:data.data.user.role,
         })
@@ -75,20 +75,21 @@ const AdminCustomer = () => {
     
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       }); 
   }, []);
 
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
-    console.log(event.target.value);
+    //console.log(event.target.value);
   };
   useEffect(() => {
     if (searchTerm === "") {
       setSearchResults(allCustomers);
-      console.log("tttt");
+      //console.log("tttt");
     } else {
+      console.log(allCustomers);
       const results = allCustomers.filter((userInfo) =>
         userInfo.fullname
           .toString()
@@ -99,7 +100,7 @@ const AdminCustomer = () => {
     }
   }, [searchTerm, allCustomers]);
 
-  console.log(searchResults);
+  //console.log(searchResults);
 
   // =========
   // =========
@@ -108,7 +109,7 @@ const AdminCustomer = () => {
   // =========
 
   const saveCustomerId = (event) => {
-    console.log(event.target.id);
+    //console.log(event.target.id);
     localStorage.setItem("adminCusId", event.target.id);
   }
   return (
@@ -186,7 +187,7 @@ const AdminCustomer = () => {
                               View
                             </button>
                           </a>
-                          <a href={`/super_admin/user_overview`}>
+                          <a href={`/super_admin/overview`}>
                             <button
                               id={user.id}
                               onClick={saveCustomerId}

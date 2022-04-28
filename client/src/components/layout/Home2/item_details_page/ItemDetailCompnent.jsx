@@ -2,14 +2,17 @@ import React, { useState, useEffect, useCallback } from "react";
 import PaymentsIcon from "@mui/icons-material/Payments";
 import Carousel from "react-multi-carousel";
 import "../../../../css/itemsDetailsPage.css";
+import ChevronRightIcon from "@mui/icons-material/ChevronRight";
 import axios from "axios";
 import { ProductImageCarousel } from "./ProductImageCarousel";
 import "../Dashboard/DashboardStyles/dashboardCart.css";
 import CreditScoreIcon from "@mui/icons-material/CreditScore";
 import CallIcon from "@mui/icons-material/Call";
 import ShoppingCartCheckoutIcon from "@mui/icons-material/ShoppingCartCheckout";
+import { NoDataFoundComponent } from "../Dashboard/NodataFound/NoDataFoundComponent";
 // import { ProductDescription } from "./ProductDescription";
 import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
+import { numberWithCommas } from "../../../../static";
 
 // import CheckoutModalComponent from "./CheckoutModalComponent";
 import "react-date-range/dist/styles.css"; // main style file
@@ -19,13 +22,13 @@ import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
 } from "../../../../actions/types";
+import { stringify } from "uuid";
 
 const InstallmentComponent = ({
   product_duration,
-  rounded,
+  roundedAmount,
   percentage,
   initial_deposit,
-  roundedAmount,
   paymentPerday,
   numberWithCommas,
 }) => {
@@ -38,7 +41,7 @@ const InstallmentComponent = ({
 
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(parseInt(roundedAmount).toFixed())}
+        {numberWithCommas(roundedAmount)}
         <span className="per_day"></span>
       </div>
 
@@ -61,14 +64,14 @@ const OutrightComponent = ({
   rounded,
   percentage,
   initial_deposit,
-  roundedAmount,
+  amount,
   numberWithCommas,
 }) => {
   return (
     <div>
       <div className="amount_item_div total_amount">
         <span className="sub_total_txt">Price: </span> ₦
-        {numberWithCommas(parseInt(roundedAmount).toFixed())}
+        {numberWithCommas(parseInt(amount).toFixed())}
       </div>
       <div className="max_dura">
         <div className="days_left_numb">
@@ -102,7 +105,9 @@ const ItemDetailComponent = ({
   const [UID, setUserId] = useState(user_id);
   const [term, setTerm] = useState([]);
   const [activeBg, setActiveBg] = useState("features");
+  const [moreImg, setMoreImg] = useState([]);
   const [outrightProducts, setOutrightProducts] = useState([]);
+  // const [categoryName, setCategoryName] = useState("");
   const [categ, setcate] = useState([]);
   const [food, setFood] = useState([]);
   //destructure the payload and return values
@@ -111,29 +116,45 @@ const ItemDetailComponent = ({
     percentage,
     product_brand,
     product_category_code,
+    product_category_desc,
     product_details,
     product_duration,
     product_id,
     product_image,
+    more_image,
+    roundedAmount,
     product_name,
     product_specifications,
-    unitCount,
-    payment_type,
     product_type,
     initial_deposit,
-    dailyAmount,
     paymentPerday,
+    payment_type,
     days_left,
-    roundedAmount,
-    rounded,
-    total_amount,
     no_of_days,
+    no_of_days_paid,
+    startDate,
+    endDate,
   } = payload;
 
+  console.log("====================================");
+  console.log(payload.product_category_desc);
+  console.log("====================================");
+  var categoryName = payload.product_category_desc;
+  console.log("====================================");
+  console.log(categoryName);
+  console.log("====================================");
+  useEffect(() => {
+    if (more_image != null) {
+      let splited = JSON.parse(more_image);
+      setMoreImg(splited);
+      console.log(more_image.split(","));
+      console.log(JSON.parse(more_image));
+    }
+  }, [more_image]);
+  const text = "No Products Found";
   const openDetailsModal = () => {
     setDetailsModal(true);
   };
-
   const closeDetailModal = () => {
     setDetailsModal(false);
   };
@@ -162,6 +183,42 @@ const ItemDetailComponent = ({
       items: 2,
     },
   };
+  const responsive8 = {
+    superLargeDesktop: {
+      // the naming can be any, depends on you.
+      breakpoint: { max: 4000, min: 3000 },
+      items: 8,
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1680 },
+      items: 6,
+    },
+    tablet: {
+      breakpoint: { max: 1680, min: 1420 },
+      items: 5,
+    },
+    tabletMedium: {
+      breakpoint: { max: 1420, min: 1024 },
+      items: 4,
+    },
+    tabletSmall: {
+      breakpoint: { max: 1024, min: 810 },
+      items: 4,
+    },
+    mobile: {
+      breakpoint: { max: 810, min: 590 },
+      items: 3,
+    },
+    mobileSmall: {
+      breakpoint: { max: 590, min: 400 },
+      items: 2,
+    },
+    mobileSmaller: {
+      breakpoint: { max: 400, min: 0 },
+      items: 2,
+    },
+  };
+
   const checkProductType = (payment_type) => {
     const outrightScenario = () => {};
     const installmentScenario = () => {};
@@ -179,7 +236,7 @@ const ItemDetailComponent = ({
     axios
       .get(api_url2 + "/v1/product/retrieve/outright/products", null, config)
       .then((data) => {
-        console.log(data.data.data, "phlip22278");
+        //console.log(data.data.data, "phlip22278");
 
         setOutrightProducts(data.data.data);
         // setCaping({
@@ -187,7 +244,7 @@ const ItemDetailComponent = ({
         // })
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
@@ -195,7 +252,7 @@ const ItemDetailComponent = ({
     axios
       .get(api_url2 + "/v1/product/retrieve/category", null, config)
       .then((data) => {
-        console.log(data.data.data, "Anthonia");
+        //console.log(data.data.data, "Anthonia");
 
         // const pad = data.data.data[0].product_category_code;
 
@@ -203,7 +260,7 @@ const ItemDetailComponent = ({
 
         setFood(data.data.data.product_category_code);
 
-        console.log(food, " water is good for cooking");
+        //console.log(food, " water is good for cooking");
 
         // setOutrightProducts(data.data.data);
         // setCaping({
@@ -211,57 +268,39 @@ const ItemDetailComponent = ({
         // })
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
   }, []);
 
   useEffect(() => {
     checkProductType(product_type);
-
+    console.log(categoryName, "ryhtej");
     axios
-      .get(api_url2 + "/v1/product/retrieve/products", null, config)
+      .get(
+        api_url2 + "/v1/product/retrieve/products/byId/" + categoryName,
+        null,
+        config
+      )
       .then((data) => {
-        console.log(data.data.data, "item detail component ");
+        console.log(data.data, "item detail component ");
 
         setTerm(data.data.data);
 
         // setTerm(data.data.data)
       })
       .catch((err) => {
-        console.log(err); // "oh, no!"
+        //console.log(err); // "oh, no!"
       });
-  }, []);
-  const data1 = api_url2 + "/" + product_image;
-  const data = [
-    {
-      image:
-        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-      caption: "San Francisco",
-    },
-    {
-      image:
-        "https://cdn.britannica.com/s:800x450,c:crop/35/204435-138-2F2B745A/Time-lapse-hyper-lapse-Isle-Skye-Scotland.jpg",
-      caption: "Scotland",
-    },
-    {
-      image:
-        "https://static2.tripoto.com/media/filter/tst/img/735873/TripDocument/1537686560_1537686557954.jpg",
-      caption: "Darjeeling",
-    },
-    {
-      image:
-        "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Palace_of_Fine_Arts_%2816794p%29.jpg/1200px-Palace_of_Fine_Arts_%2816794p%29.jpg",
-      caption: "San Francisco",
-    },
-  ];
+  }, [categoryName]);
+  const data1 = product_image;
 
   // {
-  //   console.log(spec, " welcome  Daniel");
+  //   //console.log(spec, " welcome  Daniel");
   // }
-  const numberWithCommas = (x) => {
-    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
-  };
-  console.log(product_id);
+  // const numberWithCommas = (x) => {
+  //   // return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, ",");
+  // };
+  // //console.log(product_id);
 
   return (
     <>
@@ -283,16 +322,23 @@ const ItemDetailComponent = ({
         {/* <div className="wrapper"> */}
         {/* <ImageGallery items={images} /> */}
         {/* </div> */}
-
         <div className="product_details_area1">
           <div className="details_area1_cont1">
             {" "}
             {/* <img
-              src={api_url2 + "/" + product_image}
+              src={product_image}
               alt=""
               className="product_details_img"
             /> */}
-            <ProductImageCarousel img={api_url2 + "/" + product_image} />
+            {moreImg.length == 0 ? (
+              <img src={product_image} className="image_carooooo" />
+            ) : (
+              <ProductImageCarousel
+                img={moreImg[0]}
+                img2={moreImg[1]}
+                img3={moreImg[2]}
+              />
+            )}
           </div>
           {/* ================ */}
           {/* ================ */}
@@ -318,9 +364,8 @@ const ItemDetailComponent = ({
                 <InstallmentComponent
                   initial_deposit={initial_deposit}
                   product_duration={product_duration}
-                  rounded={rounded}
-                  percentage={percentage}
                   roundedAmount={roundedAmount}
+                  percentage={percentage}
                   paymentPerday={paymentPerday}
                   numberWithCommas={numberWithCommas}
                 />
@@ -328,7 +373,7 @@ const ItemDetailComponent = ({
             ) : (
               <>
                 <OutrightComponent
-                  roundedAmount={roundedAmount}
+                  amount={amount}
                   numberWithCommas={numberWithCommas}
                 />
               </>
@@ -353,21 +398,23 @@ const ItemDetailComponent = ({
                 <CallIcon className="call_us_icon" /> 08164020234, 090234567893
               </div>
             </div>
-            <div className="quantity_div">
-              <div className="Notice_Title">Notice:</div>
-              <div className="items_left_div">
-                <CreditScoreIcon className="creditCardIcon_icon" />
-                This item has an upfront payment of : {percentage}%
-              </div>
-              <span className="upfront_para">
-                <PaymentsIcon className="creditCardIcon_icon" />
-                That means you are to pay{" "}
-                <span className="percent_days_amnt">
-                  ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
+            {payment_type === "INSTALLMENT" ? (
+              <div className="quantity_div">
+                <div className="Notice_Title">Notice:</div>
+                <div className="items_left_div">
+                  <CreditScoreIcon className="creditCardIcon_icon" />
+                  This item has an upfront payment of : {percentage}%
+                </div>
+                <span className="upfront_para">
+                  <PaymentsIcon className="creditCardIcon_icon" />
+                  That means you are to pay{" "}
+                  <span className="percent_days_amnt">
+                    ₦{numberWithCommas(parseInt(initial_deposit).toFixed())}
+                  </span>
+                  before this item can be locked by you.
                 </span>
-                before this item can be locked by you.
-              </span>
-            </div>
+              </div>
+            ) : null}
           </div>
         </div>
         {/* <div className="product_details_area">{asset}</div> */}
@@ -376,7 +423,6 @@ const ItemDetailComponent = ({
         {/* =======================================879087070y707680769067 */}
         {/* =======================================879087070y707680769067 */}
         {/* =======================================879087070y707680769067 */}
-
         <div className="description_area">
           <div className="description_header">
             <div
@@ -423,67 +469,54 @@ const ItemDetailComponent = ({
                         <td>{desc}</td>
                       </tr>
                     ))} */}
-                {specification}
+                {/* {specification} */}
+                <div
+                  className="for-des"
+                  dangerouslySetInnerHTML={{ __html: specification }}
+                />
               </div>
             )}
           </div>
         </div>
-
         {/* {spec.map((pad) => (
               <div style={{ display: "inline-block" }}>{pad}</div>
             ))} */}
-
         {/* ================ */}
         {/* ================ */}
         {/* =================================================================================================================================================================================================================================================================== */}
         {/* =================================================================================================================================================================================================================================================================== */}
-        {/*  Projects Section start*/}
-        <section className="projectsSection" id="projects">
-          <div className="container">
-            <div className="projectsArea">
-              <div className="projectsLinea"></div>
-              <div className="projectsTitleContentsa">
-                <div className="projectTitle">
-                  <h1 className="gttitle TITE">Similar Products</h1>
-                </div>
-                {/* 
-              <a href="/explore_collaterals" className="projectsLink">
-                Explore collaterals
-                <div className="projectsLinkHover"></div>
-              </a> */}
-              </div>
 
-              {/* Carousel start==============================
-==============================================
-============================= */}
-
-              <Carousel
-                responsive={responsive6}
-                className="partnerCards LEFTARROW"
-                showDots={false}
-                //   infinite={false}
-                autoPlay={true}
-                autoPlaySpeed={6000}
-                transitionDelay={"2s"}
-                infinite={true}
-                draggable={true}
-                // transitionDuration={500}
-                swipeable={true}
-                style={{ height: "25em" }}
-              >
-                {term.map((asset) => {
-                  if (product_category_code === asset.product_category_code) {
-                    return (
+        <div className="products_display_body" id="computerAcc">
+          <div className="products_display_body_heading">
+            Similar Products
+            <a
+              href={`/dashboard/products/categories/` + categoryName}
+              className="se_all_btnn"
+            >
+              SEE ALL
+              <ChevronRightIcon />
+            </a>
+          </div>
+          <div className=".products_display_body_conts_pad">
+            {term.length <= 0 ? (
+              <NoDataFoundComponent text={text} />
+            ) : (
+              <>
+                <div className="show_prods_on_mobile">
+                  {term.map(
+                    (asset) => (
+                      // if (product_category_desc === asset.product_category_desc) {
+                      // return (
                       <a
-                        href={`/dashboard/products/details/${asset.id}/${asset.product_name}`}
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
                       >
-                        <li className="carous_list">
+                        <li className="carous_list no_marg inventory_cards">
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
-                              backgroundImage: `url(${
-                                api_url2 + "/" + asset.product_image
-                              })`,
+                              backgroundImage: `url(${asset.product_image})`,
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",
@@ -494,117 +527,237 @@ const ItemDetailComponent = ({
                               //   backgroundPositionY: "center",
                             }}
                           >
-                            <div className="storeTiles_storeTileOffersContainer__3v8lC">
-                              <button className="items_remaining_btn">
-                                {asset.payment_type == "OUTRIGHT" ? (
-                                  <p className="no_margg"> Buy now</p>
-                                ) : (
-                                  <p className="no_margg"> Save now</p>
-                                )}
-                              </button>
-
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div></div>
-                              ) : (
-                                <button className="items_remaining_btn2">
-                                  {" "}
-                                  40% locked
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div className="out_right_install_tag">
+                                <button
+                                  className="out_right_install_tag_btn"
+                                  style={{
+                                    background: "#3ebc6e",
+                                    borderColor: "#3ebc6e",
+                                  }}
+                                >
+                                  Outright
                                 </button>
-                              )}
-                            </div>
+                              </div>
+                            ) : (
+                              <div className="out_right_install_tag">
+                                <button className="out_right_install_tag_btn">
+                                  Savings
+                                </button>
+                              </div>
+                            )}
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
                               <div className="asset_name">
                                 {asset.product_name}
                               </div>
-                              <div className="asset_title">
-                                ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                <span className="slashed_price">
-                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
-                                </span>
+                              <div class="asset_prices_div">
+                                <div className="asset_title">
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.amount)}{" "}
+                                    </span>
+                                  ) : (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                    </span>
+                                  )}
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="slashed_price">
+                                      ₦{numberWithCommas(asset.amount * 2)}
+                                    </span>
+                                  ) : (
+                                    <span className="slashed_price">
+                                      ₦
+                                      {numberWithCommas(
+                                        asset.roundedAmount * 2
+                                      )}
+                                    </span>
+                                  )}
+                                </div>
+                                {asset.payment_type == "OUTRIGHT" ? null : (
+                                  <div className="amount_per_day_div">
+                                    ₦
+                                    {numberWithCommas(
+                                      (
+                                        asset.amount / asset.product_duration
+                                      ).toFixed()
+                                    )}
+                                    <span className="per_day_symbol">
+                                      {" "}
+                                      / perday
+                                    </span>
+                                  </div>
+                                )}
                               </div>
                             </div>
                             {/* </a> */}
                           </div>
                         </li>
                       </a>
-                    );
-                  }
-                })}
-              </Carousel>
-              {/* Carousel end==============================
+                    )
+                    // );
+                  )}
+                </div>
+                <Carousel
+                  responsive={responsive8}
+                  className="partnerCards LEFTARROW market_carous"
+                  showDots={false}
+                  //   infinite={false}
+                  autoPlay={false}
+                  autoPlaySpeed={6000}
+                  transitionDelay={"2s"}
+                  infinite={false}
+                  draggable={true}
+                  // transitionDuration={500}
+                  swipeable={true}
+                  style={{ height: "25em" }}
+                >
+                  {term.map((asset) => (
+                    <a
+                      href={`/dashboard/products/details/${
+                        asset.id
+                      }/${asset.product_name.replace(/\s+/g, "-")}`}
+                    >
+                      <li className="carous_list">
+                        <div
+                          className="storeTiles_storeTileContainer__HoGEa"
+                          style={{
+                            backgroundImage: `url(${asset.product_image})`,
+                            //           height: "200px",
+                            //           width: "100%",
+                            //           backgroundRepeat: "no-repeat",
+                            //           backgroundSize: "cover",
+                            //           borderRadius: "8px",
+                            //           borderBottomLeftRadius: "0px",
+                            //           borderBottomRightRadius: "0px",
+                            //   backgroundPositionY: "center",
+                          }}
+                        >
+                          {asset.payment_type == "OUTRIGHT" ? (
+                            <div className="out_right_install_tag">
+                              <button
+                                className="out_right_install_tag_btn"
+                                style={{
+                                  background: "#3ebc6e",
+                                  borderColor: "#3ebc6e",
+                                }}
+                              >
+                                Outright
+                              </button>
+                            </div>
+                          ) : (
+                            <div className="out_right_install_tag">
+                              <button className="out_right_install_tag_btn">
+                                Savings
+                              </button>
+                            </div>
+                          )}
+                          <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                            <div className="asset_name">
+                              {asset.product_name}
+                            </div>
+                            <div class="asset_prices_div">
+                              <div className="asset_title">
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <span className="init_amount">
+                                    ₦{numberWithCommas(asset.amount)}{" "}
+                                  </span>
+                                ) : (
+                                  <span className="init_amount">
+                                    ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                  </span>
+                                )}
+                                {asset.payment_type == "OUTRIGHT" ? (
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.amount * 2)}
+                                  </span>
+                                ) : (
+                                  <span className="slashed_price">
+                                    ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                  </span>
+                                )}
+                              </div>
+                              {asset.payment_type == "OUTRIGHT" ? null : (
+                                <div className="amount_per_day_div">
+                                  ₦
+                                  {numberWithCommas(
+                                    (
+                                      asset.amount / asset.product_duration
+                                    ).toFixed()
+                                  )}
+                                  <span className="per_day_symbol">
+                                    {" "}
+                                    / perday
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+                          {/* </a> */}
+                        </div>
+                      </li>
+                    </a>
+                  ))}
+                </Carousel>
+              </>
+            )}
+          </div>
+          {/* </div> */}
+        </div>
+        {/* Carousel end==============================
 ==============================================
 ============================= */}
-            </div>
-          </div>
-        </section>
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}
         {/* =================================================================================================================================================================================================================================================================== */}
         {/*  Projects Section start*/}
-
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}
         {/* ============= */}
-
         <section className="faq_section">
           <div className="accordion_title">
             Frequently Asked Questions(FAQ).
           </div>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="What is Egoras Smart savings all about?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              The Egoras smart savings plan is a platform that lets you save
+              over a period of time to get any desired item. Seeing as most
+              persons do not have the instant funding to buy off items, how
+              about a platform that lets you gather up the funds in a couple
+              months and become an asset owner.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="How do I save on the platform?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Saving on the Egoras platform is super easy and straightforward.
+              Sign up with the click of a button, connect your wallet/bank,
+              search your desired items, then proceed to save with a payment
+              structure/plan of your choice. Items are all budget friendly at
+              affordable prices.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="How long is the savings package?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              The savings package is for a two months duration, users have the
+              luxury of choosing how to save within the two months, whether
+              daily or weekly, e.t.c
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="Are the discounts attached real?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              The discount attached to items are as real as can be. The idea is
+              to make this items affordable and accessible to anyone and
+              everyone.
             </div>
           </Accordion>
-          <Accordion title="How do I save for a product.">
+          <Accordion title="How do I get to confirm my product is working before delivery?">
             <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
-            </div>
-          </Accordion>
-          <Accordion title="How do I save for a product.">
-            <div className="accordion_body">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit. Unde
-              autem saepe error facilis earum beatae cum dolorem commodi odio
-              non quidem dicta iusto animi nobis fugiat quae esse enim porro ab,
-              quas fuga? Esse repellat officiis accusantium? Commodi, repellat
-              voluptas.
+              Products would be tested and confirmed at the office before being
+              shipped out and buyer would be notified of the products working
+              condition.
             </div>
           </Accordion>
         </section>
@@ -623,5 +776,11 @@ const ItemDetailComponent = ({
     </>
   );
 };
+
+const mapStateToProps1 = (state) => ({
+  auth: state.auth,
+  isAuthenticated: state.auth.isAuthenticated,
+  cart: state.shop.cart,
+});
 
 export default ItemDetailComponent;

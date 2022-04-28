@@ -1,10 +1,29 @@
 import React, { useState } from "react";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import AddLiquidity from "../LiquidityPage/AddLiquidity";
+import AddLiquidity from "../LiquidityPage/AddLiquidity.js";
+import {
+  Web3ReactProvider,
+  useWeb3React,
+  UnsupportedChainIdError
+} from "@web3-react/core";
 import "../../../../css/token.css";
 const TokenEUSD = () => {
   const [generateModal, setGenerateModal] = useState(false);
-  const toggleModal = () => {
+  const [which, setWhich] = useState("");
+  const context = useWeb3React();
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error
+  } = context;
+  const toggleModal = (e) => {
+    let target = e.currentTarget;
+    console.log(target);
     if (generateModal === false) {
       setGenerateModal(true);
     } else if (generateModal === true) {
@@ -53,6 +72,7 @@ const TokenEUSD = () => {
                   swap egc
                 </button> */}
                 <button
+                  id="generate"
                   style={{ marginTop: "50px" }}
                   class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
                   onClick={toggleModal}
@@ -60,11 +80,13 @@ const TokenEUSD = () => {
                   Convert eNGN
                 </button>
                 <button
+                  id="redeem"
                   style={{ marginTop: "50px" }}
                   class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
                   onClick={toggleModal}
                 >
                   Redeem eNGN
+                  {/* Redeem eNGN */}
                 </button>
               </div>
             </div>
@@ -123,9 +145,9 @@ const TokenEUSD = () => {
                   All NFTs are Redemmable for real products
                 </p>
                 <p className="span4b-txts">
-                  All yields are automatically converted to eNFTs  which can be
-                  redeemed for real product.  eNGN balance compounds multiple
-                  times per day. 
+                  All yields are automatically converted to eNFTs  which can be
+                  redeemed for real product.  eNGN balance compounds multiple
+                  times per day. 
                 </p>
               </div>
             </div>
@@ -193,7 +215,7 @@ const TokenEUSD = () => {
                 <p className="span4b-txts">
                   EgorasNaira is pegged to the Nigerian Naira. Returns are used
                   to buy back EGC. Supply buy back happens multiple times per
-                  day. 
+                  day.
                 </p>
               </div>
             </div>
