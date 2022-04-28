@@ -318,12 +318,12 @@ const activateLoan = async (loanID, signer) => {
      }
   }
   const checkAllowance = async (owner, amount, signer, coin) =>{
-    console.log(owner, amount, coin, signer );
+    console.log(owner, amount, coin, signer , "THE alloancw");
     try {
       const instance = erc20Instance(signer, coin);
     
       let result = await instance.allowance(owner, Contract_Address.address);
-    console.log(result.toString(), "Allowance check!");
+    console.log(result.toString(), "Allowance check!", amount.toString());
       if (parseFloat(result.toString()) >= parseFloat(amount.toString())) {
         return {
         status: true,

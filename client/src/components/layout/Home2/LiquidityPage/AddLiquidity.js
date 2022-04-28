@@ -95,6 +95,9 @@ const AddLiquidity = ({ match, closeModal, which }) => {
   const Continue = async (e) => {
     setStage("swap");
     setText("");
+    setInputVal(0);
+    setInputVal2(0);
+    
  
 }
 
@@ -211,7 +214,7 @@ const AddLiquidity = ({ match, closeModal, which }) => {
         // alert("Within the block chain 1: " + ckeckAllowance)
 
         if(ckeckAllowance.status == true){
-            let isBase = baseVal.symbol == "eNGN" ? true : false;
+            let isBase = baseVal.symbol == "eNGN" ? false  : true;
             let ret = await 
             swapImpl(parseEther(inputVal.toString(), "wei").toString(),isBase, library.getSigner());
 
@@ -250,9 +253,10 @@ const AddLiquidity = ({ match, closeModal, which }) => {
        
    
     setText("Transacting with blockchain, please wait...");
+    let infinityunlock = 900000000000000;
    // parseEther( depositAmount.toString(), "wei").toString()
     setStage("loading")
-    let ret = await unluckToken( parseEther(baseVal.balance.toString(), "wei").toString(), library.getSigner(),  baseVal.symbol.toLowerCase());
+    let ret = await unluckToken(parseEther(infinityunlock.toString(), "wei").toString(), library.getSigner(),  baseVal.symbol.toLowerCase());
     if(ret.status == true){
      
       localStorage.setItem('unlocking', true);
@@ -461,7 +465,7 @@ const AddLiquidity = ({ match, closeModal, which }) => {
                                     <p className="text-center">Transaction was successful. <br />
                                         <a className="btn btn-link text-success" href={"https://bscscan.com/tx/" + hash} target="_blank">View on bscscan.com</a>
                                         <br />
-                                        <button  className="btn btn-primary" onClick={e => Continue(e)}>Continue</button>
+                                        <button  className="jsx-4146495177 connect_btn d-flex align-items-center justify-content-center mx-auto  zIndex2" onClick={e => Continue(e)}>Continue</button>
                                     </p>
                                 </div>
                             </div> ) : null
@@ -498,7 +502,7 @@ const AddLiquidity = ({ match, closeModal, which }) => {
                           <div className="success_btn_div">
                           
                             
-                          <button className='btn btn-success btn-block'   onClick={e => doUnluck(e)}>
+                          <button className='jsx-4146495177 connect_btn d-flex align-items-center justify-content-center mx-auto  zIndex2'   onClick={e => doUnluck(e)}>
                                                       Unlock
                                                     </button>
                               
@@ -572,6 +576,12 @@ const AddLiquidity = ({ match, closeModal, which }) => {
 
           </div>
         </div>
+
+
+
+
+
+
       </section>
       {modal == true ? (
         <TokenModal
