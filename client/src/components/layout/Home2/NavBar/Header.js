@@ -378,7 +378,7 @@ const Header = ({ isAuthenticated, auth }) => {
   useEffect(() => {
     axios
       .get(
-        api_url2 + "/v1/product/retrieve/products/search/" + searchTerm,
+        api_url2 + "/v1/product/retrieve/products/tag/search/" + searchTerm,
         null,
         config
       )
@@ -394,7 +394,7 @@ const Header = ({ isAuthenticated, auth }) => {
     setSearchTerm(event.target.value);
   };
   const results = productNames.filter((car) =>
-    car.product_name.toLowerCase().includes(searchTerm.toLowerCase())
+    car.tag.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   return (
@@ -457,7 +457,7 @@ const Header = ({ isAuthenticated, auth }) => {
                           <a
                             href={`/products/details/${
                               item.id
-                            }/${item.product_name.replace(/\s+/g, "-")}`}
+                            }/${item.tag.replace(/\s+/g, "-")}`}
                             key={index.toString()}
                             style={{
                               color: "#000",
@@ -466,7 +466,7 @@ const Header = ({ isAuthenticated, auth }) => {
                             }}
                           >
                             {" "}
-                            {item.product_name}
+                            {item.tag.toLowerCase()}
                           </a>
                         </li>
                       ))}
