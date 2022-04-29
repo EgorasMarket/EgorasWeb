@@ -4,6 +4,7 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
+import axios from "axios";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import GroupsIcon from "@mui/icons-material/Groups";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
@@ -16,6 +17,10 @@ import Carousel from "react-multi-carousel";
 import "../../../css/market_home.css";
 import "../../../css/about.css";
 import "../../../css/aboutMobile.css";
+
+import { API_URL2 as api_url2 } from "../../../actions/types";
+import { numberWithCommas } from "../../../static";
+import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
 
 const responsive = {
   superLargeDesktop: {
@@ -59,6 +64,42 @@ const responsive1 = {
     items: 1,
   },
 };
+
+const responsive8 = {
+  superLargeDesktop: {
+    // the naming can be any, depends on you.
+    breakpoint: { max: 4000, min: 3000 },
+    items: 8,
+  },
+  desktop: {
+    breakpoint: { max: 3000, min: 1680 },
+    items: 6,
+  },
+  tablet: {
+    breakpoint: { max: 1680, min: 1420 },
+    items: 5,
+  },
+  tabletMedium: {
+    breakpoint: { max: 1420, min: 1024 },
+    items: 4,
+  },
+  tabletSmall: {
+    breakpoint: { max: 1024, min: 810 },
+    items: 4,
+  },
+  mobile: {
+    breakpoint: { max: 810, min: 590 },
+    items: 3,
+  },
+  mobileSmall: {
+    breakpoint: { max: 590, min: 400 },
+    items: 2,
+  },
+  mobileSmaller: {
+    breakpoint: { max: 400, min: 0 },
+    items: 2,
+  },
+};
 const responsive3 = {
   desktop: {
     // the naming can be any, depends on you.
@@ -67,8 +108,13 @@ const responsive3 = {
   },
 };
 const HomeUpdate = () => {
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
   const [aboutVideoModal, setAboutVideoModal] = useState(false);
-
+  const [term, setTerm] = useState([]);
   const toggleAboutVideoModal = () => {
     if (aboutVideoModal === true) {
       setAboutVideoModal(false);
@@ -88,7 +134,25 @@ const HomeUpdate = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
+  useEffect(() => {
+    axios
+      .get(
+        api_url2 + "/v1/product/retrieve/products/byId/" + "Phones & Tablet",
+        null,
+        config
+      )
+      .then((data) => {
+        console.log(data.data, "item detail component ");
 
+        setTerm(data.data.data);
+
+        // setTerm(data.data.data)
+      })
+      .catch((err) => {
+        //console.log(err); // "oh, no!"
+      });
+  }, []);
+  const text = "No Products Found";
   return (
     <div style={{ overflow: "hidden" }}>
       <section className="h_update_hero_section">
@@ -634,6 +698,234 @@ const HomeUpdate = () => {
         <img src="/img/left_line.svg" alt="" class="shape_eggg"></img>
       </section>
 
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+
+      <section className="productsDisplaySection">
+        <div className="container">
+          <div className="home_products_display_cont" id="computerAcc">
+            <div className="home_products_body_head">
+              Deals for you
+              <span></span>
+            </div>
+            <div className="products_display_body_conts_pad">
+              {term.length <= 0 ? (
+                <NoDataFoundComponent text={text} />
+              ) : (
+                <>
+                  <div className="show_prods_on_mobile">
+                    {term.map(
+                      (asset) => (
+                        // if (product_category_desc === asset.product_category_desc) {
+                        // return (
+                        <a
+                          href={`/dashboard/products/details/${
+                            asset.id
+                          }/${asset.product_name.replace(/\s+/g, "-")}`}
+                        >
+                          <li className="carous_list no_marg inventory_cards">
+                            <div
+                              className="storeTiles_storeTileContainer__HoGEa"
+                              style={{
+                                backgroundImage: `url(${asset.product_image})`,
+                                //           height: "200px",
+                                //           width: "100%",
+                                //           backgroundRepeat: "no-repeat",
+                                //           backgroundSize: "cover",
+                                //           borderRadius: "8px",
+                                //           borderBottomLeftRadius: "0px",
+                                //           borderBottomRightRadius: "0px",
+                                //   backgroundPositionY: "center",
+                              }}
+                            >
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <div className="out_right_install_tag">
+                                  <button
+                                    className="out_right_install_tag_btn"
+                                    style={{
+                                      background: "#3ebc6e",
+                                      borderColor: "#3ebc6e",
+                                    }}
+                                  >
+                                    Outright
+                                  </button>
+                                </div>
+                              ) : (
+                                <div className="out_right_install_tag">
+                                  <button className="out_right_install_tag_btn">
+                                    Savings
+                                  </button>
+                                </div>
+                              )}
+                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                                <div className="asset_name">
+                                  {asset.product_name}
+                                </div>
+                                <div class="asset_prices_div">
+                                  <div className="asset_title">
+                                    {asset.payment_type == "OUTRIGHT" ? (
+                                      <span className="init_amount">
+                                        ₦{numberWithCommas(asset.amount)}{" "}
+                                      </span>
+                                    ) : (
+                                      <span className="init_amount">
+                                        ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                      </span>
+                                    )}
+                                    {asset.payment_type == "OUTRIGHT" ? (
+                                      <span className="slashed_price">
+                                        ₦{numberWithCommas(asset.amount * 2)}
+                                      </span>
+                                    ) : (
+                                      <span className="slashed_price">
+                                        ₦
+                                        {numberWithCommas(
+                                          asset.roundedAmount * 2
+                                        )}
+                                      </span>
+                                    )}
+                                  </div>
+                                  {asset.payment_type == "OUTRIGHT" ? null : (
+                                    <div className="amount_per_day_div">
+                                      ₦
+                                      {numberWithCommas(
+                                        (
+                                          asset.amount / asset.product_duration
+                                        ).toFixed()
+                                      )}
+                                      <span className="per_day_symbol">
+                                        {" "}
+                                        / perweek
+                                      </span>
+                                    </div>
+                                  )}
+                                </div>
+                              </div>
+                              {/* </a> */}
+                            </div>
+                          </li>
+                        </a>
+                      )
+                      // );
+                    )}
+                  </div>
+                  <Carousel
+                    responsive={responsive8}
+                    className="partnerCards LEFTARROW market_carous"
+                    showDots={false}
+                    //   infinite={false}
+                    autoPlay={false}
+                    autoPlaySpeed={6000}
+                    transitionDelay={"2s"}
+                    infinite={false}
+                    draggable={true}
+                    // transitionDuration={500}
+                    swipeable={true}
+                    style={{ height: "25em" }}
+                  >
+                    {term.map((asset) => (
+                      <a
+                        href={`/dashboard/products/details/${
+                          asset.id
+                        }/${asset.product_name.replace(/\s+/g, "-")}`}
+                      >
+                        <li className="carous_list">
+                          <div
+                            className="storeTiles_storeTileContainer__HoGEa"
+                            style={{
+                              backgroundImage: `url(${asset.product_image})`,
+                              //           height: "200px",
+                              //           width: "100%",
+                              //           backgroundRepeat: "no-repeat",
+                              //           backgroundSize: "cover",
+                              //           borderRadius: "8px",
+                              //           borderBottomLeftRadius: "0px",
+                              //           borderBottomRightRadius: "0px",
+                              //   backgroundPositionY: "center",
+                            }}
+                          >
+                            {asset.payment_type == "OUTRIGHT" ? (
+                              <div className="out_right_install_tag">
+                                <button
+                                  className="out_right_install_tag_btn"
+                                  style={{
+                                    background: "#3ebc6e",
+                                    borderColor: "#3ebc6e",
+                                  }}
+                                >
+                                  Outright
+                                </button>
+                              </div>
+                            ) : (
+                              <div className="out_right_install_tag">
+                                <button className="out_right_install_tag_btn">
+                                  Savings
+                                </button>
+                              </div>
+                            )}
+                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                              <div className="asset_name">
+                                {asset.product_name}
+                              </div>
+                              <div class="asset_prices_div">
+                                <div className="asset_title">
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.amount)}{" "}
+                                    </span>
+                                  ) : (
+                                    <span className="init_amount">
+                                      ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                    </span>
+                                  )}
+                                  {asset.payment_type == "OUTRIGHT" ? (
+                                    <span className="slashed_price">
+                                      ₦{numberWithCommas(asset.amount * 2)}
+                                    </span>
+                                  ) : (
+                                    <span className="slashed_price">
+                                      ₦
+                                      {numberWithCommas(
+                                        asset.roundedAmount * 2
+                                      )}
+                                    </span>
+                                  )}
+                                </div>
+                                {asset.payment_type == "OUTRIGHT" ? null : (
+                                  <div className="amount_per_day_div">
+                                    ₦
+                                    {numberWithCommas(
+                                      (
+                                        asset.amount / asset.product_duration
+                                      ).toFixed()
+                                    )}
+                                    <span className="per_day_symbol">
+                                      {" "}
+                                      / perweek
+                                    </span>
+                                  </div>
+                                )}
+                              </div>
+                            </div>
+                            {/* </a> */}
+                          </div>
+                        </li>
+                      </a>
+                    ))}
+                  </Carousel>
+                </>
+              )}
+            </div>
+            {/* </div> */}
+          </div>
+        </div>
+      </section>
+      {/* ================== */}
+      {/* ================== */}
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
