@@ -136,11 +136,7 @@ const HomeUpdate = () => {
   };
   useEffect(() => {
     axios
-      .get(
-        api_url2 + "/v1/product/retrieve/products/byId/" + "Phones & Tablet",
-        null,
-        config
-      )
+      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
       .then((data) => {
         console.log(data.data, "item detail component ");
 
@@ -156,7 +152,7 @@ const HomeUpdate = () => {
   return (
     <div style={{ overflow: "hidden" }}>
       <section className="h_update_hero_section">
-        <div className="container">
+        <div className="custom_container">
           <Carousel
             responsive={responsive3}
             className="home_page_carousel"
@@ -535,7 +531,7 @@ const HomeUpdate = () => {
       {/* =========== */}
 
       <section className="about_video_section">
-        <div className="container">
+        <div className="custom_container">
           {aboutVideoModal === true ? (
             <div className="about_video_div">
               <div className="container">
@@ -603,7 +599,7 @@ const HomeUpdate = () => {
       {/* ================== */}
       {/* ================== */}
       <section className="new_home_attributes_section4">
-        <div className="container">
+        <div className="custom_container">
           <div className="build_savings_area">
             <div className="build_savings_area1">
               <div className="compliment_number_title">
@@ -706,10 +702,10 @@ const HomeUpdate = () => {
       {/* ================== */}
 
       <section className="productsDisplaySection">
-        <div className="container">
+        <div className="custom_container">
           <div className="home_products_display_cont" id="computerAcc">
             <div className="home_products_body_head">
-              Deals for you
+              Deals just for you
               <span></span>
             </div>
             <div className="products_display_body_conts_pad">
@@ -718,7 +714,7 @@ const HomeUpdate = () => {
               ) : (
                 <>
                   <div className="show_prods_on_mobile">
-                    {term.map(
+                    {term.slice(0, 15).map(
                       (asset) => (
                         // if (product_category_desc === asset.product_category_desc) {
                         // return (
@@ -931,7 +927,7 @@ const HomeUpdate = () => {
       {/* ================== */}
       {/* ================== */}
       <section className="quality_standards_section">
-        <div className="container">
+        <div className="custom_container">
           <div className="quality_standards_cont">
             <div className="quality_standards_cont1">
               <div className="quality_standards_cont1Txt">
@@ -1020,7 +1016,7 @@ const HomeUpdate = () => {
       {/* ============== */}
       {/* ============== */}
       <section className="gtexploreSection">
-        <div className="container">
+        <div className="custom_container">
           <div
             className="gtexploreArea"
             data-aos="fade-up"
