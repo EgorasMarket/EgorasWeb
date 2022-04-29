@@ -6,7 +6,11 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import GroupsIcon from "@mui/icons-material/Groups";
+import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
 import Slider from "react-slick";
+import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
+import MiscellaneousServicesIcon from "@mui/icons-material/MiscellaneousServices";
+import LocalOfferIcon from "@mui/icons-material/LocalOffer";
 import Carousel from "react-multi-carousel";
 import "../../../css/market_home.css";
 import "../../../css/about.css";
@@ -62,6 +66,15 @@ const responsive3 = {
   },
 };
 const HomeUpdate = () => {
+  const [aboutVideoModal, setAboutVideoModal] = useState(false);
+
+  const toggleAboutVideoModal = () => {
+    if (aboutVideoModal === true) {
+      setAboutVideoModal(false);
+    } else if (aboutVideoModal === false) {
+      setAboutVideoModal(true);
+    }
+  };
   const settings = {
     dots: false,
     fade: true,
@@ -735,250 +748,127 @@ const HomeUpdate = () => {
       {/* ============== */}
       {/* ============== */}
 
-      <section className="gtstoriesSection">
+      <section className="quality_standards_section">
         <div className="container">
-          <div
-            className="gttitleLine"
-            data-aos="fade-up"
-            data-aos-duration="3000"
-          ></div>
-          <div
-            className="gthowItWorksTitle"
-            data-aos="fade-up"
-            data-aos-duration="3000"
-          >
-            <h1 className="gttitle" data-aos="fade-up" data-aos-duration="3000">
-              Popular Stories
-            </h1>
-          </div>
-          <div
-            className="gtstoriesArea"
-            data-aos="fade-up"
-            data-aos-duration="3000"
-          >
-            {/* Carousel start==============================
-==============================================
-============================= */}
-            <Carousel
-              responsive={responsive1}
-              className="storiesCard"
-              showDots={false}
-              infinite={true}
-            >
-              <div className="storiesCard1  width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    className="stroriesIframe"
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/C42kN47tbQk"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Meet Mrs Faith, She used Egoras micro-credit to restore her
-                    failing farm business.
-                  </h5>
-                  <h6 className="storiesCardDate">19 Apr 2021</h6>
+          <div className="quality_standards_cont">
+            <div className="quality_standards_cont1">
+              <div className="quality_standards_cont1Txt">
+                Welcome to Back Market, the refurbished (super) market.
+              </div>
+              <button className="qualityStandard_btn">
+                Our quality standards
+              </button>
+            </div>
+            <div className="quality_standards_cont2">
+              <div className="quality_standards_cont2_card1">
+                <LocalOfferIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Best offer available
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Selected by our price-quality algorithm.
+                  </div>
                 </div>
               </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/8W9qbS-dZ2c"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Meet Mrs Onyiyechi, She used Egoras microcredit to expand
-                    her small business
-                  </h5>
-                  <h6 className="storiesCardDate">19 Apr 2021</h6>
+              <div className="quality_standards_cont2_card1">
+                <WorkspacePremiumIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Guaranteed quality
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Our partner refurbishers are continuously monitored.
+                  </div>
                 </div>
               </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/uxv9_BfnLVg"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Meet Mrs Elizabeth, She used Egoras microcredit to expand
-                    her grocery business.
-                  </h5>
-                  <h6 className="storiesCardDate">19 Apr 2021</h6>
+              <div className="quality_standards_cont2_card1">
+                <MiscellaneousServicesIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Amazing service
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Secure shopping experience.
+                  </div>
                 </div>
               </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/5g8XkN10ScU"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Mrs Chidinma Happiness used Egoras Micro-credit to expand
-                    her grocery business
-                  </h5>
-                  <h6 className="storiesCardDate">1 Apr 2021</h6>
+              <div className="quality_standards_cont2_card1">
+                <ThumbUpAltIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Positive impact
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Buying renewed keeps e-waste out of landfills.
+                  </div>
                 </div>
               </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/ZpLVfX8vfGk"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Meet Mrs Justina Kelechi, a small business owner that used
-                    Egoras microcredit to grow her business
-                  </h5>
-                  <h6 className="storiesCardDate">1 Apr 2021</h6>
-                </div>
-              </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/xSR_wKvpVAA"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Meet Mr Chinemerem, An Egoras borrower
-                  </h5>
-                  <h6 className="storiesCardDate">28 Mar 2021</h6>
-                </div>
-              </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/Wlxx40AImfI"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Meet Mrs Chidinma Ogu, an Egoras borrower
-                  </h5>
-                  <h6 className="storiesCardDate">28 Mar 2021</h6>
-                </div>
-              </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/QjmG5Xvq63I"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Meet Mrs Faith Akpan, An Egoras borrower
-                  </h5>
-                  <h6 className="storiesCardDate">28 Mar 2021</h6>
-                </div>
-              </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/RXPPrnrWuss"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    What is Egoras Microfinance Protocol
-                  </h5>
-                  <h6 className="storiesCardDate">23 Mar 2021</h6>
-                </div>
-              </div>
-              <div className="storiesCard1 width_ap">
-                <div className="storiesCardVideo">
-                  <iframe
-                    width="100%"
-                    height="200"
-                    src="https://www.youtube.com/embed/a_ehqUZGyoc"
-                    title="YouTube video player"
-                    frameborder="0"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                    allowfullscreen
-                  ></iframe>
-                </div>
-                <div className="storiesCardTxts">
-                  <h5 className="storiesCardTitle">
-                    Mrs Gloria Omoreke just doubled her profits with Egoras
-                    Micro-credit
-                  </h5>
-                  <h6 className="storiesCardDate">23 Mar 2021</h6>
-                </div>
-              </div>
-            </Carousel>
-            {/* Carousel end==============================
-==============================================
-============================= */}
-            <div className="carouselLinkStories">
-              <a
-                href="https://www.youtube.com/channel/UCHfi5EwXig46xp5Dx8hVBHQ/videos"
-                target="_blank"
-                className="carouselLinkbtn"
-              >
-                View All
-              </a>
             </div>
           </div>
         </div>
 
-        <img src="/img/video-dots.svg" alt="" className="gtvidDots" />
+        <img
+          src="/img/video-dots.svg"
+          alt=""
+          className="quality_standards_dots"
+        />
+      </section>
+      {/* ============== */}
+      {/* ============== */}
+      {/* ============== */}
+      {/* ============== */}
+      <section className="about_video_section">
+        <div className="container">
+          {aboutVideoModal === true ? (
+            <div className="about_video_div">
+              <div className="about_video_player">
+                <iframe
+                  src="https://player.vimeo.com/video/703222250?h=f19a710398&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                  frameborder="0"
+                  allow="autoplay; fullscreen; picture-in-picture"
+                  allowfullscreen
+                  style={{
+                    position: "absolute",
+                    top: "0",
+                    left: "0",
+                    width: "100%",
+                    height: "100%",
+                  }}
+                  // title="EGORAS TRILLER .MP4"
+                />
+              </div>
+            </div>
+          ) : null}
+
+          <div className="aboutVideo_header_cont">
+            <div className="about_video_header_title">Egoras Triller</div>
+            <div className="about_video_header_txt">
+              Watch the Terra documentary about the decentralized money at the
+              heart of an open financial ecosystem
+            </div>
+          </div>
+          <div className="about_video_thumbnail_cont">
+            <div className="about_video_thumbnail_cont_bg">
+              <img
+                src="/img/logoVideoThumbnail.svg"
+                alt=""
+                className="thumbnail_img"
+              />
+              <img
+                src="/img/play_thumbnail_btn.svg"
+                alt=""
+                className="thumbnail_btn"
+                onClick={toggleAboutVideoModal}
+              />
+            </div>
+          </div>
+          {/* <script src="https://player.vimeo.com/api/player.js"></script> */}
+        </div>
       </section>
       {/* ============== */}
       {/* ============== */}
