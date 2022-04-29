@@ -470,7 +470,170 @@ const HomeUpdate = () => {
       {/* =========== */}
       {/* =========== */}
 
-      <section className="new_hero_section2">
+      <section className="about_video_section">
+        <div className="container">
+          {aboutVideoModal === true ? (
+            <div className="about_video_div">
+              <div className="container">
+                <CloseIcon
+                  className="close_About_video_modal"
+                  onClick={toggleAboutVideoModal}
+                />
+                <div className="about_video_player">
+                  <iframe
+                    src="https://player.vimeo.com/video/703222250?h=f19a710398&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen
+                    style={{
+                      position: "absolute",
+                      top: "0",
+                      left: "0",
+                      width: "100%",
+                      height: "100%",
+                    }}
+                    // title="EGORAS TRILLER .MP4"
+                  />
+                </div>
+              </div>
+            </div>
+          ) : null}
+
+          <div className="aboutVideo_header_cont">
+            <div className="about_video_header_title">Egoras Triller</div>
+            <div className="about_video_header_txt">
+              Watch the Terra documentary about the decentralized money at the
+              heart of an open financial ecosystem
+            </div>
+          </div>
+          <div className="about_video_thumbnail_cont">
+            <div className="about_video_thumbnail_cont_bg">
+              <img
+                src="/img/logoVideoThumbnail.svg"
+                alt=""
+                className="thumbnail_img"
+              />
+              <img
+                src="/img/play_thumbnail_btn.svg"
+                alt=""
+                className="thumbnail_btn"
+                onClick={toggleAboutVideoModal}
+              />
+            </div>
+          </div>
+          {/* <script src="https://player.vimeo.com/api/player.js"></script> */}
+        </div>
+      </section>
+
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      <section className="quality_standards_section">
+        <div className="container">
+          <div className="quality_standards_cont">
+            <div className="quality_standards_cont1">
+              <div className="quality_standards_cont1Txt">
+                Welcome to Back Market, the refurbished (super) market.
+              </div>
+              <button className="qualityStandard_btn">
+                Our quality standards
+              </button>
+            </div>
+            <div className="quality_standards_cont2">
+              <div className="quality_standards_cont2_card1">
+                <LocalOfferIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Best offer available
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Selected by our price-quality algorithm.
+                  </div>
+                </div>
+              </div>
+              <div className="quality_standards_cont2_card1">
+                <WorkspacePremiumIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Guaranteed quality
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Our partner refurbishers are continuously monitored.
+                  </div>
+                </div>
+              </div>
+              <div className="quality_standards_cont2_card1">
+                <MiscellaneousServicesIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Amazing service
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Secure shopping experience.
+                  </div>
+                </div>
+              </div>
+              <div className="quality_standards_cont2_card1">
+                <ThumbUpAltIcon className="quality_standards_cont2_card1_icon" />
+
+                <div className="quality_standards_cont2_card1_text_cont">
+                  <div className="quality_standards_cont2_card1_text_title">
+                    Positive impact
+                  </div>
+                  <div className="quality_standards_cont2_card1_text_para">
+                    Buying renewed keeps e-waste out of landfills.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <img
+          src="/img/video-dots.svg"
+          alt=""
+          className="quality_standards_dots"
+        />
+      </section>
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      <section className="new_home_attributes_section1">
+        <div className="container">
+          <div className="new_home_attributes_area">
+            <div className="new_home_attributes_area1" data-aos="fade-up">
+              <div className="new_home_attributes_area1_txt">
+                {" "}
+                <h4 className="new_home_attributes_area1_txt_head">
+                  INSTANT INTEREST FREE LOANS.
+                </h4>
+                <p className="new_home_attributes_area1_txt_para">
+                  Seal the deal in just 3 steps! Fix an appointment with any
+                  Egoras branch nearest to you, get a value of your collateral,
+                  and finally get your loan sent to you.
+                </p>
+              </div>
+              <a href="/loan" className="new_home_attributes_area1_link">
+                Get A loan In Minutes{" "}
+                <ArrowForwardIosIcon className="link_arrow" />
+              </a>
+            </div>{" "}
+            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
+              <img src="/img/take_loan.svg" alt="" className="take_loan_img" />
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* <section className="new_hero_section2">
         <div className="container">
           <div className="new_hero_section2_area">
             <div className="operations_cards_cont" data-aos="fade-up">
@@ -541,37 +704,7 @@ const HomeUpdate = () => {
           alt=""
           className="new_hero_left_dots"
         />
-      </section>
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      <section className="new_home_attributes_section1">
-        <div className="container">
-          <div className="new_home_attributes_area">
-            <div className="new_home_attributes_area1" data-aos="fade-up">
-              <div className="new_home_attributes_area1_txt">
-                {" "}
-                <h4 className="new_home_attributes_area1_txt_head">
-                  INSTANT INTEREST FREE LOANS.
-                </h4>
-                <p className="new_home_attributes_area1_txt_para">
-                  Seal the deal in just 3 steps! Fix an appointment with any
-                  Egoras branch nearest to you, get a value of your collateral,
-                  and finally get your loan sent to you.
-                </p>
-              </div>
-              <a href="/loan" className="new_home_attributes_area1_link">
-                Get A loan In Minutes{" "}
-                <ArrowForwardIosIcon className="link_arrow" />
-              </a>
-            </div>{" "}
-            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
-              <img src="/img/take_loan.svg" alt="" className="take_loan_img" />
-            </div>
-          </div>
-        </div>
-      </section>
+      </section> */}
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
@@ -748,135 +881,42 @@ const HomeUpdate = () => {
       {/* ============== */}
       {/* ============== */}
       {/* ============== */}
-
-      <section className="quality_standards_section">
+      <section className="gtexploreSection">
         <div className="container">
-          <div className="quality_standards_cont">
-            <div className="quality_standards_cont1">
-              <div className="quality_standards_cont1Txt">
-                Welcome to Back Market, the refurbished (super) market.
-              </div>
-              <button className="qualityStandard_btn">
-                Our quality standards
-              </button>
-            </div>
-            <div className="quality_standards_cont2">
-              <div className="quality_standards_cont2_card1">
-                <LocalOfferIcon className="quality_standards_cont2_card1_icon" />
-
-                <div className="quality_standards_cont2_card1_text_cont">
-                  <div className="quality_standards_cont2_card1_text_title">
-                    Best offer available
-                  </div>
-                  <div className="quality_standards_cont2_card1_text_para">
-                    Selected by our price-quality algorithm.
-                  </div>
-                </div>
-              </div>
-              <div className="quality_standards_cont2_card1">
-                <WorkspacePremiumIcon className="quality_standards_cont2_card1_icon" />
-
-                <div className="quality_standards_cont2_card1_text_cont">
-                  <div className="quality_standards_cont2_card1_text_title">
-                    Guaranteed quality
-                  </div>
-                  <div className="quality_standards_cont2_card1_text_para">
-                    Our partner refurbishers are continuously monitored.
-                  </div>
-                </div>
-              </div>
-              <div className="quality_standards_cont2_card1">
-                <MiscellaneousServicesIcon className="quality_standards_cont2_card1_icon" />
-
-                <div className="quality_standards_cont2_card1_text_cont">
-                  <div className="quality_standards_cont2_card1_text_title">
-                    Amazing service
-                  </div>
-                  <div className="quality_standards_cont2_card1_text_para">
-                    Secure shopping experience.
-                  </div>
-                </div>
-              </div>
-              <div className="quality_standards_cont2_card1">
-                <ThumbUpAltIcon className="quality_standards_cont2_card1_icon" />
-
-                <div className="quality_standards_cont2_card1_text_cont">
-                  <div className="quality_standards_cont2_card1_text_title">
-                    Positive impact
-                  </div>
-                  <div className="quality_standards_cont2_card1_text_para">
-                    Buying renewed keeps e-waste out of landfills.
-                  </div>
-                </div>
+          <div
+            className="gtexploreArea"
+            data-aos="fade-up"
+            data-aos-duration="3000"
+          >
+            <div className="gtexploretxts">
+              <h1
+                className="gtgood"
+                data-aos="fade-down"
+                data-aos-duration="3000"
+              >
+                Sounds good?
+              </h1>
+              <div className="gtexploreLink">
+                <a href="/dashboard" className="gtexploreLoansbtn">
+                  Start Saving
+                </a>
               </div>
             </div>
+
+            <img src="/img/explore-dots.svg" alt="" className="gtexploreDots" />
+            <img
+              src="/img/explore-shape.svg"
+              alt=""
+              className="gtexploreShape"
+            />
           </div>
         </div>
-
-        <img
-          src="/img/video-dots.svg"
-          alt=""
-          className="quality_standards_dots"
-        />
       </section>
       {/* ============== */}
       {/* ============== */}
       {/* ============== */}
       {/* ============== */}
-      <section className="about_video_section">
-        <div className="container">
-          {aboutVideoModal === true ? (
-            <div className="about_video_div">
-              <div className="container">
-                <CloseIcon
-                  className="close_About_video_modal"
-                  onClick={toggleAboutVideoModal}
-                />
-                <div className="about_video_player">
-                  <iframe
-                    src="https://player.vimeo.com/video/703222250?h=f19a710398&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen
-                    style={{
-                      position: "absolute",
-                      top: "0",
-                      left: "0",
-                      width: "100%",
-                      height: "100%",
-                    }}
-                    // title="EGORAS TRILLER .MP4"
-                  />
-                </div>
-              </div>
-            </div>
-          ) : null}
 
-          <div className="aboutVideo_header_cont">
-            <div className="about_video_header_title">Egoras Triller</div>
-            <div className="about_video_header_txt">
-              Watch the Terra documentary about the decentralized money at the
-              heart of an open financial ecosystem
-            </div>
-          </div>
-          <div className="about_video_thumbnail_cont">
-            <div className="about_video_thumbnail_cont_bg">
-              <img
-                src="/img/logoVideoThumbnail.svg"
-                alt=""
-                className="thumbnail_img"
-              />
-              <img
-                src="/img/play_thumbnail_btn.svg"
-                alt=""
-                className="thumbnail_btn"
-                onClick={toggleAboutVideoModal}
-              />
-            </div>
-          </div>
-          {/* <script src="https://player.vimeo.com/api/player.js"></script> */}
-        </div>
-      </section>
       {/* ============== */}
       {/* ============== */}
       {/* ============== */}
