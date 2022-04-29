@@ -828,7 +828,10 @@ const HomeUpdate = () => {
           {aboutVideoModal === true ? (
             <div className="about_video_div">
               <div className="container">
-                <CloseIcon className="close_About_video_modal" />
+                <CloseIcon
+                  className="close_About_video_modal"
+                  onClick={toggleAboutVideoModal}
+                />
                 <div className="about_video_player">
                   <iframe
                     src="https://player.vimeo.com/video/703222250?h=f19a710398&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
