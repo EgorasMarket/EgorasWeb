@@ -325,7 +325,7 @@ const App = () => {
                   />
                   <Route
                     exact
-                    path={`/products/tag/:id/:${"tag".replace(/\s+/g, "")}`}
+                    path={`/products/tag/:${"tag".replace(/\s+/g, "")}`}
                     // path={dapp }
                     component={AllProductsDisplayPage}
                   />

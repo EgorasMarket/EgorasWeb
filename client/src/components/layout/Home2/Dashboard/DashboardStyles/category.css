@@ -174,10 +174,11 @@
   color: #2d3134;
 }
 .cat_select_div2_body {
-  height: 200px;
+  height: 427px;
   overflow: scroll;
   display: flex;
   flex-direction: column;
+  grid-gap: 10px;
   gap: 10px;
 }
 /* The container */
@@ -257,7 +258,7 @@
 }
 .search_icon {
   position: absolute;
-  left: 1.5%;
+  left: 5%;
   font-size: 18px !important;
   top: 52%;
   transform: translate(-50%, -50%);

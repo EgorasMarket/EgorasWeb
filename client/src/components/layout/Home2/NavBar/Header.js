@@ -474,9 +474,9 @@ const Header = ({ isAuthenticated, auth }) => {
                           }}
                         >
                           <a
-                            href={`/products/tag/${item.id}/${item.tag.replace(
+                            href={`/products/tag/${item.tag.replace(
                               /\s+/g,
-                              "-"
+                              " "
                             )}`}
                             key={index.toString()}
                             style={{

@@ -43,6 +43,7 @@
   color: #000;
   position: relative;
   transition: 0.3s ease-in-out;
+  font-size: 12px;
 }
 .header-area {
   display: flex;
