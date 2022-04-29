@@ -852,11 +852,11 @@ button.compliment_btn {
   width: 90px;
   cursor: pointer;
   z-index: 1;
-  transition: 0.3s linear;
+  transition: transform 0.2s, -webkit-transform 0.2s;
 }
 .thumbnail_btn:hover {
   transform: scale(1.1);
-  transition: 0.3s linear;
+  /* transition: 0.3s linear; */
 }
 
 .about_video_div {
@@ -868,7 +868,7 @@ button.compliment_btn {
   height: 100vh;
   padding: 4em;
   overflow: scroll;
-  background: #000000d6;
+  background: #000000ed;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -879,6 +879,13 @@ button.compliment_btn {
   width: 35%;
   padding: 35%;
   position: relative;
+}
+.close_About_video_modal {
+  position: absolute;
+  z-index: 5;
+  color: #fff !important;
+  top: 30px;
+  right: 2%;
 }
 /* ================= */
 /* ================= */
