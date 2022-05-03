@@ -1,10 +1,29 @@
 import React, { useState } from "react";
 import ArrowForwardIcon from "@material-ui/icons/ArrowForward";
-import AddLiquidity from "../LiquidityPage/AddLiquidity";
+import AddLiquidity from "../LiquidityPage/AddLiquidity.js";
+import {
+  Web3ReactProvider,
+  useWeb3React,
+  UnsupportedChainIdError
+} from "@web3-react/core";
 import "../../../../css/token.css";
 const TokenEUSD = () => {
   const [generateModal, setGenerateModal] = useState(false);
-  const toggleModal = () => {
+  const [which, setWhich] = useState("");
+  const context = useWeb3React();
+  const {
+    connector,
+    library,
+    chainId,
+    account,
+    activate,
+    deactivate,
+    active,
+    error
+  } = context;
+  const toggleModal = (e) => {
+    let target = e.currentTarget;
+    console.log(target);
     if (generateModal === false) {
       setGenerateModal(true);
     } else if (generateModal === true) {
@@ -53,19 +72,22 @@ const TokenEUSD = () => {
                   swap egc
                 </button> */}
                 <button
+                  id="generate"
                   style={{ marginTop: "50px" }}
-                  class="h_update_hero_area1_para_btn1"
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
                   onClick={toggleModal}
                 >
                   Convert eNGN
                 </button>
-                <button
+                {/* <button
+                  id="redeem"
                   style={{ marginTop: "50px" }}
-                  class="h_update_hero_area1_para_btn2"
+                  class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
                   onClick={toggleModal}
                 >
                   Redeem eNGN
-                </button>
+                  {/* Redeem eNGN */}
+                {/* </button> */} 
               </div>
             </div>
           </div>
@@ -193,7 +215,7 @@ const TokenEUSD = () => {
                 <p className="span4b-txts">
                   EgorasNaira is pegged to the Nigerian Naira. Returns are used
                   to buy back EGC. Supply buy back happens multiple times per
-                  day. 
+                  day.
                 </p>
               </div>
             </div>

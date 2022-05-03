@@ -14,9 +14,9 @@ import { connect } from "react-redux";
 import axios from "axios";
 import { API_URL as api_url } from "../../../actions/types";
 import htmlToDraft from 'html-to-draftjs';
-import {addUploader, checkAllowance}  from "../../../web3/index"
+import {addUploader, initContract,unluckToken, setPythiaImpl,updateTickerPricesImpl,addLiquidityImpl, checkAllowance}  from "../../../web3/index"
 import { parseEther } from "@ethersproject/units";
-
+import { Authenticate } from '../../auth/Authenticate';
 import {
   TabContent,
   TabPane,
@@ -154,6 +154,7 @@ const submit = async (e) => {
           setIsSuccess(true);
           setIsLoading(false);
         }else{
+          alert(ret.message);
           setIsLoading(false);
           setBtnText("Save & Deploy");
           props.messenger("Did not complete successfully", "danger");
@@ -166,9 +167,25 @@ const submit = async (e) => {
 // For Init Construct
 const submit2 = async (e) => { 
   e.preventDefault();
+  setBtnText("Saving....");
+  setIsLoading(true);
+  
+     let ret = await initContract(baseAddress,tokenAddress, price,
+     library.getSigner());
+        if(ret.status == true){
+          setIsLoading(false);
+          
+          setHash(ret.message);
+          setBtnText("Save & Deploy");
+          setIsSuccess(true);
+          setIsLoading(false);
+        }else{
+          alert(ret.message);
+          setIsLoading(false);
+          setBtnText("Save & Deploy");
+          props.messenger("Did not complete successfully", "danger");
+        }
 
-
-  console.log(priceOracle, baseAddress, tokenAddress, price);
 //  setBtnText("Saving....");
 //  setIsLoading(true);
  // const promise = await props.loan(loan_tile, cover_image, loan_duration, loan_category, loan_fees, story, loan_amount, context.account);
@@ -200,28 +217,52 @@ const onChange3 = (e) => {
 // For Init Construct
 const submit3 = async (e) => { 
   e.preventDefault();
-
-
-  console.log(amount);
-//  setBtnText("Saving....");
-//  setIsLoading(true);
- // const promise = await props.loan(loan_tile, cover_image, loan_duration, loan_category, loan_fees, story, loan_amount, context.account);
+ setBtnText("Saving....");
+ setIsLoading(true);
 
     
-    // let ret = await addUploader(address,reward_address,
-    // library.getSigner());
-    //    if(ret.status == true){
-    //      setIsLoading(false);
+    let ret = await addLiquidityImpl(parseEther(amount.toString(), "wei").toString(),
+    library.getSigner());
+       if(ret.status == true){
+         setIsLoading(false);
          
-    //      setHash(ret.message);
-    //      setBtnText("Save & Deploy");
-    //      setIsSuccess(true);
-    //      setIsLoading(false);
-    //    }else{
-    //      setIsLoading(false);
-    //      setBtnText("Save & Deploy");
-    //      props.messenger("Did not complete successfully", "danger");
-    //    }
+         setHash(ret.message);
+         setBtnText("Save & Deploy");
+         setIsSuccess(true);
+         setIsLoading(false);
+       }else{
+         alert(ret.message);
+         setIsLoading(false);
+         setBtnText("Save & Deploy");
+         props.messenger("Did not complete successfully", "danger");
+       }
+   
+         //document.getElementById('output').removeAttribute('src');
+ 
+};
+
+
+// For Init Construct
+const submit13 = async (e) => { 
+e.preventDefault();
+
+
+ let amount = 900;
+
+let ret = await unluckToken(parseEther(amount.toString(), "wei").toString(),
+    library.getSigner(), "egc");
+       if(ret.status == true){
+       
+         setHash(ret.message);
+      
+         setIsSuccess(true);
+         setIsLoading(false);
+       }else{
+        alert(ret.message);
+         setIsLoading(false);
+      
+         props.messenger("Did not complete successfully", "danger");
+       }
    
          //document.getElementById('output').removeAttribute('src');
  
@@ -236,26 +277,24 @@ const submit4 = async (e) => {
   e.preventDefault();
 
 
-  console.log(pythia);
-//  setBtnText("Saving....");
-//  setIsLoading(true);
- // const promise = await props.loan(loan_tile, cover_image, loan_duration, loan_category, loan_fees, story, loan_amount, context.account);
 
     
-    // let ret = await addUploader(address,reward_address,
-    // library.getSigner());
-    //    if(ret.status == true){
-    //      setIsLoading(false);
+    let ret = await setPythiaImpl(pythia,
+    library.getSigner());
+    console.log("ret"); 
+    console.log(pythia); 
+       if(ret.status == true){
+         setIsLoading(false);
          
-    //      setHash(ret.message);
-    //      setBtnText("Save & Deploy");
-    //      setIsSuccess(true);
-    //      setIsLoading(false);
-    //    }else{
-    //      setIsLoading(false);
-    //      setBtnText("Save & Deploy");
-    //      props.messenger("Did not complete successfully", "danger");
-    //    }
+         setHash(ret.message);
+         setBtnText("Save & Deploy");
+         setIsSuccess(true);
+         setIsLoading(false);
+       }else{
+         setIsLoading(false);
+         setBtnText("Save & Deploy");
+         props.messenger("Did not complete successfully", "danger");
+       }
    
          //document.getElementById('output').removeAttribute('src');
  
@@ -296,28 +335,26 @@ const submit5 = async (e) => {
 
 const submit6 = async (e) => { 
   e.preventDefault();
-
-
-  console.log(prices, tickers);
-//  setBtnText("Saving....");
-//  setIsLoading(true);
- // const promise = await props.loan(loan_tile, cover_image, loan_duration, loan_category, loan_fees, story, loan_amount, context.account);
+ setBtnText("Saving....");
+ setIsLoading(true);
+let _price = [parseEther(prices.toString(), "wei").toString()];
+let _ticker = [tickers];
 
     
-    // let ret = await addUploader(address,reward_address,
-    // library.getSigner());
-    //    if(ret.status == true){
-    //      setIsLoading(false);
+    let ret = await updateTickerPricesImpl(_price, _ticker,
+    library.getSigner());
+       if(ret.status == true){
+         setIsLoading(false);
          
-    //      setHash(ret.message);
-    //      setBtnText("Save & Deploy");
-    //      setIsSuccess(true);
-    //      setIsLoading(false);
-    //    }else{
-    //      setIsLoading(false);
-    //      setBtnText("Save & Deploy");
-    //      props.messenger("Did not complete successfully", "danger");
-    //    }
+         setHash(ret.message);
+         setBtnText("Save & Deploy");
+         setIsSuccess(true);
+         setIsLoading(false);
+       }else{
+         setIsLoading(false);
+         setBtnText("Save & Deploy");
+         props.messenger("Did not complete successfully", "danger");
+       }
    
          //document.getElementById('output').removeAttribute('src');
  
@@ -328,7 +365,7 @@ const isStageTwoIsValid = address.length > 9;
 const isStageThreeIsValid =   address.length > 9 && !isLoading;
   return (
     <div className='mt-6'>
-   
+  
       <div className='container py-5'>
         <div className='row'>
           <div className='col-md-8 offset-md-2'>
@@ -387,24 +424,21 @@ const isStageThreeIsValid =   address.length > 9 && !isLoading;
                         <div className='col-md-7'>
                         <h1>Init Constuct</h1>
                        
-                          <FormGroup>
-                            <Label className='mb-0 text-success font-weight-bold'>Price Oracle:</Label>
-                            <Input type='text' name="priceOracle" placeholder='Price Oracle...' value={priceOracle} onChange={e => onChange2(e)} />
-                          </FormGroup>
+                       
                           
                           <FormGroup>
                             <Label className='mb-0 text-success font-weight-bold'>Base Address:</Label>
-                            <Input type='text' name="baseAddress" placeholder='Base Address...' value={baseAddress} onChange={e => onChange2(e)} />
+                            <Input type='text' name="baseAddress" placeholder='eNGN Address...' value={baseAddress} onChange={e => onChange2(e)} />
                           </FormGroup>
                           
                           <FormGroup>
                             <Label className='mb-0 text-success font-weight-bold'>Token Address:</Label>
-                            <Input type='text' name="tokenAddress" placeholder='Token Address...' value={tokenAddress} onChange={e => onChange2(e)} />
+                            <Input type='text' name="tokenAddress" placeholder='EGC Address...' value={tokenAddress} onChange={e => onChange2(e)} />
                           </FormGroup>
                           
                           <FormGroup>
-                            <Label className='mb-0 text-success font-weight-bold'>Price:</Label>
-                            <Input type='text' name="price" placeholder='Enter Price...' value={price} onChange={e => onChange2(e)} />
+                            <Label className='mb-0 text-success font-weight-bold'>Price Ticker:</Label>
+                            <Input type='text' name="price" placeholder='eg EGC-eNGN' value={price} onChange={e => onChange2(e)} />
                           </FormGroup>
                       
                 
@@ -435,6 +469,16 @@ const isStageThreeIsValid =   address.length > 9 && !isLoading;
                           <button className='btn btn-success' onClick={e => submit3(e)}>
                           {isLoading ? <FontAwesomeIcon icon={faCircleNotch} spin /> : null}{" "}
                           {btnText}
+                          </button>
+
+                          <br />
+                          <br />
+                          <br />
+                          <br />
+                          <h5>Unlock Wallet</h5>
+                          <button className='btn btn-danger' onClick={e => submit13(e)}>
+                        
+                          Unlock Wallet
                           </button>
                         </div>
                       </div>
@@ -556,4 +600,3 @@ const isStageThreeIsValid =   address.length > 9 && !isLoading;
 export default connect(null, {
   loan, messenger
   })(AddUploader);
-

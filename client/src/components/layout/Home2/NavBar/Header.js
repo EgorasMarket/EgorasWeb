@@ -334,6 +334,8 @@ const Header = ({ isAuthenticated, auth }) => {
   };
 
   // =============
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [anchorEl1, setAnchorEl1] = React.useState(null);
 
   const [dropDown1, setDropDown1] = useState(false);
   const [dropDown2, setDropDown2] = useState(false);
@@ -407,6 +409,22 @@ const Header = ({ isAuthenticated, auth }) => {
   const handler = (event) => {
     setSearchTerm(event.target.value);
   };
+  useEffect(() => {
+    axios
+      .get(
+        api_url2 + "/v1/product/retrieve/products/tag/search/" + searchTerm,
+        null,
+        config
+      )
+      .then((data) => {
+        console.log(data.data.data);
+        setProductNames(data.data.data);
+      })
+      .catch((error) => {
+        console.log("Error:", error);
+      });
+  }, [searchTerm]);
+
   const results = productNames.filter((car) =>
     car.tag.toLowerCase().includes(searchTerm.toLowerCase())
   );
@@ -486,7 +504,7 @@ const Header = ({ isAuthenticated, auth }) => {
                             }}
                           >
                             {" "}
-                            {item.tag}
+                            {item.tag.toLowerCase()}
                           </a>
                         </li>
                       ))}
@@ -733,7 +751,7 @@ const Header = ({ isAuthenticated, auth }) => {
                   </a>
                 </div>
               ) : null}
-              {currentPage == "/validator" ? (
+              {currentPage == "/validator" || currentPage == "/create-uploader" || currentPage == "/eusd-token" || currentPage == "/engn-token" ? (
                 <div style={{ display: "flex" }}>
                   <a href="#" className="connect">
                     <Authenticate />
@@ -898,7 +916,7 @@ const Header = ({ isAuthenticated, auth }) => {
                     </List>
                   </div>
                 ) : null}
-                {currentPage == "/validator" ? (
+                {currentPage == "/validator" || currentPage == "/create-uploader" || currentPage == "/eusd-token" || currentPage == "/engn-token" ? (
                   <div>
                     <List>
                       <ListItem>

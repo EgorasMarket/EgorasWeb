@@ -1,22 +1,22 @@
-import React, { useState, useEffect } from "react";
-import ArrowDropDownCircleIcon from "@mui/icons-material/ArrowDropDownCircle";
-import CategoryIcon from "@mui/icons-material/Category";
-import WidgetsIcon from "@mui/icons-material/Widgets";
-import ListIcon from "@mui/icons-material/List";
-import Slider from "react-slick";
-import ChevronRightIcon from "@mui/icons-material/ChevronRight";
-import Carousel from "react-multi-carousel";
-import DvrIcon from "@mui/icons-material/Dvr";
-import "../DashboardStyles/dashboard_side.css";
-import "../DashboardStyles/dashboard_products.css";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from 'react';
+import ArrowDropDownCircleIcon from '@mui/icons-material/ArrowDropDownCircle';
+import CategoryIcon from '@mui/icons-material/Category';
+import WidgetsIcon from '@mui/icons-material/Widgets';
+import ListIcon from '@mui/icons-material/List';
+import Slider from 'react-slick';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import Carousel from 'react-multi-carousel';
+import DvrIcon from '@mui/icons-material/Dvr';
+import '../DashboardStyles/dashboard_side.css';
+import '../DashboardStyles/dashboard_products.css';
+import { connect } from 'react-redux';
 // import {Link} from 'react-router-dom';
-import "../DashboardStyles/dashboard_side.css";
-import "../DashboardStyles/dashboard_header.css";
+import '../DashboardStyles/dashboard_side.css';
+import '../DashboardStyles/dashboard_header.css';
 // import { Link, animateScroll as scroll } from "react-scroll";
 
-import axios from "axios";
-import setAuthToken from "../../../../../utils/setAuthToken";
+import axios from 'axios';
+import setAuthToken from '../../../../../utils/setAuthToken';
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
@@ -89,7 +89,7 @@ function DashboardInvestPage({ auth }) {
 
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
 
@@ -116,7 +116,7 @@ function DashboardInvestPage({ auth }) {
   );
   const [industrialEquipmentsData, setIndustrialEquipmentsData] = useState([]);
 
-  const [wrap, setWrap] = useState({ code: "" });
+  const [wrap, setWrap] = useState({ code: '' });
   const { code } = wrap;
 
   // const [cItem,setCItem] =useState([])
@@ -230,7 +230,7 @@ function DashboardInvestPage({ auth }) {
 
   function phoneTab() {
     axios
-      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .get(api_url2 + '/v1/product/retrieve/category', null, config)
       .then((data) => {
         //console.log(data.data.data, "king");
         setCategory(data.data.data);
@@ -258,12 +258,12 @@ function DashboardInvestPage({ auth }) {
     slidesToScroll: 1,
   };
   const dropDown = () => {
-    setProdBody("product_body");
-    setDropBtn("not_dropHead");
+    setProdBody('product_body');
+    setDropBtn('not_dropHead');
   };
   const closeDropDown = () => {
-    setProdBody("not_product_body");
-    setDropBtn("dropHead");
+    setProdBody('not_product_body');
+    setDropBtn('dropHead');
   };
   //  const moveto =()=>{
   //    scroll.scrollToTop(100);
@@ -611,7 +611,10 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body no_pad" id="phonesTab">
+          <div
+            className="products_display_body no_pad"
+            id="phonesTab"
+          >
             <div className="products_display_body_heading heading_color_2">
               {phonesTablets}
               <a
@@ -1182,7 +1185,10 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body no_pad" id="Electronics">
+          <div
+            className="products_display_body no_pad"
+            id="Electronics"
+          >
             <div className="products_display_body_heading heading_color_2">
               {electronics}
               <a
@@ -1765,7 +1771,10 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body no_pad" id="MusicEquip">
+          <div
+            className="products_display_body no_pad"
+            id="MusicEquip"
+          >
             <div className="products_display_body_heading heading_color_2">
               {musicalEquipment}
               <a
@@ -2098,7 +2107,10 @@ function DashboardInvestPage({ auth }) {
           {/* =========[[[[[[[[[]]]]]]]]] */}
           {/* =========[[[[[[[[[]]]]]]]]] */}
 
-          <div className="products_display_body" id="computersAccessories">
+          <div
+            className="products_display_body"
+            id="computersAccessories"
+          >
             <div className="products_display_body_heading">
               {industrialEquipments}
               <a

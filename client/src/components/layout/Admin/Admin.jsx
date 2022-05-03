@@ -29,6 +29,7 @@ import AdminSignup from "./AdminSignup/AdminSignup";
 import AllProductRoute from "./AdminPages/AllProductRoute";
 import UniqueProductRoutes from "./AdminPages/UniqueProductRoutes";
 import AdminShowOrder from "./AdminPages/AdminShowOrder";
+import SellProductList from "./AdminPages/SellProductList";
 
 const Admin = ({ isAuthenticated, loading }) => {
   const [splashScreen, setSplashScreen] = useState(true);
@@ -152,6 +153,30 @@ const Admin = ({ isAuthenticated, loading }) => {
                     exact
                     path="/super_admin/all_user"
                     component={AdminCustomer}
+                  />
+
+                  <Route
+                    exact
+                    path="/super_admin/overview"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AdminMarket}
+                  />
+
+                  {/* < HEAD /> */}
+
+                  <Route
+                    exact
+                    path="/super_admin/user_overview/:id"
+                    // path="/dashboard/products/details/:id/:name"
+                    // / dashboard/products/details/:id/:name
+                    component={AdminSavingsOverview}
+                  />
+
+                  <Route
+                    exact
+                    path="/super_admin/products/for-sell"
+                    component={SellProductList}
                   />
 
                   <Route

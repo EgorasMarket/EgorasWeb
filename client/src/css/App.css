@@ -348,6 +348,47 @@ input:-internal-autofill-selected {
   justify-content: center;
   background-color: rgb(23, 73, 77) !important;
 }
+
+.text-left .react-date-picker {
+  display: unset !important;
+}
+
+.ReactTags__tag {
+  border: 1px solid #ddd !important;
+  background: #b3f2cc !important;
+  color: #000;
+      font-size: 12px;
+      display: inline-block;
+      padding: 5px;
+      margin: 0 5px;
+      border-radius: 2px;
+}
+
+.ReactTags__remove {
+  border: none;
+  cursor: pointer;
+  background: none;
+  color: #000;
+  margin-left: 4px;
+}
+
+.ReactTags__clearAll {
+  cursor: pointer;
+  padding: 10px;
+  margin: 10px;
+  background: #f88d8d;
+  color: #fff;
+  border: none;
+}
+
+.ReactTags__tagInputField {
+  border-color: rgb(200 231 212);
+  border-style: solid;
+  border-width: 1px;
+  padding: 12px;
+  border-radius: 4px;
+}
+
 .laSVjx.laSVjx.laSVjx {
   position: relative;
   overflow: hidden;
