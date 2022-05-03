@@ -271,6 +271,11 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     setActiveBg('withdraw_btn');
   };
 
+  function outFunc() {
+    var tooltip = document.getElementById("myTooltip");
+    tooltip.innerHTML = "Copy to clipboard";
+    tooltip.style.display = "none";
+  }
   return (
     <div className="other2">
       <section className="no-bg wallet_bg">

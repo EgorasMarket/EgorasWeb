@@ -29,15 +29,15 @@ const AdminUploadProducts = () => {
   const [editorState, setEditorState] = useState(EditorState.createEmpty());
   const config = {
     headers: {
-      Accept: "*",
-      "Content-Type": "application/json",
-      "Access-Control-Allow-Origin": "*",
+      Accept: '*',
+      'Content-Type': 'application/json',
+      'Access-Control-Allow-Origin': '*',
     },
   };
   const [product_image, setproduct_image] = useState(
-    "../../img/profile_img.jpeg"
+    '../../img/profile_img.jpeg'
   );
-  const [getrandom, setRandom] = useState("");
+  const [getrandom, setRandom] = useState('');
   const [LSExist, setLSExist] = useState(null);
   const [alert, setAlert] = useState("");
   const [alertType, setAlertType] = useState("");
@@ -105,24 +105,24 @@ const AdminUploadProducts = () => {
 
   // const [product_duration, setProduct_duration] = useState(null);
   const characters =
-    "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   const [allCategories, setCategories] = useState([]);
   const [categoryInsert, setCategoryInsert] = React.useState({
-    product_category_code: "",
-    product_category_desc: "",
+    product_category_code: '',
+    product_category_desc: '',
   });
 
   const [formData, setFormData] = useState({
-    product_details: "",
+    product_details: '',
   });
 
   const [productUpdateInfo, setProductUpdateInfo] = React.useState({
     // product_category_code1: '',
-    product_name: "",
+    product_name: '',
     unitCount: null,
     percentage: null,
-    product_brand: "",
-    product_specifications: "",
+    product_brand: '',
+    product_specifications: '',
     amount: null,
     // product_details: "",
     product_duration: null,
@@ -143,10 +143,12 @@ const AdminUploadProducts = () => {
   } = productUpdateInfo;
 
   const generateString = (length) => {
-    let result = " ";
+    let result = ' ';
     const charactersLength = characters.length;
     for (let i = 0; i < length; i++) {
-      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+      result += characters.charAt(
+        Math.floor(Math.random() * charactersLength)
+      );
     }
 
     return result;
@@ -160,7 +162,7 @@ const AdminUploadProducts = () => {
     // setIsLoading(true);
 
     axios
-      .get(api_url2 + "/v1/product/retrieve/category", null, config)
+      .get(api_url2 + '/v1/product/retrieve/category', null, config)
       .then((data) => {
         setCategories(data.data.data);
       })
@@ -170,7 +172,7 @@ const AdminUploadProducts = () => {
   }, []);
 
   useEffect(() => {
-    let getproductId = localStorage.getItem("productId");
+    let getproductId = localStorage.getItem('productId');
 
     if (localStorage.productId) {
       // //console.log('localStorage');
@@ -262,7 +264,7 @@ const AdminUploadProducts = () => {
       //console.log(body);
       try {
         const res = await axios.post(
-          api_url2 + "/v1/product/add/category",
+          api_url2 + '/v1/product/add/category',
           body,
           config
         );
@@ -284,21 +286,22 @@ const AdminUploadProducts = () => {
     }
   };
   const timer = setTimeout(() => {
-    setAlert("");
+    setAlert('');
   }, 5000);
   // //console.log(generateString(10));
   // //console.log('oookkkk');
 
   const onImageChange = (event) => {
     if (event.target.files && event.target.files[0]) {
-      const types = ["jpg", "png", "jpeg"];
+      const types = ['jpg', 'png', 'jpeg'];
 
-      if (event.currentTarget.id === "product_image") {
+      if (event.currentTarget.id === 'product_image') {
         if (event.currentTarget.files.length === 0) {
           // setUserInfo({ ...userInfo, applicantImg: "" });
           // document.getElementById("output1").src = "";
         } else {
-          let productFile = document.getElementById("product_image").files[0];
+          let productFile =
+            document.getElementById('product_image').files[0];
 
           let fileExtension = productFile.name.split(".").pop();
           //console.log(productFile);
@@ -311,7 +314,9 @@ const AdminUploadProducts = () => {
               setAlertType("danger");
               //console.log("file too large.");
             } else {
-              setproduct_image(URL.createObjectURL(event.target.files[0]));
+              setproduct_image(
+                URL.createObjectURL(event.target.files[0])
+              );
             }
           }
         }
@@ -343,10 +348,10 @@ const AdminUploadProducts = () => {
 
       try {
         const res = await axios.post(
-          api_url2 + "/v1/product/add/product/image",
+          api_url2 + '/v1/product/add/product/image',
           formData
         );
-        console.log(res.data, "undefined");
+        console.log(res.data, 'undefined');
 
         if (res.data.statusCode === 200) {
           setAlert("Product image uploaded successfully");
@@ -355,7 +360,10 @@ const AdminUploadProducts = () => {
           setLSExist(true);
           //console.log(res.data.data[0].productId, "undefined");
           setProductId(res.data.data[0].productId);
-          localStorage.setItem("productId", res.data.data[0].productId);
+          localStorage.setItem(
+            'productId',
+            res.data.data[0].productId
+          );
         } else {
           setAlert(res.data.data.errors[0].msg);
           setAlertType("danger");
@@ -406,16 +414,16 @@ const AdminUploadProducts = () => {
   const UpdateProductInfo = async (e) => {
     if (payment_type === 1) {
       if (
-        product_name === "" ||
-        product_category_code1 === "" ||
+        product_name === '' ||
+        product_category_code1 === '' ||
         unitCount === null ||
         product_condition === "" ||
         // percentage === null ||
-        product_brand === "" ||
-        product_type === "" ||
-        product_specifications === "" ||
+        product_brand === '' ||
+        product_type === '' ||
+        product_specifications === '' ||
         amount === null ||
-        product_details === ""
+        product_details === ''
       ) {
         // //console.log("Please supply all information.");
         setAlert("Please supply all information");
@@ -442,10 +450,10 @@ const AdminUploadProducts = () => {
             product_details,
             tags11,
           });
-          console.log(body, "yyyyyy");
+          //console.log(body, "yyyyyy");
           try {
             const res = await axios.put(
-              api_url2 + "/v1/product/add/product",
+              api_url2 + '/v1/product/add/product',
               body,
               config
             );
@@ -453,7 +461,7 @@ const AdminUploadProducts = () => {
 
             if (res.data.statusCode === 200) {
               // setMOIUpload(true)
-              localStorage.removeItem("productId");
+              localStorage.removeItem('productId');
               setLSExist(false);
               setProduct_category_code1("");
               // setProduct_duration('')
@@ -462,11 +470,11 @@ const AdminUploadProducts = () => {
               setProductId("");
               setProduct_type("");
               setProductUpdateInfo({
-                product_name: "",
+                product_name: '',
                 unitCount: null,
                 percentage: null,
-                product_brand: "",
-                product_specifications: "",
+                product_brand: '',
+                product_specifications: '',
                 amount: null,
                 product_details: "",
               });
@@ -476,24 +484,24 @@ const AdminUploadProducts = () => {
               setAlertType("danger");
             }
           } catch (err) {
-            console.log(err.response);
+            //console.log(err.response);
             // setAlert('Check your internet connection', 'danger');
           }
         }
       }
     } else {
       if (
-        product_name === "" ||
-        product_category_code1 === "" ||
+        product_name === '' ||
+        product_category_code1 === '' ||
         unitCount === null ||
         product_duration === null ||
         product_condition === "" ||
         percentage === null ||
-        product_brand === "" ||
-        product_type === "" ||
-        product_specifications === "" ||
+        product_brand === '' ||
+        product_type === '' ||
+        product_specifications === '' ||
         amount === null ||
-        product_details === ""
+        product_details === ''
       ) {
         // //console.log("Please supply all information.");
         setAlert("Please supply all information");
@@ -522,7 +530,7 @@ const AdminUploadProducts = () => {
           //console.log(body, "yyyyyy");
           try {
             const res = await axios.put(
-              api_url2 + "/v1/product/add/product",
+              api_url2 + '/v1/product/add/product',
               body,
               config
             );
@@ -530,7 +538,7 @@ const AdminUploadProducts = () => {
 
             if (res.data.statusCode === 200) {
               // setMOIUpload(true)
-              localStorage.removeItem("productId");
+              localStorage.removeItem('productId');
               setLSExist(false);
               setProduct_category_code1("");
               // setProduct_duration('')
@@ -539,11 +547,11 @@ const AdminUploadProducts = () => {
               setProductId("");
               setProduct_type("");
               setProductUpdateInfo({
-                product_name: "",
+                product_name: '',
                 unitCount: null,
                 percentage: null,
-                product_brand: "",
-                product_specifications: "",
+                product_brand: '',
+                product_specifications: '',
                 amount: null,
                 product_details: "",
               });
@@ -875,7 +883,9 @@ const AdminUploadProducts = () => {
                   </div>
                   {payment_type !== 1 ? (
                     <div className="add_cat_input_title">
-                      <span className="input_brand">Initial Percent</span>
+                      <span className="input_brand">
+                        Initial Percent
+                      </span>
 
                       <TextField
                         className=" width_incr"
@@ -891,7 +901,9 @@ const AdminUploadProducts = () => {
                   ) : null}
                   {payment_type !== 1 ? (
                     <div className="add_cat_input_title">
-                      <span className="input_brand">Product Duration</span>
+                      <span className="input_brand">
+                        Product Duration
+                      </span>
 
                       <TextField
                         className=" width_incr"

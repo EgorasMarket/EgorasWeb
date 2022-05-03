@@ -193,6 +193,10 @@ function ItemDetailsPage({ auth, match }) {
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
         //console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
@@ -384,7 +388,11 @@ function ItemDetailsPage({ auth, match }) {
   // =================
   // =================
   //console.log(days);
+<<<<<<< HEAD
   const CalcAmtperweek = amount / CalcDaysConvert(product_duration);
+=======
+  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
   // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     //console.log("Hello Mr King");
@@ -874,7 +882,13 @@ function ItemDetailsPage({ auth, match }) {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
+<<<<<<< HEAD
                               backgroundImage: `url(${asset.product_image})`,
+=======
+                              backgroundImage: `url(${
+                                asset.product_image
+                              })`,
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",

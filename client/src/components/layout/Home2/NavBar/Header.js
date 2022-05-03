@@ -751,7 +751,7 @@ const Header = ({ isAuthenticated, auth }) => {
                   </a>
                 </div>
               ) : null}
-              {currentPage == "/validator" ? (
+              {currentPage == "/validator" || currentPage == "/create-uploader" || currentPage == "/eusd-token" || currentPage == "/engn-token" ? (
                 <div style={{ display: "flex" }}>
                   <a href="#" className="connect">
                     <Authenticate />
@@ -916,7 +916,7 @@ const Header = ({ isAuthenticated, auth }) => {
                     </List>
                   </div>
                 ) : null}
-                {currentPage == "/validator" ? (
+                {currentPage == "/validator" || currentPage == "/create-uploader" || currentPage == "/eusd-token" || currentPage == "/engn-token" ? (
                   <div>
                     <List>
                       <ListItem>

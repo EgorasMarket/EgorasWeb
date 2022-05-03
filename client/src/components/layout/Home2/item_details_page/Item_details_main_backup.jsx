@@ -185,6 +185,7 @@ const Item_details_main = ({ match, auth }) => {
       // //console.log( new Buffer(dataa));
       var todecoded = auth.user;
       var todecodedn = todecoded.user.userImage;
+<<<<<<< HEAD
 
       // //console.log('====================================');
       //console.log(todecodedn);
@@ -194,6 +195,21 @@ const Item_details_main = ({ match, auth }) => {
       const splitName = getName.split(" ");
 
       set_user_id(todecoded.user.id);
+=======
+      
+      // //console.log('====================================');
+      //console.log(todecodedn);
+      // //console.log('====================================');
+      
+      
+      const getName = todecoded.user.fullname
+      const splitName = getName.split(' ');
+      
+      
+  
+      set_user_id(todecoded.user.id)
+      
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
     }
   }, [auth]);
 
@@ -213,6 +229,10 @@ const Item_details_main = ({ match, auth }) => {
       .post(api_url2 + "/v1/cart/add", payload, config)
       .then((response) => {
         // alert("Item successfully added to cart ");
+<<<<<<< HEAD
+=======
+
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
         //console.log("kingsley Chukwubuike");
       })
       .catch((err) => {
@@ -404,7 +424,11 @@ const Item_details_main = ({ match, auth }) => {
   // =================
   // =================
   //console.log(days);
+<<<<<<< HEAD
   const CalcAmtperweek = amount / CalcDaysConvert(product_duration);
+=======
+  const CalcAmtPerDay = amount / CalcDaysConvert(product_duration);
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
   // //console.log(CalcDaysConvert);
   if (ID === "1248f7f7-c2f7-49bd-9e8d-ccdb4db7b82b") {
     //console.log("Hello Mr King");
@@ -864,7 +888,13 @@ const Item_details_main = ({ match, auth }) => {
                           <div
                             className="storeTiles_storeTileContainer__HoGEa"
                             style={{
+<<<<<<< HEAD
                               backgroundImage: `url(${asset.product_image})`,
+=======
+                              backgroundImage: `url(${
+                                asset.product_image
+                              })`,
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                               //           height: "200px",
                               //           width: "100%",
                               //           backgroundRepeat: "no-repeat",

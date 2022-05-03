@@ -1,11 +1,19 @@
+<<<<<<< HEAD
 import React, { useEffect, useCallback, useState } from "react";
 import axios from "axios";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import verify from "../../../../flutterwave/API/Verify";
+=======
+import React, { useEffect, useCallback, useState } from 'react';
+import axios from 'axios';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import verify from '../../../../flutterwave/API/Verify';
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
 
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
+<<<<<<< HEAD
 } from "../../../../actions/types";
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 import FlutterButton from "../../../../flutterwave/FlutterButton";
@@ -18,6 +26,27 @@ import initPayment from "../../../../flutterwave/initPayment";
 import initializePayment from "../../../../flutterwave/API/initializePayment";
 
 const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
+=======
+} from '../../../../actions/types';
+import {
+  useFlutterwave,
+  closePaymentModal,
+} from 'flutterwave-react-v3';
+import FlutterButton from '../../../../flutterwave/FlutterButton';
+import Dashboard_Checkout_Page from '../Dashboard/DashboardPages/Dashboard_Checkout_Page';
+import PaymentPlan from '../../../../flutterwave/API/PaymentPlan';
+import verifyTransaction from '../../../../flutterwave/API/Verify';
+import { createOrder } from '../../../../actions/shop';
+import { connect } from 'react-redux';
+import initPayment from '../../../../flutterwave/initPayment';
+import initializePayment from '../../../../flutterwave/API/initializePayment';
+
+const CheckoutModalComponent = ({
+  payload,
+  closeCheckoutOptions,
+  auth,
+}) => {
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
   //destructure the payload and return values
   const {
     amount,
@@ -32,7 +61,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     product_specifications,
     product_type,
     initial_deposit,
+<<<<<<< HEAD
     paymentperweek,
+=======
+    paymentPerday,
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
     payment_type,
     days_left,
     no_of_days,
@@ -41,11 +74,19 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     endDate,
   } = payload;
 
+<<<<<<< HEAD
   const [user_id, setUserId] = useState("");
   const [isloading, setIsLoading] = useState(true);
   const [email, setEmail] = useState("");
   const [phone_no, setPhoneNo] = useState("");
   const [name, setName] = useState("");
+=======
+  const [user_id, setUserId] = useState('');
+  const [isloading, setIsLoading] = useState(true);
+  const [email, setEmail] = useState('');
+  const [phone_no, setPhoneNo] = useState('');
+  const [name, setName] = useState('');
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
   const [option, setOption] = useState(-1);
   const [customer_data, setCustomerData] = useState({});
   //console.log(phone_no, name, option)
@@ -66,6 +107,7 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
   }, []);
 
   const flutterConfig = {
+<<<<<<< HEAD
     public_key: "FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X",
     tx_ref: Date.now(),
     amount: 1,
@@ -73,6 +115,15 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
     currency: "NGN",
     // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
     payment_options: "card",
+=======
+    public_key: 'FLWPUBK-bb7997b5dc41c89e90ee4807684bd05d-X',
+    tx_ref: Date.now(),
+    amount: 1,
+
+    currency: 'NGN',
+    // redirect_url: "https://a3dc-197-210-85-62.ngrok.io/v1/webhooks/all",
+    payment_options: 'card',
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
     // payment_plan:63558,
     customer: {
       phonenumber: phone_no,
@@ -80,9 +131,15 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
       name: name,
     },
     customizations: {
+<<<<<<< HEAD
       title: "Payment from Egoras savings",
       description: "Payment for items in cart",
       logo: "https://egoras.com/img/egoras-logo.svg",
+=======
+      title: 'Payment from Egoras savings',
+      description: 'Payment for items in cart',
+      logo: 'https://egoras.com/img/egoras-logo.svg',
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
     },
   };
   const handleFlutterPayment = useFlutterwave(flutterConfig);
@@ -123,7 +180,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
         break;
 
       case 1:
+<<<<<<< HEAD
         alert("wallet method selected");
+=======
+        alert('wallet method selected');
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
         break;
     }
   };
@@ -137,21 +198,44 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
             <ArrowForwardIosIcon className="arrow_back" />
           </div>
           <div className="detailsModalSection1_area1">
+<<<<<<< HEAD
             <div className="delivery_title1">Delivery / Pickup Options</div>
             <div className="delivery_cards_section">
               <div className="delivery_card1">
                 <div className="delivery_card_title">
                   Deliver to me{" "}
+=======
+            <div className="delivery_title1">
+              Delivery / Pickup Options
+            </div>
+            <div className="delivery_cards_section">
+              <div className="delivery_card1">
+                <div className="delivery_card_title">
+                  Deliver to me{' '}
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                   <button className="button_change_delivery_address">
                     Change Address
                   </button>
                 </div>
                 <div className="delivery_card_body">
+<<<<<<< HEAD
                   <div className="delivery_card_body_cont1">Samuel Ifeanyi</div>
                   <div className="delivery_card_body_cont1">
                     62 Harold Wilson Drive, Borokiri, RV, Port Harcourt, Rivers
                   </div>
                   <div className="delivery_card_body_cont1">08164020234</div>
+=======
+                  <div className="delivery_card_body_cont1">
+                    Samuel Ifeanyi
+                  </div>
+                  <div className="delivery_card_body_cont1">
+                    62 Harold Wilson Drive, Borokiri, RV, Port
+                    Harcourt, Rivers
+                  </div>
+                  <div className="delivery_card_body_cont1">
+                    08164020234
+                  </div>
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                 </div>
               </div>
               {/* ============= */}
@@ -167,8 +251,13 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                 </div>
                 <div className="delivery_card_body">
                   <div className="delivery_card_body_cont1">
+<<<<<<< HEAD
                     Select a pickup location in your area from our 32 locations
                     nationwide.
+=======
+                    Select a pickup location in your area from our 32
+                    locations nationwide.
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                   </div>
                 </div>
               </div>
@@ -176,14 +265,26 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
           </div>
 
           <div className="detailsModalSection1_area2">
+<<<<<<< HEAD
             <div className="detailsModalSection1-area2_title">Review Order</div>
+=======
+            <div className="detailsModalSection1-area2_title">
+              Review Order
+            </div>
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
             <div className="review_order_div">Delivery 1 of 1</div>
             <div>
               <div class="save_prod_deta">
                 <table className="save_item_table">
                   <thead className="assets-category-titles">
                     <tr className="assets">
+<<<<<<< HEAD
                       <th className="assets-category-titles-heading1">Item</th>
+=======
+                      <th className="assets-category-titles-heading1">
+                        Item
+                      </th>
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                       <th className="assets-category-titles-heading1">
                         Item Details
                       </th>
@@ -203,12 +304,20 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                     className="save_items_cat popular-categories"
                     id="popular-categories"
                   >
+<<<<<<< HEAD
                     {" "}
+=======
+                    {' '}
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                     <tr className="assets-category-row">
                       <td className="save_item_data">
                         <div className="assets-data height_data">
                           <img
+<<<<<<< HEAD
                             src={api_url2 + "/" + product_image}
+=======
+                            src={api_url2 + '/' + product_image}
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                             alt=""
                             className="save_item_img_img"
                           />
@@ -245,7 +354,11 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                       </td>
                       <td className="save_item_data1b">
                         <div className="assets-data-name_last">
+<<<<<<< HEAD
                           ₦{paymentperweek}
+=======
+                          ₦{paymentPerday}
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                         </div>
                       </td>
                       {/* <td className="save_item_data1b">
@@ -254,7 +367,13 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                                 </div>
                               </td> */}
                       <td className="save_item_data1b">
+<<<<<<< HEAD
                         <div className="assets-data-name_last">₦{amount}</div>
+=======
+                        <div className="assets-data-name_last">
+                          ₦{amount}
+                        </div>
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
                       </td>
                     </tr>
                   </tbody>
@@ -276,8 +395,18 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
                   setOption(0);
                 }}
               >
+<<<<<<< HEAD
                 Pay via card{" "}
                 <input type="radio" name="payment" id="" className="checkBox" />
+=======
+                Pay via card{' '}
+                <input
+                  type="radio"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                />
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
               </div>
             </div>
             {/* ===================== */}
@@ -288,8 +417,18 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               }}
             >
               <div className="wit_card">
+<<<<<<< HEAD
                 Pay via wallet{" "}
                 <input type="radio" name="payment" id="" className="checkBox" />
+=======
+                Pay via wallet{' '}
+                <input
+                  type="radio"
+                  name="payment"
+                  id=""
+                  className="checkBox"
+                />
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
               </div>
             </div>
 
@@ -321,32 +460,56 @@ const CheckoutModalComponent = ({ payload, closeCheckoutOptions, auth }) => {
               . No minimum or maximum order.
               <br />
               . Make sure your card is still valid.
+<<<<<<< HEAD
               <br />. Ensure sufficient balance to cover this transaction.
+=======
+              <br />. Ensure sufficient balance to cover this
+              transaction.
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
             </div>
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
+<<<<<<< HEAD
               Sub Total: <span className="sub_total_div_span">₦{amount}</span>
+=======
+              Sub Total:{' '}
+              <span className="sub_total_div_span">₦{amount}</span>
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
             </div>
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             {/* ========== */}
             <div className="sub_total_div">
+<<<<<<< HEAD
               Delivery Fee: <span className="sub_total_div_span">₦0</span>
+=======
+              Delivery Fee:{' '}
+              <span className="sub_total_div_span">₦0</span>
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
             </div>
             {/* ========== */}
             {/* ========== */}
             <div className="secure_transac_text">
+<<<<<<< HEAD
               {" "}
+=======
+              {' '}
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
               Transactions are 100% Safe and Secure
             </div>
             {/* ========== */}
             {/* ========== */}
             <div className="transac_secure_div">
+<<<<<<< HEAD
               Total <span className="sub_total_div_span">₦{amount}</span>
+=======
+              Total{' '}
+              <span className="sub_total_div_span">₦{amount}</span>
+>>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
             </div>
             {/* ========== */}
             {/* ========== */}

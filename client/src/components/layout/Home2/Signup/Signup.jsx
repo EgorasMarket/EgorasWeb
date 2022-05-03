@@ -6,10 +6,10 @@ import { CustomAlert } from "../../../../CustomAlert";
 
 // import { setAlert } from ".";
 // import Alert from "../../Alert";
-import "../../../../css/signup.css";
-import { getAuthentication } from "../../../../actions/auth";
-import { faSpinner } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import '../../../../css/signup.css';
+import { getAuthentication } from '../../../../actions/auth';
+import { faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 const Signup = ({ getAuthentication }) => {
   const [userAuth, setUserAuth] = useState({
     // fullname: "",
@@ -64,11 +64,11 @@ const Signup = ({ getAuthentication }) => {
       setDisable(true);
     } else if (password === "") {
       setDisable(true);
-    } else if (phoneNumber === "") {
+    } else if (phoneNumber === '') {
       setDisable(true);
-    } else if (confirmPassword === "") {
+    } else if (confirmPassword === '') {
       setDisable(true);
-    } else if (InfoReason === "") {
+    } else if (InfoReason === '') {
       setDisable(true);
     } else if (isLoading == true) {
       setDisable(true);
@@ -84,7 +84,7 @@ const Signup = ({ getAuthentication }) => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "password":
+      case 'password':
         if (e.target.value.length <= 7) {
           setStrongPass(true);
           //console.log("password is not 8");
@@ -103,7 +103,7 @@ const Signup = ({ getAuthentication }) => {
     const { name, value } = e.target;
 
     switch (name) {
-      case "confirmPassword":
+      case 'confirmPassword':
         if (e.target.value !== password) {
           setMismatchPass(true);
           //console.log("password not match");
@@ -165,7 +165,7 @@ const Signup = ({ getAuthentication }) => {
       //console.log("okay Good Server");
       setIsLoading(false);
     } else {
-      setAlert(res.data.data.errors[0].msg, "danger");
+      setAlert(res.data.data.errors[0].msg, 'danger');
       setIsLoading(false);
       setDisable(false);
       setCustomAlert(true);
@@ -287,7 +287,7 @@ const Signup = ({ getAuthentication }) => {
                     <span className="input_title">Password</span>
                     <div className="passwrd_input_div">
                       <input
-                        type={visibility ? "text" : "password"}
+                        type={visibility ? 'text' : 'password'}
                         className="signup_input_field"
                         value={password}
                         name="password"
@@ -312,14 +312,18 @@ const Signup = ({ getAuthentication }) => {
                       )}
                     </div>
                     {strongPass == false ? null : (
-                      <div className="weak_pass_div">Password is weak</div>
+                      <div className="weak_pass_div">
+                        Password is weak
+                      </div>
                     )}
                   </div>
                   <div className="signup_input_field1_cont">
-                    <span className="input_title">Repeat Password</span>
+                    <span className="input_title">
+                      Repeat Password
+                    </span>
                     <div className="passwrd_input_div">
                       <input
-                        type={visibility2 ? "text" : "password"}
+                        type={visibility2 ? 'text' : 'password'}
                         className="signup_input_field"
                         value={confirmPassword}
                         name="confirmPassword"
@@ -367,7 +371,9 @@ const Signup = ({ getAuthentication }) => {
                       <option value="Instagram">Instagram</option>
                       <option value="Referred">Referred</option>
                       <option value="Online Blog">Online Blog</option>
-                      <option value="Google search">Google search</option>
+                      <option value="Google search">
+                        Google search
+                      </option>
                       <option value="Others">Others</option>
                     </select>
                     {/* ==[[[[[]]]]] */}
@@ -382,7 +388,7 @@ const Signup = ({ getAuthentication }) => {
                   >
                     {isLoading ? (
                       <span>
-                        Creating account{" "}
+                        Creating account{' '}
                         <FontAwesomeIcon
                           className="ml-2"
                           icon={faSpinner}
@@ -420,27 +426,27 @@ const Signup = ({ getAuthentication }) => {
                       <h4 className="check_mail">Check your email</h4>
 
                       <p>
-                        An activation email has been sent to{" "}
-                        <span className="email_name">{email}</span> with
-                        instructions to activate your account.
+                        An activation email has been sent to{' '}
+                        <span className="email_name">{email}</span>{' '}
+                        with instructions to activate your account.
                       </p>
                       <p className="note">
-                        {" "}
-                        * If the email doesn’t show up soon, check your spam
-                        folder or make sure you enter the email you used for
-                        registration.
+                        {' '}
+                        * If the email doesn’t show up soon, check
+                        your spam folder or make sure you enter the
+                        email you used for registration.
                       </p>
                     </div>
                   </div>
 
                   <div className="sign_up_btns">
                     <a href="/login" className="login2">
-                      {" "}
+                      {' '}
                       <button
                         className="sign_up_btn"
                         // type="submit"
                       >
-                        {" "}
+                        {' '}
                         Return to login
                       </button>
                     </a>

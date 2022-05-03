@@ -1,30 +1,34 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback } from 'react';
 
-import FavoriteIcon from "@mui/icons-material/Favorite";
-import Carousel from "react-multi-carousel";
-import "../../../../css/itemsDetailsPage.css";
-import axios from "axios";
-import "../Dashboard/DashboardStyles/dashboardCart.css";
-import { Calendar, DateRangePicker, DateRange } from "react-date-range";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import { addDays, differenceInCalendarDays } from "date-fns";
-import Dashboard_Checkout_Page from "../Dashboard/DashboardPages/Dashboard_Checkout_Page";
-import Checkout from "./CheckoutModalComponent";
-import "react-date-range/dist/styles.css"; // main style file
-import "react-date-range/dist/theme/default.css"; // theme css file
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import Carousel from 'react-multi-carousel';
+import '../../../../css/itemsDetailsPage.css';
+import axios from 'axios';
+import '../Dashboard/DashboardStyles/dashboardCart.css';
+import {
+  Calendar,
+  DateRangePicker,
+  DateRange,
+} from 'react-date-range';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+import { addDays, differenceInCalendarDays } from 'date-fns';
+import Dashboard_Checkout_Page from '../Dashboard/DashboardPages/Dashboard_Checkout_Page';
+import Checkout from './CheckoutModalComponent';
+import 'react-date-range/dist/styles.css'; // main style file
+import 'react-date-range/dist/theme/default.css'; // theme css file
 
 import {
   PRODUCT_LOADED,
   API_URL2 as api_url2,
-} from "../../../../actions/types";
-import { connect, useDispatch } from "react-redux";
-import ItemDetailComponent from "./ItemDetailCompnent";
-import LoginComp from "../Login/LoginComp";
+} from '../../../../actions/types';
+import { connect, useDispatch } from 'react-redux';
+import ItemDetailComponent from './ItemDetailCompnent';
+import LoginComp from '../Login/LoginComp';
 
 function ItemDetailsPage({ auth, match }) {
   const config = {
     headers: {
-      "Content-Type": "application/json",
+      'Content-Type': 'application/json',
     },
   };
   // //console.log(window.location.pathname.split("/"));
@@ -152,7 +156,7 @@ function ItemDetailsPage({ auth, match }) {
           status,
         } = data.data.data;
 
-        console.log(data.data.data, "king");
+        console.log(data.data.data, 'king');
         setPayload({
           amount,
           roundedAmount,
@@ -205,7 +209,10 @@ function ItemDetailsPage({ auth, match }) {
     <>
       {loginModal === false ? null : (
         <div className="checkout_main">
-          <div className="checkout_modal_out" onClick={CloseModal}></div>
+          <div
+            className="checkout_modal_out"
+            onClick={CloseModal}
+          ></div>
           {/* <div>Login</div> */}
           {/* <Dashboard_Checkout_Page
             cAmount={parseInt(productDetails.amount)}

@@ -734,6 +734,145 @@ const AdminSideBar = ({ auth }) => {
                     </a>
                   </>
                 ) : null}
+
+                {role1 === "BUSINESS_ADMIN" ? (
+                  <>
+                    <a
+                      href="/super_admin/register_user"
+                      className="link"
+                      id="register"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "register" && role1 === "BUSINESS_ADMIN"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        {/* { role1} */}
+                        Register
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/product_routes"
+                      className="link"
+                      id="product_route"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "product_route" &&
+                          role1 === "BUSINESS_ADMIN"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <ViewListIcon className="sidebarIcon" />
+                        {/* { role1} */}
+                        print
+                      </li>
+                    </a>
+                  </>
+                ) : // jfhfkf
+
+                null}
+
+                {role1 === "LOGISTICS" ? (
+                  <>
+                    <a
+                      href="/super_admin/Approved_products"
+                      className="link"
+                      id="allProd2"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "allProd2"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        Approved Products
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/route/all-products"
+                      className="link"
+                      id="allProd3"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "allProd3"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <Inventory2Icon className="sidebarIcon" />
+                        Products Routes
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/orders/all"
+                      className="link"
+                      id="order"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "order"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <Inventory2Icon className="sidebarIcon" />
+                        All Orders
+                      </li>
+                    </a>
+                  </>
+                ) : null}
+
+                {role1 === "WAREHOUSE" ? (
+                  <>
+                    <a
+                      href="/super_admin/Approved_products"
+                      className="link"
+                      id="allProd2"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "allProd2"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        Approved Products
+                      </li>
+                    </a>
+                    <a
+                      href="/super_admin/route/all-products"
+                      className="link"
+                      id="allProd3"
+                      onClick={changeBg}
+                    >
+                      <li
+                        className={
+                          activeBg == "allProd3"
+                            ? "sidebarListItem list-item-active"
+                            : "sidebarListItem"
+                        }
+                      >
+                        <GroupAddIcon className="sidebarIcon" />
+                        Products Routes
+                      </li>
+                    </a>
+                  </>
+                ) : null}
                 {/* ===================== */}
                 {/* ===================== */}
                 {/* ===================== */}
@@ -1344,6 +1483,10 @@ const AdminSideBar = ({ auth }) => {
                     </a>
                   </>
                 ) : null}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
+                {/* ===================== */}
 
                 {role1 === "WAREHOUSE" ? (
                   <>
