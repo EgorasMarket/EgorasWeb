@@ -539,6 +539,18 @@ const HomeUpdate = () => {
                   className="close_About_video_modal"
                   onClick={toggleAboutVideoModal}
                 />
+
+                <div style="padding:56.25% 0 0 0;position:relative;">
+                  <if
+                    src="https://player.vimeo.com/video/702600317?h=836afd9a85&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                    frameborder="0"
+                    allow="autoplay; fullscreen; picture-in-picture"
+                    allowfullscreen
+                    style="position:absolute;top:0;left:0;width:100%;height:100%;"
+                    title="EGORAS Store Opening"
+                  />
+                </div>
+
                 <div className="about_video_player">
                   <iframe
                     src="https://player.vimeo.com/video/703222250?h=f19a710398&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
@@ -598,101 +610,6 @@ const HomeUpdate = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
-      <section className="new_home_attributes_section4">
-        <div className="custom_container">
-          <div className="build_savings_area">
-            <div className="build_savings_area1">
-              <div className="compliment_number_title">
-                SAVE BETTER. CHOOSE EGORAS.
-              </div>
-              <div className="compliment_number_para">
-                Save to get any desired item with ease.
-              </div>
-              <a href="/savings">
-                <button className="compliment_btn">Start Saving</button>
-              </a>
-            </div>
-            <div className="build_savings_area2">
-              <div className="build_savings_area2_conts1">
-                <div
-                  className="build_savings_area2_conts1_box1"
-                  data-aos="fade-up"
-                >
-                  <ExitToAppIcon className="conts1_box1_contents_icon" />
-                  <div className="build_savings_area2_conts1_box1_contents">
-                    {" "}
-                    <div className="build_savings_area2_conts1_box1_title">
-                      Signing up.
-                    </div>
-                    <div className="build_savings_area2_conts1_box1_para">
-                      Easy application process with just your name, phone
-                      number, email address.
-                    </div>
-                  </div>
-                </div>
-                {/* ===== */}
-                {/* ===== */}
-                {/* ===== */}
-                <div
-                  className="build_savings_area2_conts1_box1"
-                  data-aos="fade-up"
-                >
-                  <AccountBalanceWalletIcon className="conts1_box1_contents_icon" />
-                  <div className="build_savings_area2_conts1_box1_contents">
-                    {" "}
-                    <div className="build_savings_area2_conts1_box1_title">
-                      Get your desired item(s).
-                    </div>
-                    <div className="build_savings_area2_conts1_box1_para">
-                      Get your desired item at an affordable price.
-                    </div>
-                  </div>
-                </div>
-              </div>
-              {/* ===== */}
-              {/* ===== */}
-              <div className="build_savings_area2_conts1">
-                <div
-                  className="build_savings_area2_conts1_box1"
-                  data-aos="fade-up"
-                >
-                  <ManageAccountsIcon className="conts1_box1_contents_icon" />
-                  <div className="build_savings_area2_conts1_box1_contents">
-                    {" "}
-                    <div className="build_savings_area2_conts1_box1_title">
-                      Budget Friendly.
-                    </div>
-                    <div className="build_savings_area2_conts1_box1_para">
-                      Our items are at an affordable price.
-                    </div>
-                  </div>
-                </div>
-                {/* ===== */}
-                {/* ===== */}
-                {/* ===== */}
-                <div
-                  className="build_savings_area2_conts1_box1"
-                  data-aos="fade-up"
-                >
-                  <GroupsIcon className="conts1_box1_contents_icon" />
-                  <div className="build_savings_area2_conts1_box1_contents">
-                    {" "}
-                    <div className="build_savings_area2_conts1_box1_title">
-                      Timely reminder.
-                    </div>
-                    <div className="build_savings_area2_conts1_box1_para">
-                      Get notifications via SMS/Emails about your saving
-                      progress.
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <img src="/img/left_line.svg" alt="" class="shape_eggg"></img>
-      </section>
 
       {/* ================== */}
       {/* ================== */}
@@ -714,12 +631,12 @@ const HomeUpdate = () => {
               ) : (
                 <>
                   <div className="show_prods_on_mobile">
-                    {term.slice(0, 15).map(
+                    {term.slice(0, 10).map(
                       (asset) => (
                         // if (product_category_desc === asset.product_category_desc) {
                         // return (
                         <a
-                          href={`/dashboard/products/details/${
+                          href={`/products/details/${
                             asset.id
                           }/${asset.product_name.replace(/\s+/g, "-")}`}
                         >
@@ -823,7 +740,7 @@ const HomeUpdate = () => {
                     swipeable={true}
                     style={{ height: "25em" }}
                   >
-                    {term.map((asset) => (
+                    {term.slice(0, 15).map((asset) => (
                       <a
                         href={`/dashboard/products/details/${
                           asset.id
