@@ -335,10 +335,10 @@ const submit5 = async (e) => {
 
 const submit6 = async (e) => { 
   e.preventDefault();
- setBtnText("Saving....");
- setIsLoading(true);
-let _price = [parseEther(prices.toString(), "wei").toString()];
-let _ticker = [tickers];
+  setBtnText("Saving....");
+  setIsLoading(true);
+  let _price = [parseEther(prices.toString(), "wei").toString()];
+  let _ticker = [tickers];
 
     
     let ret = await updateTickerPricesImpl(_price, _ticker,
@@ -368,7 +368,7 @@ const isStageThreeIsValid =   address.length > 9 && !isLoading;
   
       <div className='container py-5'>
         <div className='row'>
-          <div className='col-md-8 offset-md-2'>
+          <div style={{marginTop: '140px'}} className='col-md-8 offset-md-2'>
            
            {!isSuccess ? ( 
             <>

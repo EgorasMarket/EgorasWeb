@@ -1,25 +1,8 @@
 {
-<<<<<<< HEAD
-  "name": "nixcon",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "start": "node server",
-    "server": "nodemon server",
-    "build": "react-scripts build",
-    "client": "npm start --prefix client",
-    "dev": "concurrently \"npm run server\" \"npm run client\""
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-=======
   "name": "client",
   "version": "0.1.0",
   "homepage": "http://localhost:3000",
   "private": true,
->>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
   "dependencies": {
     "@emotion/react": "^11.4.1",
     "@emotion/styled": "^11.3.0",
@@ -51,26 +34,6 @@
     "axios": "^0.21.4",
     "bootstrap": "^4.5.0",
     "d3-array": "^3.1.1",
-<<<<<<< HEAD
-    "echarts-for-react": "^3.0.2",
-    "express": "^4.17.1",
-    "express-validator": "^6.6.0",
-    "flutterwave-react-v3": "^1.2.0",
-    "framer-motion": "^4.1.17",
-    "gravatar": "^1.8.0",
-    "imgur": "^0.3.1",
-    "jsonwebtoken": "^8.5.1",
-    "moment": "^2.29.1",
-    "mongoose": "^5.9.15",
-    "mysql": "^2.18.1",
-    "mysql2": "^2.1.0",
-    "node-cron": "^2.0.3",
-    "print-js": "^1.6.0",
-    "react": "^16.14.0",
-    "react-carousel-minimal": "^1.4.1",
-    "react-chakra-slide-show": "^1.0.11",
-    "react-charty": "^0.1.7",
-=======
     "draft-js": "^0.11.6",
     "draftjs-to-html": "^0.9.1",
     "ethers": "^5.0.7",
@@ -92,7 +55,6 @@
     "react-charty": "^0.1.7",
     "react-countdown-now": "^2.1.2",
     "react-date-picker": "^8.4.0",
->>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
     "react-date-range": "^1.4.0",
     "react-datepicker": "^4.7.0",
     "react-dom": "^17.0.0",
@@ -100,16 +62,11 @@
     "react-image-gallery": "^1.2.7",
     "react-lite-youtube-embed": "^0.4.3",
     "react-loading-icons": "^1.0.8",
-<<<<<<< HEAD
-    "react-multi-carousel": "^2.8.0",
-    "react-number-format": "^4.9.1",
-=======
     "react-minimal-pie-chart": "^8.2.0",
     "react-moment": "^0.9.7",
     "react-multi-carousel": "^2.6.1",
     "react-number-format": "^4.4.1",
     "react-redux": "^7.2.0",
->>>>>>> 945329f495b14abcb83ebc5b62677951015a2b04
     "react-responsive-carousel": "^3.2.22",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.4.1",
