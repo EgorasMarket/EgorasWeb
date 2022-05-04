@@ -153,7 +153,83 @@
   padding-left: 1em;
   transition: 0.3s ease-in-out;
 }
+.quality_standards_section {
+  background: #f9f9f9;
+  padding: 2em 0em;
+  position: relative;
+}
+.quality_standards_cont {
+  padding: 4em;
+  background: #fff;
+  border-radius: 10px;
+  margin: 1em;
+  display: flex;
+  /* align-items: center; */
+  justify-content: space-between;
+  gap: 10px;
+}
 
+.quality_standards_cont1 {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  width: 45%;
+}
+.quality_standards_cont1Txt {
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 40px;
+}
+.qualityStandard_btn {
+  width: 50%;
+  padding: 1em 0em;
+  border-radius: 5px;
+  border: none;
+  background: #229e54;
+  color: #fff;
+}
+.quality_standards_dots {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  border-radius: 100px;
+  z-index: 0;
+}
+.quality_standards_cont2 {
+  width: 55%;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  flex: 1.5;
+  gap: 3em;
+}
+.quality_standards_cont2_card1 {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+.quality_standards_cont2_card1_icon {
+  background: #daf9e7 !important;
+  width: 50px !important;
+  padding: 10px;
+  border-radius: 50px;
+  color: #229e54 !important;
+  height: 50px !important;
+}
+.quality_standards_cont2_card1_text_para {
+  font-size: 14px;
+  text-align: center;
+  color: #757575;
+  font-weight: 300;
+}
+.quality_standards_cont2_card1_text_cont {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
 .h_update_hero_area1_para_btn2:hover {
   border: solid;
   border-color: #e4a788;
@@ -736,6 +812,137 @@ button.compliment_btn {
   position: relative;
   z-index: 5;
 }
+
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+
+.about_video_section {
+  padding: 6em 0em;
+  position: relative;
+  background: #f5f5f5;
+}
+.about_video_thumbnail_cont {
+  padding: 8em 0em;
+  position: relative;
+  padding-bottom: 0;
+}
+.about_video_thumbnail_cont_bg {
+  background: #000;
+  border-radius: 20px;
+  height: 390px;
+  max-width: 1200px;
+  width: 100%;
+  border-radius: 14px;
+  border-radius: 24px;
+  margin: auto;
+  width: 640px;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  justify-content: center;
+}
+.aboutVideo_header_cont {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0px;
+}
+.about_video_header_title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #229e54;
+}
+.about_video_header_txt {
+  /* font-size: 59px; */
+  text-align: center;
+  /* font-weight: 900; */
+  color: #333333;
+  line-height: 60px;
+  font-size: 48px;
+  font-weight: 800;
+  /* line-height: 54px;*/
+}
+.thumbnail_btn {
+  position: absolute;
+  top: 40%;
+  bottom: 50%;
+  left: 45%;
+  width: 90px;
+  cursor: pointer;
+  z-index: 1;
+  transition: transform 0.2s, -webkit-transform 0.2s;
+}
+.thumbnail_btn:hover {
+  transform: scale(1.1);
+  /* transition: 0.3s linear; */
+}
+
+.about_video_div {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  width: 100vw;
+  height: 100vh;
+  padding: 4em;
+  overflow: scroll;
+  background: #000000ed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* flex-direction: column; */
+}
+
+.about_video_player {
+  padding: 35%;
+  position: relative;
+}
+.close_About_video_modal {
+  position: absolute;
+  z-index: 5;
+  color: #fff !important;
+  top: 30px;
+  right: 2%;
+  font-size: 35px !important;
+  cursor: pointer;
+}
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+section.productsDisplaySection {
+  padding: 4em 0em;
+  position: relative;
+  overflow: hidden;
+}
+.home_products_display_contc {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.home_products_body_head {
+  font-size: 20px;
+  font-weight: 600;
+}
+.home_products_body {
+}
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
+/* ================= */
 /* ================= */
 /* ================= */
 /* ================= */

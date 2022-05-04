@@ -79,7 +79,7 @@ const TokenEUSD = () => {
                 >
                   Convert eNGN
                 </button>
-                <button
+                {/* <button
                   id="redeem"
                   style={{ marginTop: "50px" }}
                   class="jsx-4146495177 btn-hero d-flex align-items-center justify-content-center mx-auto  zIndex2"
@@ -87,7 +87,7 @@ const TokenEUSD = () => {
                 >
                   Redeem eNGN
                   {/* Redeem eNGN */}
-                </button>
+                {/* </button> */} 
               </div>
             </div>
           </div>

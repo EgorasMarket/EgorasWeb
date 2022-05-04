@@ -2,14 +2,11 @@ import React, { useState, useEffect } from "react";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import axios from "axios";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import GroupsIcon from "@mui/icons-material/Groups";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Slider from "react-slick";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import CloseIcon from "@mui/icons-material/Close";
@@ -19,10 +16,6 @@ import Carousel from "react-multi-carousel";
 import "../../../css/market_home.css";
 import "../../../css/about.css";
 import "../../../css/aboutMobile.css";
-
-import { API_URL2 as api_url2 } from "../../../actions/types";
-import { numberWithCommas } from "../../../static";
-import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
 
 const responsive = {
   superLargeDesktop: {
@@ -66,42 +59,6 @@ const responsive1 = {
     items: 1,
   },
 };
-
-const responsive8 = {
-  superLargeDesktop: {
-    // the naming can be any, depends on you.
-    breakpoint: { max: 4000, min: 3000 },
-    items: 8,
-  },
-  desktop: {
-    breakpoint: { max: 3000, min: 1680 },
-    items: 6,
-  },
-  tablet: {
-    breakpoint: { max: 1680, min: 1420 },
-    items: 5,
-  },
-  tabletMedium: {
-    breakpoint: { max: 1420, min: 1024 },
-    items: 4,
-  },
-  tabletSmall: {
-    breakpoint: { max: 1024, min: 810 },
-    items: 4,
-  },
-  mobile: {
-    breakpoint: { max: 810, min: 590 },
-    items: 3,
-  },
-  mobileSmall: {
-    breakpoint: { max: 590, min: 400 },
-    items: 2,
-  },
-  mobileSmaller: {
-    breakpoint: { max: 400, min: 0 },
-    items: 2,
-  },
-};
 const responsive3 = {
   desktop: {
     // the naming can be any, depends on you.
@@ -110,13 +67,8 @@ const responsive3 = {
   },
 };
 const HomeUpdate = () => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
   const [aboutVideoModal, setAboutVideoModal] = useState(false);
-  const [term, setTerm] = useState([]);
+
   const toggleAboutVideoModal = () => {
     if (aboutVideoModal === true) {
       setAboutVideoModal(false);
@@ -136,25 +88,11 @@ const HomeUpdate = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
   };
-  useEffect(() => {
-    axios
-      .get(api_url2 + "/v1/product/retrieve/approved/products", null, config)
-      .then((data) => {
-        console.log(data.data, "item detail component ");
 
-        setTerm(data.data.data);
-
-        // setTerm(data.data.data)
-      })
-      .catch((err) => {
-        //console.log(err); // "oh, no!"
-      });
-  }, []);
-  const text = "No Products Found";
   return (
     <div style={{ overflow: "hidden" }}>
       <section className="h_update_hero_section">
-        <div className="custom_container">
+        <div className="container">
           <Carousel
             responsive={responsive3}
             className="home_page_carousel"
@@ -533,7 +471,7 @@ const HomeUpdate = () => {
       {/* =========== */}
 
       <section className="about_video_section">
-        <div className="custom_container">
+        <div className="container">
           {aboutVideoModal === true ? (
             <div className="about_video_div">
               <div className="container">
@@ -541,11 +479,9 @@ const HomeUpdate = () => {
                   className="close_About_video_modal"
                   onClick={toggleAboutVideoModal}
                 />
-
-
                 <div className="about_video_player">
                   <iframe
-                     src="https://player.vimeo.com/video/702600317?h=836afd9a85&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                    src="https://player.vimeo.com/video/703222250?h=f19a710398&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen
@@ -566,7 +502,7 @@ const HomeUpdate = () => {
           <div className="aboutVideo_header_cont">
             <div className="about_video_header_title">Egoras Triller</div>
             <div className="about_video_header_txt">
-              Watch the Egoras documentary about the decentralized money at the
+              Watch the Terra documentary about the decentralized money at the
               heart of an open financial ecosystem
             </div>
           </div>
@@ -593,264 +529,12 @@ const HomeUpdate = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
-
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-
-      <section className="productsDisplaySection">
-        <div className="custom_container">
-          <div className="home_products_display_cont" id="computerAcc">
-            <div className="home_products_body_head">
-              <a href="/market" className="shop_heading_body">
-                <div className="shop_arrow_div">
-
-                         Shop our selections <ArrowForwardIcon className="arrow_alt_forward" />
-                </div>
-
-                <span className="shop_heading_para">
-                Curated collections hand-picked by Etsy editors.
-                         </span>
-              </a>
-
-              
-            </div>
-            <div className="products_display_body_conts_pad">
-              {term.length <= 0 ? (
-                <NoDataFoundComponent text={text} />
-              ) : (
-                <>
-                  <div className="show_prods_on_mobile">
-                    {term.slice(0, 10).map(
-                      (asset) => (
-                        // if (product_category_desc === asset.product_category_desc) {
-                        // return (
-                        <a
-                          href={`/products/details/${
-                            asset.id
-                          }/${asset.product_name.replace(/\s+/g, "-")}`}
-                        >
-                          <li className="carous_list no_marg inventory_cards">
-                            <div
-                              className="storeTiles_storeTileContainer__HoGEa"
-                              style={{
-                                backgroundImage: `url(${asset.product_image})`,
-                                //           height: "200px",
-                                //           width: "100%",
-                                //           backgroundRepeat: "no-repeat",
-                                //           backgroundSize: "cover",
-                                //           borderRadius: "8px",
-                                //           borderBottomLeftRadius: "0px",
-                                //           borderBottomRightRadius: "0px",
-                                //   backgroundPositionY: "center",
-                              }}
-                            >
-                              {asset.payment_type == "OUTRIGHT" ? (
-                                <div className="out_right_install_tag">
-                                  <button
-                                    className="out_right_install_tag_btn"
-                                    style={{
-                                      background: "#3ebc6e",
-                                      borderColor: "#3ebc6e",
-                                    }}
-                                  >
-                                    Outright
-                                  </button>
-                                </div>
-                              ) : (
-                                <div className="out_right_install_tag">
-                                  <button className="out_right_install_tag_btn">
-                                    Savings
-                                  </button>
-                                </div>
-                              )}
-                              <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                                <div className="asset_name">
-                                  {asset.product_name}
-                                </div>
-                                <div class="asset_prices_div">
-                                  <div className="asset_title">
-                                    {asset.payment_type == "OUTRIGHT" ? (
-                                      <span className="init_amount">
-                                        ₦{numberWithCommas(asset.amount)}{" "}
-                                      </span>
-                                    ) : (
-                                      <span className="init_amount">
-                                        ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                      </span>
-                                    )}
-                                    {asset.payment_type == "OUTRIGHT" ? (
-                                      <span className="slashed_price">
-                                        ₦{numberWithCommas(asset.amount * 2)}
-                                      </span>
-                                    ) : (
-                                      <span className="slashed_price">
-                                        ₦
-                                        {numberWithCommas(
-                                          asset.roundedAmount * 2
-                                        )}
-                                      </span>
-                                    )}
-                                  </div>
-                                  {asset.payment_type == "OUTRIGHT" ? null : (
-                                    <div className="amount_per_day_div">
-                                      ₦
-                                      {numberWithCommas(
-                                        (
-                                          asset.amount / asset.product_duration
-                                        ).toFixed()
-                                      )}
-                                      <span className="per_day_symbol">
-                                        {" "}
-                                        / perweek
-                                      </span>
-                                    </div>
-                                  )}
-                                </div>
-                              </div>
-                              {/* </a> */}
-                            </div>
-                          </li>
-                        </a>
-                      )
-                      // );
-                    )}
-                  </div>
-                  <Carousel
-                    responsive={responsive8}
-                    className="partnerCards LEFTARROW market_carous"
-                    showDots={false}
-                    //   infinite={false}
-                    autoPlay={false}
-                    autoPlaySpeed={6000}
-                    transitionDelay={"2s"}
-                    infinite={false}
-                    draggable={true}
-                    // transitionDuration={500}
-                    swipeable={true}
-                    style={{ height: "25em" }}
-                  >
-                    {term.slice(0, 15).map((asset) => (
-                      <a
-                        href={`/products/details/${
-                          asset.id
-                        }/${asset.product_name.replace(/\s+/g, "-")}`}
-                      >
-                        <li className="carous_list">
-                          <div
-                            className="storeTiles_storeTileContainer__HoGEa"
-                            style={{
-                              backgroundImage: `url(${asset.product_image})`,
-                              //           height: "200px",
-                              //           width: "100%",
-                              //           backgroundRepeat: "no-repeat",
-                              //           backgroundSize: "cover",
-                              //           borderRadius: "8px",
-                              //           borderBottomLeftRadius: "0px",
-                              //           borderBottomRightRadius: "0px",
-                              //   backgroundPositionY: "center",
-                            }}
-                          >
-                            {asset.payment_type == "OUTRIGHT" ? (
-                              <div className="out_right_install_tag">
-                                <button
-                                  className="out_right_install_tag_btn"
-                                  style={{
-                                    background: "#3ebc6e",
-                                    borderColor: "#3ebc6e",
-                                  }}
-                                >
-                                  Outright
-                                </button>
-                              </div>
-                            ) : (
-                              <div className="out_right_install_tag">
-                                <button className="out_right_install_tag_btn">
-                                  Savings
-                                </button>
-                              </div>
-                            )}
-                            <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                              <div className="asset_name">
-                                {asset.product_name}
-                              </div>
-                              <div class="asset_prices_div">
-                                <div className="asset_title">
-                                  {asset.payment_type == "OUTRIGHT" ? (
-                                    <span className="init_amount">
-                                      ₦{numberWithCommas(asset.amount)}{" "}
-                                    </span>
-                                  ) : (
-                                    <span className="init_amount">
-                                      ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                                    </span>
-                                  )}
-                                  {asset.payment_type == "OUTRIGHT" ? (
-                                    <span className="slashed_price">
-                                      ₦{numberWithCommas(asset.amount * 2)}
-                                    </span>
-                                  ) : (
-                                    <span className="slashed_price">
-                                      ₦
-                                      {numberWithCommas(
-                                        asset.roundedAmount * 2
-                                      )}
-                                    </span>
-                                  )}
-                                </div>
-                                {asset.payment_type == "OUTRIGHT" ? null : (
-                                  <div className="amount_per_day_div">
-                                    ₦
-                                    {numberWithCommas(
-                                      (
-                                        asset.amount / asset.product_duration
-                                      ).toFixed()
-                                    )}
-                                    <span className="per_day_symbol">
-                                      {" "}
-                                      / perweek
-                                    </span>
-                                  </div>
-                                )}
-                              </div>
-                            </div>
-                            {/* </a> */}
-                          </div>
-                        </li>
-                      </a>
-                    ))}
-                  </Carousel>
-                </>
-              )}
-            </div>
-            {/* </div> */}
-          </div>
-        </div>
-      </section>
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
-      {/* ================== */}
       <section className="quality_standards_section">
-        <div className="custom_container">
+        <div className="container">
           <div className="quality_standards_cont">
             <div className="quality_standards_cont1">
               <div className="quality_standards_cont1Txt">
-                Welcome to Egoras Market, the refurbished (super) market.
+                Welcome to Back Market, the refurbished (super) market.
               </div>
               <button className="qualityStandard_btn">
                 Our quality standards
@@ -919,12 +603,275 @@ const HomeUpdate = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
+      <section className="new_home_attributes_section1">
+        <div className="container">
+          <div className="new_home_attributes_area">
+            <div className="new_home_attributes_area1" data-aos="fade-up">
+              <div className="new_home_attributes_area1_txt">
+                {" "}
+                <h4 className="new_home_attributes_area1_txt_head">
+                  INSTANT INTEREST FREE LOANS.
+                </h4>
+                <p className="new_home_attributes_area1_txt_para">
+                  Seal the deal in just 3 steps! Fix an appointment with any
+                  Egoras branch nearest to you, get a value of your collateral,
+                  and finally get your loan sent to you.
+                </p>
+              </div>
+              <a href="/loan" className="new_home_attributes_area1_link">
+                Get A loan In Minutes{" "}
+                <ArrowForwardIosIcon className="link_arrow" />
+              </a>
+            </div>{" "}
+            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
+              <img src="/img/take_loan.svg" alt="" className="take_loan_img" />
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* <section className="new_hero_section2">
+        <div className="container">
+          <div className="new_hero_section2_area">
+            <div className="operations_cards_cont" data-aos="fade-up">
+              <div className="operations_card1">
+                <div className="operations_card1_title">
+                  Pledge your personal items to access
+                  <span className="hover_color">
+                    {" "}
+                    interest-free loans{" "}
+                  </span>{" "}
+                  after evaluation.
+                </div>
+                <div className="operations_card1_img">
+                  <img
+                    src="/img/percentage_icon_1.svg"
+                    alt=""
+                    className="operations_card1_icon1"
+                  />
+                  <img
+                    src="/img/percentage_icon_2.svg"
+                    alt=""
+                    className="operations_card1_icon2"
+                  />
+                </div>
+              </div>
+              <div className="operations_card1">
+                <div className="operations_card1_title">
+                  Save up to get desired
+                  <span className="hover_color"> items </span> over a period of
+                  time.
+                </div>
+                <div className="operations_card1_img">
+                  <img
+                    src="/img/delivery_icon1.svg"
+                    alt=""
+                    className="operations_card1_icon1a"
+                  />
+                  <img
+                    src="/img/delivery_icon2.svg"
+                    alt=""
+                    className="operations_card1_icon2a"
+                  />
+                </div>
+              </div>
+              <div className="operations_card1">
+                <div className="operations_card1_title">
+                  Instant buy off of items after
+                  <span className="hover_color"> evaluation.</span>
+                </div>
+                <div className="operations_card1_img">
+                  <img
+                    src="/img/assets_icon1.svg"
+                    alt=""
+                    className="operations_card1_icon1b"
+                  />
+                  <img
+                    src="/img/assets_icon2.svg"
+                    alt=""
+                    className="operations_card1_icon2b"
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <img
+          src="/img/new_left_dots.svg"
+          alt=""
+          className="new_hero_left_dots"
+        />
+      </section> */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      <section className="new_home_attributes_section4">
+        <div className="container">
+          <div className="build_savings_area">
+            <div className="build_savings_area1">
+              <div className="compliment_number_title">
+                SAVE BETTER. CHOOSE EGORAS.
+              </div>
+              <div className="compliment_number_para">
+                Save to get any desired item with ease.
+              </div>
+              <a href="/savings">
+                <button className="compliment_btn">Start Saving</button>
+              </a>
+            </div>
+            <div className="build_savings_area2">
+              <div className="build_savings_area2_conts1">
+                <div
+                  className="build_savings_area2_conts1_box1"
+                  data-aos="fade-up"
+                >
+                  <ExitToAppIcon className="conts1_box1_contents_icon" />
+                  <div className="build_savings_area2_conts1_box1_contents">
+                    {" "}
+                    <div className="build_savings_area2_conts1_box1_title">
+                      Signing up.
+                    </div>
+                    <div className="build_savings_area2_conts1_box1_para">
+                      Easy application process with just your name, phone
+                      number, email address.
+                    </div>
+                  </div>
+                </div>
+                {/* ===== */}
+                {/* ===== */}
+                {/* ===== */}
+                <div
+                  className="build_savings_area2_conts1_box1"
+                  data-aos="fade-up"
+                >
+                  <AccountBalanceWalletIcon className="conts1_box1_contents_icon" />
+                  <div className="build_savings_area2_conts1_box1_contents">
+                    {" "}
+                    <div className="build_savings_area2_conts1_box1_title">
+                      Get your desired item(s).
+                    </div>
+                    <div className="build_savings_area2_conts1_box1_para">
+                      Get your desired item at an affordable price.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* ===== */}
+              {/* ===== */}
+              <div className="build_savings_area2_conts1">
+                <div
+                  className="build_savings_area2_conts1_box1"
+                  data-aos="fade-up"
+                >
+                  <ManageAccountsIcon className="conts1_box1_contents_icon" />
+                  <div className="build_savings_area2_conts1_box1_contents">
+                    {" "}
+                    <div className="build_savings_area2_conts1_box1_title">
+                      Budget Friendly.
+                    </div>
+                    <div className="build_savings_area2_conts1_box1_para">
+                      Our items are at an affordable price.
+                    </div>
+                  </div>
+                </div>
+                {/* ===== */}
+                {/* ===== */}
+                {/* ===== */}
+                <div
+                  className="build_savings_area2_conts1_box1"
+                  data-aos="fade-up"
+                >
+                  <GroupsIcon className="conts1_box1_contents_icon" />
+                  <div className="build_savings_area2_conts1_box1_contents">
+                    {" "}
+                    <div className="build_savings_area2_conts1_box1_title">
+                      Timely reminder.
+                    </div>
+                    <div className="build_savings_area2_conts1_box1_para">
+                      Get notifications via SMS/Emails about your saving
+                      progress.
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
 
+        <img src="/img/left_line.svg" alt="" class="shape_eggg"></img>
+      </section>
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
+      <section className="new_home_attributes_section1">
+        <div className="container">
+          <div className="new_home_attributes_area">
+            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
+              <img
+                src="/img/new_save_money_img.svg"
+                alt=""
+                className="take_loan_img2"
+              />
+            </div>
+            <div className="new_home_attributes_area1" data-aos="fade-up">
+              <div className="new_home_attributes_area1_txt">
+                {" "}
+                <h4 className="new_home_attributes_area1_txt_head">
+                  GOAL ORIENTED SAVINGS.
+                </h4>
+                <p className="new_home_attributes_area1_txt_para">
+                  Acquire items with ease through our target savings and get
+                  rewarded.
+                </p>
+              </div>
+              <a href="#" className="new_home_attributes_area1_link">
+                Start Saving In Minutes{" "}
+                <ArrowForwardIosIcon className="link_arrow" />
+              </a>
+            </div>{" "}
+          </div>
+        </div>
 
+        <img src="/img/new_abstract_img.svg" alt="" class="shape_eggg2"></img>
+      </section>
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      <section className="new_home_attributes_section4">
+        <div className="container">
+          <div className="new_home_attributes_area rev_me">
+            <div className="new_home_attributes_area1" data-aos="fade-up">
+              <div className="new_home_attributes_area1_txt">
+                {" "}
+                <h4 className="new_home_attributes_area1_txt_head">
+                  Become A Validator
+                </h4>
+                <p className="new_home_attributes_area1_txt_para">
+                  With Egoras Protocol, you help disburse funds by voting for
+                  proposed collaterals.
+                </p>
+              </div>
+              <a href="/validator" className="new_home_attributes_area1_link">
+                Back A loan Now <ArrowForwardIosIcon className="link_arrow" />
+              </a>
+            </div>{" "}
+            <div className="new_home_attributes_area2" data-aos="zoom-in-up">
+              <img
+                src="/img/validated_img.svg"
+                alt=""
+                className="take_loan_img5"
+              />
+            </div>
+          </div>
+        </div>
+        {/* <img src="/img/left_line.svg" alt="" class="shape_eggg3"></img> */}
+      </section>
       {/* ======== */}
       {/* ======== */}
       {/* ======== */}
@@ -935,7 +882,7 @@ const HomeUpdate = () => {
       {/* ============== */}
       {/* ============== */}
       <section className="gtexploreSection">
-        <div className="custom_container">
+        <div className="container">
           <div
             className="gtexploreArea"
             data-aos="fade-up"

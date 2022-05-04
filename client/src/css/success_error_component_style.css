@@ -12,6 +12,8 @@
   animation: fade_in 0.5s ease-in-out;
   margin: auto;
   text-align: center;
+  max-width: 420px;
+    width: 100%;
 }
 @keyframes fade_in {
   0% {

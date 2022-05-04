@@ -43,6 +43,7 @@
   color: #000;
   position: relative;
   transition: 0.3s ease-in-out;
+  font-size: 12px;
 }
 .header-area {
   display: flex;
@@ -170,7 +171,7 @@
   gap: 10px;
 }
 .header_search {
-  width: 100%;
+  width: 70%;
   position: relative;
 }
 .header_search_bar {
@@ -191,7 +192,7 @@
   z-index: 1;
 }
 .header_search {
-  width: 100%;
+  width: 70%;
   position: relative;
 }
 .header_search_bar {
