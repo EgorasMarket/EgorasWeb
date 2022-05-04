@@ -124,6 +124,30 @@ const HomeUpdate = () => {
       setAboutVideoModal(true);
     }
   };
+
+  const FeaturedLogos=[
+    {
+      img:"/img/featured_logos/featured1.svg"
+    },
+    {
+      img:"/img/featured_logos/featured2.svg"
+    },
+    {
+      img:"/img/featured_logos/featured3.svg"
+    },
+    {
+      img:"/img/featured_logos/featured4.svg"
+    },
+    {
+      img:"/img/featured_logos/featured5.svg"
+    },
+    {
+      img:"/img/featured_logos/featured6.svg"
+    },
+    {
+      img:"/img/featured_logos/featured7.svg"
+    },
+  ]
   const settings = {
     dots: false,
     fade: true,
@@ -587,6 +611,7 @@ const HomeUpdate = () => {
           </div>
           {/* <script src="https://player.vimeo.com/api/player.js"></script> */}
         </div>
+        <img src="/img/Abstract_lines.svg" alt=""  className="video_abstract_lines"/>
       </section>
 
       {/* ================== */}
@@ -659,7 +684,7 @@ const HomeUpdate = () => {
                             >
                               {asset.payment_type == "OUTRIGHT" ? (
                                 <div className="out_right_install_tag">
-                                  <button
+                                  {/* <button
                                     className="out_right_install_tag_btn"
                                     style={{
                                       background: "#3ebc6e",
@@ -667,13 +692,13 @@ const HomeUpdate = () => {
                                     }}
                                   >
                                     Outright
-                                  </button>
+                                  </button> */}
                                 </div>
                               ) : (
                                 <div className="out_right_install_tag">
-                                  <button className="out_right_install_tag_btn">
+                                  {/* <button className="out_right_install_tag_btn">
                                     Savings
-                                  </button>
+                                  </button> */}
                                 </div>
                               )}
                               <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -765,7 +790,7 @@ const HomeUpdate = () => {
                           >
                             {asset.payment_type == "OUTRIGHT" ? (
                               <div className="out_right_install_tag">
-                                <button
+                                {/* <button
                                   className="out_right_install_tag_btn"
                                   style={{
                                     background: "#3ebc6e",
@@ -773,13 +798,13 @@ const HomeUpdate = () => {
                                   }}
                                 >
                                   Outright
-                                </button>
+                                </button> */}
                               </div>
                             ) : (
                               <div className="out_right_install_tag">
-                                <button className="out_right_install_tag_btn">
+                                {/* <button className="out_right_install_tag_btn">
                                   Savings
-                                </button>
+                                </button> */}
                               </div>
                             )}
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -934,7 +959,7 @@ const HomeUpdate = () => {
       {/* ============== */}
       {/* ============== */}
       {/* ============== */}
-      <section className="gtexploreSection">
+      {/* <section className="gtexploreSection">
         <div className="custom_container">
           <div
             className="gtexploreArea"
@@ -964,7 +989,7 @@ const HomeUpdate = () => {
             />
           </div>
         </div>
-      </section>
+      </section> */}
       {/* ============== */}
       {/* ============== */}
       {/* ============== */}
@@ -975,84 +1000,41 @@ const HomeUpdate = () => {
       {/* ============== */}
       {/* ============== */}
       <section className="featured_section">
-        <div className="container">
-          <div className="gtstoriesArea">
+        <div className="custom_container">
+          <div className="featured_logos_area">
+            <div className="featured_in_head">
+              Featured In
+            </div>
             {/* Carousel start==============================
 ==============================================
 ============================= */}
             <Carousel
               responsive={responsive}
-              className="partnerCards featured_logos"
+              className="featured_logos"
               showDots={false}
               //   infinite={false}
-              autoPlay={true}
-              autoPlaySpeed={3000}
+              autoPlay={false}
+              // autoPlaySpeed={10000}
               infinite={true}
               draggable={true}
               swipeable={true}
             >
-              <div className="partnerLogo1">
-                <span className="partnerLink">
+
+              {
+                FeaturedLogos.map((data) => (
+                           <div className="featured_in_logos_cont">
+              
                   {" "}
                   <img
-                    src="/img/coin-telegraph.svg"
+                    src={data.img}
                     alt=""
-                    className="partnerlog"
+                    className="featured_logo"
                   />
-                </span>
+             
               </div>
-              <div className="partnerLogo1">
-                <span className="partnerLink">
-                  {" "}
-                  <img
-                    src="/img/YAHOOFINANCE.svg"
-                    alt=""
-                    className="partnerlog"
-                  />
-                </span>
-              </div>
-              <div className="partnerLogo1">
-                <span className="partnerLink">
-                  {" "}
-                  <img src="/img/NEWSBTC.svg" alt="" className="partnerlog" />
-                </span>
-              </div>
-              <div className="partnerLogo1">
-                <span className="partnerLink">
-                  {" "}
-                  <img src="/img/APNEWS.svg" alt="" className="partnerlog" />
-                </span>
-              </div>
-              <div className="partnerLogo1">
-                <span className="partnerLink">
-                  {" "}
-                  <img
-                    src="/img/INDEPENDENT.svg"
-                    alt=""
-                    className="partnerlog"
-                  />
-                </span>
-              </div>
-              <div className="partnerLogo1">
-                <span className="partnerLink">
-                  {" "}
-                  <img
-                    src="/img/THEGUARDIAN.svg"
-                    alt=""
-                    className="partnerlog"
-                  />
-                </span>
-              </div>
-              <div className="partnerLogo1">
-                <span className="partnerLink">
-                  {" "}
-                  <img
-                    src="/img/NAIRAMETRICS.svg"
-                    alt=""
-                    className="partnerlog"
-                  />
-                </span>
-              </div>
+                ))
+              }
+     
             </Carousel>
             {/* Carousel end==============================
 ==============================================
