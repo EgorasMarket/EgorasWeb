@@ -2,12 +2,14 @@ import React, { useState, useEffect } from "react";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ExitToAppIcon from "@mui/icons-material/ExitToApp";
-import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+// import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import axios from "axios";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
+import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
 import GroupsIcon from "@mui/icons-material/Groups";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
 import Slider from "react-slick";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import CloseIcon from "@mui/icons-material/Close";
@@ -540,20 +542,10 @@ const HomeUpdate = () => {
                   onClick={toggleAboutVideoModal}
                 />
 
-                <div style="padding:56.25% 0 0 0;position:relative;">
-                  <if
-                    src="https://player.vimeo.com/video/702600317?h=836afd9a85&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
-                    frameborder="0"
-                    allow="autoplay; fullscreen; picture-in-picture"
-                    allowfullscreen
-                    style="position:absolute;top:0;left:0;width:100%;height:100%;"
-                    title="EGORAS Store Opening"
-                  />
-                </div>
 
                 <div className="about_video_player">
                   <iframe
-                    src="https://player.vimeo.com/video/703222250?h=f19a710398&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                     src="https://player.vimeo.com/video/702600317?h=836afd9a85&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen
@@ -574,7 +566,7 @@ const HomeUpdate = () => {
           <div className="aboutVideo_header_cont">
             <div className="about_video_header_title">Egoras Triller</div>
             <div className="about_video_header_txt">
-              Watch the Terra documentary about the decentralized money at the
+              Watch the Egoras documentary about the decentralized money at the
               heart of an open financial ecosystem
             </div>
           </div>
@@ -622,8 +614,18 @@ const HomeUpdate = () => {
         <div className="custom_container">
           <div className="home_products_display_cont" id="computerAcc">
             <div className="home_products_body_head">
-              Deals just for you
-              <span></span>
+              <a href="/market" className="shop_heading_body">
+                <div className="shop_arrow_div">
+
+                         Shop our selections <ArrowForwardIcon className="arrow_alt_forward" />
+                </div>
+
+                <span className="shop_heading_para">
+                Curated collections hand-picked by Etsy editors.
+                         </span>
+              </a>
+
+              
             </div>
             <div className="products_display_body_conts_pad">
               {term.length <= 0 ? (
@@ -742,7 +744,7 @@ const HomeUpdate = () => {
                   >
                     {term.slice(0, 15).map((asset) => (
                       <a
-                        href={`/dashboard/products/details/${
+                        href={`/products/details/${
                           asset.id
                         }/${asset.product_name.replace(/\s+/g, "-")}`}
                       >
@@ -848,7 +850,7 @@ const HomeUpdate = () => {
           <div className="quality_standards_cont">
             <div className="quality_standards_cont1">
               <div className="quality_standards_cont1Txt">
-                Welcome to Back Market, the refurbished (super) market.
+                Welcome to Egoras Market, the refurbished (super) market.
               </div>
               <button className="qualityStandard_btn">
                 Our quality standards

@@ -128,7 +128,33 @@
   padding: 10px;
   position: relative;
 }
+.shop_heading_body {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
 
+.shop_arrow_div {
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 36px;
+        color: #229e54;
+}
+
+
+.shop_heading_para {
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 28px;
+    color: #8f8f8f;
+}
+
+.arrow_alt_forward {
+    font-size: 22px !important;
+    font-weight: 900;
+    width: 33px;
+        color: #229e54;
+}
 .imgdiv1 .about-img1 {
   border-radius: 5px;
   display: block;

@@ -3,6 +3,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import AddIcon from "@mui/icons-material/Add";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { TokenModal } from "./TokenModal/TokenModal";
+import { numberWithCommas } from "../../../../static";
+import NumberFormat from "react-number-format";
 import Success_Error_Component from "../../../assets/Success_Error_Component"
 import SwapVerticalCircleIcon from "@mui/icons-material/SwapVerticalCircle";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -78,8 +80,8 @@ const AddLiquidity = ({ match, closeModal, which }) => {
     active,
     error
   } = context;
-  const [inputVal, setInputVal] = useState("0");
-  const [inputVal2, setInputVal2] = useState("0");
+  const [inputVal, setInputVal] = useState("");
+  const [inputVal2, setInputVal2] = useState("");
   // const [inputVal, setInputVal] = useState();
   
   useEffect(() => {
@@ -95,8 +97,8 @@ const AddLiquidity = ({ match, closeModal, which }) => {
   const Continue = async (e) => {
     setStage("swap");
     setText("");
-    setInputVal(0);
-    setInputVal2(0);
+    setInputVal("");
+    setInputVal2("");
     
  
 }
@@ -316,9 +318,9 @@ const AddLiquidity = ({ match, closeModal, which }) => {
                     </div>
                   </div> */}
                   {
-                    stage == "loading" ? (<div>
+                    stage == "loading" ? (<div className="loading_div">
 
-<section className="tokenSection2 text-black" id="token" style={{width: "100%", minWidth: "450px"}}>
+<section className="tokenSection2 text-black " id="token" style={{width: "100%", minWidth: "450px" , fontSize:"14px"}}>
 
 <div class="eusd-token-page container">
 <div class="eusd-token-page hero text-center">
@@ -340,8 +342,9 @@ const AddLiquidity = ({ match, closeModal, which }) => {
               <div class="eusd-token-page ticker-symbol">
                
               </div>
-              <h1 class="eusd-token-page">
+              <h1 class="transacting_text">
                 {text}
+              {/* The gsfcdhvsds sdvf */}
               </h1>
               <div
                 className="swap_engn_btns"
@@ -388,23 +391,23 @@ const AddLiquidity = ({ match, closeModal, which }) => {
                   {/* <div className="plus_icon_layer"> */}
                   <SwapVerticalCircleIcon
                     className="plus_icon_layer"
-                    onClick={toggleInput}
+                    // onClick={toggleInput}
                   />
 
 <div className="input_amnt_layer">
                       <span className="input_txt">To</span>
                       <div className="amnt_input">
                         <input
-                          type="number"
+                            type="number"
+                        
                           name="number"
                           id="number"
                           placeholder="000"
                           className="amnt_input_field"
                           autocomplete="off"
                           // value={inputVal * 200}
-                          value={
-                            inputVal2
-                          }
+                          value={inputVal2}
+                     
                         //   value={
                         //     tokenBtn2 == true ? inputVal * 213535 : inputVal
                         //   }
@@ -438,16 +441,22 @@ const AddLiquidity = ({ match, closeModal, which }) => {
                   <div className="connect_btn_div">
                   <button
                   id="generate"
+ disabled={
+                              inputVal <= 0 || inputVal2 <=0
+                       ? true: false
+                          }
+                   
+                          
                   style={{ marginTop: "50px" }}
                   class="jsx-4146495177 connect_btn d-flex align-items-center justify-content-center mx-auto  zIndex2"
                   onClick={doSwap}
                 >
                   {
-                       inputVal > 0 
-                       ? "Convert": "Enter an amount"
+                        inputVal === "" || inputVal2 ===""
+                       ? "Enter an amount": "Convert"
                   }
                 </button>
-                 
+ 
                   </div>
                 </div>
               </div>
@@ -456,19 +465,59 @@ const AddLiquidity = ({ match, closeModal, which }) => {
                    
 
                    { stage == "success" ? (
-                            <div>
-                                <div className="col-md-12 mt-4">
-                                    <h1 className="text-center text-success">
-                                        <FontAwesomeIcon icon={faCheckCircle} /> <br />
-                                        Success
-                                    </h1>
-                                    <p className="text-center">Transaction was successful. <br />
-                                        <a className="btn btn-link text-success" href={"https://bscscan.com/tx/" + hash} target="_blank">View on bscscan.com</a>
-                                        <br />
-                                        <button  className="jsx-4146495177 connect_btn d-flex align-items-center justify-content-center mx-auto  zIndex2" onClick={e => Continue(e)}>Continue</button>
-                                    </p>
-                                </div>
-                            </div> ) : null
+
+                                        <div className="processing_transac_div insufficient">
+                        <div className="success_container">
+                          <div className="success_heading">
+                            
+                              <img
+                                style={{ width: "100%" }}
+                                src="/img/succees_div_heading_icon.svg"
+                                alt=""
+                                // onClick={onclick}
+                              />
+                          
+                              {/* <img
+                                style={{ width: "100%" }}
+                                src="/img/succees_div_heading_icon.svg"
+                                alt=""
+                                // onClick={onclick}
+                              /> */}
+                         
+                          </div>
+                          <div className="success_title">
+                          
+                              <span>  Success</span>
+                           
+                          </div>
+                          {/* <div className="success_para">{msg}</div> */}
+                      <div className="success_para">Transaction was successful.</div> 
+                         <a className="btn btn-link text-success" href={"https://bscscan.com/tx/" + hash} target="_blank">View on bscscan.com</a>
+                          <div className="success_btn_div">
+                          
+                            
+                                <button
+                                  style={
+                                   
+                                      {
+                                            backgroundColor: "#3fa96b",
+                        boxShadow: "0px 4px 10px #5fa97e",
+                                        }
+                                    }
+                                  className="success_btn"
+                                 onClick={Continue}
+                                >
+                                  Continue
+                                </button>
+                              
+                          
+                              
+                           
+                             
+                         
+                          </div>
+                        </div>
+                      </div>) : null
                         } 
 
 {
