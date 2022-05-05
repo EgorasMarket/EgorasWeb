@@ -324,9 +324,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                       </span>
                       <div className="usd_val">
                         ≈ $
-                        {numberWithCommas(
-                          parseInt(assetVal / 560).toFixed(2)
-                        )}
+                        {numberWithCommas((assetVal/560).toFixed(2))}
                       </div>
                     </div>
                   )}
