@@ -2,9 +2,9 @@
 /* first break point ========================================= */
 @media screen and (max-width: 1245px) {
   /* header Section Start */
-  .headerSection {
+  /* .headerSection {
     padding: 1em 1em;
-  }
+  } */
   .egr-logo {
     width: 130px;
   }
@@ -31,7 +31,7 @@
 
 @media screen and (max-width: 1059px) {
   .egr-logo {
-    margin-right: 30px;
+    margin-right: 0px;
   }
 
   .explore,
@@ -88,11 +88,32 @@
     width: 10px !important;
     padding: 0 !important;
   }
+
+  .header-area {
+    display: none;
+  }
+
+  .header_mobile_view {
+    display: flex;
+    background: none;
+    padding: 0.5em 0em;
+    flex-direction: column;
+    gap: 10px;
+  }
   .explore,
   .docs,
   .about,
   .metrics {
     font-size: 14px;
+  }
+
+  .header_category_area {
+    background: #e5e5e5;
+    display: none;
+  }
+  .header_search {
+    width: 100%;
+    position: relative;
   }
   .hideNow {
     display: grid !important;
@@ -102,12 +123,22 @@
   .menu_open_mui_icon {
     font-size: 30px !important;
   }
+
+  .header_mobile_view_area1_menu_icon {
+    font-size: 32px !important;
+  }
+
+  .header_mobile_view_area1 {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
   #HideAgain {
     width: 10px !important;
     padding: 0 !important;
   }
   .egrLogo2Cont {
-    display: flex;
+    display: none;
     flex-direction: column;
     width: 50%;
   }
@@ -116,18 +147,32 @@
     display: block;
     width: 130px;
   } */
+  .header_search_bar {
+    width: 100%;
+    border-radius: 6px;
+    border: solid 1px #229e54;
+    padding: 0.8em 1em;
+    font-size: 12px;
+    transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
 
+  .header_mobile_icons_cont {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
   .headerLinks {
     display: none;
   }
   .headerButtons {
     display: none;
   }
-
+  /* 
   .headerSection {
     padding: 9px 0em;
     padding-top: 0.5em;
-  }
+  } */
   .on-mobile-navigators {
     display: flex;
     margin-top: 20px;
@@ -136,13 +181,48 @@
   .show-header-links {
     display: flex;
   }
+  .header_search_icon {
+    cursor: pointer;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    bottom: 50%;
+    margin: auto;
+    font-size: 4px !important;
+    color: #ffffff;
+    background: #229e54;
+    height: 100% !important;
+    width: 11% !important;
+    padding: 9px;
+    border-top-right-radius: 6px;
+    border-bottom-right-radius: 6px;
+    transition: 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+  }
+  .headerSection {
+    background-color: #fff;
+    top: 0;
+    z-index: 100;
+    font-family: Roboto;
+    box-shadow: 0px 0px 15px #efefef;
+    /* padding: 0.5em 2em; */
+    background-color: #eaeaea;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    grid-gap: 0px;
+    gap: 0px;
+  }
+  .egr-logo {
+    width: 150px;
+  }
 }
 
 @media screen and (max-width: 645px) {
-  .headerSection {
+  /* .headerSection {
     padding: 9px 0em;
     padding-top: 0.5em;
-  }
+  } */
 }
 
 @media screen and (max-width: 463px) {

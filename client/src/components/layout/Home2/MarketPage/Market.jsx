@@ -371,7 +371,7 @@ const Market = ({ auth }) => {
             <div className="products_display_body_heading">
               Outright Buy{" "}
               {/* <a
-                href={`/dashboard/products/categories/${code}`}
+                href={`/products/categories/${code}`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -391,7 +391,7 @@ const Market = ({ auth }) => {
                             href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
-                            // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
+                            // href={`/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -462,7 +462,7 @@ const Market = ({ auth }) => {
                             href={`/products/details/${
                               asset.id
                             }/${asset.product_name.replace(/\s+/g, "-")}`}
-                            // href={`/dashboard/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
+                            // href={`/products/details/${asset.id}/${asset.product_name.replace( '','-')}`}
                             // key={index.toString()}
                           >
                             <li className="carous_list no_marg inventory_cards">
@@ -536,7 +536,7 @@ const Market = ({ auth }) => {
             <div className="products_display_body_heading heading_color_2">
               {phonesTablets}
               <a
-                href={`/dashboard/products/categories/Phones & Tablet`}
+                href={`/products/categories/Phones & Tablet`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -871,7 +871,7 @@ const Market = ({ auth }) => {
             <div className="products_display_body_heading">
               {homeAppliances}
               <a
-                href={`/dashboard/products/categories/Home Appliances`}
+                href={`/products/categories/Home Appliances`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -887,7 +887,7 @@ const Market = ({ auth }) => {
                     {homeAppliancesData.slice(0, 10).map((asset, index5) => {
                       return (
                         <a
-                          href={`/dashboard/products/details/${
+                          href={`/products/details/${
                             asset.id
                           }/${asset.product_name.replace(/\s+/g, "-")}`}
                           key={index5.toString()}
@@ -994,7 +994,7 @@ const Market = ({ auth }) => {
                     {homeAppliancesData.slice(0, 10).map((asset, index5) => {
                       return (
                         <a
-                          href={`/dashboard/products/details/${
+                          href={`/products/details/${
                             asset.id
                           }/${asset.product_name.replace(/\s+/g, "-")}`}
                           key={index5.toString()}
@@ -1107,7 +1107,7 @@ const Market = ({ auth }) => {
             <div className="products_display_body_heading heading_color_2">
               {electronics}
               <a
-                href={`/dashboard/products/categories/Electronics`}
+                href={`/products/categories/Electronics`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -1441,7 +1441,7 @@ const Market = ({ auth }) => {
             <div className="products_display_body_heading">
               {ComputerAccessories}
               <a
-                href={`/dashboard/products/categories/Computer & Accessories`}
+                href={`/products/categories/Computer & Accessories`}
                 className="se_all_btnn"
               >
                 SEE ALL
@@ -1690,7 +1690,7 @@ const Market = ({ auth }) => {
             <div className="products_display_body_heading heading_color_2">
               {musicalEquipment}
               <a
-                href={`/dashboard/products/categories/Musical Equipments`}
+                href={`/products/categories/Musical Equipments`}
                 className="se_all_btnn se_all_color2"
               >
                 SEE ALL
@@ -2023,7 +2023,7 @@ const Market = ({ auth }) => {
             <div className="products_display_body_heading">
               {industrialEquipments}
               <a
-                href={`/dashboard/products/categories/Industral Equipments`}
+                href={`/products/categories/Industral Equipments`}
                 className="se_all_btnn"
               >
                 SEE ALL

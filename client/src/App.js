@@ -105,6 +105,7 @@ import Login from "./components/layout/Home2/Login/Login";
 import Signup from "./components/layout/Home2/Signup/Signup";
 // import Wallet
 // import Walle
+import CategoryDisplayPage from "./components/layout/Home2/MarketPage/CategoryDisplayPage";
 
 import Newhome2 from "./components/layout/home/Newhome2";
 import Landing from "./components/layout/Home2/Landing/Landing";
@@ -293,11 +294,11 @@ const App = () => {
                     path="/loan-details/:id"
                     component={LoanDetails}
                   />
-                  <Route
+                  {/* <Route
                     exact
                     path="/products/categories/:category"
                     component={PhonesCatPagDuplicate}
-                  />
+                  /> */}
                   <Route
                     exact
                     path="/companies/details/:id"
@@ -322,6 +323,11 @@ const App = () => {
                     )}`}
                     // path={dapp }
                     component={ProductDetailPage}
+                  />
+                  <Route
+                    exact
+                    path="/products/categories/:category"
+                    component={CategoryDisplayPage}
                   />
                   <Route
                     exact

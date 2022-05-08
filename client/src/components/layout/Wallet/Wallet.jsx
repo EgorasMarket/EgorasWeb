@@ -1,41 +1,41 @@
-import React, { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
-import { createWallet } from '../../../actions/wallet';
-import { depositToken } from '../../../actions/wallet';
-import LoadingIcons from 'react-loading-icons';
-import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
-import MoreVertIcon from '@mui/icons-material/MoreVert';
-import StarRateIcon from '@mui/icons-material/StarRate';
-import FileCopyIcon from '@mui/icons-material/FileCopy';
-import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
-import { numberWithCommas } from '../../../static';
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import { createWallet } from "../../../actions/wallet";
+import { depositToken } from "../../../actions/wallet";
+import LoadingIcons from "react-loading-icons";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import VisibilityIcon from "@mui/icons-material/Visibility";
+import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import StarRateIcon from "@mui/icons-material/StarRate";
+import FileCopyIcon from "@mui/icons-material/FileCopy";
+import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
+import { numberWithCommas } from "../../../static";
 // import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
-import { NoDataFoundComponent } from '../Home2/Dashboard/NodataFound/NoDataFoundComponent';
-import { Link } from 'react-router-dom';
-import data from '../MockData';
-import { API_URL2 as api_url2 } from '../../../actions/types';
+import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
+import { Link } from "react-router-dom";
+import data from "../MockData";
+import { API_URL2 as api_url2 } from "../../../actions/types";
 
-import axios from 'axios';
+import axios from "axios";
 
-import './wallet.css';
+import "./wallet.css";
 const options = [
-  'Deposit History',
-  'Withdrawal History',
-  'Transaction History',
+  "Deposit History",
+  "Withdrawal History",
+  "Transaction History",
 ];
 
 const ITEM_HEIGHT = 48;
 
 const Wallet = ({ auth, createWallet, depositToken }) => {
-  const [age, setAge] = React.useState('');
-  const [assetVal, setAssetVal] = useState('0.000');
+  const [age, setAge] = React.useState("");
+  const [assetVal, setAssetVal] = useState("0.000");
   const [FundBtn, setFundBtn] = useState(false);
   const [openFundDiv, setOpenFundDiv] = useState(true);
   const [closeFundDiv, setCloseFundDiv] = useState(false);
-  const [adminId, setAdminId] = useState('');
-  const [adminName, setAdminName] = useState('');
+  const [adminId, setAdminId] = useState("");
+  const [adminName, setAdminName] = useState("");
   const [visible, settVisible] = useState(false);
   const [secureNumb, setSecureNumb] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -44,20 +44,20 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   const [copiedTxt, setCopiedTxt] = useState(false);
   const [copiedTxt1, setCopiedTxt1] = useState(false);
   const [deposits, setDeposits] = useState([]);
-  const [tokenBal, setTokenBal] = useState('0.000');
+  const [tokenBal, setTokenBal] = useState("0.000");
   // const [currentToken, setCurrentToken] = useState();
   // const [tokenName, setTokenName] = useState();
   const [tokenSymbol, setTokenSymbol] = useState();
   const [accountExists, setAccountExists] = useState();
   const [createWalletModal, setCreateWalletModal] = useState(false);
-  const [walletAddr, setWalletAddr] = useState('');
+  const [walletAddr, setWalletAddr] = useState("");
   const [assetName, setAssetName] = useState();
-  const [custId, setCustId] = useState('');
+  const [custId, setCustId] = useState("");
   const [transType, setTransType] = useState(null);
   const [showDeposit, setShowDeposit] = useState(false);
   const [tokenSign, setTokenSign] = useState();
-  const [activeBg, setActiveBg] = useState('Home');
-  const [network, setNetwork] = useState('BSC');
+  const [activeBg, setActiveBg] = useState("Home");
+  const [network, setNetwork] = useState("BSC");
   // const [txId, setTxId] = useState(
   //   "0589f3200005888b2de942a03c58323c3e267b21c96bad96ea7e333098905746"
   // );
@@ -85,7 +85,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const config = {
     headers: {
-      'Content-Type': 'application/json',
+      "Content-Type": "application/json",
     },
   };
 
@@ -94,9 +94,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   useEffect(() => {
     console.log(linksActive);
 
-    if (linksActive === '/super_admin/fund/accountant') {
-      console.log('Ok');
-      let adminStaffId = localStorage.getItem('adminStaffId');
+    if (linksActive === "/super_admin/fund/accountant") {
+      console.log("Ok");
+      let adminStaffId = localStorage.getItem("adminStaffId");
       setAdminId(adminStaffId);
       //
     } else {
@@ -105,7 +105,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       setAdminId(userId);
     }
 
-    if (linksActive === '/dashboard/wallet') {
+    if (linksActive === "/dashboard/wallet") {
       setTransType(2);
     } else {
       setTransType(1);
@@ -113,13 +113,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   }, [auth]);
 
   useEffect(() => {
-    if (adminId !== '') {
+    if (adminId !== "") {
       axios
-        .get(
-          api_url2 + '/v1/wallet/get/wallet/info/' + adminId,
-          null,
-          config
-        )
+        .get(api_url2 + "/v1/wallet/get/wallet/info/" + adminId, null, config)
         .then((data) => {
           // console.log(data.data.data.balance);
           setTokenBal(data.data.data.balance);
@@ -131,12 +127,10 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
     }
   }, [adminId]);
   useEffect(() => {
-    if (adminId !== '') {
+    if (adminId !== "") {
       axios
         .get(
-          api_url2 +
-            '/v1/wallet/get/wallet/fetch/deposits/' +
-            adminId,
+          api_url2 + "/v1/wallet/get/wallet/fetch/deposits/" + adminId,
           null,
           config
         )
@@ -152,9 +146,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   useEffect(() => {
     setIsLoading2(true);
     axios
-      .get(api_url2 + '/v1/wallet/get/all/tokens', null, config)
+      .get(api_url2 + "/v1/wallet/get/all/tokens", null, config)
       .then((data) => {
-        console.log(data.data.data, 'powerful');
+        console.log(data.data.data, "powerful");
         setIsLoading2(false);
         setAssetName(data.data.data[0].tokenName);
         setTokenSign(data.data.data[0].tokenSymbol);
@@ -168,14 +162,10 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
       });
   }, []);
   useEffect(async () => {
-    if (adminId !== '') {
-      console.log(adminId, 'ooows');
+    if (adminId !== "") {
+      console.log(adminId, "ooows");
       await axios
-        .get(
-          api_url2 + '/v1/wallet/check/wallet/' + adminId,
-          null,
-          config
-        )
+        .get(api_url2 + "/v1/wallet/check/wallet/" + adminId, null, config)
         .then((data) => {
           //  console.log(data.data, "powerful");
           setAccountExists(data.data.accountExists);
@@ -233,7 +223,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   }, 1000);
 
   const openDepositDiv = async (tokenName, tokenSymbol) => {
-    setActiveBg('deposit_btn');
+    setActiveBg("deposit_btn");
     setShowDeposit(true);
     setIsLoading(true);
 
@@ -253,7 +243,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
         setIsLoading(false);
       }
     } else {
-      console.log('not accountExists');
+      console.log("not accountExists");
       // setShowDeposit(false);
       // console.log(adminId);
       let res3 = await createWallet(adminId, tokenSymbol, transType);
@@ -268,7 +258,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
   };
   const closeDepositDiv = () => {
     setShowDeposit(false);
-    setActiveBg('withdraw_btn');
+    setActiveBg("withdraw_btn");
   };
 
   function outFunc() {
@@ -311,20 +301,15 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                 <>
                   {secureNumb == true ? (
                     <div className="arrowSpan">
-                      ***********{' '}
-                      <div className="usd_val">*********</div>
+                      *********** <div className="usd_val">*********</div>
                     </div>
                   ) : (
                     <div className="arrowSpan">
                       <span className="amnt_wall">
-                        ₦
-                        {numberWithCommas(
-                          parseInt(assetVal).toFixed(2)
-                        )}{' '}
+                        ₦{numberWithCommas(parseInt(assetVal).toFixed(2))}{" "}
                       </span>
                       <div className="usd_val">
-                        ≈ $
-                        {numberWithCommas((assetVal/560).toFixed(2))}
+                        ≈ ${numberWithCommas((assetVal / 560).toFixed(2))}
                       </div>
                     </div>
                   )}
@@ -336,18 +321,14 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
               <div className="div_cap_area">
                 <div className="formConcept">
                   <div className="formConcept1">
-                    <span className="formConceptWallet">
-                      My Assets
-                    </span>
+                    <span className="formConceptWallet">My Assets</span>
                     <div
                     // className="formConceptSup"
                     // onClick={sending}
                     ></div>
                   </div>
                   <div className="asset_lists_headings">
-                    <span className="asset_lists_headings_list1">
-                      Token
-                    </span>
+                    <span className="asset_lists_headings_list1">Token</span>
                     <span className="asset_lists_headings_list1 list_avail_bal">
                       Available Balance
                     </span>
@@ -376,9 +357,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                           </div>
                           <div className="assets_token_lists">
                             <div className="nigeriaCurrency">
-                              <span className="tokenSyn">
-                                {tokenSign}
-                              </span>
+                              <span className="tokenSyn">{tokenSign}</span>
                               <span className="tokenName">
                                 {data.tokenName}
                               </span>
@@ -421,12 +400,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                 <div className="amount_bal_token_cont">
                                   <div className="token_bal_cont1_hold_all">
                                     <div className="usd_val_of_token_bal_co">
-                                      ≈
                                       {numberWithCommas(
-                                        parseInt(
-                                          tokenBal / 560
-                                        ).toFixed(2)
-                                      )}{' '}
+                                        (parseInt(tokenBal) / 560).toFixed(2)
+                                      )}
                                       USD
                                     </div>
                                     <div className="token_bal_cont_token_amnt">
@@ -468,11 +444,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                 className="token_amount_bal token_usd_bal"
                               >
                                 {numberWithCommas(
-                                  parseInt(tokenBal / 560).toFixed(2)
+                                  (parseInt(tokenBal) / 560).toFixed(2)
                                 )}
-                                <span className="token_symbolism">
-                                  USD
-                                </span>
+                                <span className="token_symbolism">USD</span>
                               </div>
                             )}
 
@@ -480,9 +454,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                               <button
                                 id="withdraw"
                                 className={
-                                  activeBg == 'deposit_btn'
-                                    ? 'depositButton_active'
-                                    : 'depositButton'
+                                  activeBg == "deposit_btn"
+                                    ? "depositButton_active"
+                                    : "depositButton"
                                 }
                                 // id={data.tokenSymbol}
                                 onClick={() =>
@@ -527,9 +501,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             </div>
                             <div className="deposit_div_body1_input_asset">
                               <span className="token_symbol">
-                                {' '}
+                                {" "}
                                 <StarRateIcon className="starRateIcon" />
-                                {tokenSign}{' '}
+                                {tokenSign}{" "}
                               </span>
                               {assetName}
                             </div>
@@ -540,24 +514,22 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                             </div>
                             <div className="deposit_div_body1_input_asset">
                               <span className="network_symbol">
-                                <span className="token_symbol">
-                                  BSC
-                                </span>
-                              </span>{' '}
+                                <span className="token_symbol">BSC</span>
+                              </span>{" "}
                               BNB Smart Chain (BEP20)
                             </div>
                           </div>
                           <div className="deposit_div_body1_input1_qr_code">
                             <div className="deposit_div_body1_input1_qr_code_title">
-                              Scan the code on the deposit page to
-                              deposit {assetName}
+                              Scan the code on the deposit page to deposit{" "}
+                              {assetName}
                             </div>
                             <div className="deposit_div_body1_input1_qr_code_img_div">
                               {isLoading == true ? (
                                 <div className="qr_code_divv_check">
                                   <img
                                     src={
-                                      'https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=' +
+                                      "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
                                       walletAddr
                                     }
                                     alt=""
@@ -574,7 +546,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                 <div className="qr_code_divv_check">
                                   <img
                                     src={
-                                      'https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=' +
+                                      "https://chart.googleapis.com/chart?cht=qr&chs=120x120&chl=" +
                                       walletAddr
                                     }
                                     alt=""
@@ -597,9 +569,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                       <FileCopyIcon
                                         className="file_icon_copy"
                                         onClick={() =>
-                                          copyWalletAddress(
-                                            walletAddr
-                                          )
+                                          copyWalletAddress(walletAddr)
                                         }
                                         // onMouseOut={outFunc}
                                       />
@@ -609,8 +579,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                           className="copiedToClipBoardDiv"
                                           onChange={timer}
                                         >
-                                          Wallet Address copied to
-                                          clipboard
+                                          Wallet Address copied to clipboard
                                         </div>
                                       ) : null}
                                     </div>
@@ -622,15 +591,15 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                               <li className="deposit_qr_not">
                                 Send only
                                 <span className="noticeable_txt">
-                                  {' '}
+                                  {" "}
                                   {tokenSign}
-                                </span>{' '}
+                                </span>{" "}
                                 to this deposit address.
                               </li>
                               <li className="deposit_qr_not">
                                 Ensure the network is
                                 <span className="noticeable_txt">
-                                  {' '}
+                                  {" "}
                                   BNB Smart Chain (BEP20).
                                 </span>
                               </li>
@@ -653,15 +622,13 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                     <div className="deposit_history_body_area1_cont_area1">
                                       <div className="deposit_history_div1">
                                         <span className="token_symbol">
-                                          {' '}
+                                          {" "}
                                           <StarRateIcon className="starRateIcon starRateIcon_2" />
                                         </span>
                                         <div className="token_deposit_amnt">
                                           {numberWithCommas(
-                                            parseInt(
-                                              data.amount
-                                            ).toFixed(2)
-                                          )}{' '}
+                                            parseInt(data.amount).toFixed(2)
+                                          )}{" "}
                                           {tokenSign}
                                           <span className="completed_div">
                                             Completed
@@ -712,10 +679,9 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
                                               0,
                                               10
                                             ) +
-                                              '...' +
+                                              "..." +
                                               data.transaction_hash.substr(
-                                                data.transaction_hash
-                                                  .length - 7
+                                                data.transaction_hash.length - 7
                                               )}
                                             {/* {txId} */}
                                           </div>
@@ -742,7 +708,7 @@ const Wallet = ({ auth, createWallet, depositToken }) => {
 
                           <div className="view_all_btn" key={data.id}>
                             <a href="#" className="view_all_link">
-                              {' '}
+                              {" "}
                               View all
                             </a>
                           </div>

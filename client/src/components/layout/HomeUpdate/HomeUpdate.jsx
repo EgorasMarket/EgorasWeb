@@ -6,10 +6,10 @@ import ExitToAppIcon from "@mui/icons-material/ExitToApp";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
 import axios from "axios";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import ArrowRightAltIcon from '@mui/icons-material/ArrowRightAlt';
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import GroupsIcon from "@mui/icons-material/Groups";
 import WorkspacePremiumIcon from "@mui/icons-material/WorkspacePremium";
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Slider from "react-slick";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
 import CloseIcon from "@mui/icons-material/Close";
@@ -23,7 +23,8 @@ import "../../../css/aboutMobile.css";
 import { API_URL2 as api_url2 } from "../../../actions/types";
 import { numberWithCommas } from "../../../static";
 import { NoDataFoundComponent } from "../Home2/Dashboard/NodataFound/NoDataFoundComponent";
-
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import TravelExploreOutlinedIcon from "@mui/icons-material/TravelExploreOutlined";
 const responsive = {
   superLargeDesktop: {
     // the naming can be any, depends on you.
@@ -109,6 +110,452 @@ const responsive3 = {
     items: 1,
   },
 };
+
+export const ComputerBody = () => {
+  return (
+    <div className="trending_category_switch_body">
+      <div className="trending_switch_body_area1">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://images.unsplash.com/photo-1618424181497-157f25b6ddd5?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8bGFwdG9wJTIwY29tcHV0ZXJ8ZW58MHx8MHx8&w=1000&q=80"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={"/products/categories/Computer & Accessories"}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://cdn.thewirecutter.com/wp-content/media/2020/09/businesslaptops-2048px-9820.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={"/products/categories/Computer & Accessories"}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://images.news18.com/ibnlive/uploads/2021/08/1628224744_hp-envy-14-laptop-1600x900.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={"/products/categories/Computer & Accessories"}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="trending_switch_body_area2">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://www.mytrendyphone.eu/images/Forever-Music-Soul-BHS-300-Bluetooth-Headphones-with-Microphone-Black-5900495738110-17072019-01-p.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={"/products/categories/Computer & Accessories"}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://cdn.mos.cms.futurecdn.net/A4GDK27VMnz6LtFDy9yzk.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={"/products/categories/Computer & Accessories"}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://hips.hearstapps.com/vader-prod.s3.amazonaws.com/1594317518-hp-officejet-1594317461.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={"/products/categories/Computer & Accessories"}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+// ================
+// ================
+// ================
+export const PhonesBody = () => {
+  return (
+    <div className="trending_category_switch_body">
+      <div className="trending_switch_body_area1">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://www.cnet.com/a/img/resize/eabd239642878785575800cb4b1a52ee4ccc1bc9/2020/08/18/b7168aea-9f7e-47bb-9f31-4cb8ad92fbc7/lg-note-20-ultra-5g-iphone-11-se-google-pixel-4a-lg-velvet-6133.jpg?auto=webp&fit=crop&height=630&width=1200"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Phones & Tablet`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://sp-ao.shortpixel.ai/client/to_webp,q_glossy,ret_img,w_1000,h_600/https://www.globalbrandsmagazine.com/wp-content/uploads/2020/08/Top-10-Mobile-Brands-in-World-1-1.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Phones & Tablet`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://cdn.pocket-lint.com/r/s/970x/assets/images/153206-tablets-review-samsung-galaxy-tab-s7-plus-review-image9-y9i82fdtyl.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Phones & Tablet`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="trending_switch_body_area2">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://photos5.appleinsider.com/gallery/44523-86813-iPad-on-Stand-Landcsape-xl.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Phones & Tablet`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://www.notebookcheck.net/fileadmin/Notebooks/News/_nc3/Apple_iPad_Air_5_knarzen_verarbeitung.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Phones & Tablet`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://cdn.pocket-lint.com/r/s/1200x/assets/images/135596-tablets-news-buyer-s-guide-which-apple-ipad-is-best-for-you-ipad-mini-vs-ipad-vs-ipad-air-vs-ipad-pro-image23-esgyofxh50.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Phones & Tablet`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+// ================
+// ================
+// ================
+export const ElectronicsBody = () => {
+  return (
+    <div className="trending_category_switch_body">
+      <div className="trending_switch_body_area1">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://www.howtogeek.com/wp-content/uploads/2021/12/home-theater-system-header.jpg?height=200p&trim=2,2,2,2"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Electronics`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://styla-prod-us.imgix.net/271d9cdd-ab6b-4a7f-9dc2-32c5de213167/1594833677616_6b38a1bc-0d40-4abf-b86b-624cf27e0f7f"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Electronics`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://apartmani-mrvic.com/wp-content/uploads/2010/09/room-air-conditioner.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Electronics`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="trending_switch_body_area2">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://cdn.vox-cdn.com/thumbor/uAiIDhGfzvmvlheq_WrM35PlaaE=/1400x788/filters:format(jpeg)/cdn.vox-cdn.com/uploads/chorus_asset/file/19209344/thumbnail.jpeg"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Electronics`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://www.cnet.com/a/img/resize/ac702a5cc498665845eabe90722131c1786a5457/2018/04/05/65bb8acb-b662-4e9d-84ea-2e3529c685df/01-elac-debut-2-0-6-2.jpg?auto=webp&fit=crop&height=630&precrop=830,467,x0,y0&width=1200"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Electronics`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://images-prod.healthline.com/hlcmsresource/images/AN_images/broccoli-in-microwave-1296x728.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Electronics`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
+// ================
+// ================
+// ================
+export const Home_kitchenBody = () => {
+  return (
+    <div className="trending_category_switch_body">
+      <div className="trending_switch_body_area1">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://images.unsplash.com/photo-1604335399105-a0c585fd81a1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8M3x8d2FzaGluZyUyMG1hY2hpbmV8ZW58MHx8MHx8&w=1000&q=80"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Home Appliances`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://www.cookerspareparts.com/news/image.axd?picture=/gas%20oven.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Home Appliances`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://cdn.thewirecutter.com/wp-content/media/2021/01/blenders-2048px-1.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Home Appliances`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="trending_switch_body_area2">
+        <div className="trending_switch_body_area1_cont1">
+          <div className="trending_switch_body_area1_cont1_img_container">
+            <img
+              src="https://www.cnet.com/a/img/resize/fd163ae8ed1c74513d3ab435449200eca25f6d33/2019/08/20/1a4f30a4-4aae-49cc-a32c-c8642ca8d4c4/sportsman-dual-fuel-generator.jpg?auto=webp&fit=crop&height=675&width=1200"
+              alt=""
+              className="trending_switch_body_area1_cont1_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Home Appliances`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+        <div className="trending_switch_body_area1_cont2">
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://www.u-buy.com.ng/productimg/?image=aHR0cHM6Ly9tLm1lZGlhLWFtYXpvbi5jb20vaW1hZ2VzL0kvNzErRTdtQlpxekwuX0FDX1NMMTUwMF8uanBn.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Home Appliances`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+          <div className="trending_switch_body_area1_cont2_img_container">
+            <img
+              src="https://latalata.ng/image/cache/catalog/Product%20images/OMAHA/BAA000020S00SU105-700x700.jpg"
+              alt=""
+              className="trending_switch_body_area1_cont2_img"
+            />
+            <div className="trending_img_pop_out">
+              <a href={`/products/categories/Home Appliances`}>
+                <button className="shopNow_pop_out_btn">
+                  <TravelExploreOutlinedIcon className="shopping_pop_out_cart_icon" />
+                  Explore
+                </button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+};
 const HomeUpdate = () => {
   const config = {
     headers: {
@@ -117,6 +564,7 @@ const HomeUpdate = () => {
   };
   const [aboutVideoModal, setAboutVideoModal] = useState(false);
   const [term, setTerm] = useState([]);
+  const [activeTab, setActiveTab] = useState("computers");
   const toggleAboutVideoModal = () => {
     if (aboutVideoModal === true) {
       setAboutVideoModal(false);
@@ -125,36 +573,41 @@ const HomeUpdate = () => {
     }
   };
 
-  const FeaturedLogos=[
+  const ToggleActiveTab = (e) => {
+    let active = e.currentTarget.id;
+    setActiveTab(active);
+  };
+
+  const FeaturedLogos = [
     {
-      img:"/img/featured_logos/featured1.svg"
+      img: "/img/featured_logos/featured1.svg",
     },
     {
-      img:"/img/featured_logos/featured2.svg"
+      img: "/img/featured_logos/featured2.svg",
     },
     {
-      img:"/img/featured_logos/featured3.svg"
+      img: "/img/featured_logos/featured3.svg",
     },
     {
-      img:"/img/featured_logos/featured4.svg"
+      img: "/img/featured_logos/featured4.svg",
     },
     {
-      img:"/img/featured_logos/featured5.svg"
+      img: "/img/featured_logos/featured5.svg",
     },
     {
-      img:"/img/featured_logos/featured6.svg"
+      img: "/img/featured_logos/featured6.svg",
     },
     {
-      img:"/img/featured_logos/featured7.svg"
+      img: "/img/featured_logos/featured7.svg",
     },
-  ]
+  ];
   const settings = {
-    dots: false,
+    dots: true,
     fade: true,
     infinite: true,
-    arrows: false,
-    speed: 500,
-    autoplaySpeed: 4000,
+    arrows: true,
+    speed: 1000,
+    autoplaySpeed: 10000,
     autoplay: true,
     pauseOnHover: false,
     slidesToShow: 1,
@@ -178,22 +631,93 @@ const HomeUpdate = () => {
   return (
     <div style={{ overflow: "hidden" }}>
       <section className="h_update_hero_section">
-        <div className="custom_container">
-          <Carousel
-            responsive={responsive3}
-            className="home_page_carousel"
-            showDots={true}
-            //   infinite={false}
-            autoPlay={true}
-            autoPlaySpeed={12000}
-            infinite={true}
-            draggable={true}
-            swipeable={true}
-          >
+        <div className="custom_container z_in">
+          <Slider {...settings}>
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
             <div className="h_update_hero_area">
               <div className="h_update_hero_area1">
                 <div className="h_update_hero_area1_title">
-                  BETTER WAYS TO BORROW & SAVE MONEY.
+                  New items at the price of used items with one year warranty
+                </div>
+                <div className="h_update_hero_area1_para">
+                  Get renewed items at up to 75% discount compared to new items
+                </div>{" "}
+                <div className="h_update_hero_area1_para_btns">
+                  <a href="/market">
+                    <button className="h_update_hero_area1_para_btn1">
+                      Buy Now <ArrowRightIcon />
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <div className="h_update_hero_area2">
+                <img
+                  src="/img/setofelectronics.png"
+                  alt=""
+                  className="hero_img_area2_img"
+                />
+                <img
+                  src="/img/hero_img_drop_bg.svg"
+                  alt=""
+                  className="hero_img_drop_bg"
+                />
+              </div>
+            </div>
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            <div className="h_update_hero_area">
+              <div className="h_update_hero_area1">
+                <div className="h_update_hero_area1_title">
+                  We want your junks whether big or small, work or not.
+                </div>
+                <div className="h_update_hero_area1_para">
+                  Convert your junks to cash. Help the planet.
+                </div>{" "}
+                <div className="h_update_hero_area1_para_btns">
+                  <a href="https://ella.ng">
+                    <button className="h_update_hero_area1_para_btn1">
+                      Sell Now <ArrowRightIcon />
+                    </button>
+                  </a>
+                </div>
+              </div>
+              <div className="h_update_hero_area2">
+                <img
+                  src="/img/used_items.png"
+                  alt=""
+                  className="hero_img_area2_img"
+                />
+
+                <img
+                  src="/img/hero_img_drop_bg.svg"
+                  alt=""
+                  className="hero_img_drop_bg"
+                />
+              </div>
+            </div>
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            <div className="h_update_hero_area">
+              <div className="h_update_hero_area1">
+                <div className="h_update_hero_area1_title">
+                  Better ways to borrow & save money.
                 </div>
                 <div className="h_update_hero_area1_para">
                   Pledge your assets to access interest-free loans while saving
@@ -213,330 +737,35 @@ const HomeUpdate = () => {
                 </div>
               </div>
               <div className="h_update_hero_area2">
-                <Slider {...settings}>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv1.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv2.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv3.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv4.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                </Slider>
                 <img
-                  src="/img/img_circles_slide.svg"
+                  src="/img/give_loan_img.png"
                   alt=""
-                  className="circle_slides"
+                  className="hero_img_area2_img"
+                />
+
+                <img
+                  src="/img/hero_img_drop_bg.svg"
+                  alt=""
+                  className="hero_img_drop_bg"
                 />
               </div>
             </div>
-            <div className="h_update_hero_area">
-              <div className="h_update_hero_area1">
-                <div className="h_update_hero_area1_title">
-                  BETTER WAYS TO BORROW & SAVE MONEY.
-                </div>
-                <div className="h_update_hero_area1_para">
-                  Pledge your assets to access interest-free loans while saving
-                  up to get any desired item.
-                </div>{" "}
-                <div className="h_update_hero_area1_para_btns">
-                  <a href="/loan">
-                    <button className="h_update_hero_area1_para_btn1">
-                      Borrow Now <ArrowRightIcon />
-                    </button>
-                  </a>
-                  <a href="/savings">
-                    <button className="h_update_hero_area1_para_btn2">
-                      <ArrowRightIcon /> Save Now
-                    </button>
-                  </a>
-                </div>
-              </div>
-              <div className="h_update_hero_area2">
-                <Slider {...settings}>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv1.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv2.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv3.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv4.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                </Slider>
-                <img
-                  src="/img/img_circles_slide.svg"
-                  alt=""
-                  className="circle_slides"
-                />
-              </div>
-            </div>
-            <div className="h_update_hero_area">
-              <div className="h_update_hero_area1">
-                <div className="h_update_hero_area1_title">
-                  BETTER WAYS TO BORROW & SAVE MONEY.
-                </div>
-                <div className="h_update_hero_area1_para">
-                  Pledge your assets to access interest-free loans while saving
-                  up to get any desired item.
-                </div>{" "}
-                <div className="h_update_hero_area1_para_btns">
-                  <a href="/loan">
-                    <button className="h_update_hero_area1_para_btn1">
-                      Borrow Now <ArrowRightIcon />
-                    </button>
-                  </a>
-                  <a href="/savings">
-                    <button className="h_update_hero_area1_para_btn2">
-                      <ArrowRightIcon /> Save Now
-                    </button>
-                  </a>
-                </div>
-              </div>
-              <div className="h_update_hero_area2">
-                <Slider {...settings}>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv1.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv2.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv3.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv4.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                </Slider>
-                <img
-                  src="/img/img_circles_slide.svg"
-                  alt=""
-                  className="circle_slides"
-                />
-              </div>
-            </div>
-            <div className="h_update_hero_area">
-              <div className="h_update_hero_area1">
-                <div className="h_update_hero_area1_title">
-                  BETTER WAYS TO BORROW & SAVE MONEY.
-                </div>
-                <div className="h_update_hero_area1_para">
-                  Pledge your assets to access interest-free loans while saving
-                  up to get any desired item.
-                </div>{" "}
-                <div className="h_update_hero_area1_para_btns">
-                  <a href="/loan">
-                    <button className="h_update_hero_area1_para_btn1">
-                      Borrow Now <ArrowRightIcon />
-                    </button>
-                  </a>
-                  <a href="/savings">
-                    <button className="h_update_hero_area1_para_btn2">
-                      <ArrowRightIcon /> Save Now
-                    </button>
-                  </a>
-                </div>
-              </div>
-              <div className="h_update_hero_area2">
-                <Slider {...settings}>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv1.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv2.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv3.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv4.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                </Slider>
-                <img
-                  src="/img/img_circles_slide.svg"
-                  alt=""
-                  className="circle_slides"
-                />
-              </div>
-            </div>
-            <div className="h_update_hero_area">
-              <div className="h_update_hero_area1">
-                <div className="h_update_hero_area1_title">
-                  BETTER WAYS TO BORROW & SAVE MONEY.
-                </div>
-                <div className="h_update_hero_area1_para">
-                  Pledge your assets to access interest-free loans while saving
-                  up to get any desired item.
-                </div>{" "}
-                <div className="h_update_hero_area1_para_btns">
-                  <a href="/loan">
-                    <button className="h_update_hero_area1_para_btn1">
-                      Borrow Now <ArrowRightIcon />
-                    </button>
-                  </a>
-                  <a href="/savings">
-                    <button className="h_update_hero_area1_para_btn2">
-                      <ArrowRightIcon /> Save Now
-                    </button>
-                  </a>
-                </div>
-              </div>
-              <div className="h_update_hero_area2">
-                <Slider {...settings}>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv1.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv2.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv3.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                  <div className="imggss">
-                    <div>
-                      <img
-                        src="/img/sv4.svg"
-                        alt=""
-                        className="h_update_hero_area_img"
-                      />
-                    </div>
-                  </div>
-                </Slider>
-                <img
-                  src="/img/img_circles_slide.svg"
-                  alt=""
-                  className="circle_slides"
-                />
-              </div>
-            </div>
-          </Carousel>
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+            {/* ===================== */}
+          </Slider>
         </div>
-        <img
+        {/* <img
           src="/img/new_hero_bg_blur.png"
           alt=""
           className="new_hero_bg_blur"
-        />
+        /> */}
         <img
           src="/img/new_hero_citcle_1.svg"
           alt=""
@@ -547,6 +776,7 @@ const HomeUpdate = () => {
           alt=""
           className="new_hero_circle2"
         />
+        <img src="/img/hero_bg.svg" alt="" className="hero_bg" />
       </section>
       {/* =========== */}
       {/* =========== */}
@@ -566,10 +796,9 @@ const HomeUpdate = () => {
                   onClick={toggleAboutVideoModal}
                 />
 
-
                 <div className="about_video_player">
                   <iframe
-                     src="https://player.vimeo.com/video/702600317?h=836afd9a85&amp;badge=0&amp;autopause=0&amp;player_id=0&amp;app_id=58479"
+                    src="https://player.vimeo.com/video/702600317?h=836afd9a85&amp;badge=0&amp;autopause=0&amp;autoplay=1&amp;player_id=0&amp;app_id=58479"
                     frameborder="0"
                     allow="autoplay; fullscreen; picture-in-picture"
                     allowfullscreen
@@ -588,10 +817,10 @@ const HomeUpdate = () => {
           ) : null}
 
           <div className="aboutVideo_header_cont">
-            <div className="about_video_header_title">Egoras Triller</div>
+            <div className="about_video_header_title">Egoras Documentary</div>
             <div className="about_video_header_txt">
-              Watch the Egoras documentary about the decentralized money at the
-              heart of an open financial ecosystem
+              Watch our documentary to see the extremely high demand for Egoras
+              renewed items.
             </div>
           </div>
           <div className="about_video_thumbnail_cont">
@@ -611,7 +840,11 @@ const HomeUpdate = () => {
           </div>
           {/* <script src="https://player.vimeo.com/api/player.js"></script> */}
         </div>
-        <img src="/img/Abstract_lines.svg" alt=""  className="video_abstract_lines"/>
+        <img
+          src="/img/Abstract_lines.svg"
+          alt=""
+          className="video_abstract_lines"
+        />
       </section>
 
       {/* ================== */}
@@ -641,16 +874,14 @@ const HomeUpdate = () => {
             <div className="home_products_body_head">
               <a href="/market" className="shop_heading_body">
                 <div className="shop_arrow_div">
-
-                         Shop our selections <ArrowForwardIcon className="arrow_alt_forward" />
+                  You know you want it!
+                  <ArrowForwardIcon className="arrow_alt_forward" />
                 </div>
 
                 <span className="shop_heading_para">
-                Curated collections hand-picked by Etsy editors.
-                         </span>
+                  Explore curated inventory hand-picked by Egoras team.
+                </span>
               </a>
-
-              
             </div>
             <div className="products_display_body_conts_pad">
               {term.length <= 0 ? (
@@ -684,7 +915,7 @@ const HomeUpdate = () => {
                             >
                               {asset.payment_type == "OUTRIGHT" ? (
                                 <div className="out_right_install_tag">
-                                  {/* <button
+                                  <button
                                     className="out_right_install_tag_btn"
                                     style={{
                                       background: "#3ebc6e",
@@ -692,13 +923,13 @@ const HomeUpdate = () => {
                                     }}
                                   >
                                     Outright
-                                  </button> */}
+                                  </button>
                                 </div>
                               ) : (
                                 <div className="out_right_install_tag">
-                                  {/* <button className="out_right_install_tag_btn">
+                                  <button className="out_right_install_tag_btn">
                                     Savings
-                                  </button> */}
+                                  </button>
                                 </div>
                               )}
                               <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -790,7 +1021,7 @@ const HomeUpdate = () => {
                           >
                             {asset.payment_type == "OUTRIGHT" ? (
                               <div className="out_right_install_tag">
-                                {/* <button
+                                <button
                                   className="out_right_install_tag_btn"
                                   style={{
                                     background: "#3ebc6e",
@@ -798,13 +1029,13 @@ const HomeUpdate = () => {
                                   }}
                                 >
                                   Outright
-                                </button> */}
+                                </button>
                               </div>
                             ) : (
                               <div className="out_right_install_tag">
-                                {/* <button className="out_right_install_tag_btn">
+                                <button className="out_right_install_tag_btn">
                                   Savings
-                                </button> */}
+                                </button>
                               </div>
                             )}
                             <div className="storeTiles_storeTileBottomContainer__2sWHh">
@@ -875,7 +1106,7 @@ const HomeUpdate = () => {
           <div className="quality_standards_cont">
             <div className="quality_standards_cont1">
               <div className="quality_standards_cont1Txt">
-                Welcome to Egoras Market, the refurbished (super) market.
+                Welcome to Egoras, the Liquidity & Recommerce platform.
               </div>
               <button className="qualityStandard_btn">
                 Our quality standards
@@ -887,10 +1118,10 @@ const HomeUpdate = () => {
 
                 <div className="quality_standards_cont2_card1_text_cont">
                   <div className="quality_standards_cont2_card1_text_title">
-                    Best offer available
+                    One stop Liquidity.
                   </div>
                   <div className="quality_standards_cont2_card1_text_para">
-                    Selected by our price-quality algorithm.
+                    Buy,sell and collateralise all kinds of micro-assets easily.
                   </div>
                 </div>
               </div>
@@ -899,10 +1130,11 @@ const HomeUpdate = () => {
 
                 <div className="quality_standards_cont2_card1_text_cont">
                   <div className="quality_standards_cont2_card1_text_title">
-                    Guaranteed quality
+                    Guaranteed quality.
                   </div>
                   <div className="quality_standards_cont2_card1_text_para">
-                    Our partner refurbishers are continuously monitored.
+                    All are refurbished by experts and are continuously
+                    monitored
                   </div>
                 </div>
               </div>
@@ -911,10 +1143,11 @@ const HomeUpdate = () => {
 
                 <div className="quality_standards_cont2_card1_text_cont">
                   <div className="quality_standards_cont2_card1_text_title">
-                    Amazing service
+                    Awesome service
                   </div>
                   <div className="quality_standards_cont2_card1_text_para">
-                    Secure shopping experience.
+                    Shop online or from our Stores close to you to get the best
+                    shopping experience ever.
                   </div>
                 </div>
               </div>
@@ -926,7 +1159,7 @@ const HomeUpdate = () => {
                     Positive impact
                   </div>
                   <div className="quality_standards_cont2_card1_text_para">
-                    Buying renewed keeps e-waste out of landfills.
+                    Shopping refurbished items keeps waste out of landfills.
                   </div>
                 </div>
               </div>
@@ -944,7 +1177,108 @@ const HomeUpdate = () => {
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
+      <section className="quality_standards_section">
+        <div className="custom_container">
+          <div className="trending_section_area">
+            <div className="trending_section_txt">
+              <div className="trending_section_heading">
+                <span className="trending_section_heading_title">Explore </span>{" "}
+                trending categories on Egoras
+              </div>
 
+              <div className="trending_section_para">
+                Check what’s popular on Egoras.
+              </div>
+            </div>
+            <div className="trending_category_switch_tab">
+              <div
+                className={
+                  activeTab == "computers"
+                    ? "category_switch_tab1_active"
+                    : "category_switch_tab1"
+                }
+                id="computers"
+                onClick={ToggleActiveTab}
+              >
+                Computers & accessories
+              </div>
+
+              <div
+                className={
+                  activeTab == "phones"
+                    ? "category_switch_tab1_active"
+                    : "category_switch_tab1"
+                }
+                id="phones"
+                onClick={ToggleActiveTab}
+              >
+                Phones & Tablets
+              </div>
+              <div
+                className={
+                  activeTab == "electronics"
+                    ? "category_switch_tab1_active"
+                    : "category_switch_tab1"
+                }
+                id="electronics"
+                onClick={ToggleActiveTab}
+              >
+                Electronics
+              </div>
+              <div
+                className={
+                  activeTab == "home_kitchen"
+                    ? "category_switch_tab1_active"
+                    : "category_switch_tab1"
+                }
+                id="home_kitchen"
+                onClick={ToggleActiveTab}
+              >
+                Home & kitchen
+              </div>
+            </div>
+
+            {activeTab === "computers" ? <ComputerBody /> : null}
+            {activeTab === "phones" ? <PhonesBody /> : null}
+            {activeTab === "electronics" ? <ElectronicsBody /> : null}
+            {activeTab === "home_kitchen" ? <Home_kitchenBody /> : null}
+          </div>
+        </div>
+      </section>
+      {/* =======
+      {/* ================== */}
+      {/* ================== */}
+      {/* ================== */}
+      <section className="quality_standards_section">
+        <div className="custom_container">
+          <div className="quality_standards_cont sell_banners">
+            <div className="sell_old_tech_area1">
+              <div className="ella_banner_writeUp">
+                <div className="quality_standards_cont1Txt">
+                  Got old tech? Take our money.{" "}
+                </div>
+                <div className="">Sell your used item in minutes.</div>
+              </div>
+              <a href="https://ella.ng" className="ella_link">
+                <button className="ella_banner_btn">Sell Now</button>
+              </a>
+            </div>
+            <div className="sell_old_tech_area2">
+              <img
+                src="/img/sell_old_tech_img.svg"
+                alt=""
+                className="sell_old_tech_img"
+              />
+            </div>
+            <img
+              src="/img/get_old_tech_bg.png"
+              alt=""
+              className="get_old_tech_bg"
+            />
+          </div>
+        </div>
+      </section>
+      {/* =======
       {/* ================== */}
       {/* ================== */}
       {/* ================== */}
@@ -1002,9 +1336,7 @@ const HomeUpdate = () => {
       <section className="featured_section">
         <div className="custom_container">
           <div className="featured_logos_area">
-            <div className="featured_in_head">
-              Featured In
-            </div>
+            <div className="featured_in_head">Featured In</div>
             {/* Carousel start==============================
 ==============================================
 ============================= */}
@@ -1013,29 +1345,27 @@ const HomeUpdate = () => {
               className="featured_logos"
               showDots={false}
               //   infinite={false}
-              autoPlay={false}
+              autoPlay={true}
               // autoPlaySpeed={10000}
               infinite={true}
               draggable={true}
               swipeable={true}
             >
-
-              {
-                FeaturedLogos.map((data) => (
-                           <div className="featured_in_logos_cont">
-              
+              {FeaturedLogos.map((data) => (
+                <div className="featured_in_logos_cont">
                   {" "}
-                  <img
-                    src={data.img}
-                    alt=""
-                    className="featured_logo"
-                  />
-             
-              </div>
-                ))
-              }
-     
+                  <img src={data.img} alt="" className="featured_logo" />
+                </div>
+              ))}
             </Carousel>
+            <div className="featured_logos_mobile">
+              {FeaturedLogos.map((data) => (
+                <div className="featured_in_logos_cont">
+                  {" "}
+                  <img src={data.img} alt="" className="featured_logo" />
+                </div>
+              ))}
+            </div>
             {/* Carousel end==============================
 ==============================================
 ============================= */}

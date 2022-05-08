@@ -11,11 +11,13 @@ html {
   scroll-behavior: smooth;
   transition: 2s ease-in;
 }
+
 .custom_container {
-  max-width: 1430px;
+  max-width: 1440px;
   margin: auto;
   width: 100%;
   padding: 0em 2em;
+  min-width: 0px;
 }
 a {
   text-decoration: none !important;
@@ -357,11 +359,11 @@ input:-internal-autofill-selected {
   border: 1px solid #ddd !important;
   background: #b3f2cc !important;
   color: #000;
-      font-size: 12px;
-      display: inline-block;
-      padding: 5px;
-      margin: 0 5px;
-      border-radius: 2px;
+  font-size: 12px;
+  display: inline-block;
+  padding: 5px;
+  margin: 0 5px;
+  border-radius: 2px;
 }
 
 .ReactTags__remove {
@@ -449,5 +451,14 @@ input:-internal-autofill-selected {
     z-index: 10000;
     margin: auto;
     animation: opacity 0.3s linear;
+  }
+}
+@media screen and (max-width: 550px) {
+  .custom_container {
+    max-width: 1440px;
+    margin: auto;
+    width: 100%;
+    padding: 0em 1em;
+    min-width: 0px;
   }
 }

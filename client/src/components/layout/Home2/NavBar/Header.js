@@ -6,17 +6,22 @@ import { makeStyles, useTheme } from "@material-ui/core/styles";
 import ArrowDropDownIcon from "@material-ui/icons/ArrowDropDown";
 import ArrowDropUpIcon from "@mui/icons-material/ArrowDropUp";
 import CloseIcon from "@material-ui/icons/Close";
+// import MenuIcon from "@mui/icons-material/Menu";
 import clsx from "clsx";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import PersonRoundedIcon from "@mui/icons-material/PersonRounded";
 import SearchIcon from "@mui/icons-material/Search";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import Drawer from "@material-ui/core/Drawer";
 import SellIcon from "@mui/icons-material/Sell";
 import PaidIcon from "@mui/icons-material/Paid";
+import HeaderMenu from "./HeaderMenu/HeaderMenu";
+import AppsIcon from "@mui/icons-material/Apps";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import Toolbar from "@material-ui/core/Toolbar";
 import ArticleIcon from "@mui/icons-material/Article";
 import SavingsIcon from "@mui/icons-material/Savings";
+import PersonIcon from "@mui/icons-material/Person";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import Accordion from "@material-ui/core/Accordion";
 import GroupsIcon from "@mui/icons-material/Groups";
@@ -144,6 +149,7 @@ const Header = ({ isAuthenticated, auth }) => {
   const [searchTerm, setSearchTerm] = useState("");
   const [searchDiv, setSearchDiv] = useState(false);
   const [productNames, setProductNames] = useState([]);
+  const [hederMenu, setHeaderMenu] = useState(false);
 
   const currentPage = window.location.pathname;
 
@@ -428,7 +434,13 @@ const Header = ({ isAuthenticated, auth }) => {
   const results = productNames.filter((car) =>
     car.tag.toLowerCase().includes(searchTerm.toLowerCase())
   );
-
+  const ToggleHeaderMenu = () => {
+    if (hederMenu === false) {
+      setHeaderMenu(true);
+    } else if (hederMenu === true) {
+      setHeaderMenu(false);
+    }
+  };
   return (
     <div id="Header">
       <section className="headerSection" id="headerSection">
@@ -483,19 +495,22 @@ const Header = ({ isAuthenticated, auth }) => {
                       Search result not found.
                     </span>
                   ) : (
-                    <ul style={{ margin: "0" }}>
+                    <div
+                      className="header_search_results_cont"
+                      // style={{ margin: "0" }}
+                    >
                       {results.map((item, index) => (
-                        <li
-                          className="hover_div"
+                        <a
+                          href={`/products/tag/${item.tag.replace(
+                            /\s+/g,
+                            " "
+                          )}`}
+                          className="header_search_display_div"
                           style={{
                             padding: "1em 2em",
                           }}
                         >
-                          <a
-                            href={`/products/tag/${item.tag.replace(
-                              /\s+/g,
-                              " "
-                            )}`}
+                          <div
                             key={index.toString()}
                             style={{
                               color: "#000",
@@ -505,10 +520,10 @@ const Header = ({ isAuthenticated, auth }) => {
                           >
                             {" "}
                             {item.tag.toLowerCase()}
-                          </a>
-                        </li>
+                          </div>
+                        </a>
                       ))}
-                    </ul>
+                    </div>
                   )}
                 </div>
               )}
@@ -734,12 +749,8 @@ const Header = ({ isAuthenticated, auth }) => {
 
               {currentPage == "/" ? (
                 <div style={{ display: "flex" }}>
-                  <a href="/login" className="getLoan">
-                    {" "}
-                    Login
-                  </a>
-                  <a href="#" className="connectb">
-                    Signup
+                  <a href="/login">
+                    <PersonRoundedIcon className="login_icon" />
                   </a>
                 </div>
               ) : null}
@@ -751,7 +762,10 @@ const Header = ({ isAuthenticated, auth }) => {
                   </a>
                 </div>
               ) : null}
-              {currentPage == "/validator" || currentPage == "/create-uploader" || currentPage == "/eusd-token" || currentPage == "/engn-token" ? (
+              {currentPage == "/validator" ||
+              currentPage == "/create-uploader" ||
+              currentPage == "/eusd-token" ||
+              currentPage == "/engn-token" ? (
                 <div style={{ display: "flex" }}>
                   <a href="#" className="connect">
                     <Authenticate />
@@ -766,13 +780,7 @@ const Header = ({ isAuthenticated, auth }) => {
                 </div>
               ) : currentPage == "/savings" && isAuth === false ? (
                 <div style={{ display: "flex" }}>
-                  <a href="/login" className="getLoan">
-                    {" "}
-                    Login
-                  </a>
-                  <a href="#" className="connectb">
-                    Signup
-                  </a>
+                  <PersonRoundedIcon />
                 </div>
               ) : null}
             </ul>
@@ -916,7 +924,10 @@ const Header = ({ isAuthenticated, auth }) => {
                     </List>
                   </div>
                 ) : null}
-                {currentPage == "/validator" || currentPage == "/create-uploader" || currentPage == "/eusd-token" || currentPage == "/engn-token" ? (
+                {currentPage == "/validator" ||
+                currentPage == "/create-uploader" ||
+                currentPage == "/eusd-token" ||
+                currentPage == "/engn-token" ? (
                   <div>
                     <List>
                       <ListItem>
@@ -962,35 +973,160 @@ const Header = ({ isAuthenticated, auth }) => {
               </Drawer>
             </div>
           </div>
+          <div className="header_mobile_view">
+            <div className="header_mobile_view_area1">
+              <MenuIcon
+                className="header_mobile_view_area1_menu_icon"
+                onClick={ToggleHeaderMenu}
+              />{" "}
+              <a href="/">
+                {" "}
+                <img
+                  src="/img/egoras-logo.svg"
+                  alt="..."
+                  className="egr-logo"
+                />
+              </a>
+              <div className="header_mobile_icons_cont">
+                <PersonIcon />
+                <AppsIcon />
+              </div>
+            </div>
+            <div className="header_mobile_view_area2">
+              <div className="header_search">
+                <input
+                  type="search"
+                  value={searchTerm}
+                  name="search"
+                  id="search"
+                  className="header_search_bar"
+                  placeholder="Search products, brands and categories"
+                  onChange={handler}
+                  autocomplete="off"
+
+                  // onMouseOut={() => {
+                  //   setSearchDiv(false);
+                  // }}
+                />
+                <SearchIcon className="header_search_icon" />
+                {searchTerm.length === 0 ? null : (
+                  <div
+                    id="fodo"
+                    style={{
+                      position: "absolute",
+                      zIndex: "500",
+                      width: "100%",
+                      top: "46px",
+                      maxHeight: "500px",
+                      height: "auto",
+                      backgroundColor: "#fff",
+                      overflowY: "scroll",
+                      borderRadius: "10px",
+                      borderTopLeftRadius: "0px",
+                      borderTopRightRadius: "0px",
+                      cursor: "pointer",
+                      boxShadow: "#0000000f 0px 20px 20px 0px",
+                    }}
+                    className="scr"
+                  >
+                    {productNames.length === 0 ? (
+                      <span className="search_result_not_found">
+                        {" "}
+                        Search result not found.
+                      </span>
+                    ) : (
+                      <div
+                        className="header_search_results_cont"
+                        // style={{ margin: "0" }}
+                      >
+                        {results.map((item, index) => (
+                          <a
+                            href={`/products/tag/${item.tag.replace(
+                              /\s+/g,
+                              " "
+                            )}`}
+                            className="header_search_display_div"
+                            style={{
+                              padding: "1em 2em",
+                            }}
+                          >
+                            <div
+                              key={index.toString()}
+                              style={{
+                                color: "#000",
+                                fontSize: "12px",
+                                fontWeight: "400",
+                              }}
+                            >
+                              {" "}
+                              {item.tag.toLowerCase()}
+                            </div>
+                          </a>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
         </div>
         {/* <hr className="header_hr" /> */}
         <div className="header_category_area">
           <div className="container-fluid header">
             <div className="header_categories">
-              <a href="#" className="header_cat_link">
+              <a
+                href={`/products/categories/Computer & Accessories`}
+                className="header_cat_link"
+              >
                 Computers and Accessories
               </a>
-              <a href="#" className="header_cat_link">
+              <a
+                href={`/products/categories/Phones & Tablet`}
+                className="header_cat_link"
+              >
                 Phones and Tablets
               </a>
-              <a href="#" className="header_cat_link">
+              <a
+                href={`/products/categories/Electronics`}
+                className="header_cat_link"
+              >
                 Electronics
               </a>
-              <a href="#" className="header_cat_link">
+              <a
+                href={`/products/categories/Fashion`}
+                className="header_cat_link"
+              >
                 Fashion
               </a>
-              <a href="#" className="header_cat_link">
+              <a
+                href={`/products/categories/Home Appliances`}
+                className="header_cat_link"
+              >
                 Home and Kitchen
               </a>
-              <a href="#" className="header_cat_link">
+              <a
+                href={`/products/categories/Musical Equipment`}
+                className="header_cat_link"
+              >
                 Musical Equipment
               </a>
-              <a href="#" className="header_cat_link">
-                Gaming
+              <a
+                href={`/products/categories/Gaming`}
+                className="header_cat_link"
+              >
+                Gaming & console
+              </a>
+              <a
+                href={`/products/categories/Industral Equipments`}
+                className="header_cat_link"
+              >
+                Industral Equipments
               </a>
             </div>
           </div>
         </div>
+        {hederMenu === true ? <HeaderMenu onClick={ToggleHeaderMenu} /> : null}
       </section>
     </div>
   );

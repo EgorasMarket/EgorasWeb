@@ -14,7 +14,7 @@ function Items({ currentItems, searchVal, totalItems }) {
     <div className="products_display">
       <div className="pagination_header_body">
         <div className="pagination_header_body_cont1">
-          Search Results - {searchVal}
+          Results - {searchVal}
         </div>
         <div className="pagination_header_body_cont2"></div>
       </div>
@@ -111,7 +111,7 @@ function Items({ currentItems, searchVal, totalItems }) {
   );
 }
 
-function PaginatedItems({ itemsPerPage, items, searchVal, totalItems }) {
+export function PaginatedItems({ itemsPerPage, items, searchVal, totalItems }) {
   // We start with an empty list of items.
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
