@@ -18,6 +18,7 @@ import PaidIcon from "@mui/icons-material/Paid";
 import HeaderMenu from "./HeaderMenu/HeaderMenu";
 import HeaderApps from "./HeaderMenu/HeaderApps";
 import AppsIcon from "@mui/icons-material/Apps";
+import SwapHorizontalCircleIcon from "@mui/icons-material/SwapHorizontalCircle";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import Toolbar from "@material-ui/core/Toolbar";
 import ArticleIcon from "@mui/icons-material/Article";
@@ -651,6 +652,13 @@ const Header = ({ isAuthenticated, auth }) => {
                         <div className="header_drop_txt_div">
                           <SellIcon className="header_drop_icons" />
                           Sell Now
+                        </div>
+                        <ArrowForwardIosIcon className="header_drop_arrow_icon" />
+                      </a>
+                      <a href="/engn-token" className="about">
+                        <div className="header_drop_txt_div">
+                          <SwapHorizontalCircleIcon className="header_drop_icons" />
+                          Swap to engn
                         </div>
                         <ArrowForwardIosIcon className="header_drop_arrow_icon" />
                       </a>

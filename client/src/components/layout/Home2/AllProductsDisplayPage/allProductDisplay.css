@@ -90,3 +90,48 @@
   font-size: 14px;
   color: #9b9b9b;
 }
+@media (max-width: 1400px) {
+  .product_display_cards_body {
+    display: grid;
+    grid-template-columns: auto auto auto auto auto;
+    grid-gap: 10px;
+    grid-gap: 20px;
+    gap: 20px;
+    justify-content: flex-start;
+    padding: 1em;
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 1325px) {
+  .product_display_cards_body {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+    grid-gap: 20px;
+    gap: 20px;
+    justify-content: space-around;
+    padding: 1em;
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 1118px) {
+  .product_display_cards_body {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 10px;
+    grid-gap: 20px;
+    grid-gap: 20px;
+    gap: 20px;
+    justify-content: space-around;
+    padding: 1em;
+    padding-bottom: 0;
+  }
+}
+@media (max-width: 991px) {
+  .filter_products_body {
+    display: none;
+  }
+  .pagination_body {
+    width: 100%;
+  }
+}
