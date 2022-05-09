@@ -76,7 +76,62 @@
   display: block;
   transition: 0.3s ease-in-out;
 }
+.login_drop_cont {
+  position: absolute;
+  top: 150%;
+  right: 10%;
+  background: white;
+  box-shadow: 0px 5px 10px #b3b3b3;
+  border-radius: 5px;
+  width: 160px;
+}
 
+.login_drop_cont::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  right: -1px;
+  width: 0;
+  height: 0;
+  border-left: 10px solid transparent;
+  border-right: 10px solid #ffffff00;
+  border-bottom: 10px solid #ebebeb;
+}
+.login_icon_cont {
+  cursor: pointer;
+  background: #d9d9d9;
+  border-radius: 50%;
+  /* padding: 2em; */
+}
+.remove_login_drop {
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  left: 0;
+  top: 0;
+  background: none;
+}
+.login_icon_cont {
+  cursor: pointer;
+  background: #d9d9d9;
+  border-radius: 50%;
+  /* padding: 2em; */
+}
+.login_drop_cont_body {
+  display: flex;
+  flex-direction: column;
+  gap: 0px;
+}
+.login_drop_cont_link {
+  padding: 1em 1em;
+  color: #000;
+  font-weight: 600;
+}
+.login_drop_cont_link:hover {
+  padding: 1em 1em;
+  color: #000;
+  background: #e5e5e5;
+}
 .egr-logo {
   width: 150px;
   margin-right: 0px;
@@ -428,7 +483,7 @@ vl {
   padding: 1em 2em;
   background: #229e54;
   color: #ffff;
-  border-radius: 10px;
+  border-radius: 0px;
   cursor: pointer;
   position: relative;
   font-size: 13px;

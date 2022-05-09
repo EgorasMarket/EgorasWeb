@@ -153,6 +153,7 @@ const Header = ({ isAuthenticated, auth }) => {
   const [productNames, setProductNames] = useState([]);
   const [hederMenu, setHeaderMenu] = useState(false);
   const [hederApps, setHeaderApps] = useState(false);
+  const [loginDrop, setLoginDrop] = useState(false);
 
   const currentPage = window.location.pathname;
 
@@ -449,6 +450,13 @@ const Header = ({ isAuthenticated, auth }) => {
       setHeaderApps(true);
     } else if (hederApps === true) {
       setHeaderApps(false);
+    }
+  };
+  const ToggleLoginDrop = () => {
+    if (loginDrop === false) {
+      setLoginDrop(true);
+    } else if (loginDrop === true) {
+      setLoginDrop(false);
     }
   };
   return (
@@ -764,14 +772,41 @@ const Header = ({ isAuthenticated, auth }) => {
                 Apply for loan
               </a> */}
 
-              {currentPage == "/" ? (
-                <div style={{ display: "flex" }}>
-                  <a href="/login">
-                    <PersonRoundedIcon className="login_icon" />
-                  </a>
-                </div>
-              ) : null}
-              {currentPage == "/loan" ? (
+              <div style={{ display: "flex", position: "relative" }}>
+                <span className="login_icon_cont" onClick={ToggleLoginDrop}>
+                  <PersonRoundedIcon className="login_icon" />
+                </span>
+                {loginDrop === true ? (
+                  <>
+                    <div
+                      className="remove_login_drop"
+                      onClick={ToggleLoginDrop}
+                      // onMouseOver={ToggleLoginDrop}
+                    ></div>
+                    <div className="login_drop_cont">
+                      <div className="login_drop_cont_body">
+                        <a href="/login" className="login_drop_cont_link">
+                          Login
+                        </a>
+                        <a href="/signup" className="login_drop_cont_link">
+                          Signup
+                        </a>
+                        <a
+                          href="https://egoras.ng"
+                          className="login_drop_cont_link"
+                        >
+                          Get the loan
+                        </a>
+                        <a href="#" className="connect">
+                          <Authenticate />
+                        </a>
+                      </div>
+                    </div>
+                  </>
+                ) : null}
+              </div>
+
+              {/* {currentPage == "/loan" ? (
                 <div style={{ display: "flex" }}>
                   <a href="https://egoras.ng/appointment" className="connectb">
                     {" "}
@@ -799,7 +834,7 @@ const Header = ({ isAuthenticated, auth }) => {
                 <div style={{ display: "flex" }}>
                   <PersonRoundedIcon />
                 </div>
-              ) : null}
+              ) : null} */}
             </ul>
             {/* <img
               src="/img/hamburger-open.svg"
