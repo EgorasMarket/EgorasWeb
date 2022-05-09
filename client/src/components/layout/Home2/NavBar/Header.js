@@ -791,12 +791,7 @@ const Header = ({ isAuthenticated, auth }) => {
                         <a href="/signup" className="login_drop_cont_link">
                           Signup
                         </a>
-                        <a
-                          href="https://egoras.ng"
-                          className="login_drop_cont_link"
-                        >
-                          Get the loan
-                        </a>
+
                         <a href="#" className="connect">
                           <Authenticate />
                         </a>
@@ -875,12 +870,6 @@ const Header = ({ isAuthenticated, auth }) => {
                           </a>
                           <a href="/signup" className="login_drop_cont_link">
                             Signup
-                          </a>
-                          <a
-                            href="https://egoras.ng"
-                            className="login_drop_cont_link"
-                          >
-                            Get the loan
                           </a>
                           <a href="#" className="connect">
                             <Authenticate />

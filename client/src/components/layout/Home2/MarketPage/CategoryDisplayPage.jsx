@@ -319,7 +319,7 @@ const CategoryDisplayPage = ({ match }) => {
     <div>
       <section className="market_page_section">
         <div className="custom_container">
-          <div className="categories_page_area">
+          <div className="categories_page_area categories_page_area_non_dash ">
             <div className="cat_banner_heading">
               Connect Your World
               <img
