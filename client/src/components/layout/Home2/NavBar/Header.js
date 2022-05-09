@@ -857,7 +857,39 @@ const Header = ({ isAuthenticated, auth }) => {
                 />
               </a>
               <div className="header_mobile_icons_cont">
-                <PersonIcon className="header_mobile_view_area1_menu_icon2" />
+                <div style={{ display: "flex", position: "relative" }}>
+                  <span className="login_icon_cont" onClick={ToggleLoginDrop}>
+                    <PersonRoundedIcon className="login_icon" />
+                  </span>
+                  {loginDrop === true ? (
+                    <>
+                      <div
+                        className="remove_login_drop"
+                        onClick={ToggleLoginDrop}
+                        // onMouseOver={ToggleLoginDrop}
+                      ></div>
+                      <div className="login_drop_cont">
+                        <div className="login_drop_cont_body">
+                          <a href="/login" className="login_drop_cont_link">
+                            Login
+                          </a>
+                          <a href="/signup" className="login_drop_cont_link">
+                            Signup
+                          </a>
+                          <a
+                            href="https://egoras.ng"
+                            className="login_drop_cont_link"
+                          >
+                            Get the loan
+                          </a>
+                          <a href="#" className="connect">
+                            <Authenticate />
+                          </a>
+                        </div>
+                      </div>
+                    </>
+                  ) : null}
+                </div>
                 <AppsIcon
                   className="header_mobile_view_area1_menu_icon2"
                   onClick={ToggleHeaderApps}
