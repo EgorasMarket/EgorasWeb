@@ -1200,7 +1200,7 @@ const HomeUpdate = () => {
                 id="computers"
                 onClick={ToggleActiveTab}
               >
-                Computers & accessories
+                Computers
               </div>
 
               <div
@@ -1212,7 +1212,7 @@ const HomeUpdate = () => {
                 id="phones"
                 onClick={ToggleActiveTab}
               >
-                Phones & Tablets
+                Phones
               </div>
               <div
                 className={
@@ -1234,7 +1234,7 @@ const HomeUpdate = () => {
                 id="home_kitchen"
                 onClick={ToggleActiveTab}
               >
-                Home & kitchen
+                Home
               </div>
             </div>
 

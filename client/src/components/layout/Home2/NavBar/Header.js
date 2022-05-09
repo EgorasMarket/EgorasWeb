@@ -16,6 +16,7 @@ import Drawer from "@material-ui/core/Drawer";
 import SellIcon from "@mui/icons-material/Sell";
 import PaidIcon from "@mui/icons-material/Paid";
 import HeaderMenu from "./HeaderMenu/HeaderMenu";
+import HeaderApps from "./HeaderMenu/HeaderApps";
 import AppsIcon from "@mui/icons-material/Apps";
 import HowToRegIcon from "@mui/icons-material/HowToReg";
 import Toolbar from "@material-ui/core/Toolbar";
@@ -150,6 +151,7 @@ const Header = ({ isAuthenticated, auth }) => {
   const [searchDiv, setSearchDiv] = useState(false);
   const [productNames, setProductNames] = useState([]);
   const [hederMenu, setHeaderMenu] = useState(false);
+  const [hederApps, setHeaderApps] = useState(false);
 
   const currentPage = window.location.pathname;
 
@@ -439,6 +441,13 @@ const Header = ({ isAuthenticated, auth }) => {
       setHeaderMenu(true);
     } else if (hederMenu === true) {
       setHeaderMenu(false);
+    }
+  };
+  const ToggleHeaderApps = () => {
+    if (hederApps === false) {
+      setHeaderApps(true);
+    } else if (hederApps === true) {
+      setHeaderApps(false);
     }
   };
   return (
@@ -789,189 +798,6 @@ const Header = ({ isAuthenticated, auth }) => {
               alt=""
               className="hamburgerOpen"
             /> */}
-            <div className="onMobile">
-              <Toolbar className="hideNow">
-                <IconButton
-                  color="inherit"
-                  aria-label="open drawer"
-                  edge="end"
-                  onClick={handleDrawerOpen}
-                  className={clsx(open && classes.hide)}
-                  id="HideAgain"
-                >
-                  <MenuIcon className="menu_open_mui_icon" />
-                </IconButton>
-              </Toolbar>
-              <Drawer
-                className={classes.drawer}
-                variant="persistent"
-                anchor="right"
-                open={open}
-                classes={{
-                  paper: classes.drawerPaper,
-                }}
-              >
-                <div className={classes.drawerHeader}>
-                  <IconButton onClick={handleDrawerClose}>
-                    {theme.direction === "rtl" ? <CloseIcon /> : <CloseIcon />}
-                  </IconButton>
-                </div>
-                <Divider />
-                <List>
-                  <ListItem>
-                    <a href="/loan" className="about">
-                      Loan
-                    </a>
-                  </ListItem>
-                </List>
-                <Divider />
-
-                <List>
-                  <ListItem>
-                    <a href="/savings" className="about">
-                      Savings
-                    </a>
-                  </ListItem>
-                </List>
-                <Divider />
-
-                <List>
-                  <ListItem>
-                    <a href="/validator" className="about">
-                      Validator
-                    </a>
-                  </ListItem>
-                </List>
-                <Divider />
-                <List>
-                  <ListItem>
-                    <Accordion>
-                      <AccordionSummary
-                        expandIcon={<ExpandMoreIcon />}
-                        aria-controls="panel1a-content"
-                        id="panel1a-header"
-                      >
-                        <Typography className={classes.heading}>
-                          Company
-                        </Typography>
-                      </AccordionSummary>
-                      <AccordionDetails>
-                        <div className="footerLinks">
-                          <a href="/about" className="c1link1 a">
-                            About Us
-                          </a>
-                          <a
-                            href="https://egoras.medium.com/"
-                            className="c1link1"
-                            target="_blank"
-                          >
-                            Blog
-                          </a>
-                          <a
-                            href="/whitepaper"
-                            className="c1link1"
-                            target="_blank"
-                          >
-                            White Paper
-                          </a>
-                        </div>
-                      </AccordionDetails>
-                    </Accordion>
-                    {/* <a href="about" className="company">
-                      Company
-                    </a> */}
-                  </ListItem>
-                </List>
-                <Divider />
-                <List>
-                  <ListItem>
-                    <a href="https://t.me/egorasmarket" className="about">
-                      Support
-                    </a>
-                  </ListItem>
-                </List>
-                <Divider />
-                {currentPage == "/" ? (
-                  <div>
-                    <List>
-                      <ListItem>
-                        <div className="Flex_btns_div">
-                          <a href="/login" className="getLoan">
-                            {" "}
-                            Login
-                          </a>
-
-                          <a href="#" className="connectb">
-                            Signup
-                          </a>
-                        </div>
-                      </ListItem>
-                    </List>
-                  </div>
-                ) : null}
-                {currentPage == "/loan" ? (
-                  <div>
-                    <List>
-                      <ListItem>
-                        <a
-                          href="https://egoras.ng/appointment"
-                          className="connectb"
-                        >
-                          {" "}
-                          Get the loan
-                        </a>
-                      </ListItem>
-                    </List>
-                  </div>
-                ) : null}
-                {currentPage == "/validator" ||
-                currentPage == "/create-uploader" ||
-                currentPage == "/eusd-token" ||
-                currentPage == "/engn-token" ? (
-                  <div>
-                    <List>
-                      <ListItem>
-                        <a href="#" className="connect">
-                          <Authenticate />
-                        </a>
-                      </ListItem>
-                    </List>
-                  </div>
-                ) : null}
-                {currentPage == "/savings" && isAuth === true ? (
-                  <div>
-                    <List>
-                      <ListItem>
-                        <a href="/dashboard" className="connectb">
-                          Dashboard
-                        </a>
-                      </ListItem>
-                    </List>
-                  </div>
-                ) : currentPage == "/savings" && isAuth === false ? (
-                  <div>
-                    <List>
-                      <ListItem>
-                        <div className="Flex_btns_div">
-                          {" "}
-                          <a href="/login" className="getLoan">
-                            {" "}
-                            Login
-                          </a>
-                          <a href="#" className="connectb">
-                            Signup
-                          </a>
-                        </div>
-                      </ListItem>
-                    </List>
-                    <Divider />
-                    <List>
-                      <ListItem></ListItem>
-                    </List>
-                  </div>
-                ) : null}
-              </Drawer>
-            </div>
           </div>
           <div className="header_mobile_view">
             <div className="header_mobile_view_area1">
@@ -988,8 +814,11 @@ const Header = ({ isAuthenticated, auth }) => {
                 />
               </a>
               <div className="header_mobile_icons_cont">
-                <PersonIcon />
-                <AppsIcon />
+                <PersonIcon className="header_mobile_view_area1_menu_icon2" />
+                <AppsIcon
+                  className="header_mobile_view_area1_menu_icon2"
+                  onClick={ToggleHeaderApps}
+                />
               </div>
             </div>
             <div className="header_mobile_view_area2">
@@ -1127,6 +956,7 @@ const Header = ({ isAuthenticated, auth }) => {
           </div>
         </div>
         {hederMenu === true ? <HeaderMenu onClick={ToggleHeaderMenu} /> : null}
+        {hederApps === true ? <HeaderApps onClick={ToggleHeaderApps} /> : null}
       </section>
     </div>
   );

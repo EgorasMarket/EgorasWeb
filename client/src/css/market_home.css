@@ -1764,6 +1764,13 @@ section.productsDisplaySection {
 
   .h_update_hero_area1 {
     width: 100%;
+    text-align: center;
+  }
+  .h_update_hero_area1_para_btns {
+    margin-top: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
 }
 @media (max-width: 810px) {
@@ -2405,5 +2412,13 @@ section.productsDisplaySection {
     padding: 1em 0em;
     position: relative;
     overflow: hidden;
+  }
+}
+@media (max-width: 390px) {
+  .hero_bg {
+    position: absolute;
+    top: 5%;
+    width: 105em;
+    z-index: 1;
   }
 }
