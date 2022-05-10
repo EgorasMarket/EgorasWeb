@@ -167,8 +167,8 @@
 .search_brand {
   border: solid 1px #badbc7;
   border-radius: 50px;
-  padding: 0.4em 1em;
-  padding-left: 2em;
+  padding: 0.4em 2em;
+  padding-left: 1em;
   font-size: 14px;
   width: 100%;
   color: #2d3134;
@@ -258,7 +258,7 @@
 }
 .search_icon {
   position: absolute;
-  left: 5%;
+  right: 0%;
   font-size: 18px !important;
   top: 52%;
   transform: translate(-50%, -50%);

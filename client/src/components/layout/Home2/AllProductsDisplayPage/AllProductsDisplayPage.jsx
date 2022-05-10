@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
+import ViewListIcon from "@mui/icons-material/ViewList";
 import ReactPaginate from "react-paginate";
+import WidgetsIcon from "@mui/icons-material/Widgets";
 import { numberWithCommas } from "../../../../static";
 import "./allProductDisplay.css";
 import { connect } from "react-redux";
@@ -10,6 +12,12 @@ import { connect } from "react-redux";
 import { API_URL2 as api_url2 } from "../../../../actions/types";
 
 function Items({ currentItems, searchVal, totalItems }) {
+  const [toggleList, setToggleList] = useState("grid");
+
+  const ToggleProductList = (e) => {
+    let activeIcon = e.currentTarget.id;
+    setToggleList(activeIcon);
+  };
   return (
     <div className="products_display">
       <div className="pagination_header_body">
@@ -19,92 +27,209 @@ function Items({ currentItems, searchVal, totalItems }) {
         <div className="pagination_header_body_cont2"></div>
       </div>
       <div className="pagination_header_body2">
-        {totalItems} product(s) found
+        <div className="pagination_header_body2_txt">
+          {totalItems} product(s) found
+        </div>
+        <div className="change_to_grid_div">
+          <WidgetsIcon
+            id="grid"
+            className={
+              toggleList === "grid" ? "widget_icon_active" : "widget_icon"
+            }
+            onClick={ToggleProductList}
+          />
+          <ViewListIcon
+            id="list"
+            className={
+              toggleList === "list" ? "widget_icon_active" : "widget_icon"
+            }
+            onClick={ToggleProductList}
+          />
+        </div>
       </div>
-      <div className="product_display_cards_body">
+      <div
+        className={
+          toggleList === "grid"
+            ? "product_display_cards_body"
+            : toggleList === "list"
+            ? "product_display_cards_body_list"
+            : null
+        }
+
+        // "product_display_cards_body"
+      >
         {currentItems &&
           currentItems.map((asset, index5) => (
-            <div className="product_display_cards_cont">
-              <a
-                href={`/products/details/${
-                  asset.id
-                }/${asset.product_name.replace(/\s+/g, "-")}`}
-                key={index5.toString()}
-                className="product_display_card"
-              >
-                <li className="carous_list no_marg inventory_cards">
-                  <div
-                    className="storeTiles_storeTileContainer__HoGEa"
-                    style={{
-                      backgroundImage: `url(${asset.product_image})`,
-                      //           height: "200px",
-                      //           width: "100%",
-                      //           backgroundRepeat: "no-repeat",
-                      //           backgroundSize: "cover",
-                      //           borderRadius: "8px",
-                      //           borderBottomLeftRadius: "0px",
-                      //           borderBottomRightRadius: "0px",
-                      //   backgroundPositionY: "center",
-                    }}
+            <>
+              {toggleList === "grid" ? (
+                <div className="product_display_cards_cont">
+                  <a
+                    href={`/products/details/${
+                      asset.id
+                    }/${asset.product_name.replace(/\s+/g, "-")}`}
+                    key={index5.toString()}
+                    className="product_display_card"
                   >
-                    {asset.payment_type == "OUTRIGHT" ? (
-                      <div className="out_right_install_tag">
-                        <button
-                          className="out_right_install_tag_btn"
-                          style={{
-                            background: "#3ebc6e",
-                            borderColor: "#3ebc6e",
-                          }}
-                        >
-                          Outright
-                        </button>
-                      </div>
-                    ) : (
-                      <div className="out_right_install_tag">
-                        <button className="out_right_install_tag_btn">
-                          Savings
-                        </button>
-                      </div>
-                    )}
-                    <div className="storeTiles_storeTileBottomContainer__2sWHh">
-                      <div className="asset_name">{asset.product_name}</div>
-                      <div class="asset_prices_div">
-                        <div className="asset_title">
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <span className="init_amount">
-                              ₦{numberWithCommas(asset.amount)}{" "}
-                            </span>
-                          ) : (
-                            <span className="init_amount">
-                              ₦{numberWithCommas(asset.roundedAmount)}{" "}
-                            </span>
-                          )}
-                          {asset.payment_type == "OUTRIGHT" ? (
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.amount * 2)}
-                            </span>
-                          ) : (
-                            <span className="slashed_price">
-                              ₦{numberWithCommas(asset.roundedAmount * 2)}
-                            </span>
-                          )}
-                        </div>
-                        {asset.payment_type == "OUTRIGHT" ? null : (
-                          <div className="amount_per_day_div">
-                            ₦
-                            {numberWithCommas(
-                              (asset.amount / asset.product_duration).toFixed()
-                            )}
-                            <span className="per_day_symbol"> / perday</span>
+                    <li className="carous_list no_marg inventory_cards">
+                      <div
+                        className="storeTiles_storeTileContainer__HoGEa"
+                        style={{
+                          backgroundImage: `url(${asset.product_image})`,
+                          //           height: "200px",
+                          //           width: "100%",
+                          //           backgroundRepeat: "no-repeat",
+                          //           backgroundSize: "cover",
+                          //           borderRadius: "8px",
+                          //           borderBottomLeftRadius: "0px",
+                          //           borderBottomRightRadius: "0px",
+                          //   backgroundPositionY: "center",
+                        }}
+                      >
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <div className="out_right_install_tag">
+                            <button
+                              className="out_right_install_tag_btn"
+                              style={{
+                                background: "#3ebc6e",
+                                borderColor: "#3ebc6e",
+                              }}
+                            >
+                              Outright
+                            </button>
+                          </div>
+                        ) : (
+                          <div className="out_right_install_tag">
+                            <button className="out_right_install_tag_btn">
+                              Savings
+                            </button>
                           </div>
                         )}
+                        <div className="storeTiles_storeTileBottomContainer__2sWHh">
+                          <div className="asset_name">{asset.product_name}</div>
+                          <div class="asset_prices_div">
+                            <div className="asset_title">
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <span className="init_amount">
+                                  ₦{numberWithCommas(asset.amount)}{" "}
+                                </span>
+                              ) : (
+                                <span className="init_amount">
+                                  ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                                </span>
+                              )}
+                              {asset.payment_type == "OUTRIGHT" ? (
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.amount * 2)}
+                                </span>
+                              ) : (
+                                <span className="slashed_price">
+                                  ₦{numberWithCommas(asset.roundedAmount * 2)}
+                                </span>
+                              )}
+                            </div>
+                            {asset.payment_type == "OUTRIGHT" ? null : (
+                              <div className="amount_per_day_div">
+                                ₦
+                                {numberWithCommas(
+                                  (
+                                    asset.amount / asset.product_duration
+                                  ).toFixed()
+                                )}
+                                <span className="per_day_symbol">
+                                  {" "}
+                                  / perday
+                                </span>
+                              </div>
+                            )}
+                          </div>
+                        </div>
+                        {/* </a> */}
                       </div>
-                    </div>
-                    {/* </a> */}
+                    </li>
+                  </a>
+                </div>
+              ) : null}
+              {toggleList === "list" ? (
+                <div className="product_display_cards_cont_list_cont">
+                  <div className="product_display_cards_cont_list_cont_area1">
+                    <img
+                      src={asset.product_image}
+                      alt=""
+                      className="product_display_cards_cont_list_cont_area1_img"
+                    />
                   </div>
-                </li>
-              </a>
-            </div>
+                  <div className="product_display_cards_cont_list_cont_area2">
+                    <div className="product_display_cards_cont_list_cont_area2_outright_cont">
+                      {asset.payment_type == "OUTRIGHT" ? (
+                        <div className="out_right_install_tag">
+                          <button
+                            className="out_right_install_tag_btn"
+                            style={{
+                              background: "#3ebc6e",
+                              borderColor: "#3ebc6e",
+                            }}
+                          >
+                            Outright
+                          </button>
+                        </div>
+                      ) : (
+                        <div className="out_right_install_tag">
+                          <button className="out_right_install_tag_btn">
+                            Savings
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                    <span className="prod_name_cont">{asset.product_name}</span>
+                  </div>
+                  <div className="product_display_cards_cont_list_cont_area3">
+                    <div className="product_list_cont_amnt">
+                      {asset.payment_type == "OUTRIGHT" ? (
+                        <span className="init_amount">
+                          ₦{numberWithCommas(asset.amount)}{" "}
+                        </span>
+                      ) : (
+                        <span className="init_amount">
+                          ₦{numberWithCommas(asset.roundedAmount)}{" "}
+                        </span>
+                      )}
+                      <span className="slashed_price">
+                        {" "}
+                        {asset.payment_type == "OUTRIGHT" ? (
+                          <span className="slashed_price">
+                            ₦{numberWithCommas(asset.amount * 2)}
+                          </span>
+                        ) : (
+                          <span className="slashed_price">
+                            ₦{numberWithCommas(asset.roundedAmount * 2)}
+                          </span>
+                        )}
+                      </span>
+
+                      {asset.payment_type == "OUTRIGHT" ? null : (
+                        <div className="amount_per_day_div">
+                          ₦
+                          {numberWithCommas(
+                            (asset.amount / asset.product_duration).toFixed()
+                          )}
+                          <span className="per_day_symbol"> / perday</span>
+                        </div>
+                      )}
+                    </div>
+                    <a
+                      href={`/products/details/${
+                        asset.id
+                      }/${asset.product_name.replace(/\s+/g, "-")}`}
+                      className="product_list_cont_btn"
+                    >
+                      <button className="product_list_cont_btn_btn_buy">
+                        Buy Now
+                      </button>
+                    </a>
+                  </div>
+                </div>
+              ) : null}
+            </>
           ))}
       </div>
     </div>

@@ -127,6 +127,8 @@ const CategoryDisplayPage = ({ match }) => {
   const [totalProducts, setTotalProducts] = useState("200 ");
   const [searchTerm, setSearchTerm] = useState("");
   const [searchResults, setSearchResults] = useState([]);
+  const [brands, setBrands] = useState([]);
+
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
@@ -148,7 +150,7 @@ const CategoryDisplayPage = ({ match }) => {
 
   // const [mark ,setMark]= setInfo({
   //   phoneCath:"",computerCath:""
-
+  const LinkCategory = match.params.category;
   // })
   const [page, setPage] = useState({
     categoryPhoneTablets: "",
@@ -232,12 +234,7 @@ const CategoryDisplayPage = ({ match }) => {
       name: "Xiaomi",
     },
   ];
-  useEffect(() => {
-    const results = assetBrand.filter((name) =>
-      name.name.toString().toLowerCase().includes(searchTerm.toLowerCase())
-    );
-    setSearchResults(results);
-  }, [searchTerm]);
+
   useEffect(() => {
     axios
       .get(
@@ -252,6 +249,24 @@ const CategoryDisplayPage = ({ match }) => {
         console.log(data.data.data, "samuel_Chuks");
 
         setSeeAll(data.data.data);
+        // /setGoods(data.data.data)
+      })
+      .catch((err) => {
+        //console.log(err); // "oh, no!"
+      });
+  }, []);
+  useEffect(() => {
+    axios
+      .get(
+        api_url2 + "/v1/product/retrieve/brands/by/" + match.params.category,
+        null,
+        config
+      )
+      .then((data) => {
+        //console.log("hello mr kingsley");
+        console.log(data.data, "samuel_Chuks");
+
+        setBrands(data.data.data);
 
         const feed = data.data.data.product_image;
 
@@ -261,6 +276,16 @@ const CategoryDisplayPage = ({ match }) => {
         //console.log(err); // "oh, no!"
       });
   }, []);
+
+  useEffect(() => {
+    const results = brands.filter((name) =>
+      name.product_brand
+        .toString()
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    );
+    setSearchResults(results);
+  }, [searchTerm, brands]);
 
   useEffect(() => {
     phoneTab2();
@@ -320,14 +345,37 @@ const CategoryDisplayPage = ({ match }) => {
       <section className="market_page_section">
         <div className="custom_container">
           <div className="categories_page_area categories_page_area_non_dash ">
-            <div className="cat_banner_heading">
-              Connect Your World
-              <img
-                src="/img/fake_assets/refurb_img.jpeg"
-                alt="..."
-                className="refurb_img_bann"
-              />
-            </div>
+            {LinkCategory === "Phones & Tablet" ? (
+              <div className="cat_banner_heading">
+                Connect Your World
+                <img
+                  src="/img/categorypageBanners/Web Banners 1.jpg"
+                  alt="..."
+                  className="refurb_img_bann"
+                />
+              </div>
+            ) : null}
+            {LinkCategory === "Electronics" ? (
+              <div className="cat_banner_heading">
+                Electronics
+                <img
+                  src="/img/categorypageBanners/Web Banners 3.jpg"
+                  alt="..."
+                  className="refurb_img_bann"
+                />
+              </div>
+            ) : null}
+            {LinkCategory === "Computer & Accessories" ? (
+              <div className="cat_banner_heading">
+                Computer & accessories
+                <img
+                  src="/img/categorypageBanners/Web Banners 2.jpg"
+                  alt="..."
+                  className="refurb_img_bann"
+                />
+              </div>
+            ) : null}
+
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
@@ -571,23 +619,27 @@ const CategoryDisplayPage = ({ match }) => {
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
-            <div className="cat_banner_group">
-              <div className="cat_banner_group1">
-                <img
-                  src="/img/fake_assets/apple_iphone_13_gr_1.png"
-                  // src={api_url2 + '/'+ seeAll[0].product_image}
-                  alt=""
-                  className="img_gr1"
-                />
+
+            {LinkCategory === "Phones & Tablet" ? (
+              <div className="cat_banner_group">
+                <div className="cat_banner_group1">
+                  <img
+                    src="/img/categorypageBanners/Web Banners a.jpg"
+                    // src={api_url2 + '/'+ seeAll[0].product_image}
+                    alt=""
+                    className="img_gr1"
+                  />
+                </div>
+                <div className="cat_banner_group1">
+                  <img
+                    src="/img/categorypageBanners/Web Banners b.jpg"
+                    alt=""
+                    className="img_gr1"
+                  />
+                </div>
               </div>
-              <div className="cat_banner_group1">
-                <img
-                  src="/img/fake_assets/apple_iphone_13_gr_1.png"
-                  alt=""
-                  className="img_gr1"
-                />
-              </div>
-            </div>
+            ) : null}
+
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
             {/* =================+++++++++++++++ */}
@@ -622,7 +674,7 @@ const CategoryDisplayPage = ({ match }) => {
                         key={index10.toString()}
                       >
                         <label class="label_cont">
-                          {brand.name}
+                          {brand.product_brand}
                           <input
                             type="checkbox"
                             name="apple"
